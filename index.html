@@ -592,7 +592,6 @@ async function pushLocks(locks){
 */
 function subscribeAnswers(){
   if(!_db) return;
-  // Subscribe to all lesson docs that have showAnswers
   _db.collection('lessons').onSnapshot(snap=>{
     snap.forEach(doc=>{
       const lid=doc.id;
@@ -601,6 +600,41 @@ function subscribeAnswers(){
       av[lid]=val; LS.set('lashon2_answers_visible',av);
     });
     if(document.getElementById('tab-answers')?.classList.contains('active')) buildAnswersControlList();
+  });
+  // Live submission listener — notifies teacher in real-time
+  _db.collection('lashon2_live').doc('latest').onSnapshot(doc=>{
+    if(!doc.exists||S.role!=='teacher') return;
+    const d=doc.data();
+    if(!d||!d.studentName) return;
+    // Only notify if this is recent (within last 60 seconds)
+    const ts=d.ts?.toDate?.();
+    if(ts&&(Date.now()-ts.getTime())>60000) return;
+    showLiveSubmissionToast(d);
+    updateProgressBadge();
+    // Reload progress if tab is open
+    if(document.getElementById('tab-progress')?.classList.contains('active')) loadProgress();
+  });
+}
+
+function showLiveSubmissionToast(d){
+  const score=typeof d.score==='number'?d.score+'%':'✅';
+  const col=typeof d.score==='number'?(d.score>=80?'#15803d':d.score>=60?'#b45309':'#dc2626'):'#15803d';
+  const t=document.getElementById('toast');
+  t.innerHTML=`📬 <strong>${d.studentName}</strong> (כיתה ${d.className||'?'}) הגיש/ה · <strong style="color:${col}">${score}</strong>`;
+  t.classList.add('show');
+  clearTimeout(window._liveToastTimer);
+  window._liveToastTimer=setTimeout(()=>t.classList.remove('show'),5000);
+}
+
+let _newSubmissionsCount=0;
+function updateProgressBadge(){
+  _newSubmissionsCount++;
+  // Update the progress tab button with badge
+  const tabs=document.querySelectorAll('.m-tab');
+  tabs.forEach((b,i)=>{
+    if(['general','locks','answers','progress'][i]==='progress'){
+      b.innerHTML=`📊 מעקב <span style="background:#dc2626;color:#fff;font-size:.6rem;font-weight:900;padding:.1rem .45rem;border-radius:999px;margin-right:.3rem">${_newSubmissionsCount}</span>`;
+    }
   });
 }
 async function pushAnswersVisible(lid,visible){
@@ -950,7 +984,14 @@ function closeSettings(){document.getElementById('settings-overlay').classList.r
 function switchTab(t){
   ['general','locks','answers','progress'].forEach(x=>{document.getElementById('tab-'+x)?.classList.toggle('active',x===t)});
   document.querySelectorAll('.m-tab').forEach((b,i)=>b.classList.toggle('active',['general','locks','answers','progress'][i]===t));
-  if(t==='progress')loadProgress();
+  if(t==='progress'){
+    loadProgress();
+    // Reset new submissions badge
+    _newSubmissionsCount=0;
+    document.querySelectorAll('.m-tab').forEach((b,i)=>{
+      if(['general','locks','answers','progress'][i]==='progress') b.innerHTML='📊 מעקב';
+    });
+  }
   if(t==='answers')buildAnswersControlList();
 }
 function saveGeneral(){

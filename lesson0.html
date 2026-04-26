@@ -215,6 +215,84 @@ button,input,select,textarea{font-family:inherit}
 .btn-send:hover{transform:translateY(-1px)}
 
 /* ═══════════════════════════════════════════════
+   STUDENT GATE — shown before accessing practice
+═══════════════════════════════════════════════ */
+#student-gate{
+  background:var(--surface);border:2px solid var(--lc);
+  border-radius:var(--r-xl);padding:0;margin-bottom:1.5rem;
+  box-shadow:var(--sh2);overflow:hidden;
+}
+#student-gate.hidden{display:none}
+.gate-header{
+  background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);
+  padding:1.4rem 1.5rem 1.2rem;text-align:center;
+  border-bottom:1px solid var(--border);
+}
+.gate-icon{font-size:2.4rem;display:block;margin-bottom:.55rem}
+.gate-title{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--text);margin-bottom:.28rem}
+.gate-desc{font-size:.8rem;color:var(--muted);line-height:1.55}
+.gate-body{padding:1.3rem 1.5rem 1.5rem;display:flex;flex-direction:column;gap:.9rem}
+.gate-field label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);margin-bottom:.38rem;letter-spacing:.02em}
+.gate-input{
+  width:100%;padding:.82rem 1rem;
+  border:1.5px solid var(--border);border-radius:var(--r);
+  background:var(--surface2);font-size:.92rem;color:var(--text);
+  outline:none;transition:border-color .15s,box-shadow .15s;min-height:50px;
+}
+.gate-input::placeholder{color:var(--subtle)}
+.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.14)}
+.gate-input.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.1)}
+.gate-select{
+  width:100%;padding:.82rem 1rem;
+  border:1.5px solid var(--border);border-radius:var(--r);
+  background:var(--surface2);font-size:.92rem;color:var(--text);
+  outline:none;transition:border-color .15s;min-height:50px;cursor:pointer;
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7594' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:left 1rem center;
+}
+.gate-select:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.14)}
+.gate-select.err{border-color:var(--red)}
+.gate-err-msg{font-size:.7rem;color:var(--red);margin-top:.26rem;display:none}
+.gate-err-msg.show{display:block}
+.gate-date-display{
+  padding:.78rem 1rem;background:var(--surface3);
+  border:1.5px solid var(--border);border-radius:var(--r);
+  font-size:.88rem;color:var(--muted);
+}
+.gate-btn{
+  width:100%;padding:.88rem;border:none;border-radius:var(--r-pill);
+  background:var(--lc);color:#fff;font-size:.92rem;font-weight:700;
+  cursor:pointer;min-height:52px;
+  box-shadow:0 4px 18px rgba(26,86,219,.28);
+  transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.45rem;
+}
+.gate-btn:hover{background:var(--blue-dk);transform:translateY(-1px);box-shadow:0 6px 22px rgba(26,86,219,.35)}
+.gate-btn:active{transform:scale(.97)}
+/* Confirmed card */
+#gate-confirmed{
+  display:none;
+  background:var(--green-lt);border:2px solid #bbf7d0;
+  border-radius:var(--r-xl);padding:1rem 1.3rem;
+  margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:.85rem;
+}
+#gate-confirmed.show{display:flex}
+#gate-confirmed.hidden{display:none!important}
+.gc-avatar{
+  width:46px;height:46px;border-radius:50%;
+  background:linear-gradient(135deg,#15803d,#16a34a);
+  color:#fff;font-size:1.1rem;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;box-shadow:0 3px 10px rgba(21,128,61,.25);
+}
+.gc-info{flex:1;min-width:0}
+.gc-name{font-size:.92rem;font-weight:800;color:var(--green)}
+.gc-meta{font-size:.74rem;color:var(--text-mid);margin-top:.15rem}
+.gc-change{font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;margin-top:.22rem;display:block}
+.gc-change:hover{color:var(--lc)}
+
+/* ═══════════════════════════════════════════════
    STUDENT REGISTRATION MODAL
 ═══════════════════════════════════════════════ */
 .reg-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.62);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1.2rem}
@@ -499,7 +577,69 @@ button,input,select,textarea{font-family:inherit}
 </div>
 <div class="lesson-wrap">
 
-  <!-- Reading Text -->
+  <!-- ═══ STUDENT GATE (students only, before starting) ═══ -->
+  <div id="student-gate" class="hidden">
+    <div class="gate-header">
+      <span class="gate-icon">📋</span>
+      <div class="gate-title">לפני שמתחילים — פרטי התלמיד/ה</div>
+      <div class="gate-desc">מלא/י את הפרטים כדי להתחיל את התרגול.<br>הפרטים יישמרו אצל המורה עם הגשת התרגול.</div>
+    </div>
+    <div class="gate-body">
+      <div class="gate-field">
+        <label for="gate-name">👤 שם מלא</label>
+        <input class="gate-input" id="gate-name" type="text"
+               placeholder="שם פרטי + שם משפחה"
+               autocomplete="name" autocorrect="off"
+               onkeydown="if(event.key==='Enter')document.getElementById('gate-class').focus()">
+        <div class="gate-err-msg" id="gate-name-err">נא להזין שם מלא (שם פרטי ושם משפחה)</div>
+      </div>
+      <div class="gate-field">
+        <label for="gate-class">🏫 כיתה</label>
+        <select class="gate-select" id="gate-class">
+          <option value="">— בחר/י כיתה —</option>
+          <optgroup label="כיתות ט׳">
+            <option value="ט׳1">ט׳1</option>
+            <option value="ט׳2">ט׳2</option>
+            <option value="ט׳3">ט׳3</option>
+            <option value="ט׳4">ט׳4</option>
+            <option value="ט׳5">ט׳5</option>
+            <option value="ט׳6">ט׳6</option>
+          </optgroup>
+          <optgroup label="כיתות י׳">
+            <option value="י׳1">י׳1</option>
+            <option value="י׳2">י׳2</option>
+            <option value="י׳3">י׳3</option>
+            <option value="י׳4">י׳4</option>
+            <option value="י׳5">י׳5</option>
+            <option value="י׳6">י׳6</option>
+          </optgroup>
+        </select>
+        <div class="gate-err-msg" id="gate-class-err">נא לבחור כיתה</div>
+      </div>
+      <div class="gate-field">
+        <label>📅 תאריך</label>
+        <div class="gate-date-display" id="gate-date-display">—</div>
+      </div>
+      <button class="gate-btn" onclick="confirmGate()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        מאשר/ת ומתחיל/ה בתרגול
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══ CONFIRMED STUDENT CARD (after gate) ═══ -->
+  <div id="gate-confirmed" class="hidden">
+    <div class="gc-avatar" id="gc-avatar">ת</div>
+    <div class="gc-info">
+      <div class="gc-name" id="gc-name-display">—</div>
+      <div class="gc-meta" id="gc-meta-display">—</div>
+      <button class="gc-change" onclick="reopenGate()">✏️ שנה פרטים</button>
+    </div>
+    <div style="font-size:1.5rem">✅</div>
+  </div>
+
+  <!-- Practice content (hidden until gate confirmed) -->
+  <div id="practice-content-wrap">
   <div class="reading-text-box">
     <div class="rt-title">רשתות חברתיות וכושר הריכוז של בני נוער</div>
     <div class="rt-byline">
@@ -529,6 +669,8 @@ button,input,select,textarea{font-family:inherit}
     <button class="btn-reset" onclick="resetQuiz()">🔄 איפוס</button>
   </div>
   <div id="results-container"></div>
+
+  </div><!-- /practice-content-wrap -->
 
 </div>
 </div>
@@ -647,16 +789,24 @@ function initFirebase(){
 }
 async function saveScore(score,studentName,className){
   if(!_db) return;
-  try{await _db.collection('lashon2_submissions').add({
+  const now=new Date();
+  const docData={
     lessonId:'u1_l0',
     lessonTitle:'מבוא לניתוח טקסט',
     score,
     studentName:studentName||'תלמיד/ה',
     className:className||'לא צוין',
     ts:firebase.firestore.FieldValue.serverTimestamp(),
-    submissionDate:new Date().toLocaleDateString('he-IL'),
-    submissionTime:new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})
-  });}catch(e){console.warn('[FB score]',e)}
+    submissionDate:now.toLocaleDateString('he-IL'),
+    submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),
+    read:false   // for dashboard notification badge
+  };
+  try{
+    // Main submissions collection
+    await _db.collection('lashon2_submissions').add(docData);
+    // Live notification (dashboard listens to this)
+    await _db.collection('lashon2_live').doc('latest').set(docData);
+  }catch(e){console.warn('[FB score]',e)}
 }
 
 /* ════════════════════════════════════════════════
@@ -939,13 +1089,12 @@ function submitQuiz(){
   const answered=Object.keys(QS.answers).length;
   if(answered<QUESTIONS.length){toast(`⚠️ ענה על כל 20 השאלות (נענו ${answered})`);return}
   if(QS.submitted){toast('כבר הגשת את התרגול');return}
-  // For students: show registration modal first
-  if(USER_ROLE==='student'){
-    openRegModal();
-  } else {
-    // Teacher: submit directly
-    _doSubmitQuiz();
+  // Ensure student filled the gate
+  if(USER_ROLE==='student' && !_gateConfirmed){
+    toast('⚠️ נא למלא שם וכיתה לפני הגשה');
+    reopenGate(); return;
   }
+  _doSubmitQuiz();
 }
 
 function _doSubmitQuiz(){
@@ -1064,13 +1213,102 @@ function renderAnswers(){
 /* ════════════════════════════════════════════════
    TAB SWITCH
 ════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════
+   STUDENT GATE LOGIC
+════════════════════════════════════════════════ */
+let _gateConfirmed = false;
+
 function switchTab(t){
   ['theory','practice','answers'].forEach(x=>{
     document.getElementById('pane-'+x)?.classList.toggle('active',x===t);
     document.getElementById('btn-'+x)?.classList.toggle('active',x===t);
     document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);
   });
+
+  // When student opens practice tab — show gate if not yet confirmed
+  if(t==='practice' && USER_ROLE==='student'){
+    const gate=document.getElementById('student-gate');
+    const confirmed=document.getElementById('gate-confirmed');
+    const wrap=document.getElementById('practice-content-wrap');
+    const dateEl=document.getElementById('gate-date-display');
+
+    // Auto-fill date
+    if(dateEl) dateEl.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+    if(!_gateConfirmed){
+      // Pre-fill if returning student
+      const nameEl=document.getElementById('gate-name');
+      const classEl=document.getElementById('gate-class');
+      if(nameEl && STUDENT_NAME && STUDENT_NAME!=='תלמיד/ה') nameEl.value=STUDENT_NAME;
+      if(classEl && STUDENT_CLASS) classEl.value=STUDENT_CLASS;
+
+      if(gate) gate.classList.remove('hidden');
+      if(confirmed) confirmed.classList.add('hidden');
+      if(wrap) wrap.style.display='none';
+    } else {
+      if(gate) gate.classList.add('hidden');
+      if(confirmed) confirmed.classList.remove('hidden');
+      if(wrap) wrap.style.display='';
+    }
+  }
 }
+
+function confirmGate(){
+  const nameEl=document.getElementById('gate-name');
+  const classEl=document.getElementById('gate-class');
+  const nameErr=document.getElementById('gate-name-err');
+  const classErr=document.getElementById('gate-class-err');
+  const nameVal=(nameEl?.value||'').trim();
+  const classVal=classEl?.value||'';
+  let valid=true;
+
+  // Validate name — at least 2 words
+  if(nameVal.split(/\s+/).filter(Boolean).length<2){
+    nameEl?.classList.add('err'); nameErr?.classList.add('show'); valid=false;
+  } else { nameEl?.classList.remove('err'); nameErr?.classList.remove('show'); }
+
+  // Validate class
+  if(!classVal){
+    classEl?.classList.add('err'); classErr?.classList.add('show'); valid=false;
+  } else { classEl?.classList.remove('err'); classErr?.classList.remove('show'); }
+
+  if(!valid) return;
+
+  // Save
+  STUDENT_NAME=nameVal; STUDENT_CLASS=classVal;
+  LS.set('lashon2_uname',nameVal); LS.set('lashon2_class',classVal);
+  _gateConfirmed=true;
+
+  // Show confirmed card
+  const av=document.getElementById('gc-avatar');
+  const nm=document.getElementById('gc-name-display');
+  const mt=document.getElementById('gc-meta-display');
+  if(av) av.textContent=nameVal[0].toUpperCase();
+  if(nm) nm.textContent=nameVal;
+  if(mt) mt.textContent='כיתה '+classVal+' · '+new Date().toLocaleDateString('he-IL');
+
+  // Hide gate, show content
+  document.getElementById('student-gate')?.classList.add('hidden');
+  document.getElementById('gate-confirmed')?.classList.remove('hidden');
+  const wrap=document.getElementById('practice-content-wrap');
+  if(wrap){ wrap.style.display=''; wrap.scrollIntoView({behavior:'smooth',block:'start'}); }
+}
+
+function reopenGate(){
+  _gateConfirmed=false;
+  document.getElementById('student-gate')?.classList.remove('hidden');
+  document.getElementById('gate-confirmed')?.classList.add('hidden');
+  const wrap=document.getElementById('practice-content-wrap');
+  if(wrap) wrap.style.display='none';
+  document.getElementById('student-gate')?.scrollIntoView({behavior:'smooth',block:'start'});
+  setTimeout(()=>document.getElementById('gate-name')?.focus(),250);
+}
+
+/* ════════════════════════════════════════════════
+   REGISTRATION MODAL (kept for submit confirmation)
+════════════════════════════════════════════════ */
+function openRegModal(){ /* no longer used — gate replaces pre-submit modal */ }
+function closeRegModal(){ document.getElementById('reg-overlay')?.classList.remove('open'); document.body.style.overflow=''; }
 
 /* ════════════════════════════════════════════════
    PRINT
@@ -1265,8 +1503,36 @@ function init(){
   if(USER_ROLE==='teacher'){
     const rc=document.getElementById('role-chip');if(rc)rc.style.display='';
     const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';
+    // Teachers don't need the gate
+    _gateConfirmed=true;
+    const wrap=document.getElementById('practice-content-wrap');
+    if(wrap) wrap.style.display='';
+    const gate=document.getElementById('student-gate');
+    if(gate) gate.classList.add('hidden');
+    const conf=document.getElementById('gate-confirmed');
+    if(conf) conf.classList.add('hidden');
+  } else {
+    // Student: hide practice content until gate filled
+    const wrap=document.getElementById('practice-content-wrap');
+    if(wrap) wrap.style.display='none';
+    // If returning student with saved data, auto-confirm gate
+    if(STUDENT_NAME && STUDENT_NAME!=='תלמיד/ה' && STUDENT_CLASS){
+      _gateConfirmed=true;
+      if(wrap) wrap.style.display='';
+      const gate=document.getElementById('student-gate');
+      if(gate) gate.classList.add('hidden');
+      // Show confirmed card immediately
+      const av=document.getElementById('gc-avatar');
+      const nm=document.getElementById('gc-name-display');
+      const mt=document.getElementById('gc-meta-display');
+      if(av) av.textContent=STUDENT_NAME[0].toUpperCase();
+      if(nm) nm.textContent=STUDENT_NAME;
+      if(mt) mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');
+      const conf=document.getElementById('gate-confirmed');
+      if(conf) conf.classList.remove('hidden');
+    }
   }
-  renderAnswersTab(); // apply initial answers visibility
+  renderAnswersTab();
   renderQuestions();
 }
 init();
