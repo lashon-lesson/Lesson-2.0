@@ -24,6 +24,7 @@
   --sh3:0 12px 40px rgba(13,20,36,.12),0 4px 12px rgba(13,20,36,.06);
   --r:14px;--r-lg:20px;--r-xl:28px;--r-pill:999px;
   --sidebar:240px;
+  --lc:var(--blue);--lc-lt:var(--blue-lt);
 }
 @media(prefers-color-scheme:dark){:root{
   --bg:#0b0f17;--surface:#131924;--surface2:#192030;--surface3:#1f2840;
@@ -499,8 +500,8 @@ a{text-decoration:none;color:inherit}
 
     <!-- Progress -->
     <div class="m-pane" id="tab-progress">
-      <div class="m-section">הגשות תלמידים</div>
-      <div id="progress-content"></div>
+      <div class="m-section">הגשות תלמידים לפי כיתה</div>
+      <div id="progress-content"><p style="color:var(--muted);font-size:.82rem">פתח את הטאב לטעינה</p></div>
     </div>
   </div>
 </div>
@@ -935,6 +936,120 @@ function buildAnswersControlList(){
 /* Progress */
 function loadProgress(){
   const el=document.getElementById('progress-content');if(!el)return;
+  el.innerHTML='<p style="color:var(--muted);font-size:.82rem">⏳ טוען הגשות מ-Firebase…</p>';
+
+  // Try Firestore first (real submissions with class data)
+  if(_db){
+    _db.collection('lashon2_submissions')
+      .orderBy('ts','desc')
+      .limit(200)
+      .get()
+      .then(snap=>{
+        if(snap.empty){
+          _loadProgressLocal(el); // fallback to localStorage
+          return;
+        }
+        _renderSubmissions(el, snap.docs.map(d=>({id:d.id,...d.data()})));
+      })
+      .catch(()=>_loadProgressLocal(el));
+  } else {
+    _loadProgressLocal(el);
+  }
+}
+
+function _renderSubmissions(el, docs){
+  if(!docs.length){el.innerHTML='<p style="color:var(--muted);font-size:.82rem">לא נמצאו הגשות.</p>';return}
+
+  // Group by class
+  const byClass={};
+  docs.forEach(d=>{
+    const cls=d.className||'כיתה לא ידועה';
+    if(!byClass[cls]) byClass[cls]=[];
+    byClass[cls].push(d);
+  });
+
+  const sortedClasses=Object.keys(byClass).sort((a,b)=>a.localeCompare(b,'he'));
+
+  let html=`
+  <!-- Filter bar -->
+  <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.9rem;align-items:center">
+    <span style="font-size:.7rem;font-weight:700;color:var(--muted)">סנן לפי כיתה:</span>
+    <button onclick="filterClass('all',this)" class="cls-filter-btn active" data-cls="all"
+      style="font-size:.68rem;font-weight:700;padding:.2rem .7rem;border-radius:var(--r-pill);border:1.5px solid var(--lc,var(--blue));background:var(--blue-lt);color:var(--blue);cursor:pointer">
+      הכל (${docs.length})
+    </button>
+    ${sortedClasses.map(c=>`
+    <button onclick="filterClass('${c}',this)" class="cls-filter-btn" data-cls="${c}"
+      style="font-size:.68rem;font-weight:700;padding:.2rem .7rem;border-radius:var(--r-pill);border:1.5px solid var(--border);background:var(--surface2);color:var(--muted);cursor:pointer">
+      ${c} (${byClass[c].length})
+    </button>`).join('')}
+  </div>
+  <div id="submissions-table-wrap" style="overflow-x:auto;max-height:380px;overflow-y:auto">`;
+
+  // Build full table (all classes visible by default)
+  html+=buildSubmissionsTable(docs);
+  html+=`</div>
+  <p style="font-size:.65rem;color:var(--muted);margin-top:.5rem">
+    סה״כ ${docs.length} הגשות | ${sortedClasses.length} כיתות | מקור: Firebase
+    <button onclick="loadProgress()" style="margin-right:.5rem;background:none;border:none;color:var(--blue);font-size:.65rem;cursor:pointer;text-decoration:underline">🔄 רענן</button>
+  </p>`;
+
+  el.innerHTML=html;
+  // Store docs for filtering
+  el._allDocs=docs;
+}
+
+function buildSubmissionsTable(docs){
+  if(!docs.length) return '<p style="color:var(--muted);font-size:.82rem;padding:.5rem">אין הגשות לכיתה זו.</p>';
+  let rows='';
+  docs.forEach((d,i)=>{
+    const col=typeof d.score==='number'
+      ?(d.score>=80?'var(--green)':d.score>=60?'var(--amber)':'var(--red)')
+      :'var(--muted)';
+    const scoreDisplay=typeof d.score==='number'
+      ?`<span style="font-weight:800;color:${col}">${d.score}%</span>`
+      :`<span style="color:var(--green);font-weight:700">✅</span>`;
+    const timeDisplay=d.submissionTime?` ${d.submissionTime}`:'';
+    rows+=`<tr style="border-bottom:1px solid var(--border);${i%2?'background:var(--surface2)':''}" data-cls="${d.className||''}">
+      <td style="padding:7px 8px;font-weight:700;white-space:nowrap">${d.studentName||'—'}</td>
+      <td style="padding:7px 8px">
+        <span style="font-size:.68rem;font-weight:800;padding:.16rem .52rem;border-radius:var(--r-pill);background:var(--blue-lt);color:var(--blue);border:1px solid #bfdbfe">${d.className||'—'}</span>
+      </td>
+      <td style="padding:7px 8px;font-size:.7rem">${d.lessonTitle||d.lessonId||'—'}</td>
+      <td style="padding:7px 8px;font-size:.7rem;white-space:nowrap">${d.submissionDate||d.date||'—'}${timeDisplay}</td>
+      <td style="padding:7px 8px">${scoreDisplay}</td>
+    </tr>`;
+  });
+  return `<table style="width:100%;border-collapse:collapse;font-size:.74rem;direction:rtl;min-width:500px">
+    <thead><tr style="background:var(--surface3);position:sticky;top:0;z-index:1">
+      <th style="padding:7px 8px;text-align:right">שם תלמיד/ה</th>
+      <th style="padding:7px 8px;text-align:right">כיתה</th>
+      <th style="padding:7px 8px;text-align:right">שיעור</th>
+      <th style="padding:7px 8px;text-align:right">תאריך הגשה</th>
+      <th style="padding:7px 8px;text-align:right">ציון</th>
+    </tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+// Client-side class filter (no re-fetch)
+function filterClass(cls,btn){
+  // Update button styles
+  document.querySelectorAll('.cls-filter-btn').forEach(b=>{
+    const isActive=b===btn;
+    b.style.background=isActive?'var(--blue-lt)':'var(--surface2)';
+    b.style.color=isActive?'var(--blue)':'var(--muted)';
+    b.style.borderColor=isActive?'var(--blue)':'var(--border)';
+  });
+  const el=document.getElementById('progress-content');
+  const wrap=document.getElementById('submissions-table-wrap');
+  if(!wrap||!el._allDocs) return;
+  const filtered=cls==='all'?el._allDocs:el._allDocs.filter(d=>(d.className||'')==cls);
+  wrap.innerHTML=buildSubmissionsTable(filtered);
+}
+
+function _loadProgressLocal(el){
+  // Fallback: read from localStorage lashon2_prog_* keys
   const keys=Object.keys(localStorage).filter(k=>k.startsWith('lashon2_prog_'));
   if(!keys.length){el.innerHTML='<p style="color:var(--muted);font-size:.82rem">אין הגשות שמורות.</p>';return}
   let rows='',total=0;
@@ -949,6 +1064,7 @@ function loadProgress(){
         :`<span style="color:var(--green);font-weight:700">✅</span>`;
       rows+=`<tr style="border-bottom:1px solid var(--border);${total%2?'background:var(--surface2)':''}">
         <td style="padding:6px 8px;font-weight:700">${student}</td>
+        <td style="padding:6px 8px;font-size:.7rem">${d.className||'—'}</td>
         <td style="padding:6px 8px">${lname}</td>
         <td style="padding:6px 8px">${d.date||'—'}</td>
         <td style="padding:6px 8px">${perf}</td></tr>`;
@@ -956,12 +1072,16 @@ function loadProgress(){
     });
   });
   if(!total){el.innerHTML='<p style="color:var(--muted);font-size:.82rem">לא נמצאו הגשות.</p>';return}
-  el.innerHTML=`<div style="overflow-x:auto;max-height:340px;overflow-y:auto"><table style="width:100%;border-collapse:collapse;font-size:.74rem;direction:rtl">
+  el.innerHTML=`<div style="font-size:.68rem;color:var(--amber);margin-bottom:.5rem;background:var(--amber-lt);border:1px solid #fde68a;border-radius:var(--r);padding:.4rem .75rem">⚠️ מקור: מקומי בלבד (Firebase לא מחובר)</div>
+  <div style="overflow-x:auto;max-height:340px;overflow-y:auto"><table style="width:100%;border-collapse:collapse;font-size:.74rem;direction:rtl">
     <thead><tr style="background:var(--surface3)">
-      <th style="padding:7px 8px;text-align:right">תלמיד/ה</th><th style="padding:7px 8px;text-align:right">שיעור</th>
-      <th style="padding:7px 8px;text-align:right">תאריך</th><th style="padding:7px 8px;text-align:right">ציון</th>
+      <th style="padding:7px 8px;text-align:right">תלמיד/ה</th>
+      <th style="padding:7px 8px;text-align:right">כיתה</th>
+      <th style="padding:7px 8px;text-align:right">שיעור</th>
+      <th style="padding:7px 8px;text-align:right">תאריך</th>
+      <th style="padding:7px 8px;text-align:right">ציון</th>
     </tr></thead><tbody>${rows}</tbody></table></div>
-    <p style="font-size:.65rem;color:var(--muted);margin-top:.4rem">סה״כ ${total} הגשות | ${keys.length} תלמידים</p>`;
+  <p style="font-size:.65rem;color:var(--muted);margin-top:.4rem">סה״כ ${total} הגשות | ${keys.length} תלמידים | מקור: מקומי</p>`;
 }
 
 /* ════════════════════════════════════════════════

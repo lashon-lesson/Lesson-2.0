@@ -215,6 +215,62 @@ button,input,select,textarea{font-family:inherit}
 .btn-send:hover{transform:translateY(-1px)}
 
 /* ═══════════════════════════════════════════════
+   STUDENT REGISTRATION MODAL
+═══════════════════════════════════════════════ */
+.reg-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.62);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1.2rem}
+.reg-overlay.open{display:flex;animation:regFadeIn .2s ease}
+@keyframes regFadeIn{from{opacity:0}to{opacity:1}}
+.reg-modal{
+  background:var(--surface);border-radius:var(--r-xl);
+  box-shadow:var(--sh3);width:100%;max-width:420px;
+  border:1px solid var(--border);
+  animation:regPop .28s cubic-bezier(.34,1.45,.64,1);
+  overflow:hidden;
+}
+@keyframes regPop{from{opacity:0;transform:scale(.88) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.reg-header{
+  background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);
+  padding:1.5rem 1.5rem 1.2rem;
+  border-bottom:1px solid var(--border);
+  text-align:center;
+}
+.reg-header-icon{font-size:2.2rem;margin-bottom:.5rem;display:block}
+.reg-header-title{font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:.28rem}
+.reg-header-desc{font-size:.78rem;color:var(--muted);line-height:1.5}
+.reg-body{padding:1.4rem 1.5rem 1.5rem;display:flex;flex-direction:column;gap:.95rem}
+.reg-field label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);margin-bottom:.38rem;letter-spacing:.02em}
+.reg-input{
+  width:100%;padding:.82rem 1rem;
+  border:1.5px solid var(--border);border-radius:var(--r);
+  background:var(--surface2);font-size:.92rem;color:var(--text);
+  outline:none;transition:border-color .15s,box-shadow .15s;
+  min-height:50px;
+}
+.reg-input::placeholder{color:var(--subtle)}
+.reg-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.14)}
+.reg-input.error{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.12)}
+.reg-select{
+  width:100%;padding:.82rem 1rem;
+  border:1.5px solid var(--border);border-radius:var(--r);
+  background:var(--surface2);font-size:.92rem;color:var(--text);
+  outline:none;transition:border-color .15s;
+  min-height:50px;cursor:pointer;
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7594' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:left 1rem center;
+}
+.reg-select:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.14)}
+.reg-select.error{border-color:var(--red)}
+.reg-error-msg{font-size:.72rem;color:var(--red);margin-top:.28rem;display:none}
+.reg-error-msg.show{display:block}
+.reg-footer{padding:0 1.5rem 1.5rem;display:flex;gap:.65rem}
+.reg-btn-cancel{flex:1;padding:.78rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);color:var(--muted);font-size:.85rem;font-weight:700;cursor:pointer;transition:all .14s;min-height:48px}
+.reg-btn-cancel:hover{background:var(--surface3);color:var(--text)}
+.reg-btn-submit{flex:2;padding:.78rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.88rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(26,86,219,.28);transition:all .15s;min-height:48px;display:flex;align-items:center;justify-content:center;gap:.4rem}
+.reg-btn-submit:hover{background:var(--blue-dk);transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,86,219,.35)}
+.reg-btn-submit:disabled{opacity:.6;cursor:default;transform:none}
+
+/* ═══════════════════════════════════════════════
    ANSWERS TAB
 ═══════════════════════════════════════════════ */
 .answers-locked{background:var(--surface);border:2px dashed var(--border);border-radius:var(--r-xl);padding:2.5rem 2rem;text-align:center;margin-top:.5rem}
@@ -503,6 +559,60 @@ button,input,select,textarea{font-family:inherit}
 </div>
 </div>
 
+<!-- ══════════════════════════════════════
+     STUDENT REGISTRATION MODAL
+     Appears when student clicks "הגש תרגול"
+══════════════════════════════════════ -->
+<div class="reg-overlay" id="reg-overlay">
+  <div class="reg-modal">
+    <div class="reg-header">
+      <span class="reg-header-icon">📋</span>
+      <div class="reg-header-title">פרטי הגשה</div>
+      <div class="reg-header-desc">מלא/י את הפרטים לפני שליחת התרגול.<br>הפרטים יישמרו אצל המורה.</div>
+    </div>
+    <div class="reg-body">
+      <div class="reg-field">
+        <label for="reg-fullname">👤 שם מלא</label>
+        <input class="reg-input" id="reg-fullname" type="text" placeholder="שם פרטי + שם משפחה" autocomplete="name" autocorrect="off">
+        <div class="reg-error-msg" id="reg-name-err">נא להזין שם מלא (לפחות 2 מילים)</div>
+      </div>
+      <div class="reg-field">
+        <label for="reg-class">🏫 כיתה</label>
+        <select class="reg-select" id="reg-class">
+          <option value="">— בחר/י כיתה —</option>
+          <optgroup label="כיתות ט׳">
+            <option value="ט׳1">ט׳1</option>
+            <option value="ט׳2">ט׳2</option>
+            <option value="ט׳3">ט׳3</option>
+            <option value="ט׳4">ט׳4</option>
+            <option value="ט׳5">ט׳5</option>
+          </optgroup>
+          <optgroup label="כיתות י׳">
+            <option value="י׳1">י׳1</option>
+            <option value="י׳2">י׳2</option>
+            <option value="י׳3">י׳3</option>
+            <option value="י׳4">י׳4</option>
+            <option value="י׳5">י׳5</option>
+          </optgroup>
+        </select>
+        <div class="reg-error-msg" id="reg-class-err">נא לבחור כיתה</div>
+      </div>
+      <!-- Show submission date (read-only) -->
+      <div class="reg-field">
+        <label>📅 תאריך הגשה</label>
+        <div style="padding:.78rem 1rem;background:var(--surface3);border:1.5px solid var(--border);border-radius:var(--r);font-size:.9rem;color:var(--muted)" id="reg-date-display"></div>
+      </div>
+    </div>
+    <div class="reg-footer">
+      <button class="reg-btn-cancel" onclick="closeRegModal()">ביטול</button>
+      <button class="reg-btn-submit" id="reg-submit-btn" onclick="confirmAndSubmit()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        הגש תרגול
+      </button>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
@@ -535,12 +645,17 @@ function initFirebase(){
     });
   }catch(e){console.warn('[FB]',e)}
 }
-async function saveScore(score,studentName){
+async function saveScore(score,studentName,className){
   if(!_db) return;
-  try{await _db.collection('lashon2_scores').add({
-    lessonId:'u1_l0',score,studentName:studentName||'תלמיד/ה',
+  try{await _db.collection('lashon2_submissions').add({
+    lessonId:'u1_l0',
+    lessonTitle:'מבוא לניתוח טקסט',
+    score,
+    studentName:studentName||'תלמיד/ה',
+    className:className||'לא צוין',
     ts:firebase.firestore.FieldValue.serverTimestamp(),
-    date:new Date().toLocaleDateString('he-IL')
+    submissionDate:new Date().toLocaleDateString('he-IL'),
+    submissionTime:new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})
   });}catch(e){console.warn('[FB score]',e)}
 }
 
@@ -552,7 +667,8 @@ const LS={
   set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}
 };
 const _params=new URLSearchParams(location.search);
-const STUDENT_NAME=_params.get('student')||LS.get('lashon2_uname','')||'תלמיד/ה';
+let STUDENT_NAME=_params.get('student')||LS.get('lashon2_uname','')||'תלמיד/ה';
+let STUDENT_CLASS=LS.get('lashon2_class','')||'';
 const USER_ROLE=_params.get('role')||LS.get('lashon2_role','')||localStorage.getItem('userRole')||'student';
 // answers_visible from URL (initial state from dashboard) or Firebase subscription
 let ANSWERS_VISIBLE=_params.get('answers_visible')==='1';
@@ -770,9 +886,69 @@ function updateCounter(){
 /* ════════════════════════════════════════════════
    SUBMIT
 ════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════
+   REGISTRATION MODAL LOGIC
+════════════════════════════════════════════════ */
+function openRegModal(){
+  // Pre-fill if we already have data
+  const nameEl=document.getElementById('reg-fullname');
+  const classEl=document.getElementById('reg-class');
+  const dateEl=document.getElementById('reg-date-display');
+  if(nameEl && STUDENT_NAME && STUDENT_NAME!=='תלמיד/ה') nameEl.value=STUDENT_NAME;
+  if(classEl && STUDENT_CLASS) classEl.value=STUDENT_CLASS;
+  if(dateEl) dateEl.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('reg-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>nameEl?.focus(),200);
+}
+function closeRegModal(){
+  document.getElementById('reg-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function confirmAndSubmit(){
+  const nameEl=document.getElementById('reg-fullname');
+  const classEl=document.getElementById('reg-class');
+  const nameErr=document.getElementById('reg-name-err');
+  const classErr=document.getElementById('reg-class-err');
+  const nameVal=(nameEl?.value||'').trim();
+  const classVal=classEl?.value||'';
+  let valid=true;
+  // Validate name (at least 2 words)
+  if(nameVal.split(/\s+/).filter(Boolean).length<2){
+    nameEl?.classList.add('error'); nameErr?.classList.add('show'); valid=false;
+  } else { nameEl?.classList.remove('error'); nameErr?.classList.remove('show'); }
+  // Validate class
+  if(!classVal){
+    classEl?.classList.add('error'); classErr?.classList.add('show'); valid=false;
+  } else { classEl?.classList.remove('error'); classErr?.classList.remove('show'); }
+  if(!valid) return;
+  // Save to state and localStorage
+  STUDENT_NAME=nameVal;
+  STUDENT_CLASS=classVal;
+  LS.set('lashon2_uname',nameVal);
+  LS.set('lashon2_class',classVal);
+  closeRegModal();
+  // Disable submit button to prevent double-click
+  const btn=document.getElementById('reg-submit-btn');
+  if(btn){btn.disabled=true;btn.innerHTML='⏳ שולח…';}
+  // Now run the actual quiz submission
+  _doSubmitQuiz();
+}
+
 function submitQuiz(){
   const answered=Object.keys(QS.answers).length;
   if(answered<QUESTIONS.length){toast(`⚠️ ענה על כל 20 השאלות (נענו ${answered})`);return}
+  if(QS.submitted){toast('כבר הגשת את התרגול');return}
+  // For students: show registration modal first
+  if(USER_ROLE==='student'){
+    openRegModal();
+  } else {
+    // Teacher: submit directly
+    _doSubmitQuiz();
+  }
+}
+
+function _doSubmitQuiz(){
   QS.submitted=true;
   let correct=0;
   QUESTIONS.forEach(q=>{
@@ -814,6 +990,12 @@ function submitQuiz(){
       <span class="results-score" style="color:${col}">${pct}%</span>
       <span class="results-label">${correct} נכון מתוך ${QUESTIONS.length} שאלות</span>
       <div class="results-bar"><div class="results-bar-fill" id="res-bar" style="width:0%;background:${col}"></div></div>
+      ${USER_ROLE==='student'&&STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'?`
+      <div style="background:var(--green-lt);border:1.5px solid #bbf7d0;border-radius:var(--r-lg);padding:.9rem 1.1rem;margin-bottom:1.2rem;text-align:right">
+        <div style="font-size:.72rem;font-weight:800;color:var(--green);margin-bottom:.32rem">✅ נשמר בהצלחה אצל המורה</div>
+        <div style="font-size:.84rem;color:var(--text);font-weight:700">${STUDENT_NAME}</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:.15rem">כיתה ${STUDENT_CLASS||'—'} &nbsp;·&nbsp; ${new Date().toLocaleDateString('he-IL')}</div>
+      </div>`:''}
       ${pct>=80?`<div class="box box-green" style="text-align:right;margin-bottom:1.2rem">✅ ביצוע מצוין! אתה מוכן להמשיך לשיעור הבא.</div>`:''}
       <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
         ${USER_ROLE==='student'?`<button class="btn-send" onclick="sendResults(${pct})">📤 שלח למורה</button>`:''}
@@ -825,14 +1007,17 @@ function submitQuiz(){
     setTimeout(()=>{const b=document.getElementById('res-bar');if(b)b.style.width=pct+'%'},120);
   }
   const prog=LS.get('lashon2_prog_'+STUDENT_NAME,{});
-  prog['u1_l0']={done:true,score:pct,date:new Date().toLocaleDateString('he-IL')};
+  prog['u1_l0']={done:true,score:pct,date:new Date().toLocaleDateString('he-IL'),className:STUDENT_CLASS};
   LS.set('lashon2_prog_'+STUDENT_NAME,prog);
-  saveScore(pct,STUDENT_NAME);
-  if(window.opener) try{window.opener.postMessage({type:'lessonDone',lid:'u1_l0',score:pct},'*')}catch{}
+  saveScore(pct,STUDENT_NAME,STUDENT_CLASS);
+  if(window.opener) try{window.opener.postMessage({type:'lessonDone',lid:'u1_l0',score:pct,studentName:STUDENT_NAME,className:STUDENT_CLASS},'*')}catch{}
 }
 function resetQuiz(){
   Object.keys(QS.answers).forEach(k=>delete QS.answers[k]);
   QS.submitted=false; _lastScore=null; _lastCorrect=0;
+  // Re-enable reg modal button if it was disabled
+  const btn=document.getElementById('reg-submit-btn');
+  if(btn){btn.disabled=false;btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>הגש תרגול';}
   QUESTIONS.forEach(q=>{
     if(q.type==='mc') q.opts.forEach((_,i)=>{const b=document.getElementById(`${q.id}_o${i}`);if(b){b.disabled=false;b.className='mc-btn'}});
     else if(q.type==='tf'){const t=document.getElementById(`${q.id}_t`),f=document.getElementById(`${q.id}_f`);if(t){t.disabled=false;t.className='tf-btn'}if(f){f.disabled=false;f.className='tf-btn'}}
@@ -847,9 +1032,9 @@ function resetQuiz(){
 function sendResults(pct){
   const email=LS.get('lashon2_teacher_email','')||LS.get('teacher_email','');
   const wa=LS.get('lashon2_teacher_wa','')||LS.get('teacher_whatsapp','');
-  const body=`שיעור 0 — מבוא לניתוח טקסט\nתלמיד/ה: ${STUDENT_NAME}\nציון: ${pct}%\nתאריך: ${new Date().toLocaleDateString('he-IL')}`;
+  const body=`שיעור 0 — מבוא לניתוח טקסט\nתלמיד/ה: ${STUDENT_NAME}\nכיתה: ${STUDENT_CLASS||'לא צוין'}\nציון: ${pct}%\nתאריך הגשה: ${new Date().toLocaleDateString('he-IL')} ${new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})}`;
   if(wa){window.open('https://wa.me/972'+wa.replace(/^0/,'')+'?text='+encodeURIComponent(body),'_blank');return}
-  if(email){window.location.href='mailto:'+email+'?subject='+encodeURIComponent('הגשת שיעור — '+STUDENT_NAME)+'&body='+encodeURIComponent(body);return}
+  if(email){window.location.href='mailto:'+email+'?subject='+encodeURIComponent('הגשת שיעור — '+STUDENT_NAME+' כיתה '+STUDENT_CLASS)+'&body='+encodeURIComponent(body);return}
   toast('⚠️ לא הוגדרו פרטי המורה.');
 }
 
