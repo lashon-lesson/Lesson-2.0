@@ -132,6 +132,11 @@ a{text-decoration:none;color:inherit}
 .tb-greet{font-size:.78rem;font-weight:700;background:linear-gradient(90deg,#3b0764,#6d28d9);color:#fff;border-radius:var(--r-pill);padding:.32rem .95rem;white-space:nowrap;box-shadow:0 2px 10px rgba(109,40,217,.28)}
 .btn-cfg{display:inline-flex;align-items:center;gap:.28rem;padding:.38rem .92rem;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);font-size:.73rem;font-weight:700;color:var(--purple);cursor:pointer;transition:all .13s;white-space:nowrap;min-height:44px}
 .btn-cfg:hover{background:var(--purple-lt);border-color:var(--purple)}
+/* ── TOPBAR LOGOUT ── */
+.btn-topbar-logout{display:inline-flex;align-items:center;justify-content:center;gap:.3rem;padding:.38rem .9rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);font-size:.73rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .18s cubic-bezier(.22,1,.36,1);white-space:nowrap;min-height:40px;-webkit-tap-highlight-color:transparent}
+.btn-topbar-logout:hover{background:var(--red-lt);color:var(--red);border-color:var(--red);transform:translateY(-1px);box-shadow:0 4px 12px rgba(220,38,38,.14)}
+.btn-topbar-logout:active{transform:scale(.95)}
+@media(max-width:400px){.btn-topbar-logout .tl-label{display:none}.btn-topbar-logout{padding:.38rem .62rem}}
 .fb-badge{display:inline-flex;align-items:center;gap:.32rem;font-size:.58rem;font-weight:700;padding:.18rem .62rem;border-radius:var(--r-pill);border:1px solid var(--border);color:var(--muted);background:var(--surface2)}
 .fb-badge.ok{color:var(--green);border-color:#bbf7d0;background:var(--green-lt)}
 .fb-badge.off{color:var(--amber);border-color:#fde68a;background:var(--amber-lt)}
@@ -335,8 +340,14 @@ a{text-decoration:none;color:inherit}
 
   <div class="mob-bar">
     <button class="btn-ham" onclick="openSidebar()">☰</button>
-    <span class="mob-title">לשון Lesson 2.0</span>
-    <button class="btn-cfg" style="font-size:.72rem;padding:.28rem .7rem;display:none" id="mob-cfg" onclick="openSettings()">⚙️</button>
+    <span class="mob-title" id="mob-title-name">לשון Lesson 2.0</span>
+    <div style="display:flex;gap:.38rem;align-items:center">
+      <button class="btn-cfg" style="font-size:.72rem;padding:.28rem .7rem;display:none" id="mob-cfg" onclick="openSettings()">⚙️</button>
+      <button class="btn-topbar-logout" id="mob-logout" onclick="confirmLogout()" style="display:none;padding:.32rem .62rem;font-size:.7rem" title="יציאה">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span class="tl-label">יציאה</span>
+      </button>
+    </div>
   </div>
   <div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
 
@@ -350,6 +361,10 @@ a{text-decoration:none;color:inherit}
         <span id="tb-greet" class="tb-greet" style="display:none">👋 שלום!</span>
         <span id="fb-badge" class="fb-badge"><span class="fb-dot"></span>Firebase</span>
         <button class="btn-cfg" id="desk-cfg" onclick="openSettings()" style="display:none">⚙️ הגדרות</button>
+        <button class="btn-topbar-logout" id="desk-logout" onclick="confirmLogout()" style="display:none" title="יציאה / החלפת משתמש">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span class="tl-label">יציאה</span>
+        </button>
       </div>
     </div>
     <div class="t-strip" id="t-strip">
@@ -679,6 +694,11 @@ function enterApp(role,name){
   const greet=document.getElementById('tb-greet');if(greet){greet.textContent='👋 שלום, '+name;greet.style.display=''}
   document.getElementById('desk-cfg').style.display=role==='teacher'?'':'none';
   document.getElementById('mob-cfg').style.display=role==='teacher'?'':'none';
+  // Show logout button for ALL users (teacher + student)
+  const dl=document.getElementById('desk-logout');if(dl)dl.style.display='';
+  const ml=document.getElementById('mob-logout');if(ml)ml.style.display='';
+  // Update mobile title to show user name briefly
+  const mt=document.getElementById('mob-title-name');if(mt)mt.textContent='לשון 2.0';
   document.getElementById('t-strip').classList.toggle('on',role==='teacher');
   document.getElementById('prog-banner').style.display=role==='student'?'':'none';
   subscribeLocks();
@@ -905,6 +925,34 @@ function loadProgress(){
 /* ════════════════════════════════════════════════
    LOGOUT & INIT
 ════════════════════════════════════════════════ */
+/* ── Confirm + Logout ── */
+function confirmLogout(){
+  // Lightweight inline confirm using toast-style overlay
+  const existing=document.getElementById('logout-confirm-overlay');
+  if(existing){existing.remove();return;}
+  const ov=document.createElement('div');
+  ov.id='logout-confirm-overlay';
+  ov.style.cssText='position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.52);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:1.5rem;animation:fadeInOv .18s ease';
+  ov.innerHTML=`
+  <style>@keyframes fadeInOv{from{opacity:0}to{opacity:1}}@keyframes cardPop{from{opacity:0;transform:scale(.92) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}</style>
+  <div style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--sh3);padding:1.8rem 1.6rem;text-align:center;max-width:320px;width:100%;border:1px solid var(--border);animation:cardPop .22s cubic-bezier(.34,1.56,.64,1)">
+    <div style="font-size:2.4rem;margin-bottom:.65rem">👋</div>
+    <div style="font-family:'Secular One',sans-serif;font-size:1rem;color:var(--text);margin-bottom:.4rem">יציאה / החלפת משתמש</div>
+    <div style="font-size:.82rem;color:var(--muted);margin-bottom:1.4rem;line-height:1.55">בטוח שברצונך לצאת?<br>תחזור למסך הכניסה.</div>
+    <div style="display:flex;gap:.65rem">
+      <button onclick="document.getElementById('logout-confirm-overlay').remove()"
+        style="flex:1;padding:.72rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);color:var(--muted);font-size:.84rem;font-weight:700;cursor:pointer">
+        ביטול
+      </button>
+      <button onclick="document.getElementById('logout-confirm-overlay').remove();doLogout()"
+        style="flex:1;padding:.72rem;border:none;border-radius:var(--r-pill);background:var(--red);color:#fff;font-size:.84rem;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(220,38,38,.28)">
+        🚪 יציאה
+      </button>
+    </div>
+  </div>`;
+  ov.addEventListener('click',e=>{if(e.target===ov)ov.remove();});
+  document.body.appendChild(ov);
+}
 function doLogout(){
   LS.del('lashon2_role');LS.del('lashon2_uname');localStorage.removeItem('userRole');
   document.getElementById('app').classList.remove('on');
