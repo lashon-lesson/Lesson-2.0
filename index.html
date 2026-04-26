@@ -342,17 +342,34 @@ a{text-decoration:none;color:inherit}
     </button>
   </div>
   <div class="ls-tcp" id="tcp">
-    <div class="tcp-row-name" id="tcp-name-row">
-      <label class="tcp-lbl">שם המורה</label>
-      <input class="tcp-input" id="tname" type="text" placeholder="הזינו שם…" autocomplete="off">
+    <div style="font-size:.7rem;font-weight:800;color:rgba(255,255,255,.45);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.9rem;text-align:center">פרטי כניסה — מורה</div>
+
+    <!-- Teacher name (always shown) -->
+    <div style="margin-bottom:.7rem">
+      <label class="tcp-lbl">👤 שם מלא</label>
+      <input class="tcp-input" id="tname" type="text" placeholder="שם פרטי + שם משפחה" autocomplete="name">
     </div>
-    <label class="tcp-lbl">קוד כניסה</label>
+
+    <!-- Email -->
+    <div style="margin-bottom:.7rem">
+      <label class="tcp-lbl">📧 אימייל (לקבלת עבודות)</label>
+      <input class="tcp-input ltr" id="t-email" type="email" placeholder="teacher@school.edu" autocomplete="email">
+    </div>
+
+    <!-- WhatsApp -->
+    <div style="margin-bottom:.7rem">
+      <label class="tcp-lbl">💬 וואטסאפ</label>
+      <input class="tcp-input ltr" id="t-wa" type="tel" placeholder="0501234567" autocomplete="tel">
+    </div>
+
+    <!-- Password -->
+    <label class="tcp-lbl">🔑 קוד כניסה למורה</label>
     <div class="tcp-row">
       <input class="tcp-input ltr" id="tpass" type="password" placeholder="••••" maxlength="24"
              onkeydown="if(event.key==='Enter')doTeacherLogin()">
       <button class="tcp-go" onclick="doTeacherLogin()">כניסה</button>
     </div>
-    <p class="tcp-hint">ברירת מחדל: 1234</p>
+    <p class="tcp-hint">ברירת מחדל: 1234 | כל מורה שומר את הפרטים שלו</p>
     <button class="tcp-back" onclick="hideTCP()">← חזרה</button>
   </div>
 </div>
@@ -377,7 +394,6 @@ a{text-decoration:none;color:inherit}
         <span class="sb-uname" id="sb-uname">טוען…</span>
         <span class="sb-role" id="sb-role" style="display:none">מורה</span>
       </div>
-      <button class="btn-logout" onclick="doLogout()">🚪 יציאה</button>
     </div>
   </aside>
 
@@ -412,7 +428,7 @@ a{text-decoration:none;color:inherit}
     </div>
     <div class="t-strip" id="t-strip">
       <span class="t-strip-dot"></span>
-      מצב מורה — נעילות, תשובות ומעקב תלמידים זמינים
+      <span id="t-strip-text">מצב מורה — נעילות, תשובות ומעקב תלמידים זמינים</span>
     </div>
     <div class="prog-banner" id="prog-banner" style="display:none">
       <div class="prog-hd">
@@ -442,7 +458,19 @@ a{text-decoration:none;color:inherit}
 
     <!-- General -->
     <div class="m-pane active" id="tab-general">
-      <div class="m-section">פרטי הגשה</div>
+      <!-- Logged-in teacher info -->
+      <div class="m-section">מורה מחובר/ת</div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.85rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.75rem">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ca8a04,#d97706);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:900;flex-shrink:0" id="cfg-teacher-av">מ</div>
+        <div>
+          <div style="font-size:.88rem;font-weight:700;color:var(--text)" id="cfg-teacher-name">—</div>
+          <div style="font-size:.72rem;color:var(--muted)" id="cfg-teacher-contact">—</div>
+        </div>
+      </div>
+      <div class="m-section">עדכון פרטי הגשה</div>
+      <div style="background:var(--blue-lt);border:1px solid #bfdbfe;border-radius:var(--r);padding:.65rem .9rem;font-size:.76rem;color:var(--blue);margin-bottom:.9rem">
+        💡 הפרטים נשמרים לפי שם המורה. שינוי כאן יעדכן גם ב-Firebase.
+      </div>
       <div class="m-field">
         <label class="m-lbl">📧 אימייל לקבלת עבודות</label>
         <input class="m-in" id="cfg-email" type="email" placeholder="teacher@school.edu" dir="ltr">
@@ -451,7 +479,7 @@ a{text-decoration:none;color:inherit}
         <label class="m-lbl">💬 מספר וואטסאפ</label>
         <input class="m-in" id="cfg-wa" type="tel" placeholder="0501234567" dir="ltr">
       </div>
-      <button class="m-btn" onclick="saveGeneral()">💾 שמור</button>
+      <button class="m-btn" onclick="saveGeneral()">💾 שמור ועדכן</button>
       <div class="m-section">אבטחה</div>
       <div class="m-field">
         <label class="m-lbl">🔑 קוד מורה חדש</label>
@@ -695,16 +723,24 @@ function buildStars(){
    LOGIN
 ════════════════════════════════════════════════ */
 function showTCP(){
-  const c=document.getElementById('ls-cards');c.style.opacity='.25';c.style.pointerEvents='none';
-  const saved=LS.get('lashon2_tname','');
-  if(!saved)document.getElementById('tcp-name-row').classList.add('show');
+  const c=document.getElementById('ls-cards');
+  c.style.opacity='.25'; c.style.pointerEvents='none';
+  // Pre-fill with saved values for returning teachers
+  const savedName=LS.get('lashon2_tname','');
+  const savedEmail=LS.get('lashon2_teacher_email','');
+  const savedWa=LS.get('lashon2_teacher_wa','');
+  const nameEl=document.getElementById('tname');
+  const emailEl=document.getElementById('t-email');
+  const waEl=document.getElementById('t-wa');
+  if(nameEl&&savedName) nameEl.value=savedName;
+  if(emailEl&&savedEmail) emailEl.value=savedEmail;
+  if(waEl&&savedWa) waEl.value=savedWa;
   document.getElementById('tcp').classList.add('open');
-  setTimeout(()=>{const n=document.getElementById('tname'),p=document.getElementById('tpass');if(!saved&&n)n.focus();else p.focus()},80);
+  setTimeout(()=>{ (savedName?document.getElementById('tpass'):nameEl)?.focus(); },80);
 }
 function hideTCP(){
   const c=document.getElementById('ls-cards');c.style.opacity='';c.style.pointerEvents='';
   document.getElementById('tcp').classList.remove('open');
-  document.getElementById('tcp-name-row').classList.remove('show');
   document.getElementById('tpass').value='';
 }
 function doStudentLogin(){
@@ -713,14 +749,58 @@ function doStudentLogin(){
   fadeLogin(()=>enterApp('student','תלמיד/ה'));
 }
 async function doTeacherLogin(){
-  const pi=document.getElementById('tpass');const pass=(pi.value||'').trim();
-  if(!pass){pi.classList.add('tcp-input','shake');setTimeout(()=>pi.classList.remove('shake'),360);toast('⚠️ הזינו קוד כניסה');return}
-  if(!await verifyPass(pass)){toast('❌ קוד שגוי');pi.value='';pi.focus();return}
-  const n=(document.getElementById('tname').value||'').trim()||LS.get('lashon2_tname','')||'מורה';
+  const pi=document.getElementById('tpass');
+  const pass=(pi.value||'').trim();
+  const nameVal=(document.getElementById('tname')?.value||'').trim();
+  const emailVal=(document.getElementById('t-email')?.value||'').trim();
+  const waVal=(document.getElementById('t-wa')?.value||'').replace(/\D/g,'');
+
+  // Validate: name required
+  if(!nameVal){
+    document.getElementById('tname')?.focus();
+    toast('⚠️ הזינו שם מלא');
+    return;
+  }
+  // Validate: password required
+  if(!pass){
+    pi.classList.add('shake');
+    setTimeout(()=>pi.classList.remove('shake'),360);
+    toast('⚠️ הזינו קוד כניסה');
+    return;
+  }
+  if(!await verifyPass(pass)){
+    toast('❌ קוד שגוי');pi.value='';pi.focus();return;
+  }
+
+  // Save teacher profile (per teacher — keyed by name)
   const h=await hashPass(pass);
-  LS.set('lashon2_tpass',h);LS.set('lashon2_tname',n);LS.set('lashon2_role','teacher');LS.set('lashon2_uname',n);
+  const teacherKey='lashon2_teacher_'+nameVal.replace(/\s+/g,'_');
+  LS.set(teacherKey,{name:nameVal,email:emailVal,wa:waVal,ts:Date.now()});
+
+  // Save globals (used throughout the app)
+  LS.set('lashon2_tpass',h);
+  LS.set('lashon2_tname',nameVal);
+  LS.set('lashon2_role','teacher');
+  LS.set('lashon2_uname',nameVal);
+  LS.set('lashon2_teacher_email',emailVal);
+  LS.set('lashon2_teacher_wa',waVal);
   localStorage.setItem('userRole','teacher');
-  fadeLogin(()=>enterApp('teacher',n));
+
+  // Push teacher profile to Firestore (so lesson pages can read it)
+  _saveTeacherProfile(nameVal,emailVal,waVal);
+
+  fadeLogin(()=>enterApp('teacher',nameVal));
+}
+
+async function _saveTeacherProfile(name,email,wa){
+  if(!_db||!name) return;
+  try{
+    const key=name.replace(/\s+/g,'_');
+    await _db.collection('lashon2_teachers').doc(key).set({
+      name,email:email||'',wa:wa||'',
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    },{merge:true});
+  }catch(e){console.warn('[FB teacher]',e);}
 }
 function fadeLogin(cb){
   const ls=document.getElementById('login-screen');
@@ -743,6 +823,11 @@ function enterApp(role,name){
   // Update mobile title to show user name briefly
   const mt=document.getElementById('mob-title-name');if(mt)mt.textContent='לשון 2.0';
   document.getElementById('t-strip').classList.toggle('on',role==='teacher');
+  if(role==='teacher'){
+    const email=LS.get('lashon2_teacher_email','');
+    const strip=document.getElementById('t-strip-text');
+    if(strip) strip.textContent='מצב מורה' + (email?` · ${email}`:'') + ' — נעילות, תשובות ומעקב';
+  }
   document.getElementById('prog-banner').style.display=role==='student'?'':'none';
   subscribeLocks();
   subscribeAnswers();
@@ -844,8 +929,20 @@ function closeSidebar(){document.getElementById('sidebar').classList.remove('ope
    SETTINGS
 ════════════════════════════════════════════════ */
 function openSettings(){
-  document.getElementById('cfg-email').value=LS.get('lashon2_teacher_email','')||'';
-  document.getElementById('cfg-wa').value=LS.get('lashon2_teacher_wa','')||'';
+  const email=LS.get('lashon2_teacher_email','')||'';
+  const wa=LS.get('lashon2_teacher_wa','')||'';
+  document.getElementById('cfg-email').value=email;
+  document.getElementById('cfg-wa').value=wa;
+  // Populate teacher info card
+  const av=document.getElementById('cfg-teacher-av');
+  const nm=document.getElementById('cfg-teacher-name');
+  const ct=document.getElementById('cfg-teacher-contact');
+  if(av) av.textContent=(S.name||'מ')[0].toUpperCase();
+  if(nm) nm.textContent=S.name||'—';
+  const parts=[];
+  if(email) parts.push('✉️ '+email);
+  if(wa)    parts.push('💬 '+wa);
+  if(ct)    ct.textContent=parts.join('  ·  ')||'לא הוזנו פרטי קשר';
   buildLockList();buildAnswersControlList();switchTab('general');
   document.getElementById('settings-overlay').classList.add('open');document.body.style.overflow='hidden';
 }
@@ -860,7 +957,10 @@ function saveGeneral(){
   const email=(document.getElementById('cfg-email').value||'').trim();
   const wa=(document.getElementById('cfg-wa').value||'').replace(/\D/g,'');
   if(!email&&!wa){toast('⚠️ הזינו לפחות שדה אחד');return}
-  LS.set('lashon2_teacher_email',email);LS.set('lashon2_teacher_wa',wa);toast('✅ נשמר!');
+  LS.set('lashon2_teacher_email',email);LS.set('lashon2_teacher_wa',wa);
+  // Also update teacher profile in Firestore with new email/wa
+  _saveTeacherProfile(S.name,email,wa);
+  toast('✅ נשמר ועודכן ב-Firebase!');
 }
 async function changePass(){
   const np=(document.getElementById('cfg-pass').value||'').trim();
