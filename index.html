@@ -451,6 +451,7 @@ a{text-decoration:none;color:inherit}
     </div>
     <div class="modal-tabs">
       <button class="m-tab active" onclick="switchTab('general')">כללי</button>
+      <button class="m-tab" onclick="switchTab('classes')">🏫 כיתות</button>
       <button class="m-tab" onclick="switchTab('locks')">🔒 נעילות</button>
       <button class="m-tab" onclick="switchTab('answers')">🔑 תשובות</button>
       <button class="m-tab" onclick="switchTab('progress')">📊 מעקב</button>
@@ -488,6 +489,26 @@ a{text-decoration:none;color:inherit}
       <button class="m-btn" onclick="changePass()">🔐 שנה קוד</button>
       <div class="m-section">Firebase</div>
       <div id="fb-settings-status" style="font-size:.78rem;color:var(--muted)">בודק…</div>
+    </div>
+
+
+    <!-- My Classes -->
+    <div class="m-pane" id="tab-classes">
+      <div class="m-section">הכיתות שאני מלמד/ת</div>
+      <div style="background:var(--blue-lt);border:1px solid #bfdbfe;border-radius:var(--r);padding:.7rem .95rem;font-size:.78rem;color:var(--blue);margin-bottom:1rem;line-height:1.6">
+        💡 הגישי כיתות שאת מלמדת. כל תלמיד שירשום כיתה תואמת — הנתונים שלו יגיעו אלייך ב<strong>מעקב</strong>.
+      </div>
+      <div style="display:flex;gap:.55rem;margin-bottom:.9rem">
+        <input class="m-in" id="new-class-inp" type="text"
+               placeholder='לדוגמה: י3 או י"ג'
+               style="flex:1;min-width:0"
+               onkeydown="if(event.key==='Enter')addTeacherClass()">
+        <button class="m-btn" onclick="addTeacherClass()"
+                style="padding:.72rem 1rem;white-space:nowrap;flex-shrink:0">+ הוסף</button>
+      </div>
+      <div id="teacher-classes-list" style="display:flex;flex-wrap:wrap;gap:.45rem;min-height:24px"></div>
+      <p id="teacher-classes-empty" style="font-size:.76rem;color:var(--subtle);display:none">לא נוספו כיתות עדיין.</p>
+      <p style="font-size:.65rem;color:var(--subtle);margin-top:.9rem">הכיתות נשמרות ב-Firebase ומשמשות לניתוב הגשות תלמידים.</p>
     </div>
 
     <!-- Lock lessons -->
@@ -982,8 +1003,8 @@ function openSettings(){
 }
 function closeSettings(){document.getElementById('settings-overlay').classList.remove('open');document.body.style.overflow=''}
 function switchTab(t){
-  ['general','locks','answers','progress'].forEach(x=>{document.getElementById('tab-'+x)?.classList.toggle('active',x===t)});
-  document.querySelectorAll('.m-tab').forEach((b,i)=>b.classList.toggle('active',['general','locks','answers','progress'][i]===t));
+  ['general','classes','locks','answers','progress'].forEach(x=>{document.getElementById('tab-'+x)?.classList.toggle('active',x===t)});
+  document.querySelectorAll('.m-tab').forEach((b,i)=>b.classList.toggle('active',['general','classes','locks','answers','progress'][i]===t));
   if(t==='progress'){
     loadProgress();
     // Reset new submissions badge
@@ -993,6 +1014,7 @@ function switchTab(t){
     });
   }
   if(t==='answers')buildAnswersControlList();
+  if(t==='classes')renderTeacherClassesList();
 }
 function saveGeneral(){
   const email=(document.getElementById('cfg-email').value||'').trim();
@@ -1277,6 +1299,71 @@ function initApp(){
   if(lr){const ln=LS.get('lashon_uname','')||(lr==='teacher'?'מורה':'תלמיד/ה');document.getElementById('login-screen').style.display='none';enterApp(lr,ln)}
 }
 initApp();
+
+/* ════════════════════════════════════════════════
+   TEACHER CLASSES — per-teacher class list
+   Firestore: lashon2_teachers/{name}/classes: [...]
+════════════════════════════════════════════════ */
+function getTeacherClasses(){
+  return LS.get('lashon2_teacher_classes',[]) || [];
+}
+function _saveTeacherClasses(arr){
+  LS.set('lashon2_teacher_classes', arr);
+  if(_db && S.name){
+    const key = S.name.replace(/\s+/g,'_');
+    _db.collection('lashon2_teachers').doc(key)
+       .set({classes: arr},{merge:true}).catch(()=>{});
+  }
+}
+function addTeacherClass(){
+  const inp = document.getElementById('new-class-inp');
+  const val = (inp?.value||'').trim();
+  if(!val){ toast('⚠️ הזיני שם כיתה'); return; }
+  const arr = getTeacherClasses();
+  if(arr.includes(val)){ toast('הכיתה כבר ברשימה'); inp.value=''; return; }
+  arr.push(val);
+  _saveTeacherClasses(arr);
+  inp.value = '';
+  renderTeacherClassesList();
+  toast('✅ כיתה ' + val + ' נוספה');
+}
+function removeTeacherClass(cls){
+  const arr = getTeacherClasses().filter(c=>c!==cls);
+  _saveTeacherClasses(arr);
+  renderTeacherClassesList();
+  toast('🗑️ כיתה ' + cls + ' הוסרה');
+}
+function renderTeacherClassesList(){
+  const arr = getTeacherClasses();
+  const list = document.getElementById('teacher-classes-list');
+  const empty = document.getElementById('teacher-classes-empty');
+  if(!list) return;
+  if(arr.length===0){
+    list.innerHTML = '';
+    if(empty) empty.style.display = '';
+    return;
+  }
+  if(empty) empty.style.display = 'none';
+  list.innerHTML = arr.map(cls =>
+    '<span style="display:inline-flex;align-items:center;gap:.35rem;background:var(--blue-lt);color:var(--blue);' +
+    'border:1.5px solid #bfdbfe;border-radius:var(--r-pill);padding:.26rem .72rem .26rem .5rem;' +
+    'font-size:.82rem;font-weight:700">' +
+    '🏫 '+cls+
+    '<button onclick="removeTeacherClass(\'' + cls + '\')" ' +
+    'style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:.85rem;padding:0;line-height:1;margin-right:.08rem">✕</button>' +
+    '</span>'
+  ).join('');
+}
+function loadTeacherClassesFromFirebase(){
+  if(!_db || !S.name) return;
+  const key = S.name.replace(/\s+/g,'_');
+  _db.collection('lashon2_teachers').doc(key).get().then(doc=>{
+    if(doc.exists && doc.data().classes){
+      LS.set('lashon2_teacher_classes', doc.data().classes);
+      renderTeacherClassesList();
+    }
+  }).catch(()=>{});
+}
 </script>
 </body>
 </html>

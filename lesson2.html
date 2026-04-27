@@ -533,20 +533,10 @@ button,input,select,textarea{font-family:inherit}
       </div>
       <div class="gate-field">
         <label for="gate-class">🏫 כיתה</label>
-        <select class="gate-select" id="gate-class">
-          <option value="">— בחר/י כיתה —</option>
-          <optgroup label="כיתות ט׳">
-            <option value="ט׳1">ט׳1</option><option value="ט׳2">ט׳2</option>
-            <option value="ט׳3">ט׳3</option><option value="ט׳4">ט׳4</option>
-            <option value="ט׳5">ט׳5</option><option value="ט׳6">ט׳6</option>
-          </optgroup>
-          <optgroup label="כיתות י׳">
-            <option value="י׳1">י׳1</option><option value="י׳2">י׳2</option>
-            <option value="י׳3">י׳3</option><option value="י׳4">י׳4</option>
-            <option value="י׳5">י׳5</option><option value="י׳6">י׳6</option>
-          </optgroup>
-        </select>
-        <div class="gate-err-msg" id="gate-class-err">נא לבחור כיתה</div>
+        <input class="gate-input" id="gate-class" type="text"
+               placeholder='לדוגמה: י3 או י"ג'
+               autocomplete="off" autocorrect="off">
+        <div class="gate-err-msg" id="gate-class-err">נא להזין שם כיתה</div>
       </div>
       <div class="gate-field">
         <label>📅 תאריך</label>
