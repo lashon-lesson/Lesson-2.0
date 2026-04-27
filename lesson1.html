@@ -277,7 +277,7 @@ button,input,select,textarea{font-family:inherit}
 .gate-btn:hover{background:var(--lc-dk);transform:translateY(-1px)}
 .gate-btn:active{transform:scale(.97)}
 #gate-confirmed{display:none;background:var(--green-lt);border:2px solid #bbf7d0;border-radius:var(--r-xl);padding:1rem 1.3rem;margin-bottom:1.5rem;align-items:center;gap:.85rem}
-#gate-confirmed.show{display:flex}
+#gate-confirmed.show{display:flex!important}
 #gate-confirmed.hidden{display:none!important}
 .gc-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#15803d,#16a34a);color:#fff;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 10px rgba(21,128,61,.25)}
 .gc-info{flex:1;min-width:0}
@@ -292,7 +292,7 @@ button,input,select,textarea{font-family:inherit}
 
 /* ═══ PRINT ═══ */
 @media print{
-  .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,#submit-row,#results-container,#toast,#student-gate,#gate-confirmed,.sort-handle,#pane-answers .answers-locked{display:none!important}
+  .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,#submit-row,#results-container,#toast,#student-gate,.sort-handle,#pane-answers .answers-locked{display:none!important}
   body{background:#fff;color:#000;font-size:10pt;line-height:1.5}
   html{background:#fff}
   .tab-pane{display:block!important}
@@ -661,8 +661,8 @@ button,input,select,textarea{font-family:inherit}
     <div style="font-size:1.5rem">✅</div>
   </div>
 
-  <!-- Practice content -->
-  <div id="practice-content-wrap">
+  <!-- Practice content (hidden until gate confirmed) -->
+  <div id="practice-content-wrap" style="display:none">
 
   <!-- Text A: Informational -->
   <div class="reading-text-box">
@@ -826,7 +826,15 @@ const USER_ROLE=(()=>{
   return localStorage.getItem('userRole')||'student';
 })();
 let ANSWERS_VISIBLE=_params.get('answers_visible')==='1';
-const BACK_URL=_params.get('back')||'index.html';
+// BACK_URL: use URL param if provided, otherwise go to index.html in same folder
+const BACK_URL=(()=>{
+  const fromParam=_params.get('back');
+  if(fromParam) return fromParam;
+  // Build index.html path relative to current page location
+  const path=window.location.pathname;
+  const folder=path.substring(0,path.lastIndexOf('/')+1);
+  return folder+'index.html';
+})();
 
 function applyAnswersVisibility(){
   // Also check cached value from localStorage (works without Firebase)
@@ -1021,38 +1029,30 @@ function switchTab(t){
     document.getElementById('btn-'+x)?.classList.toggle('active',x===t);
     document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);
   });
+
   if(t==='practice'){
+    // Set today's date
     const dateEl=document.getElementById('gate-date-display');
     if(dateEl) dateEl.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-    if(USER_ROLE==='teacher'){
-      // Teacher always sees content directly
-      document.getElementById('student-gate')?.classList.add('hidden');
-      document.getElementById('gate-confirmed')?.classList.add('hidden');
-      const wrap=document.getElementById('practice-content-wrap');
+    const gate=document.getElementById('student-gate');
+    const confirmed=document.getElementById('gate-confirmed');
+    const wrap=document.getElementById('practice-content-wrap');
+
+    if(USER_ROLE==='teacher' || _gateConfirmed){
+      // Teacher or already confirmed: show content
+      if(gate)gate.style.display='none';
+      if(confirmed){confirmed.style.display='flex';}
       if(wrap)wrap.style.display='';
     } else {
-      // Student
-      const gate=document.getElementById('student-gate');
-      const confirmed=document.getElementById('gate-confirmed');
-      const wrap=document.getElementById('practice-content-wrap');
+      // Student not yet confirmed: show gate
       const nameEl=document.getElementById('gate-name');
       const classEl=document.getElementById('gate-class');
-
-      if(!_gateConfirmed){
-        // Pre-fill if we have saved data
-        if(nameEl && STUDENT_NAME && STUDENT_NAME!=='תלמיד/ה') nameEl.value=STUDENT_NAME;
-        if(classEl && STUDENT_CLASS) classEl.value=STUDENT_CLASS;
-        if(gate)gate.classList.remove('hidden');
-        if(confirmed)confirmed.classList.add('hidden');
-        if(wrap)wrap.style.display='none';
-        // Scroll gate into view
-        setTimeout(()=>gate?.scrollIntoView({behavior:'smooth',block:'start'}),80);
-      } else {
-        if(gate)gate.classList.add('hidden');
-        if(confirmed)confirmed.classList.remove('hidden');
-        if(wrap)wrap.style.display='';
-      }
+      if(nameEl && STUDENT_NAME && STUDENT_NAME!=='תלמיד/ה') nameEl.value=STUDENT_NAME;
+      if(classEl && STUDENT_CLASS) classEl.value=STUDENT_CLASS;
+      if(gate)gate.style.display='';
+      if(confirmed)confirmed.style.display='none';
+      if(wrap)wrap.style.display='none';
     }
   }
 }
@@ -1065,33 +1065,49 @@ function confirmGate(){
   const nameVal=(nameEl?.value||'').trim();
   const classVal=classEl?.value||'';
   let valid=true;
-  if(nameVal.split(/\s+/).filter(Boolean).length<2){nameEl?.classList.add('err');nameErr?.classList.add('show');valid=false;}
-  else{nameEl?.classList.remove('err');nameErr?.classList.remove('show');}
-  if(!classVal){classEl?.classList.add('err');classErr?.classList.add('show');valid=false;}
-  else{classEl?.classList.remove('err');classErr?.classList.remove('show');}
+  if(nameVal.split(/\s+/).filter(Boolean).length<2){
+    nameEl?.classList.add('err'); nameErr?.classList.add('show'); valid=false;
+  } else { nameEl?.classList.remove('err'); nameErr?.classList.remove('show'); }
+  if(!classVal){
+    classEl?.classList.add('err'); classErr?.classList.add('show'); valid=false;
+  } else { classEl?.classList.remove('err'); classErr?.classList.remove('show'); }
   if(!valid) return;
-  STUDENT_NAME=nameVal;STUDENT_CLASS=classVal;
-  LS.set('lashon2_uname',nameVal);LS.set('lashon2_class',classVal);
+
+  STUDENT_NAME=nameVal; STUDENT_CLASS=classVal;
+  LS.set('lashon2_uname',nameVal); LS.set('lashon2_class',classVal);
   _gateConfirmed=true;
+
+  // Update confirmed card
   const av=document.getElementById('gc-avatar');
   const nm=document.getElementById('gc-name-display');
   const mt=document.getElementById('gc-meta-display');
   if(av)av.textContent=nameVal[0].toUpperCase();
   if(nm)nm.textContent=nameVal;
   if(mt)mt.textContent='כיתה '+classVal+' · '+new Date().toLocaleDateString('he-IL');
-  document.getElementById('student-gate')?.classList.add('hidden');
-  document.getElementById('gate-confirmed')?.classList.remove('hidden');
+
+  // Show/hide using style.display (reliable)
+  const gate=document.getElementById('student-gate');
+  const confirmed=document.getElementById('gate-confirmed');
   const wrap=document.getElementById('practice-content-wrap');
-  if(wrap){wrap.style.display='';wrap.scrollIntoView({behavior:'smooth',block:'start'});}
+  if(gate)gate.style.display='none';
+  if(confirmed)confirmed.style.display='flex';
+  if(wrap){
+    wrap.style.display='';
+    setTimeout(()=>wrap.scrollIntoView({behavior:'smooth',block:'start'}),80);
+  }
 }
 function reopenGate(){
   _gateConfirmed=false;
-  document.getElementById('student-gate')?.classList.remove('hidden');
-  document.getElementById('gate-confirmed')?.classList.add('hidden');
+  const gate=document.getElementById('student-gate');
+  const confirmed=document.getElementById('gate-confirmed');
   const wrap=document.getElementById('practice-content-wrap');
+  if(gate)gate.style.display='';
+  if(confirmed)confirmed.style.display='none';
   if(wrap)wrap.style.display='none';
-  document.getElementById('student-gate')?.scrollIntoView({behavior:'smooth',block:'start'});
-  setTimeout(()=>document.getElementById('gate-name')?.focus(),250);
+  setTimeout(()=>{
+    gate?.scrollIntoView({behavior:'smooth',block:'start'});
+    document.getElementById('gate-name')?.focus();
+  },80);
 }
 
 /* ════════════════════════════════════════════════
@@ -1411,12 +1427,7 @@ function goBack(){
     window.close();
     return;
   }
-  // Try history first, fallback to index
-  if(window.history.length>1){
-    window.history.back();
-  } else {
-    window.location.href=BACK_URL;
-  }
+  window.location.href=BACK_URL;
 }
 let _tt;
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800)}
@@ -1428,35 +1439,29 @@ function init(){
   initFirebase();
 
   if(USER_ROLE==='teacher'){
-    // Teacher: show answers tab, bypass gate
-    const rc=document.getElementById('role-chip');if(rc)rc.style.display='';
-    const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';
+    const rc=document.getElementById('role-chip'); if(rc)rc.style.display='';
+    const tb=document.getElementById('btn-answers'); if(tb)tb.style.display='';
     _gateConfirmed=true;
-    const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='';
-    document.getElementById('student-gate')?.classList.add('hidden');
-    document.getElementById('gate-confirmed')?.classList.add('hidden');
+    document.getElementById('student-gate').style.display='none';
+    document.getElementById('gate-confirmed').style.display='none';
+    document.getElementById('practice-content-wrap').style.display='';
   } else {
-    // Student: hide practice content until gate is confirmed
-    const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';
-    // Make sure gate is hidden initially (shown when switching to practice tab)
-    document.getElementById('student-gate')?.classList.add('hidden');
-    document.getElementById('gate-confirmed')?.classList.add('hidden');
-
-    // If returning student with saved data — auto-confirm gate
+    document.getElementById('student-gate').style.display='none';
+    document.getElementById('gate-confirmed').style.display='none';
+    document.getElementById('practice-content-wrap').style.display='none';
     if(STUDENT_NAME && STUDENT_NAME!=='תלמיד/ה' && STUDENT_CLASS){
       _gateConfirmed=true;
-      if(wrap)wrap.style.display='';
-      document.getElementById('student-gate')?.classList.add('hidden');
+      document.getElementById('practice-content-wrap').style.display='';
+      const conf=document.getElementById('gate-confirmed');
+      if(conf) conf.style.display='flex';
       const av=document.getElementById('gc-avatar');
       const nm=document.getElementById('gc-name-display');
       const mt=document.getElementById('gc-meta-display');
       if(av)av.textContent=STUDENT_NAME[0].toUpperCase();
       if(nm)nm.textContent=STUDENT_NAME;
       if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');
-      document.getElementById('gate-confirmed')?.classList.remove('hidden');
     }
   }
-
   applyAnswersVisibility();
   renderQuestions();
 }
