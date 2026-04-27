@@ -1238,7 +1238,7 @@ let STUDENT_CLASS=LS.get('lashon2_class','')||'';
 const USER_ROLE=_params.get('role')||LS.get('lashon2_role','')||localStorage.getItem('userRole')||'student';
 // answers_visible from URL (initial state from dashboard) or Firebase subscription
 let ANSWERS_VISIBLE=_params.get('answers_visible')==='1';
-const BACK_URL=_params.get('back')||(()=>{const p=window.location.pathname;return p.substring(0,p.lastIndexOf('/')+1)+'index.html';})();
+const BACK_URL=_params.get('back')||'index.html';
 
 function applyAnswersVisibility(){
   const fbAv=LS.get('lashon2_answers_visible',{});
@@ -1689,8 +1689,15 @@ function switchTab(t){
     document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);
   });
 
-  // When student opens practice tab — show gate if not yet confirmed
-  if(t==='practice' && USER_ROLE==='student'){
+  // When opening practice tab — student sees gate, teacher bypasses
+  if(t==='practice'){
+    if(USER_ROLE==='teacher'){
+      // Teacher: no gate, show content directly
+      const gate=document.getElementById('student-gate');
+      const wrap=document.getElementById('practice-content-wrap');
+      if(gate)gate.classList.add('hidden');
+      if(wrap)wrap.style.display='';
+    } else {
     const gate=document.getElementById('student-gate');
     const confirmed=document.getElementById('gate-confirmed');
     const wrap=document.getElementById('practice-content-wrap');
@@ -1714,7 +1721,8 @@ function switchTab(t){
       if(confirmed) confirmed.classList.remove('hidden');
       if(wrap) wrap.style.display='';
     }
-  }
+    }  // end else (student)
+  }    // end if(t==='practice')
 }
 
 function confirmGate(){
@@ -1969,7 +1977,11 @@ function toast(m){const e=document.getElementById('toast');e.textContent=m;e.cla
    NAVIGATION
 ════════════════════════════════════════════════ */
 function goBack(){
-  if(window.opener) try{window.opener.postMessage({type:'lessonDone',lid:'u1_l1'},'*')}catch{}
+  if(window.opener){
+    try{window.opener.postMessage({type:'lessonDone',lid:'u1_l1'},'*')}catch{}
+    window.close();
+    return;
+  }
   window.location.href=BACK_URL;
 }
 
