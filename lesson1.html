@@ -482,7 +482,7 @@ button,input,select,textarea{font-family:inherit}
 ══════════════════════════════════════════════ -->
 <div class="tab-pane" id="pane-practice">
 <div class="print-header">
-  <h1>תרגול — שיעור 1: סוגי טקסטים</h1>
+  <h1>תרגול — שיעור 2: טקסט ההשוואה</h1>
   <p>20 שאלות על שני טקסטים | לשון Lesson 2.0</p>
 </div>
 <div class="lesson-wrap">
@@ -1004,9 +1004,9 @@ function resetQuiz(){
 function sendResults(pct){
   const email=LS.get('lashon2_teacher_email','')||LS.get('teacher_email','');
   const wa=LS.get('lashon2_teacher_wa','')||LS.get('teacher_whatsapp','');
-  const body=`שיעור 2 — טקסט ההשוואה\nתלמיד/ה: ${STUDENT_NAME}\nכיתה: ${STUDENT_CLASS||'?'}\nציון: ${pct}%\nתאריך: ${new Date().toLocaleDateString('he-IL')} ${new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})}`;
+  const body=`שיעור 1 — סוגי טקסטים\nתלמיד/ה: ${STUDENT_NAME}\nכיתה: ${STUDENT_CLASS||'?'}\nציון: ${pct}%\nתאריך: ${new Date().toLocaleDateString('he-IL')} ${new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})}`;
   if(wa){window.open('https://wa.me/972'+wa.replace(/^0/,'')+'?text='+encodeURIComponent(body),'_blank');return}
-  if(email){window.location.href='mailto:'+email+'?subject='+encodeURIComponent('שיעור 2 — '+STUDENT_NAME+' כיתה '+STUDENT_CLASS)+'&body='+encodeURIComponent(body);return}
+  if(email){window.location.href='mailto:'+email+'?subject='+encodeURIComponent('שיעור 1 — '+STUDENT_NAME+' כיתה '+STUDENT_CLASS)+'&body='+encodeURIComponent(body);return}
   toast('⚠️ לא הוגדרו פרטי המורה.');
 }
 
@@ -1101,7 +1101,7 @@ body{font-family:'Heebo',sans-serif;direction:rtl;background:#fff;color:#000;fon
 .ans-bad{font-size:9pt;padding:.3rem .65rem;background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;border-radius:6px;margin-bottom:.25rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .ans-cor{font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .q-expl{font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem;line-height:1.5}
-.q-tip{font-size:8pt;color:#0891b2;margin-top:.2rem;background:#ecfeff;border-radius:5px;padding:.25rem .55rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.q-tip{font-size:8pt;color:#7c3aed;margin-top:.2rem;background:#faf5ff;border-radius:5px;padding:.25rem .55rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 @page{margin:1.5cm;size:A4}
 </style>
 </head>
