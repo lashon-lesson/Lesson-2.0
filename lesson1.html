@@ -1,4 +1,5 @@
-</div><!-- /pane-theory -->ir="rtl">
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -20,7 +21,7 @@
   --purple:#6d28d9;--purple-lt:#faf5ff;
   --gold:#ca8a04;--gold-lt:#fefce8;
   --teal:#0f766e;--teal-lt:#f0fdfa;
-  --lc:#0891b2;--lc-lt:#ecfeff;--lc-dk:#0e7490;
+  --lc:#0891b2;--lc-lt:#ecfeff;
   --sh1:0 1px 3px rgba(13,20,36,.06);--sh2:0 4px 20px rgba(13,20,36,.08);--sh3:0 12px 40px rgba(13,20,36,.12);
   --r:14px;--r-lg:20px;--r-xl:26px;--r-pill:999px;
 }
@@ -274,7 +275,7 @@ button,input,select,textarea{font-family:inherit}
   background:var(--green-lt);border:2px solid #bbf7d0;
   border-radius:var(--r-xl);padding:1rem 1.3rem;
   margin-bottom:1.5rem;
-  align-items:center;gap:.85rem;
+  display:flex;align-items:center;gap:.85rem;
 }
 #gate-confirmed.show{display:flex}
 #gate-confirmed.hidden{display:none!important}
@@ -412,7 +413,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="topbar-sub">יחידה 1 — הבנה והבעה · שיעור 1</div>
   </div>
   <div class="topbar-actions">
-    <span class="t-chip amber">⏱ 40 דק׳</span>
+    <span class="t-chip amber">⏱ 45 דק׳</span>
     <span class="t-chip teacher" id="role-chip">🎓 מורה</span>
     <button class="btn-print" onclick="printLesson()" title="הדפס שיעור">🖨️ הדפסה</button>
   </div>
@@ -427,19 +428,12 @@ button,input,select,textarea{font-family:inherit}
 </div>
 
 <!-- ══════════════════
-     THEORY TAB — replaced placeholder
-══════════════════ -->
-<!-- (theory already above) --ות (מורה)</button>
-  <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
-</div>
-
-<!-- ══════════════════
      THEORY TAB
 ══════════════════ -->
 <div class="tab-pane active" id="pane-theory">
 <div class="print-header">
-  <h1>שיעור 1 — סוגי טקסטים</h1>
-  <p>יחידה 1: הבנה והבעה | לשון Lesson 2.0 | כיתות ט׳–י׳</p>
+<h1>שיעור 1 — סוגי טקסטים</h1>
+<p>יחידה 1: הבנה והבעה | לשון Lesson 2.0 | כיתות י׳</p>
 </div>
 <div class="lesson-wrap">
 
@@ -465,13 +459,13 @@ button,input,select,textarea{font-family:inherit}
       <li>היא הבסיס לכל שאלת "סוג הטקסט" בבחינת הבגרות</li>
     </ul>
   </div>
-  <div class="box box-blue">💡 <strong>בבגרות בלשון:</strong> שאלות על סוג הטקסט מופיעות ב-100% מהבחינות. הן דורשות לא רק זיהוי נכון אלא גם <strong>הנמקה מפורטת</strong> — "הטקסט הוא שכנועי כי…"</div>
+  <div class="box box-blue">💡 <strong>בבגרות בלשון:</strong> שאלות על סוג הטקסט מופיעות ב-100% מהבחינות. הן דורשות לא רק זיהוי נכון אלא גם <strong>הנמקה</strong> — "הטקסט שכנועי <em>כי</em>…"</div>
 
   <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">2</div>ארבעת סוגי הטקסט העיקריים</div>
   <div class="grid2">
     <div class="mini-card" style="border-right:3px solid #0891b2">
       <div class="mini-title" style="color:#0891b2">📊 עיוני</div>
-      <div class="mini-body">שפה ניטרלית, עובדות ונתונים. מטרה: להסביר ולהודיע.<br><em>ספר לימוד, ויקיפדיה, דוח מחקר</em></div>
+      <div class="mini-body">שפה ניטרלית, עובדות ונתונים. מטרה: להסביר ולהודיע.<br><em>ספר לימוד, ויקיפדיה, מחקר</em></div>
     </div>
     <div class="mini-card" style="border-right:3px solid #6d28d9">
       <div class="mini-title" style="color:#6d28d9">🎭 ספרותי</div>
@@ -489,42 +483,42 @@ button,input,select,textarea{font-family:inherit}
 
   <div class="section-hd"><span class="sn-icon">🔬</span><div class="sn">3</div>מאפיינים לשוניים — איך מזהים?</div>
   <div class="card">
-    <h4>עיוני</h4>
+    <h4>עיוני — סימני זיהוי</h4>
     <ul>
-      <li><strong>שפה ניטרלית:</strong> "המחקר מראה כי…", גוף שלישי</li>
-      <li>מינוח מקצועי, הגדרות, מבנה היררכי עם כותרות</li>
+      <li><strong>שפה ניטרלית:</strong> "המחקר מראה כי…", "ניתן לסכם ש…"</li>
+      <li><strong>גוף שלישי</strong>, מינוח מקצועי, הגדרות, מבנה היררכי</li>
     </ul>
-    <h4 style="margin-top:.8rem">ספרותי</h4>
+    <h4 style="margin-top:.8rem">ספרותי — סימני זיהוי</h4>
     <ul>
       <li><strong>אמצעים ספרותיים:</strong> דימוי ("כמו"), מטפורה, האנשה</li>
-      <li>שפה רגשית, דיאלוג, גוף ראשון/שלישי</li>
+      <li>שפה רגשית ותיאורית, דיאלוג, גוף ראשון/שלישי</li>
     </ul>
-    <h4 style="margin-top:.8rem">שכנועי</h4>
+    <h4 style="margin-top:.8rem">שכנועי — סימני זיהוי</h4>
     <ul>
-      <li><strong>קריאה לפעולה:</strong> "על הממשלה לפעול!", "אנחנו חייבים…"</li>
+      <li><strong>קריאה לפעולה:</strong> "על הממשלה לפעול!", "חייבים לשנות…"</li>
       <li>שאלות רטוריות, מילות הגברה, פנייה רגשית</li>
     </ul>
-    <h4 style="margin-top:.8rem">עיתונאי</h4>
+    <h4 style="margin-top:.8rem">עיתונאי — סימני זיהוי</h4>
     <ul>
       <li><strong>פירמידה הפוכה:</strong> המידע החשוב קודם</li>
-      <li>5 W's: מי, מה, מתי, איפה, למה · ציטוטים ישירים</li>
+      <li>5W: מי, מה, מתי, איפה, למה · ציטוטים ישירים</li>
     </ul>
   </div>
 
-  <div class="section-hd"><span class="sn-icon">🔀</span><div class="sn">4</div>הסוג המעורב — הטעות הנפוצה</div>
+  <div class="section-hd"><span class="sn-icon">🔀</span><div class="sn">4</div>הסוג המעורב — הטעות הנפוצה בבגרות</div>
   <div class="card">
-    <p>טקסטים רבים משלבים כמה סוגים. <strong>זהה את הסוג הדומיננטי</strong> (מה המטרה העיקרית?) ואת הסוג המשני.</p>
+    <p>טקסטים רבים משלבים מספר סוגים. <strong>זהה את הסוג הדומיננטי</strong> — מה המטרה העיקרית? — ואת הסוג המשני.</p>
   </div>
-  <div class="box box-amber">⚠️ <strong>שגיאה נפוצה בבגרות:</strong> "הטקסט עיוני" ללא הנמקה. תמיד: "הטקסט עיוני <em>כי</em> הוא מציג נתונים ומחקרים ללא עמדה אישית."</div>
+  <div class="box box-amber">⚠️ <strong>שגיאה נפוצה:</strong> "הטקסט עיוני" ללא הנמקה. תמיד: "הטקסט עיוני <em>כי</em> הוא מציג נתונים ומחקרים ללא עמדה אישית של הכותב."</div>
 
   <div class="section-hd"><span class="sn-icon">🎨</span><div class="sn">5</div>דוגמה מנותחת — זיהוי מאפיינים בטקסט</div>
   <div class="box-teal">
-    <div class="box-teal-label">📝 טקסט לניתוח — סמן כל מרכיב בצבעו</div>
+    <div class="box-teal-label">📝 טקסט לניתוח — זהה כל מרכיב לפי צבע</div>
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.2rem;font-size:.88rem;line-height:2;color:var(--text-mid)">
-      <span style="background:#dbeafe;border-radius:3px;padding:1px 5px;font-weight:700;color:#1e40af;border-bottom:2.5px solid #3b82f6">מחקר שפורסם ב-2023 מצא כי 80% מבני הנוער ישנים פחות מ-8 שעות.</span>
+      <span style="background:#dbeafe;border-radius:3px;padding:1px 5px;font-weight:700;color:#1e40af;border-bottom:2.5px solid #3b82f6">מחקר שפורסם ב-2023 מצא כי 80% מבני הנוער ישנים פחות מ-8 שעות ביום.</span>
       <span style="background:#fef9c3;border-radius:3px;padding:1px 5px;font-weight:700;color:#854d0e;border-bottom:2.5px solid #ca8a04"> מצב זה הוא קטסטרופה שקטה.</span>
       <span style="background:#ede9fe;border-radius:3px;padding:1px 5px;font-weight:700;color:#5b21b6;border-bottom:2.5px solid #8b5cf6"> כשהילד שלכם לא מצליח — זה לא עצלנות.</span>
-      <span style="background:#ffe4e6;border-radius:3px;padding:1px 5px;font-weight:700;color:#9f1239;border-bottom:2.5px solid #f43f5e"> על המדינה לחוקק הגבלות סמארטפון!</span>
+      <span style="background:#ffe4e6;border-radius:3px;padding:1px 5px;font-weight:700;color:#9f1239;border-bottom:2.5px solid #f43f5e"> על המדינה לחוקק הגבלות שימוש בסמארטפון!</span>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.8rem;padding-top:.7rem;border-top:1px solid #99f6e4">
       <span style="font-size:.7rem;font-weight:700;display:flex;align-items:center;gap:.28rem"><span style="width:11px;height:11px;background:#dbeafe;border:1.5px solid #3b82f6;border-radius:3px;display:inline-block"></span>עובדה/נתון</span>
@@ -537,7 +531,7 @@ button,input,select,textarea{font-family:inherit}
 
   <div class="section-hd"><span class="sn-icon">⚖️</span><div class="sn">6</div>עובדה לעומת דעה</div>
   <div class="card">
-    <p>הבחנה בין <strong>עובדה</strong> (ניתן לאמת) לבין <strong>דעה</strong> (פרשנות אישית):</p>
+    <p>מיומנות מרכזית: הבחנה בין <strong>עובדה</strong> (ניתן לאמת) לבין <strong>דעה</strong> (פרשנות, הערכה אישית):</p>
     <div class="grid2" style="margin-top:.6rem">
       <div class="mini-card" style="border-right:3px solid #3b82f6">
         <div class="mini-title" style="color:#1e40af">📊 עובדה</div>
@@ -545,14 +539,13 @@ button,input,select,textarea{font-family:inherit}
       </div>
       <div class="mini-card" style="border-right:3px solid #ca8a04">
         <div class="mini-title" style="color:#92400e">💬 דעה</div>
-        <div class="mini-body">פרשנות, עמדה, הערכה. <strong>דוגמה:</strong> "הרשתות החברתיות מזיקות לנוער ואין להן ערך חינוכי."</div>
+        <div class="mini-body">פרשנות, עמדה. <strong>דוגמה:</strong> "הרשתות החברתיות מזיקות לנוער ואין להן שום ערך חינוכי."</div>
       </div>
     </div>
   </div>
 
-  <div class="section-hd"><span class="sn-icon">📝</span><div class="sn">7</div>נוסחת תשובה לבגרות</div>
+  <div class="section-hd"><span class="sn-icon">📝</span><div class="sn">7</div>נוסחת תשובה לבגרות — 3 חלקים</div>
   <div class="card">
-    <h4>מבנה תשובה מלאה — 3 חלקים</h4>
     <ol>
       <li><strong>הגדרה:</strong> "הטקסט הוא [סוג]"</li>
       <li><strong>הנמקה:</strong> "כי מטרתו [המטרה]"</li>
@@ -562,24 +555,23 @@ button,input,select,textarea{font-family:inherit}
   <div class="box-teal">
     <div class="box-teal-label">✏️ דוגמה לתשובה מלאה</div>
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.2rem;font-size:.86rem;line-height:1.75;color:var(--text-mid)">
-      "הטקסט הוא <strong>שכנועי</strong> שכן מטרתו לשכנע לפעולה. ניתן לראות זאת בקריאה לפעולה <em>'על המדינה לחוקק הגבלות'</em> ובפנייה הרגשית <em>'כשהילד שלכם לא מצליח'</em>. כמו כן, הטקסט מכיל מרכיבים עיוניים (נתוני מחקר) המשמשים לחיזוק הטיעון."
+      "הטקסט הוא <strong>שכנועי</strong> שכן מטרתו לשכנע את הקורא לפעול. ניתן לראות זאת בקריאה לפעולה <em>'על המדינה לחוקק הגבלות'</em> ובפנייה הרגשית <em>'כשהילד שלכם לא מצליח'</em>. כמו כן, הטקסט מכיל מרכיבים עיוניים (נתוני מחקר) המשמשים לחיזוק הטיעון."
     </div>
   </div>
 
-  <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">8</div>סיכום — 5 שלבים לזיהוי</div>
+  <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">8</div>סיכום — 5 שלבים לזיהוי סוג הטקסט</div>
   <div class="steps-wrap">
-    <div class="steps-title">📋 שאל/י את עצמך</div>
+    <div class="steps-title">📋 שאל/י את עצמך — 5 שאלות מפתח</div>
     <div class="step-item"><div class="step-num">1</div><span><strong>מה המטרה?</strong> — להסביר, לבדר, לשכנע, לדווח?</span></div>
     <div class="step-item"><div class="step-num">2</div><span><strong>מה סוג השפה?</strong> — ניטרלית, רגשית, תיאורית, משכנעת?</span></div>
     <div class="step-item"><div class="step-num">3</div><span><strong>האם יש אמצעים ספרותיים?</strong> — מטפורות, האנשה, חריזה?</span></div>
     <div class="step-item"><div class="step-num">4</div><span><strong>האם יש קריאה לפעולה?</strong> — אם כן → שכנועי</span></div>
-    <div class="step-item"><div class="step-num">5</div><span><strong>מהו מבנה הטקסט?</strong> — פירמידה, פסקאות מובנות, חריזה?</span></div>
+    <div class="step-item"><div class="step-num">5</div><span><strong>מהו מבנה הטקסט?</strong> — פסקאות היררכיות, חריזה, פירמידה הפוכה?</span></div>
   </div>
   <div class="box box-green">✅ <strong>מוכן לתרגול!</strong> שלושה טקסטים ו-20 שאלות.</div>
 
 </div>
-
-l">
+</div><!-- /pane-theory -->ir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -601,7 +593,7 @@ l">
   --purple:#6d28d9;--purple-lt:#faf5ff;
   --gold:#ca8a04;--gold-lt:#fefce8;
   --teal:#0f766e;--teal-lt:#f0fdfa;
-  --lc:#0891b2;--lc-lt:#ecfeff;--lc-dk:#0e7490;
+  --lc:#0891b2;--lc-lt:#ecfeff;
   --sh1:0 1px 3px rgba(13,20,36,.06);--sh2:0 4px 20px rgba(13,20,36,.08);--sh3:0 12px 40px rgba(13,20,36,.12);
   --r:14px;--r-lg:20px;--r-xl:26px;--r-pill:999px;
 }
@@ -855,7 +847,7 @@ button,input,select,textarea{font-family:inherit}
   background:var(--green-lt);border:2px solid #bbf7d0;
   border-radius:var(--r-xl);padding:1rem 1.3rem;
   margin-bottom:1.5rem;
-  align-items:center;gap:.85rem;
+  display:flex;align-items:center;gap:.85rem;
 }
 #gate-confirmed.show{display:flex}
 #gate-confirmed.hidden{display:none!important}
@@ -985,29 +977,11 @@ button,input,select,textarea{font-family:inherit}
 </head>
 <body>
 
-<!-- TOPBAR -->
-<div class="topbar">
-  <button class="btn-back" onclick="goBack()" title="חזור לדשבורד">←</button>
-  <div class="topbar-info">
-    <div class="topbar-title">📄 סוגי טקסטים</div>
-    <div class="topbar-sub">יחידה 1 — הבנה והבעה · שיעור 1</div>
-  </div>
-  <div class="topbar-actions">
-    <span class="t-chip amber">⏱ 40 דק׳</span>
-    <span class="t-chip teacher" id="role-chip">🎓 מורה</span>
-    <button class="btn-print" onclick="printLesson()" title="הדפס שיעור">🖨️ הדפסה</button>
-  </div>
-</div>
 
-<!-- TABS -->
-<div class="tabs-bar">
-  <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
-  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (20 שאלות)</button>
-  <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
 ══════════════════ -->
 <div class="tab-pane" id="pane-practice">
 <div class="print-header">
-  <h1>תרגול — שיעור 1: סוגי טקסטים</h1>
+<h1>תרגול — שיעור 1: סוגי טקסטים</h1>
   <p>20 שאלות מבוססות טקסט | לשון Lesson 2.0</p>
 </div>
 <div class="lesson-wrap">
@@ -1058,16 +1032,17 @@ button,input,select,textarea{font-family:inherit}
   </div>
 
   <!-- Practice content (hidden until gate confirmed) -->
-  <div id="practice-content-wrap" style="display:none">
+  <div id="practice-content-wrap">
+
   <!-- TEXT A: Informational -->
   <div class="reading-text-box">
     <div class="rt-title">טקסט א׳ — על הנחיל והדבורה</div>
     <div class="rt-byline">
-      <span>📖 מתוך: "עולם החרקים", ספר לימוד לביולוגיה, כיתה י׳, הוצאת עמל 2022</span>
+      <span>📖 "עולם החרקים", ספר לימוד לביולוגיה, כיתה י׳, הוצאת עמל 2022</span>
     </div>
     <div class="rt-body">
-      <p><strong>הדבורה המערבית (Apis mellifera) היא חרק חברתי החי בקולוניות המונות בין 20,000 ל-80,000 פרטים.</strong> הקולוניה מורכבת ממלכה אחת, כמה מאות זכרים (כוורנים) ואלפי פועלות. כל פרט ממלא תפקיד מוגדר: הפועלות אוספות צוף, מייצרות דבש ומגנות על הכוורת; הכוורנים מפרים את המלכה; המלכה מטילה ביצים בלבד.</p>
-      <p>תהליך ייצור הדבש מתחיל כאשר פועלת אוספת צוף מפרחים בחדקה. הצוף עובר עיבוד אנזימטי בגופה של הדבורה, ולאחר מכן מופקד בתאי שעווה בכוורת. <strong>הדבורות מניפות בכנפיהן כדי לאייד את עודפי הלחות</strong>, עד שריכוז הסוכר מגיע ל-80%.</p>
+      <p><strong>הדבורה המערבית (Apis mellifera) היא חרק חברתי החי בקולוניות המונות בין 20,000 ל-80,000 פרטים.</strong> הקולוניה מורכבת ממלכה אחת, כמה מאות זכרים (כוורנים) ואלפי פועלות. כל פרט ממלא תפקיד מוגדר: הפועלות אוספות צוף, מייצרות דבש ומגנות על הכוורת.</p>
+      <p>תהליך ייצור הדבש מתחיל כאשר פועלת אוספת צוף מפרחים בחדקה. הצוף עובר עיבוד אנזימטי בגופה, ולאחר מכן מופקד בתאי שעווה. <strong>הדבורות מניפות בכנפיהן כדי לאייד עודפי לחות</strong>, עד שריכוז הסוכר מגיע ל-80%.</p>
       <p>לדבורות תפקיד אקולוגי קריטי: הן מאביקות כ-75% מצמחי המזון האנושי בעולם. <strong>ירידה באוכלוסיית הדבורות עלולה לסכן את ביטחון המזון של מיליארדי בני אדם.</strong></p>
     </div>
   </div>
@@ -1078,10 +1053,10 @@ button,input,select,textarea{font-family:inherit}
     <div class="rt-title">טקסט ב׳ — הכוורת שנשכחה</div>
     <div class="rt-byline"><span>✍️ מירה שמש, קטע מסיפור קצר</span></div>
     <div class="rt-body">
-      <p>הסבא עמד בשדה והביט בכוורת הישנה. <em>היא הייתה כמו אישה זקנה שאיבדה את זיכרונה</em> — עיניים פקוחות אל השמיים, אבל בלי שום דבר שעוד נכנס פנימה. הדבורות עזבו לפני שנים, אולי בשנה שבה מתה רחל.</p>
+      <p>הסבא עמד בשדה והביט בכוורת הישנה. <em>היא הייתה כמו אישה זקנה שאיבדה את זיכרונה</em> — עיניים פקוחות אל השמיים, אבל בלי שום דבר שעוד נכנס פנימה. הדבורות עזבו לפני שנים.</p>
       <p>"מה יש בה?" שאלה הנכדה, צמודה לרגלו.</p>
       <p>"שקט," אמר הסבא. "שקט שמדבר."</p>
-      <p>הנכדה לא הבינה. היא עדיין הייתה בגיל שבו שקט הוא רק העדרו של רעש. אבל הסבא ידע: <em>כל כוורת ריקה מלאה בזמן שנשאר בה</em>. בשעווה קפואה, בניחוח מתוק שממאן להיפרד.</p>
+      <p>הנכדה לא הבינה. היא עדיין הייתה בגיל שבו שקט הוא רק העדרו של רעש. אבל הסבא ידע: <em>כל כוורת ריקה מלאה בזמן שנשאר בה</em>.</p>
     </div>
   </div>
 
@@ -1092,16 +1067,15 @@ button,input,select,textarea{font-family:inherit}
     <div class="rt-byline"><span>✍️ ד"ר אמיר גולן, עמותת שמירת הטבע · ynet, מרץ 2024</span></div>
     <div class="rt-body">
       <p><strong>הדבורות מתות — ואנחנו עדיין לא מבינים את הסכנה.</strong> בעשור האחרון נעלמו מעל 30% מאוכלוסיית הדבורות בישראל. זוהי לא סתם תופעה סביבתית — <em>זוהי תחילתו של משבר מזון שיפגע בכל אחד מאיתנו.</em></p>
-      <p>האחראים הם ברורים: חברות חקלאיות ענקיות שממשיכות לרסס בחומרי הדברה מוכחים כמסרטנים לדבורות. הממשלה יודעת. המדענים אזהרו. ובכל זאת — <strong>שום דבר לא משתנה.</strong></p>
-      <p>אם נמשיך לשתוק, בעוד עשרים שנה הילדים שלנו לא יראו שקד פורח בפברואר. <em>האם זה העולם שאנחנו רוצים להוריש להם?</em> הגיע הזמן לחוקק איסור מיידי על חומרי ההדברה הרעילים.</p>
+      <p>האחראים הם ברורים: חברות חקלאיות שממשיכות לרסס בחומרי הדברה מסרטנים. הממשלה יודעת. המדענים אזהרו. ובכל זאת — <strong>שום דבר לא משתנה.</strong></p>
+      <p><em>האם זה העולם שאנחנו רוצים להוריש לילדינו?</em> הגיע הזמן לחוקק איסור מיידי על חומרי ההדברה הרעילים.</p>
     </div>
   </div>
-
   <div class="quiz-header">
-    <div class="quiz-hd-title">✏️ תרגול — 20 שאלות על שלושת הטקסטים</div>
+    <div class="quiz-hd-title">✏️ תרגול — 20 שאלות מבוססות טקסט</div>
     <div class="quiz-hd-desc">רב-בחירה, נכון/לא נכון וסידור. ענה על הכול לפני ההגשה — התשובות נסתרות.</div>
     <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="qp-fill" style="width:0%"></div></div>
-    <div class="quiz-prog-row"><span id="qp-counter">0 / 20 נענו</span></div>
+    <div class="quiz-prog-row"><span id="qp-counter">0 / 20 נענו</span><span id="qp-score" style="display:none;font-weight:700;color:var(--lc)"></span></div>
   </div>
 
   <div id="questions-container"></div>
@@ -1213,16 +1187,14 @@ const FB_CFG={
   measurementId:"G-26KTLPJ8N1"
 };
 let _db=null;
-const LESSON_ID='u1_l1';
-const LESSON_TITLE='סוגי טקסטים';
 function initFirebase(){
   try{
     if(typeof firebase==='undefined') return;
     if(!firebase.apps.length) firebase.initializeApp(FB_CFG);
     _db=firebase.firestore();
     _db.enablePersistence().catch(()=>{});
-    // Subscribe to real-time showAnswers from Firestore lessons/LESSON_ID
-    _db.collection('lessons').doc(LESSON_ID).onSnapshot(doc=>{
+    // Subscribe to real-time showAnswers from Firestore lessons/u1_l0
+    _db.collection('lessons').doc('u1_l1').onSnapshot(doc=>{
       const val=doc.exists?doc.data()?.showAnswers===true:false;
       const current=LS.get('lashon2_answers_visible',{});
       current['u1_l1']=val; LS.set('lashon2_answers_visible',current);
@@ -1235,8 +1207,8 @@ async function saveScore(score,studentName,className){
   if(!_db) return;
   const now=new Date();
   const docData={
-    lessonId:LESSON_ID,
-    lessonTitle:LESSON_TITLE,
+    lessonId:'u1_l1',
+    lessonTitle:'סוגי טקסטים',
     score,
     studentName:studentName||'תלמיד/ה',
     className:className||'לא צוין',
@@ -1270,7 +1242,7 @@ const BACK_URL=_params.get('back')||(()=>{const p=window.location.pathname;retur
 
 function applyAnswersVisibility(){
   const fbAv=LS.get('lashon2_answers_visible',{});
-  const fbVal=fbAv[LESSON_ID];
+  const fbVal=fbAv['u1_l1'];
   if(typeof fbVal==='boolean') ANSWERS_VISIBLE=fbVal;
   renderAnswersTab();
 }
@@ -1304,137 +1276,130 @@ function renderAnswersTab(){
    QUESTION BANK — 20 questions on the reading text
 ════════════════════════════════════════════════ */
 const QUESTIONS=[
+  /* ── טקסט א׳ — עיוני ── */
   {id:'q01',type:'mc',ref:'טקסט א׳',
    q:'מהו סוג הטקסט של טקסט א׳?',
    opts:['שכנועי','ספרותי','עיוני','עיתונאי'],ans:2,
    explain:'טקסט א׳ מציג עובדות ביולוגיות בשפה מדעית ניטרלית, ללא עמדה אישית וללא קריאה לפעולה — מאפיינים קלאסיים של טקסט עיוני.',
-   teacherNote:'ניטרלי + עובדות + מינוח מקצועי = עיוני.'},
+   teacherNote:'שאלת פתיחה. ניטרלי + עובדות + מינוח = עיוני.'},
 
   {id:'q02',type:'mc',ref:'טקסט א׳',
-   q:'מהו גוף הדיבר הדומיננטי בטקסט א׳, ומה הוא מסמל?',
-   opts:['גוף ראשון — פנייה אישית','גוף שני — הוראות','גוף שלישי — מרחק אובייקטיבי','גוף ראשון רבים'],ans:2,
-   explain:'גוף שלישי ("הדבורה עוברת", "הפועלות אוספות") = אובייקטיביות. הכותב לא מופיע — סימן לשפה מדעית עיונית.',
+   q:'מהו גוף הדיבר הדומיננטי בטקסט א׳ ומה הוא מסמל?',
+   opts:['גוף ראשון — פנייה אישית','גוף שני — הוראות לקורא','גוף שלישי — מרחק אובייקטיבי','גוף ראשון רבים — קהילה'],ans:2,
+   explain:'גוף שלישי ("הדבורות מניפות", "הפועלות אוספות") = אובייקטיביות. הכותב לא מופיע — מאפיין עיוני מובהק.',
    teacherNote:''},
 
   {id:'q03',type:'mc',ref:'טקסט א׳',
-   q:'איזה מהמשפטים הוא עובדה מטקסט א׳?',
-   opts:['הדבורות עזבו בשנה שבה מתה רחל','הדבורות מאביקות כ-75% מצמחי המזון האנושי','הדבורות הן יצורים שחייבים להציל','הדבורות מסוכנות לאדם'],
-   ans:1,
-   explain:'עובדה = ניתן לאמת בנתונים. "75% מצמחי המזון" הוא נתון מדעי מוכח. שאר האפשרויות הן ספרות, דעה, או שגיאה.',
-   teacherNote:'הבחנת עובדה/דעה — מיומנות מרכזית בבגרות.'},
+   q:'איזה משפט הוא עובדה מטקסט א׳?',
+   opts:['הדבורות עזבו בשנה שבה מתה רחל','הדבורות מאביקות כ-75% מצמחי המזון האנושי','הדבורות הן יצורים שחייבים להציל','הדבורות מסוכנות לאדם'],ans:1,
+   explain:'עובדה = ניתן לאמת בנתונים. "75% מצמחי המזון" הוא נתון מדעי מוכח. שאר האפשרויות: א — ספרותי, ג — דעה, ד — שגוי.',
+   teacherNote:'שאלת עובדה/דעה מרכזית לבגרות.'},
 
   {id:'q04',type:'tf',ref:'טקסט א׳',
    q:'טקסט א׳ מכיל עמדה אישית ברורה של הכותב.',
    ans:false,
-   explain:'לא נכון. הטקסט עיוני — הכותב מסתיר עמדתו מאחורי הנתונים. אין "אני חושב" / קריאה לפעולה.',
+   explain:'לא נכון. הטקסט עיוני — הכותב מסתיר עמדתו מאחורי הנתונים. אין "אני חושב" ואין קריאה לפעולה.',
    teacherNote:''},
 
-  {id:'q05',type:'mc',ref:'טקסט ב׳',
-   q:'מהו הסוג הספרותי של טקסט ב׳?',
-   opts:['מאמר דעה','כתבה עיתונאית','קטע מסיפור קצר — פרוזה ספרותית','ספר לימוד עיוני'],
-   ans:2,
-   explain:'הטקסט כולל דמויות (סבא, נכדה), עלילה, דיאלוג ואמצעים ספרותיים. מאפיינים של פרוזה ספרותית.',
-   teacherNote:''},
+  {id:'q05',type:'mc',ref:'טקסט א׳',
+   q:'הביטוי "תפקיד אקולוגי קריטי" בטקסט א׳ — עובדה או דעה?',
+   opts:['דעה — "קריטי" הוא הערכה סובייקטיבית','עובדה — מגובה מיד בנתון (75% אבקה)','דעה — כי לא ניתן למדוד "חשיבות"','עובדה — כי הטקסט עיוני'],ans:1,
+   explain:'למרות שהמילה "קריטי" נשמעת כהערכה, הטקסט מגבה אותה מיד בנתון מדעי מדויק (75%). בהקשר מדעי, הנתון הופך את הטענה לעובדה.',
+   teacherNote:'שאלת עומק — עובדה מגובה נתונים שונה מדעה סובייקטיבית.'},
 
+  /* ── טקסט ב׳ — ספרותי ── */
   {id:'q06',type:'mc',ref:'טקסט ב׳',
-   q:'זהה את האמצעי הספרותי: "היא הייתה כמו אישה זקנה שאיבדה את זיכרונה"',
-   opts:['מטפורה','השוואה (דימוי) — "כמו"','האנשה','הגדרה מדעית'],
-   ans:1,
-   explain:'"כמו" = מילת השוואה = דימוי (simile). שונה ממטפורה שאומרת "היא אישה זקנה" ישירות.',
-   teacherNote:'מטפורה = ישירה; דימוי = עם "כמו/כ/כאילו".'},
+   q:'מהו הסוג הספרותי של טקסט ב׳?',
+   opts:['מאמר דעה','כתבה עיתונאית','קטע מסיפור קצר — פרוזה ספרותית','ספר לימוד'],ans:2,
+   explain:'הטקסט כולל דמויות (סבא, נכדה), עלילה, דיאלוג ואמצעים ספרותיים — מאפייני פרוזה ספרותית.',
+   teacherNote:''},
 
   {id:'q07',type:'mc',ref:'טקסט ב׳',
-   q:'מה הנושא האמיתי (התמה) של טקסט ב׳?',
-   opts:['הכחדת דבורים','גידול דבורים כמקצוע מסורתי','זיכרון, אובדן ומפגש בין-דורי','פגעי החקלאות'],
-   ans:2,
-   explain:'בספרות, הנושא הפשוטר (כוורת) הוא מטפורה לנושא עמוק יותר. כאן: הכוורת = אובדן, הסבא = זיכרון, הנכדה = דור שלא מבין.',
-   teacherNote:'שאלת תמה — "על מה הטקסט באמת?"'},
+   q:'זהה את האמצעי הספרותי: "היא הייתה כמו אישה זקנה שאיבדה את זיכרונה"',
+   opts:['מטפורה — השוואה ישירה','השוואה (דימוי) — "כמו" הוא הסימן','האנשה — ייחוס תכונות אנוש','הגדרה מדעית'],ans:1,
+   explain:'"כמו" = מילת השוואה = דימוי (simile). מטפורה אומרת "היא אישה זקנה" ישירות ללא "כמו".',
+   teacherNote:'הבחנה מרכזית בבגרות: מטפורה = ישירה; דימוי = עם "כמו/כ/כאילו".'},
 
-  {id:'q08',type:'tf',ref:'טקסט ב׳',
+  {id:'q08',type:'mc',ref:'טקסט ב׳',
+   q:'המשפט "כל כוורת ריקה מלאה בזמן שנשאר בה" — מהו?',
+   opts:['עובדה ביולוגית','דעה מוצהרת של הכותב','פרדוקס פיוטי — אמצעי ספרותי','קריאה לפעולה'],ans:2,
+   explain:'פרדוקס = טענה שנראית סותרת עצמה ("ריקה" + "מלאה"). בספרות הוא מבטא תובנה עמוקה על זיכרון ואובדן.',
+   teacherNote:''},
+
+  {id:'q09',type:'tf',ref:'טקסט ב׳',
    q:'טקסט ב׳ מעביר מידע עובדתי על כוורות דבורים כמו טקסט א׳.',
    ans:false,
-   explain:'לא נכון. טקסט ב׳ עוסק בזיכרון ואובדן. הכוורת היא רק רקע — אמצעי ליצירת אווירה.',
+   explain:'לא נכון. טקסט ב׳ עוסק בזיכרון, אובדן ויחסי סבא-נכדה. הכוורת היא רקע ומטפורה — לא מטרת הטקסט.',
    teacherNote:''},
 
-  {id:'q09',type:'mc',ref:'טקסט ג׳',
+  {id:'q10',type:'mc',ref:'טקסט ב׳',
+   q:'מה התמה (הנושא העמוק) של טקסט ב׳?',
+   opts:['הכחדת דבורים בישראל','גידול דבורים כמקצוע מסורתי','זיכרון, אובדן ומפגש בין-דורי','השפעת החקלאות על הסביבה'],ans:2,
+   explain:'בספרות, הנושא הפשוטר (כוורת) הוא מטפורה לנושא עמוק יותר: הכוורת = זיכרון אובד, הסבא = מי שזוכר, הנכדה = דור שלא מבין.',
+   teacherNote:'שאלת תמה — "על מה הטקסט באמת?"'},
+
+  /* ── טקסט ג׳ — שכנועי ── */
+  {id:'q11',type:'mc',ref:'טקסט ג׳',
    q:'מהו סוג הטקסט של טקסט ג׳?',
-   opts:['עיוני','ספרותי','שכנועי','עיתונאי ניטרלי'],
-   ans:2,
-   explain:'טקסט ג׳: קריאה לפעולה ("לחוקק איסור"), שאלה רטורית ("האם זה העולם?"), פנייה רגשית — מאפיינים שכנועיים.',
-   teacherNote:''},
-
-  {id:'q10',type:'mc',ref:'טקסט ג׳',
-   q:'המשפט "30% מאוכלוסיית הדבורות נעלמו" — עובדה או דעה?',
-   opts:['דעה — הכותב מוטה','עובדה — נתון ניתן לאמת','דעה — לא ניתן לספור דבורות','עובדה כי יש מספר'],
-   ans:1,
-   explain:'נתון אחוזי על ירידת אוכלוסייה ניתן לאמת. גם בטקסט שכנועי יש עובדות — ההבדל: בשכנועי הן כלי לשכנוע.',
-   teacherNote:''},
-
-  {id:'q11',type:'tf',ref:'טקסט ג׳',
-   q:'"בעוד עשרים שנה הילדים שלנו לא יראו שקד פורח" — זוהי עובדה.',
-   ans:false,
-   explain:'לא נכון. זו תחזית רגשית — לא עובדה. תחזית ≠ עובדה. הכותב משתמש בתמונה עתידית מפחידה כטכניקה שכנועית.',
+   opts:['עיוני','ספרותי','שכנועי','עיתונאי ניטרלי'],ans:2,
+   explain:'טקסט ג׳: קריאה לפעולה ("לחוקק איסור"), שאלה רטורית ("האם זה העולם?"), פנייה רגשית ("לילדינו") — מאפיינים שכנועיים מובהקים.',
    teacherNote:''},
 
   {id:'q12',type:'mc',ref:'טקסט ג׳',
-   q:'מה תפקיד השאלה הרטורית: "האם זה העולם שאנחנו רוצים להוריש לילדינו?"',
-   opts:['לבקש מידע','לגרות תחושת אחריות ואשמה — שכנועי-רגשי','להציג נתון מחקרי','לסכם בניטרליות'],
-   ans:1,
-   explain:'שאלה רטורית לא מצפה לתשובה — מניחה שהתשובה ברורה. כאן: פנייה לתחושת הורית-אחריותית.',
+   q:'המשפט "30% מאוכלוסיית הדבורות נעלמו" — עובדה או דעה?',
+   opts:['דעה — הכותב מוטה','עובדה — נתון ניתן לאמת','דעה — לא ניתן לספור דבורות','עובדה כי זה מספר עגול'],ans:1,
+   explain:'נתון אחוזי על ירידת אוכלוסייה ניתן לאמת במחקר. גם בטקסט שכנועי יש עובדות — ההבדל: בשכנועי הן כלי לשכנוע, לא מטרה.',
    teacherNote:''},
 
-  {id:'q13',type:'mc',ref:'השוואה',
-   q:'מה משותף לשלושת הטקסטים?',
-   opts:['שלושתם עיוניים','שלושתם עוסקים בנושא הדבורות','שלושתם מציגים נתונים מחקריים','שלושתם קוראים לפעולה'],
-   ans:1,
-   explain:'הנושא המשותף — דבורות. אולם גישתם, סוגם, שפתם ומסקנותיהם שונות לחלוטין.',
-   teacherNote:''},
-
-  {id:'q14',type:'mc',ref:'השוואה',
-   q:'מה ההבדל העיקרי בין שימוש בנתון "דבורות" בטקסט א׳ לעומת ג׳?',
-   opts:['אין הבדל','בא׳ — מידע ניטרלי; בג׳ — כלי לשכנוע ולעורר דאגה','בג׳ הנתונים שגויים','בא׳ יש יותר פרטים'],
-   ans:1,
-   explain:'אותו נושא — שני שימושים שונים. בעיוני: נתון = מידע. בשכנועי: נתון = כלי להגברת פחד ודחיפות.',
-   teacherNote:''},
-
-  {id:'q15',type:'tf',ref:'השוואה',
-   q:'טקסט שכנועי לעולם לא יכיל עובדות מדעיות.',
+  {id:'q13',type:'tf',ref:'טקסט ג׳',
+   q:'"בעוד עשרים שנה הילדים שלנו לא יראו שקד פורח" — זוהי עובדה.',
    ans:false,
-   explain:'לא נכון. טקסטים שכנועיים מביאים עובדות לביסוס אמינות. ההבדל: בעיוני הן המטרה; בשכנועי הן כלי.',
+   explain:'לא נכון. זו תחזית רגשית — לא עובדה. תחזית ≠ עובדה, גם אם מבוססת על מגמה. הכותב משתמש בתמונה מפחידה כטכניקה שכנועית.',
    teacherNote:''},
 
-  {id:'q16',type:'mc',ref:'תיאוריה',
-   q:'תלמיד כתב: "הטקסט שכנועי כי יש בו מילים". מה הבעיה?',
-   opts:['אין בעיה','הנמקה כללית מדי — חסרה ראיה ספציפית + תפקיד','צריך לציין 3 ראיות','צריך לכתוב "עיוני"'],
-   ans:1,
-   explain:'תשובה בבגרות חייבת ראיה ספציפית + תפקיד. נכון: "שכנועי כי הביטוי 'לחוקק איסור מיידי' הוא קריאה לפעולה".',
+  {id:'q14',type:'mc',ref:'טקסט ג׳',
+   q:'מה תפקיד השאלה הרטורית: "האם זה העולם שאנחנו רוצים להוריש לילדינו?"',
+   opts:['לבקש מידע מהקורא','לגרות תחושת אחריות הורית ואשמה — שכנועי-רגשי','להציג נתון מחקרי','לסכם בניטרליות'],ans:1,
+   explain:'שאלה רטורית לא מצפה לתשובה. היא מניחה שהתשובה ברורה. כאן: "הילדים שלנו" + "להוריש" = פנייה לתחושת אחריות הורית.',
+   teacherNote:''},
+
+  /* ── השוואה ── */
+  {id:'q15',type:'mc',ref:'השוואה',
+   q:'מה ההבדל העיקרי בין השימוש בנושא הדבורות בטקסט א׳ לעומת ג׳?',
+   opts:['אין הבדל — שניהם עיוניים','בא׳ — מידע ניטרלי; בג׳ — כלי לשכנוע ולעורר דאגה','בג׳ הנתונים שגויים','בא׳ יש יותר פרטים מדעיים'],ans:1,
+   explain:'אותו נושא — שני שימושים שונים לחלוטין. עיוני: נתון = מידע. שכנועי: נתון = כלי להגברת פחד ודחיפות.',
+   teacherNote:'שאלה פדגוגית מרכזית — שימוש בנתון לעומת הצגת נתון.'},
+
+  {id:'q16',type:'tf',ref:'השוואה',
+   q:'שלושת הטקסטים עוסקים באותו נושא ומציגים אותו בדיוק באותה דרך.',
+   ans:false,
+   explain:'לא נכון. הנושא משותף (דבורות) אך הגישות שונות לחלוטין: א — עיוני, ב — ספרותי, ג — שכנועי.',
    teacherNote:''},
 
   {id:'q17',type:'mc',ref:'תיאוריה',
-   q:'מה ההבדל בין דימוי למטפורה?',
-   opts:['אין הבדל','דימוי: "כמו"; מטפורה: השוואה ישירה ללא "כמו"','מטפורה: "כמו"; דימוי: ישירה','דימוי רק בשירה'],
-   ans:1,
-   explain:'דימוי = "כמו/כ/כאילו". מטפורה = השוואה ישירה ללא מילת השוואה. "כמו אישה זקנה" = דימוי; "היא אישה זקנה" = מטפורה.',
+   q:'תלמיד כתב: "הטקסט שכנועי כי יש בו מילים". מה הבעיה?',
+   opts:['אין בעיה — זו תשובה תקינה','הנמקה כללית מדי — חסרה ראיה ספציפית מהטקסט + תפקידה','צריך לציין שלוש ראיות בדיוק','הוא צריך לכתוב "עיוני"'],ans:1,
+   explain:'תשובה בבגרות חייבת: הגדרה + הנמקה + ראיה ספציפית + תפקיד. "יש בו מילים" = אפס ערך. נכון: "שכנועי כי הביטוי 'לחוקק איסור' הוא קריאה לפעולה."',
    teacherNote:''},
 
   {id:'q18',type:'tf',ref:'תיאוריה',
-   q:'טקסט יכול להיות גם שכנועי וגם עיוני בו-זמנית.',
-   ans:true,
-   explain:'נכון. "סוג מעורב" נפוץ. הבגרות מצפה שתזהה את הסוג הדומיננטי ותציין את הסוג המשני.',
+   q:'טקסט שכנועי לעולם לא יכיל עובדות מדעיות.',
+   ans:false,
+   explain:'לא נכון. טקסטים שכנועיים מביאים עובדות לביסוס אמינות. ההבדל: בעיוני הן מטרה; בשכנועי הן כלי לשכנוע.',
    teacherNote:''},
 
   {id:'q19',type:'sort',ref:'תיאוריה',
    q:'סדרו מ"עיוני ביותר" ל"שכנועי ביותר":',
    items:['קריאה לפעולה: "חוקקו חוק מיידי!"','נתון מחקרי: "מחקר מ-2023 מצא..."','תיאור פיוטי: "כמו אישה זקנה"','שאלה רטורית: "האם נמשיך לשתוק?!"'],
    correctOrder:[1,2,3,0],
-   explain:'נתון מחקרי (עיוני ביותר) ← תיאור פיוטי (ספרותי) ← שאלה רטורית (שכנועי) ← קריאה לפעולה (שכנועי ביותר).',
+   explain:'נתון מחקרי (עיוני) ← תיאור פיוטי (ספרותי) ← שאלה רטורית (שכנועי) ← קריאה לפעולה (שכנועי קיצוני). מידע → רגש → פעולה.',
    teacherNote:''},
 
   {id:'q20',type:'sort',ref:'תיאוריה',
-   q:'סדרו את שלבי כתיבת תשובה לשאלת "סוג הטקסט" בבגרות:',
-   items:['ראיה ספציפית מהטקסט + תפקידה','הגדר את סוג הטקסט','ניתוח אם יש אלמנטים ממספר סוגים','הנמק בהצגת מטרת הטקסט'],
+   q:'סדרו את שלבי תשובה לשאלת "סוג הטקסט" בבגרות:',
+   items:['ראיה ספציפית מהטקסט + תפקידה','הגדר את סוג הטקסט','ניתוח אם יש אלמנטים ממספר סוגים','הנמק — מה מטרת הטקסט'],
    correctOrder:[1,3,0,2],
-   explain:'הגדר → הנמק → ראיה ספציפית → ניתוח מורכב. מבנה זה מבטיח ניקוד מלא.',
+   explain:'הגדר → הנמק (מטרה) → ראיה ספציפית → ניתוח מורכב. מבנה זה מבטיח ניקוד מלא.',
    teacherNote:''},
 ];
 
@@ -1655,7 +1620,7 @@ function _doSubmitQuiz(){
     setTimeout(()=>{const b=document.getElementById('res-bar');if(b)b.style.width=pct+'%'},120);
   }
   const prog=LS.get('lashon2_prog_'+STUDENT_NAME,{});
-  prog[LESSON_ID]={done:true,score:pct,date:new Date().toLocaleDateString('he-IL'),className:STUDENT_CLASS};
+  prog['u1_l1']={done:true,score:pct,date:new Date().toLocaleDateString('he-IL'),className:STUDENT_CLASS};
   LS.set('lashon2_prog_'+STUDENT_NAME,prog);
   saveScore(pct,STUDENT_NAME,STUDENT_CLASS);
   if(window.opener) try{window.opener.postMessage({type:'lessonDone',lid:'u1_l1',score:pct,studentName:STUDENT_NAME,className:STUDENT_CLASS},'*')}catch{}
@@ -1682,7 +1647,7 @@ function sendResults(pct){
   const wa=LS.get('lashon2_teacher_wa','')||LS.get('teacher_whatsapp','');
   const body=`שיעור 1 — סוגי טקסטים\nתלמיד/ה: ${STUDENT_NAME}\nכיתה: ${STUDENT_CLASS||'לא צוין'}\nציון: ${pct}%\nתאריך הגשה: ${new Date().toLocaleDateString('he-IL')} ${new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})}`;
   if(wa){window.open('https://wa.me/972'+wa.replace(/^0/,'')+'?text='+encodeURIComponent(body),'_blank');return}
-  if(email){window.location.href='mailto:'+email+'?subject='+encodeURIComponent('שיעור 1 — '+STUDENT_NAME+' כיתה '+STUDENT_CLASS)+'&body='+encodeURIComponent(body);return}
+  if(email){window.location.href='mailto:'+email+'?subject='+encodeURIComponent('הגשת שיעור — '+STUDENT_NAME+' כיתה '+STUDENT_CLASS)+'&body='+encodeURIComponent(body);return}
   toast('⚠️ לא הוגדרו פרטי המורה.');
 }
 
@@ -1723,30 +1688,31 @@ function switchTab(t){
     document.getElementById('btn-'+x)?.classList.toggle('active',x===t);
     document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);
   });
-  if(t==='practice'){
+
+  // When student opens practice tab — show gate if not yet confirmed
+  if(t==='practice' && USER_ROLE==='student'){
     const gate=document.getElementById('student-gate');
     const confirmed=document.getElementById('gate-confirmed');
     const wrap=document.getElementById('practice-content-wrap');
     const dateEl=document.getElementById('gate-date-display');
+
+    // Auto-fill date
     if(dateEl) dateEl.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-    if(USER_ROLE==='teacher'){
-      if(gate)gate.classList.add('hidden');
-      if(confirmed)confirmed.classList.add('hidden');
-      if(wrap)wrap.style.display='';
+
+    if(!_gateConfirmed){
+      // Pre-fill if returning student
+      const nameEl=document.getElementById('gate-name');
+      const classEl=document.getElementById('gate-class');
+      if(nameEl && STUDENT_NAME && STUDENT_NAME!=='תלמיד/ה') nameEl.value=STUDENT_NAME;
+      if(classEl && STUDENT_CLASS) classEl.value=STUDENT_CLASS;
+
+      if(gate) gate.classList.remove('hidden');
+      if(confirmed) confirmed.classList.add('hidden');
+      if(wrap) wrap.style.display='none';
     } else {
-      if(!_gateConfirmed){
-        const nameEl=document.getElementById('gate-name');
-        const classEl=document.getElementById('gate-class');
-        if(nameEl&&STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה')nameEl.value=STUDENT_NAME;
-        if(classEl&&STUDENT_CLASS)classEl.value=STUDENT_CLASS;
-        if(gate)gate.classList.remove('hidden');
-        if(confirmed)confirmed.classList.add('hidden');
-        if(wrap)wrap.style.display='none';
-      } else {
-        if(gate)gate.classList.add('hidden');
-        if(confirmed)confirmed.classList.remove('hidden');
-        if(wrap)wrap.style.display='';
-      }
+      if(gate) gate.classList.add('hidden');
+      if(confirmed) confirmed.classList.remove('hidden');
+      if(wrap) wrap.style.display='';
     }
   }
 }
@@ -1867,7 +1833,7 @@ function printLesson(){
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>הדפסת שיעור — מבוא לניתוח טקסט</title>
+<title>הדפסת שיעור — סוגי טקסטים</title>
 <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -1937,8 +1903,8 @@ body{font-family:'Heebo',sans-serif;direction:rtl;background:#fff;color:#0d1424;
 <div class="print-doc">
   <!-- Header -->
   <div class="print-doc-header">
-    <h1>🔍 מבוא לניתוח טקסט</h1>
-    <p>יחידה 1 — הבנה והבעה · שיעור 0 | לשון Lesson 2.0 | כיתות ט׳–י׳</p>
+    <h1>📄 סוגי טקסטים</h1>
+    <p>יחידה 1 — הבנה והבעה · שיעור 1 | לשון Lesson 2.0 | כיתות י׳</p>
     <div class="print-student">תלמיד/ה: ${STUDENT_NAME} &nbsp;|&nbsp; תאריך הדפסה: ${new Date().toLocaleDateString('he-IL')}</div>
   </div>
 
@@ -1951,19 +1917,33 @@ body{font-family:'Heebo',sans-serif;direction:rtl;background:#fff;color:#0d1424;
 
   <!-- PART 2: PRACTICE -->
   <div class="pb"></div>
-  <div class="print-section-title">חלק ב — טקסט התרגול</div>
+  <div class="print-section-title">חלק ב — טקסטי התרגול</div>
+
   <div class="print-reading">
-    <h3>רשתות חברתיות וכושר הריכוז של בני נוער</h3>
-    <div class="rt-byline">
-      <span>✍️ ד"ר אורי שפירא, חוקר נוירופסיכולוגיה</span>
-      <span>📅 מרץ 2024</span>
-      <span>📰 הארץ</span>
-    </div>
+    <h3>טקסט א׳ — על הנחיל והדבורה (עיוני)</h3>
+    <div class="rt-byline"><span>📖 ספר לימוד לביולוגיה, הוצאת עמל 2022</span></div>
     <div class="rt-body">
-      <p><strong>השימוש המוגבר ברשתות חברתיות בקרב בני נוער מוביל לירידה משמעותית ביכולת הריכוז.</strong> מחקר שנערך ב-2023 באוניברסיטת בן-גוריון עקב אחר 500 בני נוער לאורך שנה שלמה. ממצאיו הראו כי אלו שצפו בסרטוני טיקטוק יותר מ-3 שעות ביום סבלו מקשיי ריכוז בולטים, וציוניהם בבחינות שדרשו קריאה ממושכת ירדו בממוצע ב-15%.</p>
-      <p>הסיבה לכך נעוצה במבנה הייחודי של הרשתות החברתיות. הפלטפורמות מתוכננות בכוונה תחילה להציע תוכן קצר, מגרה וחדש בכל כמה שניות, ובכך מתנות את המוח לדרוש גירויים מיידיים ותכופים.</p>
-      <p>מאידך, פרופ' דנה כהן מאוניברסיטת תל-אביב טוענת כי ההשפעה תלויה בסוג התוכן. צעירים המשתמשים ברשתות ללמידה שיתופית ויצירת תוכן מקורי לא הראו כל ירידה.</p>
-      <p>לפיכך, ההתמודדות אינה מחייבת איסור גורף, אלא <strong>חינוך דיגיטלי מושכל</strong> שילמד את בני הנוער לנהל את זמן המסך שלהם.</p>
+      <p><strong>הדבורה המערבית (Apis mellifera) היא חרק חברתי החי בקולוניות המונות בין 20,000 ל-80,000 פרטים.</strong> הקולוניה מורכבת ממלכה, כוורנים ואלפי פועלות. הפועלות אוספות צוף, מייצרות דבש ומגנות על הכוורת.</p>
+      <p>הדבורות מניפות בכנפיהן כדי לאייד עודפי לחות עד שריכוז הסוכר מגיע ל-80%. לדבורות תפקיד אקולוגי קריטי: הן מאביקות כ-75% מצמחי המזון האנושי בעולם.</p>
+    </div>
+  </div>
+
+  <div class="print-reading">
+    <h3>טקסט ב׳ — הכוורת שנשכחה (ספרותי)</h3>
+    <div class="rt-byline"><span>✍️ מירה שמש, קטע מסיפור קצר</span></div>
+    <div class="rt-body">
+      <p>הסבא עמד בשדה והביט בכוורת הישנה. <em>היא הייתה כמו אישה זקנה שאיבדה את זיכרונה</em> — עיניים פקוחות אל השמיים, אבל בלי שום דבר שעוד נכנס פנימה.</p>
+      <p>"מה יש בה?" שאלה הנכדה. "שקט," אמר הסבא. "שקט שמדבר."</p>
+      <p>הנכדה לא הבינה. אבל הסבא ידע: <em>כל כוורת ריקה מלאה בזמן שנשאר בה</em>.</p>
+    </div>
+  </div>
+
+  <div class="print-reading">
+    <h3>טקסט ג׳ — הצילו את הדבורות (שכנועי)</h3>
+    <div class="rt-byline"><span>✍️ ד"ר אמיר גולן, ynet, מרץ 2024</span></div>
+    <div class="rt-body">
+      <p><strong>הדבורות מתות — ואנחנו עדיין לא מבינים את הסכנה.</strong> בעשור האחרון נעלמו מעל 30% מהדבורות בישראל. זוהי תחילתו של משבר מזון.</p>
+      <p>הממשלה יודעת. המדענים אזהרו. ובכל זאת — שום דבר לא משתנה. <em>האם זה העולם שאנחנו רוצים להוריש לילדינו?</em> הגיע הזמן לחוקק איסור מיידי!</p>
     </div>
   </div>
 
@@ -1989,7 +1969,7 @@ function toast(m){const e=document.getElementById('toast');e.textContent=m;e.cla
    NAVIGATION
 ════════════════════════════════════════════════ */
 function goBack(){
-  if(window.opener) try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}
+  if(window.opener) try{window.opener.postMessage({type:'lessonDone',lid:'u1_l1'},'*')}catch{}
   window.location.href=BACK_URL;
 }
 
