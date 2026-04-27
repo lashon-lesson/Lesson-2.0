@@ -817,26 +817,40 @@ const LS={
 const _params=new URLSearchParams(location.search);
 let STUDENT_NAME=_params.get('student')||LS.get('lashon2_uname','')||'תלמיד/ה';
 let STUDENT_CLASS=LS.get('lashon2_class','')||'';
-const USER_ROLE=_params.get('role')||LS.get('lashon2_role','')||localStorage.getItem('userRole')||'student';
+// Robust role detection: URL param → lashon2 storage → generic storage
+const USER_ROLE=(()=>{
+  const fromUrl=_params.get('role');
+  if(fromUrl) return fromUrl;
+  const fromLashon=LS.get('lashon2_role','');
+  if(fromLashon) return fromLashon;
+  return localStorage.getItem('userRole')||'student';
+})();
 let ANSWERS_VISIBLE=_params.get('answers_visible')==='1';
 const BACK_URL=_params.get('back')||'index.html';
 
 function applyAnswersVisibility(){
+  // Also check cached value from localStorage (works without Firebase)
+  const cached=LS.get('lashon2_answers_visible',{});
+  if(cached[LESSON_ID]===true) ANSWERS_VISIBLE=true;
+
   const locked=document.getElementById('answers-locked-msg');
   const visible=document.getElementById('answers-visible-content');
   const src=document.getElementById('answers-source');
+
   if(USER_ROLE==='teacher'){
+    // Teacher always sees answers
     if(locked)locked.style.display='none';
     if(visible)visible.style.display='';
     if(src)src.textContent='גישת מורה — תמיד גלוי';
     const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';
-  }else{
+    const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='none';
+  } else {
     if(ANSWERS_VISIBLE){
       if(locked)locked.style.display='none';
       if(visible)visible.style.display='';
       if(src)src.textContent='שוחרר על ידי המורה';
       const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='';
-    }else{
+    } else {
       if(locked)locked.style.display='';
       if(visible)visible.style.display='none';
       const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='none';
@@ -1007,24 +1021,38 @@ function switchTab(t){
     document.getElementById('btn-'+x)?.classList.toggle('active',x===t);
     document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);
   });
-  if(t==='practice'&&USER_ROLE==='student'){
+  if(t==='practice'){
     const dateEl=document.getElementById('gate-date-display');
     if(dateEl) dateEl.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-    const gate=document.getElementById('student-gate');
-    const confirmed=document.getElementById('gate-confirmed');
-    const wrap=document.getElementById('practice-content-wrap');
-    const nameEl=document.getElementById('gate-name');
-    const classEl=document.getElementById('gate-class');
-    if(!_gateConfirmed){
-      if(nameEl&&STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה') nameEl.value=STUDENT_NAME;
-      if(classEl&&STUDENT_CLASS) classEl.value=STUDENT_CLASS;
-      if(gate)gate.classList.remove('hidden');
-      if(confirmed)confirmed.classList.add('hidden');
-      if(wrap)wrap.style.display='none';
-    }else{
-      if(gate)gate.classList.add('hidden');
-      if(confirmed)confirmed.classList.remove('hidden');
+
+    if(USER_ROLE==='teacher'){
+      // Teacher always sees content directly
+      document.getElementById('student-gate')?.classList.add('hidden');
+      document.getElementById('gate-confirmed')?.classList.add('hidden');
+      const wrap=document.getElementById('practice-content-wrap');
       if(wrap)wrap.style.display='';
+    } else {
+      // Student
+      const gate=document.getElementById('student-gate');
+      const confirmed=document.getElementById('gate-confirmed');
+      const wrap=document.getElementById('practice-content-wrap');
+      const nameEl=document.getElementById('gate-name');
+      const classEl=document.getElementById('gate-class');
+
+      if(!_gateConfirmed){
+        // Pre-fill if we have saved data
+        if(nameEl && STUDENT_NAME && STUDENT_NAME!=='תלמיד/ה') nameEl.value=STUDENT_NAME;
+        if(classEl && STUDENT_CLASS) classEl.value=STUDENT_CLASS;
+        if(gate)gate.classList.remove('hidden');
+        if(confirmed)confirmed.classList.add('hidden');
+        if(wrap)wrap.style.display='none';
+        // Scroll gate into view
+        setTimeout(()=>gate?.scrollIntoView({behavior:'smooth',block:'start'}),80);
+      } else {
+        if(gate)gate.classList.add('hidden');
+        if(confirmed)confirmed.classList.remove('hidden');
+        if(wrap)wrap.style.display='';
+      }
     }
   }
 }
@@ -1378,8 +1406,17 @@ body{font-family:'Heebo',sans-serif;direction:rtl;background:#fff;color:#000;fon
    NAVIGATION & TOAST
 ════════════════════════════════════════════════ */
 function goBack(){
-  if(window.opener)try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}
-  window.location.href=BACK_URL;
+  if(window.opener){
+    try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}
+    window.close();
+    return;
+  }
+  // Try history first, fallback to index
+  if(window.history.length>1){
+    window.history.back();
+  } else {
+    window.location.href=BACK_URL;
+  }
 }
 let _tt;
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800)}
@@ -1389,26 +1426,37 @@ function toast(m){const e=document.getElementById('toast');e.textContent=m;e.cla
 ════════════════════════════════════════════════ */
 function init(){
   initFirebase();
+
   if(USER_ROLE==='teacher'){
+    // Teacher: show answers tab, bypass gate
     const rc=document.getElementById('role-chip');if(rc)rc.style.display='';
     const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';
     _gateConfirmed=true;
     const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='';
-    const gate=document.getElementById('student-gate');if(gate)gate.classList.add('hidden');
-    const conf=document.getElementById('gate-confirmed');if(conf)conf.classList.add('hidden');
-  }else{
+    document.getElementById('student-gate')?.classList.add('hidden');
+    document.getElementById('gate-confirmed')?.classList.add('hidden');
+  } else {
+    // Student: hide practice content until gate is confirmed
     const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';
-    if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){
+    // Make sure gate is hidden initially (shown when switching to practice tab)
+    document.getElementById('student-gate')?.classList.add('hidden');
+    document.getElementById('gate-confirmed')?.classList.add('hidden');
+
+    // If returning student with saved data — auto-confirm gate
+    if(STUDENT_NAME && STUDENT_NAME!=='תלמיד/ה' && STUDENT_CLASS){
       _gateConfirmed=true;
       if(wrap)wrap.style.display='';
-      const gate=document.getElementById('student-gate');if(gate)gate.classList.add('hidden');
-      const av=document.getElementById('gc-avatar');const nm=document.getElementById('gc-name-display');const mt=document.getElementById('gc-meta-display');
+      document.getElementById('student-gate')?.classList.add('hidden');
+      const av=document.getElementById('gc-avatar');
+      const nm=document.getElementById('gc-name-display');
+      const mt=document.getElementById('gc-meta-display');
       if(av)av.textContent=STUDENT_NAME[0].toUpperCase();
       if(nm)nm.textContent=STUDENT_NAME;
       if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');
-      const conf=document.getElementById('gate-confirmed');if(conf)conf.classList.remove('hidden');
+      document.getElementById('gate-confirmed')?.classList.remove('hidden');
     }
   }
+
   applyAnswersVisibility();
   renderQuestions();
 }
