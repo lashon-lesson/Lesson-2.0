@@ -1,577 +1,3 @@
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>שיעור 1 — סוגי טקסטים | לשון Lesson 2.0</title>
-<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<style>
-/* ═══════════════════════════════════════════════
-   TOKENS
-═══════════════════════════════════════════════ */
-:root{
-  --bg:#f0f2f7;--surface:#fff;--surface2:#f8f9fb;--surface3:#eef0f5;
-  --border:#e4e7ef;--text:#0d1424;--text-mid:#3d4660;--muted:#6b7594;--subtle:#9aa3be;
-  --blue:#1a56db;--blue-lt:#eff4ff;--blue-dk:#1340b0;
-  --green:#15803d;--green-lt:#f0fdf4;
-  --amber:#b45309;--amber-lt:#fffbeb;
-  --red:#dc2626;--red-lt:#fef2f2;
-  --purple:#6d28d9;--purple-lt:#faf5ff;
-  --gold:#ca8a04;--gold-lt:#fefce8;
-  --teal:#0f766e;--teal-lt:#f0fdfa;
-  --lc:#0891b2;--lc-lt:#ecfeff;--lc-dk:#0e7490;
-  --sh1:0 1px 3px rgba(13,20,36,.06);--sh2:0 4px 20px rgba(13,20,36,.08);--sh3:0 12px 40px rgba(13,20,36,.12);
-  --r:14px;--r-lg:20px;--r-xl:26px;--r-pill:999px;
-}
-@media(prefers-color-scheme:dark){:root{
-  --bg:#0b0f17;--surface:#131924;--surface2:#192030;--surface3:#1f2840;
-  --border:#252f47;--text:#d8dfe8;--text-mid:#a0adc5;--muted:#7a8aaa;--subtle:#50607e;
-  --blue:#4d8aff;--blue-lt:#162040;--blue-dk:#6aa0ff;
-  --green:#34d875;--green-lt:#0c2618;
-  --amber:#f5a623;--amber-lt:#28200c;
-  --red:#fc8080;--red-lt:#281414;
-  --purple:#b09dfa;--purple-lt:#1a1432;
-  --gold:#f5a623;--gold-lt:#28200c;
-  --teal:#34d4c2;--teal-lt:#0c221e;
-  --lc:#22d3ee;--lc-lt:#083344;
-  --sh1:0 1px 3px rgba(0,0,0,.3);--sh2:0 4px 20px rgba(0,0,0,.4);--sh3:0 12px 40px rgba(0,0,0,.5);
-}}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{line-height:1.65;min-height:100vh}
-button,input,select,textarea{font-family:inherit}
-
-/* ═══════════════════════════════════════════════
-   TOPBAR
-═══════════════════════════════════════════════ */
-.topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:.62rem 1.1rem;display:flex;align-items:center;gap:.55rem;min-height:54px;box-shadow:var(--sh1)}
-.btn-back{width:40px;height:40px;border:1.5px solid var(--border);border-radius:11px;background:var(--surface2);font-size:1.05rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .14s;flex-shrink:0}
-.btn-back:hover{background:var(--surface3);color:var(--text)}
-.topbar-info{flex:1;min-width:0}
-.topbar-title{font-family:'Secular One',sans-serif;font-size:.9rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.topbar-sub{font-size:.6rem;color:var(--subtle);margin-top:.04rem}
-.topbar-actions{display:flex;gap:.38rem;flex-shrink:0;align-items:center}
-.t-chip{font-size:.62rem;font-weight:700;padding:.2rem .68rem;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface2);color:var(--muted)}
-.t-chip.amber{color:var(--amber);background:var(--amber-lt);border-color:#fde68a}
-.t-chip.teacher{color:var(--gold);background:var(--gold-lt);border-color:#fde68a;display:none}
-
-/* PRINT BUTTON */
-.btn-print{display:inline-flex;align-items:center;gap:.32rem;padding:.32rem .85rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .14s;white-space:nowrap;min-height:36px}
-.btn-print:hover{background:var(--blue-lt);color:var(--blue);border-color:var(--blue)}
-
-/* TABS */
-.tabs-bar{background:var(--surface);border-bottom:1px solid var(--border);display:flex;padding:0 1.1rem;overflow-x:auto;scrollbar-width:none;position:sticky;top:54px;z-index:90}
-.tabs-bar::-webkit-scrollbar{display:none}
-.tab-btn{padding:.68rem 1.2rem;border:none;border-bottom:2.5px solid transparent;background:none;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;min-height:46px;margin-bottom:-1px;flex-shrink:0;transition:color .14s}
-.tab-btn:hover{color:var(--lc)}
-.tab-btn.active{color:var(--lc);border-bottom-color:var(--lc);font-weight:800}
-.tab-pane{display:none}
-.tab-pane.active{display:block}
-
-/* LESSON WRAP */
-.lesson-wrap{max-width:800px;margin:0 auto;padding:1.5rem 1.2rem 5rem;width:100%}
-
-/* ─── HERO ─── */
-.lesson-hero{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface) 68%);border:1px solid var(--border);border-radius:var(--r-xl);padding:1.8rem 1.6rem 1.6rem;margin-bottom:1.8rem;position:relative;overflow:hidden;box-shadow:var(--sh1)}
-.lesson-hero::before{content:'';position:absolute;top:0;right:0;bottom:0;width:5px;background:var(--lc);opacity:.75;border-radius:0 var(--r-xl) var(--r-xl) 0}
-.hero-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.62rem;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.07em;background:var(--lc-lt);border:1.5px solid var(--lc);border-radius:var(--r-pill);padding:.22rem .8rem;margin-bottom:.9rem;opacity:.88}
-.hero-emoji{font-size:2.6rem;margin-bottom:.55rem;display:block;line-height:1}
-.hero-title{font-family:'Secular One',sans-serif;font-size:clamp(1.35rem,4vw,1.75rem);color:var(--text);line-height:1.18;margin-bottom:.4rem}
-.hero-desc{font-size:.84rem;color:var(--muted);line-height:1.65;max-width:580px}
-.hero-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
-.hero-chip{font-size:.63rem;font-weight:700;padding:.22rem .72rem;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface);color:var(--muted)}
-.hero-chip.amber{color:var(--amber);background:var(--amber-lt);border-color:#fde68a}
-.hero-chip.green{color:var(--green);background:var(--green-lt);border-color:#bbf7d0}
-
-/* ─── SECTION HEADING with icon ─── */
-.section-hd{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--lc);display:flex;align-items:center;gap:.55rem;margin:2.2rem 0 1rem;padding-bottom:.48rem;border-bottom:2px solid var(--lc-lt)}
-.section-hd:first-of-type{margin-top:0}
-.sn{width:28px;height:28px;border-radius:50%;background:var(--lc);color:#fff;font-size:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900}
-.sn-icon{font-size:1.3rem;flex-shrink:0;line-height:1}
-
-/* ─── CONTENT CARDS ─── */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;box-shadow:var(--sh1);margin-bottom:1rem}
-.card p{font-size:.9rem;line-height:1.78;color:var(--text-mid)}
-.card p+p{margin-top:.65rem}
-.card h4{font-size:.9rem;font-weight:800;margin-bottom:.42rem;color:var(--text)}
-.card h4+p{margin-top:0}
-.card ul,.card ol{padding-right:1.3rem;margin-top:.42rem}
-.card li{font-size:.9rem;line-height:1.78;color:var(--text-mid);margin-bottom:.18rem}
-.card li strong{color:var(--text)}
-
-/* Callouts */
-.box{border-radius:var(--r);padding:1rem 1.2rem;font-size:.86rem;line-height:1.72;color:var(--text-mid);margin-bottom:1rem}
-.box strong{font-weight:800}
-.box-blue{background:var(--blue-lt);border:1.5px solid #bfdbfe}.box-blue strong{color:var(--blue)}
-.box-amber{background:var(--amber-lt);border:1.5px solid #fde68a}.box-amber strong{color:var(--amber)}
-.box-green{background:var(--green-lt);border:1.5px solid #bbf7d0}.box-green strong{color:var(--green)}
-.box-purple{background:var(--purple-lt);border:1.5px solid #ddd6fe}.box-purple strong{color:var(--purple)}
-.box-teal{background:var(--teal-lt);border:1.5px solid #99f6e4;border-radius:var(--r-lg);padding:1.25rem 1.35rem;margin-bottom:1rem}
-.box-teal-label{font-size:.78rem;font-weight:800;color:var(--teal);margin-bottom:.78rem}
-
-/* Grid */
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.85rem}
-@media(max-width:480px){.grid2{grid-template-columns:1fr}}
-.mini-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.95rem 1.05rem}
-.mini-title{font-size:.76rem;font-weight:800;color:var(--text);margin-bottom:.38rem}
-.mini-body{font-size:.8rem;color:var(--text-mid);line-height:1.62}
-
-/* Topic-sentence highlight */
-.example-para{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem 1.2rem;font-size:.88rem;line-height:1.9;color:var(--text-mid);margin-bottom:.72rem;border-right:3px solid var(--lc)}
-.highlight-ts{background:#fef08a;border-radius:3px;padding:2px 5px;font-weight:800;color:#713f12;border-bottom:2.5px solid #ca8a04}
-.ts-legend{display:flex;align-items:center;gap:.55rem;font-size:.76rem;font-weight:700;color:var(--teal);margin-bottom:.6rem}
-.ts-legend-dot{width:16px;height:16px;border-radius:4px;background:#fef08a;border:2px solid #ca8a04;flex-shrink:0}
-
-/* Steps summary */
-.steps-wrap{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1.5px solid #bfdbfe;border-radius:var(--r-lg);padding:1.4rem 1.5rem;margin-bottom:1rem}
-.steps-title{font-family:'Secular One',sans-serif;font-size:.94rem;color:var(--lc);margin-bottom:1rem}
-.step-item{display:flex;align-items:flex-start;gap:.65rem;font-size:.86rem;color:var(--text-mid);line-height:1.55;margin-bottom:.68rem}
-.step-item:last-child{margin-bottom:0}
-.step-num{width:26px;height:26px;border-radius:50%;background:var(--lc);color:#fff;font-size:.7rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
-
-/* ═══════════════════════════════════════════════
-   READING TEXT BOX (Practice tab)
-═══════════════════════════════════════════════ */
-.reading-text-box{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.5rem 1.6rem;margin-bottom:1.8rem;box-shadow:var(--sh2);position:relative}
-.reading-text-box::before{content:'📄 טקסט לקריאה';position:absolute;top:-12px;right:1.4rem;background:var(--lc);color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill);letter-spacing:.04em}
-.rt-title{font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:.3rem}
-.rt-byline{font-size:.72rem;color:var(--muted);margin-bottom:1.1rem;display:flex;gap:1rem;flex-wrap:wrap}
-.rt-byline span{display:flex;align-items:center;gap:.28rem}
-.rt-body{font-size:.88rem;line-height:1.88;color:var(--text-mid)}
-.rt-body p{margin-bottom:.85rem}
-.rt-body p:last-child{margin-bottom:0}
-.rt-body strong{color:var(--text);font-weight:700}
-
-/* ═══════════════════════════════════════════════
-   QUIZ
-═══════════════════════════════════════════════ */
-.quiz-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1px solid #bfdbfe;border-radius:var(--r-lg);padding:1.25rem 1.4rem;margin-bottom:1.5rem}
-.quiz-hd-title{font-family:'Secular One',sans-serif;font-size:.97rem;color:var(--lc);margin-bottom:.32rem}
-.quiz-hd-desc{font-size:.82rem;color:var(--muted)}
-.quiz-prog-bar{height:5px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-top:.8rem;border:1px solid var(--border)}
-.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--lc),#60a5fa);border-radius:var(--r-pill);transition:width .38s ease}
-.quiz-prog-row{display:flex;justify-content:space-between;margin-top:.38rem;font-size:.7rem;color:var(--muted)}
-
-.q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;margin-bottom:1.25rem;box-shadow:var(--sh1);transition:border-color .2s}
-.q-card.ok{border-color:#bbf7d0}
-.q-card.wrong{border-color:#fca5a5}
-.q-num{font-size:.66rem;font-weight:800;color:var(--subtle);margin-bottom:.55rem;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
-.q-type-badge{font-size:.56rem;font-weight:700;padding:.14rem .52rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)}
-.q-text{font-size:.94rem;font-weight:700;color:var(--text);line-height:1.52;margin-bottom:1.05rem}
-.q-ref{font-size:.76rem;color:var(--blue);font-weight:600;margin-bottom:.85rem;background:var(--blue-lt);padding:.32rem .75rem;border-radius:var(--r-pill);display:inline-block}
-
-/* MC */
-.mc-wrap{display:flex;flex-direction:column;gap:.42rem}
-.mc-btn{width:100%;text-align:right;padding:.78rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.86rem;color:var(--text-mid);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:.68rem;min-height:50px}
-.mc-btn:hover:not(:disabled){border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
-.mc-btn.sel{border-color:var(--lc);background:var(--lc-lt);color:var(--lc);font-weight:700}
-.mc-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important;font-weight:700}
-.mc-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important;font-weight:700}
-.mc-btn:disabled{cursor:default}
-.mc-letter{width:24px;height:24px;border-radius:50%;background:var(--surface3);color:var(--muted);font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .14s}
-.mc-btn.sel .mc-letter{background:var(--lc);color:#fff}
-.mc-btn.correct .mc-letter{background:var(--green);color:#fff}
-.mc-btn.wrong .mc-letter{background:var(--red);color:#fff}
-
-/* TF */
-.tf-row{display:flex;gap:.68rem}
-.tf-btn{flex:1;padding:.8rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.9rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:54px}
-.tf-btn:hover:not(:disabled){border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
-.tf-btn.sel{border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
-.tf-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important}
-.tf-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important}
-.tf-btn:disabled{cursor:default}
-
-/* Sort */
-.sort-list{display:flex;flex-direction:column;gap:.42rem;margin-bottom:.55rem}
-.sort-item{display:flex;align-items:center;gap:.68rem;padding:.74rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);cursor:grab;transition:all .15s;user-select:none}
-.sort-item:active{cursor:grabbing;box-shadow:var(--sh2)}
-.sort-item.dragging{opacity:.45}
-.sort-item.drag-over{border-color:var(--lc);background:var(--lc-lt)}
-.sort-handle{font-size:1.1rem;color:var(--muted);flex-shrink:0}
-.sort-text{font-size:.86rem;color:var(--text-mid);flex:1}
-.sort-note{font-size:.7rem;color:var(--muted);margin-bottom:.32rem}
-
-/* Feedback */
-.q-feedback{margin-top:.72rem;padding:.8rem 1.05rem;border-radius:var(--r);font-size:.83rem;font-weight:600;line-height:1.58;display:none;border-right:3px solid transparent}
-.q-feedback.show{display:block}
-.q-feedback.ok{background:var(--green-lt);color:var(--green);border-color:var(--green)}
-.q-feedback.wrong{background:var(--red-lt);color:var(--red);border-color:var(--red)}
-
-/* Results */
-.results-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:2.2rem 1.8rem;text-align:center;box-shadow:var(--sh2);margin-top:1.5rem}
-.results-emoji{font-size:4rem;margin-bottom:.8rem;display:block}
-.results-score{font-family:'Secular One',sans-serif;font-size:3.4rem;font-weight:800;margin-bottom:.3rem;display:block}
-.results-label{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem;display:block}
-.results-bar{height:10px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-bottom:1.6rem;border:1px solid var(--border)}
-.results-bar-fill{height:100%;border-radius:var(--r-pill);transition:width 1.2s cubic-bezier(.22,1,.36,1)}
-.btn-submit{padding:.85rem 2rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(26,86,219,.3);transition:all .15s;min-height:48px}
-.btn-submit:hover{background:var(--blue-dk);transform:translateY(-1px)}
-.btn-reset{padding:.82rem 1.6rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);color:var(--muted);font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:48px}
-.btn-reset:hover{background:var(--surface3);color:var(--text)}
-.btn-send{padding:.82rem 1.8rem;border:none;border-radius:var(--r-pill);background:var(--green);color:#fff;font-size:.86rem;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(21,128,61,.3);transition:all .15s;min-height:48px}
-.btn-send:hover{transform:translateY(-1px)}
-
-/* ═══════════════════════════════════════════════
-   STUDENT GATE — shown before accessing practice
-═══════════════════════════════════════════════ */
-#student-gate{
-  background:var(--surface);border:2px solid var(--lc);
-  border-radius:var(--r-xl);padding:0;margin-bottom:1.5rem;
-  box-shadow:var(--sh2);overflow:hidden;
-}
-#student-gate.hidden{display:none}
-.gate-header{
-  background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);
-  padding:1.4rem 1.5rem 1.2rem;text-align:center;
-  border-bottom:1px solid var(--border);
-}
-.gate-icon{font-size:2.4rem;display:block;margin-bottom:.55rem}
-.gate-title{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--text);margin-bottom:.28rem}
-.gate-desc{font-size:.8rem;color:var(--muted);line-height:1.55}
-.gate-body{padding:1.3rem 1.5rem 1.5rem;display:flex;flex-direction:column;gap:.9rem}
-.gate-field label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);margin-bottom:.38rem;letter-spacing:.02em}
-.gate-input{
-  width:100%;padding:.82rem 1rem;
-  border:1.5px solid var(--border);border-radius:var(--r);
-  background:var(--surface2);font-size:.92rem;color:var(--text);
-  outline:none;transition:border-color .15s,box-shadow .15s;min-height:50px;
-}
-.gate-input::placeholder{color:var(--subtle)}
-.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.14)}
-.gate-input.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.1)}
-.gate-select{
-  width:100%;padding:.82rem 1rem;
-  border:1.5px solid var(--border);border-radius:var(--r);
-  background:var(--surface2);font-size:.92rem;color:var(--text);
-  outline:none;transition:border-color .15s;min-height:50px;cursor:pointer;
-  appearance:none;-webkit-appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7594' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:left 1rem center;
-}
-.gate-select:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.14)}
-.gate-select.err{border-color:var(--red)}
-.gate-err-msg{font-size:.7rem;color:var(--red);margin-top:.26rem;display:none}
-.gate-err-msg.show{display:block}
-.gate-date-display{
-  padding:.78rem 1rem;background:var(--surface3);
-  border:1.5px solid var(--border);border-radius:var(--r);
-  font-size:.88rem;color:var(--muted);
-}
-.gate-btn{
-  width:100%;padding:.88rem;border:none;border-radius:var(--r-pill);
-  background:var(--lc);color:#fff;font-size:.92rem;font-weight:700;
-  cursor:pointer;min-height:52px;
-  box-shadow:0 4px 18px rgba(26,86,219,.28);
-  transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.45rem;
-}
-.gate-btn:hover{background:var(--blue-dk);transform:translateY(-1px);box-shadow:0 6px 22px rgba(26,86,219,.35)}
-.gate-btn:active{transform:scale(.97)}
-/* Confirmed card */
-#gate-confirmed{
-  display:none;
-  background:var(--green-lt);border:2px solid #bbf7d0;
-  border-radius:var(--r-xl);padding:1rem 1.3rem;
-  margin-bottom:1.5rem;
-  display:flex;align-items:center;gap:.85rem;
-}
-#gate-confirmed.show{display:flex}
-#gate-confirmed.hidden{display:none!important}
-.gc-avatar{
-  width:46px;height:46px;border-radius:50%;
-  background:linear-gradient(135deg,#15803d,#16a34a);
-  color:#fff;font-size:1.1rem;font-weight:900;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;box-shadow:0 3px 10px rgba(21,128,61,.25);
-}
-.gc-info{flex:1;min-width:0}
-.gc-name{font-size:.92rem;font-weight:800;color:var(--green)}
-.gc-meta{font-size:.74rem;color:var(--text-mid);margin-top:.15rem}
-.gc-change{font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;margin-top:.22rem;display:block}
-.gc-change:hover{color:var(--lc)}
-
-/* ═══════════════════════════════════════════════
-   STUDENT REGISTRATION MODAL
-═══════════════════════════════════════════════ */
-.reg-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.62);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1.2rem}
-.reg-overlay.open{display:flex;animation:regFadeIn .2s ease}
-@keyframes regFadeIn{from{opacity:0}to{opacity:1}}
-.reg-modal{
-  background:var(--surface);border-radius:var(--r-xl);
-  box-shadow:var(--sh3);width:100%;max-width:420px;
-  border:1px solid var(--border);
-  animation:regPop .28s cubic-bezier(.34,1.45,.64,1);
-  overflow:hidden;
-}
-@keyframes regPop{from{opacity:0;transform:scale(.88) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
-.reg-header{
-  background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);
-  padding:1.5rem 1.5rem 1.2rem;
-  border-bottom:1px solid var(--border);
-  text-align:center;
-}
-.reg-header-icon{font-size:2.2rem;margin-bottom:.5rem;display:block}
-.reg-header-title{font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:.28rem}
-.reg-header-desc{font-size:.78rem;color:var(--muted);line-height:1.5}
-.reg-body{padding:1.4rem 1.5rem 1.5rem;display:flex;flex-direction:column;gap:.95rem}
-.reg-field label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);margin-bottom:.38rem;letter-spacing:.02em}
-.reg-input{
-  width:100%;padding:.82rem 1rem;
-  border:1.5px solid var(--border);border-radius:var(--r);
-  background:var(--surface2);font-size:.92rem;color:var(--text);
-  outline:none;transition:border-color .15s,box-shadow .15s;
-  min-height:50px;
-}
-.reg-input::placeholder{color:var(--subtle)}
-.reg-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.14)}
-.reg-input.error{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.12)}
-.reg-select{
-  width:100%;padding:.82rem 1rem;
-  border:1.5px solid var(--border);border-radius:var(--r);
-  background:var(--surface2);font-size:.92rem;color:var(--text);
-  outline:none;transition:border-color .15s;
-  min-height:50px;cursor:pointer;
-  appearance:none;-webkit-appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7594' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:left 1rem center;
-}
-.reg-select:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.14)}
-.reg-select.error{border-color:var(--red)}
-.reg-error-msg{font-size:.72rem;color:var(--red);margin-top:.28rem;display:none}
-.reg-error-msg.show{display:block}
-.reg-footer{padding:0 1.5rem 1.5rem;display:flex;gap:.65rem}
-.reg-btn-cancel{flex:1;padding:.78rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);color:var(--muted);font-size:.85rem;font-weight:700;cursor:pointer;transition:all .14s;min-height:48px}
-.reg-btn-cancel:hover{background:var(--surface3);color:var(--text)}
-.reg-btn-submit{flex:2;padding:.78rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.88rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(26,86,219,.28);transition:all .15s;min-height:48px;display:flex;align-items:center;justify-content:center;gap:.4rem}
-.reg-btn-submit:hover{background:var(--blue-dk);transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,86,219,.35)}
-.reg-btn-submit:disabled{opacity:.6;cursor:default;transform:none}
-
-/* ═══════════════════════════════════════════════
-   ANSWERS TAB
-═══════════════════════════════════════════════ */
-.answers-locked{background:var(--surface);border:2px dashed var(--border);border-radius:var(--r-xl);padding:2.5rem 2rem;text-align:center;margin-top:.5rem}
-.answers-locked-icon{font-size:3.5rem;margin-bottom:1rem;display:block}
-.answers-locked-title{font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:.6rem}
-.answers-locked-desc{font-size:.86rem;color:var(--muted);line-height:1.65;max-width:420px;margin:0 auto}
-.answer-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.05rem 1.2rem;margin-bottom:.78rem}
-.ans-num{font-size:.66rem;color:var(--subtle);margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem}
-.ans-q{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.5rem;line-height:1.45}
-.ans-correct{background:var(--green-lt);border:1.5px solid #bbf7d0;border-radius:9px;padding:.55rem .95rem;font-size:.82rem;color:var(--green);font-weight:700;margin-bottom:.42rem}
-.ans-explain{font-size:.78rem;color:var(--muted);line-height:1.58;border-right:3px solid var(--border);padding-right:.78rem;margin-top:.4rem}
-.ans-teacher-note{font-size:.78rem;font-weight:700;color:var(--purple);margin-top:.38rem;background:var(--purple-lt);border-radius:8px;padding:.42rem .75rem}
-
-/* Toast */
-#toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%) translateY(14px);background:var(--text);color:var(--bg);padding:.58rem 1.4rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:700;box-shadow:var(--sh3);z-index:9999;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;white-space:nowrap}
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* ═══════════════════════════════════════════════
-   PRINT STYLES
-═══════════════════════════════════════════════ */
-@media print{
-  .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,
-  #submit-row,#results-container,#toast,
-  .sort-handle,
-  .mc-btn:not(.correct):not(.print-show){display:none!important}
-  body{background:#fff;color:#000;font-size:10pt;line-height:1.5}
-  html{background:#fff}
-  .tab-pane{display:block!important}
-  .lesson-wrap{padding:.5cm 1cm;max-width:100%;page-break-inside:avoid}
-  .lesson-hero{background:#f5f5f5;border:1px solid #ddd;box-shadow:none}
-  .lesson-hero::before{display:none}
-  .card,.q-card,.reading-text-box,.answer-row{box-shadow:none;break-inside:avoid;page-break-inside:avoid}
-  .reading-text-box{border:2px solid #1a56db}
-  .reading-text-box::before{background:#1a56db;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .q-feedback{display:block!important;background:#f0fdf4;border-color:#15803d;color:#15803d}
-  .highlight-ts{background:#fef08a;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .sn{background:#1a56db;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  h2,.section-hd{color:#1a56db;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #1a56db}
-  .print-header h1{font-size:16pt;color:#1a56db}
-  .print-header p{font-size:10pt;color:#555}
-  .answers-locked{display:none!important}
-  /* show all answer rows in print */
-  #pane-answers .answer-row{display:block!important}
-  /* Page breaks */
-  #pane-theory{page-break-after:always}
-  #pane-practice{page-break-after:always}
-  #pane-answers h2{page-break-before:always}
-  .mc-btn.correct{display:flex!important;background:#f0fdf4;border-color:#15803d;color:#15803d;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-}
-/* Hidden print header (shown only when printing) */
-.print-header{display:none}
-</style>
-</head>
-<body>
-
-<!-- TOPBAR -->
-<div class="topbar">
-  <button class="btn-back" onclick="goBack()" title="חזור לדשבורד">←</button>
-  <div class="topbar-info">
-    <div class="topbar-title">📄 סוגי טקסטים</div>
-    <div class="topbar-sub">יחידה 1 — הבנה והבעה · שיעור 1</div>
-  </div>
-  <div class="topbar-actions">
-    <span class="t-chip amber">⏱ 40 דק׳</span>
-    <span class="t-chip teacher" id="role-chip">🎓 מורה</span>
-    <button class="btn-print" onclick="printLesson()" title="הדפס שיעור">🖨️ הדפסה</button>
-  </div>
-</div>
-
-<!-- TABS -->
-<div class="tabs-bar">
-  <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
-  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (20 שאלות)</button>
-  <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
-  <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
-</div>
-
-<!-- ══════════════════
-     THEORY TAB
-══════════════════ -->
-<div class="tab-pane active" id="pane-theory">
-<div class="print-header">
-  <h1>שיעור 1 — סוגי טקסטים</h1>
-  <p>יחידה 1: הבנה והבעה | לשון Lesson 2.0 | כיתות ט׳–י׳</p>
-</div>
-<div class="lesson-wrap">
-
-  <div class="lesson-hero">
-    <div class="hero-badge">יחידה 1 · שיעור 1</div>
-    <span class="hero-emoji">📄</span>
-    <h1 class="hero-title">סוגי טקסטים</h1>
-    <p class="hero-desc">זיהוי טקסט עיוני, ספרותי, שכנועי ועיתונאי — מאפיינים, מטרות וכלי ניתוח לבגרות</p>
-    <div class="hero-meta">
-      <span class="hero-chip amber">⏱ 45 דק׳</span>
-      <span class="hero-chip">📖 הבנת הנקרא</span>
-      <span class="hero-chip green">🎯 מיומנות בגרות</span>
-    </div>
-  </div>
-
-  <div class="section-hd"><span class="sn-icon">🗺️</span><div class="sn">1</div>למה מסווגים טקסטים?</div>
-  <div class="card">
-    <p>כל טקסט נולד ממטרה מסוימת ופונה לקהל יעד ספציפי. <strong>הכרת סוג הטקסט לפני הקריאה</strong> היא כלי עזר חיוני לקורא הביקורתי:</p>
-    <ul>
-      <li>מכוונת את הציפיות — מה נמצא בטקסט ומה לא</li>
-      <li>עוזרת להבין את <strong>המטרה האמיתית</strong> של הכותב</li>
-      <li>מאפשרת להפריד בין <strong>עובדה לדעה</strong></li>
-      <li>היא הבסיס לכל שאלת "סוג הטקסט" בבחינת הבגרות</li>
-    </ul>
-  </div>
-  <div class="box box-blue">💡 <strong>בבגרות בלשון:</strong> שאלות על סוג הטקסט מופיעות ב-100% מהבחינות. הן דורשות לא רק זיהוי נכון אלא גם <strong>הנמקה מפורטת</strong> — "הטקסט הוא שכנועי כי…"</div>
-
-  <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">2</div>ארבעת סוגי הטקסט העיקריים</div>
-  <div class="grid2">
-    <div class="mini-card" style="border-right:3px solid #0891b2">
-      <div class="mini-title" style="color:#0891b2">📊 עיוני</div>
-      <div class="mini-body">שפה ניטרלית, עובדות ונתונים. מטרה: להסביר ולהודיע.<br><em>ספר לימוד, ויקיפדיה, דוח מחקר</em></div>
-    </div>
-    <div class="mini-card" style="border-right:3px solid #6d28d9">
-      <div class="mini-title" style="color:#6d28d9">🎭 ספרותי</div>
-      <div class="mini-body">שפה עשירה, דמויות, רגש. מטרה: לחוות ולהרגיש.<br><em>סיפור קצר, שיר, רומן</em></div>
-    </div>
-    <div class="mini-card" style="border-right:3px solid #b45309">
-      <div class="mini-title" style="color:#b45309">📣 שכנועי</div>
-      <div class="mini-body">טיעונים, פנייה רגשית, קריאה לפעולה. מטרה: לשנות עמדות.<br><em>מאמר דעה, נאום, עצומה</em></div>
-    </div>
-    <div class="mini-card" style="border-right:3px solid #15803d">
-      <div class="mini-title" style="color:#15803d">📰 עיתונאי</div>
-      <div class="mini-body">דיווח על אירועים, מבנה פירמידה הפוכה. מטרה: לדווח.<br><em>כתבת חדשות, ריאיון</em></div>
-    </div>
-  </div>
-
-  <div class="section-hd"><span class="sn-icon">🔬</span><div class="sn">3</div>מאפיינים לשוניים — איך מזהים?</div>
-  <div class="card">
-    <h4>עיוני</h4>
-    <ul>
-      <li><strong>שפה ניטרלית:</strong> "המחקר מראה כי…", גוף שלישי</li>
-      <li>מינוח מקצועי, הגדרות, מבנה היררכי עם כותרות</li>
-    </ul>
-    <h4 style="margin-top:.8rem">ספרותי</h4>
-    <ul>
-      <li><strong>אמצעים ספרותיים:</strong> דימוי ("כמו"), מטפורה, האנשה</li>
-      <li>שפה רגשית, דיאלוג, גוף ראשון/שלישי</li>
-    </ul>
-    <h4 style="margin-top:.8rem">שכנועי</h4>
-    <ul>
-      <li><strong>קריאה לפעולה:</strong> "על הממשלה לפעול!", "אנחנו חייבים…"</li>
-      <li>שאלות רטוריות, מילות הגברה, פנייה רגשית</li>
-    </ul>
-    <h4 style="margin-top:.8rem">עיתונאי</h4>
-    <ul>
-      <li><strong>פירמידה הפוכה:</strong> המידע החשוב קודם</li>
-      <li>5 W's: מי, מה, מתי, איפה, למה · ציטוטים ישירים</li>
-    </ul>
-  </div>
-
-  <div class="section-hd"><span class="sn-icon">🔀</span><div class="sn">4</div>הסוג המעורב — הטעות הנפוצה</div>
-  <div class="card">
-    <p>טקסטים רבים משלבים כמה סוגים. <strong>זהה את הסוג הדומיננטי</strong> (מה המטרה העיקרית?) ואת הסוג המשני.</p>
-  </div>
-  <div class="box box-amber">⚠️ <strong>שגיאה נפוצה בבגרות:</strong> "הטקסט עיוני" ללא הנמקה. תמיד: "הטקסט עיוני <em>כי</em> הוא מציג נתונים ומחקרים ללא עמדה אישית."</div>
-
-  <div class="section-hd"><span class="sn-icon">🎨</span><div class="sn">5</div>דוגמה מנותחת — זיהוי מאפיינים בטקסט</div>
-  <div class="box-teal">
-    <div class="box-teal-label">📝 טקסט לניתוח — סמן כל מרכיב בצבעו</div>
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.2rem;font-size:.88rem;line-height:2;color:var(--text-mid)">
-      <span style="background:#dbeafe;border-radius:3px;padding:1px 5px;font-weight:700;color:#1e40af;border-bottom:2.5px solid #3b82f6">מחקר שפורסם ב-2023 מצא כי 80% מבני הנוער ישנים פחות מ-8 שעות.</span>
-      <span style="background:#fef9c3;border-radius:3px;padding:1px 5px;font-weight:700;color:#854d0e;border-bottom:2.5px solid #ca8a04"> מצב זה הוא קטסטרופה שקטה.</span>
-      <span style="background:#ede9fe;border-radius:3px;padding:1px 5px;font-weight:700;color:#5b21b6;border-bottom:2.5px solid #8b5cf6"> כשהילד שלכם לא מצליח — זה לא עצלנות.</span>
-      <span style="background:#ffe4e6;border-radius:3px;padding:1px 5px;font-weight:700;color:#9f1239;border-bottom:2.5px solid #f43f5e"> על המדינה לחוקק הגבלות סמארטפון!</span>
-    </div>
-    <div style="display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.8rem;padding-top:.7rem;border-top:1px solid #99f6e4">
-      <span style="font-size:.7rem;font-weight:700;display:flex;align-items:center;gap:.28rem"><span style="width:11px;height:11px;background:#dbeafe;border:1.5px solid #3b82f6;border-radius:3px;display:inline-block"></span>עובדה/נתון</span>
-      <span style="font-size:.7rem;font-weight:700;display:flex;align-items:center;gap:.28rem"><span style="width:11px;height:11px;background:#fef9c3;border:1.5px solid #ca8a04;border-radius:3px;display:inline-block"></span>דעה/פרשנות</span>
-      <span style="font-size:.7rem;font-weight:700;display:flex;align-items:center;gap:.28rem"><span style="width:11px;height:11px;background:#ede9fe;border:1.5px solid #8b5cf6;border-radius:3px;display:inline-block"></span>פנייה רגשית</span>
-      <span style="font-size:.7rem;font-weight:700;display:flex;align-items:center;gap:.28rem"><span style="width:11px;height:11px;background:#ffe4e6;border:1.5px solid #f43f5e;border-radius:3px;display:inline-block"></span>קריאה לפעולה</span>
-    </div>
-    <div style="font-size:.8rem;color:var(--teal);margin-top:.75rem;font-weight:600">✅ <strong>ניתוח:</strong> הטקסט שכנועי — משלב עובדות לביסוס אמינות, אך עיקרו פנייה רגשית וקריאה לפעולה.</div>
-  </div>
-
-  <div class="section-hd"><span class="sn-icon">⚖️</span><div class="sn">6</div>עובדה לעומת דעה</div>
-  <div class="card">
-    <p>הבחנה בין <strong>עובדה</strong> (ניתן לאמת) לבין <strong>דעה</strong> (פרשנות אישית):</p>
-    <div class="grid2" style="margin-top:.6rem">
-      <div class="mini-card" style="border-right:3px solid #3b82f6">
-        <div class="mini-title" style="color:#1e40af">📊 עובדה</div>
-        <div class="mini-body">ניתן לאמת בנתונים. <strong>דוגמה:</strong> "70% מבני הנוער משתמשים ב-3+ שעות ביום ברשתות."</div>
-      </div>
-      <div class="mini-card" style="border-right:3px solid #ca8a04">
-        <div class="mini-title" style="color:#92400e">💬 דעה</div>
-        <div class="mini-body">פרשנות, עמדה, הערכה. <strong>דוגמה:</strong> "הרשתות החברתיות מזיקות לנוער ואין להן ערך חינוכי."</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-hd"><span class="sn-icon">📝</span><div class="sn">7</div>נוסחת תשובה לבגרות</div>
-  <div class="card">
-    <h4>מבנה תשובה מלאה — 3 חלקים</h4>
-    <ol>
-      <li><strong>הגדרה:</strong> "הטקסט הוא [סוג]"</li>
-      <li><strong>הנמקה:</strong> "כי מטרתו [המטרה]"</li>
-      <li><strong>ראיה:</strong> "כפי שניתן לראות בביטוי '[ציטוט]' שמשמש לשם [תפקיד]"</li>
-    </ol>
-  </div>
-  <div class="box-teal">
-    <div class="box-teal-label">✏️ דוגמה לתשובה מלאה</div>
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.2rem;font-size:.86rem;line-height:1.75;color:var(--text-mid)">
-      "הטקסט הוא <strong>שכנועי</strong> שכן מטרתו לשכנע לפעולה. ניתן לראות זאת בקריאה לפעולה <em>'על המדינה לחוקק הגבלות'</em> ובפנייה הרגשית <em>'כשהילד שלכם לא מצליח'</em>. כמו כן, הטקסט מכיל מרכיבים עיוניים (נתוני מחקר) המשמשים לחיזוק הטיעון."
-    </div>
-  </div>
-
-  <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">8</div>סיכום — 5 שלבים לזיהוי</div>
-  <div class="steps-wrap">
-    <div class="steps-title">📋 שאל/י את עצמך</div>
-    <div class="step-item"><div class="step-num">1</div><span><strong>מה המטרה?</strong> — להסביר, לבדר, לשכנע, לדווח?</span></div>
-    <div class="step-item"><div class="step-num">2</div><span><strong>מה סוג השפה?</strong> — ניטרלית, רגשית, תיאורית, משכנעת?</span></div>
-    <div class="step-item"><div class="step-num">3</div><span><strong>האם יש אמצעים ספרותיים?</strong> — מטפורות, האנשה, חריזה?</span></div>
-    <div class="step-item"><div class="step-num">4</div><span><strong>האם יש קריאה לפעולה?</strong> — אם כן → שכנועי</span></div>
-    <div class="step-item"><div class="step-num">5</div><span><strong>מהו מבנה הטקסט?</strong> — פירמידה, פסקאות מובנות, חריזה?</span></div>
-  </div>
-  <div class="box box-green">✅ <strong>מוכן לתרגול!</strong> שלושה טקסטים ו-20 שאלות.</div>
-
-</div>
 </div><!-- /pane-theory -->ir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -848,7 +274,7 @@ button,input,select,textarea{font-family:inherit}
   background:var(--green-lt);border:2px solid #bbf7d0;
   border-radius:var(--r-xl);padding:1rem 1.3rem;
   margin-bottom:1.5rem;
-  display:flex;align-items:center;gap:.85rem;
+  align-items:center;gap:.85rem;
 }
 #gate-confirmed.show{display:flex}
 #gate-confirmed.hidden{display:none!important}
@@ -1001,6 +427,13 @@ button,input,select,textarea{font-family:inherit}
 </div>
 
 <!-- ══════════════════
+     THEORY TAB — replaced placeholder
+══════════════════ -->
+<!-- (theory already above) --ות (מורה)</button>
+  <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
+</div>
+
+<!-- ══════════════════
      THEORY TAB
 ══════════════════ -->
 <div class="tab-pane active" id="pane-theory">
@@ -1011,141 +444,570 @@ button,input,select,textarea{font-family:inherit}
 <div class="lesson-wrap">
 
   <div class="lesson-hero">
-    <div class="hero-badge">יחידה 1 · שיעור 0</div>
-    <span class="hero-emoji">🔍</span>
-    <h1 class="hero-title">מבוא לניתוח טקסט</h1>
-    <p class="hero-desc">כלים בסיסיים לקריאה ביקורתית: תעודת זהות, קהל יעד ומטרה, סריקה ומשפט המפתח</p>
+    <div class="hero-badge">יחידה 1 · שיעור 1</div>
+    <span class="hero-emoji">📄</span>
+    <h1 class="hero-title">סוגי טקסטים</h1>
+    <p class="hero-desc">זיהוי טקסט עיוני, ספרותי, שכנועי ועיתונאי — מאפיינים, מטרות וכלי ניתוח לבגרות</p>
     <div class="hero-meta">
-      <span class="hero-chip amber">⏱ 40 דק׳</span>
+      <span class="hero-chip amber">⏱ 45 דק׳</span>
       <span class="hero-chip">📖 הבנת הנקרא</span>
-      <span class="hero-chip green">✨ שיעור חדש</span>
+      <span class="hero-chip green">🎯 מיומנות בגרות</span>
     </div>
   </div>
 
-  <!-- 1 -->
-  <div class="section-hd"><span class="sn-icon">📖</span><div class="sn">1</div>מהו ניתוח טקסט?</div>
+  <div class="section-hd"><span class="sn-icon">🗺️</span><div class="sn">1</div>למה מסווגים טקסטים?</div>
   <div class="card">
-    <p><strong>ניתוח טקסט</strong> הוא תהליך מובנה של קריאה ביקורתית שמטרתו להבין לא רק <em>מה</em> נאמר, אלא גם <em>כיצד</em>, <em>מדוע</em> ו<em>למי</em> נאמר.</p>
-    <p>בניגוד לקריאת-פנאי, ניתוח טקסט מחייב אותנו לעצור ולשאול שאלות. תהליך הניתוח מתחיל <strong>לפני שקוראים מילה אחת</strong> מגוף הטקסט. בשיעור זה נלמד ארבעה כלים: <strong>תעודת הזהות</strong>, <strong>קהל יעד ומטרה</strong>, <strong>סריקה</strong> ו<strong>משפט המפתח</strong>.</p>
-  </div>
-
-  <!-- 2 -->
-  <div class="section-hd"><span class="sn-icon">🪪</span><div class="sn">2</div>תעודת הזהות של הטקסט</div>
-  <div class="card">
-    <p>בדיוק כמו שלכל אדם יש תעודת זהות, לכל טקסט יש <strong>פרטים מזהים</strong> שמאפשרים לנו להבין את ההקשר שלו עוד לפני הקריאה:</p>
-    <div class="grid2">
-      <div class="mini-card"><div class="mini-title">📌 כותרת</div><div class="mini-body">מה הנושא? האם ניטרלית, שאלתית או רגשית? "מדוע ילדינו בסכנה?" — רגשית ושכנועית.</div></div>
-      <div class="mini-card"><div class="mini-title">👤 מחבר</div><div class="mini-body">מי כתב? מה תחום המומחיות? עיתונאי, מדען, פוליטיקאי — לכל אחד עמדה ואינטרסים.</div></div>
-      <div class="mini-card"><div class="mini-title">📅 תאריך</div><div class="mini-body">מתי נכתב? מידע מ-2005 על "האינטרנט כחידוש" כבר לא רלוונטי ב-2024.</div></div>
-      <div class="mini-card"><div class="mini-title">📰 מקור</div><div class="mini-body">היכן פורסם? גלובס (כלכלי), הארץ (ליברלי), ישראל היום (ימני). המקור מעיד על הזווית.</div></div>
-    </div>
-  </div>
-  <div class="box box-blue">💡 <strong>ביקורת מקורות (Source Criticism):</strong> שאלו: <em>"מה האינטרס של הכותב? יש לו סיבה לסובייקטיביות?"</em> עיתון שמממן חברת נפט לא יפרסם כתבה מרכזית נגד נפט.</div>
-
-  <!-- 3 -->
-  <div class="section-hd"><span class="sn-icon">🎯</span><div class="sn">3</div>קהל יעד ומטרה — למי ולמה?</div>
-  <div class="card">
-    <h4>שלוש שאלות מרכזיות</h4>
+    <p>כל טקסט נולד ממטרה מסוימת ופונה לקהל יעד ספציפי. <strong>הכרת סוג הטקסט לפני הקריאה</strong> היא כלי עזר חיוני לקורא הביקורתי:</p>
     <ul>
-      <li><strong>למי נכתב?</strong> — מומחים, ילדים, הציבור הרחב? שפת הטקסט והמינוח יסגירו זאת.</li>
-      <li><strong>למה נכתב?</strong> — לשכנע, להסביר, לבדר, לדווח, לבקר?</li>
-      <li><strong>מה הוא רוצה שתחשוב/תרגיש/תעשה?</strong> — מבחן ה"So What".</li>
+      <li>מכוונת את הציפיות — מה נמצא בטקסט ומה לא</li>
+      <li>עוזרת להבין את <strong>המטרה האמיתית</strong> של הכותב</li>
+      <li>מאפשרת להפריד בין <strong>עובדה לדעה</strong></li>
+      <li>היא הבסיס לכל שאלת "סוג הטקסט" בבחינת הבגרות</li>
     </ul>
   </div>
-  <div class="box box-purple">🔍 <strong>טיפ פרקטי:</strong> קרא את הפסקה הראשונה ושאל: "מי יהנה מקריאת הטקסט הזה?" אם התשובה היא "סטודנטים לכלכלה" — הנושא, השפה והמינוח יתאימו לקהל זה.</div>
+  <div class="box box-blue">💡 <strong>בבגרות בלשון:</strong> שאלות על סוג הטקסט מופיעות ב-100% מהבחינות. הן דורשות לא רק זיהוי נכון אלא גם <strong>הנמקה מפורטת</strong> — "הטקסט הוא שכנועי כי…"</div>
 
-  <!-- 4 -->
-  <div class="section-hd"><span class="sn-icon">🔭</span><div class="sn">4</div>סריקה — מפת הטקסט ב-60 שניות</div>
+  <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">2</div>ארבעת סוגי הטקסט העיקריים</div>
+  <div class="grid2">
+    <div class="mini-card" style="border-right:3px solid #0891b2">
+      <div class="mini-title" style="color:#0891b2">📊 עיוני</div>
+      <div class="mini-body">שפה ניטרלית, עובדות ונתונים. מטרה: להסביר ולהודיע.<br><em>ספר לימוד, ויקיפדיה, דוח מחקר</em></div>
+    </div>
+    <div class="mini-card" style="border-right:3px solid #6d28d9">
+      <div class="mini-title" style="color:#6d28d9">🎭 ספרותי</div>
+      <div class="mini-body">שפה עשירה, דמויות, רגש. מטרה: לחוות ולהרגיש.<br><em>סיפור קצר, שיר, רומן</em></div>
+    </div>
+    <div class="mini-card" style="border-right:3px solid #b45309">
+      <div class="mini-title" style="color:#b45309">📣 שכנועי</div>
+      <div class="mini-body">טיעונים, פנייה רגשית, קריאה לפעולה. מטרה: לשנות עמדות.<br><em>מאמר דעה, נאום, עצומה</em></div>
+    </div>
+    <div class="mini-card" style="border-right:3px solid #15803d">
+      <div class="mini-title" style="color:#15803d">📰 עיתונאי</div>
+      <div class="mini-body">דיווח על אירועים, מבנה פירמידה הפוכה. מטרה: לדווח.<br><em>כתבת חדשות, ריאיון</em></div>
+    </div>
+  </div>
+
+  <div class="section-hd"><span class="sn-icon">🔬</span><div class="sn">3</div>מאפיינים לשוניים — איך מזהים?</div>
   <div class="card">
-    <p><strong>סריקה (Scanning)</strong> היא קריאה מהירה ושטחית לפני הקריאה המלאה. המטרה: לבנות <strong>מפה מנטלית</strong> של מבנה הטקסט ונושאיו.</p>
-    <h4 style="margin-top:.85rem">5 אלמנטים לסריקה מוצלחת</h4>
+    <h4>עיוני</h4>
+    <ul>
+      <li><strong>שפה ניטרלית:</strong> "המחקר מראה כי…", גוף שלישי</li>
+      <li>מינוח מקצועי, הגדרות, מבנה היררכי עם כותרות</li>
+    </ul>
+    <h4 style="margin-top:.8rem">ספרותי</h4>
+    <ul>
+      <li><strong>אמצעים ספרותיים:</strong> דימוי ("כמו"), מטפורה, האנשה</li>
+      <li>שפה רגשית, דיאלוג, גוף ראשון/שלישי</li>
+    </ul>
+    <h4 style="margin-top:.8rem">שכנועי</h4>
+    <ul>
+      <li><strong>קריאה לפעולה:</strong> "על הממשלה לפעול!", "אנחנו חייבים…"</li>
+      <li>שאלות רטוריות, מילות הגברה, פנייה רגשית</li>
+    </ul>
+    <h4 style="margin-top:.8rem">עיתונאי</h4>
+    <ul>
+      <li><strong>פירמידה הפוכה:</strong> המידע החשוב קודם</li>
+      <li>5 W's: מי, מה, מתי, איפה, למה · ציטוטים ישירים</li>
+    </ul>
+  </div>
+
+  <div class="section-hd"><span class="sn-icon">🔀</span><div class="sn">4</div>הסוג המעורב — הטעות הנפוצה</div>
+  <div class="card">
+    <p>טקסטים רבים משלבים כמה סוגים. <strong>זהה את הסוג הדומיננטי</strong> (מה המטרה העיקרית?) ואת הסוג המשני.</p>
+  </div>
+  <div class="box box-amber">⚠️ <strong>שגיאה נפוצה בבגרות:</strong> "הטקסט עיוני" ללא הנמקה. תמיד: "הטקסט עיוני <em>כי</em> הוא מציג נתונים ומחקרים ללא עמדה אישית."</div>
+
+  <div class="section-hd"><span class="sn-icon">🎨</span><div class="sn">5</div>דוגמה מנותחת — זיהוי מאפיינים בטקסט</div>
+  <div class="box-teal">
+    <div class="box-teal-label">📝 טקסט לניתוח — סמן כל מרכיב בצבעו</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.2rem;font-size:.88rem;line-height:2;color:var(--text-mid)">
+      <span style="background:#dbeafe;border-radius:3px;padding:1px 5px;font-weight:700;color:#1e40af;border-bottom:2.5px solid #3b82f6">מחקר שפורסם ב-2023 מצא כי 80% מבני הנוער ישנים פחות מ-8 שעות.</span>
+      <span style="background:#fef9c3;border-radius:3px;padding:1px 5px;font-weight:700;color:#854d0e;border-bottom:2.5px solid #ca8a04"> מצב זה הוא קטסטרופה שקטה.</span>
+      <span style="background:#ede9fe;border-radius:3px;padding:1px 5px;font-weight:700;color:#5b21b6;border-bottom:2.5px solid #8b5cf6"> כשהילד שלכם לא מצליח — זה לא עצלנות.</span>
+      <span style="background:#ffe4e6;border-radius:3px;padding:1px 5px;font-weight:700;color:#9f1239;border-bottom:2.5px solid #f43f5e"> על המדינה לחוקק הגבלות סמארטפון!</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.8rem;padding-top:.7rem;border-top:1px solid #99f6e4">
+      <span style="font-size:.7rem;font-weight:700;display:flex;align-items:center;gap:.28rem"><span style="width:11px;height:11px;background:#dbeafe;border:1.5px solid #3b82f6;border-radius:3px;display:inline-block"></span>עובדה/נתון</span>
+      <span style="font-size:.7rem;font-weight:700;display:flex;align-items:center;gap:.28rem"><span style="width:11px;height:11px;background:#fef9c3;border:1.5px solid #ca8a04;border-radius:3px;display:inline-block"></span>דעה/פרשנות</span>
+      <span style="font-size:.7rem;font-weight:700;display:flex;align-items:center;gap:.28rem"><span style="width:11px;height:11px;background:#ede9fe;border:1.5px solid #8b5cf6;border-radius:3px;display:inline-block"></span>פנייה רגשית</span>
+      <span style="font-size:.7rem;font-weight:700;display:flex;align-items:center;gap:.28rem"><span style="width:11px;height:11px;background:#ffe4e6;border:1.5px solid #f43f5e;border-radius:3px;display:inline-block"></span>קריאה לפעולה</span>
+    </div>
+    <div style="font-size:.8rem;color:var(--teal);margin-top:.75rem;font-weight:600">✅ <strong>ניתוח:</strong> הטקסט שכנועי — משלב עובדות לביסוס אמינות, אך עיקרו פנייה רגשית וקריאה לפעולה.</div>
+  </div>
+
+  <div class="section-hd"><span class="sn-icon">⚖️</span><div class="sn">6</div>עובדה לעומת דעה</div>
+  <div class="card">
+    <p>הבחנה בין <strong>עובדה</strong> (ניתן לאמת) לבין <strong>דעה</strong> (פרשנות אישית):</p>
+    <div class="grid2" style="margin-top:.6rem">
+      <div class="mini-card" style="border-right:3px solid #3b82f6">
+        <div class="mini-title" style="color:#1e40af">📊 עובדה</div>
+        <div class="mini-body">ניתן לאמת בנתונים. <strong>דוגמה:</strong> "70% מבני הנוער משתמשים ב-3+ שעות ביום ברשתות."</div>
+      </div>
+      <div class="mini-card" style="border-right:3px solid #ca8a04">
+        <div class="mini-title" style="color:#92400e">💬 דעה</div>
+        <div class="mini-body">פרשנות, עמדה, הערכה. <strong>דוגמה:</strong> "הרשתות החברתיות מזיקות לנוער ואין להן ערך חינוכי."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-hd"><span class="sn-icon">📝</span><div class="sn">7</div>נוסחת תשובה לבגרות</div>
+  <div class="card">
+    <h4>מבנה תשובה מלאה — 3 חלקים</h4>
     <ol>
-      <li><strong>כותרות משנה</strong> — חלוקת הטקסט לנושאים, מגלות את המבנה</li>
-      <li><strong>טקסט מודגש ונטוי</strong> — הכותב הדגיש אותם כי הם מרכזיים</li>
-      <li><strong>פסקה ראשונה ואחרונה</strong> — בדרך כלל: מבוא + מסקנה</li>
-      <li><strong>מילים חוזרות</strong> — מילה שחוזרת 5+ פעמים היא נושא מרכזי</li>
-      <li><strong>מספרים ונתונים</strong> — "70% מהישראלים…" — נתון מרכזי שמחזק טיעון</li>
+      <li><strong>הגדרה:</strong> "הטקסט הוא [סוג]"</li>
+      <li><strong>הנמקה:</strong> "כי מטרתו [המטרה]"</li>
+      <li><strong>ראיה:</strong> "כפי שניתן לראות בביטוי '[ציטוט]' שמשמש לשם [תפקיד]"</li>
     </ol>
   </div>
-  <div class="box box-amber">⚠️ <strong>סריקה ≠ קריאה!</strong> הסריקה יוצרת ציפיות ושאלות. לאחר סריקה טובה, הקריאה המלאה תהיה ממוקדת ויעילה יותר ב-30%. אל תחליפו ביניהן.</div>
-
-  <!-- 5 -->
-  <div class="section-hd"><span class="sn-icon">✍️</span><div class="sn">5</div>משפט המפתח — עמוד השדרה של הפסקה</div>
-  <div class="card">
-    <h4>מה הוא?</h4>
-    <p><strong>משפט המפתח (Topic Sentence)</strong> הוא המשפט שמכיל את הרעיון המרכזי של הפסקה. כל שאר המשפטים בפסקה <em>מסבירים, מדגימים או מוכיחים</em> אותו.</p>
-    <h4 style="margin-top:.85rem">כיצד לזהות?</h4>
-    <ul>
-      <li>הוא <strong>מסכם</strong> את הפסקה במשפט אחד</li>
-      <li>לרוב נמצא <strong>בתחילת הפסקה</strong> — אך לא תמיד</li>
-      <li>אם תסיר אותו — הפסקה <strong>מתפוררת</strong> ומאבדת כיוון</li>
-      <li>הוא <strong>טענה</strong>, לא עובדה ניטרלית</li>
-      <li>מילות מסקנה ("לכן", "לפיכך") בתחילת משפט → המפתח כנראה <strong>בסוף הפסקה</strong></li>
-    </ul>
-  </div>
-
-  <!-- Visual example highlighted — upgraded with specified sentence -->
-  <div class="box-teal" style="border-radius:var(--r-xl);overflow:hidden">
-    <div class="box-teal-label" style="font-size:.8rem">
-      <div class="ts-legend"><div class="ts-legend-dot"></div>תיבת דוגמה ויזואלית — משפט המפתח מסומן בצהוב</div>
-    </div>
-
-    <!-- Annotation legend -->
-    <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.85rem">
-      <span style="display:inline-flex;align-items:center;gap:.38rem;font-size:.7rem;font-weight:700;color:#713f12;background:#fef08a;border-radius:var(--r-pill);padding:.22rem .72rem;border:1.5px solid #ca8a04">
-        <span style="width:10px;height:10px;background:#ca8a04;border-radius:2px;display:inline-block"></span> משפט מפתח
-      </span>
-      <span style="display:inline-flex;align-items:center;gap:.38rem;font-size:.7rem;font-weight:700;color:var(--text-mid);background:var(--surface);border-radius:var(--r-pill);padding:.22rem .72rem;border:1.5px solid var(--border)">
-        <span style="width:10px;height:10px;background:var(--surface3);border-radius:2px;display:inline-block;border:1px solid var(--border)"></span> משפטי תמיכה
-      </span>
-    </div>
-
-    <!-- The example paragraph with highlighted topic sentence -->
-    <div class="example-para" style="border-right:none;border:1.5px solid #99f6e4;border-radius:var(--r-lg);background:var(--surface);padding:1.2rem 1.4rem;position:relative">
-      <!-- Callout badge -->
-      <div style="position:absolute;top:-11px;right:1.1rem;background:var(--teal);color:#fff;font-size:.6rem;font-weight:800;padding:.18rem .72rem;border-radius:var(--r-pill);letter-spacing:.04em">פסקה לדוגמה</div>
-
-      <span class="highlight-ts">השימוש המוגבר ברשתות חברתיות בקרב בני נוער מוביל לירידה משמעותית ביכולת הריכוז.</span> מחקר שנערך ב-2023 על ידי אוניברסיטת בן-גוריון עקב אחר 500 בני נוער לאורך שנה. ממצאיו הראו כי אלו שצפו בסרטוני טיקטוק יותר מ-3 שעות ביום הראו קשיי ריכוז בולטים בכיתה. יתרה מזאת, ציוניהם בבחינות שדרשו קריאה ממושכת ירדו בממוצע ב-15%.
-    </div>
-
-    <!-- Color-coded breakdown -->
-    <div style="margin-top:.85rem;display:flex;flex-direction:column;gap:.42rem">
-      <div style="display:flex;gap:.6rem;align-items:flex-start;font-size:.78rem;color:var(--text-mid)">
-        <span style="min-width:20px;height:20px;background:#fef08a;border-radius:4px;border:1.5px solid #ca8a04;display:inline-flex;align-items:center;justify-content:center;font-size:.65rem;flex-shrink:0">1</span>
-        <span><strong style="color:#713f12">משפט המפתח (מסומן בצהוב):</strong> "השימוש המוגבר…" — מציג את הטענה המרכזית. כל שאר הפסקה <em>מוכיחה</em> אותה.</span>
-      </div>
-      <div style="display:flex;gap:.6rem;align-items:flex-start;font-size:.78rem;color:var(--text-mid)">
-        <span style="min-width:20px;height:20px;background:var(--surface3);border-radius:4px;border:1.5px solid var(--border);display:inline-flex;align-items:center;justify-content:center;font-size:.65rem;flex-shrink:0">2</span>
-        <span><strong>משפטי תמיכה:</strong> המחקר, המשתתפים, הממצאים — כולם <em>ראיות ודוגמאות</em> לטענה.</span>
-      </div>
-      <div style="display:flex;gap:.6rem;align-items:flex-start;font-size:.78rem;color:var(--teal);font-weight:700;border-top:1px solid #99f6e4;padding-top:.6rem;margin-top:.1rem">
-        <span style="font-size:.9rem;flex-shrink:0">🔁</span>
-        <span><strong>מבחן ההסרה:</strong> הסר את המשפט הצהוב → "מחקר שנערך ב-2023… ממצאיו הראו…" — מה הם הראו? <em>לא ברור!</em> הפסקה מאבדת כיוון לחלוטין.</span>
-      </div>
+  <div class="box-teal">
+    <div class="box-teal-label">✏️ דוגמה לתשובה מלאה</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.2rem;font-size:.86rem;line-height:1.75;color:var(--text-mid)">
+      "הטקסט הוא <strong>שכנועי</strong> שכן מטרתו לשכנע לפעולה. ניתן לראות זאת בקריאה לפעולה <em>'על המדינה לחוקק הגבלות'</em> ובפנייה הרגשית <em>'כשהילד שלכם לא מצליח'</em>. כמו כן, הטקסט מכיל מרכיבים עיוניים (נתוני מחקר) המשמשים לחיזוק הטיעון."
     </div>
   </div>
 
-<!-- 6 Summary -->
-  <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">6</div>סיכום — 5 הצעדים לפני הקריאה המלאה</div>
+  <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">8</div>סיכום — 5 שלבים לזיהוי</div>
   <div class="steps-wrap">
-    <div class="steps-title">📋 תהליך הקריאה הביקורתית המקצועית</div>
-    <div class="step-item"><div class="step-num">1</div><span>קרא את <strong>הכותרת</strong> — מה הנושא? עמדה ניטרלית / שאלתית / רגשית?</span></div>
-    <div class="step-item"><div class="step-num">2</div><span>בדוק את <strong>המחבר</strong> — מי הוא? מה עמדתו? יש לו אינטרס?</span></div>
-    <div class="step-item"><div class="step-num">3</div><span>בדוק את <strong>תאריך, מקור וקהל יעד</strong> — רלוונטי? מוטה? למי פונה?</span></div>
-    <div class="step-item"><div class="step-num">4</div><span><strong>סרוק</strong> — כותרות משנה, הדגשות, פסקה ראשונה ואחרונה, מילות מפתח</span></div>
-    <div class="step-item"><div class="step-num">5</div><span>זהה <strong>משפטי מפתח</strong> — קרא את המשפט הראשון (או האחרון) בכל פסקה</span></div>
+    <div class="steps-title">📋 שאל/י את עצמך</div>
+    <div class="step-item"><div class="step-num">1</div><span><strong>מה המטרה?</strong> — להסביר, לבדר, לשכנע, לדווח?</span></div>
+    <div class="step-item"><div class="step-num">2</div><span><strong>מה סוג השפה?</strong> — ניטרלית, רגשית, תיאורית, משכנעת?</span></div>
+    <div class="step-item"><div class="step-num">3</div><span><strong>האם יש אמצעים ספרותיים?</strong> — מטפורות, האנשה, חריזה?</span></div>
+    <div class="step-item"><div class="step-num">4</div><span><strong>האם יש קריאה לפעולה?</strong> — אם כן → שכנועי</span></div>
+    <div class="step-item"><div class="step-num">5</div><span><strong>מהו מבנה הטקסט?</strong> — פירמידה, פסקאות מובנות, חריזה?</span></div>
   </div>
-  <div class="box box-green">✅ <strong>ברוכים הבאים לניתוח טקסט מקצועי!</strong> עברו לתרגול ובחנו את עצמכם ב-20 שאלות מגוונות, כולן מבוססות על טקסט.</div>
+  <div class="box box-green">✅ <strong>מוכן לתרגול!</strong> שלושה טקסטים ו-20 שאלות.</div>
 
 </div>
+
+l">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>שיעור 1 — סוגי טקסטים | לשון Lesson 2.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<style>
+/* ═══════════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════════ */
+:root{
+  --bg:#f0f2f7;--surface:#fff;--surface2:#f8f9fb;--surface3:#eef0f5;
+  --border:#e4e7ef;--text:#0d1424;--text-mid:#3d4660;--muted:#6b7594;--subtle:#9aa3be;
+  --blue:#1a56db;--blue-lt:#eff4ff;--blue-dk:#1340b0;
+  --green:#15803d;--green-lt:#f0fdf4;
+  --amber:#b45309;--amber-lt:#fffbeb;
+  --red:#dc2626;--red-lt:#fef2f2;
+  --purple:#6d28d9;--purple-lt:#faf5ff;
+  --gold:#ca8a04;--gold-lt:#fefce8;
+  --teal:#0f766e;--teal-lt:#f0fdfa;
+  --lc:#0891b2;--lc-lt:#ecfeff;--lc-dk:#0e7490;
+  --sh1:0 1px 3px rgba(13,20,36,.06);--sh2:0 4px 20px rgba(13,20,36,.08);--sh3:0 12px 40px rgba(13,20,36,.12);
+  --r:14px;--r-lg:20px;--r-xl:26px;--r-pill:999px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#0b0f17;--surface:#131924;--surface2:#192030;--surface3:#1f2840;
+  --border:#252f47;--text:#d8dfe8;--text-mid:#a0adc5;--muted:#7a8aaa;--subtle:#50607e;
+  --blue:#4d8aff;--blue-lt:#162040;--blue-dk:#6aa0ff;
+  --green:#34d875;--green-lt:#0c2618;
+  --amber:#f5a623;--amber-lt:#28200c;
+  --red:#fc8080;--red-lt:#281414;
+  --purple:#b09dfa;--purple-lt:#1a1432;
+  --gold:#f5a623;--gold-lt:#28200c;
+  --teal:#34d4c2;--teal-lt:#0c221e;
+  --lc:#22d3ee;--lc-lt:#083344;
+  --sh1:0 1px 3px rgba(0,0,0,.3);--sh2:0 4px 20px rgba(0,0,0,.4);--sh3:0 12px 40px rgba(0,0,0,.5);
+}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{line-height:1.65;min-height:100vh}
+button,input,select,textarea{font-family:inherit}
+
+/* ═══════════════════════════════════════════════
+   TOPBAR
+═══════════════════════════════════════════════ */
+.topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:.62rem 1.1rem;display:flex;align-items:center;gap:.55rem;min-height:54px;box-shadow:var(--sh1)}
+.btn-back{width:40px;height:40px;border:1.5px solid var(--border);border-radius:11px;background:var(--surface2);font-size:1.05rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .14s;flex-shrink:0}
+.btn-back:hover{background:var(--surface3);color:var(--text)}
+.topbar-info{flex:1;min-width:0}
+.topbar-title{font-family:'Secular One',sans-serif;font-size:.9rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar-sub{font-size:.6rem;color:var(--subtle);margin-top:.04rem}
+.topbar-actions{display:flex;gap:.38rem;flex-shrink:0;align-items:center}
+.t-chip{font-size:.62rem;font-weight:700;padding:.2rem .68rem;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface2);color:var(--muted)}
+.t-chip.amber{color:var(--amber);background:var(--amber-lt);border-color:#fde68a}
+.t-chip.teacher{color:var(--gold);background:var(--gold-lt);border-color:#fde68a;display:none}
+
+/* PRINT BUTTON */
+.btn-print{display:inline-flex;align-items:center;gap:.32rem;padding:.32rem .85rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .14s;white-space:nowrap;min-height:36px}
+.btn-print:hover{background:var(--blue-lt);color:var(--blue);border-color:var(--blue)}
+
+/* TABS */
+.tabs-bar{background:var(--surface);border-bottom:1px solid var(--border);display:flex;padding:0 1.1rem;overflow-x:auto;scrollbar-width:none;position:sticky;top:54px;z-index:90}
+.tabs-bar::-webkit-scrollbar{display:none}
+.tab-btn{padding:.68rem 1.2rem;border:none;border-bottom:2.5px solid transparent;background:none;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;min-height:46px;margin-bottom:-1px;flex-shrink:0;transition:color .14s}
+.tab-btn:hover{color:var(--lc)}
+.tab-btn.active{color:var(--lc);border-bottom-color:var(--lc);font-weight:800}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* LESSON WRAP */
+.lesson-wrap{max-width:800px;margin:0 auto;padding:1.5rem 1.2rem 5rem;width:100%}
+
+/* ─── HERO ─── */
+.lesson-hero{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface) 68%);border:1px solid var(--border);border-radius:var(--r-xl);padding:1.8rem 1.6rem 1.6rem;margin-bottom:1.8rem;position:relative;overflow:hidden;box-shadow:var(--sh1)}
+.lesson-hero::before{content:'';position:absolute;top:0;right:0;bottom:0;width:5px;background:var(--lc);opacity:.75;border-radius:0 var(--r-xl) var(--r-xl) 0}
+.hero-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.62rem;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.07em;background:var(--lc-lt);border:1.5px solid var(--lc);border-radius:var(--r-pill);padding:.22rem .8rem;margin-bottom:.9rem;opacity:.88}
+.hero-emoji{font-size:2.6rem;margin-bottom:.55rem;display:block;line-height:1}
+.hero-title{font-family:'Secular One',sans-serif;font-size:clamp(1.35rem,4vw,1.75rem);color:var(--text);line-height:1.18;margin-bottom:.4rem}
+.hero-desc{font-size:.84rem;color:var(--muted);line-height:1.65;max-width:580px}
+.hero-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
+.hero-chip{font-size:.63rem;font-weight:700;padding:.22rem .72rem;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface);color:var(--muted)}
+.hero-chip.amber{color:var(--amber);background:var(--amber-lt);border-color:#fde68a}
+.hero-chip.green{color:var(--green);background:var(--green-lt);border-color:#bbf7d0}
+
+/* ─── SECTION HEADING with icon ─── */
+.section-hd{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--lc);display:flex;align-items:center;gap:.55rem;margin:2.2rem 0 1rem;padding-bottom:.48rem;border-bottom:2px solid var(--lc-lt)}
+.section-hd:first-of-type{margin-top:0}
+.sn{width:28px;height:28px;border-radius:50%;background:var(--lc);color:#fff;font-size:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900}
+.sn-icon{font-size:1.3rem;flex-shrink:0;line-height:1}
+
+/* ─── CONTENT CARDS ─── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;box-shadow:var(--sh1);margin-bottom:1rem}
+.card p{font-size:.9rem;line-height:1.78;color:var(--text-mid)}
+.card p+p{margin-top:.65rem}
+.card h4{font-size:.9rem;font-weight:800;margin-bottom:.42rem;color:var(--text)}
+.card h4+p{margin-top:0}
+.card ul,.card ol{padding-right:1.3rem;margin-top:.42rem}
+.card li{font-size:.9rem;line-height:1.78;color:var(--text-mid);margin-bottom:.18rem}
+.card li strong{color:var(--text)}
+
+/* Callouts */
+.box{border-radius:var(--r);padding:1rem 1.2rem;font-size:.86rem;line-height:1.72;color:var(--text-mid);margin-bottom:1rem}
+.box strong{font-weight:800}
+.box-blue{background:var(--blue-lt);border:1.5px solid #bfdbfe}.box-blue strong{color:var(--blue)}
+.box-amber{background:var(--amber-lt);border:1.5px solid #fde68a}.box-amber strong{color:var(--amber)}
+.box-green{background:var(--green-lt);border:1.5px solid #bbf7d0}.box-green strong{color:var(--green)}
+.box-purple{background:var(--purple-lt);border:1.5px solid #ddd6fe}.box-purple strong{color:var(--purple)}
+.box-teal{background:var(--teal-lt);border:1.5px solid #99f6e4;border-radius:var(--r-lg);padding:1.25rem 1.35rem;margin-bottom:1rem}
+.box-teal-label{font-size:.78rem;font-weight:800;color:var(--teal);margin-bottom:.78rem}
+
+/* Grid */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.85rem}
+@media(max-width:480px){.grid2{grid-template-columns:1fr}}
+.mini-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.95rem 1.05rem}
+.mini-title{font-size:.76rem;font-weight:800;color:var(--text);margin-bottom:.38rem}
+.mini-body{font-size:.8rem;color:var(--text-mid);line-height:1.62}
+
+/* Topic-sentence highlight */
+.example-para{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem 1.2rem;font-size:.88rem;line-height:1.9;color:var(--text-mid);margin-bottom:.72rem;border-right:3px solid var(--lc)}
+.highlight-ts{background:#fef08a;border-radius:3px;padding:2px 5px;font-weight:800;color:#713f12;border-bottom:2.5px solid #ca8a04}
+.ts-legend{display:flex;align-items:center;gap:.55rem;font-size:.76rem;font-weight:700;color:var(--teal);margin-bottom:.6rem}
+.ts-legend-dot{width:16px;height:16px;border-radius:4px;background:#fef08a;border:2px solid #ca8a04;flex-shrink:0}
+
+/* Steps summary */
+.steps-wrap{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1.5px solid #bfdbfe;border-radius:var(--r-lg);padding:1.4rem 1.5rem;margin-bottom:1rem}
+.steps-title{font-family:'Secular One',sans-serif;font-size:.94rem;color:var(--lc);margin-bottom:1rem}
+.step-item{display:flex;align-items:flex-start;gap:.65rem;font-size:.86rem;color:var(--text-mid);line-height:1.55;margin-bottom:.68rem}
+.step-item:last-child{margin-bottom:0}
+.step-num{width:26px;height:26px;border-radius:50%;background:var(--lc);color:#fff;font-size:.7rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+
+/* ═══════════════════════════════════════════════
+   READING TEXT BOX (Practice tab)
+═══════════════════════════════════════════════ */
+.reading-text-box{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.5rem 1.6rem;margin-bottom:1.8rem;box-shadow:var(--sh2);position:relative}
+.reading-text-box::before{content:'📄 טקסט לקריאה';position:absolute;top:-12px;right:1.4rem;background:var(--lc);color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill);letter-spacing:.04em}
+.rt-title{font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:.3rem}
+.rt-byline{font-size:.72rem;color:var(--muted);margin-bottom:1.1rem;display:flex;gap:1rem;flex-wrap:wrap}
+.rt-byline span{display:flex;align-items:center;gap:.28rem}
+.rt-body{font-size:.88rem;line-height:1.88;color:var(--text-mid)}
+.rt-body p{margin-bottom:.85rem}
+.rt-body p:last-child{margin-bottom:0}
+.rt-body strong{color:var(--text);font-weight:700}
+
+/* ═══════════════════════════════════════════════
+   QUIZ
+═══════════════════════════════════════════════ */
+.quiz-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1px solid #bfdbfe;border-radius:var(--r-lg);padding:1.25rem 1.4rem;margin-bottom:1.5rem}
+.quiz-hd-title{font-family:'Secular One',sans-serif;font-size:.97rem;color:var(--lc);margin-bottom:.32rem}
+.quiz-hd-desc{font-size:.82rem;color:var(--muted)}
+.quiz-prog-bar{height:5px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-top:.8rem;border:1px solid var(--border)}
+.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--lc),#60a5fa);border-radius:var(--r-pill);transition:width .38s ease}
+.quiz-prog-row{display:flex;justify-content:space-between;margin-top:.38rem;font-size:.7rem;color:var(--muted)}
+
+.q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;margin-bottom:1.25rem;box-shadow:var(--sh1);transition:border-color .2s}
+.q-card.ok{border-color:#bbf7d0}
+.q-card.wrong{border-color:#fca5a5}
+.q-num{font-size:.66rem;font-weight:800;color:var(--subtle);margin-bottom:.55rem;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.q-type-badge{font-size:.56rem;font-weight:700;padding:.14rem .52rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)}
+.q-text{font-size:.94rem;font-weight:700;color:var(--text);line-height:1.52;margin-bottom:1.05rem}
+.q-ref{font-size:.76rem;color:var(--blue);font-weight:600;margin-bottom:.85rem;background:var(--blue-lt);padding:.32rem .75rem;border-radius:var(--r-pill);display:inline-block}
+
+/* MC */
+.mc-wrap{display:flex;flex-direction:column;gap:.42rem}
+.mc-btn{width:100%;text-align:right;padding:.78rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.86rem;color:var(--text-mid);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:.68rem;min-height:50px}
+.mc-btn:hover:not(:disabled){border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
+.mc-btn.sel{border-color:var(--lc);background:var(--lc-lt);color:var(--lc);font-weight:700}
+.mc-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important;font-weight:700}
+.mc-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important;font-weight:700}
+.mc-btn:disabled{cursor:default}
+.mc-letter{width:24px;height:24px;border-radius:50%;background:var(--surface3);color:var(--muted);font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .14s}
+.mc-btn.sel .mc-letter{background:var(--lc);color:#fff}
+.mc-btn.correct .mc-letter{background:var(--green);color:#fff}
+.mc-btn.wrong .mc-letter{background:var(--red);color:#fff}
+
+/* TF */
+.tf-row{display:flex;gap:.68rem}
+.tf-btn{flex:1;padding:.8rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.9rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:54px}
+.tf-btn:hover:not(:disabled){border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
+.tf-btn.sel{border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
+.tf-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important}
+.tf-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important}
+.tf-btn:disabled{cursor:default}
+
+/* Sort */
+.sort-list{display:flex;flex-direction:column;gap:.42rem;margin-bottom:.55rem}
+.sort-item{display:flex;align-items:center;gap:.68rem;padding:.74rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);cursor:grab;transition:all .15s;user-select:none}
+.sort-item:active{cursor:grabbing;box-shadow:var(--sh2)}
+.sort-item.dragging{opacity:.45}
+.sort-item.drag-over{border-color:var(--lc);background:var(--lc-lt)}
+.sort-handle{font-size:1.1rem;color:var(--muted);flex-shrink:0}
+.sort-text{font-size:.86rem;color:var(--text-mid);flex:1}
+.sort-note{font-size:.7rem;color:var(--muted);margin-bottom:.32rem}
+
+/* Feedback */
+.q-feedback{margin-top:.72rem;padding:.8rem 1.05rem;border-radius:var(--r);font-size:.83rem;font-weight:600;line-height:1.58;display:none;border-right:3px solid transparent}
+.q-feedback.show{display:block}
+.q-feedback.ok{background:var(--green-lt);color:var(--green);border-color:var(--green)}
+.q-feedback.wrong{background:var(--red-lt);color:var(--red);border-color:var(--red)}
+
+/* Results */
+.results-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:2.2rem 1.8rem;text-align:center;box-shadow:var(--sh2);margin-top:1.5rem}
+.results-emoji{font-size:4rem;margin-bottom:.8rem;display:block}
+.results-score{font-family:'Secular One',sans-serif;font-size:3.4rem;font-weight:800;margin-bottom:.3rem;display:block}
+.results-label{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem;display:block}
+.results-bar{height:10px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-bottom:1.6rem;border:1px solid var(--border)}
+.results-bar-fill{height:100%;border-radius:var(--r-pill);transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.btn-submit{padding:.85rem 2rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(26,86,219,.3);transition:all .15s;min-height:48px}
+.btn-submit:hover{background:var(--blue-dk);transform:translateY(-1px)}
+.btn-reset{padding:.82rem 1.6rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);color:var(--muted);font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:48px}
+.btn-reset:hover{background:var(--surface3);color:var(--text)}
+.btn-send{padding:.82rem 1.8rem;border:none;border-radius:var(--r-pill);background:var(--green);color:#fff;font-size:.86rem;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(21,128,61,.3);transition:all .15s;min-height:48px}
+.btn-send:hover{transform:translateY(-1px)}
+
+/* ═══════════════════════════════════════════════
+   STUDENT GATE — shown before accessing practice
+═══════════════════════════════════════════════ */
+#student-gate{
+  background:var(--surface);border:2px solid var(--lc);
+  border-radius:var(--r-xl);padding:0;margin-bottom:1.5rem;
+  box-shadow:var(--sh2);overflow:hidden;
+}
+#student-gate.hidden{display:none}
+.gate-header{
+  background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);
+  padding:1.4rem 1.5rem 1.2rem;text-align:center;
+  border-bottom:1px solid var(--border);
+}
+.gate-icon{font-size:2.4rem;display:block;margin-bottom:.55rem}
+.gate-title{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--text);margin-bottom:.28rem}
+.gate-desc{font-size:.8rem;color:var(--muted);line-height:1.55}
+.gate-body{padding:1.3rem 1.5rem 1.5rem;display:flex;flex-direction:column;gap:.9rem}
+.gate-field label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);margin-bottom:.38rem;letter-spacing:.02em}
+.gate-input{
+  width:100%;padding:.82rem 1rem;
+  border:1.5px solid var(--border);border-radius:var(--r);
+  background:var(--surface2);font-size:.92rem;color:var(--text);
+  outline:none;transition:border-color .15s,box-shadow .15s;min-height:50px;
+}
+.gate-input::placeholder{color:var(--subtle)}
+.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.14)}
+.gate-input.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.1)}
+.gate-select{
+  width:100%;padding:.82rem 1rem;
+  border:1.5px solid var(--border);border-radius:var(--r);
+  background:var(--surface2);font-size:.92rem;color:var(--text);
+  outline:none;transition:border-color .15s;min-height:50px;cursor:pointer;
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7594' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:left 1rem center;
+}
+.gate-select:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.14)}
+.gate-select.err{border-color:var(--red)}
+.gate-err-msg{font-size:.7rem;color:var(--red);margin-top:.26rem;display:none}
+.gate-err-msg.show{display:block}
+.gate-date-display{
+  padding:.78rem 1rem;background:var(--surface3);
+  border:1.5px solid var(--border);border-radius:var(--r);
+  font-size:.88rem;color:var(--muted);
+}
+.gate-btn{
+  width:100%;padding:.88rem;border:none;border-radius:var(--r-pill);
+  background:var(--lc);color:#fff;font-size:.92rem;font-weight:700;
+  cursor:pointer;min-height:52px;
+  box-shadow:0 4px 18px rgba(26,86,219,.28);
+  transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.45rem;
+}
+.gate-btn:hover{background:var(--blue-dk);transform:translateY(-1px);box-shadow:0 6px 22px rgba(26,86,219,.35)}
+.gate-btn:active{transform:scale(.97)}
+/* Confirmed card */
+#gate-confirmed{
+  display:none;
+  background:var(--green-lt);border:2px solid #bbf7d0;
+  border-radius:var(--r-xl);padding:1rem 1.3rem;
+  margin-bottom:1.5rem;
+  align-items:center;gap:.85rem;
+}
+#gate-confirmed.show{display:flex}
+#gate-confirmed.hidden{display:none!important}
+.gc-avatar{
+  width:46px;height:46px;border-radius:50%;
+  background:linear-gradient(135deg,#15803d,#16a34a);
+  color:#fff;font-size:1.1rem;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;box-shadow:0 3px 10px rgba(21,128,61,.25);
+}
+.gc-info{flex:1;min-width:0}
+.gc-name{font-size:.92rem;font-weight:800;color:var(--green)}
+.gc-meta{font-size:.74rem;color:var(--text-mid);margin-top:.15rem}
+.gc-change{font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;margin-top:.22rem;display:block}
+.gc-change:hover{color:var(--lc)}
+
+/* ═══════════════════════════════════════════════
+   STUDENT REGISTRATION MODAL
+═══════════════════════════════════════════════ */
+.reg-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.62);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1.2rem}
+.reg-overlay.open{display:flex;animation:regFadeIn .2s ease}
+@keyframes regFadeIn{from{opacity:0}to{opacity:1}}
+.reg-modal{
+  background:var(--surface);border-radius:var(--r-xl);
+  box-shadow:var(--sh3);width:100%;max-width:420px;
+  border:1px solid var(--border);
+  animation:regPop .28s cubic-bezier(.34,1.45,.64,1);
+  overflow:hidden;
+}
+@keyframes regPop{from{opacity:0;transform:scale(.88) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.reg-header{
+  background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);
+  padding:1.5rem 1.5rem 1.2rem;
+  border-bottom:1px solid var(--border);
+  text-align:center;
+}
+.reg-header-icon{font-size:2.2rem;margin-bottom:.5rem;display:block}
+.reg-header-title{font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:.28rem}
+.reg-header-desc{font-size:.78rem;color:var(--muted);line-height:1.5}
+.reg-body{padding:1.4rem 1.5rem 1.5rem;display:flex;flex-direction:column;gap:.95rem}
+.reg-field label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);margin-bottom:.38rem;letter-spacing:.02em}
+.reg-input{
+  width:100%;padding:.82rem 1rem;
+  border:1.5px solid var(--border);border-radius:var(--r);
+  background:var(--surface2);font-size:.92rem;color:var(--text);
+  outline:none;transition:border-color .15s,box-shadow .15s;
+  min-height:50px;
+}
+.reg-input::placeholder{color:var(--subtle)}
+.reg-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.14)}
+.reg-input.error{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.12)}
+.reg-select{
+  width:100%;padding:.82rem 1rem;
+  border:1.5px solid var(--border);border-radius:var(--r);
+  background:var(--surface2);font-size:.92rem;color:var(--text);
+  outline:none;transition:border-color .15s;
+  min-height:50px;cursor:pointer;
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7594' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:left 1rem center;
+}
+.reg-select:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.14)}
+.reg-select.error{border-color:var(--red)}
+.reg-error-msg{font-size:.72rem;color:var(--red);margin-top:.28rem;display:none}
+.reg-error-msg.show{display:block}
+.reg-footer{padding:0 1.5rem 1.5rem;display:flex;gap:.65rem}
+.reg-btn-cancel{flex:1;padding:.78rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);color:var(--muted);font-size:.85rem;font-weight:700;cursor:pointer;transition:all .14s;min-height:48px}
+.reg-btn-cancel:hover{background:var(--surface3);color:var(--text)}
+.reg-btn-submit{flex:2;padding:.78rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.88rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(26,86,219,.28);transition:all .15s;min-height:48px;display:flex;align-items:center;justify-content:center;gap:.4rem}
+.reg-btn-submit:hover{background:var(--blue-dk);transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,86,219,.35)}
+.reg-btn-submit:disabled{opacity:.6;cursor:default;transform:none}
+
+/* ═══════════════════════════════════════════════
+   ANSWERS TAB
+═══════════════════════════════════════════════ */
+.answers-locked{background:var(--surface);border:2px dashed var(--border);border-radius:var(--r-xl);padding:2.5rem 2rem;text-align:center;margin-top:.5rem}
+.answers-locked-icon{font-size:3.5rem;margin-bottom:1rem;display:block}
+.answers-locked-title{font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:.6rem}
+.answers-locked-desc{font-size:.86rem;color:var(--muted);line-height:1.65;max-width:420px;margin:0 auto}
+.answer-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.05rem 1.2rem;margin-bottom:.78rem}
+.ans-num{font-size:.66rem;color:var(--subtle);margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem}
+.ans-q{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.5rem;line-height:1.45}
+.ans-correct{background:var(--green-lt);border:1.5px solid #bbf7d0;border-radius:9px;padding:.55rem .95rem;font-size:.82rem;color:var(--green);font-weight:700;margin-bottom:.42rem}
+.ans-explain{font-size:.78rem;color:var(--muted);line-height:1.58;border-right:3px solid var(--border);padding-right:.78rem;margin-top:.4rem}
+.ans-teacher-note{font-size:.78rem;font-weight:700;color:var(--purple);margin-top:.38rem;background:var(--purple-lt);border-radius:8px;padding:.42rem .75rem}
+
+/* Toast */
+#toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%) translateY(14px);background:var(--text);color:var(--bg);padding:.58rem 1.4rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:700;box-shadow:var(--sh3);z-index:9999;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;white-space:nowrap}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ═══════════════════════════════════════════════
+   PRINT STYLES
+═══════════════════════════════════════════════ */
+@media print{
+  .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,
+  #submit-row,#results-container,#toast,
+  .sort-handle,
+  .mc-btn:not(.correct):not(.print-show){display:none!important}
+  body{background:#fff;color:#000;font-size:10pt;line-height:1.5}
+  html{background:#fff}
+  .tab-pane{display:block!important}
+  .lesson-wrap{padding:.5cm 1cm;max-width:100%;page-break-inside:avoid}
+  .lesson-hero{background:#f5f5f5;border:1px solid #ddd;box-shadow:none}
+  .lesson-hero::before{display:none}
+  .card,.q-card,.reading-text-box,.answer-row{box-shadow:none;break-inside:avoid;page-break-inside:avoid}
+  .reading-text-box{border:2px solid #1a56db}
+  .reading-text-box::before{background:#1a56db;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .q-feedback{display:block!important;background:#f0fdf4;border-color:#15803d;color:#15803d}
+  .highlight-ts{background:#fef08a;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sn{background:#1a56db;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  h2,.section-hd{color:#1a56db;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #1a56db}
+  .print-header h1{font-size:16pt;color:#1a56db}
+  .print-header p{font-size:10pt;color:#555}
+  .answers-locked{display:none!important}
+  /* show all answer rows in print */
+  #pane-answers .answer-row{display:block!important}
+  /* Page breaks */
+  #pane-theory{page-break-after:always}
+  #pane-practice{page-break-after:always}
+  #pane-answers h2{page-break-before:always}
+  .mc-btn.correct{display:flex!important;background:#f0fdf4;border-color:#15803d;color:#15803d;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+/* Hidden print header (shown only when printing) */
+.print-header{display:none}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <button class="btn-back" onclick="goBack()" title="חזור לדשבורד">←</button>
+  <div class="topbar-info">
+    <div class="topbar-title">📄 סוגי טקסטים</div>
+    <div class="topbar-sub">יחידה 1 — הבנה והבעה · שיעור 1</div>
+  </div>
+  <div class="topbar-actions">
+    <span class="t-chip amber">⏱ 40 דק׳</span>
+    <span class="t-chip teacher" id="role-chip">🎓 מורה</span>
+    <button class="btn-print" onclick="printLesson()" title="הדפס שיעור">🖨️ הדפסה</button>
+  </div>
 </div>
 
-<!-- ══════════════════
-     PRACTICE TAB
+<!-- TABS -->
+<div class="tabs-bar">
+  <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
+  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (20 שאלות)</button>
+  <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
 ══════════════════ -->
 <div class="tab-pane" id="pane-practice">
 <div class="print-header">
-  <h1>תרגול — שיעור 0: מבוא לניתוח טקסט</h1>
+  <h1>תרגול — שיעור 1: סוגי טקסטים</h1>
   <p>20 שאלות מבוססות טקסט | לשון Lesson 2.0</p>
 </div>
 <div class="lesson-wrap">
@@ -1196,7 +1058,7 @@ button,input,select,textarea{font-family:inherit}
   </div>
 
   <!-- Practice content (hidden until gate confirmed) -->
-  <div id="practice-content-wrap">
+  <div id="practice-content-wrap" style="display:none">
   <!-- TEXT A: Informational -->
   <div class="reading-text-box">
     <div class="rt-title">טקסט א׳ — על הנחיל והדבורה</div>
@@ -1260,7 +1122,7 @@ button,input,select,textarea{font-family:inherit}
 ══════════════════ -->
 <div class="tab-pane" id="pane-answers">
 <div class="print-header">
-  <h1>מפתח תשובות — שיעור 0: מבוא לניתוח טקסט</h1>
+  <h1>מפתח תשובות — שיעור 1: סוגי טקסטים</h1>
   <p>20 שאלות + הסברים פדגוגיים | לשון Lesson 2.0</p>
 </div>
 <div class="lesson-wrap">
@@ -1861,31 +1723,30 @@ function switchTab(t){
     document.getElementById('btn-'+x)?.classList.toggle('active',x===t);
     document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);
   });
-
-  // When student opens practice tab — show gate if not yet confirmed
-  if(t==='practice' && USER_ROLE==='student'){
+  if(t==='practice'){
     const gate=document.getElementById('student-gate');
     const confirmed=document.getElementById('gate-confirmed');
     const wrap=document.getElementById('practice-content-wrap');
     const dateEl=document.getElementById('gate-date-display');
-
-    // Auto-fill date
     if(dateEl) dateEl.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-
-    if(!_gateConfirmed){
-      // Pre-fill if returning student
-      const nameEl=document.getElementById('gate-name');
-      const classEl=document.getElementById('gate-class');
-      if(nameEl && STUDENT_NAME && STUDENT_NAME!=='תלמיד/ה') nameEl.value=STUDENT_NAME;
-      if(classEl && STUDENT_CLASS) classEl.value=STUDENT_CLASS;
-
-      if(gate) gate.classList.remove('hidden');
-      if(confirmed) confirmed.classList.add('hidden');
-      if(wrap) wrap.style.display='none';
+    if(USER_ROLE==='teacher'){
+      if(gate)gate.classList.add('hidden');
+      if(confirmed)confirmed.classList.add('hidden');
+      if(wrap)wrap.style.display='';
     } else {
-      if(gate) gate.classList.add('hidden');
-      if(confirmed) confirmed.classList.remove('hidden');
-      if(wrap) wrap.style.display='';
+      if(!_gateConfirmed){
+        const nameEl=document.getElementById('gate-name');
+        const classEl=document.getElementById('gate-class');
+        if(nameEl&&STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה')nameEl.value=STUDENT_NAME;
+        if(classEl&&STUDENT_CLASS)classEl.value=STUDENT_CLASS;
+        if(gate)gate.classList.remove('hidden');
+        if(confirmed)confirmed.classList.add('hidden');
+        if(wrap)wrap.style.display='none';
+      } else {
+        if(gate)gate.classList.add('hidden');
+        if(confirmed)confirmed.classList.remove('hidden');
+        if(wrap)wrap.style.display='';
+      }
     }
   }
 }
