@@ -479,8 +479,8 @@ button,input,select,textarea{font-family:inherit}
   <div id="student-gate">
     <div class="gate-header"><span class="gate-icon">✏️</span><div class="gate-title">כניסה לתרגול</div><div class="gate-desc">לפני שמתחילים — אנא הזינו שם ושיבוץ כיתה</div></div>
     <div class="gate-body">
-      <div class="gate-field"><label>שם מלא (שם + משפחה)</label><input class="gate-input" id="gate-name" type="text" placeholder="לדוגמה: דנה כהן" autocomplete="off"><div class="gate-err-msg" id="gate-name-err">אנא הזינו שם ושם משפחה</div></div>
-      <div class="gate-field"><label>כיתה</label><select class="gate-select" id="gate-class"><option value="">— בחרו כיתה —</option><option>י׳א</option><option>י׳ב</option><option>י׳ג</option><option>י׳ד</option><option>י׳ה</option><option>י׳ו</option></select><div class="gate-err-msg" id="gate-class-err">אנא בחרו כיתה</div></div>
+      <div class="gate-field"><label for="gate-name">👤 שם מלא</label><input class="gate-input" id="gate-name" type="text" placeholder="לדוגמה: דנה כהן" autocomplete="off"><div class="gate-err-msg" id="gate-name-err">אנא הזינו שם ושם משפחה</div></div>
+      <div class="gate-field"><label for="gate-class">🏫 כיתה</label><input class="gate-input" id="gate-class" type="text" placeholder="לדוגמה: י3" autocomplete="off"><div class="gate-err-msg" id="gate-class-err">נא להזין שם כיתה</div></div>
       <div class="gate-field"><label>תאריך</label><div class="gate-date-display" id="gate-date-display"></div></div>
       <button class="gate-btn" onclick="confirmGate()">✅ כניסה לתרגול</button>
     </div>
@@ -911,7 +911,7 @@ function submitQuiz(){
     <div class="results-bar"><div class="results-bar-fill" style="width:0%;background:${color}" id="res-fill"></div></div>
     <button class="btn-send" onclick="sendResults()">📤 שליחה למורה</button>
   </div>`;}
-  document.getElementById('submit-row')?.remove();
+  const sr2=document.getElementById('submit-row');if(sr2)sr2.style.display='none';
   setTimeout(()=>{const rf=document.getElementById('res-fill');if(rf)rf.style.width=pct+'%';},80);
   rc?.scrollIntoView({behavior:'smooth',block:'start'});
 }
@@ -923,18 +923,14 @@ function resetQuiz(){
   QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;
   renderQuestions();updateProgress();
   const rc=document.getElementById('results-container');if(rc){rc.style.display='none';rc.innerHTML='';}
-  const sr=document.getElementById('submit-row');
-  if(!sr){
-    const sw=document.getElementById('practice-content-wrap');
-    if(sw){const div=document.createElement('div');div.id='submit-row';div.style.cssText='display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem';div.innerHTML='<button class="btn-submit" onclick="submitQuiz()">📤 הגשת התרגול</button><button class="btn-reset" onclick="resetQuiz()">🔄 אתחול</button>';sw.appendChild(div);}
-  }
+  const sr=document.getElementById('submit-row');if(sr)sr.style.display='flex';
 }
 
 /* ════════════════════════════════════════════════
    ANSWERS RENDER
 ════════════════════════════════════════════════ */
 function renderAnswers(){
-  const al=document.getElementById('answers-list');if(!al)return;
+  const al=document.getElementById('answers-container');if(!al)return;
   const LETTERS=['א','ב','ג','ד'];
   al.innerHTML=QUESTIONS.map((q,i)=>{
     let ans='';
