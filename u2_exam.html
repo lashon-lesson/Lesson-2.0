@@ -271,7 +271,7 @@ button,input,select{font-family:inherit}
     <div class="gh"><span class="gi">🎓</span><div class="gt">פרטי נבחן/ת</div><div class="gd">מלאו פרטים לפני תחילת המבחן</div></div>
     <div class="gb">
       <div class="gf"><label>שם מלא (שם + משפחה)</label><input class="gi2" id="gname" type="text" placeholder="לדוגמה: דנה כהן" autocomplete="off"><div class="gem" id="gne">אנא הזינו שם ושם משפחה</div></div>
-      <div class="gf"><label>כיתה</label><select class="gsel" id="gcls"><option value="">— בחרו כיתה —</option><option>י׳א</option><option>י׳ב</option><option>י׳ג</option><option>י׳ד</option><option>י׳ה</option><option>י׳ו</option></select><div class="gem" id="gce">אנא בחרו כיתה</div></div>
+      <div class="gf"><label>כיתה</label><input class="gi2" id="gcls" type="text" placeholder="לדוגמה: י3 או י׳ג" autocomplete="off"><div class="gem" id="gce">אנא הזינו שם כיתה</div></div>
       <div class="gf"><label>תאריך</label><div class="gdd" id="gdate"></div></div>
       <button class="gbtn" onclick="confirmGate()">🚀 התחל מבחן</button>
     </div>
@@ -514,7 +514,7 @@ function confirmGate(){
   let ok=true;
   if(nv.split(/\s+/).filter(Boolean).length<2){ne?.classList.add('err');document.getElementById('gne')?.classList.add('show');ok=false;}
   else{ne?.classList.remove('err');document.getElementById('gne')?.classList.remove('show');}
-  if(!cv){ce?.classList.add('err');document.getElementById('gce')?.classList.add('show');ok=false;}
+  if(!cv||cv.trim().length<1){ce?.classList.add('err');document.getElementById('gce')?.classList.add('show');ok=false;}
   else{ce?.classList.remove('err');document.getElementById('gce')?.classList.remove('show');}
   if(!ok)return;
   SN=nv;SC=cv;LS.set('lashon2_uname',nv);LS.set('lashon2_class',cv);_gc=true;

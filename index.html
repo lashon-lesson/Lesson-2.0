@@ -691,10 +691,10 @@ const UNITS=[
        title:'הבנת מקורות מרובים',desc:'קריאה, השוואה וסינתזה ממספר מקורות',file:'lesson3.html'},
       {id:'u1_l4',short:'שיעור 4',emoji:'🎯',color:'#b45309',mins:45,locked:false,
        title:'טקסט טיעון',desc:'זיהוי טענה ראשית, נימוקים ועמדת הכותב',file:'lesson4.html'},
-      {id:'u1_l5',short:'שיעור 5',emoji:'✍️',color:'#be185d',mins:45,locked:true,
-       title:'כתיבה יוצרת',desc:'מבנה, ציר הסיפור ואמצעים ספרותיים'},
-      {id:'u1_exam',short:'מבחן',emoji:'🏆',color:'#ca8a04',mins:45,locked:true,exam:true,
-       title:'מבחן סיכום — הבנה והבעה',desc:'מבחן מסכם לכל נושאי היחידה'},
+      {id:'u1_l5',short:'שיעור 5',emoji:'✍️',color:'#be185d',mins:45,locked:false,
+       title:'כתיבה יוצרת',desc:'מבנה, ציר הסיפור ואמצעים ספרותיים',file:'lesson5.html'},
+      {id:'u1_exam',short:'מבחן',emoji:'🏆',color:'#ca8a04',mins:45,locked:false,exam:true,
+       title:'מבחן סיכום — הבנה והבעה',desc:'מבחן מסכם לכל נושאי היחידה',file:'exam.html'},
     ]
   },
   { id:'u2',emoji:'🔗',label:'יחידה 2',title:'תחביר',color:'#0f766e',colorLt:'#f0fdfa',
@@ -703,9 +703,9 @@ const UNITS=[
       {id:'u2_l1',short:'שיעור 1',emoji:'🔤',color:'#0f766e',mins:45,locked:false,
        title:'חלקי הדיבור',desc:'שם עצם, שם תואר, פועל, מילות יחס — זיהוי ותפקיד',file:'u2_lesson1.html'},
       {id:'u2_l2',short:'שיעור 2',emoji:'🌿',color:'#0891b2',mins:45,locked:false,
-       title:'צורות הבינוני',desc:'בינוני פועל ובינוני פעול — צורה, תפקיד ושימוש'},
+       title:'צורות הבינוני',desc:'בינוני פועל ובינוני פעול — צורה, תפקיד ושימוש',file:'u2_lesson2.html'},
       {id:'u2_l3',short:'שיעור 3',emoji:'📐',color:'#7c3aed',mins:45,locked:false,
-       title:'צירוף או משפט',desc:'צירוף שמני, פועלי — הבחנה ומבנה'},
+       title:'צירוף או משפט',desc:'צירוף שמני, פועלי — הבחנה ומבנה',file:'u2_lesson3.html'},
       {id:'u2_l4',short:'שיעור 4',emoji:'🔀',color:'#0284c7',mins:45,locked:false,
        title:'קשרים לוגיים',desc:'אבל, כי, לכן, אם — קשרי הגיון ויחסי תלות',file:'u2_lesson4.html'},
       {id:'u2_l5',short:'שיעור 5',emoji:'👤',color:'#059669',mins:45,locked:false,
@@ -773,7 +773,7 @@ const UNITS=[
       {id:'u4_l5',short:'שיעור 5',emoji:'📚',color:'#be185d',mins:45,locked:true,
        title:'כתיב חסר ומלא',desc:'כתיב בלא ניקוד — חוקים, יוצאים מהכלל ומלכודות נפוצות'},
       {id:'u4_l6',short:'שיעור 6',emoji:'⏸️',color:'#ca8a04',mins:45,locked:true,
-       title:'הפיסוק התקני',desc:'פסיק, נקודה, מירכאות, מקף — כללים ויישום',file:'u2_lesson12.html'},
+       title:'הפיסוק התקני',desc:'פסיק, נקודה, מירכאות, מקף — כללים ויישום'},
       {id:'u4_exam',short:'מבחן',emoji:'🎯',color:'#ca8a04',mins:60,locked:true,exam:true,
        title:'מבחן סיכום — תקינות',desc:'מבחן מסכם לכל נושאי התקינות'},
     ]
@@ -972,7 +972,7 @@ function renderGrid(){
     });
     html+=`
     <div class="unit-card" id="unit-${unit.id}">
-      <button class="unit-hd${ui===0?' open':''}" id="uh-${unit.id}" style="--uc:${unit.color};--uc-lt:${unit.colorLt}" onclick="toggleUnit('${unit.id}')">
+      <button class="unit-hd" id="uh-${unit.id}" style="--uc:${unit.color};--uc-lt:${unit.colorLt}" onclick="toggleUnit('${unit.id}')">
         <div class="unit-icon">${unit.emoji}</div>
         <div class="unit-body-text">
           <div class="unit-eyebrow">${unit.label}</div>
@@ -988,7 +988,7 @@ function renderGrid(){
         </div>
       </button>
       <div class="unit-div"></div>
-      <div class="unit-lessons${ui===0?' open':''}" id="ul-${unit.id}">${rows}</div>
+      <div class="unit-lessons" id="ul-${unit.id}">${rows}</div>
     </div>`;
   });
   wrap.innerHTML=html;
@@ -1000,7 +1000,29 @@ function renderGrid(){
     if(stats)stats.innerHTML=`<span class="prog-stat"><b>${totalOpen}</b> שיעורים</span><span class="prog-stat"><b>${totalDone}</b> הושלמו</span><span class="prog-stat"><b>${totalOpen-totalDone}</b> נותרו</span>`;
   }
 }
-function toggleUnit(uid){document.getElementById('uh-'+uid)?.classList.toggle('open');document.getElementById('ul-'+uid)?.classList.toggle('open')}
+function toggleUnit(uid){
+  const uh=document.getElementById('uh-'+uid),ul=document.getElementById('ul-'+uid);
+  if(!uh||!ul)return;
+  const isOpen=uh.classList.contains('open');
+  // Close all units first (accordion behavior)
+  UNITS.forEach(u=>{
+    document.getElementById('uh-'+u.id)?.classList.remove('open');
+    document.getElementById('ul-'+u.id)?.classList.remove('open');
+  });
+  // Open clicked unit only if it was closed
+  if(!isOpen){
+    uh.classList.add('open');
+    ul.classList.add('open');
+    setTimeout(()=>uh.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+  }
+}
+function closeAllUnits(){
+  UNITS.forEach(u=>{
+    document.getElementById('uh-'+u.id)?.classList.remove('open');
+    document.getElementById('ul-'+u.id)?.classList.remove('open');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 function scrollToUnit(uid){
   document.getElementById('unit-'+uid)?.scrollIntoView({behavior:'smooth',block:'start'});
   const ul=document.getElementById('ul-'+uid),uh=document.getElementById('uh-'+uid);
