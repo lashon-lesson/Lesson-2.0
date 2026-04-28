@@ -11,30 +11,37 @@
 :root{
   --bg:#f0f2f7;--surface:#fff;--surface2:#f8f9fb;--surface3:#eef0f5;
   --border:#e4e7ef;--text:#0d1424;--text-mid:#3d4660;--muted:#6b7594;--subtle:#9aa3be;
+  --blue:#1a56db;--blue-lt:#eff4ff;
   --green:#15803d;--green-lt:#f0fdf4;
   --amber:#b45309;--amber-lt:#fffbeb;
   --red:#dc2626;--red-lt:#fef2f2;
-  --purple:#6d28d9;--purple-lt:#faf5ff;
   --gold:#ca8a04;--gold-lt:#fefce8;
   --teal:#0f766e;--teal-lt:#f0fdfa;
   --rose:#be185d;--rose-lt:#fff1f2;
-  --lc:#0284c7;--lc-lt:#eff6ff;--lc-dk:#0369a1;
+  /* Lesson accent — purple */
+  --lc:#7c3aed;--lc-lt:#faf5ff;--lc-dk:#5b21b6;
   --sh1:0 1px 3px rgba(13,20,36,.06);--sh2:0 4px 20px rgba(13,20,36,.08);--sh3:0 12px 40px rgba(13,20,36,.12);
   --r:14px;--r-lg:20px;--r-xl:26px;--r-pill:999px;
 }
 @media(prefers-color-scheme:dark){:root{
   --bg:#0b0f17;--surface:#131924;--surface2:#192030;--surface3:#1f2840;
   --border:#252f47;--text:#d8dfe8;--text-mid:#a0adc5;--muted:#7a8aaa;--subtle:#50607e;
-  --green:#34d875;--green-lt:#0c2618;--amber:#f5a623;--amber-lt:#28200c;
-  --red:#fc8080;--red-lt:#281414;--purple:#b09dfa;--purple-lt:#1a1432;
-  --gold:#f5a623;--gold-lt:#28200c;--teal:#34d4c2;--teal-lt:#0c221e;--rose:#fb7185;--rose-lt:#1f0a0f;
-  --lc:#38bdf8;--lc-lt:#082f49;--lc-dk:#7dd3fc;
+  --blue:#4d8aff;--blue-lt:#162040;
+  --green:#34d875;--green-lt:#0c2618;
+  --amber:#f5a623;--amber-lt:#28200c;
+  --red:#fc8080;--red-lt:#281414;
+  --gold:#f5a623;--gold-lt:#28200c;
+  --teal:#34d4c2;--teal-lt:#0c221e;
+  --rose:#fb7185;--rose-lt:#1f0a0f;
+  --lc:#b09dfa;--lc-lt:#1a1432;--lc-dk:#c4b5fd;
   --sh1:0 1px 3px rgba(0,0,0,.3);--sh2:0 4px 20px rgba(0,0,0,.4);--sh3:0 12px 40px rgba(0,0,0,.5);
 }}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{line-height:1.65;min-height:100vh}
 button,input,select,textarea{font-family:inherit}
+
+/* ═══ TOPBAR ═══ */
 .topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:.62rem 1.1rem;display:flex;align-items:center;gap:.55rem;min-height:54px;box-shadow:var(--sh1)}
 .btn-back{width:40px;height:40px;border:1.5px solid var(--border);border-radius:11px;background:var(--surface2);font-size:1.05rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .14s;flex-shrink:0}
 .btn-back:hover{background:var(--surface3);color:var(--text)}
@@ -47,13 +54,20 @@ button,input,select,textarea{font-family:inherit}
 .t-chip.teacher{color:var(--gold);background:var(--gold-lt);border-color:#fde68a;display:none}
 .btn-print{display:inline-flex;align-items:center;gap:.32rem;padding:.32rem .85rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .14s;white-space:nowrap;min-height:36px}
 .btn-print:hover{background:var(--lc-lt);color:var(--lc);border-color:var(--lc)}
+
+/* ═══ TABS ═══ */
 .tabs-bar{background:var(--surface);border-bottom:1px solid var(--border);display:flex;padding:0 1.1rem;overflow-x:auto;scrollbar-width:none;position:sticky;top:54px;z-index:90}
 .tabs-bar::-webkit-scrollbar{display:none}
 .tab-btn{padding:.68rem 1.2rem;border:none;border-bottom:2.5px solid transparent;background:none;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;min-height:46px;margin-bottom:-1px;flex-shrink:0;transition:color .14s}
 .tab-btn:hover{color:var(--lc)}
 .tab-btn.active{color:var(--lc);border-bottom-color:var(--lc);font-weight:800}
-.tab-pane{display:none}.tab-pane.active{display:block}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* ═══ LESSON WRAP ═══ */
 .lesson-wrap{max-width:800px;margin:0 auto;padding:1.5rem 1.2rem 5rem;width:100%}
+
+/* ─── HERO ─── */
 .lesson-hero{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface) 68%);border:1px solid var(--border);border-radius:var(--r-xl);padding:1.8rem 1.6rem 1.6rem;margin-bottom:1.8rem;position:relative;overflow:hidden;box-shadow:var(--sh1)}
 .lesson-hero::before{content:'';position:absolute;top:0;right:0;bottom:0;width:5px;background:var(--lc);opacity:.75;border-radius:0 var(--r-xl) var(--r-xl) 0}
 .hero-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.62rem;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.07em;background:var(--lc-lt);border:1.5px solid var(--lc);border-radius:var(--r-pill);padding:.22rem .8rem;margin-bottom:.9rem;opacity:.88}
@@ -64,34 +78,47 @@ button,input,select,textarea{font-family:inherit}
 .hero-chip{font-size:.63rem;font-weight:700;padding:.22rem .72rem;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface);color:var(--muted)}
 .hero-chip.lc{color:var(--lc);background:var(--lc-lt);border-color:var(--lc)}
 .hero-chip.green{color:var(--green);background:var(--green-lt);border-color:#bbf7d0}
+
+/* ─── SECTION HEADING ─── */
 .section-hd{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--lc);display:flex;align-items:center;gap:.55rem;margin:2.2rem 0 1rem;padding-bottom:.48rem;border-bottom:2px solid var(--lc-lt)}
 .section-hd:first-of-type{margin-top:0}
 .sn{width:28px;height:28px;border-radius:50%;background:var(--lc);color:#fff;font-size:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900}
 .sn-icon{font-size:1.3rem;flex-shrink:0;line-height:1}
+
+/* ─── CARDS ─── */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;box-shadow:var(--sh1);margin-bottom:1rem}
-.card p{font-size:.9rem;line-height:1.78;color:var(--text-mid)}.card p+p{margin-top:.65rem}
+.card p{font-size:.9rem;line-height:1.78;color:var(--text-mid)}
+.card p+p{margin-top:.65rem}
 .card h4{font-size:.9rem;font-weight:800;margin-bottom:.42rem;color:var(--text)}
 .card ul,.card ol{padding-right:1.3rem;margin-top:.42rem}
 .card li{font-size:.9rem;line-height:1.78;color:var(--text-mid);margin-bottom:.18rem}
 .card li strong{color:var(--text)}
+
+/* Callouts */
 .box{border-radius:var(--r);padding:1rem 1.2rem;font-size:.86rem;line-height:1.72;color:var(--text-mid);margin-bottom:1rem}
 .box strong{font-weight:800}
-.box-lc{background:var(--lc-lt);border:1.5px solid #bae6fd}.box-lc strong{color:var(--lc)}
+.box-lc{background:var(--lc-lt);border:1.5px solid #ddd6fe}.box-lc strong{color:var(--lc)}
+.box-blue{background:var(--blue-lt);border:1.5px solid #bfdbfe}.box-blue strong{color:var(--blue)}
 .box-amber{background:var(--amber-lt);border:1.5px solid #fde68a}.box-amber strong{color:var(--amber)}
 .box-green{background:var(--green-lt);border:1.5px solid #bbf7d0}.box-green strong{color:var(--green)}
-.box-purple{background:var(--purple-lt);border:1.5px solid #ddd6fe}.box-purple strong{color:var(--purple)}
 .box-rose{background:var(--rose-lt);border:1.5px solid #fecdd3}.box-rose strong{color:var(--rose)}
 .box-teal{background:var(--teal-lt);border:1.5px solid #99f6e4}.box-teal strong{color:var(--teal)}
+
+/* Grid */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.85rem}
 @media(max-width:480px){.grid2{grid-template-columns:1fr}}
 .mini-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.95rem 1.05rem}
 .mini-title{font-size:.76rem;font-weight:800;color:var(--text);margin-bottom:.38rem}
 .mini-body{font-size:.8rem;color:var(--text-mid);line-height:1.62}
-.steps-wrap{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1.5px solid #bae6fd;border-radius:var(--r-lg);padding:1.4rem 1.5rem;margin-bottom:1rem}
+
+/* Steps */
+.steps-wrap{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1.5px solid #ddd6fe;border-radius:var(--r-lg);padding:1.4rem 1.5rem;margin-bottom:1rem}
 .steps-title{font-family:'Secular One',sans-serif;font-size:.94rem;color:var(--lc);margin-bottom:1rem}
 .step-item{display:flex;align-items:flex-start;gap:.65rem;font-size:.86rem;color:var(--text-mid);line-height:1.55;margin-bottom:.68rem}
 .step-item:last-child{margin-bottom:0}
 .step-num{width:26px;height:26px;border-radius:50%;background:var(--lc);color:#fff;font-size:.7rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+
+/* Comparison table */
 .cmp-table{width:100%;border-collapse:collapse;font-size:.82rem;margin-bottom:1rem;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
 .cmp-table th{padding:.68rem .9rem;text-align:right;font-weight:800;font-size:.76rem}
 .cmp-table th:first-child{background:var(--lc);color:#fff}
@@ -103,58 +130,61 @@ button,input,select,textarea{font-family:inherit}
 .cmp-table tr:nth-child(odd) td{background:var(--surface)}
 .cmp-table .row-label{font-weight:700;color:var(--lc);background:var(--lc-lt)!important;white-space:nowrap}
 
-/* ═══ CONNECTOR CARD ═══ */
-.conn-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1rem}
-@media(max-width:520px){.conn-grid{grid-template-columns:1fr}}
-.conn-card{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
-.conn-header{padding:.6rem 1rem;font-family:'Secular One',sans-serif;font-size:.82rem;color:#fff;display:flex;align-items:center;gap:.38rem}
-.conn-body{background:var(--surface);border:1px solid var(--border);border-top:none;padding:.85rem 1rem}
-.conn-words{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.5rem}
-.conn-word{font-size:.78rem;font-weight:800;padding:.2rem .6rem;border-radius:var(--r-pill);border:1.5px solid}
-.conn-example{font-size:.8rem;color:var(--text-mid);line-height:1.6;border-right:3px solid var(--border);padding-right:.7rem;font-style:italic}
-.conn-example strong{color:var(--text);font-style:normal}
+/* ═══ PHRASE DIAGRAM ═══ */
+.phrase-diagram{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.4rem 1.5rem;margin-bottom:1.2rem;box-shadow:var(--sh1)}
+.pd-title{font-family:'Secular One',sans-serif;font-size:.9rem;color:var(--lc);margin-bottom:1rem;display:flex;align-items:center;gap:.4rem}
+.pd-row{display:flex;gap:.4rem;align-items:stretch;flex-wrap:wrap;margin-bottom:.6rem}
+.pd-box{border-radius:10px;padding:.55rem .85rem;font-size:.82rem;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:.22rem;min-width:60px;text-align:center}
+.pd-box .pd-word{font-size:1.05rem;font-weight:800;line-height:1.2}
+.pd-box .pd-role{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;opacity:.85}
+.pd-box.head{background:#7c3aed;color:#fff}
+.pd-box.attr{background:#ede9fe;border:1.5px solid #c4b5fd;color:#5b21b6}
+.pd-box.prep{background:#faf5ff;border:1.5px solid #ddd6fe;color:#7c3aed}
+.pd-box.obj{background:#eff4ff;border:1.5px solid #bfdbfe;color:#1a56db}
+.pd-box.verb{background:#0d9488;color:#fff}
+.pd-box.subj{background:#f0fdf4;border:1.5px solid #bbf7d0;color:#15803d}
+.pd-arrow{display:flex;align-items:center;color:var(--muted);font-size:1.1rem;flex-shrink:0}
+.pd-label{font-size:.72rem;color:var(--muted);font-style:italic;margin-top:.2rem;padding-top:.2rem;border-top:1px dashed var(--border)}
+.pd-type-badge{display:inline-block;font-size:.65rem;font-weight:800;padding:.22rem .75rem;border-radius:var(--r-pill);margin-bottom:.7rem}
+.pd-type-badge.shemi{background:#7c3aed;color:#fff}
+.pd-type-badge.poali{background:#0d9488;color:#fff}
+.pd-type-badge.yihasi{background:#1a56db;color:#fff}
 
-/* relation colors */
-.rel-contrast .conn-header{background:#0284c7}
-.rel-contrast .conn-word{background:#eff6ff;color:#0284c7;border-color:#bae6fd}
-.rel-cause .conn-header{background:#b45309}
-.rel-cause .conn-word{background:#fffbeb;color:#b45309;border-color:#fde68a}
-.rel-result .conn-header{background:#059669}
-.rel-result .conn-word{background:#f0fdf4;color:#059669;border-color:#bbf7d0}
-.rel-condition .conn-header{background:#7c3aed}
-.rel-condition .conn-word{background:#faf5ff;color:#7c3aed;border-color:#ddd6fe}
-.rel-addition .conn-header{background:#be185d}
-.rel-addition .conn-word{background:#fff1f2;color:#be185d;border-color:#fecdd3}
-.rel-concession .conn-header{background:#0f766e}
-.rel-concession .conn-word{background:#f0fdfa;color:#0f766e;border-color:#99f6e4}
+/* ═══ SENTENCE PARSER ═══ */
+.sent-parse{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.1rem 1.3rem;margin-bottom:.85rem}
+.sent-raw{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.65rem;line-height:1.5}
+.sent-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.55rem}
+.stag{display:inline-flex;flex-direction:column;align-items:center;border-radius:8px;overflow:hidden}
+.stag-word{font-size:.92rem;font-weight:800;padding:.32rem .65rem;color:#fff}
+.stag-label{font-size:.54rem;font-weight:800;padding:.14rem .4rem;background:var(--surface3);color:var(--muted);text-align:center;width:100%}
+.stag.t-head .stag-word{background:#7c3aed}
+.stag.t-attr .stag-word{background:#a78bfa}
+.stag.t-prep .stag-word{background:#6d28d9}
+.stag.t-verb .stag-word{background:#0d9488}
+.stag.t-subj .stag-word{background:#15803d}
+.stag.t-obj .stag-word{background:#1a56db}
+.stag.t-other .stag-word{background:#6b7594}
+.sent-analysis{font-size:.8rem;color:var(--text-mid);line-height:1.62;border-right:3px solid var(--lc);padding-right:.7rem}
 
-/* sentence flow diagram */
-.flow-sent{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem;padding:1rem 1.2rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-lg);margin-bottom:.7rem}
-.flow-clause{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.45rem .75rem;font-size:.84rem;color:var(--text-mid);font-weight:600}
-.flow-conn{font-size:.82rem;font-weight:800;padding:.28rem .65rem;border-radius:var(--r-pill);color:#fff}
-.flow-conn.contrast{background:#0284c7}
-.flow-conn.cause{background:#b45309}
-.flow-conn.result{background:#059669}
-.flow-conn.condition{background:#7c3aed}
-.flow-conn.addition{background:#be185d}
-.flow-conn.concession{background:#0f766e}
-.flow-label{font-size:.65rem;color:var(--muted);width:100%;margin-top:.3rem;display:flex;gap:.4rem;flex-wrap:wrap}
-.flow-badge{font-size:.62rem;font-weight:700;padding:.14rem .52rem;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface);color:var(--muted)}
-
+/* ═══ READING TEXT ═══ */
 .reading-text-box{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.5rem 1.6rem;margin-bottom:1.8rem;box-shadow:var(--sh2);position:relative}
 .reading-text-box::before{content:'📄 טקסט לניתוח';position:absolute;top:-12px;right:1.4rem;background:var(--lc);color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill);letter-spacing:.04em}
 .rt-title{font-family:'Secular One',sans-serif;font-size:1.05rem;color:var(--text);margin-bottom:.28rem}
 .rt-body{font-size:.88rem;line-height:1.88;color:var(--text-mid)}
-.rt-body p{margin-bottom:.85rem}.rt-body p:last-child{margin-bottom:0}
-.rt-body strong{color:var(--lc);font-weight:800}
-.quiz-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1px solid #bae6fd;border-radius:var(--r-lg);padding:1.25rem 1.4rem;margin-bottom:1.5rem}
+.rt-body p{margin-bottom:.85rem}
+.rt-body p:last-child{margin-bottom:0}
+.rt-body strong{color:var(--text);font-weight:700}
+
+/* ═══ QUIZ ═══ */
+.quiz-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1px solid #ddd6fe;border-radius:var(--r-lg);padding:1.25rem 1.4rem;margin-bottom:1.5rem}
 .quiz-hd-title{font-family:'Secular One',sans-serif;font-size:.97rem;color:var(--lc);margin-bottom:.32rem}
 .quiz-hd-desc{font-size:.82rem;color:var(--muted)}
 .quiz-prog-bar{height:5px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-top:.8rem;border:1px solid var(--border)}
-.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--lc),#38bdf8);border-radius:var(--r-pill);transition:width .38s ease}
+.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--lc),#a78bfa);border-radius:var(--r-pill);transition:width .38s ease}
 .quiz-prog-row{display:flex;justify-content:space-between;margin-top:.38rem;font-size:.7rem;color:var(--muted)}
 .q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;margin-bottom:1.25rem;box-shadow:var(--sh1);transition:border-color .2s}
-.q-card.ok{border-color:#bbf7d0}.q-card.wrong{border-color:#fca5a5}
+.q-card.ok{border-color:#bbf7d0}
+.q-card.wrong{border-color:#fca5a5}
 .q-num{font-size:.66rem;font-weight:800;color:var(--subtle);margin-bottom:.55rem;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
 .q-type-badge{font-size:.56rem;font-weight:700;padding:.14rem .52rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)}
 .q-text{font-size:.94rem;font-weight:700;color:var(--text);line-height:1.52;margin-bottom:1.05rem}
@@ -195,12 +225,14 @@ button,input,select,textarea{font-family:inherit}
 .results-label{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem;display:block}
 .results-bar{height:10px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-bottom:1.6rem;border:1px solid var(--border)}
 .results-bar-fill{height:100%;border-radius:var(--r-pill);transition:width 1.2s cubic-bezier(.22,1,.36,1)}
-.btn-submit{padding:.85rem 2rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(2,132,199,.28);transition:all .15s;min-height:48px}
+.btn-submit{padding:.85rem 2rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,.28);transition:all .15s;min-height:48px}
 .btn-submit:hover{background:var(--lc-dk);transform:translateY(-1px)}
 .btn-reset{padding:.82rem 1.6rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);color:var(--muted);font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:48px}
 .btn-reset:hover{background:var(--surface3);color:var(--text)}
-.btn-send{padding:.82rem 1.8rem;border:none;border-radius:var(--r-pill);background:var(--green);color:#fff;font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:48px}
+.btn-send{padding:.82rem 1.8rem;border:none;border-radius:var(--r-pill);background:var(--green);color:#fff;font-size:.86rem;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(21,128,61,.3);transition:all .15s;min-height:48px}
 .btn-send:hover{transform:translateY(-1px)}
+
+/* ═══ ANSWERS TAB ═══ */
 .answers-locked{background:var(--surface);border:2px dashed var(--border);border-radius:var(--r-xl);padding:2.5rem 2rem;text-align:center;margin-top:.5rem}
 .answer-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.05rem 1.2rem;margin-bottom:.78rem}
 .ans-num{font-size:.66rem;color:var(--subtle);margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem}
@@ -208,6 +240,8 @@ button,input,select,textarea{font-family:inherit}
 .ans-correct{background:var(--green-lt);border:1.5px solid #bbf7d0;border-radius:9px;padding:.55rem .95rem;font-size:.82rem;color:var(--green);font-weight:700;margin-bottom:.42rem}
 .ans-explain{font-size:.78rem;color:var(--muted);line-height:1.58;border-right:3px solid var(--border);padding-right:.78rem;margin-top:.4rem}
 .ans-teacher-note{font-size:.78rem;font-weight:700;color:var(--lc);margin-top:.38rem;background:var(--lc-lt);border-radius:8px;padding:.42rem .75rem}
+
+/* ═══ GATE ═══ */
 #student-gate{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:0;margin-bottom:1.5rem;box-shadow:var(--sh2);overflow:hidden}
 #student-gate.hidden{display:none}
 .gate-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);padding:1.4rem 1.5rem 1.2rem;text-align:center;border-bottom:1px solid var(--border)}
@@ -218,15 +252,15 @@ button,input,select,textarea{font-family:inherit}
 .gate-field label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);margin-bottom:.38rem;letter-spacing:.02em}
 .gate-input{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;min-height:50px}
 .gate-input::placeholder{color:var(--subtle)}
-.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(2,132,199,.14)}
+.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(124,58,237,.14)}
 .gate-input.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.1)}
 .gate-select{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s;min-height:50px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7594' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 1rem center}
-.gate-select:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(2,132,199,.14)}
+.gate-select:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(124,58,237,.14)}
 .gate-select.err{border-color:var(--red)}
 .gate-err-msg{font-size:.7rem;color:var(--red);margin-top:.26rem;display:none}
 .gate-err-msg.show{display:block}
 .gate-date-display{padding:.78rem 1rem;background:var(--surface3);border:1.5px solid var(--border);border-radius:var(--r);font-size:.88rem;color:var(--muted)}
-.gate-btn{width:100%;padding:.88rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.92rem;font-weight:700;cursor:pointer;min-height:52px;box-shadow:0 4px 18px rgba(2,132,199,.28);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.45rem}
+.gate-btn{width:100%;padding:.88rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.92rem;font-weight:700;cursor:pointer;min-height:52px;box-shadow:0 4px 18px rgba(124,58,237,.28);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.45rem}
 .gate-btn:hover{background:var(--lc-dk);transform:translateY(-1px)}
 .gate-btn:active{transform:scale(.97)}
 #gate-confirmed{display:none;background:var(--green-lt);border:2px solid #bbf7d0;border-radius:var(--r-xl);padding:1rem 1.3rem;margin-bottom:1.5rem;align-items:center;gap:.85rem}
@@ -238,19 +272,23 @@ button,input,select,textarea{font-family:inherit}
 .gc-meta{font-size:.74rem;color:var(--text-mid);margin-top:.15rem}
 .gc-change{font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;margin-top:.22rem;display:block}
 .gc-change:hover{color:var(--lc)}
+
+/* Toast */
 #toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%) translateY(14px);background:var(--text);color:var(--bg);padding:.58rem 1.4rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:700;box-shadow:var(--sh3);z-index:9999;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;white-space:nowrap}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* Print */
 @media print{
   .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,#submit-row,#results-container,#toast,#student-gate,#gate-confirmed,.sort-handle{display:none!important}
   body{background:#fff;color:#000;font-size:10pt;line-height:1.5}
   html{background:#fff}
   .tab-pane{display:block!important}
-  .lesson-wrap{padding:.5cm 1cm;max-width:100%}
-  .lesson-hero,.card,.q-card,.reading-text-box,.answer-row,.cmp-table,.conn-card,.flow-sent{box-shadow:none;break-inside:avoid;page-break-inside:avoid}
+  .lesson-wrap{padding:.5cm 1cm;max-width:100%;page-break-inside:avoid}
+  .lesson-hero,.card,.q-card,.reading-text-box,.answer-row,.cmp-table,.phrase-diagram,.sent-parse{box-shadow:none;break-inside:avoid;page-break-inside:avoid}
   .q-feedback{display:block!important}
   .mc-btn.correct{display:flex!important}
-  .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #0284c7}
-  .print-header h1{font-size:16pt;color:#0284c7}
+  .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #7c3aed}
+  .print-header h1{font-size:16pt;color:#7c3aed}
   .print-header p{font-size:10pt;color:#555}
   #pane-theory{page-break-after:always}
   #pane-practice{page-break-after:always}
@@ -261,6 +299,7 @@ button,input,select,textarea{font-family:inherit}
 </head>
 <body>
 
+<!-- TOPBAR -->
 <div class="topbar">
   <button class="btn-back" onclick="goBack()">←</button>
   <div class="topbar-info">
@@ -274,23 +313,29 @@ button,input,select,textarea{font-family:inherit}
   </div>
 </div>
 
+<!-- TABS -->
 <div class="tabs-bar">
   <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
-  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (20 שאלות)</button>
+  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (23 שאלות)</button>
   <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
   <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
 </div>
 
-<!-- THEORY -->
+<!-- ══════════════════════════════════════════════
+     THEORY
+══════════════════════════════════════════════ -->
 <div class="tab-pane active" id="pane-theory">
-<div class="print-header"><h1>🔀 שיעור 4 — קשרים לוגיים</h1><p>יחידה 2: תחביר | לשון Lesson 2.0</p></div>
+<div class="print-header">
+  <h1>🔀 שיעור 4 — קשרים לוגיים</h1>
+  <p>יחידה 2: תחביר | לשון Lesson 2.0 | כיתות ט׳–י׳</p>
+</div>
 <div class="lesson-wrap">
 
   <div class="lesson-hero">
     <div class="hero-badge">יחידה 2 · שיעור 4</div>
     <span class="hero-emoji">🔀</span>
     <h1 class="hero-title">קשרים לוגיים</h1>
-    <p class="hero-desc">ניגוד, סיבה, תוצאה, תנאי, הוספה וויתור — זיהוי הקשר, מילות החיבור ותפקידן במשפט</p>
+    <p class="hero-desc">זיהוי קשרים לוגיים בטקסט — ניגוד, ויתור, סיבה, תוצאה, תנאי, הוספה ומטרה</p>
     <div class="hero-meta">
       <span class="hero-chip lc">⏱ 45 דק׳</span>
       <span class="hero-chip">🔗 תחביר</span>
@@ -298,238 +343,205 @@ button,input,select,textarea{font-family:inherit}
     </div>
   </div>
 
-  <div class="section-hd"><span class="sn-icon">📖</span><div class="sn">1</div>מהם קשרים לוגיים ולמה הם חשובים?</div>
+  <div class="section-hd"><span class="sn-icon">📖</span><div class="sn">1</div>מהו קשר לוגי?</div>
   <div class="card">
-    <p><strong>קשרים לוגיים</strong> (Logical Connectors) הם היחסים הרעיוניים שבין שני חלקי משפט או שני משפטים. מילות החיבור — "כי", "אבל", "לכן", "אם", "אף על פי" ועוד — הן האות שמסמנת לקורא מהו הקשר.</p>
-    <p>זיהוי הקשר הלוגי הוא מיומנות יסוד בהבנת הנקרא ובניתוח טיעוניות: הוא קובע מה המסר של הכותב ואיך הוא בונה את הטענה.</p>
+    <p><strong>קשר לוגי</strong> הוא היחס הרעיוני בין שני חלקי משפט או בין שני משפטים. מילות החיבור (כגון: "אבל", "כי", "לכן", "למרות") הן הסמן הלשוני של הקשר.</p>
+    <p>זיהוי נכון של הקשר הלוגי חיוני להבנת הטקסט, לכתיבה מדויקת וכמובן — לבגרות.</p>
   </div>
-  <div class="box box-lc">💡 <strong>כלל:</strong> אותה מילה יכולה לבטא קשרים שונים לפי הקשר. "כי" לרוב = סיבה, אך לפעמים = ביסוס. "ו" יכולה לבטא הוספה, ניגוד, תוצאה — הכל לפי ההקשר.</div>
+  <div class="box box-lc">💡 <strong>כלל הזהב:</strong> לפני שמסמנים קשר לוגי — שאלו: (א) מה הציפייה שנוצרת מהמשפט הראשון? (ב) האם המשפט השני מממש אותה או מנגד לה? התשובה תחשוף את הקשר האמיתי.</div>
 
-  <div class="section-hd"><span class="sn-icon">↔️</span><div class="sn">2</div>ניגוד (Contrast)</div>
-  <div class="conn-grid">
-    <div class="conn-card rel-contrast">
-      <div class="conn-header">↔️ מילות ניגוד</div>
-      <div class="conn-body">
-        <div class="conn-words">
-          <span class="conn-word">אבל</span><span class="conn-word">אך</span><span class="conn-word">ברם</span>
-          <span class="conn-word">אולם</span><span class="conn-word">לעומת זאת</span><span class="conn-word">בעוד ש-</span><span class="conn-word">מצד אחד...מצד שני</span>
-        </div>
-        <div class="conn-example"><strong>דוגמה:</strong> "הוא עבד קשה, <strong>אך</strong> לא קיבל שכר הוגן." — שני חלקים מנוגדים.</div>
-      </div>
-    </div>
-    <div class="conn-card rel-concession">
-      <div class="conn-header">🌊 ויתור / הסתייגות</div>
-      <div class="conn-body">
-        <div class="conn-words">
-          <span class="conn-word">למרות ש-</span><span class="conn-word">אף על פי ש-</span><span class="conn-word">על אף</span><span class="conn-word">גם אם</span><span class="conn-word">אף ש-</span>
-        </div>
-        <div class="conn-example"><strong>דוגמה:</strong> "<strong>למרות ש</strong>ירד גשם, יצאנו לטיול." — הציפייה לא התממשה.</div>
-      </div>
-    </div>
+  <div class="section-hd"><span class="sn-icon">⚔️</span><div class="sn">2</div>ניגוד וויתור — ההבדל החשוב</div>
+  <div class="card">
+    <p><strong>ניגוד</strong> — שני עובדות מנוגדות, ללא מכשול. מילות מפתח: <em>אבל, אך, ברם, אולם, לעומת זאת, בעוד ש-</em>.</p>
+    <p><strong>ויתור</strong> — מכשול שהתגברו עליו; הפעולה מתרחשת <u>למרות</u> המכשול. מילות מפתח: <em>למרות ש-, אף על פי ש-, על אף, בכל זאת, אף על פי כן</em>.</p>
   </div>
-  <div class="flow-sent">
-    <div class="flow-clause">הוא עייף מאוד</div>
-    <div class="flow-conn contrast">אבל</div>
-    <div class="flow-clause">המשיך לעבוד</div>
-    <div class="flow-label">
-      <span class="flow-badge">ניגוד</span>
-      <span style="font-size:.7rem;color:var(--muted)">הציפייה: עייפות → עצירה. המציאות: ניגוד לציפייה.</span>
-    </div>
-  </div>
-  <div class="box box-teal">🔍 <strong>הבחנה חשובה:</strong> ניגוד = שני עובדות מנוגדות. ויתור = דבר מתרחש למרות מכשול צפוי. "הוא חולה <strong>אבל</strong> בא" = ניגוד. "הוא בא <strong>למרות ש</strong>הוא חולה" = ויתור.</div>
-
-  <div class="section-hd"><span class="sn-icon">🔥</span><div class="sn">3</div>סיבה ותוצאה (Cause & Effect)</div>
-  <div class="conn-grid">
-    <div class="conn-card rel-cause">
-      <div class="conn-header">🔥 מילות סיבה</div>
-      <div class="conn-body">
-        <div class="conn-words">
-          <span class="conn-word">כי</span><span class="conn-word">מפני ש-</span><span class="conn-word">בגלל ש-</span><span class="conn-word">משום ש-</span><span class="conn-word">כיוון ש-</span><span class="conn-word">הואיל ו-</span><span class="conn-word">מאחר ש-</span>
-        </div>
-        <div class="conn-example"><strong>דוגמה:</strong> "הוא לא בא <strong>כי</strong> היה חולה." — הסיבה לאי-הבאה.</div>
-      </div>
-    </div>
-    <div class="conn-card rel-result">
-      <div class="conn-header">➡️ מילות תוצאה</div>
-      <div class="conn-body">
-        <div class="conn-words">
-          <span class="conn-word">לכן</span><span class="conn-word">לפיכך</span><span class="conn-word">על כן</span><span class="conn-word">בעקבות כך</span><span class="conn-word">כתוצאה מכך</span><span class="conn-word">ולכן</span><span class="conn-word">לאור זאת</span>
-        </div>
-        <div class="conn-example"><strong>דוגמה:</strong> "ירד שלג, <strong>לפיכך</strong> בתי הספר נסגרו." — התוצאה של השלג.</div>
-      </div>
-    </div>
-  </div>
-  <div class="flow-sent">
-    <div class="flow-clause">ירד גשם חזק</div>
-    <div class="flow-conn cause">כי</div>
-    <div class="flow-clause">לחץ האוויר ירד</div>
-    <div class="flow-label"><span class="flow-badge">סיבה</span><span style="font-size:.7rem;color:var(--muted)">מה שבא אחרי "כי" = הסיבה.</span></div>
-  </div>
-  <div class="flow-sent">
-    <div class="flow-clause">ירד גשם חזק</div>
-    <div class="flow-conn result">לכן</div>
-    <div class="flow-clause">הפיקניק בוטל</div>
-    <div class="flow-label"><span class="flow-badge">תוצאה</span><span style="font-size:.7rem;color:var(--muted)">מה שבא אחרי "לכן" = התוצאה. הסדר הפוך מ"כי".</span></div>
-  </div>
-  <div class="box box-amber">⚠️ <strong>מלכודת:</strong> "כי" ו-"לכן" מצביעים על אותה הסיבה-תוצאה — אך מכיוון שונה! "הוא נרטב <strong>כי</strong> ירד גשם" = הגשם הוא הסיבה. "ירד גשם <strong>לכן</strong> הוא נרטב" = הנרטבות היא התוצאה. כוון הקריאה שונה.</div>
-
-  <div class="section-hd"><span class="sn-icon">🔮</span><div class="sn">4</div>תנאי (Condition)</div>
-  <div class="conn-card rel-condition" style="margin-bottom:1rem">
-    <div class="conn-header">🔮 מילות תנאי</div>
-    <div class="conn-body">
-      <div class="conn-words">
-        <span class="conn-word">אם</span><span class="conn-word">אילו</span><span class="conn-word">לו</span><span class="conn-word">בתנאי ש-</span><span class="conn-word">רק אם</span><span class="conn-word">אם כן</span><span class="conn-word">כאשר</span>
-      </div>
-      <div class="conn-example"><strong>דוגמה:</strong> "<strong>אם</strong> תלמד, תצליח." — הצלחה תלויה בלמידה.</div>
-    </div>
-  </div>
-  <div class="grid2">
-    <div class="mini-card" style="border-color:#ddd6fe;background:linear-gradient(135deg,#faf5ff,#fff)">
-      <div class="mini-title" style="color:#7c3aed">תנאי אמיתי (Realis)</div>
-      <div class="mini-body"><strong>אם</strong> — מציאותי, ייתכן שיקרה.<br>"<em>אם ירד גשם, אשאר בבית.</em>"<br>זמן: הווה/עתיד.</div>
-    </div>
-    <div class="mini-card" style="border-color:#ddd6fe;background:linear-gradient(135deg,#faf5ff,#fff)">
-      <div class="mini-title" style="color:#7c3aed">תנאי לא-מציאותי (Irrealis)</div>
-      <div class="mini-body"><strong>לו / אילו</strong> — בדיוני, לא קרה.<br>"<em>לו ידעתי, הייתי בא.</em>"<br>זמן: עבר בדיוני.</div>
-    </div>
-  </div>
-  <div class="flow-sent">
-    <div class="flow-conn condition">אם</div>
-    <div class="flow-clause">תחזור מוקדם</div>
-    <span style="font-size:.9rem;color:var(--muted)">→</span>
-    <div class="flow-clause">נוכל לצאת יחד</div>
-    <div class="flow-label"><span class="flow-badge">תנאי + תוצאתו</span><span style="font-size:.7rem;color:var(--muted)">פסוקית התנאי + פסוקית הגמול.</span></div>
-  </div>
-
-  <div class="section-hd"><span class="sn-icon">➕</span><div class="sn">5</div>הוספה ומטרה</div>
-  <div class="conn-grid">
-    <div class="conn-card rel-addition">
-      <div class="conn-header">➕ מילות הוספה</div>
-      <div class="conn-body">
-        <div class="conn-words">
-          <span class="conn-word">וגם</span><span class="conn-word">בנוסף</span><span class="conn-word">יתרה מכך</span><span class="conn-word">לא רק... אלא גם</span><span class="conn-word">אף</span>
-        </div>
-        <div class="conn-example"><strong>דוגמה:</strong> "הוא קנה לחם <strong>ובנוסף</strong> קנה גם חלב." — שני דברים מצטרפים.</div>
-      </div>
-    </div>
-    <div class="conn-card rel-result">
-      <div class="conn-header">🎯 מילות מטרה</div>
-      <div class="conn-body">
-        <div class="conn-words">
-          <span class="conn-word">כדי ש-</span><span class="conn-word">למען</span><span class="conn-word">על מנת ש-</span><span class="conn-word">לשם</span><span class="conn-word">בשביל</span>
-        </div>
-        <div class="conn-example"><strong>דוגמה:</strong> "הוא למד קשה <strong>כדי ש</strong>יצליח בבגרות." — תכלית הפעולה.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-hd"><span class="sn-icon">📊</span><div class="sn">6</div>טבלת כל הקשרים — מבט על</div>
   <div style="overflow-x:auto;margin-bottom:1rem">
     <table class="cmp-table">
-      <thead><tr>
-        <th>קשר לוגי</th>
-        <th class="col-b">שאלה שעונה עליו</th>
-        <th class="col-c">מילות מפתח</th>
-      </tr></thead>
+      <thead><tr><th>קשר</th><th class="col-b">דוגמה</th><th class="col-c">הסבר</th></tr></thead>
       <tbody>
-        <tr><td class="row-label">ניגוד</td><td>מה מנוגד? מה מפתיע?</td><td>אבל, אך, ברם, אולם, לעומת זאת</td></tr>
+        <tr><td class="row-label">ניגוד</td><td>"הוא עשיר <strong>אבל</strong> לא מאושר"</td><td>שני עובדות מנוגדות — אין מכשול</td></tr>
+        <tr><td class="row-label">ויתור</td><td>"<strong>למרות</strong> שהיה עייף, עבד"</td><td>מכשול (עייפות) + התגברות עליו</td></tr>
+        <tr><td class="row-label">ניגוד מקבילי</td><td>"<strong>בעוד ש</strong>א׳ מפחית, ב׳ מגדיל"</td><td>שני צדדים מנוגדים בו-זמנית</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="box box-amber">⚠️ <strong>מלכודת הבגרות:</strong> "הוא עייף <strong>אך</strong> עבד" = ניגוד. "הוא עבד <strong>למרות</strong> שהיה עייף" = ויתור. ההבדל: בויתור יש מכשול מפורש שלא מנע את הפעולה.</div>
+
+  <div class="section-hd"><span class="sn-icon">🔍</span><div class="sn">3</div>סיבה ותוצאה — כיווניות</div>
+  <div class="card">
+    <p><strong>סיבה</strong> — מה שגרם לפעולה. מה שבא אחרי מילת הסיבה = הגורם. מילות מפתח: <em>כי, מפני ש-, בגלל, כיוון ש-, מאחר ש-</em>.</p>
+    <p><strong>תוצאה</strong> — מה שנגרם בעקבות. מה שבא אחרי מילת התוצאה = הנגרם. מילות מפתח: <em>לכן, לפיכך, על כן, כתוצאה מכך, לאור זאת</em>.</p>
+  </div>
+  <div style="overflow-x:auto;margin-bottom:1rem">
+    <table class="cmp-table">
+      <thead><tr><th>קשר</th><th class="col-b">מה בא אחרי מילת הקישור?</th><th class="col-c">דוגמה</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">סיבה (כי)</td><td>הגורם / הסיבה</td><td>"נרטב <strong>כי</strong> ירד גשם"</td></tr>
+        <tr><td class="row-label">תוצאה (לכן)</td><td>הנגרם / התוצאה</td><td>"ירד גשם, <strong>לכן</strong> נרטב"</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="box box-teal">🔵 <strong>שימו לב לכיווניות:</strong> "נרטב <strong>כי</strong> ירד גשם" = "כי" + סיבה. "ירד גשם <strong>לפיכך</strong> נרטב" = "לפיכך" + תוצאה. אותו יחס — כיוון קריאה הפוך.</div>
+
+  <div class="section-hd"><span class="sn-icon">❓</span><div class="sn">4</div>תנאי ומטרה</div>
+  <div class="card">
+    <p><strong>תנאי</strong> — פעולה שתתרחש בתנאי שמשהו אחר יקרה קודם. מילות מפתח: <em>אם, אילו, לו, בתנאי ש-, רק אם</em>.</p>
+    <p><strong>מטרה</strong> — תכלית הפעולה; למה נעשתה. מילות מפתח: <em>כדי ש-, למען, על מנת ש-, לשם, בשביל</em>.</p>
+  </div>
+
+  <div class="section-hd"><span class="sn-icon">➕</span><div class="sn">5</div>הוספה ושאר הקשרים</div>
+  <div class="card">
+    <p><strong>הוספה</strong> — מידע נוסף מצטרף לראשון. מילות מפתח: <em>וגם, בנוסף, יתרה מכך, לא רק... אלא גם</em>.</p>
+    <p><strong>זמן</strong> — קשר זמני בין שתי פעולות. מילות מפתח: <em>כאשר, בזמן ש-, לאחר ש-, לפני ש-, מאז</em>.</p>
+  </div>
+
+  <div class="section-hd"><span class="sn-icon">📊</span><div class="sn">6</div>טבלת כל הקשרים</div>
+  <div style="overflow-x:auto;margin-bottom:1rem">
+    <table class="cmp-table">
+      <thead><tr><th>קשר לוגי</th><th class="col-b">שאלה שעונה עליו</th><th class="col-c">מילות מפתח</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">ניגוד</td><td>מה מנוגד?</td><td>אבל, אך, ברם, אולם, לעומת זאת</td></tr>
         <tr><td class="row-label">ויתור</td><td>מה קרה למרות המכשול?</td><td>למרות ש-, אף על פי ש-, על אף</td></tr>
-        <tr><td class="row-label">סיבה</td><td>למה? מדוע?</td><td>כי, מפני ש-, בגלל, כיוון ש-, מאחר</td></tr>
-        <tr><td class="row-label">תוצאה</td><td>מה קרה בעקבות?</td><td>לכן, לפיכך, על כן, כתוצאה, לאור זאת</td></tr>
-        <tr><td class="row-label">תנאי</td><td>באיזה תנאי יקרה?</td><td>אם, אילו, לו, בתנאי ש-, רק אם</td></tr>
-        <tr><td class="row-label">הוספה</td><td>מה עוד?</td><td>וגם, בנוסף, יתרה מכך, לא רק... אלא</td></tr>
-        <tr><td class="row-label">מטרה</td><td>לשם מה?</td><td>כדי ש-, למען, על מנת, לשם, בשביל</td></tr>
-        <tr><td class="row-label">זמן</td><td>מתי? כמה זמן?</td><td>כאשר, בזמן ש-, לאחר ש-, לפני ש-, מאז</td></tr>
+        <tr><td class="row-label">סיבה</td><td>למה? מדוע?</td><td>כי, מפני ש-, בגלל, כיוון ש-</td></tr>
+        <tr><td class="row-label">תוצאה</td><td>מה קרה בעקבות?</td><td>לכן, לפיכך, על כן, כתוצאה</td></tr>
+        <tr><td class="row-label">תנאי</td><td>באיזה תנאי יקרה?</td><td>אם, אילו, לו, בתנאי ש-</td></tr>
+        <tr><td class="row-label">הוספה</td><td>מה עוד?</td><td>וגם, בנוסף, יתרה מכך</td></tr>
+        <tr><td class="row-label">מטרה</td><td>לשם מה?</td><td>כדי ש-, למען, על מנת, בשביל</td></tr>
+        <tr><td class="row-label">זמן</td><td>מתי?</td><td>כאשר, בזמן ש-, לאחר ש-, מאז</td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="section-hd"><span class="sn-icon">⚠️</span><div class="sn">7</div>מלכודות — מילות חיבור עם פנים רבות</div>
-  <div style="overflow-x:auto;margin-bottom:1rem">
-    <table class="cmp-table">
-      <thead><tr><th>מילה</th><th class="col-b">קשר 1</th><th class="col-c">קשר 2</th></tr></thead>
-      <tbody>
-        <tr><td class="row-label">ו-</td><td>הוספה: "אכל ושתה"</td><td>ניגוד: "ניסה ולא הצליח"</td></tr>
-        <tr><td class="row-label">כי</td><td>סיבה: "לא בא כי חלה"</td><td>ביסוס: "ברור כי הוא צודק"</td></tr>
-        <tr><td class="row-label">כש-</td><td>זמן: "כשחזר, ישן"</td><td>תנאי: "כשתהיה מוכן, נצא"</td></tr>
-        <tr><td class="row-label">למרות</td><td>ויתור: "למרות הקושי, המשיך"</td><td>ניגוד מודגש: "למרות הכל, הצליח"</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="box box-purple">🔮 <strong>כלל הזהב לבגרות:</strong> לפני שמסמנים קשר לוגי — שאלו: (א) מה הציפייה שנוצרת מהמשפט הראשון? (ב) האם המשפט השני מממש או מנגד אותה? תשובה לשאלות אלו תחשוף את הקשר האמיתי.</div>
-
-  <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">8</div>כלי הזיהוי — 5 שאלות</div>
+  <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">7</div>5 שאלות לזיהוי קשר לוגי</div>
   <div class="steps-wrap">
     <div class="steps-title">📋 איך מזהים קשר לוגי בטקסט?</div>
-    <div class="step-item"><div class="step-num">1</div><span><strong>אתרו את מילת החיבור</strong> — אבל, כי, לכן, אם, למרות, ובנוסף.</span></div>
+    <div class="step-item"><div class="step-num">1</div><span><strong>אתרו את מילת החיבור</strong> — אבל, כי, לכן, אם, למרות, בנוסף.</span></div>
     <div class="step-item"><div class="step-num">2</div><span><strong>קראו את שני הצדדים:</strong> מה לפני ומה אחרי מילת החיבור.</span></div>
     <div class="step-item"><div class="step-num">3</div><span><strong>שאלו את שאלת הקשר:</strong> "למה?" (סיבה), "מה קרה?" (תוצאה), "מה מנוגד?" (ניגוד), "בתנאי מה?" (תנאי).</span></div>
-    <div class="step-item"><div class="step-num">4</div><span><strong>בדקו ויתור לעומת ניגוד:</strong> ויתור = מכשול + התגברות עליו. ניגוד = שני צדדים שמנוגדים בלי מכשול.</span></div>
-    <div class="step-item"><div class="step-num">5</div><span><strong>בדקו סיבה לעומת תוצאה:</strong> "כי/מפני ש-" → הסיבה בא אחרי. "לכן/לפיכך" → התוצאה בא אחרי.</span></div>
+    <div class="step-item"><div class="step-num">4</div><span><strong>בדקו ויתור לעומת ניגוד:</strong> ויתור = מכשול + התגברות. ניגוד = שני צדדים מנוגדים ללא מכשול.</span></div>
+    <div class="step-item"><div class="step-num">5</div><span><strong>בדקו סיבה לעומת תוצאה:</strong> "כי/מפני ש-" → הסיבה אחרי. "לכן/לפיכך" → התוצאה אחרי.</span></div>
   </div>
-  <div class="box box-green">✅ <strong>מוכן לתרגול!</strong> 3 טקסטים עם קשרים לוגיים מגוונים ו-20 שאלות על זיהוי, תפקוד ומשמעות.</div>
-
+  <div class="box box-green">✅ <strong>מוכן לתרגול!</strong> 3 טקסטים עם קשרים לוגיים מגוונים ו-23 שאלות על זיהוי, תפקוד ומשמעות.</div>
 </div>
 </div><!-- /pane-theory -->
 
-<!-- PRACTICE -->
+
+<!-- ══════════════════════════════════════════════
+     PRACTICE
+══════════════════════════════════════════════ -->
 <div class="tab-pane" id="pane-practice">
-<div class="print-header"><h1>תרגול — יח׳2 שיעור 4: קשרים לוגיים</h1><p>20 שאלות | לשון Lesson 2.0</p></div>
+<div class="print-header">
+  <h1>תרגול — יח׳2 שיעור 4: קשרים לוגיים</h1>
+  <p>23 שאלות | לשון Lesson 2.0</p>
+</div>
 <div class="lesson-wrap">
+
+  <!-- Gate -->
   <div id="student-gate">
-    <div class="gate-header"><span class="gate-icon">✏️</span><div class="gate-title">כניסה לתרגול</div><div class="gate-desc">לפני שמתחילים — אנא הזינו שם ושיבוץ כיתה</div></div>
+    <div class="gate-header">
+      <span class="gate-icon">✏️</span>
+      <div class="gate-title">כניסה לתרגול</div>
+      <div class="gate-desc">לפני שמתחילים — אנא הזינו שם ושיבוץ כיתה</div>
+    </div>
     <div class="gate-body">
-      <div class="gate-field"><label for="gate-name">👤 שם מלא</label><input class="gate-input" id="gate-name" type="text" placeholder="לדוגמה: דנה כהן" autocomplete="off"><div class="gate-err-msg" id="gate-name-err">אנא הזינו שם ושם משפחה</div></div>
-      <div class="gate-field"><label for="gate-class">🏫 כיתה</label><input class="gate-input" id="gate-class" type="text" placeholder="לדוגמה: י3" autocomplete="off"><div class="gate-err-msg" id="gate-class-err">נא להזין שם כיתה</div></div>
-      <div class="gate-field"><label>תאריך</label><div class="gate-date-display" id="gate-date-display"></div></div>
+      <div class="gate-field">
+        <label>שם מלא (שם + משפחה)</label>
+        <input class="gate-input" id="gate-name" type="text" placeholder="לדוגמה: דנה כהן" autocomplete="off">
+        <div class="gate-err-msg" id="gate-name-err">אנא הזינו שם ושם משפחה</div>
+      </div>
+      <div class="gate-field">
+        <label>כיתה</label>
+        <select class="gate-select" id="gate-class">
+          <option value="">— בחרו כיתה —</option>
+          <option>י׳א</option><option>י׳ב</option><option>י׳ג</option>
+          <option>י׳ד</option><option>י׳ה</option><option>י׳ו</option>
+        </select>
+        <div class="gate-err-msg" id="gate-class-err">אנא בחרו כיתה</div>
+      </div>
+      <div class="gate-field">
+        <label>תאריך</label>
+        <div class="gate-date-display" id="gate-date-display"></div>
+      </div>
       <button class="gate-btn" onclick="confirmGate()">✅ כניסה לתרגול</button>
     </div>
   </div>
-  <div id="gate-confirmed"><div class="gc-avatar" id="gc-avatar"></div><div class="gc-info"><div class="gc-name" id="gc-name-display"></div><div class="gc-meta" id="gc-meta-display"></div><button class="gc-change" onclick="reopenGate()">שינוי פרטים</button></div></div>
+
+  <div id="gate-confirmed">
+    <div class="gc-avatar" id="gc-avatar"></div>
+    <div class="gc-info">
+      <div class="gc-name" id="gc-name-display"></div>
+      <div class="gc-meta" id="gc-meta-display"></div>
+      <button class="gc-change" onclick="reopenGate()">שינוי פרטים</button>
+    </div>
+  </div>
 
   <div id="practice-content-wrap">
+
+    <!-- 3 reading texts -->
     <div class="reading-text-box">
       <div class="rt-title">טקסט א׳</div>
-      <div class="rt-body"><p>דנה למדה קשה מאוד לקראת הבגרות, <strong>אך</strong> בסופו של דבר לא ניגשה לבחינה <strong>כי</strong> חלתה יום לפניה. <strong>למרות ש</strong>הייתה מאוכזבת, היא החליטה שתנצל את ההזדמנות וחזרה על החומר שוב. <strong>בגלל</strong> ההכנה הנוספת, הציון שלה במועד השני היה גבוה יותר.</p></div>
-    </div>
-    <div class="reading-text-box">
-      <div class="rt-title">טקסט ב׳</div>
-      <div class="rt-body"><p><strong>אם</strong> נרצה להבין את תופעת ההתחממות הגלובלית, עלינו לבחון את הגורמים שלה. פליטות פחמן דו-חמצני עולות בהתמדה, <strong>לפיכך</strong> טמפרטורת כדור הארץ עולה. <strong>בעוד ש</strong>מדינות מפותחות מפחיתות פליטות, מדינות מתפתחות מגדילות אותן. <strong>לכן</strong> נחוצה שיתוף פעולה בינלאומי.</p></div>
-    </div>
-    <div class="reading-text-box">
-      <div class="rt-title">טקסט ג׳</div>
-      <div class="rt-body"><p>הספרייה העירונית הישנה נסגרה <strong>בגלל</strong> בעיות תקציב. <strong>יתרה מכך</strong>, הבניין גם נמצא במצב מבני רעוע. <strong>אף על פי כן</strong>, תושבי העיר מחו בתוקף <strong>כדי ש</strong>העירייה תמצא פתרון חלופי. <strong>בסופו של דבר</strong>, הוחלט לפתוח ספרייה דיגיטלית — <strong>אולם</strong> חלק מהתושבים הביעו אכזבה מהפתרון.</p></div>
+      <div class="rt-body">
+        <p>דנה למדה קשה מאוד לקראת הבגרות, <strong>אך</strong> בסופו של דבר לא ניגשה לבחינה <strong>כי</strong> חלתה יום לפניה. <strong>למרות ש</strong>הייתה מאוכזבת, היא החליטה שתנצל את ההזדמנות וחזרה על החומר שוב. <strong>בגלל</strong> ההכנה הנוספת, הציון שלה במועד השני היה גבוה יותר.</p>
+      </div>
     </div>
 
-    <div class="quiz-header">
-      <div class="quiz-hd-title">🔀 קשרים לוגיים — 20 שאלות</div>
-      <div class="quiz-hd-desc">MC · נכון/לא נכון · סדר — זיהוי קשרים ומילות חיבור</div>
-      <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="prog-fill" style="width:0%"></div></div>
-      <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 20 נענו</span><span id="prog-pct">0%</span></div>
+    <div class="reading-text-box">
+      <div class="rt-title">טקסט ב׳</div>
+      <div class="rt-body">
+        <p><strong>אם</strong> נרצה להבין את תופעת ההתחממות הגלובלית, עלינו לבחון את הגורמים שלה. פליטות פחמן דו-חמצני עולות בהתמדה, <strong>לפיכך</strong> טמפרטורת כדור הארץ עולה. <strong>בעוד ש</strong>מדינות מפותחות מפחיתות פליטות, מדינות מתפתחות מגדילות אותן. <strong>לכן</strong> נחוצה שיתוף פעולה בינלאומי.</p>
+      </div>
     </div>
+
+    <div class="reading-text-box">
+      <div class="rt-title">טקסט ג׳</div>
+      <div class="rt-body">
+        <p>הספרייה העירונית הישנה נסגרה <strong>בגלל</strong> בעיות תקציב. <strong>יתרה מכך</strong>, הבניין גם נמצא במצב מבני רעוע. <strong>אף על פי כן</strong>, תושבי העיר מחו בתוקף <strong>כדי ש</strong>העירייה תמצא פתרון חלופי. <strong>בסופו של דבר</strong>, הוחלט לפתוח ספרייה דיגיטלית — <strong>אולם</strong> חלק מהתושבים הביעו אכזבה מהפתרון.</p>
+      </div>
+    </div>
+
+    <!-- Quiz header -->
+    <div class="quiz-header">
+      <div class="quiz-hd-title">🔀 קשרים לוגיים — 23 שאלות</div>
+      <div class="quiz-hd-desc">MC · נכון/לא נכון · סדר — זיהוי קשרים לוגיים ומילות חיבור</div>
+      <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 23 נענו</span><span id="prog-pct">0%</span></div>
+    </div>
+
     <div id="questions-container"></div>
+
     <div id="submit-row" style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem">
       <button class="btn-submit" onclick="submitQuiz()">📤 הגשת התרגול</button>
       <button class="btn-reset" onclick="resetQuiz()">🔄 אתחול</button>
     </div>
+
     <div id="results-container" style="display:none"></div>
-  </div>
+  </div><!-- /practice-content-wrap -->
+
 </div>
 </div><!-- /pane-practice -->
 
-<!-- ANSWERS -->
+
+<!-- ══════════════════════════════════════════════
+     ANSWERS
+══════════════════════════════════════════════ -->
 <div class="tab-pane" id="pane-answers">
 <div class="lesson-wrap">
-  <div id="answers-locked-msg" class="answers-locked"><div style="font-size:2.5rem;margin-bottom:.8rem">🔒</div><div style="font-family:'Secular One',sans-serif;font-size:1.1rem;margin-bottom:.5rem;color:var(--text)">התשובות נעולות</div><div style="font-size:.85rem;color:var(--muted)">המורה ישחרר את התשובות בתום השיעור</div></div>
+  <div id="answers-locked-msg" class="answers-locked">
+    <div style="font-size:2.5rem;margin-bottom:.8rem">🔒</div>
+    <div style="font-family:'Secular One',sans-serif;font-size:1.1rem;margin-bottom:.5rem;color:var(--text)">התשובות נעולות</div>
+    <div style="font-size:.85rem;color:var(--muted)">המורה ישחרר את התשובות בתום השיעור</div>
+  </div>
   <div id="answers-visible-content" style="display:none">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:.5rem"><div style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--lc)">🔑 תשובות מלאות</div><span style="font-size:.72rem;color:var(--muted)" id="answers-source"></span></div>
-    <div id="answers-container"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:.5rem">
+      <div style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--lc)">🔑 תשובות מלאות</div>
+      <span style="font-size:.72rem;color:var(--muted)" id="answers-source"></span>
+    </div>
+    <div id="answers-list"></div>
   </div>
 </div>
-</div>
+</div><!-- /pane-answers -->
 
 <div id="toast"></div>
-
 
 <script>
 /* ════════════════════════════════════════════════
@@ -593,144 +605,169 @@ function applyAnswersVisibility(){
    13 MC + 5 TF + 2 SORT
 ════════════════════════════════════════════════ */
 const QUESTIONS=[
+
+  /* ── טקסט א׳ ── */
   {id:'q01',type:'mc',ref:'טקסט א׳',
    q:'מהו הקשר הלוגי שמבטא "אך" במשפט: "דנה למדה קשה, אך לא ניגשה לבחינה"?',
    opts:['סיבה — הלמידה גרמה לאי-הגשה','ניגוד — ציפייה: למידה → הצלחה; מציאות: לא ניגשה','תנאי — הגישה תלויה בלמידה','תוצאה — בעקבות הלמידה לא ניגשה'],
    ans:1,
-   explain:'הציפייה: "למדה קשה" → נגשה לבחינה. המציאות: לא ניגשה. "אך" = מילת ניגוד. היא מסמנת שהתוצאה המצופה לא התממשה. הבדל מ"כי": "כי" = סיבה, "אך" = ניגוד.',
+   explain:'"אך" = מילת ניגוד. הציפייה: "למדה קשה" → תגיע לבחינה. המציאות: לא ניגשה. "אך" מסמן שהתוצאה המצופה לא התממשה. הבדל מ"כי": "כי" = סיבה, "אך" = ניגוד.',
    teacherNote:''},
+
   {id:'q02',type:'mc',ref:'טקסט א׳',
    q:'מהו הקשר הלוגי שמבטא "כי" במשפט: "לא ניגשה כי חלתה"?',
    opts:['ניגוד','תנאי','סיבה — המחלה היא הסיבה לאי-הגשה','תוצאה'],
    ans:2,
-   explain:'מה שבא אחרי "כי" הוא הסיבה: "חלתה" = הסיבה לכך שלא ניגשה. "כי/מפני ש-/כיוון ש-" — תמיד הסיבה מגיעה לאחריהן.',
+   explain:'מה שבא אחרי "כי" הוא הסיבה: "חלתה" = הסיבה לכך שלא ניגשה. "כי / מפני ש- / כיוון ש-" — תמיד הסיבה מגיעה לאחריהן.',
    teacherNote:''},
+
   {id:'q03',type:'mc',ref:'טקסט א׳',
    q:'מהו הקשר שמבטא "למרות ש" במשפט: "למרות שהייתה מאוכזבת, החליטה לחזור"?',
-   opts:['ניגוד פשוט — אכזבה לעומת החלטה','ויתור — המכשול (אכזבה) לא מנע את הפעולה (חזרה)','סיבה — האכזבה גרמה לחזרה','תוצאה — בגלל החזרה הייתה מאוכזבת'],
+   opts:['ניגוד פשוט','ויתור — המכשול (אכזבה) לא מנע את הפעולה (חזרה)','סיבה — האכזבה גרמה לחזרה','תוצאה'],
    ans:1,
-   explain:'"למרות ש" מבטאת ויתור (Concession): המכשול = "הייתה מאוכזבת". הפעולה שהתרחשה בניגוד למצופה = "החליטה לחזור". ויתור ≠ ניגוד: בויתור יש מכשול שהתגברו עליו.',
+   explain:'"למרות ש" = ויתור: המכשול = "הייתה מאוכזבת". הפעולה שהתרחשה בניגוד למצופה = "החליטה לחזור". ויתור ≠ ניגוד: בויתור יש מכשול שהתגברו עליו.',
    teacherNote:''},
+
   {id:'q04',type:'mc',ref:'טקסט א׳',
    q:'מהו הקשר שמבטא "בגלל" במשפט: "בגלל ההכנה הנוספת, הציון היה גבוה יותר"?',
-   opts:['ניגוד — ציון גבוה לעומת הכנה','תנאי — בתנאי שהתכונן','סיבה — ההכנה גרמה לציון הגבוה','תוצאה — הציון הוביל להכנה'],
+   opts:['ניגוד','תנאי','סיבה — ההכנה גרמה לציון הגבוה','תוצאה — הציון הוביל להכנה'],
    ans:2,
-   explain:'"בגלל" מבטאת סיבה — בדיוק כמו "כי", "מפני ש-" ו"כיוון ש-". "בגלל ההכנה" = הסיבה לציון הגבוה. הסדר: סיבה → תוצאה. אם "ההכנה" הייתה אחרי "לכן", היה מבוטא כתוצאה.',
+   explain:'"בגלל" = סיבה, כמו "כי", "מפני ש-". "בגלל ההכנה" = הסיבה לציון הגבוה. אם "ההכנה" הייתה אחרי "לכן", הקשר היה תוצאה.',
    teacherNote:''},
+
   {id:'q05',type:'tf',ref:'טקסט א׳',
    q:'"אך" ו-"למרות ש" מבטאים אותו קשר לוגי בדיוק.',
    ans:false,
-   explain:'לא נכון. "אך" = ניגוד: שני עובדות מנוגדות. "למרות ש" = ויתור: מכשול שהתגברו עליו. ההבדל: "הוא עייף אך עבד" = ניגוד. "הוא עבד למרות שהיה עייף" = ויתור — המכשול (עייפות) לא מנע את הפעולה.',
+   explain:'לא נכון. "אך" = ניגוד: שני עובדות מנוגדות. "למרות ש" = ויתור: מכשול שהתגברו עליו. "עייף אך עבד" = ניגוד. "עבד למרות שהיה עייף" = ויתור.',
    teacherNote:'מלכודת נפוצה בבגרות'},
 
+  /* ── טקסט ב׳ ── */
   {id:'q06',type:'mc',ref:'טקסט ב׳',
    q:'מהו הקשר שמבטא "לפיכך" במשפט: "פליטות עולות, לפיכך הטמפרטורה עולה"?',
-   opts:['סיבה — הטמפרטורה גרמה לפליטות','ניגוד — פליטות לעומת טמפרטורה','תוצאה — עליית הפליטות גרמה לעליית הטמפרטורה','תנאי — אם יהיו פליטות'],
+   opts:['סיבה','ניגוד','תוצאה — עליית הפליטות גרמה לעליית הטמפרטורה','תנאי'],
    ans:2,
-   explain:'"לפיכך" = מילת תוצאה. מה שבא אחרי = התוצאה. "פליטות עולות" = הסיבה. "הטמפרטורה עולה" = התוצאה. השוו: "הטמפרטורה עולה <strong>כי</strong> פליטות עולות" = אותו יחס, כוון הפוך.',
-   teacherNote:''},
-  {id:'q07',type:'mc',ref:'טקסט ב׳',
-   q:'מהו הקשר שמבטא "בעוד ש" במשפט: "בעוד שמדינות מפותחות מפחיתות, מתפתחות מגדילות"?',
-   opts:['סיבה — ההפחתה גרמה להגדלה','ניגוד — שני צדדים מנוגדים במקביל','תנאי — בתנאי שיפחיתו','ויתור — הגדלה למרות ההפחתה'],
-   ans:1,
-   explain:'"בעוד ש" = ניגוד מקבילי (Contrastive). שני פעולות מנוגדות שמתרחשות בו-זמנית: "מפחיתות" לעומת "מגדילות". שימוש נפוץ בטיעון עיתונאי ואקדמי.',
-   teacherNote:''},
-  {id:'q08',type:'mc',ref:'טקסט ב׳',
-   q:'מה ההבדל בין "כי" לבין "לכן" מבחינת הקשר הלוגי שהם מבטאים?',
-   opts:['אין הבדל — שניהם מבטאים סיבה','כי = סיבה (מה שבא אחריו = הסיבה); לכן = תוצאה (מה שבא אחריו = התוצאה)','כי = תוצאה; לכן = סיבה','כי = ניגוד; לכן = תנאי'],
-   ans:1,
-   explain:'"הטמפרטורה עולה <strong>כי</strong> פליטות עולות" — "פליטות עולות" = הסיבה. "פליטות עולות <strong>לכן</strong> הטמפרטורה עולה" — "הטמפרטורה עולה" = התוצאה. שני הקשרים: כוון קריאה הפוך.',
-   teacherNote:''},
-  {id:'q09',type:'tf',ref:'טקסט ב׳',
-   q:'"אם נרצה להבין..." — מילת "אם" כאן מבטאת תנאי אמיתי (Realis), לא בדיוני.',
-   ans:true,
-   explain:'נכון. "אם" בהקשר זה = תנאי אמיתי וסביר — ייתכן שיתממש. לא בדיוני. תנאי בדיוני ("לו/אילו") = דבר שלא קרה: "לו היינו מבינים..." — כבר בעבר, לא ניתן לשינוי.',
-   teacherNote:''},
-  {id:'q10',type:'mc',ref:'טקסט ב׳',
-   q:'במשפט: "פליטות עולות, לפיכך הטמפרטורה עולה, לכן נחוצה שיתוף פעולה" — כמה קישורי תוצאה יש?',
-   opts:['אחד — לפיכך','שניים — לפיכך + לכן','שלושה','אין — אלה קישורי סיבה'],
-   ans:1,
-   explain:'"לפיכך" + "לכן" = שני קישורי תוצאה. שניהם שייכים לאותה משפחה: לכן, לפיכך, על כן, בעקבות כך, כתוצאה מכך. הם יוצרים שרשרת תוצאות.',
+   explain:'"לפיכך" = מילת תוצאה. מה שבא אחרי = התוצאה. "פליטות עולות" = הסיבה. "הטמפרטורה עולה" = התוצאה.',
    teacherNote:''},
 
-  {id:'q11',type:'mc',ref:'טקסט ג׳',
-   q:'מהו הקשר שמבטא "יתרה מכך" במשפט: "הספרייה נסגרה בגלל תקציב. יתרה מכך, הבניין גם רעוע"?',
-   opts:['ניגוד — בניין לעומת תקציב','הוספה — סיבה נוספת מצטרפת לראשונה','סיבה — הבניין גרם לסגירה','תנאי'],
+  {id:'q07',type:'mc',ref:'טקסט ב׳',
+   q:'מהו הקשר שמבטא "בעוד ש" במשפט: "בעוד שמדינות מפותחות מפחיתות, מתפתחות מגדילות"?',
+   opts:['סיבה','ניגוד מקבילי — שני צדדים מנוגדים בו-זמנית','תנאי','ויתור'],
    ans:1,
-   explain:'"יתרה מכך" = הוספה מחזקת. לא רק שהתקציב בעייתי — בנוסף לכך גם הבניין רעוע. המסר: שתי סיבות מצטרפות ומחזקות את הטיעון. כמוהו: "בנוסף לכך", "אף".',
+   explain:'"בעוד ש" = ניגוד מקבילי: שתי פעולות מנוגדות שמתרחשות בו-זמנית. "מפחיתות" לעומת "מגדילות".',
    teacherNote:''},
+
+  {id:'q08',type:'mc',ref:'טקסט ב׳',
+   q:'מה ההבדל בין "כי" לבין "לכן" מבחינת כיוון הקשר?',
+   opts:['אין הבדל — שניהם סיבה','כי = סיבה (מה שאחריו = הגורם); לכן = תוצאה (מה שאחריו = הנגרם)','כי = תוצאה; לכן = סיבה','כי = ניגוד; לכן = תנאי'],
+   ans:1,
+   explain:'"נרטב <strong>כי</strong> ירד גשם" — הגשם = הסיבה. "ירד גשם <strong>לכן</strong> נרטב" — הנרטבות = התוצאה. אותו יחס, כיוון הפוך.',
+   teacherNote:''},
+
+  {id:'q09',type:'tf',ref:'טקסט ב׳',
+   q:'"אם נרצה להבין..." — "אם" כאן מבטא תנאי אמיתי (ייתכן שיתממש).',
+   ans:true,
+   explain:'נכון. "אם" = תנאי אמיתי וסביר. לעומת תנאי בדיוני ("לו/אילו") שמתייחס לדבר שלא קרה ולא יקרה.',
+   teacherNote:''},
+
+  {id:'q10',type:'mc',ref:'טקסט ב׳',
+   q:'במשפט: "פליטות עולות, לפיכך הטמפרטורה עולה, לכן נחוצה שיתוף פעולה" — כמה קישורי תוצאה יש?',
+   opts:['אחד','שניים — לפיכך + לכן','שלושה','אין — אלה קישורי סיבה'],
+   ans:1,
+   explain:'"לפיכך" + "לכן" = שני קישורי תוצאה. שניהם משפחת: לכן, לפיכך, על כן, כתוצאה מכך. הם יוצרים שרשרת תוצאות.',
+   teacherNote:''},
+
+  /* ── טקסט ג׳ ── */
+  {id:'q11',type:'mc',ref:'טקסט ג׳',
+   q:'מהו הקשר שמבטא "יתרה מכך" במשפט: "הספרייה נסגרה. יתרה מכך, הבניין גם רעוע"?',
+   opts:['ניגוד','הוספה מחזקת — סיבה נוספת מצטרפת','סיבה','תנאי'],
+   ans:1,
+   explain:'"יתרה מכך" = הוספה מחזקת. לא רק שהתקציב בעייתי — גם הבניין רעוע. שתי סיבות מצטרפות ומחזקות את הטיעון.',
+   teacherNote:''},
+
   {id:'q12',type:'mc',ref:'טקסט ג׳',
    q:'מהו הקשר שמבטא "אף על פי כן" במשפט: "הספרייה נסגרה... אף על פי כן, תושבים מחו"?',
-   opts:['סיבה — הסגירה גרמה למחאה','ניגוד פשוט','ויתור — למרות הסגירה (מכשול), המחאה נמשכה','תוצאה — בגלל המחאה נסגרה'],
+   opts:['סיבה','ניגוד פשוט','ויתור — למרות הסגירה (מכשול), המחאה נמשכה','תוצאה'],
    ans:2,
-   explain:'"אף על פי כן" = ויתור. המכשול: הספרייה נסגרה. הפעולה שהתרחשה בניגוד לציפייה: תושבים מחו (ולא קיבלו את הסגירה). כמו "למרות זאת", "בכל זאת", "על אף זאת".',
+   explain:'"אף על פי כן" = ויתור. המכשול: הספרייה נסגרה. הפעולה שהתרחשה בניגוד לציפייה: תושבים מחו. כמו "למרות זאת", "בכל זאת".',
    teacherNote:''},
+
   {id:'q13',type:'mc',ref:'טקסט ג׳',
    q:'מהו הקשר שמבטא "כדי ש" במשפט: "מחו... כדי שהעירייה תמצא פתרון"?',
-   opts:['סיבה — העירייה גרמה למחאה','תוצאה — בגלל המחאה מצאה פתרון','מטרה — תכלית המחאה היא מציאת פתרון','ניגוד'],
+   opts:['סיבה','תוצאה','מטרה — תכלית המחאה היא מציאת פתרון','ניגוד'],
    ans:2,
-   explain:'"כדי ש" מבטאת מטרה (Final Clause). המחאה היא הפעולה; מציאת פתרון היא המטרה. הבדל מ"לכן": "לכן" = תוצאה שכבר קרתה. "כדי ש" = מטרה עתידית.',
+   explain:'"כדי ש" = מטרה. המחאה היא הפעולה; מציאת פתרון היא המטרה העתידית. "לכן" = תוצאה שכבר קרתה. "כדי ש" = מטרה שטרם התממשה.',
    teacherNote:''},
+
   {id:'q14',type:'mc',ref:'טקסט ג׳',
-   q:'מהו הקשר שמבטא "אולם" בסוף הטקסט: "הוחלט לפתוח ספרייה דיגיטלית — אולם חלק מהתושבים הביעו אכזבה"?',
-   opts:['תוצאה — הספרייה גרמה לאכזבה','ויתור','ניגוד — הפתרון הוצג כחיובי; המציאות: חלקית אכזבה','סיבה'],
+   q:'מהו הקשר שמבטא "אולם": "הוחלט לפתוח ספרייה דיגיטלית — אולם חלק הביעו אכזבה"?',
+   opts:['תוצאה','ויתור','ניגוד — הפתרון הוצג כחיובי; חלק מאוכזבים','סיבה'],
    ans:2,
-   explain:'"אולם" = מילת ניגוד מרומזת. הציפייה: פתרון → שמחה. המציאות: חלק מאוכזבים. "אולם" שייך למשפחת "אבל/אך/ברם" — ניגוד פורמלי/כתוב. מסמן שהפתרון לא ענה על ציפיות כולם.',
+   explain:'"אולם" = ניגוד פורמלי. הציפייה: פתרון → שמחה. המציאות: חלק מאוכזבים. "אולם" שייך למשפחת "אבל/אך/ברם" — ניגוד כתוב ופורמלי.',
    teacherNote:''},
+
   {id:'q15',type:'tf',ref:'טקסט ג׳',
    q:'"בגלל" ו-"לפיכך" מבטאים אותו כיוון: הגורם → התוצאה.',
    ans:false,
-   explain:'לא נכון. "בגלל X, קרה Y" — X הוא הסיבה. "קרה X, לפיכך Y" — Y הוא התוצאה. "בגלל" מופיע לפני הסיבה; "לפיכך" מופיע לפני התוצאה. הכוון הוא שונה.',
+   explain:'לא נכון. "בגלל X, קרה Y" — X הסיבה. "קרה X, לפיכך Y" — Y התוצאה. "בגלל" לפני הסיבה; "לפיכך" לפני התוצאה. הכיוון שונה.',
    teacherNote:''},
 
+  /* ── תיאוריה ── */
   {id:'q16',type:'mc',ref:'תיאוריה',
    q:'איזה משפט מבטא קשר של ויתור (ולא ניגוד)?',
-   opts:['"הוא עשיר אבל לא מאושר" — ניגוד','למרות שירד גשם, היא יצאה לריצה — ויתור (מכשול + התגברות)','הוא שר ומנגן — הוספה','הוא יישן לאחר שיקרא — זמן'],
+   opts:['"הוא עשיר אבל לא מאושר"','למרות שירד גשם, היא יצאה לריצה','הוא שר ומנגן','הוא יישן לאחר שיקרא'],
    ans:1,
-   explain:'ויתור = מכשול שלא מנע פעולה. "למרות שירד גשם" = המכשול. "יצאה לריצה" = הפעולה שהתרחשה בניגוד לציפייה. "הוא עשיר אבל לא מאושר" = ניגוד פשוט (אין מכשול).',
+   explain:'ויתור = מכשול שלא מנע פעולה. "למרות שירד גשם" = מכשול. "יצאה לריצה" = פעולה בניגוד לציפייה. "הוא עשיר אבל לא מאושר" = ניגוד פשוט (אין מכשול).',
    teacherNote:''},
+
   {id:'q17',type:'mc',ref:'תיאוריה',
    q:'מה ההבדל הכיווני בין "כי" לבין "לפיכך"?',
-   opts:['אין הבדל — שניהם מבטאים סיבה','כי: [סיבה] "כי" [תוצאה]; לפיכך: [תוצאה] "לפיכך" [סיבה]','כי: [תוצאה] "כי" [סיבה]; לפיכך: [סיבה] "לפיכך" [תוצאה]','לפיכך = תנאי; כי = מטרה'],
+   opts:['אין הבדל','כי: [סיבה] "כי" [תוצאה]; לפיכך: [תוצאה] "לפיכך" [סיבה]','כי: [תוצאה] "כי" [סיבה]; לפיכך: [סיבה] "לפיכך" [תוצאה]','לפיכך = תנאי; כי = מטרה'],
    ans:2,
-   explain:'"הוא נרטב <strong>כי</strong> ירד גשם" — הגשם (אחרי כי) = הסיבה. "ירד גשם <strong>לפיכך</strong> הוא נרטב" — הנרטבות (אחרי לפיכך) = התוצאה. "כי" = מה שאחריו הסיבה. "לפיכך" = מה שאחריו התוצאה.',
+   explain:'"נרטב <strong>כי</strong> ירד גשם" — אחרי כי = הסיבה. "ירד גשם <strong>לפיכך</strong> נרטב" — אחרי לפיכך = התוצאה.',
    teacherNote:''},
+
   {id:'q18',type:'tf',ref:'תיאוריה',
    q:'"לכן", "לפיכך", "על כן" ו-"כתוצאה מכך" — כולן מילות תוצאה.',
    ans:true,
-   explain:'נכון. כל אלה שייכות לקבוצת מילות התוצאה. מה שבא אחריהן = התוצאה. הן שונות ברמת הפורמליות: "לכן" = שכיח בדיבור ובכתב. "לפיכך/על כן" = פורמליות יותר. "כתוצאה מכך" = אקדמי.',
+   explain:'נכון. כל אלה = קבוצת מילות התוצאה. מה שבא אחריהן = התוצאה. הן שונות ברמת הפורמליות בלבד.',
    teacherNote:''},
+
   {id:'q19',type:'sort',ref:'תיאוריה',
-   q:'סדרו את הקשרים מהנפוץ לנדיר בטקסטים עיתונאיים לפי המסורת הבלשנית:',
-   items:['ויתור — "למרות ש", "אף על פי ש" (נדיר יחסית, מתוחכם)','ניגוד — "אבל, אך" (נפוץ מאוד)','מטרה — "כדי ש" (שכיח)','סיבה/תוצאה — "כי, לכן" (הכי נפוץ בטקסטים)'],
+   q:'סדרו את הקשרים מהנפוץ לנדיר בטקסטים עיתונאיים:',
+   items:['ויתור — "למרות ש" (נדיר יחסית, מתוחכם)','ניגוד — "אבל, אך" (נפוץ מאוד)','מטרה — "כדי ש" (שכיח)','סיבה/תוצאה — "כי, לכן" (הכי נפוץ)'],
    correctOrder:[3,1,2,0],
-   explain:'הנפוץ ביותר: סיבה/תוצאה (כי, לכן) — שדרת הטיעון. אחריו: ניגוד (אבל, אך). שכיח: מטרה (כדי ש). הנדיר: ויתור (למרות ש, אף על פי ש) — מסמן עמדה מורכבת יותר.',
+   explain:'הנפוץ ביותר: סיבה/תוצאה (כי, לכן). אחריו: ניגוד (אבל, אך). שכיח: מטרה. הנדיר: ויתור — מסמן עמדה מורכבת יותר.',
    teacherNote:''},
+
   {id:'q20',type:'mc',ref:'תיאוריה',
-   q:'במשפט: "הוא ניסה קשה, אולם לא הצליח, לכן ביקש עזרה" — מה רצף הקשרים?',
+   q:'במשפט: "ניסה קשה, אולם לא הצליח, לכן ביקש עזרה" — מה רצף הקשרים?',
    opts:['סיבה → תוצאה','ניגוד → תוצאה — הניסיון נכשל (ניגוד); אי-ההצלחה הובילה לבקשת עזרה (תוצאה)','ויתור → ניגוד','סיבה → ניגוד'],
    ans:1,
-   explain:'"אולם" = ניגוד: ניסה קשה ↔ לא הצליח. "לכן" = תוצאה: אי-ההצלחה גרמה לבקשת עזרה. רצף: עובדה → ניגוד לציפייה → תוצאה של הניגוד. זוהי מבנה טיעוני נפוץ.',
+   explain:'"אולם" = ניגוד. "לכן" = תוצאה. רצף: עובדה → ניגוד לציפייה → תוצאה של הניגוד.',
    teacherNote:''},
+
+  /* ── המרה לוגית ── */
   {id:'q21',type:'mc',ref:'המרה לוגית',
-   q:'באיזו מילה ניתן להחליף את "על אף ש" ולשמור על אותו קשר לוגי? "על אף שירד שלג, הם יצאו לטיול"',
-   opts:['כי','לכן','למרות ש — ויתור: מכשול + פעולה שהתרחשה בניגוד לצפוי. שתיהן ויתור','אם'],
+   q:'באיזו מילה ניתן להחליף "על אף ש" ולשמור על אותו קשר? "על אף שירד שלג, הם יצאו לטיול"',
+   opts:['כי','לכן','למרות ש — שתיהן ויתור: מכשול + פעולה שהתרחשה בניגוד לצפוי','אם'],
    ans:2,
-   explain:'"על אף ש" = ויתור. מחליפות ישירות: "למרות ש", "אף על פי ש", "בכל זאת". "למרות שירד שלג, הם יצאו לטיול" — המכשול (שלג) לא מנע את הפעולה (טיול). "כי/לכן" = סיבה/תוצאה, לא ויתור.',
+   explain:'"על אף ש" = ויתור. מחליפות: "למרות ש", "אף על פי ש". "כי/לכן" = סיבה/תוצאה, לא ויתור.',
    teacherNote:''},
+
   {id:'q22',type:'mc',ref:'המרה לוגית',
-   q:'באיזו מילה ניתן להחליף את "מכיוון ש" ולשמור על אותו קשר לוגי? "מכיוון שגשם, הביא מטריה"',
-   opts:['אבל','כי — שתיהן מבטאות סיבה: מה שבא אחריהן הוא הגורם לפעולה','לפיכך','כדי ש'],
+   q:'באיזו מילה ניתן להחליף "מכיוון ש" ולשמור על אותו קשר? "מכיוון שגשם, הביא מטריה"',
+   opts:['אבל','כי — שתיהן סיבה: מה שאחריהן הוא הגורם לפעולה','לפיכך','כדי ש'],
    ans:1,
-   explain:'"מכיוון ש" = מילת סיבה. מחליפות: "כי", "כיוון ש", "בגלל ש", "מאחר ש". "כי גשם, הביא מטריה" — הגשם (הסיבה) גרם להבאת המטריה. "לפיכך" = תוצאה (כוון הפוך); "כדי ש" = מטרה.',
+   explain:'"מכיוון ש" = סיבה. מחליפות: "כי", "כיוון ש", "בגלל ש", "מאחר ש". "לפיכך" = תוצאה (כיוון הפוך). "כדי ש" = מטרה.',
    teacherNote:''},
+
   {id:'q23',type:'mc',ref:'המרה לוגית',
-   q:'באיזו מילה ניתן להחליף את "לפיכך" ולשמור על אותו קשר לוגי? "הכביש היה רטוב, לפיכך נסעו לאט"',
-   opts:['כי','אולם','לכן — שתיהן מבטאות תוצאה: מה שבא אחריהן הוא מה שקרה בעקבות הגורם','למרות ש'],
+   q:'באיזו מילה ניתן להחליף "לפיכך" ולשמור על אותו קשר? "הכביש היה רטוב, לפיכך נסעו לאט"',
+   opts:['כי','אולם','לכן — שתיהן תוצאה: מה שאחריהן הוא מה שנגרם','למרות ש'],
    ans:2,
-   explain:'"לפיכך" = מילת תוצאה פורמלית. מחליפות: "לכן", "על כן", "לפיכך", "כתוצאה מכך", "ולכן". "הכביש רטוב → נסעו לאט" — הרטיבות גרמה לנסיעה האיטית. "כי" = סיבה (כוון הפוך); "אולם" = ניגוד.',
+   explain:'"לפיכך" = תוצאה פורמלית. מחליפות: "לכן", "על כן", "כתוצאה מכך". "כי" = סיבה (כיוון הפוך). "אולם" = ניגוד.',
    teacherNote:''},
-];];
+];
 
 /* ════════════════════════════════════════════════
    STATE & GATE
@@ -911,7 +948,7 @@ function submitQuiz(){
     <div class="results-bar"><div class="results-bar-fill" style="width:0%;background:${color}" id="res-fill"></div></div>
     <button class="btn-send" onclick="sendResults()">📤 שליחה למורה</button>
   </div>`;}
-  const sr2=document.getElementById('submit-row');if(sr2)sr2.style.display='none';
+  document.getElementById('submit-row')?.remove();
   setTimeout(()=>{const rf=document.getElementById('res-fill');if(rf)rf.style.width=pct+'%';},80);
   rc?.scrollIntoView({behavior:'smooth',block:'start'});
 }
@@ -923,14 +960,18 @@ function resetQuiz(){
   QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;
   renderQuestions();updateProgress();
   const rc=document.getElementById('results-container');if(rc){rc.style.display='none';rc.innerHTML='';}
-  const sr=document.getElementById('submit-row');if(sr)sr.style.display='flex';
+  const sr=document.getElementById('submit-row');
+  if(!sr){
+    const sw=document.getElementById('practice-content-wrap');
+    if(sw){const div=document.createElement('div');div.id='submit-row';div.style.cssText='display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem';div.innerHTML='<button class="btn-submit" onclick="submitQuiz()">📤 הגשת התרגול</button><button class="btn-reset" onclick="resetQuiz()">🔄 אתחול</button>';sw.appendChild(div);}
+  }
 }
 
 /* ════════════════════════════════════════════════
    ANSWERS RENDER
 ════════════════════════════════════════════════ */
 function renderAnswers(){
-  const al=document.getElementById('answers-container');if(!al)return;
+  const al=document.getElementById('answers-list');if(!al)return;
   const LETTERS=['א','ב','ג','ד'];
   al.innerHTML=QUESTIONS.map((q,i)=>{
     let ans='';
@@ -959,7 +1000,7 @@ function printLesson(){
     <div><div style="font-weight:800;font-size:1.1rem;color:#7c3aed">${_lastScore}%</div><div style="font-size:.85rem;color:#6b7594">${_lastCorrect} מתוך ${QUESTIONS.length} נכון</div></div>
   </div>`:'';
   pw.document.write(`<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8">
-  <title>הדפסה — יח׳2 שיעור 3: צירוף או משפט</title>
+  <title>הדפסה — יח׳2 שיעור 4: קשרים לוגיים</title>
   <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;700;800&display=swap" rel="stylesheet">
   <style>
   body{font-family:'Heebo',sans-serif;direction:rtl;background:#fff;color:#0d1424;font-size:10pt;line-height:1.6}
@@ -983,7 +1024,7 @@ function printLesson(){
   </style></head><body>
   <div class="doc">
     <div class="doc-header">
-      <h1>📐 שיעור 3 — צירוף או משפט</h1>
+      <h1>🔀 שיעור 4 — קשרים לוגיים</h1>
       <p>יחידה 2: תחביר | לשון Lesson 2.0 | כיתות ט׳–י׳</p>
       <div style="font-size:11pt;font-weight:700;color:#0d1424;margin-top:.5rem">תלמיד/ה: ${STUDENT_NAME_PRINT} | כיתה: ${STUDENT_CLASS_PRINT} | ${new Date().toLocaleDateString('he-IL')}</div>
     </div>
