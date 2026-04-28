@@ -449,6 +449,18 @@ button,input,select,textarea{font-family:inherit}
 <!-- ══════════════════════════════════════════════
      PRACTICE
 ══════════════════════════════════════════════ -->
+
+</div><!-- /pane-theory -->
+
+
+
+
+
+
+
+<!-- ══════════════════════════════════════════════
+     PRACTICE
+══════════════════════════════════════════════ -->
 <div class="tab-pane" id="pane-practice">
 <div class="print-header">
   <h1>מבחן סיכום — תחביר</h1>
@@ -459,8 +471,8 @@ button,input,select,textarea{font-family:inherit}
   <!-- Gate -->
   <div id="student-gate" class="hidden">
     <div class="gate-header">
-      <span class="gate-icon">🏆</span>
-      <div class="gate-title">מבחן סיכום — הבנה והבעה</div>
+      <span class="gate-icon">📝</span>
+      <div class="gate-title">מבחן סיכום — תחביר</div>
       <div class="gate-desc">מלא/י פרטים לפני תחילת המבחן.<br>ניקוד ותשובות יישמרו אצל המורה.</div>
     </div>
     <div class="gate-body">
@@ -558,8 +570,15 @@ button,input,select,textarea{font-family:inherit}
 
 
   <div class="quiz-header">
-    <div class="quiz-hd-title">📝 מבחן סיכום — 25 שאלות</div>
-    <div class="quiz-hd-desc">5 נושאים · 2 טקסטים לניתוח · רב-בחירה, נכון/לא נכון וסידור.</div>
+    <div class="quiz-hd-title">📝 מבחן סיכום — תחביר · 25 שאלות</div>
+    <div class="quiz-hd-desc">5 חלקים · 5 קטעים · רב-בחירה ונכון/לא נכון · 4 נקודות לשאלה</div>
+    <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="qp-fill" style="width:0%"></div></div>
+    <div class="quiz-prog-row"><span id="qp-counter">0 / 25 נענו</span></div>
+  </div>
+
+  <div class="quiz-header">
+    <div class="quiz-hd-title">📝 מבחן סיכום — תחביר · 25 שאלות</div>
+    <div class="quiz-hd-desc">5 חלקים · 5 קטעים · רב-בחירה ונכון/לא נכון · 4 נקודות לשאלה</div>
     <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="qp-fill" style="width:0%"></div></div>
     <div class="quiz-prog-row"><span id="qp-counter">0 / 25 נענו</span></div>
   </div>
@@ -821,15 +840,10 @@ const QUESTIONS=[
    explain:'פסיק פנייה (Vocative Comma): "ילדים," = שם נפנה = פנייה לילדים לאכול ביחד. ללא פסיק: "ילדים" = מושא ישיר = הצעה לאכול את הילדים. דוגמה קלאסית לכוח הפסיק.'},
 ];
 
-// Passage content
-const PASSAGES={
-  'passage-a':{title:'קטע א׳ — נרטיב',body:'<p>כשהגיע הביתה, שם לב שהדלת פתוחה. <strong>הוא קרא את הספר</strong> שקנה אתמול. ירד גשם אבל הטיול לא בוטל. חשבתי שלא הגיע בזמן, אבל טעיתי.</p>'},
-  'passage-b':{title:'קטע ב׳ — מנהיגות',body:'<p><strong>אומרים שהמחירים יעלו</strong> בחודשים הקרובים. לסייע לאחרים חשוב מאוד בעיתות משבר. <strong>דוד ורחל הגיעו</strong> ביחד לאסיפה. המנהל נחשב מומחה בתחומו. <strong>המנהלת מינתה אותה סגנית</strong> לאחר בחינה קפדנית.</p>'},
-  'passage-c':{title:'קטע ג׳ — ספרות ועיתונות',body:'<p><strong>למרות שהיה עייף, המשיך לעבוד.</strong> פליטות עולות, לפיכך הטמפרטורה עולה. <strong>אם תלמד, תצליח.</strong> הוא אמר שיבוא מחר — ולא בא. <strong>מה היא יכולה לעשות?</strong> הכל כבר נאמר. "<strong>אני לא מסכים,</strong>" אמר יוסף בקול רם.</p>'},
-  'passage-d':{title:'קטע ד׳ — היסטוריה ופרוזה',body:'<p><strong>המורה הסבירה לתלמידים את החומר</strong> החדש. יצאו לטיול בבוקר. <strong>ויאמר אלוהים יהי אור.</strong> ספר קרא יוסף, לא עיתון. <strong>בשנת 1948 הוקמה המדינה</strong> בעקבות מאבק ארוך.</p>'},
-  'passage-e':{title:'קטע ה׳ — פיסוק',body:'<p>היא אהבה אותו, כי היה טוב לב. <strong>הספר, שכתב בשנה שעברה, זכה בפרס.</strong><br>— מה שמך?<br>— אני דנה.<br><strong>"בוא נאכל, ילדים!"</strong> קראה האם מהמטבח.</p>'}
-];
-
+/* ════════════════════════════════════════════════
+   STATE & GATE
+════════════════════════════════════════════════ */
+const QS={answers:{},submitted:false};
 let _lastScore=null,_lastCorrect=0,_gateConfirmed=false;
 
 function switchTab(t){
@@ -1024,17 +1038,15 @@ function resetQuiz(){
   });
   const rc=document.getElementById('results-container');if(rc)rc.innerHTML='';
   const fill=document.getElementById('qp-fill');if(fill)fill.style.width='0%';
-  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent=`0 / ${QUESTIONS.length} נענו`;
+  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent='0 / 25 נענו';
 }
 function sendResults(pct){
-  // Save to Firebase (already done in submitQuiz via saveScore)
-  // Also try email/WA if configured
   const email=LS.get('lashon2_teacher_email','')||LS.get('teacher_email','');
   const wa=LS.get('lashon2_teacher_wa','')||LS.get('teacher_whatsapp','');
-  const body=`מבחן סיכום תחביר\nתלמיד/ה: ${STUDENT_NAME}\nכיתה: ${STUDENT_CLASS||'?'}\nציון: ${pct}%\nתאריך: ${new Date().toLocaleDateString('he-IL')} ${new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})}`;
+  const body=`מבחן סיכום — תחביר\nתלמיד/ה: ${STUDENT_NAME}\nכיתה: ${STUDENT_CLASS||'?'}\nציון: ${pct}%\nתאריך: ${new Date().toLocaleDateString('he-IL')} ${new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})}`;
   if(wa){window.open('https://wa.me/972'+wa.replace(/^0/,'')+'?text='+encodeURIComponent(body),'_blank');return}
-  if(email){window.location.href='mailto:'+email+'?subject='+encodeURIComponent('מבחן סיכום תחביר — '+STUDENT_NAME+' כיתה '+STUDENT_CLASS)+'&body='+encodeURIComponent(body);return}
-  toast('✅ הציון נשמר אצל המורה ב-Firebase.');
+  if(email){window.location.href='mailto:'+email+'?subject='+encodeURIComponent('מבחן סיכום — '+STUDENT_NAME+' כיתה '+STUDENT_CLASS)+'&body='+encodeURIComponent(body);return}
+  toast('⚠️ לא הוגדרו פרטי המורה.');
 }
 
 /* ════════════════════════════════════════════════
@@ -1175,11 +1187,9 @@ function goBack(){
   if(window.opener){
     try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}
     window.close();
-    setTimeout(()=>{window.location.href=BACK_URL;},300);
     return;
   }
-  if(window.history.length>1){window.history.back();}
-  else{window.location.href=BACK_URL;}
+  window.location.href=BACK_URL;
 }
 function init(){
   initFirebase();
