@@ -464,7 +464,7 @@ button,input,select{font-family:inherit}
 <div class="tab-pane" id="pane-practice">
 <div class="ph"><h1>תרגול — שיעור 12: הפיסוק התקני</h1><p>20 שאלות | לשון Lesson 2.0</p></div>
 <div class="lesson-wrap">
-  <div id="sg">
+  <div id="sg" class="hidden">
     <div class="gh"><span class="gi">✏️</span><div class="gt">כניסה לתרגול</div><div class="gd">הזינו שם ושיבוץ כיתה</div></div>
     <div class="gb">
       <div class="gf"><label>שם מלא</label><input class="gi2" id="gname" type="text" placeholder="לדוגמה: דנה כהן" autocomplete="off"><div class="gem" id="gne">אנא הזינו שם ושם משפחה</div></div>
@@ -625,14 +625,65 @@ function pickMC(qid,idx){if(QST.submitted)return;QST.answers[qid]={sel:idx};QS.f
 function pickTF(qid,val){if(QST.submitted)return;QST.answers[qid]={sel:val};['t','f'].forEach(k=>{const b=document.getElementById(qid+'_'+k);if(b)b.classList.toggle('sel',k==='t'?val:!val);});updP();}
 function updP(){const d=Object.keys(QST.answers).length,p=Math.round(d/QS.length*100);document.getElementById('pf')?.style.setProperty('width',p+'%');const pt=document.getElementById('pt');if(pt)pt.textContent=`${d} מתוך ${QS.length} נענו`;const pp=document.getElementById('pp');if(pp)pp.textContent=p+'%';}
 function submitQ(){const d=Object.keys(QST.answers).length;if(d<QS.length){toast(`ענית על ${d} מתוך ${QS.length}. ענה על כולן.`);return;}QST.submitted=true;let cor=0;QS.forEach(q=>{const a=QST.answers[q.id];let ok=false;if(q.type==='mc'&&a?.sel!==undefined){ok=a.sel===q.ans;q.opts.forEach((_,oi)=>{const b=document.getElementById(q.id+'_o'+oi);if(!b)return;b.disabled=true;if(oi===q.ans)b.classList.add('correct');else if(oi===a.sel&&!ok)b.classList.add('wrong');});}else if(q.type==='tf'&&a?.sel!==undefined){ok=a.sel===q.ans;['t','f'].forEach(k=>{const b=document.getElementById(q.id+'_'+k);if(!b)return;b.disabled=true;const bv=k==='t';if(bv===q.ans)b.classList.add('correct');else if(bv===a.sel&&!ok)b.classList.add('wrong');});}else if(q.type==='sort'&&a?.order){ok=JSON.stringify(a.order)===JSON.stringify(q.correctOrder);}if(ok)cor++;document.getElementById(q.id+'_card')?.classList.add(ok?'ok':'wrong');const fb=document.getElementById(q.id+'_fb');if(fb){fb.className='qfb show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.ex;}});_lc=cor;_ls=Math.round(cor/QS.length*100);const p=_ls,em=p>=90?'🏆':p>=75?'⭐':p>=60?'👍':'💪',cl=p>=90?'#15803d':p>=75?'#ca8a04':p>=60?'#1a56db':'#dc2626';const rc=document.getElementById('rescont');if(rc){rc.style.display='';rc.innerHTML=`<div class="rc"><span class="re">${em}</span><span class="rs" style="color:${cl}">${p}%</span><span class="rl2">${cor} מתוך ${QS.length} נכון</span><div class="rb2"><div class="rbf" style="width:0%;background:${cl}" id="rf"></div></div><button class="bsend" onclick="sendR()">📤 שליחה למורה</button></div>`;}document.getElementById('sr')?.remove();setTimeout(()=>{const rf=document.getElementById('rf');if(rf)rf.style.width=p+'%';},80);rc?.scrollIntoView({behavior:'smooth',block:'start'});}
-async function sendR(){await saveSc(_ls,SN,SC);toast('✅ נשלח!');}
+async function sendR(){
+  await saveSc(_ls,SN,SC);
+  // Also notify index via postMessage
+  if(window.opener)try{window.opener.postMessage({type:'lessonDone',lid:LID,score:_ls,studentName:SN,className:SC},'*')}catch{}
+  // Save progress locally
+  const prog=LS.get('lashon2_prog_'+SN,{});
+  prog[LID]={done:true,score:_ls,date:new Date().toLocaleDateString('he-IL'),className:SC};
+  LS.set('lashon2_prog_'+SN,prog);
+  toast('✅ נשלח למורה!');
+}
 function resetQ(){QST.answers={};QST.submitted=false;_ls=null;_lc=0;renderQ();updP();const rc=document.getElementById('rescont');if(rc){rc.style.display='none';rc.innerHTML='';}if(!document.getElementById('sr')){const w=document.getElementById('pw');if(w){const d=document.createElement('div');d.id='sr';d.style.cssText='display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem';d.innerHTML='<button class="bsub" onclick="submitQ()">📤 הגשה</button><button class="breset" onclick="resetQ()">🔄 אתחול</button>';w.appendChild(d);}}}
 function renderA(){const al=document.getElementById('alist');if(!al)return;const L=['א','ב','ג','ד'];al.innerHTML=QS.map((q,i)=>{let a='';if(q.type==='mc')a=L[q.ans]+'. '+q.opts[q.ans];else if(q.type==='tf')a=q.ans?'✅ נכון':'❌ לא נכון';else a=q.correctOrder.map(j=>q.items[j]).join(' ← ');return `<div class="ar"><div class="an">שאלה ${i+1} <span style="color:var(--lc)">${q.ref}</span></div><div class="aq">${q.q}</div><div class="ac">✅ ${a}</div><div class="ae">💡 ${q.ex}</div></div>`;}).join('');}
 function printL(){const pw=window.open('','_blank','width=900,height=700');pw.document.write(`<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><title>הדפסה</title><link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;700&display=swap" rel="stylesheet"><style>body{font-family:Heebo,sans-serif;direction:rtl;background:#fff;color:#0d1424;font-size:10pt;line-height:1.6}.doc{max-width:700px;margin:0 auto;padding:1cm}h1{font-family:"Secular One",sans-serif;font-size:16pt;color:#ca8a04;text-align:center;border-bottom:3px solid #ca8a04;padding-bottom:.8rem;margin-bottom:1.5rem}.q{border:1px solid #e4e7ef;border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid}.q.ok{border-color:#bbf7d0;background:#fafffe}.q.wrong{border-color:#fca5a5;background:#fff5f5}.qn{font-size:.7rem;color:#9aa3be;margin-bottom:.35rem}.qt{font-size:9.5pt;font-weight:700;margin-bottom:.3rem}.ok-a{background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;padding:.3rem .65rem;font-size:9pt;margin-bottom:.25rem}.bad-a{background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;border-radius:6px;padding:.3rem .65rem;font-size:9pt;margin-bottom:.25rem}.cor{background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;padding:.3rem .65rem;font-size:9pt;margin-bottom:.25rem}.expl{font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem}@page{margin:1.5cm;size:A4}</style></head><body><div class="doc"><h1>⏸️ שיעור 12 — הפיסוק התקני</h1><p style="text-align:center">תלמיד/ה: ${SN} | כיתה: ${SC||'—'} | ${new Date().toLocaleDateString('he-IL')}</p>${QS.map((q,i)=>{const a=QST.answers[q.id];let ok=false,gv='לא נענה';if(q.type==='mc'&&a?.sel!==undefined){gv=['א','ב','ג','ד'][a.sel]+'. '+q.opts[a.sel];ok=a.sel===q.ans;}else if(q.type==='tf'&&a?.sel!==undefined){gv=a.sel?'נכון':'לא נכון';ok=a.sel===q.ans;}else if(q.type==='sort'&&a?.order){gv=a.order.map(j=>q.items[j]).join(' ← ');ok=JSON.stringify(a.order)===JSON.stringify(q.correctOrder);}const ca=q.type==='mc'?['א','ב','ג','ד'][q.ans]+'. '+q.opts[q.ans]:q.type==='tf'?(q.ans?'נכון':'לא נכון'):q.correctOrder.map(j=>q.items[j]).join(' ← ');return `<div class="q ${QST.submitted?(ok?'ok':'wrong'):''}"><div class="qn">שאלה ${i+1} · ${q.ref}</div><div class="qt">${q.q}</div><div class="${QST.submitted?(ok?'ok-a':'bad-a'):'ok-a'}"><b>${QST.submitted?(ok?'✅':'❌'):'→'}</b> ${gv}</div>${QST.submitted&&!ok&&gv!=='לא נענה'?`<div class="cor"><b>✅ נכון:</b> ${ca}</div>`:''}<div class="expl">💡 ${q.ex}</div></div>`;}).join('')}</div><script>window.onload=()=>setTimeout(()=>window.print(),400)<\/script></body></html>`);pw.document.close();}
 let _tt;
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800);}
-function goBack(){if(window.opener){try{window.opener.postMessage({type:'lessonDone',lid:LID},'*')}catch{}window.close();return;}window.location.href=BACK;}
-function init(){initFB();if(ROLE==='teacher'){document.getElementById('role-chip')?.style.setProperty('display','');document.getElementById('btn-answers')?.style.setProperty('display','');_gc=true;const w=document.getElementById('pw');if(w)w.style.display='';document.getElementById('sg')?.classList.add('hidden');}else{const w=document.getElementById('pw');if(w)w.style.display='none';if(SN&&SN!=='תלמיד/ה'&&SC){_gc=true;if(w)w.style.display='';document.getElementById('sg')?.classList.add('hidden');const av=document.getElementById('gcav'),nm=document.getElementById('gcnm'),mt=document.getElementById('gcmt');if(av)av.textContent=SN[0].toUpperCase();if(nm)nm.textContent=SN;if(mt)mt.textContent='כיתה '+SC+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gc')?.classList.remove('hidden');document.getElementById('gc')?.classList.add('show');}}applyAV();renderQ();}
+function goBack(){
+  if(window.opener){
+    try{window.opener.postMessage({type:'lessonDone',lid:LID},'*')}catch{}
+    window.close();
+    setTimeout(()=>{window.location.href=BACK;},300);
+    return;
+  }
+  if(window.history.length>1){window.history.back();}
+  else{window.location.href=BACK;}
+}
+function init(){
+  initFB();
+  // Always start with sg hidden (it's hidden by .hidden class in HTML)
+  // pw starts display:none (in HTML)
+  if(ROLE==='teacher'){
+    document.getElementById('role-chip')?.style.setProperty('display','');
+    document.getElementById('btn-answers')?.style.setProperty('display','');
+    _gc=true;
+    const w=document.getElementById('pw');if(w)w.style.display='';
+    document.getElementById('sg')?.classList.add('hidden');
+  }else{
+    // Fill gate fields if we have saved data
+    const ne=document.getElementById('gname'),ce=document.getElementById('gcls');
+    if(ne&&SN&&SN!=='תלמיד/ה')ne.value=SN;
+    if(ce&&SC)ce.value=SC;
+    // If student already has name+class → skip gate, show content
+    if(SN&&SN!=='תלמיד/ה'&&SC&&SC.trim().length>0){
+      _gc=true;
+      const w=document.getElementById('pw');if(w)w.style.display='';
+      document.getElementById('sg')?.classList.add('hidden');
+      const av=document.getElementById('gcav'),nm=document.getElementById('gcnm'),mt=document.getElementById('gcmt');
+      if(av)av.textContent=SN[0].toUpperCase();
+      if(nm)nm.textContent=SN;
+      if(mt)mt.textContent='כיתה '+SC+' · '+new Date().toLocaleDateString('he-IL');
+      document.getElementById('gc')?.classList.remove('hidden');
+      document.getElementById('gc')?.classList.add('show');
+    }
+    // else: sg stays hidden (gate shown only when user clicks practice tab)
+  }
+  // Set today's date in gate
+  const dd=document.getElementById('gdate');
+  if(dd)dd.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  applyAV();renderQ();
+}
 init();
 </script>
 </body>
