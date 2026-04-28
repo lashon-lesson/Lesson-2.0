@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>יחידה 2 שיעור 8 — משלימי הפועל: מושא ותיאור | לשון Lesson 2.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<style>
+:root{
+  --bg:#f0f2f7;--surface:#fff;--surface2:#f8f9fb;--surface3:#eef0f5;
+  --border:#e4e7ef;--text:#0d1424;--text-mid:#3d4660;--muted:#6b7594;--subtle:#9aa3be;
+  --green:#15803d;--green-lt:#f0fdf4;--amber:#b45309;--amber-lt:#fffbeb;
+  --red:#dc2626;--red-lt:#fef2f2;--blue:#1a56db;--blue-lt:#eff4ff;
+  --rose:#be185d;--rose-lt:#fff1f2;--gold:#ca8a04;--gold-lt:#fefce8;
+  --teal:#0f766e;--teal-lt:#f0fdfa;
+  --lc:#7c3aed;--lc-lt:#faf5ff;--lc-dk:#5b21b6;
+  --sh1:0 1px 3px rgba(13,20,36,.06);--sh2:0 4px 20px rgba(13,20,36,.08);--sh3:0 12px 40px rgba(13,20,36,.12);
+  --r:14px;--r-lg:20px;--r-xl:26px;--r-pill:999px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#0b0f17;--surface:#131924;--surface2:#192030;--surface3:#1f2840;
+  --border:#252f47;--text:#d8dfe8;--text-mid:#a0adc5;--muted:#7a8aaa;--subtle:#50607e;
+  --green:#34d875;--green-lt:#0c2618;--amber:#f5a623;--amber-lt:#28200c;
+  --red:#fc8080;--red-lt:#281414;--blue:#4d8aff;--blue-lt:#162040;
+  --rose:#fb7185;--rose-lt:#1f0a0f;--gold:#f5a623;--gold-lt:#28200c;--teal:#34d4c2;--teal-lt:#0c221e;
+  --lc:#b09dfa;--lc-lt:#1a1432;--lc-dk:#a78bfa;
+  --sh1:0 1px 3px rgba(0,0,0,.3);--sh2:0 4px 20px rgba(0,0,0,.4);--sh3:0 12px 40px rgba(0,0,0,.5);
+}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{line-height:1.65;min-height:100vh}
+button,input,select,textarea{font-family:inherit}
+.topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:.62rem 1.1rem;display:flex;align-items:center;gap:.55rem;min-height:54px;box-shadow:var(--sh1)}
+.btn-back{width:40px;height:40px;border:1.5px solid var(--border);border-radius:11px;background:var(--surface2);font-size:1.05rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .14s;flex-shrink:0}
+.btn-back:hover{background:var(--surface3);color:var(--text)}
+.topbar-info{flex:1;min-width:0}
+.topbar-title{font-family:'Secular One',sans-serif;font-size:.9rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar-sub{font-size:.6rem;color:var(--subtle);margin-top:.04rem}
+.topbar-actions{display:flex;gap:.38rem;flex-shrink:0;align-items:center}
+.t-chip{font-size:.62rem;font-weight:700;padding:.2rem .68rem;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface2);color:var(--muted)}
+.t-chip.lc{color:var(--lc);background:var(--lc-lt);border-color:var(--lc)}
+.t-chip.teacher{color:var(--gold);background:var(--gold-lt);border-color:#fde68a;display:none}
+.btn-print{display:inline-flex;align-items:center;gap:.32rem;padding:.32rem .85rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .14s;white-space:nowrap;min-height:36px}
+.btn-print:hover{background:var(--lc-lt);color:var(--lc);border-color:var(--lc)}
+.tabs-bar{background:var(--surface);border-bottom:1px solid var(--border);display:flex;padding:0 1.1rem;overflow-x:auto;scrollbar-width:none;position:sticky;top:54px;z-index:90}
+.tabs-bar::-webkit-scrollbar{display:none}
+.tab-btn{padding:.68rem 1.2rem;border:none;border-bottom:2.5px solid transparent;background:none;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;min-height:46px;margin-bottom:-1px;flex-shrink:0;transition:color .14s}
+.tab-btn:hover{color:var(--lc)}
+.tab-btn.active{color:var(--lc);border-bottom-color:var(--lc);font-weight:800}
+.tab-pane{display:none}.tab-pane.active{display:block}
+.lesson-wrap{max-width:800px;margin:0 auto;padding:1.5rem 1.2rem 5rem;width:100%}
+.lesson-hero{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface) 68%);border:1px solid var(--border);border-radius:var(--r-xl);padding:1.8rem 1.6rem 1.6rem;margin-bottom:1.8rem;position:relative;overflow:hidden;box-shadow:var(--sh1)}
+.lesson-hero::before{content:'';position:absolute;top:0;right:0;bottom:0;width:5px;background:var(--lc);opacity:.75;border-radius:0 var(--r-xl) var(--r-xl) 0}
+.hero-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.62rem;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.07em;background:var(--lc-lt);border:1.5px solid var(--lc);border-radius:var(--r-pill);padding:.22rem .8rem;margin-bottom:.9rem;opacity:.88}
+.hero-emoji{font-size:2.6rem;margin-bottom:.55rem;display:block;line-height:1}
+.hero-title{font-family:'Secular One',sans-serif;font-size:clamp(1.35rem,4vw,1.75rem);color:var(--text);line-height:1.18;margin-bottom:.4rem}
+.hero-desc{font-size:.84rem;color:var(--muted);line-height:1.65;max-width:580px}
+.hero-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
+.hero-chip{font-size:.63rem;font-weight:700;padding:.22rem .72rem;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface);color:var(--muted)}
+.hero-chip.lc{color:var(--lc);background:var(--lc-lt);border-color:var(--lc)}
+.hero-chip.green{color:var(--green);background:var(--green-lt);border-color:#bbf7d0}
+.section-hd{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--lc);display:flex;align-items:center;gap:.55rem;margin:2.2rem 0 1rem;padding-bottom:.48rem;border-bottom:2px solid var(--lc-lt)}
+.sn{width:28px;height:28px;border-radius:50%;background:var(--lc);color:#fff;font-size:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900}
+.sn-icon{font-size:1.3rem;flex-shrink:0;line-height:1}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;box-shadow:var(--sh1);margin-bottom:1rem}
+.card p{font-size:.9rem;line-height:1.78;color:var(--text-mid)}.card p+p{margin-top:.65rem}
+.card ul{padding-right:1.3rem;margin-top:.42rem}
+.card li{font-size:.9rem;line-height:1.78;color:var(--text-mid);margin-bottom:.18rem}
+.card li strong{color:var(--text)}
+.box{border-radius:var(--r);padding:1rem 1.2rem;font-size:.86rem;line-height:1.72;color:var(--text-mid);margin-bottom:1rem}
+.box strong{font-weight:800}
+.box-lc{background:var(--lc-lt);border:1.5px solid #ddd6fe}.box-lc strong{color:var(--lc)}
+.box-amber{background:var(--amber-lt);border:1.5px solid #fde68a}.box-amber strong{color:var(--amber)}
+.box-green{background:var(--green-lt);border:1.5px solid #bbf7d0}.box-green strong{color:var(--green)}
+.box-blue{background:var(--blue-lt);border:1.5px solid #bfdbfe}.box-blue strong{color:var(--blue)}
+.box-rose{background:var(--rose-lt);border:1.5px solid #fecdd3}.box-rose strong{color:var(--rose)}
+.box-teal{background:var(--teal-lt);border:1.5px solid #99f6e4}.box-teal strong{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1rem}
+@media(max-width:480px){.grid2{grid-template-columns:1fr}}
+.mini-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.95rem 1.05rem}
+.mini-title{font-size:.76rem;font-weight:800;margin-bottom:.38rem}
+.mini-body{font-size:.8rem;color:var(--text-mid);line-height:1.62}
+.steps-wrap{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1.5px solid #ddd6fe;border-radius:var(--r-lg);padding:1.4rem 1.5rem;margin-bottom:1rem}
+.steps-title{font-family:'Secular One',sans-serif;font-size:.94rem;color:var(--lc);margin-bottom:1rem}
+.step-item{display:flex;align-items:flex-start;gap:.65rem;font-size:.86rem;color:var(--text-mid);line-height:1.55;margin-bottom:.68rem}
+.step-num{width:26px;height:26px;border-radius:50%;background:var(--lc);color:#fff;font-size:.7rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+.cmp-table{width:100%;border-collapse:collapse;font-size:.82rem;margin-bottom:1rem;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
+.cmp-table th{padding:.68rem .9rem;text-align:right;font-weight:800;font-size:.76rem}
+.cmp-table th:first-child{background:var(--lc);color:#fff}
+.cmp-table th.col-b{background:var(--lc-dk);color:#fff}
+.cmp-table th.col-c{background:#374151;color:#fff}
+.cmp-table td{padding:.6rem .9rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
+.cmp-table tr:last-child td{border-bottom:none}
+.cmp-table tr:nth-child(even) td{background:var(--surface2)}
+.cmp-table tr:nth-child(odd) td{background:var(--surface)}
+.cmp-table .row-label{font-weight:700;color:var(--lc);background:var(--lc-lt)!important;white-space:nowrap}
+/* ── SENTENCE PARSE ── */
+.sp-box{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.2rem 1.4rem;margin-bottom:1.1rem;box-shadow:var(--sh1)}
+.sp-raw{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.8rem;line-height:1.5}
+.sp-parts{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.65rem}
+.pt{display:inline-flex;flex-direction:column;align-items:center;border-radius:9px;overflow:hidden}
+.pt-w{font-size:.88rem;font-weight:800;padding:.3rem .65rem}
+.pt-t{font-size:.52rem;font-weight:800;padding:.14rem .38rem;text-align:center;width:100%;letter-spacing:.03em}
+.pt.subj .pt-w{background:#059669;color:#fff}.pt.subj .pt-t{background:#dcfce7;color:#065f46}
+.pt.pred .pt-w{background:#1a56db;color:#fff}.pt.pred .pt-t{background:#dbeafe;color:#1e40af}
+.pt.dobj .pt-w{background:#b45309;color:#fff}.pt.dobj .pt-t{background:#fef3c7;color:#92400e}
+.pt.iobj .pt-w{background:#be185d;color:#fff}.pt.iobj .pt-t{background:#ffe4e6;color:#9d174d}
+.pt.adv-t .pt-w{background:#7c3aed;color:#fff}.pt.adv-t .pt-t{background:#ede9fe;color:#4c1d95}
+.pt.adv-p .pt-w{background:#0f766e;color:#fff}.pt.adv-p .pt-t{background:#ccfbf1;color:#065f46}
+.pt.adv-m .pt-w{background:#ca8a04;color:#fff}.pt.adv-m .pt-t{background:#fef9c3;color:#713f12}
+.pt.other .pt-w{background:#6b7594;color:#fff}.pt.other .pt-t{background:#f1f5f9;color:#475569}
+.sp-note{font-size:.8rem;color:var(--text-mid);line-height:1.65;border-right:3px solid var(--lc);padding-right:.75rem;margin-top:.25rem}
+/* ── OBJECT CARDS ── */
+.obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem}
+@media(max-width:520px){.obj-grid{grid-template-columns:1fr}}
+.obj-card{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
+.obj-header{padding:.65rem 1rem;font-family:'Secular One',sans-serif;font-size:.82rem;color:#fff;display:flex;align-items:center;gap:.38rem}
+.obj-body{background:var(--surface);border:1px solid var(--border);border-top:none;padding:.9rem 1rem}
+.obj-body p{font-size:.82rem;color:var(--text-mid);line-height:1.62;margin-bottom:.4rem}
+.obj-body p:last-child{margin-bottom:0}
+.obj-ex{font-style:italic;background:var(--surface2);border-radius:8px;padding:.4rem .7rem;font-size:.8rem;color:var(--text-mid);margin-top:.35rem;border-right:3px solid}
+.do-card .obj-header{background:#b45309}
+.do-card .obj-ex{border-color:#fde68a}
+.io-card .obj-header{background:#be185d}
+.io-card .obj-ex{border-color:#fecdd3}
+/* ── ADVERB TYPE BADGES ── */
+.adv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.65rem;margin-bottom:1rem}
+.adv-badge-row{display:flex;align-items:center;gap:.6rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.65rem .9rem;box-shadow:var(--sh1)}
+.adv-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.adv-label{font-size:.78rem;font-weight:700;color:var(--text)}
+.adv-q{font-size:.7rem;color:var(--muted);margin-top:.08rem}
+.adv-ex{font-size:.72rem;color:var(--text-mid);margin-top:.04rem;font-style:italic}
+/* reading */
+.reading-text-box{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.5rem 1.6rem;margin-bottom:1.8rem;box-shadow:var(--sh2);position:relative}
+.reading-text-box::before{content:'📄 טקסט לניתוח';position:absolute;top:-12px;right:1.4rem;background:var(--lc);color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill);letter-spacing:.04em}
+.rt-title{font-family:'Secular One',sans-serif;font-size:1.05rem;color:var(--text);margin-bottom:.28rem}
+.rt-body{font-size:.88rem;line-height:1.88;color:var(--text-mid)}
+.rt-body p{margin-bottom:.85rem}.rt-body p:last-child{margin-bottom:0}
+.rt-body strong{color:var(--lc);font-weight:800}
+/* quiz */
+.quiz-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1px solid #ddd6fe;border-radius:var(--r-lg);padding:1.25rem 1.4rem;margin-bottom:1.5rem}
+.quiz-hd-title{font-family:'Secular One',sans-serif;font-size:.97rem;color:var(--lc);margin-bottom:.32rem}
+.quiz-hd-desc{font-size:.82rem;color:var(--muted)}
+.quiz-prog-bar{height:5px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-top:.8rem;border:1px solid var(--border)}
+.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--lc),#a78bfa);border-radius:var(--r-pill);transition:width .38s ease}
+.quiz-prog-row{display:flex;justify-content:space-between;margin-top:.38rem;font-size:.7rem;color:var(--muted)}
+.q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;margin-bottom:1.25rem;box-shadow:var(--sh1);transition:border-color .2s}
+.q-card.ok{border-color:#bbf7d0}.q-card.wrong{border-color:#fca5a5}
+.q-num{font-size:.66rem;font-weight:800;color:var(--subtle);margin-bottom:.55rem;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.q-type-badge{font-size:.56rem;font-weight:700;padding:.14rem .52rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)}
+.q-text{font-size:.94rem;font-weight:700;color:var(--text);line-height:1.52;margin-bottom:1.05rem}
+.mc-wrap{display:flex;flex-direction:column;gap:.42rem}
+.mc-btn{width:100%;text-align:right;padding:.78rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.86rem;color:var(--text-mid);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:.68rem;min-height:50px}
+.mc-btn:hover:not(:disabled){border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
+.mc-btn.sel{border-color:var(--lc);background:var(--lc-lt);color:var(--lc);font-weight:700}
+.mc-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important;font-weight:700}
+.mc-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important;font-weight:700}
+.mc-btn:disabled{cursor:default}
+.mc-letter{width:24px;height:24px;border-radius:50%;background:var(--surface3);color:var(--muted);font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mc-btn.sel .mc-letter{background:var(--lc);color:#fff}
+.mc-btn.correct .mc-letter{background:var(--green);color:#fff}
+.mc-btn.wrong .mc-letter{background:var(--red);color:#fff}
+.tf-row{display:flex;gap:.68rem}
+.tf-btn{flex:1;padding:.8rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.9rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:54px}
+.tf-btn:hover:not(:disabled){border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
+.tf-btn.sel{border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
+.tf-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important}
+.tf-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important}
+.tf-btn:disabled{cursor:default}
+.sort-list{display:flex;flex-direction:column;gap:.42rem;margin-bottom:.55rem}
+.sort-item{display:flex;align-items:center;gap:.68rem;padding:.74rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);cursor:grab;transition:all .15s;user-select:none}
+.sort-item:active{cursor:grabbing}
+.sort-item.dragging{opacity:.45}
+.sort-item.drag-over{border-color:var(--lc);background:var(--lc-lt)}
+.sort-handle{font-size:1.1rem;color:var(--muted);flex-shrink:0}
+.sort-text{font-size:.86rem;color:var(--text-mid);flex:1}
+.sort-note{font-size:.7rem;color:var(--muted);margin-bottom:.32rem}
+.q-feedback{margin-top:.72rem;padding:.8rem 1.05rem;border-radius:var(--r);font-size:.83rem;font-weight:600;line-height:1.58;display:none;border-right:3px solid transparent}
+.q-feedback.show{display:block}
+.q-feedback.ok{background:var(--green-lt);color:var(--green);border-color:var(--green)}
+.q-feedback.wrong{background:var(--red-lt);color:var(--red);border-color:var(--red)}
+.results-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:2.2rem 1.8rem;text-align:center;box-shadow:var(--sh2);margin-top:1.5rem}
+.results-emoji{font-size:4rem;margin-bottom:.8rem;display:block}
+.results-score{font-family:'Secular One',sans-serif;font-size:3.4rem;font-weight:800;margin-bottom:.3rem;display:block}
+.results-label{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem;display:block}
+.results-bar{height:10px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-bottom:1.6rem;border:1px solid var(--border)}
+.results-bar-fill{height:100%;border-radius:var(--r-pill);transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.btn-submit{padding:.85rem 2rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,.3);transition:all .15s;min-height:48px}
+.btn-submit:hover{background:var(--lc-dk);transform:translateY(-1px)}
+.btn-reset{padding:.82rem 1.6rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);color:var(--muted);font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:48px}
+.btn-send{padding:.82rem 1.8rem;border:none;border-radius:var(--r-pill);background:var(--green);color:#fff;font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:48px}
+.answers-locked{background:var(--surface);border:2px dashed var(--border);border-radius:var(--r-xl);padding:2.5rem 2rem;text-align:center;margin-top:.5rem}
+.answer-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.05rem 1.2rem;margin-bottom:.78rem}
+.ans-num{font-size:.66rem;color:var(--subtle);margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem}
+.ans-q{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.5rem;line-height:1.45}
+.ans-correct{background:var(--green-lt);border:1.5px solid #bbf7d0;border-radius:9px;padding:.55rem .95rem;font-size:.82rem;color:var(--green);font-weight:700;margin-bottom:.42rem}
+.ans-explain{font-size:.78rem;color:var(--muted);line-height:1.58;border-right:3px solid var(--border);padding-right:.78rem;margin-top:.4rem}
+#student-gate{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:0;margin-bottom:1.5rem;box-shadow:var(--sh2);overflow:hidden}
+#student-gate.hidden{display:none}
+.gate-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);padding:1.4rem 1.5rem 1.2rem;text-align:center;border-bottom:1px solid var(--border)}
+.gate-icon{font-size:2.4rem;display:block;margin-bottom:.55rem}
+.gate-title{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--text);margin-bottom:.28rem}
+.gate-desc{font-size:.8rem;color:var(--muted)}
+.gate-body{padding:1.3rem 1.5rem 1.5rem;display:flex;flex-direction:column;gap:.9rem}
+.gate-field label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);margin-bottom:.38rem}
+.gate-input{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s;min-height:50px}
+.gate-input::placeholder{color:var(--subtle)}
+.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(124,58,237,.14)}
+.gate-input.err{border-color:var(--red)}
+.gate-select{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s;min-height:50px;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7594' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 1rem center}
+.gate-select:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(124,58,237,.14)}
+.gate-select.err{border-color:var(--red)}
+.gate-err-msg{font-size:.7rem;color:var(--red);margin-top:.26rem;display:none}
+.gate-err-msg.show{display:block}
+.gate-date-display{padding:.78rem 1rem;background:var(--surface3);border:1.5px solid var(--border);border-radius:var(--r);font-size:.88rem;color:var(--muted)}
+.gate-btn{width:100%;padding:.88rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.92rem;font-weight:700;cursor:pointer;min-height:52px;box-shadow:0 4px 18px rgba(124,58,237,.3);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.45rem}
+.gate-btn:hover{background:var(--lc-dk);transform:translateY(-1px)}
+#gate-confirmed{display:none;background:var(--lc-lt);border:2px solid #ddd6fe;border-radius:var(--r-xl);padding:1rem 1.3rem;margin-bottom:1.5rem;align-items:center;gap:.85rem}
+#gate-confirmed.show{display:flex}
+#gate-confirmed.hidden{display:none!important}
+.gc-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gc-info{flex:1;min-width:0}
+.gc-name{font-size:.92rem;font-weight:800;color:var(--lc)}
+.gc-meta{font-size:.74rem;color:var(--text-mid);margin-top:.15rem}
+.gc-change{font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;margin-top:.22rem;display:block}
+#toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%) translateY(14px);background:var(--text);color:var(--bg);padding:.58rem 1.4rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:700;box-shadow:var(--sh3);z-index:9999;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;white-space:nowrap}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media print{.topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,#submit-row,#results-container,#toast,#student-gate,#gate-confirmed,.sort-handle{display:none!important}body{background:#fff;color:#000;font-size:10pt;line-height:1.5}html{background:#fff}.tab-pane{display:block!important}.lesson-wrap{padding:.5cm 1cm;max-width:100%}.lesson-hero,.card,.q-card,.reading-text-box,.answer-row,.cmp-table,.sp-box{box-shadow:none;break-inside:avoid}.q-feedback{display:block!important}.mc-btn.correct{display:flex!important}.print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #7c3aed}.print-header h1{font-size:16pt;color:#7c3aed}.print-header p{font-size:10pt;color:#555}#pane-theory{page-break-after:always}#pane-practice{page-break-after:always}@page{margin:1.5cm;size:A4}}
+.print-header{display:none}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <button class="btn-back" onclick="goBack()">←</button>
+  <div class="topbar-info">
+    <div class="topbar-title">⚙️ משלימי הפועל: מושא ותיאור</div>
+    <div class="topbar-sub">יחידה 2 — תחביר · שיעור 8</div>
+  </div>
+  <div class="topbar-actions">
+    <span class="t-chip lc">⏱ 45 דק׳</span>
+    <span class="t-chip teacher" id="role-chip">🎓 מורה</span>
+    <button class="btn-print" onclick="printLesson()">🖨️ הדפסה</button>
+  </div>
+</div>
+<div class="tabs-bar">
+  <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
+  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (20 שאלות)</button>
+  <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
+  <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
+</div>
+
+<!-- THEORY -->
+<div class="tab-pane active" id="pane-theory">
+<div class="print-header"><h1>⚙️ שיעור 8 — משלימי הפועל: מושא ותיאור</h1><p>יחידה 2: תחביר | לשון Lesson 2.0</p></div>
+<div class="lesson-wrap">
+
+  <div class="lesson-hero">
+    <div class="hero-badge">יחידה 2 · שיעור 8</div>
+    <span class="hero-emoji">⚙️</span>
+    <h1 class="hero-title">משלימי הפועל: מושא ותיאור</h1>
+    <p class="hero-desc">מושא ישיר ועקיף, תיאורי פועל — אופן, מקום, זמן, כמות וסיבה. זיהוי, תפקיד ומיקום במשפט</p>
+    <div class="hero-meta">
+      <span class="hero-chip lc">⏱ 45 דק׳</span>
+      <span class="hero-chip">🔗 תחביר</span>
+      <span class="hero-chip green">🎯 יחידה 2 שיעור 8</span>
+    </div>
+  </div>
+
+  <div class="section-hd"><span class="sn-icon">📖</span><div class="sn">1</div>משלימי הפועל — מבט על</div>
+  <div class="card">
+    <p>לאחר הנושא והנשוא — שלד המשפט — באים <strong>משלימי הפועל</strong>: ישויות ונסיבות הקשורות לפעולה. הם נחלקים לשני סוגים גדולים:</p>
+    <ul>
+      <li><strong>מושא</strong> (Object) — על מי/מה חלה הפעולה: ישיר ועקיף</li>
+      <li><strong>תיאור</strong> (Adverbial) — כיצד, היכן, מתי, כמה ומדוע התרחשה הפעולה</li>
+    </ul>
+  </div>
+  <div class="box box-lc">💡 <strong>הסדר הבסיסי:</strong> נושא → נשוא → מושא ישיר → מושא עקיף → תיאורים. עברית מאפשרת גמישות רבה בסדר, אך ה"ליבה" מכוונת לכלל הזה.</div>
+
+  <div class="section-hd"><span class="sn-icon">🎯</span><div class="sn">2</div>מושא ישיר (Direct Object)</div>
+  <div class="obj-grid">
+    <div class="obj-card do-card">
+      <div class="obj-header">🎯 מושא ישיר — הגדרה</div>
+      <div class="obj-body">
+        <p>הישות שהפעולה <strong>חלה עליה ישירות</strong>, ללא מילת יחס. מגיע אחרי פועל יוצא (Transitive Verb). בעברית מסומן לרוב ב-<strong>"את"</strong> (כשמסוים) או ללא "את" (כשלא מסוים).</p>
+        <p>שאלה: <em>"הנשוא + מה? / את מי?"</em></p>
+        <div class="obj-ex" style="border-color:#fde68a">"הוא קרא <strong>את הספר</strong>." — "קרא מה?" → "את הספר".</div>
+        <div class="obj-ex" style="border-color:#fde68a">"היא כתבה <strong>מכתב</strong>." — "כתבה מה?" → "מכתב" (ללא "את" — לא מסוים).</div>
+      </div>
+    </div>
+    <div class="obj-card io-card">
+      <div class="obj-header">📬 מושא עקיף (Indirect Object)</div>
+      <div class="obj-body">
+        <p>הישות ש<strong>הפעולה מופנית אליה</strong> — המקבל, הנפגע, הנהנה. בא עם מילת יחס: <strong>"ל-", "מ-", "עם", "על", "בשביל"</strong>.</p>
+        <p>שאלה: <em>"הנשוא + ל/מ/עם מי/מה?"</em></p>
+        <div class="obj-ex" style="border-color:#fecdd3">"הוא שלח <strong>לדנה</strong> מתנה." — "שלח למי?" → "לדנה".</div>
+        <div class="obj-ex" style="border-color:#fecdd3">"הם דיברו <strong>עם המנהל</strong>." — "דיברו עם מי?" → "המנהל".</div>
+      </div>
+    </div>
+  </div>
+  <div class="sp-box">
+    <div class="sp-raw">המורה הסבירה לתלמידים את החומר החדש בסבלנות.</div>
+    <div class="sp-parts">
+      <div class="pt subj"><span class="pt-w">המורה</span><span class="pt-t">נושא</span></div>
+      <div class="pt pred"><span class="pt-w">הסבירה</span><span class="pt-t">נשוא</span></div>
+      <div class="pt iobj"><span class="pt-w">לתלמידים</span><span class="pt-t">מושא עקיף</span></div>
+      <div class="pt dobj"><span class="pt-w">את החומר החדש</span><span class="pt-t">מושא ישיר</span></div>
+      <div class="pt adv-m"><span class="pt-w">בסבלנות</span><span class="pt-t">תיאור אופן</span></div>
+    </div>
+    <div class="sp-note">מושא עקיף "לתלמידים" = מי הסבירה לו. מושא ישיר "את החומר" = מה הסבירה. תיאור "בסבלנות" = אופן הפעולה.</div>
+  </div>
+
+  <div class="section-hd"><span class="sn-icon">⚡</span><div class="sn">3</div>הבחנת מושא ישיר ממושא עקיף — מבחן "את"</div>
+  <div class="card">
+    <p>בעברית — בניגוד לאנגלית — ניתן לבחון: האם ניתן לשים "את" לפני הצירוף? אם כן ולא משנה המשמעות — נטייה למושא ישיר. אם לא — מושא עקיף.</p>
+  </div>
+  <div style="overflow-x:auto;margin-bottom:1rem">
+    <table class="cmp-table">
+      <thead><tr><th>משפט</th><th class="col-b">מושא ישיר (את)</th><th class="col-c">מושא עקיף (מ״י)</th></tr></thead>
+      <tbody>
+        <tr><td>"שלח דואר"</td><td>דואר = מושא ישיר (שלח מה?)</td><td>—</td></tr>
+        <tr><td>"שלח לדנה"</td><td>—</td><td>לדנה = מושא עקיף (שלח למי?)</td></tr>
+        <tr><td>"שלח לדנה את הדואר"</td><td>את הדואר = ישיר</td><td>לדנה = עקיף</td></tr>
+        <tr><td>"ספר לי סיפור"</td><td>סיפור = ישיר (ספר מה?)</td><td>לי = עקיף (ספר למי?)</td></tr>
+        <tr><td>"הסביר לכולם את המשימה"</td><td>את המשימה = ישיר</td><td>לכולם = עקיף</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="box box-amber">⚠️ <strong>מלכודת:</strong> פעלים עם מ״י קבועה — "עסק ב-", "האשים ב-", "סמך על-", "ויתר על-" — המ״י היא חלק מהפועל, לא מושא עקיף "רגיל". זהו <strong>מושא עקיף מחויב על ידי הפועל</strong>.</div>
+
+  <div class="section-hd"><span class="sn-icon">🌈</span><div class="sn">4</div>תיאורי פועל (Adverbials) — שישה סוגים</div>
+  <div class="adv-grid">
+    <div class="adv-badge-row"><div class="adv-dot" style="background:#7c3aed"></div><div><div class="adv-label">תיאור אופן</div><div class="adv-q">שאלה: <em>איך? כיצד?</em></div><div class="adv-ex">"רץ <strong>במהירות</strong>"</div></div></div>
+    <div class="adv-badge-row"><div class="adv-dot" style="background:#0f766e"></div><div><div class="adv-label">תיאור מקום</div><div class="adv-q">שאלה: <em>היכן? לאן? מאיפה?</em></div><div class="adv-ex">"ישב <strong>בכיסא</strong>"</div></div></div>
+    <div class="adv-badge-row"><div class="adv-dot" style="background:#1a56db"></div><div><div class="adv-label">תיאור זמן</div><div class="adv-q">שאלה: <em>מתי? כמה זמן?</em></div><div class="adv-ex">"בא <strong>אתמול</strong>"</div></div></div>
+    <div class="adv-badge-row"><div class="adv-dot" style="background:#b45309"></div><div><div class="adv-label">תיאור כמות / מידה</div><div class="adv-q">שאלה: <em>כמה? במידה?</em></div><div class="adv-ex">"אכל <strong>הרבה</strong>"</div></div></div>
+    <div class="adv-badge-row"><div class="adv-dot" style="background:#be185d"></div><div><div class="adv-label">תיאור סיבה / מטרה</div><div class="adv-q">שאלה: <em>למה? לשם מה?</em></div><div class="adv-ex">"יצא <strong>לשם בריאותו</strong>"</div></div></div>
+    <div class="adv-badge-row"><div class="adv-dot" style="background:#15803d"></div><div><div class="adv-label">תיאור אמצעי / מלווה</div><div class="adv-q">שאלה: <em>במה? עם מי?</em></div><div class="adv-ex">"כתב <strong>בעט</strong>"</div></div></div>
+  </div>
+
+  <div class="section-hd"><span class="sn-icon">🔬</span><div class="sn">5</div>ניתוח מלא — כל המרכיבים</div>
+  <div class="sp-box">
+    <div class="sp-raw">דנה שלחה לאחיה מתנה מיוחדת בדואר אתמול.</div>
+    <div class="sp-parts">
+      <div class="pt subj"><span class="pt-w">דנה</span><span class="pt-t">נושא</span></div>
+      <div class="pt pred"><span class="pt-w">שלחה</span><span class="pt-t">נשוא</span></div>
+      <div class="pt iobj"><span class="pt-w">לאחיה</span><span class="pt-t">מושא עקיף</span></div>
+      <div class="pt dobj"><span class="pt-w">מתנה מיוחדת</span><span class="pt-t">מושא ישיר</span></div>
+      <div class="pt adv-m"><span class="pt-w">בדואר</span><span class="pt-t">תיאור אמצעי</span></div>
+      <div class="pt adv-t"><span class="pt-w">אתמול</span><span class="pt-t">תיאור זמן</span></div>
+    </div>
+    <div class="sp-note">מושא עקיף: "לאחיה" (שלחה למי?). מושא ישיר: "מתנה מיוחדת" (שלחה מה?). תיאור אמצעי: "בדואר" (שלחה במה?). תיאור זמן: "אתמול" (שלחה מתי?).</div>
+  </div>
+  <div class="sp-box">
+    <div class="sp-raw">הצוות עבד על הפרויקט בשקדנות רבה כל הלילה.</div>
+    <div class="sp-parts">
+      <div class="pt subj"><span class="pt-w">הצוות</span><span class="pt-t">נושא</span></div>
+      <div class="pt pred"><span class="pt-w">עבד</span><span class="pt-t">נשוא</span></div>
+      <div class="pt iobj"><span class="pt-w">על הפרויקט</span><span class="pt-t">מושא עקיף</span></div>
+      <div class="pt adv-m"><span class="pt-w">בשקדנות רבה</span><span class="pt-t">תיאור אופן+מידה</span></div>
+      <div class="pt adv-t"><span class="pt-w">כל הלילה</span><span class="pt-t">תיאור זמן</span></div>
+    </div>
+    <div class="sp-note">"עבד על-" = מ״י קבועה → "על הפרויקט" = מושא עקיף מחויב. "בשקדנות רבה" = תיאור אופן + מידה (שני תיאורים מאוחדים). "כל הלילה" = תיאור זמן.</div>
+  </div>
+
+  <div class="section-hd"><span class="sn-icon">📊</span><div class="sn">6</div>מיקום התיאור — לפני ואחרי</div>
+  <div class="card">
+    <p>בעברית, תיאורי פועל יכולים לבוא <strong>בתחילת המשפט, באמצע, או בסוף</strong>. המיקום משפיע על הדגשה:</p>
+    <ul>
+      <li><strong>תחילת המשפט</strong>: "אתמול בא יוסף." — "אתמול" מודגש. מסגרת זמנית לכל המשפט.</li>
+      <li><strong>סוף המשפט</strong>: "יוסף בא אתמול." — רצף נרטיבי טבעי.</li>
+      <li><strong>בין הנושא לנשוא</strong>: "יוסף — <em>מדי יום</em> — בא." — הדגשה חזקה (שכיח בסגנון ספרותי).</li>
+    </ul>
+  </div>
+  <div class="box box-blue">📘 <strong>לבגרות:</strong> שאלות על סדר מילים וסגנון לרוב קשורות למיקום התיאור. תיאור בתחילה = הדגשה. תיאור בסוף = מידע נוסף. תיאור בפתיחת פסקה = מסגרת כרונולוגית/מרחבית.</div>
+
+  <div class="section-hd"><span class="sn-icon">⚠️</span><div class="sn">7</div>מלכודות — מושא עקיף לעומת תיאור מקום</div>
+  <div class="card">
+    <p>ביטויים עם "ב-", "ל-", "מ-" יכולים להיות <strong>מושא עקיף</strong> או <strong>תיאור מקום/זמן</strong>. ההבחנה:</p>
+    <ul>
+      <li>"שלח <strong>לדנה</strong>" — "לדנה" = מושא עקיף (ישות שמקבלת)</li>
+      <li>"הלך <strong>לחנות</strong>" — "לחנות" = תיאור מקום (לאן, לא ישות שמקבלת)</li>
+      <li>"נסע <strong>לתל אביב</strong>" — "לתל אביב" = תיאור מקום</li>
+      <li>"הסביר <strong>לחבר</strong>" — "לחבר" = מושא עקיף (חבר = יצור שמקבל)</li>
+    </ul>
+  </div>
+  <div class="box box-teal">🔍 <strong>בדיקה:</strong> שאלו — האם מדובר ב<em>ישות מקבלת</em> (אדם/ארגון שמקבל את הפעולה) = מושא עקיף. או <em>מיקום/כיוון</em> = תיאור מקום?</div>
+
+  <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">8</div>כלי זיהוי — מפתח שאלות</div>
+  <div class="steps-wrap">
+    <div class="steps-title">📋 שאלות לזיהוי מושא ותיאור</div>
+    <div class="step-item"><div class="step-num">1</div><span><strong>מושא ישיר:</strong> "הנשוא + מה? / את מי?" — ללא מ״י, לרוב עם "את" (כשמסוים).</span></div>
+    <div class="step-item"><div class="step-num">2</div><span><strong>מושא עקיף:</strong> "הנשוא + ל-/מ-/עם/על מי/מה?" — ישות שמקבלת/מוזכרת.</span></div>
+    <div class="step-item"><div class="step-num">3</div><span><strong>תיאור אופן:</strong> "איך?" — בדרך כלל ביטוי עם "ב-" או תואר פועל.</span></div>
+    <div class="step-item"><div class="step-num">4</div><span><strong>תיאור מקום/זמן:</strong> "היכן? לאן? מתי? כמה זמן?" — ביטוי יחסי של מקום או זמן.</span></div>
+    <div class="step-item"><div class="step-num">5</div><span><strong>הבחן מושא עקיף ממקום:</strong> ישות חיה/ארגון → מושא. מקום גאוגרפי/כיוון → תיאור מקום.</span></div>
+  </div>
+  <div class="box box-green">✅ <strong>מוכן לתרגול!</strong> 3 טקסטים מגוונים ו-20 שאלות על מושא ישיר, עקיף ותיאורי פועל.</div>
+
+</div>
+</div>
+
+<!-- PRACTICE -->
+<div class="tab-pane" id="pane-practice">
+<div class="print-header"><h1>תרגול — יח׳2 שיעור 8: מושא ותיאור</h1><p>20 שאלות | לשון Lesson 2.0</p></div>
+<div class="lesson-wrap">
+  <div id="student-gate">
+    <div class="gate-header"><span class="gate-icon">✏️</span><div class="gate-title">כניסה לתרגול</div><div class="gate-desc">הזינו שם ושיבוץ כיתה</div></div>
+    <div class="gate-body">
+      <div class="gate-field"><label>שם מלא</label><input class="gate-input" id="gate-name" type="text" placeholder="לדוגמה: דנה כהן" autocomplete="off"><div class="gate-err-msg" id="gate-name-err">אנא הזינו שם ושם משפחה</div></div>
+      <div class="gate-field"><label>כיתה</label><select class="gate-select" id="gate-class"><option value="">— בחרו כיתה —</option><option>י׳א</option><option>י׳ב</option><option>י׳ג</option><option>י׳ד</option><option>י׳ה</option><option>י׳ו</option></select><div class="gate-err-msg" id="gate-class-err">אנא בחרו כיתה</div></div>
+      <div class="gate-field"><label>תאריך</label><div class="gate-date-display" id="gate-date-display"></div></div>
+      <button class="gate-btn" onclick="confirmGate()">✅ כניסה לתרגול</button>
+    </div>
+  </div>
+  <div id="gate-confirmed"><div class="gc-avatar" id="gc-avatar"></div><div class="gc-info"><div class="gc-name" id="gc-name-display"></div><div class="gc-meta" id="gc-meta-display"></div><button class="gc-change" onclick="reopenGate()">שינוי פרטים</button></div></div>
+
+  <div id="practice-content-wrap">
+    <div class="reading-text-box">
+      <div class="rt-title">טקסט א׳ — תיאור מסע</div>
+      <div class="rt-body"><p>הקבוצה יצאה <strong>לטיול</strong> <strong>בבוקר השכם</strong>. המדריך הסביר <strong>לכולם</strong> <strong>את מסלול ההליכה</strong> <strong>בקצרה</strong>. כל אחד נשא <strong>את הציוד שלו</strong> <strong>על גבו</strong>. אחרי שעתיים הגיעו <strong>לפסגה</strong> <strong>בנשימה עמוקה</strong>.</p></div>
+    </div>
+    <div class="reading-text-box">
+      <div class="rt-title">טקסט ב׳ — מעבדה</div>
+      <div class="rt-body"><p>המדענים עבדו <strong>על הניסוי</strong> <strong>במשך שבועות</strong>. הם ערבבו <strong>את החומרים</strong> <strong>בזהירות רבה</strong>. לאחר מכן שלחו <strong>לוועדה</strong> <strong>את הממצאים</strong>. המחקר פורסם <strong>בכתב העת</strong> <strong>בקיץ האחרון</strong>.</p></div>
+    </div>
+    <div class="reading-text-box">
+      <div class="rt-title">טקסט ג׳ — תרבות ואמנות</div>
+      <div class="rt-body"><p>הסופרת כתבה <strong>את רומן הביכורים שלה</strong> <strong>בחדרה הקטן</strong> <strong>לאורך שלוש שנים</strong>. היא הקדישה <strong>לחברתה</strong> <strong>את הספר</strong> <strong>מכל ליבה</strong>. המבקרים שיבחו <strong>אותה</strong> <strong>בחום</strong> ביום הצגת הספר.</p></div>
+    </div>
+
+    <div class="quiz-header">
+      <div class="quiz-hd-title">⚙️ מושא ותיאור — 20 שאלות</div>
+      <div class="quiz-hd-desc">MC · נכון/לא נכון · סדר — זיהוי מושא ישיר, עקיף ותיאורים</div>
+      <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 20 נענו</span><span id="prog-pct">0%</span></div>
+    </div>
+    <div id="questions-container"></div>
+    <div id="submit-row" style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem">
+      <button class="btn-submit" onclick="submitQuiz()">📤 הגשת התרגול</button>
+      <button class="btn-reset" onclick="resetQuiz()">🔄 אתחול</button>
+    </div>
+    <div id="results-container" style="display:none"></div>
+  </div>
+</div>
+</div>
+
+<!-- ANSWERS -->
+<div class="tab-pane" id="pane-answers">
+<div class="lesson-wrap">
+  <div id="answers-locked-msg" class="answers-locked"><div style="font-size:2.5rem;margin-bottom:.8rem">🔒</div><div style="font-family:'Secular One',sans-serif;font-size:1.1rem;margin-bottom:.5rem">התשובות נעולות</div><div style="font-size:.85rem;color:var(--muted)">המורה ישחרר בתום השיעור</div></div>
+  <div id="answers-visible-content" style="display:none">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:.5rem"><div style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--lc)">🔑 תשובות מלאות</div><span style="font-size:.72rem;color:var(--muted)" id="answers-source"></span></div>
+    <div id="answers-list"></div>
+  </div>
+</div>
+</div>
+<div id="toast"></div>
+
+<script>
+const FB_CFG={apiKey:"AIzaSyC1VIJaFqC-HzJHGutib10-A29i1KKO4YI",authDomain:"lashon-project.firebaseapp.com",projectId:"lashon-project",storageBucket:"lashon-project.firebasestorage.app",messagingSenderId:"444024985545",appId:"1:444024985545:web:847f8d4dad43193c147a18"};
+let _db=null;
+const LESSON_ID='u2_l8',LESSON_TITLE='משלימי הפועל: מושא ותיאור';
+function initFirebase(){try{if(typeof firebase==='undefined')return;if(!firebase.apps.length)firebase.initializeApp(FB_CFG);_db=firebase.firestore();_db.enablePersistence().catch(()=>{});_db.collection('lessons').doc(LESSON_ID).onSnapshot(doc=>{const val=doc.exists?doc.data()?.showAnswers===true:false;const av=LS.get('lashon2_answers_visible',{});av[LESSON_ID]=val;LS.set('lashon2_answers_visible',av);ANSWERS_VISIBLE=val;applyAnswersVisibility();});}catch(e){}}
+async function saveScore(score,sn,sc){if(!_db)return;const now=new Date();try{await _db.collection('lashon2_submissions').add({lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:sn||'תלמיד/ה',className:sc||'',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false});await _db.collection('lashon2_live').doc('latest').set({lessonId:LESSON_ID,score,studentName:sn,className:sc,ts:firebase.firestore.FieldValue.serverTimestamp()});}catch(e){}}
+const LS={get(k,fb=null){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):fb}catch{return fb}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const _p=new URLSearchParams(location.search);
+let STUDENT_NAME=_p.get('student')||LS.get('lashon2_uname','')||'תלמיד/ה';
+let STUDENT_CLASS=LS.get('lashon2_class','')||'';
+const USER_ROLE=_p.get('role')||LS.get('lashon2_role','')||localStorage.getItem('userRole')||'student';
+let ANSWERS_VISIBLE=_p.get('answers_visible')==='1';
+const BACK_URL=_p.get('back')||'index.html';
+function applyAnswersVisibility(){const lk=document.getElementById('answers-locked-msg'),vi=document.getElementById('answers-visible-content'),sr=document.getElementById('answers-source');if(USER_ROLE==='teacher'){if(lk)lk.style.display='none';if(vi)vi.style.display='';if(sr)sr.textContent='גישת מורה';document.getElementById('btn-answers')?.style.setProperty('display','');}else if(ANSWERS_VISIBLE){if(lk)lk.style.display='none';if(vi)vi.style.display='';if(sr)sr.textContent='שוחרר ע״י המורה';document.getElementById('btn-answers-student')?.style.setProperty('display','');}else{if(lk)lk.style.display='';if(vi)vi.style.display='none';}}
+
+const QUESTIONS=[
+  /* ── א ── */
+  {id:'q01',type:'mc',ref:'טקסט א׳',q:'"הקבוצה יצאה לטיול בבוקר השכם" — מהו "לטיול"?',
+   opts:['מושא ישיר — את מה יצאה?','מושא עקיף — הטיול מקבל את הפעולה','תיאור מקום/כיוון — לאן יצאה? (לא ישות שמקבלת)','תיאור זמן'],
+   ans:2,explain:'"לטיול" = תיאור מקום/כיוון. שאלה: "יצאה לאן?" → "לטיול". "לטיול" הוא כיוון, לא ישות שמקבלת את הפעולה. השוו: "שלח לחבר" (לחבר = ישות = מושא עקיף) לעומת "יצא לחנות" (לחנות = מקום = תיאור מקום).',teacherNote:''},
+  {id:'q02',type:'mc',ref:'טקסט א׳',q:'"הסביר לכולם את מסלול ההליכה בקצרה" — כמה משלימי פועל יש?',
+   opts:['אחד — "את מסלול ההליכה"','שניים — "לכולם" ו"את מסלול ההליכה"','שלושה — מושא עקיף + מושא ישיר + תיאור אופן','ארבעה'],
+   ans:2,explain:'"לכולם" = מושא עקיף (הסביר למי?). "את מסלול ההליכה" = מושא ישיר (הסביר מה?). "בקצרה" = תיאור אופן (הסביר איך?). שלושה משלימי פועל: ישיר + עקיף + תיאור.',teacherNote:''},
+  {id:'q03',type:'mc',ref:'טקסט א׳',q:'"כל אחד נשא את הציוד שלו על גבו" — מהו "על גבו"?',
+   opts:['מושא ישיר','מושא עקיף — הגב מקבל','תיאור מקום — היכן נשא? (על הגב = מיקום הנשיאה)','תיאור אופן'],
+   ans:2,explain:'"על גבו" = תיאור מקום. שאלה: "נשא היכן?" → "על גבו". "הגב" אינו ישות שמקבלת את הפעולה — הוא מיקום. מושא ישיר: "את הציוד". "על גבו" = מקום בלבד.',teacherNote:''},
+  {id:'q04',type:'tf',ref:'טקסט א׳',q:'"הגיעו לפסגה בנשימה עמוקה" — "לפסגה" = מושא עקיף.',
+   ans:false,explain:'לא נכון. "לפסגה" = תיאור מקום (לאן הגיעו?). "הפסגה" היא יעד גאוגרפי, לא ישות שמקבלת. "בנשימה עמוקה" = תיאור אופן. אין מושא עקיף במשפט זה.',teacherNote:'מלכודת נפוצה'},
+  {id:'q05',type:'mc',ref:'טקסט א׳',q:'"יצאה לטיול בבוקר השכם" — מהו "בבוקר השכם"?',
+   opts:['מושא ישיר','מושא עקיף','תיאור זמן — מתי יצאה?','תיאור אופן'],
+   ans:2,explain:'"בבוקר השכם" = תיאור זמן. שאלה: "יצאה מתי?" → "בבוקר השכם". ביטויי זמן (בבוקר, בצהריים, אתמול, השבוע, לאורך שנים) = תמיד תיאור זמן.',teacherNote:''},
+
+  /* ── ב ── */
+  {id:'q06',type:'mc',ref:'טקסט ב׳',q:'"עבדו על הניסוי במשך שבועות" — מהו "על הניסוי"?',
+   opts:['מושא ישיר','תיאור מקום','מושא עקיף — מ״י קבועה של הפועל "עבד" ("עבד על-")','תיאור אופן'],
+   ans:2,explain:'"עבד על-" = פועל עם מ״י קבועה. "על הניסוי" = מושא עקיף מחויב. הפועל "עבד" דורש "על-" לציון העיסוק. שאלה: "עבדו על מה?" → "הניסוי". "במשך שבועות" = תיאור זמן.',teacherNote:''},
+  {id:'q07',type:'mc',ref:'טקסט ב׳',q:'"ערבבו את החומרים בזהירות רבה" — מהו "את החומרים"?',
+   opts:['מושא עקיף','מושא ישיר — "ערבבו מה?" → "את החומרים" (פועל יוצא + "את")','תיאור אמצעי','תיאור כמות'],
+   ans:1,explain:'"את החומרים" = מושא ישיר. שאלה: "ערבבו מה?" → "החומרים". "את" = סימן המושא הישיר (כשמסוים). "בזהירות רבה" = תיאור אופן. ערבוב = פועל יוצא = מחייב מושא ישיר.',teacherNote:''},
+  {id:'q08',type:'mc',ref:'טקסט ב׳',q:'"שלחו לוועדה את הממצאים" — זהו מבנה עם:',
+   opts:['שני מושאים ישירים','מושא ישיר + מושא עקיף: "לוועדה" = עקיף (מי מקבל?); "את הממצאים" = ישיר (מה נשלח?)','מושא עקיף + תיאור מקום','מושא ישיר + תיאור אופן'],
+   ans:1,explain:'"לוועדה" = מושא עקיף (שלחו למי?). "את הממצאים" = מושא ישיר (שלחו מה?). זהו מבנה מושא כפול (Double Object) הנפוץ עם פעלים כמו שלח, נתן, מסר, הסביר, הראה.',teacherNote:''},
+  {id:'q09',type:'tf',ref:'טקסט ב׳',q:'"פורסם בכתב העת" — "בכתב העת" = תיאור אמצעי.',
+   ans:true,explain:'נכון. "בכתב העת" = תיאור אמצעי (פורסם באמצעות מה? בכלי תקשורת מה?). תיאור אמצעי עונה על "במה? בעזרת מה?". "ב-" לפני כלי/אמצעי/מדיה = תיאור אמצעי.',teacherNote:''},
+  {id:'q10',type:'mc',ref:'טקסט ב׳',q:'"פורסם בכתב העת בקיץ האחרון" — כמה תיאורים יש?',
+   opts:['אחד','שניים — תיאור אמצעי ("בכתב העת") ותיאור זמן ("בקיץ האחרון")','שלושה','אין תיאורים'],
+   ans:1,explain:'"בכתב העת" = תיאור אמצעי (פורסם היכן/במה?). "בקיץ האחרון" = תיאור זמן (פורסם מתי?). שני תיאורים שונים. כשיש שני ביטויי "ב-" — בדקו: האחד אמצעי/מקום, השני זמן.',teacherNote:''},
+
+  /* ── ג ── */
+  {id:'q11',type:'mc',ref:'טקסט ג׳',q:'"כתבה את רומן הביכורים שלה בחדרה הקטן לאורך שלוש שנים" — כמה סוגי משלים?',
+   opts:['מושא ישיר בלבד','מושא ישיר + תיאור מקום + תיאור זמן (שלושה סוגי משלים)','מושא ישיר + שני תיאורי זמן','מושא ישיר + מושא עקיף + תיאור'],
+   ans:1,explain:'"את רומן הביכורים שלה" = מושא ישיר. "בחדרה הקטן" = תיאור מקום. "לאורך שלוש שנים" = תיאור זמן. שלושה משלימי פועל שונים בסוגם.',teacherNote:''},
+  {id:'q12',type:'mc',ref:'טקסט ג׳',q:'"הקדישה לחברתה את הספר" — "לחברתה" = ?',
+   opts:['תיאור מקום — לאן?','מושא ישיר','מושא עקיף — "הקדישה למי?" → לחברתה (ישות שמקבלת)','תיאור מטרה'],
+   ans:2,explain:'"לחברתה" = מושא עקיף. שאלה: "הקדישה למי?" → "לחברתה". "החברה" = ישות שמקבלת את ההקדשה. "את הספר" = מושא ישיר (הקדישה מה?). מבנה מושא כפול.',teacherNote:''},
+  {id:'q13',type:'mc',ref:'טקסט ג׳',q:'"הקדישה לחברתה את הספר מכל ליבה" — מהו "מכל ליבה"?',
+   opts:['מושא עקיף — "מ-" + ישות','תיאור אופן — כיצד הקדישה? "מכל ליבה" = ביטוי תלם המתאר את האופן','מושא ישיר','תיאור זמן'],
+   ans:1,explain:'"מכל ליבה" = תיאור אופן. שאלה: "הקדישה איך?" → "מכל ליבה". למרות המ״י "מ-", כאן המשמעות היא אופן הרגשי של הפעולה, לא ישות שממנה לוקחים. הקשר = תיאור.',teacherNote:''},
+  {id:'q14',type:'mc',ref:'טקסט ג׳',q:'"שיבחו אותה בחום" — מהם "אותה" ו"בחום"?',
+   opts:['"אותה" = מושא עקיף; "בחום" = מושא ישיר','"אותה" = מושא ישיר (שיבחו מי?); "בחום" = תיאור אופן (שיבחו איך?)','שניהם תיאורים','שניהם מושאים ישירים'],
+   ans:1,explain:'"אותה" = כינוי מושא = מושא ישיר (שיבחו את מי?). "בחום" = תיאור אופן (שיבחו איך?). "אותה/אותו/אותם" = צורות המושא הישיר של כינויי הגוף.',teacherNote:''},
+  {id:'q15',type:'tf',ref:'טקסט ג׳',q:'"כתבה את הרומן בחדרה הקטן" — "בחדרה הקטן" ניתן להשמיט מבלי לשנות את ממצי המשפט.',
+   ans:true,explain:'נכון. תיאורים (בניגוד למושאים) הם בדרך כלל <strong>אופציונליים</strong>. "כתבה את הרומן" = משפט שלם. "בחדרה הקטן" = מידע נסיבתי שאפשר להשמיטו. לעומת זאת: "כתבה" (ללא מושא) = חסר — "כתבה מה?"',teacherNote:''},
+
+  /* ── תיאוריה ── */
+  {id:'q16',type:'mc',ref:'תיאוריה',q:'מהי הבדיקה לזיהוי מושא ישיר?',
+   opts:['מגיע תמיד עם "ל-"','שאלה: "הנשוא + מה? / את מי?" — ללא מ״י, לרוב עם "את" כשמסוים','מגיע תמיד אחרי מושא עקיף','מושא ישיר תמיד מסוים'],
+   ans:1,explain:'מושא ישיר: שאלה "הנשוא + מה? / את מי?" ללא מ״י. כשמסוים = עם "את". כשלא מסוים = ללא "את". "קנה לחם" (לא מסוים, ללא "את"). "קנה את הלחם" (מסוים, עם "את"). שתיהן = מושא ישיר.',teacherNote:''},
+  {id:'q17',type:'tf',ref:'תיאוריה',q:'תיאור מקום ומושא עקיף יכולים שניהם להתחיל ב-"ל-".',
+   ans:true,explain:'נכון. "שלח לדנה" (לדנה = מושא עקיף — ישות שמקבלת). "הלך לחנות" (לחנות = תיאור מקום). שניהם ב-"ל-". הבחנה: ישות חיה/ארגון שמקבל = מושא עקיף. מקום/כיוון = תיאור מקום.',teacherNote:''},
+  {id:'q18',type:'mc',ref:'תיאוריה',q:'מהו ההבדל בין "ישב בכיסא" לבין "ישב את הכיסא"?',
+   opts:['אין הבדל','ישב בכיסא = תיאור מקום תקין; ישב את הכיסא = שגיאה דקדוקית (ישב = פועל עומד, לא יוצא)','שניהם = מושא ישיר','שניהם = תיאור מקום'],
+   ans:1,explain:'"ישב בכיסא" = תקין: "בכיסא" = תיאור מקום. "ישב" = פועל עומד (Intransitive) — לא מקבל מושא ישיר. "ישב את הכיסא" = שגיאה: פועל עומד לא לוקח "את" + מושא ישיר.',teacherNote:''},
+  {id:'q19',type:'sort',ref:'תיאוריה',q:'סדרו לפי קדימות (ממרכזי לשולי) במשפט:',
+   items:['תיאורי פועל — אופציונליים (השוליים)','נושא + נשוא — גרעין המשפט','מושא ישיר — הכרחי לפעלים יוצאים','מושא עקיף — תלוי בפועל'],
+   correctOrder:[1,2,3,0],
+   explain:'מרכיב גרעיני: נושא+נשוא. הכרחי לפעלים יוצאים: מושא ישיר. תלוי בפועל: מושא עקיף. אופציונלי: תיאורים. זהו הסדר מ"חובה" ל"בחירה" בבניית המשפט.',teacherNote:''},
+  {id:'q20',type:'mc',ref:'תיאוריה',q:'במשפט "הוא נסע לפריז לשם טיפול" — מהי "לשם טיפול"?',
+   opts:['מושא עקיף — לאן נסע','מושא ישיר','תיאור מטרה — לשם מה נסע? (מטרת הנסיעה)','תיאור זמן'],
+   ans:2,explain:'"לשם טיפול" = תיאור מטרה. שאלה: "נסע לשם מה?" → "לטיפול". "לשם" = מילת קישור של מטרה (= כדי, למען). "לפריז" = תיאור מקום (לאן?). שני תיאורים שונים: מקום + מטרה.',teacherNote:''},
+];
+
+const QS={answers:{},submitted:false};
+let _lastScore=null,_lastCorrect=0,_gateConfirmed=false;
+function switchTab(t){['theory','practice','answers'].forEach(x=>{document.getElementById('pane-'+x)?.classList.toggle('active',x===t);document.getElementById('btn-'+x)?.classList.toggle('active',x===t);document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);});if(t==='practice'&&USER_ROLE==='teacher'){document.getElementById('student-gate')?.classList.add('hidden');const tw=document.getElementById('practice-content-wrap');if(tw)tw.style.display='';}if(t==='practice'&&USER_ROLE==='student'){const dd=document.getElementById('gate-date-display');if(dd)dd.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});const gate=document.getElementById('student-gate'),conf=document.getElementById('gate-confirmed'),wrap=document.getElementById('practice-content-wrap');const ne=document.getElementById('gate-name'),ce=document.getElementById('gate-class');if(!_gateConfirmed){if(ne&&STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה')ne.value=STUDENT_NAME;if(ce&&STUDENT_CLASS)ce.value=STUDENT_CLASS;if(gate)gate.classList.remove('hidden');if(conf)conf.classList.add('hidden');if(wrap)wrap.style.display='none';}else{if(gate)gate.classList.add('hidden');if(conf)conf.classList.remove('hidden');if(wrap)wrap.style.display='';}}}
+function confirmGate(){const ne=document.getElementById('gate-name'),ce=document.getElementById('gate-class');const nv=(ne?.value||'').trim(),cv=ce?.value||'';let ok=true;if(nv.split(/\s+/).filter(Boolean).length<2){ne?.classList.add('err');document.getElementById('gate-name-err')?.classList.add('show');ok=false;}else{ne?.classList.remove('err');document.getElementById('gate-name-err')?.classList.remove('show');}if(!cv){ce?.classList.add('err');document.getElementById('gate-class-err')?.classList.add('show');ok=false;}else{ce?.classList.remove('err');document.getElementById('gate-class-err')?.classList.remove('show');}if(!ok)return;STUDENT_NAME=nv;STUDENT_CLASS=cv;LS.set('lashon2_uname',nv);LS.set('lashon2_class',cv);_gateConfirmed=true;const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=nv[0].toUpperCase();if(nm)nm.textContent=nv;if(mt)mt.textContent='כיתה '+cv+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('student-gate')?.classList.add('hidden');document.getElementById('gate-confirmed')?.classList.remove('hidden');const wrap=document.getElementById('practice-content-wrap');if(wrap){wrap.style.display='';wrap.scrollIntoView({behavior:'smooth',block:'start'});}}
+function reopenGate(){_gateConfirmed=false;document.getElementById('student-gate')?.classList.remove('hidden');document.getElementById('gate-confirmed')?.classList.add('hidden');const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';setTimeout(()=>document.getElementById('gate-name')?.focus(),250);}
+function renderQuestions(){const c=document.getElementById('questions-container');if(!c)return;c.innerHTML=QUESTIONS.map((q,i)=>buildCard(q,i)).join('');renderAnswers();}
+function buildCard(q,i){let input='';const L=['א','ב','ג','ד'];if(q.type==='mc'){input=`<div class="mc-wrap">${q.opts.map((o,oi)=>`<button class="mc-btn" id="${q.id}_o${oi}" onclick="pickMC('${q.id}',${oi})"><span class="mc-letter">${L[oi]}</span><span>${o}</span></button>`).join('')}</div>`;}else if(q.type==='tf'){input=`<div class="tf-row"><button class="tf-btn" id="${q.id}_t" onclick="pickTF('${q.id}',true)">✅ נכון</button><button class="tf-btn" id="${q.id}_f" onclick="pickTF('${q.id}',false)">❌ לא נכון</button></div>`;}else if(q.type==='sort'){input=`<div class="sort-note">גרור לסדר הנכון</div><div class="sort-list" id="${q.id}_sl">${q.items.map((it,j)=>`<div class="sort-item" draggable="true" data-idx="${j}" id="${q.id}_si${j}" ondragstart="dragStart(event,'${q.id}',${j})" ondragover="dragOver(event)" ondrop="dropItem(event,'${q.id}')" ondragleave="dragLeave(event)"><span class="sort-handle">⠿</span><span class="sort-text">${it}</span></div>`).join('')}</div>`;}return `<div class="q-card" id="${q.id}_card"><div class="q-num">שאלה ${i+1} מתוך ${QUESTIONS.length} <span class="q-type-badge">${q.ref}</span></div><div class="q-text">${q.q}</div>${input}<div class="q-feedback" id="${q.id}_fb"></div></div>`;}
+let _ds=null;
+function dragStart(e,qid,idx){_ds={qid,idx};e.currentTarget.classList.add('dragging');}
+function dragOver(e){e.preventDefault();e.currentTarget.classList.add('drag-over');}
+function dragLeave(e){e.currentTarget.classList.remove('drag-over');}
+function dropItem(e,qid){e.preventDefault();const tg=e.currentTarget;tg.classList.remove('drag-over');if(!_ds||_ds.qid!==qid)return;const sl=document.getElementById(qid+'_sl');const items=[...sl.children];const fe=document.getElementById(qid+'_si'+_ds.idx);const ti=items.indexOf(tg),fi=items.indexOf(fe);if(fi===ti)return;if(fi<ti)sl.insertBefore(fe,tg.nextSibling);else sl.insertBefore(fe,tg);fe.classList.remove('dragging');QS.answers[qid]={order:[...sl.children].map(el=>parseInt(el.dataset.idx))};updateProgress();}
+function pickMC(qid,idx){if(QS.submitted)return;QS.answers[qid]={sel:idx};QUESTIONS.find(x=>x.id===qid).opts.forEach((_,oi)=>{const b=document.getElementById(qid+'_o'+oi);if(b)b.classList.toggle('sel',oi===idx);});updateProgress();}
+function pickTF(qid,val){if(QS.submitted)return;QS.answers[qid]={sel:val};['t','f'].forEach(k=>{const b=document.getElementById(qid+'_'+k);if(b)b.classList.toggle('sel',k==='t'?val:!val);});updateProgress();}
+function updateProgress(){const done=Object.keys(QS.answers).length,pct=Math.round(done/QUESTIONS.length*100);document.getElementById('prog-fill')?.style.setProperty('width',pct+'%');const pt=document.getElementById('prog-txt');if(pt)pt.textContent=`${done} מתוך ${QUESTIONS.length} נענו`;const pp=document.getElementById('prog-pct');if(pp)pp.textContent=pct+'%';}
+function submitQuiz(){const done=Object.keys(QS.answers).length;if(done<QUESTIONS.length){toast(`ענית על ${done} מתוך ${QUESTIONS.length}. ענה על כולן.`);return;}QS.submitted=true;let correct=0;QUESTIONS.forEach(q=>{const a=QS.answers[q.id];let ok=false;if(q.type==='mc'&&a?.sel!==undefined){ok=a.sel===q.ans;q.opts.forEach((_,oi)=>{const b=document.getElementById(q.id+'_o'+oi);if(!b)return;b.disabled=true;if(oi===q.ans)b.classList.add('correct');else if(oi===a.sel&&!ok)b.classList.add('wrong');});}else if(q.type==='tf'&&a?.sel!==undefined){ok=a.sel===q.ans;['t','f'].forEach(k=>{const b=document.getElementById(q.id+'_'+k);if(!b)return;b.disabled=true;const bv=k==='t';if(bv===q.ans)b.classList.add('correct');else if(bv===a.sel&&!ok)b.classList.add('wrong');});}else if(q.type==='sort'&&a?.order){ok=JSON.stringify(a.order)===JSON.stringify(q.correctOrder);}if(ok)correct++;document.getElementById(q.id+'_card')?.classList.add(ok?'ok':'wrong');const fb=document.getElementById(q.id+'_fb');if(fb){fb.className='q-feedback show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;}});_lastCorrect=correct;_lastScore=Math.round(correct/QUESTIONS.length*100);const pct=_lastScore,emoji=pct>=90?'🏆':pct>=75?'⭐':pct>=60?'👍':'💪',color=pct>=90?'#15803d':pct>=75?'#7c3aed':pct>=60?'#1a56db':'#dc2626';const rc=document.getElementById('results-container');if(rc){rc.style.display='';rc.innerHTML=`<div class="results-card"><span class="results-emoji">${emoji}</span><span class="results-score" style="color:${color}">${pct}%</span><span class="results-label">${correct} מתוך ${QUESTIONS.length} נכון</span><div class="results-bar"><div class="results-bar-fill" style="width:0%;background:${color}" id="res-fill"></div></div><button class="btn-send" onclick="sendResults()">📤 שליחה למורה</button></div>`;}document.getElementById('submit-row')?.remove();setTimeout(()=>{const rf=document.getElementById('res-fill');if(rf)rf.style.width=pct+'%';},80);rc?.scrollIntoView({behavior:'smooth',block:'start'});}
+async function sendResults(){await saveScore(_lastScore,STUDENT_NAME,STUDENT_CLASS);toast('✅ התוצאה נשלחה!');}
+function resetQuiz(){QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;renderQuestions();updateProgress();const rc=document.getElementById('results-container');if(rc){rc.style.display='none';rc.innerHTML='';}if(!document.getElementById('submit-row')){const sw=document.getElementById('practice-content-wrap');if(sw){const d=document.createElement('div');d.id='submit-row';d.style.cssText='display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem';d.innerHTML='<button class="btn-submit" onclick="submitQuiz()">📤 הגשת התרגול</button><button class="btn-reset" onclick="resetQuiz()">🔄 אתחול</button>';sw.appendChild(d);}}}
+function renderAnswers(){const al=document.getElementById('answers-list');if(!al)return;const L=['א','ב','ג','ד'];al.innerHTML=QUESTIONS.map((q,i)=>{let ans='';if(q.type==='mc')ans=L[q.ans]+'. '+q.opts[q.ans];else if(q.type==='tf')ans=q.ans?'✅ נכון':'❌ לא נכון';else ans=q.correctOrder.map(j=>q.items[j]).join(' ← ');return `<div class="answer-row"><div class="ans-num">שאלה ${i+1} <span style="color:var(--lc)">${q.ref}</span></div><div class="ans-q">${q.q}</div><div class="ans-correct">✅ ${ans}</div><div class="ans-explain">💡 ${q.explain}</div></div>`;}).join('');}
+function printLesson(){const pw=window.open('','_blank','width=900,height=700');const sn=STUDENT_NAME||'תלמיד/ה',sc=STUDENT_CLASS||'—';const sh=QS.submitted?`<div style="background:#faf5ff;border:2px solid #ddd6fe;border-radius:12px;padding:1rem;margin-bottom:1rem;display:flex;align-items:center;gap:1rem"><span style="font-size:2rem">${_lastScore>=90?'🏆':'⭐'}</span><div><b style="color:#7c3aed">${_lastScore}%</b><br><small>${_lastCorrect}/${QUESTIONS.length} נכון</small></div></div>`:'';pw.document.write(`<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><title>הדפסה</title><link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;700&display=swap" rel="stylesheet"><style>body{font-family:Heebo,sans-serif;direction:rtl;background:#fff;color:#0d1424;font-size:10pt;line-height:1.6}.doc{max-width:700px;margin:0 auto;padding:1cm}h1{font-family:"Secular One",sans-serif;font-size:16pt;color:#7c3aed;text-align:center;border-bottom:3px solid #7c3aed;padding-bottom:.8rem;margin-bottom:1.5rem}.q{border:1px solid #e4e7ef;border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid}.q.ok{border-color:#bbf7d0;background:#fafffe}.q.wrong{border-color:#fca5a5;background:#fff5f5}.qn{font-size:.7rem;color:#9aa3be;margin-bottom:.35rem}.qt{font-size:9.5pt;font-weight:700;margin-bottom:.3rem}.ok-ans{background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;padding:.3rem .65rem;font-size:9pt;margin-bottom:.25rem}.bad-ans{background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;border-radius:6px;padding:.3rem .65rem;font-size:9pt;margin-bottom:.25rem}.cor-ans{background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;padding:.3rem .65rem;font-size:9pt;margin-bottom:.25rem}.expl{font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem}@page{margin:1.5cm;size:A4}</style></head><body><div class="doc"><h1>⚙️ שיעור 8 — משלימי הפועל: מושא ותיאור</h1><p style="text-align:center">תלמיד/ה: ${sn} | כיתה: ${sc} | ${new Date().toLocaleDateString('he-IL')}</p>${sh}${QUESTIONS.map((q,i)=>{const a=QS.answers[q.id];let ok=false,gv='לא נענה';if(q.type==='mc'&&a?.sel!==undefined){gv=['א','ב','ג','ד'][a.sel]+'. '+q.opts[a.sel];ok=a.sel===q.ans;}else if(q.type==='tf'&&a?.sel!==undefined){gv=a.sel?'נכון':'לא נכון';ok=a.sel===q.ans;}else if(q.type==='sort'&&a?.order){gv=a.order.map(j=>q.items[j]).join(' ← ');ok=JSON.stringify(a.order)===JSON.stringify(q.correctOrder);}const ca=q.type==='mc'?['א','ב','ג','ד'][q.ans]+'. '+q.opts[q.ans]:q.type==='tf'?(q.ans?'נכון':'לא נכון'):q.correctOrder.map(j=>q.items[j]).join(' ← ');return `<div class="q ${QS.submitted?(ok?'ok':'wrong'):''}"><div class="qn">שאלה ${i+1} · ${q.ref}</div><div class="qt">${q.q}</div><div class="${QS.submitted?(ok?'ok-ans':'bad-ans'):'ok-ans'}"><b>${QS.submitted?(ok?'✅':'❌'):'→'}</b> ${gv}</div>${QS.submitted&&!ok&&gv!=='לא נענה'?`<div class="cor-ans"><b>✅ נכון:</b> ${ca}</div>`:''}<div class="expl">💡 ${q.explain}</div></div>`;}).join('')}</div><script>window.onload=()=>setTimeout(()=>window.print(),400)<\/script></body></html>`);pw.document.close();}
+let _tt;
+function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800);}
+function goBack(){if(window.opener){try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}window.close();return;}window.location.href=BACK_URL;}
+function init(){initFirebase();if(USER_ROLE==='teacher'){document.getElementById('role-chip')?.style.setProperty('display','');document.getElementById('btn-answers')?.style.setProperty('display','');_gateConfirmed=true;const w=document.getElementById('practice-content-wrap');if(w)w.style.display='';document.getElementById('student-gate')?.classList.add('hidden');}else{const w=document.getElementById('practice-content-wrap');if(w)w.style.display='none';if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){_gateConfirmed=true;if(w)w.style.display='';document.getElementById('student-gate')?.classList.add('hidden');const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed')?.classList.remove('hidden');}}applyAnswersVisibility();renderQuestions();}
+init();
+</script>
+</body>
+</html>
