@@ -19,8 +19,7 @@
   --gold:#ca8a04;--gold-lt:#fefce8;
   --teal:#0f766e;--teal-lt:#f0fdfa;
   --rose:#be185d;--rose-lt:#fff1f2;
-  /* Lesson accent — purple for lesson 2 */
-  --lc:#ca8a04;--lc-lt:#fefce8;--lc-dk:#a16207;
+  --lc:#ca8a04;--lc-lt:#fefce8;--lc-dk:#92400e;
   --sh1:0 1px 3px rgba(13,20,36,.06);--sh2:0 4px 20px rgba(13,20,36,.08);--sh3:0 12px 40px rgba(13,20,36,.12);
   --r:14px;--r-lg:20px;--r-xl:26px;--r-pill:999px;
 }
@@ -42,8 +41,6 @@
 html{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{line-height:1.65;min-height:100vh}
 button,input,select,textarea{font-family:inherit}
-
-/* ═══ TOPBAR ═══ */
 .topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:.62rem 1.1rem;display:flex;align-items:center;gap:.55rem;min-height:54px;box-shadow:var(--sh1)}
 .btn-back{width:40px;height:40px;border:1.5px solid var(--border);border-radius:11px;background:var(--surface2);font-size:1.05rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .14s;flex-shrink:0}
 .btn-back:hover{background:var(--surface3);color:var(--text)}
@@ -56,8 +53,6 @@ button,input,select,textarea{font-family:inherit}
 .t-chip.teacher{color:var(--gold);background:var(--gold-lt);border-color:#fde68a;display:none}
 .btn-print{display:inline-flex;align-items:center;gap:.32rem;padding:.32rem .85rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .14s;white-space:nowrap;min-height:36px}
 .btn-print:hover{background:var(--lc-lt);color:var(--lc);border-color:var(--lc)}
-
-/* ═══ TABS ═══ */
 .tabs-bar{background:var(--surface);border-bottom:1px solid var(--border);display:flex;padding:0 1.1rem;overflow-x:auto;scrollbar-width:none;position:sticky;top:54px;z-index:90}
 .tabs-bar::-webkit-scrollbar{display:none}
 .tab-btn{padding:.68rem 1.2rem;border:none;border-bottom:2.5px solid transparent;background:none;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;min-height:46px;margin-bottom:-1px;flex-shrink:0;transition:color .14s}
@@ -65,11 +60,7 @@ button,input,select,textarea{font-family:inherit}
 .tab-btn.active{color:var(--lc);border-bottom-color:var(--lc);font-weight:800}
 .tab-pane{display:none}
 .tab-pane.active{display:block}
-
-/* ═══ LESSON WRAP ═══ */
 .lesson-wrap{max-width:800px;margin:0 auto;padding:1.5rem 1.2rem 5rem;width:100%}
-
-/* ─── HERO ─── */
 .lesson-hero{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface) 68%);border:1px solid var(--border);border-radius:var(--r-xl);padding:1.8rem 1.6rem 1.6rem;margin-bottom:1.8rem;position:relative;overflow:hidden;box-shadow:var(--sh1)}
 .lesson-hero::before{content:'';position:absolute;top:0;right:0;bottom:0;width:5px;background:var(--lc);opacity:.75;border-radius:0 var(--r-xl) var(--r-xl) 0}
 .hero-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.62rem;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.07em;background:var(--lc-lt);border:1.5px solid var(--lc);border-radius:var(--r-pill);padding:.22rem .8rem;margin-bottom:.9rem;opacity:.88}
@@ -80,14 +71,10 @@ button,input,select,textarea{font-family:inherit}
 .hero-chip{font-size:.63rem;font-weight:700;padding:.22rem .72rem;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface);color:var(--muted)}
 .hero-chip.lc{color:var(--lc);background:var(--lc-lt);border-color:var(--lc)}
 .hero-chip.green{color:var(--green);background:var(--green-lt);border-color:#bbf7d0}
-
-/* ─── SECTION HEADING ─── */
 .section-hd{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--lc);display:flex;align-items:center;gap:.55rem;margin:2.2rem 0 1rem;padding-bottom:.48rem;border-bottom:2px solid var(--lc-lt)}
 .section-hd:first-of-type{margin-top:0}
 .sn{width:28px;height:28px;border-radius:50%;background:var(--lc);color:#fff;font-size:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900}
 .sn-icon{font-size:1.3rem;flex-shrink:0;line-height:1}
-
-/* ─── CARDS ─── */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;box-shadow:var(--sh1);margin-bottom:1rem}
 .card p{font-size:.9rem;line-height:1.78;color:var(--text-mid)}
 .card p+p{margin-top:.65rem}
@@ -95,81 +82,36 @@ button,input,select,textarea{font-family:inherit}
 .card ul,.card ol{padding-right:1.3rem;margin-top:.42rem}
 .card li{font-size:.9rem;line-height:1.78;color:var(--text-mid);margin-bottom:.18rem}
 .card li strong{color:var(--text)}
-
-/* Callouts */
 .box{border-radius:var(--r);padding:1rem 1.2rem;font-size:.86rem;line-height:1.72;color:var(--text-mid);margin-bottom:1rem}
 .box strong{font-weight:800}
-.box-lc{background:var(--lc-lt);border:1.5px solid #ddd6fe}.box-lc strong{color:var(--lc)}
+.box-lc{background:var(--lc-lt);border:1.5px solid #fde68a}.box-lc strong{color:var(--lc)}
 .box-blue{background:var(--blue-lt);border:1.5px solid #bfdbfe}.box-blue strong{color:var(--blue)}
 .box-amber{background:var(--amber-lt);border:1.5px solid #fde68a}.box-amber strong{color:var(--amber)}
 .box-green{background:var(--green-lt);border:1.5px solid #bbf7d0}.box-green strong{color:var(--green)}
 .box-teal{background:var(--teal-lt);border:1.5px solid #99f6e4;border-radius:var(--r-lg);padding:1.25rem 1.35rem;margin-bottom:1rem}
 .box-teal-label{font-size:.78rem;font-weight:800;color:var(--teal);margin-bottom:.78rem}
 .box-rose{background:var(--rose-lt);border:1.5px solid #fecdd3}.box-rose strong{color:var(--rose)}
-
-/* Grid */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.85rem}
 @media(max-width:480px){.grid2{grid-template-columns:1fr}}
 .mini-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.95rem 1.05rem}
 .mini-title{font-size:.76rem;font-weight:800;color:var(--text);margin-bottom:.38rem}
 .mini-body{font-size:.8rem;color:var(--text-mid);line-height:1.62}
-
-/* Steps */
-.steps-wrap{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1.5px solid #ddd6fe;border-radius:var(--r-lg);padding:1.4rem 1.5rem;margin-bottom:1rem}
+.steps-wrap{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1.5px solid #fde68a;border-radius:var(--r-lg);padding:1.4rem 1.5rem;margin-bottom:1rem}
 .steps-title{font-family:'Secular One',sans-serif;font-size:.94rem;color:var(--lc);margin-bottom:1rem}
 .step-item{display:flex;align-items:flex-start;gap:.65rem;font-size:.86rem;color:var(--text-mid);line-height:1.55;margin-bottom:.68rem}
 .step-item:last-child{margin-bottom:0}
 .step-num{width:26px;height:26px;border-radius:50%;background:var(--lc);color:#fff;font-size:.7rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
-
-/* ─── COMPARISON DIAGRAM ─── */
-/* Side-by-side texts */
-.texts-side{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem}
-@media(max-width:560px){.texts-side{grid-template-columns:1fr}}
-.text-panel{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
-.text-panel-header{padding:.7rem 1rem;font-size:.75rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
-.text-panel.a .text-panel-header{background:#7c3aed;color:#fff}
-.text-panel.b .text-panel-header{background:#5b21b6;color:#fff}
-.text-panel-body{background:var(--surface);border:1px solid var(--border);border-top:none;padding:.9rem 1rem;font-size:.82rem;line-height:1.7;color:var(--text-mid)}
-
-/* Venn-style overlap diagram */
-.venn-wrap{position:relative;margin:1.5rem 0;display:flex;gap:0;align-items:stretch;min-height:160px}
-.venn-left,.venn-right{flex:1;padding:1rem 1.1rem;border-radius:var(--r-lg) 0 0 var(--r-lg)}
-.venn-right{border-radius:0 var(--r-lg) var(--r-lg) 0}
-.venn-center{width:160px;flex-shrink:0;background:linear-gradient(135deg,#ede9fe,#ddd6fe);border:1.5px solid #c4b5fd;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.9rem .8rem;text-align:center;z-index:1}
-.venn-left{background:linear-gradient(135deg,#eff4ff,#dbeafe);border:1.5px solid #bfdbfe;border-left:none;padding-right:1.5rem}
-.venn-right{background:linear-gradient(135deg,#fdf4ff,#e9d5ff);border:1.5px solid #d8b4fe;border-right:none;padding-left:1.5rem}
-@media(max-width:520px){
-  .venn-wrap{flex-direction:column;min-height:auto}
-  .venn-left,.venn-right,.venn-center{border-radius:var(--r-lg);border:1.5px solid #ddd6fe;width:auto}
-}
-.venn-label{font-size:.65rem;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;display:block}
-.venn-items{font-size:.78rem;color:var(--text-mid);line-height:1.65}
-.venn-items li{list-style:none;padding:0;margin-bottom:.25rem}
-.venn-items li::before{content:'• ';color:var(--lc)}
-.venn-center .venn-label{color:var(--purple-dk)}
-.venn-center .venn-items li::before{color:var(--purple)}
-
-/* Comparison table */
 .cmp-table{width:100%;border-collapse:collapse;font-size:.82rem;margin-bottom:1rem;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
 .cmp-table th{padding:.68rem .9rem;text-align:right;font-weight:800;font-size:.76rem}
 .cmp-table th:first-child{background:var(--lc);color:#fff}
-.cmp-table th.col-a{background:#7c3aed;color:#fff}
-.cmp-table th.col-b{background:#5b21b6;color:#fff}
+.cmp-table th.col-a{background:#ca8a04;color:#fff}
+.cmp-table th.col-b{background:#92400e;color:#fff}
+.cmp-table th.col-c{background:#374151;color:#fff}
 .cmp-table td{padding:.6rem .9rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
 .cmp-table tr:last-child td{border-bottom:none}
 .cmp-table tr:nth-child(even) td{background:var(--surface2)}
 .cmp-table tr:nth-child(odd) td{background:var(--surface)}
-.cmp-table .row-label{font-weight:700;color:var(--text);background:var(--lc-lt)!important;white-space:nowrap}
-
-/* Bagrut answer template */
-.bagrut-template{background:var(--surface);border:2px dashed var(--lc);border-radius:var(--r-xl);padding:1.4rem 1.5rem;margin-bottom:1rem}
-.bagrut-template-title{font-family:'Secular One',sans-serif;font-size:.88rem;color:var(--lc);margin-bottom:.9rem;display:flex;align-items:center;gap:.38rem}
-.bagrut-line{display:flex;align-items:flex-start;gap:.7rem;font-size:.85rem;color:var(--text-mid);line-height:1.55;margin-bottom:.6rem;padding:.6rem .75rem;background:var(--surface2);border-radius:var(--r);border-right:3px solid var(--lc)}
-.bagrut-num{min-width:22px;height:22px;border-radius:50%;background:var(--lc);color:#fff;font-size:.68rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem}
-.bagrut-sample{background:var(--lc-lt);border:1.5px solid #ddd6fe;border-radius:var(--r-lg);padding:1.1rem 1.3rem;font-size:.85rem;line-height:1.75;color:var(--text-mid);margin-top:.8rem}
-.bagrut-sample em{color:var(--lc);font-style:normal;font-weight:700}
-
-/* ═══ READING TEXT ═══ */
+.cmp-table .row-label{font-weight:700;color:var(--lc);background:var(--lc-lt)!important;white-space:nowrap}
 .reading-text-box{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.5rem 1.6rem;margin-bottom:1.8rem;box-shadow:var(--sh2);position:relative}
 .reading-text-box::before{content:'📄 טקסט לקריאה';position:absolute;top:-12px;right:1.4rem;background:var(--lc);color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill);letter-spacing:.04em}
 .rt-title{font-family:'Secular One',sans-serif;font-size:1.05rem;color:var(--text);margin-bottom:.28rem}
@@ -179,16 +121,12 @@ button,input,select,textarea{font-family:inherit}
 .rt-body p:last-child{margin-bottom:0}
 .rt-body strong{color:var(--text);font-weight:700}
 .rt-body em{font-style:italic;color:var(--purple)}
-.rt-tag{display:inline-block;font-size:.62rem;font-weight:800;padding:.2rem .65rem;border-radius:var(--r-pill);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.05em}
-.rt-tag.a{background:#7c3aed;color:#fff}
-.rt-tag.b{background:#5b21b6;color:#fff}
-
-/* ═══ QUIZ ═══ */
-.quiz-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1px solid #ddd6fe;border-radius:var(--r-lg);padding:1.25rem 1.4rem;margin-bottom:1.5rem}
+.rt-tag{display:inline-block;font-size:.62rem;font-weight:800;padding:.2rem .65rem;border-radius:var(--r-pill);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.05em;color:#fff}
+.quiz-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1px solid #fde68a;border-radius:var(--r-lg);padding:1.25rem 1.4rem;margin-bottom:1.5rem}
 .quiz-hd-title{font-family:'Secular One',sans-serif;font-size:.97rem;color:var(--lc);margin-bottom:.32rem}
 .quiz-hd-desc{font-size:.82rem;color:var(--muted)}
 .quiz-prog-bar{height:5px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-top:.8rem;border:1px solid var(--border)}
-.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--lc),#a78bfa);border-radius:var(--r-pill);transition:width .38s ease}
+.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--lc),#fbbf24);border-radius:var(--r-pill);transition:width .38s ease}
 .quiz-prog-row{display:flex;justify-content:space-between;margin-top:.38rem;font-size:.7rem;color:var(--muted)}
 .q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;margin-bottom:1.25rem;box-shadow:var(--sh1);transition:border-color .2s}
 .q-card.ok{border-color:#bbf7d0}
@@ -233,14 +171,12 @@ button,input,select,textarea{font-family:inherit}
 .results-label{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem;display:block}
 .results-bar{height:10px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-bottom:1.6rem;border:1px solid var(--border)}
 .results-bar-fill{height:100%;border-radius:var(--r-pill);transition:width 1.2s cubic-bezier(.22,1,.36,1)}
-.btn-submit{padding:.85rem 2rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,.28);transition:all .15s;min-height:48px}
+.btn-submit{padding:.85rem 2rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(202,138,4,.28);transition:all .15s;min-height:48px}
 .btn-submit:hover{background:var(--lc-dk);transform:translateY(-1px)}
 .btn-reset{padding:.82rem 1.6rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);color:var(--muted);font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:48px}
 .btn-reset:hover{background:var(--surface3);color:var(--text)}
 .btn-send{padding:.82rem 1.8rem;border:none;border-radius:var(--r-pill);background:var(--green);color:#fff;font-size:.86rem;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(21,128,61,.3);transition:all .15s;min-height:48px}
 .btn-send:hover{transform:translateY(-1px)}
-
-/* ═══ ANSWERS TAB ═══ */
 .answers-locked{background:var(--surface);border:2px dashed var(--border);border-radius:var(--r-xl);padding:2.5rem 2rem;text-align:center;margin-top:.5rem}
 .answer-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.05rem 1.2rem;margin-bottom:.78rem}
 .ans-num{font-size:.66rem;color:var(--subtle);margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem}
@@ -248,8 +184,6 @@ button,input,select,textarea{font-family:inherit}
 .ans-correct{background:var(--green-lt);border:1.5px solid #bbf7d0;border-radius:9px;padding:.55rem .95rem;font-size:.82rem;color:var(--green);font-weight:700;margin-bottom:.42rem}
 .ans-explain{font-size:.78rem;color:var(--muted);line-height:1.58;border-right:3px solid var(--border);padding-right:.78rem;margin-top:.4rem}
 .ans-teacher-note{font-size:.78rem;font-weight:700;color:var(--lc);margin-top:.38rem;background:var(--lc-lt);border-radius:8px;padding:.42rem .75rem}
-
-/* ═══ GATE ═══ */
 #student-gate{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:0;margin-bottom:1.5rem;box-shadow:var(--sh2);overflow:hidden}
 #student-gate.hidden{display:none}
 .gate-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);padding:1.4rem 1.5rem 1.2rem;text-align:center;border-bottom:1px solid var(--border)}
@@ -260,15 +194,12 @@ button,input,select,textarea{font-family:inherit}
 .gate-field label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);margin-bottom:.38rem;letter-spacing:.02em}
 .gate-input{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;min-height:50px}
 .gate-input::placeholder{color:var(--subtle)}
-.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(124,58,237,.14)}
+.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(202,138,4,.14)}
 .gate-input.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.1)}
-.gate-select{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s;min-height:50px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7594' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 1rem center}
-.gate-select:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(124,58,237,.14)}
-.gate-select.err{border-color:var(--red)}
 .gate-err-msg{font-size:.7rem;color:var(--red);margin-top:.26rem;display:none}
 .gate-err-msg.show{display:block}
 .gate-date-display{padding:.78rem 1rem;background:var(--surface3);border:1.5px solid var(--border);border-radius:var(--r);font-size:.88rem;color:var(--muted)}
-.gate-btn{width:100%;padding:.88rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.92rem;font-weight:700;cursor:pointer;min-height:52px;box-shadow:0 4px 18px rgba(124,58,237,.28);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.45rem}
+.gate-btn{width:100%;padding:.88rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.92rem;font-weight:700;cursor:pointer;min-height:52px;box-shadow:0 4px 18px rgba(202,138,4,.28);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.45rem}
 .gate-btn:hover{background:var(--lc-dk);transform:translateY(-1px)}
 .gate-btn:active{transform:scale(.97)}
 #gate-confirmed{display:none;background:var(--green-lt);border:2px solid #bbf7d0;border-radius:var(--r-xl);padding:1rem 1.3rem;margin-bottom:1.5rem;align-items:center;gap:.85rem}
@@ -280,25 +211,19 @@ button,input,select,textarea{font-family:inherit}
 .gc-meta{font-size:.74rem;color:var(--text-mid);margin-top:.15rem}
 .gc-change{font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;margin-top:.22rem;display:block}
 .gc-change:hover{color:var(--lc)}
-
-/* Toast */
 #toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%) translateY(14px);background:var(--text);color:var(--bg);padding:.58rem 1.4rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:700;box-shadow:var(--sh3);z-index:9999;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;white-space:nowrap}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* Print */
 @media print{
   .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,#submit-row,#results-container,#toast,#student-gate,#gate-confirmed,.sort-handle{display:none!important}
   body{background:#fff;color:#000;font-size:10pt;line-height:1.5}
   html{background:#fff}
   .tab-pane{display:block!important}
   .lesson-wrap{padding:.5cm 1cm;max-width:100%;page-break-inside:avoid}
-  .lesson-hero,.card,.q-card,.reading-text-box,.answer-row,.text-panel,.venn-wrap,.cmp-table,.bagrut-template{box-shadow:none;break-inside:avoid;page-break-inside:avoid}
+  .lesson-hero,.card,.q-card,.reading-text-box,.answer-row,.cmp-table{box-shadow:none;break-inside:avoid;page-break-inside:avoid}
   .q-feedback{display:block!important}
   .mc-btn.correct{display:flex!important}
-  .text-panel.a .text-panel-header,.text-panel.b .text-panel-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .venn-left,.venn-right,.venn-center{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #7c3aed}
-  .print-header h1{font-size:16pt;color:#7c3aed}
+  .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #ca8a04}
+  .print-header h1{font-size:16pt;color:#ca8a04}
   .print-header p{font-size:10pt;color:#555}
   #pane-theory{page-break-after:always}
   #pane-practice{page-break-after:always}
@@ -314,7 +239,7 @@ button,input,select,textarea{font-family:inherit}
   <button class="btn-back" onclick="goBack()">←</button>
   <div class="topbar-info">
     <div class="topbar-title">📝 מבחן סיכום — תחביר</div>
-    <div class="topbar-sub">יחידה 2 — תחביר · מבחן סיכום</div>
+    <div class="topbar-sub">יחידה 2 — תחביר · מבחן מסכם</div>
   </div>
   <div class="topbar-actions">
     <span class="t-chip lc">⏱ 90 דק׳</span>
@@ -325,19 +250,19 @@ button,input,select,textarea{font-family:inherit}
 
 <!-- TABS -->
 <div class="tabs-bar">
-  <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
+  <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 הנחיות וחזרה</button>
   <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">📝 מבחן (25 שאלות)</button>
   <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
   <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
 </div>
 
 <!-- ══════════════════════════════════════════════
-     THEORY
+     THEORY — הנחיות וחזרה
 ══════════════════════════════════════════════ -->
 <div class="tab-pane active" id="pane-theory">
 <div class="print-header">
-  <h1>שיעור 2 — טקסט ההשוואה</h1>
-  <p>יחידה 1: הבנה והבעה | לשון Lesson 2.0 | כיתות ט׳–י׳</p>
+  <h1>מבחן סיכום — תחביר</h1>
+  <p>25 שאלות | יחידה 2 — תחביר | לשון Lesson 2.0</p>
 </div>
 <div class="lesson-wrap">
 
@@ -345,7 +270,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="hero-badge">יחידה 2 · מבחן סיכום</div>
     <span class="hero-emoji">📝</span>
     <h1 class="hero-title">מבחן סיכום — תחביר</h1>
-    <p class="hero-desc">מבחן מסכם לכל נושאי יחידה 2 — חלקי הדיבור, נושא ונשוא, משלימים, קשרים לוגיים, סדר מילים, סוגי משפטים, מסירת דיבור ופיסוק</p>
+    <p class="hero-desc">מבחן מסכם לכל נושאי יחידה 2 — חלקי הדיבור, נושא ונשוא, פסוקיות, דרכי מסירה, סוגי משפטים ופיסוק</p>
     <div class="hero-meta">
       <span class="hero-chip lc">⏱ 90 דק׳</span>
       <span class="hero-chip">📝 25 שאלות</span>
@@ -353,99 +278,93 @@ button,input,select,textarea{font-family:inherit}
     </div>
   </div>
 
-  <!-- הנחיות למבחן -->
+  <!-- הנחיות -->
   <div class="section-hd"><span class="sn-icon">📋</span><div class="sn" style="background:var(--lc)">!</div>הנחיות למבחן</div>
   <div style="background:var(--lc-lt);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.4rem 1.6rem;margin-bottom:1.2rem;box-shadow:var(--sh1)">
     <div style="font-family:'Secular One',sans-serif;font-size:.95rem;color:var(--lc);margin-bottom:1rem">📋 קרא/י בעיון לפני שמתחילים</div>
     <div style="display:flex;flex-direction:column;gap:.6rem">
       <div style="display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem;color:var(--text-mid)">
         <span style="background:var(--lc);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;flex-shrink:0;margin-top:.05rem">1</span>
-        <span><strong>זמן המבחן:</strong> 90 דקות. כ-3 דקות לשאלת רב-בחירה, כ-1 דקה לנכון/לא נכון.</span>
+        <span><strong>זמן המבחן:</strong> 90 דקות. נהלו את הזמן: כ-3 דקות לשאלת רב-בחירה, כ-1 דקה לנכון/לא נכון.</span>
       </div>
       <div style="display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem;color:var(--text-mid)">
         <span style="background:var(--lc);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;flex-shrink:0;margin-top:.05rem">2</span>
-        <span><strong>המבחן כולל 25 שאלות</strong> — 4 נקודות לכל שאלה. סה"כ 100 נקודות.</span>
+        <span><strong>המבחן כולל 25 שאלות</strong> בסגנונות שונים: רב-בחירה, נכון/לא נכון וסידור. ענה/י על כולן.</span>
       </div>
       <div style="display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem;color:var(--text-mid)">
         <span style="background:var(--lc);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;flex-shrink:0;margin-top:.05rem">3</span>
-        <span><strong>הטקסטים לניתוח</strong> מופיעים בחלק התרגול לפני כל קבוצת שאלות.</span>
+        <span><strong>קרא/י את השאלה במלואה</strong> לפני שבוחרים תשובה. שים/י לב למילות מפתח.</span>
       </div>
       <div style="display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem;color:var(--text-mid)">
         <span style="background:var(--lc);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;flex-shrink:0;margin-top:.05rem">4</span>
-        <span><strong>אין קנס על תשובה שגויה</strong> — ענה על כולן. ספק? נחש!</span>
+        <span><strong>הטקסטים לניתוח</strong> מופיעים בחלק המבחן לפני קבוצות השאלות הרלוונטיות.</span>
       </div>
       <div style="display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem;color:var(--text-mid)">
         <span style="background:var(--lc);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;flex-shrink:0;margin-top:.05rem">5</span>
-        <span><strong>ציון ופרטים</strong> יישלחו אוטומטית למורה עם הגשה.</span>
+        <span><strong>אין לדלג על שאלות</strong> — כל שאלה שווה ניקוד. אם לא יודעים — נחשו; אין קנס.</span>
       </div>
     </div>
   </div>
 
-  <!-- נושאי המבחן -->
+  <!-- נושאים -->
   <div class="section-hd"><span class="sn-icon">🗺️</span><div class="sn">1</div>נושאי המבחן — מה נבדק?</div>
   <div style="overflow-x:auto;margin-bottom:1rem;border-radius:var(--r-lg);box-shadow:var(--sh1)">
     <table class="cmp-table">
       <thead><tr>
         <th>נושא</th>
-        <th class="col-a" style="background:var(--lc)">שיעורים</th>
-        <th style="background:#374151;color:#fff">מה נבדק</th>
-        <th style="background:#374151;color:#fff">שאלות</th>
+        <th class="col-a">שיעורים</th>
+        <th class="col-c">מה נבדק</th>
+        <th class="col-c">שאלות</th>
       </tr></thead>
       <tbody>
-        <tr><td class="row-label">📋 סוגי משפטים</td><td>שיעורים 10</td><td>פשוט, מחובר, מורכב — מבנה ופסוקיות</td><td>e01–e05</td></tr>
-        <tr><td class="row-label">👤 נושא ונשוא</td><td>שיעורים 5–7</td><td>זיהוי נושא, נשוא, משלים שם ולוואי</td><td>e06–e10</td></tr>
-        <tr><td class="row-label">🔀 קשרים ומסירה</td><td>שיעורים 4, 9</td><td>קשרים לוגיים ודרכי מסירת הדיבור</td><td>e11–e16</td></tr>
-        <tr><td class="row-label">⚙️ מושא וסדר</td><td>שיעורים 8, 11</td><td>מושא ישיר/עקיף, תיאור, סדר מילים</td><td>e17–e21</td></tr>
-        <tr><td class="row-label">⏸️ פיסוק</td><td>שיעור 12</td><td>פסיק, נקודה, מירכאות, מקף — כללים</td><td>e22–e25</td></tr>
+        <tr><td class="row-label">🔤 חלקי הדיבור</td><td>שיעור 1</td><td>זיהוי ותפקיד: שם עצם, תואר, פועל, מילת יחס, כינוי, תואר הפועל, מילת קישור</td><td>q01–q05</td></tr>
+        <tr><td class="row-label">👤 נושא ונשוא</td><td>שיעורים 2–3</td><td>זיהוי נושא (פשוט/מורכב/סתמי), נשוא, משלים שם, שם הנשוא</td><td>q06–q10</td></tr>
+        <tr><td class="row-label">📋 סוגי משפטים</td><td>שיעורים 4–5</td><td>פשוט/מחובר/מורכב, פסוקיות מוסיפות ומגדירות, מילות קישור</td><td>q11–q15</td></tr>
+        <tr><td class="row-label">🗣️ מסירת דיבור</td><td>שיעורים 6–7</td><td>ישיר/עקיף/חצי-עקיף, זיהוי ושינוי</td><td>q16–q20</td></tr>
+        <tr><td class="row-label">⏸️ פיסוק</td><td>שיעורים 8–12</td><td>פסיק, נקודתיים, מירכאות, מקף — כללים ושגיאות</td><td>q21–q25</td></tr>
       </tbody>
     </table>
   </div>
 
   <!-- חזרה מהירה -->
-  <div class="section-hd"><span class="sn-icon">⚡</span><div class="sn">2</div>חזרה מהירה — עקרונות מפתח</div>
+  <div class="section-hd"><span class="sn-icon">⚡</span><div class="sn">2</div>חזרה מהירה — 5 עקרונות מפתח</div>
   <div style="display:flex;flex-direction:column;gap:.65rem;margin-bottom:1rem">
     <div style="display:flex;align-items:flex-start;gap:.7rem;padding:.8rem 1rem;background:var(--lc-lt);border-radius:var(--r);border-right:3px solid var(--lc)">
-      <span style="font-size:1.1rem">📋</span>
-      <div style="font-size:.86rem;color:var(--text-mid)"><strong style="color:var(--lc)">סוגי משפטים:</strong> פשוט = פסוקית אחת | מחובר = שתי עצמאיות + ו/אבל/לכן | מורכב = ראשית + כפופה (ש-/אם/כאשר). מבחן: האם הכפופה עומדת לבד?</div>
+      <span style="font-size:1.1rem">🔤</span>
+      <div style="font-size:.86rem;color:var(--text-mid)"><strong style="color:var(--lc)">חלקי הדיבור:</strong> שם עצם = ספירה + ה"א הידיעה. שם תואר = מסכים עם שם עצם. פועל = הטיה לגופים. מילת יחס = לפניה שם/כינוי. תואר הפועל = עונה על "איך/מתי/איפה".</div>
     </div>
     <div style="display:flex;align-items:flex-start;gap:.7rem;padding:.8rem 1rem;background:var(--blue-lt);border-radius:var(--r);border-right:3px solid var(--blue)">
       <span style="font-size:1.1rem">👤</span>
-      <div style="font-size:.86rem;color:var(--text-mid)"><strong style="color:var(--blue)">נושא ונשוא:</strong> נושא = מי/מה עושה | נשוא = מה עושה | משלים שם = אחרי פועל קישור (נהיה/נחשב) | משלים לוואי = מה הפך המושא</div>
+      <div style="font-size:.86rem;color:var(--text-mid)"><strong style="color:var(--blue)">נושא ונשוא:</strong> נושא = מי/מה עושה. נשוא = הפועל/המשלים. משלים שם = אחרי פועל קישור (היה, נחשב, נראה). נושא סתמי = "אומרים/מספרים" ← ללא נושא ידוע.</div>
     </div>
     <div style="display:flex;align-items:flex-start;gap:.7rem;padding:.8rem 1rem;background:var(--green-lt);border-radius:var(--r);border-right:3px solid var(--green)">
-      <span style="font-size:1.1rem">🔀</span>
-      <div style="font-size:.86rem;color:var(--text-mid)"><strong style="color:var(--green)">מסירת דיבור:</strong> ישיר = מרכאות + גוף א׳ | עקיף = "אמר ש-" + גוף ג׳ + שינוי זמן | משוחרר = גוף ג׳ בלי "אמר ש-", ביטויי קרבה, קול כפול</div>
+      <span style="font-size:1.1rem">📋</span>
+      <div style="font-size:.86rem;color:var(--text-mid)"><strong style="color:var(--green)">סוגי משפטים:</strong> פשוט = פסוקית אחת. מחובר = ו/אבל/לכן. מורכב = ש/כי/אם/כאשר (פסוקית כפופה). מגדירה ← ללא פסיקים. מוסיפה ← עם פסיקים.</div>
     </div>
     <div style="display:flex;align-items:flex-start;gap:.7rem;padding:.8rem 1rem;background:var(--amber-lt);border-radius:var(--r);border-right:3px solid var(--amber)">
-      <span style="font-size:1.1rem">⚙️</span>
-      <div style="font-size:.86rem;color:var(--text-mid)"><strong style="color:var(--amber)">מושא ותיאור:</strong> מושא ישיר = "את מה?" | מושא עקיף = "ל-/מ-/עם מי?" | תיאור: אופן (איך?) / מקום (היכן?) / זמן (מתי?)</div>
+      <span style="font-size:1.1rem">🗣️</span>
+      <div style="font-size:.86rem;color:var(--text-mid)"><strong style="color:var(--amber)">מסירת דיבור:</strong> ישיר = מרכאות + גוף ראשון. עקיף = "אמר ש-" + גוף שלישי. חצי-עקיף = גוף שלישי + לא "ש-" + ללא מרכאות.</div>
     </div>
     <div style="display:flex;align-items:flex-start;gap:.7rem;padding:.8rem 1rem;background:var(--rose-lt);border-radius:var(--r);border-right:3px solid var(--rose)">
       <span style="font-size:1.1rem">⏸️</span>
-      <div style="font-size:.86rem;color:var(--text-mid)"><strong style="color:var(--rose)">פיסוק:</strong> פסיק = רשימה/פנייה/תנאי קודם | ללא פסיק לפני "כי/ש-" בסוף | פ. יחסית מוסיפה = פסיקים | מגדירה = ללא פסיקים</div>
+      <div style="font-size:.86rem;color:var(--text-mid)"><strong style="color:var(--rose)">פיסוק:</strong> פסיק = רשימה/פנייה/תנאי לפני ראשית/תוסף. לא בין נושא לנשוא! נקודתיים = לפני ציטוט/רשימה/הסבר. מקף = תוסף מוקף/הפסקה/דיאלוג.</div>
     </div>
   </div>
 
-  <!-- עצות אחרונות -->
-  <div class="section-hd"><span class="sn-icon">🌟</span><div class="sn">3</div>עצות אחרונות לפני המבחן</div>
+  <!-- טבלה מהירה -->
+  <div class="section-hd"><span class="sn-icon">📊</span><div class="sn">3</div>שאלות מפתח לניתוח</div>
   <div class="steps-wrap">
-    <div class="steps-title">🌟 הכנה מנטלית ואסטרטגית</div>
-    <div class="step-item"><div class="step-num">1</div><span><strong>קרא/י את הטקסטים פעמיים</strong> — פעם ראשונה להבנה, פעם שנייה עם עין לשאלות.</span></div>
-    <div class="step-item"><div class="step-num">2</div><span><strong>בשאלות תחביר</strong> — מצא/י תחילה את הנשוא (פועל), אחר כך את הנושא, אחר כך את השאר.</span></div>
-    <div class="step-item"><div class="step-num">3</div><span><strong>בסוגי משפטים</strong> — בדוק/י: האם הפסוקית הכפופה עומדת לבד? לא = מורכב. כן = מחובר.</span></div>
-    <div class="step-item"><div class="step-num">4</div><span><strong>בפיסוק</strong> — שאל/י: האם הפסוקית הכפופה לפני הראשית? כן = פסיק. לא = ללא פסיק.</span></div>
-    <div class="step-item"><div class="step-num">5</div><span><strong>נשמו עמוק.</strong> יש לכם 90 דקות. כל חומר הלימוד נמצא בתוככם.</span></div>
+    <div class="steps-title">📋 שאל/י את השאלות האלה לכל סימן/מילה</div>
+    <div class="step-item"><div class="step-num">1</div><span><strong>האם המילה מסכימה?</strong> כן → שם תואר או כינוי. לא → בדוק עוד.</span></div>
+    <div class="step-item"><div class="step-num">2</div><span><strong>האם ניתן להטות?</strong> כן → פועל. האם ניתן לספור עם ה"א הידיעה? → שם עצם.</span></div>
+    <div class="step-item"><div class="step-num">3</div><span><strong>האם הפסוקית ניתנת להשמטה?</strong> כן + מוסיפה מידע = פסוקית מוסיפה (פסיקים). לא = מגדירה (ללא פסיקים).</span></div>
+    <div class="step-item"><div class="step-num">4</div><span><strong>האם יש מרכאות + גוף ראשון?</strong> → דיבור ישיר. "אמר ש-" + גוף שלישי → עקיף.</span></div>
+    <div class="step-item"><div class="step-num">5</div><span><strong>פסיק — שאל:</strong> רשימה? פנייה? תנאי לפני ראשית? תוסף מוקף? ניגוד? → כן = פסיק תקין.</span></div>
   </div>
   <div class="box box-lc" style="margin-top:1rem">🏆 <strong>בהצלחה!</strong> כל מה שלמדתם ביחידה 2 נמצא כאן. סמכו על עצמכם.</div>
 
 </div>
 </div><!-- /pane-theory -->
-
-
-
-
-
-
 
 <!-- ══════════════════════════════════════════════
      PRACTICE
@@ -473,8 +392,8 @@ button,input,select,textarea{font-family:inherit}
       </div>
       <div class="gate-field">
         <label for="gate-class">🏫 כיתה</label>
-        <input class="gate-input" id="gate-class" type="text" placeholder='לדוגמה: י3'
-               autocomplete="off">
+        <input class="gate-input" id="gate-class" type="text" placeholder="לדוגמה: י3"
+               autocomplete="off" onkeydown="if(event.key==='Enter')confirmGate()">
         <div class="gate-err-msg" id="gate-class-err">נא להזין שם כיתה</div>
       </div>
       <div class="gate-field">
@@ -499,69 +418,46 @@ button,input,select,textarea{font-family:inherit}
 
   <div id="practice-content-wrap">
 
-
-  <!-- ═══ PASSAGES for u2 exam (5 sections) ═══ -->
-
-  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-lg);padding:.9rem 1.1rem;margin-bottom:1.5rem;font-size:.82rem;color:var(--text-mid)">
-    💡 <strong>שים/י לב:</strong> לפני כל קבוצת שאלות מופיע קטע קריאה. קרא/י כל קטע לפני המענה על שאלותיו.
-  </div>
-
-  <!-- Passage A - סוגי משפטים -->
-  <div class="reading-text-box" style="border-color:var(--lc);margin-bottom:1.8rem">
-    <div style="position:absolute;top:-12px;right:1.4rem;background:var(--lc);color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill)">📄 קטע א׳ — לשאלות 1–5</div>
-    <div class="rt-tag a" style="background:var(--lc)">קטע א׳ — סוגי משפטים</div>
-    <div class="rt-title">כשהגיע הביתה</div>
+  <!-- ═══ PASSAGE A — לשאלות 1–10 ═══ -->
+  <div class="reading-text-box" style="border-color:var(--lc)">
+    <div style="position:absolute;top:-12px;right:1.4rem;background:var(--lc);color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill)">📄 טקסט א׳ — לשאלות 1–10</div>
+    <div class="rt-tag" style="background:var(--lc)">טקסט א׳ — קטע עיוני</div>
+    <div class="rt-title">השפה והמוח</div>
+    <div class="rt-byline"><span>📰 מתוך מאמר פדגוגי — לצורך המבחן</span></div>
     <div class="rt-body">
-      <p>כשהגיע הביתה, שם לב שהדלת פתוחה. <strong>הוא קרא את הספר</strong> שקנה אתמול. ירד גשם אבל הטיול לא בוטל. חשבתי שלא הגיע בזמן, אבל טעיתי.</p>
+      <p><strong>חוקרים רבים עוסקים כיום בקשר שבין רכישת שפה לבין התפתחות המוח.</strong> מחקרים הראו כי ילדים הלומדים שפה שנייה בגיל צעיר מפתחים יכולות קוגניטיביות מגוונות יותר. "הדו-לשוניות," כתב פרופסור גרין מאוניברסיטת לונדון, "אינה רק יתרון תקשורתי — היא מעצבת את דרך החשיבה עצמה."</p>
+      <p>אמרו שהמוח פועל כמו שריר: ככל שמשתמשים בו יותר, הוא מתחזק. ילדה שלמדה עברית, ערבית ואנגלית בו-זמנית, הצליחה במבחני קשב וריכוז יותר מבני גילה. הסיבה, לדברי החוקרים, היא שהמוח רגיל לעבור בין שפות — ולכן גם מיומן יותר במיון ובסינון מידע.</p>
     </div>
   </div>
 
-  <!-- Passage B - נושא ונשוא -->
-  <div class="reading-text-box" style="border-color:#1a56db;margin-bottom:1.8rem">
-    <div style="position:absolute;top:-12px;right:1.4rem;background:#1a56db;color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill)">📄 קטע ב׳ — לשאלות 6–10</div>
-    <div class="rt-tag" style="background:#1a56db;color:#fff">קטע ב׳ — נושא ונשוא</div>
-    <div class="rt-title">מנהיגות ועמדה</div>
+  <!-- ═══ PASSAGE B — לשאלות 11–20 ═══ -->
+  <div class="reading-text-box" style="border-color:#7c3aed;margin-top:1.8rem">
+    <div style="position:absolute;top:-12px;right:1.4rem;background:#7c3aed;color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill)">📄 טקסט ב׳ — לשאלות 11–20</div>
+    <div class="rt-tag" style="background:#7c3aed">טקסט ב׳ — קטע ספרותי</div>
+    <div class="rt-title">המכתב</div>
+    <div class="rt-byline"><span>✍️ קטע מסיפור קצר — לצורך המבחן</span></div>
     <div class="rt-body">
-      <p><strong>אומרים שהמחירים יעלו</strong> בחודשים הקרובים. לסייע לאחרים חשוב מאוד בעיתות משבר. <strong>דוד ורחל הגיעו</strong> ביחד לאסיפה. המנהל נחשב מומחה בתחומו. <strong>המנהלת מינתה אותה סגנית</strong> לאחר בחינה קפדנית.</p>
+      <p>דנה פתחה את המכתב — ידיה רעדו קלות. היא קראה: <em>"אני לא יודע איך להסביר זאת, אבל חיכיתי לרגע הזה שנים."</em></p>
+      <p>היא הניחה את הדף על השולחן וחשבה: מה הוא רוצה ממנה? מדוע עכשיו, אחרי כל השנים?</p>
+      <p>אמה נכנסה לחדר ושאלה: "מה קרה?" דנה ענתה שלא קרה כלום. אבל אמה ידעה — היא תמיד ידעה.</p>
+      <p><em>המכתב, שנכתב בכתב יד קטן וצפוף, הפך בין רגע לדבר החשוב ביותר בחייה.</em></p>
     </div>
   </div>
 
-  <!-- Passage C - קשרים ומסירה -->
-  <div class="reading-text-box" style="border-color:#059669;margin-bottom:1.8rem">
-    <div style="position:absolute;top:-12px;right:1.4rem;background:#059669;color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill)">📄 קטע ג׳ — לשאלות 11–16</div>
-    <div class="rt-tag" style="background:#059669;color:#fff">קטע ג׳ — קשרים ומסירת דיבור</div>
-    <div class="rt-title">עיתונות וספרות</div>
+  <!-- ═══ PASSAGE C — לשאלות 21–25 ═══ -->
+  <div class="reading-text-box" style="border-color:#0284c7;margin-top:1.8rem">
+    <div style="position:absolute;top:-12px;right:1.4rem;background:#0284c7;color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill)">📄 טקסט ג׳ — לשאלות 21–25 (עם שגיאות פיסוק)</div>
+    <div class="rt-tag" style="background:#0284c7">טקסט ג׳ — פיסוק</div>
+    <div class="rt-title">יומן (עם שגיאות — זהה ותקן)</div>
+    <div class="rt-byline"><span>⚠️ בטקסט זה יש שגיאות פיסוק — הן נושא שאלות 21–25</span></div>
     <div class="rt-body">
-      <p><strong>למרות שהיה עייף, המשיך לעבוד.</strong> פליטות עולות, לפיכך הטמפרטורה עולה. <strong>אם תלמד, תצליח.</strong> הוא אמר שיבוא מחר — ולא בא. <strong>מה היא יכולה לעשות?</strong> הכל כבר נאמר. "<strong>אני לא מסכים,</strong>" אמר יוסף בקול רם.</p>
+      <p>יום שני. הלכתי לבית הספר, למרות שהייתי עייף. המורה שלמדה אותנו אנגלית, הסבירה: "הפועל בא לפני הנושא בשאלה". אמרתי לחבר שלי ש"צריך ללמוד יותר". הוא ענה שהוא מסכים.</p>
     </div>
   </div>
-
-  <!-- Passage D - מושא וסדר -->
-  <div class="reading-text-box" style="border-color:#b45309;margin-bottom:1.8rem">
-    <div style="position:absolute;top:-12px;right:1.4rem;background:#b45309;color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill)">📄 קטע ד׳ — לשאלות 17–21</div>
-    <div class="rt-tag" style="background:#b45309;color:#fff">קטע ד׳ — מושא, תיאור וסדר מילים</div>
-    <div class="rt-title">היסטוריה ופרוזה</div>
-    <div class="rt-body">
-      <p><strong>המורה הסבירה לתלמידים את החומר</strong> החדש. יצאו לטיול בבוקר. <strong>ויאמר אלוהים יהי אור.</strong> ספר קרא יוסף, לא עיתון. <strong>בשנת 1948 הוקמה המדינה</strong> בעקבות מאבק ארוך.</p>
-    </div>
-  </div>
-
-  <!-- Passage E - פיסוק -->
-  <div class="reading-text-box" style="border-color:#7c3aed;margin-bottom:1.8rem">
-    <div style="position:absolute;top:-12px;right:1.4rem;background:#7c3aed;color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill)">📄 קטע ה׳ — לשאלות 22–25</div>
-    <div class="rt-tag" style="background:#7c3aed;color:#fff">קטע ה׳ — פיסוק</div>
-    <div class="rt-title">דיאלוג ופיסוק</div>
-    <div class="rt-body">
-      <p>היא אהבה אותו, כי היה טוב לב. <strong>הספר, שכתב בשנה שעברה, זכה בפרס.</strong></p>
-      <p>— מה שמך?<br>— אני דנה.</p>
-      <p><strong>"בוא נאכל, ילדים!"</strong> קראה האם מהמטבח.</p>
-    </div>
-  </div>
-
 
   <div class="quiz-header">
-    <div class="quiz-hd-title">📝 מבחן סיכום — תחביר · 25 שאלות</div>
-    <div class="quiz-hd-desc">5 חלקים · 5 קטעים לניתוח · רב-בחירה ונכון/לא נכון · 4 נקודות לשאלה</div>
+    <div class="quiz-hd-title">📝 מבחן סיכום — 25 שאלות</div>
+    <div class="quiz-hd-desc">5 נושאים · 3 טקסטים לניתוח · רב-בחירה, נכון/לא נכון וסידור.</div>
     <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="qp-fill" style="width:0%"></div></div>
     <div class="quiz-prog-row"><span id="qp-counter">0 / 25 נענו</span></div>
   </div>
@@ -569,7 +465,7 @@ button,input,select,textarea{font-family:inherit}
   <div id="questions-container"></div>
 
   <div id="submit-row" style="display:flex;gap:.78rem;flex-wrap:wrap;align-items:center;margin-top:1.5rem">
-    <button class="btn-submit" onclick="submitQuiz()">📊 הגש תרגול</button>
+    <button class="btn-submit" onclick="submitQuiz()">📊 הגש מבחן</button>
     <button class="btn-reset" onclick="resetQuiz()">🔄 איפוס</button>
   </div>
   <div id="results-container"></div>
@@ -583,8 +479,8 @@ button,input,select,textarea{font-family:inherit}
 ══════════════════════════════════════════════ -->
 <div class="tab-pane" id="pane-answers">
 <div class="print-header">
-  <h1>מפתח תשובות — מבחן סיכום הבנה והבעה</h1>
-  <p>20 שאלות + הסברים | לשון Lesson 2.0</p>
+  <h1>מפתח תשובות — מבחן סיכום תחביר</h1>
+  <p>25 שאלות + הסברים | לשון Lesson 2.0</p>
 </div>
 <div class="lesson-wrap">
   <div id="answers-locked-msg" class="answers-locked">
@@ -600,7 +496,7 @@ button,input,select,textarea{font-family:inherit}
     <div id="answers-container"></div>
   </div>
 </div>
-</div>
+</div><!-- /pane-answers -->
 
 <div id="toast"></div>
 
@@ -662,165 +558,184 @@ function applyAnswersVisibility(){
 }
 
 /* ════════════════════════════════════════════════
-   20 QUESTIONS — on 2 texts about smartphones in class
-   13 MC + 5 TF + 2 SORT
+   25 QUESTIONS
 ════════════════════════════════════════════════ */
 const QUESTIONS=[
-  // ── חלק א: סוגי משפטים (1-5) ──
-  {id:'e01',type:'mc',topic:'סוגי משפטים',pts:4,
-   passage:'passage-a',
-   q:'1. "הוא קרא את הספר" — מהו סוג המשפט?',
-   opts:['משפט מורכב','משפט מחובר','משפט פשוט — פסוקית אחת, פועל אחד, ללא חיבורים','משפט מחובר-מורכב'],
-   ans:2,
-   explain:'משפט פשוט: נושא ("הוא") + נשוא ("קרא") + מושא ("את הספר"). פסוקית אחת בלבד, פועל ראשי אחד. אין מילות צירוף או שיעבוד.'},
-  {id:'e02',type:'mc',topic:'סוגי משפטים',pts:4,
-   passage:'passage-a',
-   q:'2. "כשהגיע הביתה, שם לב שהדלת פתוחה" — כמה פסוקיות יש?',
-   opts:['שתיים','שלוש — "כשהגיע הביתה" + "שם לב" + "שהדלת פתוחה"','ארבע','אחת'],
+  /* ── חלקי הדיבור (טקסט א׳) ── */
+  {id:'q01',type:'mc',ref:'טקסט א׳',
+   q:'מהו חלק הדיבור של "רבים" במשפט "חוקרים רבים עוסקים כיום"?',
+   opts:['שם עצם — שם של כמות','שם תואר — מתאר את "חוקרים" ומסכים אתם','תואר הפועל — מתאר את "עוסקים"','כינוי'],
    ans:1,
-   explain:'שלוש: (1) "כשהגיע הביתה" = פסוקית זמן. (2) "שם לב" = פסוקית ראשית. (3) "שהדלת פתוחה" = פסוקית מושא. כולן שיעבוד = משפט מורכב.'},
-  {id:'e03',type:'mc',topic:'סוגי משפטים',pts:4,
-   passage:'passage-a',
-   q:'3. "ירד גשם אבל הטיול לא בוטל" — מהו הקשר בין שתי הפסוקיות?',
-   opts:['שיעבוד — "אבל" = מילת שיעבוד','תיאום — "אבל" = מילת צירוף. שתי פסוקיות עצמאיות שוות מעמד','כפיפות — הפסוקית השנייה כפופה לראשונה','אין קשר'],
-   ans:1,
-   explain:'"אבל" = מילת צירוף (Coordinating Conjunction). שתי פסוקיות עצמאיות: "ירד גשם" + "הטיול לא בוטל" — שתיהן עומדות לבד. = תיאום = משפט מחובר.'},
-  {id:'e04',type:'tf',topic:'סוגי משפטים',pts:4,
-   passage:'passage-a',
-   q:'4. "הספר שקראתי — לא עמד לבד כמשפט."',
-   ans:true,
-   explain:'נכון. "שקראתי" = פסוקית יחסית כפופה. לא עצמאית: "שקראתי" לבד = לא שלם. כל פסוקית כפופה (שיעבוד) לא יכולה לעמוד לבד. = מבחן לפסוקית מורכבת.'},
-  {id:'e05',type:'mc',topic:'סוגי משפטים',pts:4,
-   passage:'passage-a',
-   q:'5. מהו תפקיד "שלא הגיע בזמן" ב"חשבתי שלא הגיע בזמן"?',
-   opts:['פסוקית יחסית — מגדירה שם עצם','פסוקית תנאי','פסוקית מושא — עונה על "חשבתי מה?"','פסוקית זמן'],
-   ans:2,
-   explain:'"שלא הגיע בזמן" = פסוקית מושא. שאלה: "חשבתי מה?" → "שלא הגיע בזמן". פועל מחשבה/אמירה + "ש-" = פסוקית מושא קלאסית.'},
+   explain:'"רבים" מתאר את "חוקרים" ומסכים איתם: זכר רבים. זהו שם תואר. בדיקה: "חוקרים רבים" = שם עצם + שם תואר מסכים.',
+   teacherNote:''},
 
-  // ── חלק ב: נושא ונשוא (6-10) ──
-  {id:'e06',type:'mc',topic:'נושא ונשוא',pts:4,
-   passage:'passage-b',
-   q:'6. "אומרים שהמחירים יעלו" — מהו סוג הנושא?',
-   opts:['נושא מפורש','נושא משתמע','נושא סתמי — "אומרים" = גוף שלישי רבים כללי, לא ניתן לציין מי','פסוקית נושא'],
+  {id:'q02',type:'mc',ref:'טקסט א׳',
+   q:'מהו חלק הדיבור של "כיום" במשפט "עוסקים כיום בקשר"?',
+   opts:['שם עצם','שם תואר','תואר הפועל — עונה על "מתי עוסקים?"','מילת יחס'],
    ans:2,
-   explain:'נושא סתמי: "אומרים" = גוף ג׳ רבים ללא נושא מוגדר. מי אומר? הציבור? השוק? לא ידוע ולא חשוב. = נושא סתמי קלאסי.'},
-  {id:'e07',type:'mc',topic:'נושא ונשוא',pts:4,
-   passage:'passage-b',
-   q:'7. "לסייע לאחרים חשוב מאוד" — מהו הנושא?',
-   opts:['חשוב — שם תואר','לאחרים — צירוף יחסי','פסוקית נושא — "לסייע לאחרים" = שם פועל בתפקיד נושא','אחרים — שם עצם'],
-   ans:2,
-   explain:'"לסייע לאחרים" = שם פועל + מושא = פסוקית נושא אינפיניטיבית. שאלה: "מה חשוב?" → "לסייע לאחרים". שם פועל בתפקיד נושא = פסוקית נושא.'},
-  {id:'e08',type:'mc',topic:'נושא ונשוא',pts:4,
-   passage:'passage-b',
-   q:'8. "דוד ורחל הגיעו ביחד" — מהו הנושא?',
-   opts:['דוד בלבד','רחל בלבד','נושא מורכב — "דוד ורחל" = שני שמות מחוברים. הפועל "הגיעו" = זכר רבים','נושא סתמי'],
-   ans:2,
-   explain:'"דוד ורחל" = נושא מורכב. הפועל "הגיעו" = גוף ג׳ זכר רבים — מסכים עם שניהם. כלל: זכר + נקבה → זכר רבים.'},
-  {id:'e09',type:'tf',topic:'נושא ונשוא',pts:4,
-   passage:'passage-b',
-   q:'9. "המנהל נחשב מומחה" — "נחשב" הוא פועל פעולה רגיל.',
+   explain:'"כיום" = תואר הפועל של זמן. שאלה: "עוסקים מתי?" → "כיום". תארי הפועל אינם מסכימים בגוף/מין/מספר.',
+   teacherNote:''},
+
+  {id:'q03',type:'mc',ref:'טקסט א׳',
+   q:'מהו חלק הדיבור של "ב" בצירוף "בקשר שבין"?',
+   opts:['פועל עזר','מילת יחס — מקשרת שם עצם לשאר המשפט','תואר הפועל','כינוי'],
+   ans:1,
+   explain:'"ב" = מילת יחס. היא מקשרת את "קשר" לפועל "עוסקים". אחרי מילת יחס תמיד בא שם עצם או כינוי.',
+   teacherNote:''},
+
+  {id:'q04',type:'tf',ref:'טקסט א׳',
+   q:'"הלומדים" בצירוף "ילדים הלומדים שפה שנייה" — הוא שם תואר.',
    ans:false,
-   explain:'לא נכון. "נחשב" = פועל קישור. "מומחה" = משלים שם. שאלה: "המנהל נחשב ל...?" → "מומחה" = תכונה/זהות לנושא. פועל קישור + משלים שם ≠ פועל פעולה + מושא.'},
-  {id:'e10',type:'mc',topic:'נושא ונשוא',pts:4,
-   passage:'passage-b',
-   q:'10. "המנהלת מינתה אותה סגנית" — מהו "סגנית"?',
-   opts:['מושא ישיר נוסף','משלים שם — "מינתה" = פועל קישור','משלים לוואי — "סגנית" = מה הפכה "אותה" (המושא) כתוצאה מהמינוי','תיאור אופן'],
-   ans:2,
-   explain:'"מינתה" = פועל פעולה עם מושא "אותה". "סגנית" = משלים לוואי — מה הפכה המושאת. פעלי מינוי/בחירה + מושא + משלים לוואי = מבנה קבוע.'},
+   explain:'לא נכון. "הלומדים" = בינוני הפועל. בהקשר זה הוא פותח פסוקית יחסית ("שלומדים שפה שנייה") — תפקיד של פסוקית, לא שם תואר.',
+   teacherNote:''},
 
-  // ── חלק ג: קשרים לוגיים ומסירת דיבור (11-16) ──
-  {id:'e11',type:'mc',topic:'קשרים לוגיים',pts:4,
-   passage:'passage-c',
-   q:'11. "למרות שהיה עייף, המשיך לעבוד" — מהו הקשר?',
-   opts:['סיבה','ניגוד פשוט','ויתור — "למרות ש" = מכשול שלא מנע את הפעולה','תנאי'],
+  {id:'q05',type:'mc',ref:'טקסט א׳',
+   q:'"היא מעצבת" — מה הגוף והמין של הפועל?',
+   opts:['גוף ראשון זכר יחיד','גוף שני נקבה יחיד','גוף שלישי נקבה יחיד — "היא" = גוף ג׳ נקבה','גוף שלישי זכר יחיד'],
    ans:2,
-   explain:'ויתור: המכשול = "היה עייף". הפעולה = "המשיך לעבוד" (בניגוד לציפייה). "למרות ש/אף על פי ש" = ויתור. שונה מניגוד פשוט: ויתור מדגיש שהמכשול לא מנע.'},
-  {id:'e12',type:'mc',topic:'קשרים לוגיים',pts:4,
-   passage:'passage-c',
-   q:'12. "פליטות עולות, לפיכך הטמפרטורה עולה" — מה בא אחרי "לפיכך"?',
-   opts:['הסיבה','הניגוד','התוצאה — מה שאחרי "לפיכך/לכן/על כן" = תמיד התוצאה','התנאי'],
+   explain:'"מעצבת" = גוף שלישי נקבה יחיד. ניתן לאמת: "היא מעצבת" / "אני מעצב/ת" / "הוא מעצב". הפועל מסכים עם הנושא.',
+   teacherNote:''},
+
+  /* ── נושא ונשוא (טקסט א׳ + תיאוריה) ── */
+  {id:'q06',type:'mc',ref:'טקסט א׳',
+   q:'"אמרו שהמוח פועל כמו שריר" — מהו הנושא?',
+   opts:['המוח','שריר','נושא סתמי — "אמרו" = גוף שלישי רבים ללא נושא ידוע','שפה'],
    ans:2,
-   explain:'"לפיכך" = מילת תוצאה. מה שאחריה = התוצאה. "פליטות עולות" = הסיבה. "הטמפרטורה עולה" = התוצאה. השוו: "הטמפרטורה עולה <em>כי</em> פליטות עולות" = הסיבה אחרי "כי".'},
-  {id:'e13',type:'tf',topic:'קשרים לוגיים',pts:4,
-   passage:'passage-c',
-   q:'13. "אם תלמד, תצליח" — "אם" = מילת שיעבוד של תנאי.',
+   explain:'"אמרו" = נושא סתמי. מי אמר? לא ידוע ולא מצוין. זהו שימוש לשוני נפוץ לאמירות כלליות ללא ייחוס ספציפי.',
+   teacherNote:''},
+
+  {id:'q07',type:'mc',ref:'טקסט א׳',
+   q:'"ילדה שלמדה עברית, ערבית ואנגלית בו-זמנית, הצליחה" — מהו הנושא?',
+   opts:['"ילדה" בלבד','כל הצירוף "ילדה שלמדה עברית, ערבית ואנגלית בו-זמנית"','הצליחה','ערבית'],
+   ans:1,
+   explain:'הנושא = "ילדה שלמדה..." — הנושא כולל את הפסוקית היחסית המגדירה "שלמדה עברית, ערבית ואנגלית בו-זמנית" שמגדירה איזו ילדה. הנשוא = "הצליחה".',
+   teacherNote:''},
+
+  {id:'q08',type:'tf',ref:'תיאוריה',
+   q:'"המוח מתחזק" — "מתחזק" הוא משלים שם.',
+   ans:false,
+   explain:'לא נכון. "מתחזק" = נשוא (פועל). משלים שם בא אחרי פועל קישור (היה, נחשב, נראה). "מתחזק" = פועל של פעולה, לא פועל קישור.',
+   teacherNote:''},
+
+  {id:'q09',type:'mc',ref:'תיאוריה',
+   q:'באיזה משפט יש משלים שם?',
+   opts:['"הוא רץ מהר"','"הספר הונח על השולחן"','"המורה נחשבת מומחית בתחומה"','"הילדה קראה ספר"'],
+   ans:2,
+   explain:'"נחשבת" = פועל קישור. "מומחית" = משלים שם — מתאר את הנושא "המורה". בדיקה: האם אפשר לשאול "המורה היא מה?" → "מומחית".',
+   teacherNote:''},
+
+  {id:'q10',type:'mc',ref:'טקסט א׳',
+   q:'"הדו-לשוניות אינה רק יתרון תקשורתי" — מהו שם הנשוא (הנשוא השמני)?',
+   opts:['"אינה"','"יתרון תקשורתי" — בא אחרי פועל הקישור "אינה" ומתאר את הנושא','"רק"','"תקשורתי"'],
+   ans:1,
+   explain:'"אינה" = פועל קישור (שלילה של "היא"). "יתרון תקשורתי" = שם הנשוא — מה שה"דו-לשוניות" אינה. מבנה: נושא + פועל קישור + שם הנשוא.',
+   teacherNote:''},
+
+  /* ── סוגי משפטים (טקסט ב׳) ── */
+  {id:'q11',type:'mc',ref:'טקסט ב׳',
+   q:'"דנה פתחה את המכתב — ידיה רעדו קלות" — מהו סוג הקשר בין שתי הפסוקיות?',
+   opts:['שיעבוד — הפסוקית השנייה כפופה לראשונה','תיאום — שתי פסוקיות עצמאיות מקושרות','פסוקית יחסית','פסוקית מושא'],
+   ans:1,
+   explain:'שתי פסוקיות עצמאיות מקושרות במקף. כל אחת יכולה לעמוד לבד. זהו תיאום — משפט מחובר. המקף (—) = כלי קישור בתיאום.',
+   teacherNote:''},
+
+  {id:'q12',type:'mc',ref:'טקסט ב׳',
+   q:'"המכתב, שנכתב בכתב יד קטן וצפוף, הפך לדבר החשוב ביותר" — "שנכתב בכתב יד" היא:',
+   opts:['פסוקית תנאי','פסוקית יחסית מוסיפה — מוסיפה מידע על המכתב, ניתן להשמיטה','פסוקית יחסית מגדירה — מגדירה איזה מכתב','פסוקית מושא'],
+   ans:1,
+   explain:'ניתן להשמיט: "המכתב הפך לדבר החשוב ביותר" — שלם ומובן. לכן: מוסיפה → עם פסיקים מוקפים. אם לא ניתן להשמיט = מגדירה = ללא פסיקים.',
+   teacherNote:''},
+
+  {id:'q13',type:'tf',ref:'טקסט ב׳',
+   q:'"אבל אמה ידעה" — "אבל" היא מילת שיעבוד.',
+   ans:false,
+   explain:'לא נכון. "אבל" = מילת ציר (תיאום). היא מקשרת שתי פסוקיות עצמאיות. מילת שיעבוד = ש/כי/אם/כאשר — יוצרות תלות ויוצרות משפט מורכב.',
+   teacherNote:''},
+
+  {id:'q14',type:'mc',ref:'טקסט ב׳',
+   q:'"מה הוא רוצה ממנה?" — מהו סוג הפסוקית?',
+   opts:['פסוקית ראשית עצמאית','פסוקית שאלה עקיפה — שאלה שתפקידה כפסוקית מושא (מה חשבה?)','פסוקית יחסית','פסוקית זמן'],
+   ans:1,
+   explain:'המשפט מייצג מחשבה פנימית של דנה — "חשבה: מה הוא רוצה?". "מה הוא רוצה ממנה?" = שאלה עקיפה שתפקידה כמושא של "חשבה".',
+   teacherNote:''},
+
+  {id:'q15',type:'sort',ref:'תיאוריה',
+   q:'סדר את סוגי המשפטים מה"פשוט" ל"מורכב":',
+   items:['משפט מורכב עם שיעבוד (ש/כי/אם + פסוקית כפופה)','משפט פשוט (פסוקית אחת בלבד)','משפט מחובר (שתי פסוקיות עצמאיות + ו/אבל/לכן)'],
+   correctOrder:[1,2,0],
+   explain:'מהפשוט למורכב: (1) פשוט = פסוקית אחת. (2) מחובר = שתי עצמאיות מקושרות. (3) מורכב = ראשית + כפופה (שיעבוד).',
+   teacherNote:''},
+
+  /* ── מסירת דיבור (טקסט ב׳) ── */
+  {id:'q16',type:'mc',ref:'טקסט ב׳',
+   q:'"אני לא יודע איך להסביר זאת, אבל חיכיתי לרגע הזה שנים" — מהי דרך מסירת הדיבור?',
+   opts:['דיבור עקיף — "אמר ש..."','דיבור ישיר — מרכאות + גוף ראשון + דברים מדויקים','דיבור חצי-עקיף','תיאור נרטיבי'],
+   ans:1,
+   explain:'דיבור ישיר: (1) מרכאות. (2) גוף ראשון ("אני", "חיכיתי"). (3) דברים מדויקים מפי הדובר. שלושת הסימנים נוכחים.',
+   teacherNote:''},
+
+  {id:'q17',type:'mc',ref:'טקסט ב׳',
+   q:'"דנה ענתה שלא קרה כלום" — מהי דרך מסירת הדיבור?',
+   opts:['דיבור ישיר','דיבור עקיף — "ענתה ש-" + גוף שלישי + ללא מרכאות','דיבור חצי-עקיף','תיאור פנימי'],
+   ans:1,
+   explain:'דיבור עקיף: (1) פועל אמירה + "ש-" ("ענתה ש-"). (2) גוף שלישי ("לא קרה"). (3) ללא מרכאות. בדיבור ישיר היה: "ענתה: \'לא קרה כלום.\'"',
+   teacherNote:''},
+
+  {id:'q18',type:'mc',ref:'טקסט ב׳',
+   q:'"אמה שאלה: מה קרה?" — מה חסר בכתיבה זו?',
+   opts:['הכל תקין','אחרי הנקודתיים יש להוסיף מרכאות לציטוט הישיר: "שאלה: \'מה קרה?\'"','צריך פסיק במקום נקודתיים','צריך "ש-" אחרי שאלה'],
+   ans:1,
+   explain:'בדיבור ישיר: נקודתיים + מרכאות. "שאלה: \'מה קרה?\'" ✓. ללא מרכאות = אי-בהירות: האם ציטוט ישיר או עקיף? המרכאות הכרחיות.',
+   teacherNote:''},
+
+  {id:'q19',type:'tf',ref:'טקסט ב׳',
+   q:'"היא תמיד ידעה" — משפט זה מייצג מחשבה פנימית של הדובר, לא ציטוט ישיר.',
    ans:true,
-   explain:'נכון. "אם" = מילת שיעבוד של תנאי. "אם תלמד" = פסוקית תנאי כפופה. "תצליח" = פסוקית גמול/ראשית. "אם" ≠ מילת צירוף — היא שיעבוד.'},
-  {id:'e14',type:'mc',topic:'מסירת דיבור',pts:4,
-   passage:'passage-c',
-   q:'14. "הוא אמר שיבוא מחר" — מהי דרך מסירת הדיבור?',
-   opts:['ישיר — יש מרכאות','משוחרר — יש ביטויי קרבה','עקיף — "אמר ש-" + גוף שלישי. "מחר" הפך "למחרת" בדיבור עקיף תקני. כאן: "מחר" = שמור','ישיר + עקיף'],
-   ans:2,
-   explain:'דיבור עקיף: "אמר ש-" = פועל אמירה + "ש-". גוף שלישי. אין מרכאות. שים לב: "מחר" בדיבור עקיף = צריך להיות "למחרת". כאן = עקיף עם שגיאת עקביות קלה.'},
-  {id:'e15',type:'mc',topic:'מסירת דיבור',pts:4,
-   passage:'passage-c',
-   q:'15. "מה היא יכולה לעשות? הכל כבר נאמר" — מהי דרך מסירת הדיבור?',
-   opts:['ישיר — יש מרכאות','עקיף — יש "אמרה ש-"','משוחרר — גוף שלישי, ביטוי קרבה ("מה"), שאלה רטורית ללא מרכאות, אין פועל אמירה','תיאור נרטיבי'],
-   ans:2,
-   explain:'דיבור משוחרר: גוף שלישי, אין מרכאות, אין "אמרה ש-", שאלה רטורית. "מה היא יכולה?" = מחשבה פנימית שחודרת לנרטיב. קול כפול: מספר + דמות.'},
-  {id:'e16',type:'mc',topic:'מסירת דיבור',pts:4,
-   passage:'passage-c',
-   q:'16. "'אני לא מסכים,' אמר יוסף" — מה מקומו של הפסיק?',
-   opts:['אחרי מירכאות הסגירה','לפני מירכאות הסגירה — בעברית הפסיק בא לפני "׳", לא אחריה','לפני "אמר"','אין פסיק בכלל'],
-   ans:1,
-   explain:'בעברית: פסיק (ונקודה) בא לפני מירכאות הסגירה. "'אני לא מסכים,׳ אמר יוסף" ✓. שגיאה נפוצה (השפעת אנגלית): "...,׳" אחרי המירכאות. בעברית — לפני.'},
+   explain:'נכון. אין מרכאות, אין "ש-", הוא בגוף שלישי — זהו דיבור חצי-עקיף (free indirect speech). קול הנרטור ממוזג עם מחשבת הדמות.',
+   teacherNote:''},
 
-  // ── חלק ד: מושא ותיאור + סדר מילים (17-21) ──
-  {id:'e17',type:'mc',topic:'מושא ותיאור',pts:4,
-   passage:'passage-d',
-   q:'17. "המורה הסבירה לתלמידים את החומר" — מה "לתלמידים"?',
-   opts:['מושא ישיר','מושא עקיף — "הסבירה למי?" → לתלמידים. ישות שמקבלת את הפעולה','תיאור מקום','תיאור אופן'],
+  {id:'q20',type:'mc',ref:'תיאוריה',
+   q:'מה ההבדל בין "אמר: \'אני עייף.\'" לבין "אמר שהוא עייף"?',
+   opts:['אין הבדל — שניהם אותו דבר','הראשון = דיבור ישיר (מרכאות, גוף ראשון). השני = דיבור עקיף ("ש-", גוף שלישי)','הראשון = עקיף, השני = ישיר','שניהם = דיבור עקיף'],
    ans:1,
-   explain:'"לתלמידים" = מושא עקיף. שאלה: "הסבירה למי?" → "לתלמידים". ישות שמקבלת (תלמידים = מקבלי ההסבר). "את החומר" = מושא ישיר (הסבירה מה?).'},
-  {id:'e18',type:'mc',topic:'מושא ותיאור',pts:4,
-   passage:'passage-d',
-   q:'18. "יצאו לטיול בבוקר" — מהו "בבוקר"?',
-   opts:['מושא עקיף','מושא ישיר','תיאור זמן — "יצאו מתי?" → "בבוקר"','תיאור אופן'],
-   ans:2,
-   explain:'"בבוקר" = תיאור זמן. שאלה: "יצאו מתי?" → "בבוקר". ביטויי זמן (בבוקר/אתמול/לאחר מכן) = תמיד תיאור זמן. לא ניתן לשאול "יצאו לאן?" (לא מקום).'},
-  {id:'e19',type:'mc',topic:'סדר מילים',pts:4,
-   passage:'passage-d',
-   q:'19. "ויאמר אלוהים יהי אור" — מהו הסדר ומה אפקטו?',
-   opts:['SVO — ניטרלי','VSO — נשוא מקודם. אפקט: סגנון ביבלי, הדגשה על הפעולה, דחיפות','OVS — מושא מקודם','SOV — נשוא אחרון'],
-   ans:1,
-   explain:'"ויאמר" = נשוא מקודם = VSO. "וי" = חיבור ביבלי (Waw Consecutive). הסדר הרגיל: "אלוהים אמר". VSO = סגנון ביבלי קלאסי — הפעולה מודגשת לפני הנושא.'},
-  {id:'e20',type:'tf',topic:'סדר מילים',pts:4,
-   passage:'passage-d',
-   q:'20. "ספר קרא יוסף, לא עיתון" — המושא מקודם לניגוד.',
-   ans:true,
-   explain:'נכון. "ספר" = מושא ישיר מקודם (OVS). ההקדמה מאפשרת הניגוד "לא עיתון". הסדר הרגיל: "יוסף קרא ספר". ההקדמה = הדגשה על מה נקרא כהכנה לניגוד.'},
-  {id:'e21',type:'mc',topic:'סדר מילים',pts:4,
-   passage:'passage-d',
-   q:'21. "בשנת 1948 הוקמה המדינה" — מה מקודם ולמה?',
-   opts:['נושא מקודם — "המדינה"','נשוא מקודם — "הוקמה"','תיאור זמן מקודם — "בשנת 1948". יוצר מסגרת כרונולוגית לפני הפעולה, נפוץ בכתיבה היסטורית','מושא מקודם'],
-   ans:2,
-   explain:'"בשנת 1948" = תיאור זמן מקודם. מסגרת כרונולוגית: הקורא מוצב תחילה בזמן, אחר כך שומע מה קרה. נפוץ מאוד בכתיבה היסטורית, אקדמית ועיתונאית.'},
+   explain:'ישיר: "אמר: \'אני עייף.\'" — מרכאות + גוף א׳. עקיף: "אמר שהוא עייף" — "ש-" + גוף ג׳. ההפיכה: "אני" → "הוא", "עכשיו" → "אז", "כאן" → "שם".',
+   teacherNote:''},
 
-  // ── חלק ה: פיסוק + סיכום (22-25) ──
-  {id:'e22',type:'mc',topic:'פיסוק',pts:4,
-   passage:'passage-e',
-   q:'22. מה הבעיה ב"היא אהבה אותו, כי היה טוב לב"?',
-   opts:['אין בעיה — פסיק לפני "כי" = תקני','פסיק לפני "כי" כשהפסוקית בסוף = שגיאה. הסדר: "היא אהבה אותו כי היה טוב לב" — ללא פסיק','צריך נקודתיים','חסרה מירכאות'],
+  /* ── פיסוק (טקסט ג׳) ── */
+  {id:'q21',type:'mc',ref:'טקסט ג׳',
+   q:'"הלכתי לבית הספר, למרות שהייתי עייף" — הפסיק לפני "למרות ש" הוא:',
+   opts:['שגיאה — אין פסיק לפני "למרות ש"','תקין — "למרות ש" = פסוקית ויתור שבאה אחרי הראשית, ניתן לשים פסיק','שגיאה — צריך נקודתיים','תקין — כי זו רשימה'],
    ans:1,
-   explain:'פסיק לפני "כי" כשפסוקית הסיבה בסוף = שגיאה. כלל: פסיק לפני פסוקית כפיפה רק כשהיא <em>קודמת</em> לראשית. "כי הוא היה טוב לב, היא אהבה אותו." ✓.'},
-  {id:'e23',type:'mc',topic:'פיסוק',pts:4,
-   passage:'passage-e',
-   q:'23. "הספר, שכתב בשנה שעברה, זכה בפרס" — מדוע פסיקים סביב הפסוקית?',
-   opts:['כי הפסוקית ארוכה','כי "שכתב" = פסוקית יחסית מוסיפה — ניתן להשמיטה: "הספר זכה בפרס" שלם. מוסיפה = מוקפת פסיקים','כי "בשנה שעברה" = תיאור זמן','שגיאה — אסור פסיקים'],
+   explain:'פסוקית ויתור אחרי הראשית — הפסיק אופציונלי ומקובל. "הלכתי, למרות שהייתי עייף" ✓. שונה מ"כי" — לפני "למרות ש" פסיק מקובל.',
+   teacherNote:''},
+
+  {id:'q22',type:'mc',ref:'טקסט ג׳',
+   q:'"המורה שלמדה אותנו אנגלית, הסבירה" — מה הבעיה בפסיק?',
+   opts:['אין בעיה','הפסיק לפני "הסבירה" מפריד בין נושא לנשוא — שגיאה! "שלמדה" = פסוקית מגדירה, ללא פסיק','צריך פסיק גם לפני "שלמדה"','הפסיק תקין כי הפסוקית ארוכה'],
    ans:1,
-   explain:'פסוקית יחסית מוסיפה: ניתן להשמיטה מבלי לפגוע בהבנה. "הספר זכה בפרס" = מובן גם בלי "שכתב בשנה שעברה". לכן: פסיקים מסגרים. לעומת מגדירה = ללא פסיקים.'},
-  {id:'e24',type:'mc',topic:'כולל',pts:4,
-   passage:'passage-e',
-   q:'24. "— מה שמך? — אני דנה" — מהו תפקיד המקף?',
-   opts:['מחבר שתי מילים','מסגר תוסף','מסמן דיאלוג — מקף ארוך בתחילת שורה = תגובת דמות בספרות מודרנית','מחליף נקודותיים'],
-   ans:2,
-   explain:'מקף ארוך (—) בתחילת שורה = סימן דיאלוג ספרותי. חלופה למירכאות. כל מקף = פנייה של דמות חדשה. נפוץ בספרות מודרנית ובפרוזה אמנותית.'},
-  {id:'e25',type:'mc',topic:'כולל',pts:4,
-   passage:'passage-e',
-   q:'25. מה ההבדל בין "בוא נאכל, ילדים!" לבין "בוא נאכל ילדים!"?',
-   opts:['אין הבדל','בגרסה הראשונה: "ילדים" = שם נפנה (פנייה לילדים). בשנייה: "ילדים" = מושא ישיר (אוכלים את הילדים!). פסיק פנייה משנה את כל המשמעות','בגרסה הראשונה: שגיאה','בשתיהן: ילדים אוכלים'],
+   explain:'"שלמדה אותנו אנגלית" = פסוקית יחסית מגדירה (מגדירה איזו מורה). אין פסיקים סביבה. כתוצאה — אין פסיק לפני "הסבירה". שגיאה: פסיק בין נושא לנשוא.',
+   teacherNote:''},
+
+  {id:'q23',type:'mc',ref:'טקסט ג׳',
+   q:'"הסבירה: \'הפועל בא לפני הנושא בשאלה\'" — הנקודתיים כאן:',
+   opts:['שגיאה — צריך פסיק','תקינות — לפני ציטוט ישיר מדויק','שגיאה — צריך מקף','תקינות — לפני הסבר'],
    ans:1,
-   explain:'פסיק פנייה (Vocative Comma): "ילדים," = שם נפנה = פנייה לילדים לאכול ביחד. ללא פסיק: "ילדים" = מושא ישיר = הצעה לאכול את הילדים. דוגמה קלאסית לכוח הפסיק.'},
+   explain:'נקודתיים לפני ציטוט ישיר = תקין. "הסבירה:" + גרשיים (׳ ׳) = פועל אמירה + נקודתיים + ציטוט. הכלל: פועל אמירה + : + " " / ׳ ׳.',
+   teacherNote:''},
+
+  {id:'q24',type:'mc',ref:'טקסט ג׳',
+   q:'"אמרתי לחבר שלי ש\'צריך ללמוד יותר\'" — מה לא תקין?',
+   opts:['הכל תקין','בדיבור עקיף ("אמרתי ש-") אין מרכאות/גרשיים — "אמרתי לחבר שצריך ללמוד יותר"','צריך נקודתיים לפני הגרשיים','הגרשיים צריכים להיות מרכאות כפולות'],
+   ans:1,
+   explain:'דיבור עקיף = ללא מרכאות. "אמרתי ש-" + גוף שלישי: "אמרתי שצריך ללמוד יותר." ✓. גרשיים/מרכאות = רק בדיבור ישיר.',
+   teacherNote:''},
+
+  {id:'q25',type:'mc',ref:'טקסט ג׳',
+   q:'"הוא ענה שהוא מסכים" — כיצד יהפוך לדיבור ישיר?',
+   opts:['"הוא ענה: \'אני מסכים.\'"','"הוא ענה אני מסכים."','"הוא ענה שאני מסכים."','"הוא ענה: \'הוא מסכים.\'"'],
+   ans:0,
+   explain:'הפיכת עקיף לישיר: (1) מוסיפים נקודתיים וגרשיים. (2) מחזירים לגוף ראשון: "הוא" → "אני". "הוא ענה: \'אני מסכים.\'" ✓',
+   teacherNote:''},
 ];
 
 /* ════════════════════════════════════════════════
@@ -854,7 +769,7 @@ function switchTab(t){
 }
 function confirmGate(){
   const ne=document.getElementById('gate-name'),ce=document.getElementById('gate-class');
-  const nv=(ne?.value||'').trim(),cv=ce?.value||'';let ok=true;
+  const nv=(ne?.value||'').trim(),cv=(ce?.value||'').trim();let ok=true;
   if(nv.split(/\s+/).filter(Boolean).length<2){ne?.classList.add('err');document.getElementById('gate-name-err')?.classList.add('show');ok=false;}
   else{ne?.classList.remove('err');document.getElementById('gate-name-err')?.classList.remove('show');}
   if(!cv){ce?.classList.add('err');document.getElementById('gate-class-err')?.classList.add('show');ok=false;}
@@ -906,7 +821,7 @@ function buildCard(q,i){
         </div>`).join('')}
       </div>`;
   }
-  const refBadge=q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#ddd6fe">📍 ${q.ref}</span>`:'';
+  const refBadge=q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#fde68a">📍 ${q.ref}</span>`:'';
   const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור'}</span>`;
   return `
   <div class="q-card" id="card_${q.id}">
@@ -1021,19 +936,19 @@ function resetQuiz(){
   });
   const rc=document.getElementById('results-container');if(rc)rc.innerHTML='';
   const fill=document.getElementById('qp-fill');if(fill)fill.style.width='0%';
-  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent='0 / 25 נענו';
+  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent=`0 / ${QUESTIONS.length} נענו`;
 }
 function sendResults(pct){
   const email=LS.get('lashon2_teacher_email','')||LS.get('teacher_email','');
   const wa=LS.get('lashon2_teacher_wa','')||LS.get('teacher_whatsapp','');
   const body=`מבחן סיכום — תחביר\nתלמיד/ה: ${STUDENT_NAME}\nכיתה: ${STUDENT_CLASS||'?'}\nציון: ${pct}%\nתאריך: ${new Date().toLocaleDateString('he-IL')} ${new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})}`;
   if(wa){window.open('https://wa.me/972'+wa.replace(/^0/,'')+'?text='+encodeURIComponent(body),'_blank');return}
-  if(email){window.location.href='mailto:'+email+'?subject='+encodeURIComponent('מבחן סיכום — '+STUDENT_NAME+' כיתה '+STUDENT_CLASS)+'&body='+encodeURIComponent(body);return}
+  if(email){window.location.href='mailto:'+email+'?subject='+encodeURIComponent('מבחן סיכום תחביר — '+STUDENT_NAME+' כיתה '+STUDENT_CLASS)+'&body='+encodeURIComponent(body);return}
   toast('⚠️ לא הוגדרו פרטי המורה.');
 }
 
 /* ════════════════════════════════════════════════
-   ANSWERS KEY
+   ANSWERS
 ════════════════════════════════════════════════ */
 function renderAnswers(){
   const c=document.getElementById('answers-container');if(!c)return;
@@ -1044,7 +959,11 @@ function renderAnswers(){
       ${q.ref?`<span style="font-size:.56rem;color:var(--lc);font-weight:700">📍 ${q.ref}</span>`:''}
     </div>
     <div class="ans-q">${q.q}</div>
-    <div class="ans-correct">✅ ${q.type==='mc'?`<strong>${['א','ב','ג','ד'][q.ans]}</strong> — ${q.opts[q.ans]}`:q.type==='tf'?`<strong>${q.ans?'נכון':'לא נכון'}</strong>`:`סדר: ${q.correctOrder.map(j=>q.items[j]).join(' ← ')}`}</div>
+    <div class="ans-correct">✅ ${
+      q.type==='mc'?`${'אבגד'[q.ans]}. ${q.opts[q.ans]}`:
+      q.type==='tf'?(q.ans?'נכון':'לא נכון'):
+      q.correctOrder.map(j=>q.items[j]).join(' → ')
+    }</div>
     <div class="ans-explain">💡 ${q.explain}</div>
     ${q.teacherNote?`<div class="ans-teacher-note">🎓 ${q.teacherNote}</div>`:''}
   </div>`).join('');
@@ -1064,7 +983,7 @@ function printLesson(){
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>שיעור 1 — סוגי טקסטים</title>
+<title>מבחן סיכום — תחביר</title>
 <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -1075,42 +994,23 @@ body{font-family:'Heebo',sans-serif;direction:rtl;background:#fff;color:#000;fon
 .doc-header p{font-size:9pt;color:#555}
 .sec-title{font-family:'Secular One',sans-serif;font-size:14pt;color:#ca8a04;border-bottom:2px solid #fefce8;padding-bottom:.4rem;margin:1.5rem 0 1rem}
 .card{border:1px solid #e4e7ef;border-radius:8px;padding:.8rem 1rem;margin-bottom:.7rem;break-inside:avoid}
-.lesson-hero{background:#faf5ff;border:1px solid #ddd6fe;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.lesson-hero{background:#fefce8;border:1px solid #fde68a;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .lesson-hero::before{display:none}
-.section-hd{font-family:'Secular One',sans-serif;font-size:11pt;color:#7c3aed;border-bottom:1.5px solid #faf5ff;padding-bottom:.3rem;margin:1.2rem 0 .6rem;display:flex;align-items:center;gap:.4rem}
-.sn{width:22px;height:22px;border-radius:50%;background:#7c3aed;color:#fff;font-size:.65rem;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.box-lc{background:#faf5ff;border:1.5px solid #ddd6fe;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.box-amber{background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.section-hd{font-family:'Secular One',sans-serif;font-size:11pt;color:#ca8a04;border-bottom:1.5px solid #fefce8;padding-bottom:.3rem;margin:1.2rem 0 .6rem;display:flex;align-items:center;gap:.4rem}
+.sn{width:22px;height:22px;border-radius:50%;background:#ca8a04;color:#fff;font-size:.65rem;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.box-lc{background:#fefce8;border:1.5px solid #fde68a;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .box-green{background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.texts-side{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.8rem}
-.text-panel{border-radius:8px;overflow:hidden}
-.text-panel.a .text-panel-header{background:#7c3aed;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.text-panel.b .text-panel-header{background:#5b21b6;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.text-panel-header{padding:.5rem .8rem;font-size:.72rem;font-weight:800}
-.text-panel-body{background:#f8f9fb;border:1px solid #e4e7ef;border-top:none;padding:.7rem .8rem;font-size:.78rem;line-height:1.6}
-.venn-wrap{display:flex;gap:0;margin:.8rem 0;min-height:100px}
-.venn-left{flex:1;background:#eff4ff;border:1.5px solid #bfdbfe;padding:.7rem .9rem;font-size:.78rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.venn-center{width:130px;flex-shrink:0;background:#ede9fe;border:1.5px solid #c4b5fd;padding:.7rem .6rem;text-align:center;font-size:.78rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.venn-right{flex:1;background:#fdf4ff;border:1.5px solid #d8b4fe;padding:.7rem .9rem;font-size:.78rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.venn-label{font-size:.65rem;font-weight:800;color:#7c3aed;display:block;margin-bottom:.35rem}
-.venn-items{list-style:none}
-.venn-items li{margin-bottom:.18rem}
-.venn-items li::before{content:'• ';color:#7c3aed}
 .cmp-table{width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:.8rem}
-.cmp-table th:first-child{background:#7c3aed;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.cmp-table th.col-a{background:#7c3aed;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.cmp-table th.col-b{background:#5b21b6;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cmp-table th:first-child,.cmp-table th.col-a{background:#ca8a04;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cmp-table th.col-b{background:#92400e;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cmp-table th.col-c{background:#374151;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .cmp-table th{padding:.5rem .7rem;text-align:right;font-weight:800;font-size:.72rem}
 .cmp-table td{padding:.45rem .7rem;border-bottom:1px solid #e4e7ef}
 .cmp-table tr:nth-child(even) td{background:#f8f9fb;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.row-label{font-weight:700;background:#faf5ff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.steps-wrap{background:#faf5ff;border:1.5px solid #ddd6fe;border-radius:10px;padding:1rem;margin-bottom:.8rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.bagrut-template{border:2px dashed #7c3aed;border-radius:10px;padding:1rem;margin-bottom:.8rem}
-.bagrut-sample{background:#faf5ff;border:1.5px solid #ddd6fe;border-radius:8px;padding:.8rem 1rem;font-size:.82rem;line-height:1.7;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.reading-text-box{background:#faf5ff;border:2px solid #7c3aed;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.row-label{font-weight:700;background:#fefce8!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.steps-wrap{background:#fefce8;border:1.5px solid #fde68a;border-radius:10px;padding:1rem;margin-bottom:.8rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.reading-text-box{background:#fefce8;border:2px solid #ca8a04;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .reading-text-box::before{display:none}
-.mini-card{background:#f8f9fb;border:1px solid #e4e7ef;border-radius:8px;padding:.7rem .9rem}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.6rem}
 .hero-badge,.hero-chip,.hero-meta,.btn-print,.print-header,.sn-icon{display:none!important}
 .q-row{display:flex;gap:.6rem;border:1px solid #e4e7ef;border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid}
 .q-row.ok{border-color:#bbf7d0;background:#fafffe;-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -1123,32 +1023,32 @@ body{font-family:'Heebo',sans-serif;direction:rtl;background:#fff;color:#000;fon
 .ans-bad{font-size:9pt;padding:.3rem .65rem;background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;border-radius:6px;margin-bottom:.25rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .ans-cor{font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .q-expl{font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem;line-height:1.5}
-.q-tip{font-size:8pt;color:#7c3aed;margin-top:.2rem;background:#faf5ff;border-radius:5px;padding:.25rem .55rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.q-tip{font-size:8pt;color:#ca8a04;margin-top:.2rem;background:#fefce8;border-radius:5px;padding:.25rem .55rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 @page{margin:1.5cm;size:A4}
 </style>
 </head>
 <body>
 <div class="doc">
   <div class="doc-header">
-    <h1>📄 שיעור 1 — סוגי טקסטים</h1>
-    <p>יחידה 1: הבנה והבעה | לשון Lesson 2.0 | כיתות ט׳–י׳</p>
+    <h1>📝 מבחן סיכום — תחביר</h1>
+    <p>יחידה 2: תחביר | לשון Lesson 2.0 | כיתות ט׳–י׳</p>
     <div style="font-size:11pt;font-weight:700;color:#0d1424;margin-top:.5rem">תלמיד/ה: ${STUDENT_NAME} | כיתה: ${STUDENT_CLASS||'—'} | ${new Date().toLocaleDateString('he-IL')}</div>
   </div>
   ${scoreHtml}
-  <div class="sec-title">חלק א — תיאוריה</div>
+  <div class="sec-title">חלק א — הנחיות וחזרה</div>
   <div>${theoryHtml}</div>
-  <div class="sec-title" style="page-break-before:always">חלק ב — תרגול ותשובות</div>
+  <div class="sec-title" style="page-break-before:always">חלק ב — שאלות ותשובות</div>
   ${QUESTIONS.map((q,i)=>{
     const a=QS.answers[q.id];let ok=false,gv='לא נענה';
-    if(q.type==='mc'&&a?.sel!==undefined){gv=`${['א','ב','ג','ד'][a.sel]}. ${q.opts[a.sel]}`;ok=a.sel===q.ans;}
+    if(q.type==='mc'&&a?.sel!==undefined){gv=`${'אבגד'[a.sel]}. ${q.opts[a.sel]}`;ok=a.sel===q.ans;}
     else if(q.type==='tf'&&a?.sel!==undefined){gv=a.sel?'נכון':'לא נכון';ok=a.sel===q.ans;}
-    else if(q.type==='sort'&&a?.order){gv=a.order.map(j=>q.items[j]).join(' ← ');ok=JSON.stringify(a.order)===JSON.stringify(q.correctOrder);}
-    const ca=q.type==='mc'?`${['א','ב','ג','ד'][q.ans]}. ${q.opts[q.ans]}`:q.type==='tf'?(q.ans?'נכון':'לא נכון'):q.correctOrder.map(j=>q.items[j]).join(' ← ');
+    else if(q.type==='sort'&&a?.order){gv=a.order.map(j=>q.items[j]).join(' → ');ok=JSON.stringify(a.order)===JSON.stringify(q.correctOrder);}
+    const ca=q.type==='mc'?`${'אבגד'[q.ans]}. ${q.opts[q.ans]}`:q.type==='tf'?(q.ans?'נכון':'לא נכון'):q.correctOrder.map(j=>q.items[j]).join(' → ');
     return `<div class="q-row ${QS.submitted?(ok?'ok':'wrong'):''}">
       <div class="q-num-c">${i+1}</div>
       <div class="q-body">
-        <div class="q-txt">${q.q}${q.ref?` <span style="font-size:7.5pt;color:#7c3aed">[${q.ref}]</span>`:''}</div>
-        <div class="${QS.submitted?(ok?'ans-ok':'ans-bad'):'ans-ok'}" style="${!QS.submitted?'background:#faf5ff;color:#7c3aed;border-color:#ddd6fe':''}"><strong>${QS.submitted?(ok?'✅':'❌'):'→'} תשובת התלמיד/ה:</strong> ${gv}</div>
+        <div class="q-txt">${q.q}${q.ref?` <span style="font-size:7.5pt;color:#ca8a04">[${q.ref}]</span>`:''}</div>
+        <div class="${QS.submitted?(ok?'ans-ok':'ans-bad'):'ans-ok'}" style="${!QS.submitted?'background:#fefce8;color:#ca8a04;border-color:#fde68a':''}"><strong>${QS.submitted?(ok?'✅':'❌'):'→'} תשובת התלמיד/ה:</strong> ${gv}</div>
         ${QS.submitted&&!ok&&gv!=='לא נענה'?`<div class="ans-cor"><strong>✅ התשובה הנכונה:</strong> ${ca}</div>`:''}
         <div class="q-expl">💡 ${q.explain}</div>
         ${q.teacherNote?`<div class="q-tip">🎓 ${q.teacherNote}</div>`:''}
