@@ -464,6 +464,18 @@ button,input,select,textarea{font-family:inherit}
 
   <div id="questions-container"></div>
 
+
+  <!-- ═══ משימת הבעה יישומית ═══ -->
+  <div class="q-card" id="card_writing_task" style="margin-top:1.25rem">
+    <div class="q-num">משימת כתיבה <span class="q-type-badge">הבעה יישומית</span></div>
+    <p class="q-text">כתוב/י פסקה קצרה (3–4 שורות) בנושא אקטואלי לבחירתך, תוך שילוב שלושת הרכיבים הבאים: <strong>(1) הסגר</strong>, <strong>(2) משפט ייחוד</strong>, <strong>(3) פסוקית</strong>. סמן/י כל רכיב בסוגריים.</p>
+    <textarea id="writing-task-text"
+      class="gate-input"
+      style="min-height:110px;resize:vertical;width:100%;margin-top:.5rem"
+      placeholder="כתוב/י את הפסקה כאן..."></textarea>
+    <div style="font-size:.72rem;color:var(--muted);margin-top:.4rem">💡 לדוגמה: &quot;למרות הגשם הכבד [הסגר], יצאנו לטיול. הדבר החשוב ביותר [משפט ייחוד] הוא שנהנינו, כיוון שהיינו ביחד [פסוקית].&quot;</div>
+  </div>
+
   <div id="submit-row" style="display:flex;gap:.78rem;flex-wrap:wrap;align-items:center;margin-top:1.5rem">
     <button class="btn-submit" onclick="submitQuiz()">📊 הגש מבחן</button>
     <button class="btn-reset" onclick="resetQuiz()">🔄 איפוס</button>
@@ -923,6 +935,18 @@ function submitQuiz(){
   prog[LESSON_ID]={done:true,score:pct,date:new Date().toLocaleDateString('he-IL'),className:STUDENT_CLASS};
   LS.set('lashon2_prog_'+STUDENT_NAME,prog);
   saveScore(pct,STUDENT_NAME,STUDENT_CLASS);
+  // ── שמירת משימת הבעה יישומית ──
+  const _writingTask=(document.getElementById('writing-task-text')?.value||'').trim();
+  if(_db&&_writingTask){
+    _db.collection('lashon2_submissions').add({
+      lessonId:LESSON_ID+'_writing',
+      lessonTitle:LESSON_TITLE+' — הבעה יישומית',
+      studentName:STUDENT_NAME,className:STUDENT_CLASS,
+      writingTask:_writingTask,
+      ts:firebase.firestore.FieldValue.serverTimestamp(),
+      submissionDate:new Date().toLocaleDateString('he-IL'),read:false
+    }).catch(()=>{});
+  }
   if(window.opener)try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID,score:pct,studentName:STUDENT_NAME,className:STUDENT_CLASS},'*')}catch{}
 }
 function resetQuiz(){

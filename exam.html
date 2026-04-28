@@ -553,6 +553,18 @@ button,input,select,textarea{font-family:inherit}
 
   <div id="questions-container"></div>
 
+
+  <!-- ═══ שאלה פתוחה — משימת סיכום ═══ -->
+  <div class="q-card" id="card_open_summary" style="margin-top:1.25rem">
+    <div class="q-num">שאלה פתוחה <span class="q-type-badge">משימת סיכום</span></div>
+    <p class="q-text">סכם/י את הטענה המרכזית של <strong>טקסט א׳</strong> ב-2–3 משפטים. כלול/י: מהי הטענה, על מה היא מתבססת, ומה מסקנת הכותב/ת.</p>
+    <textarea id="open-summary-text"
+      class="gate-input"
+      style="min-height:90px;resize:vertical;width:100%;margin-top:.5rem"
+      placeholder="כתוב/י את תשובתך כאן (2–3 משפטים)..."></textarea>
+    <div style="font-size:.72rem;color:var(--muted);margin-top:.4rem">💡 רמז: טענה ראשית → ראיה מרכזית → מסקנה</div>
+  </div>
+
   <div id="submit-row" style="display:flex;gap:.78rem;flex-wrap:wrap;align-items:center;margin-top:1.5rem">
     <button class="btn-submit" onclick="submitQuiz()">📊 הגש תרגול</button>
     <button class="btn-reset" onclick="resetQuiz()">🔄 איפוס</button>
@@ -1012,6 +1024,18 @@ function submitQuiz(){
   prog[LESSON_ID]={done:true,score:pct,date:new Date().toLocaleDateString('he-IL'),className:STUDENT_CLASS};
   LS.set('lashon2_prog_'+STUDENT_NAME,prog);
   saveScore(pct,STUDENT_NAME,STUDENT_CLASS);
+  // ── שמירת משימת סיכום פתוחה ──
+  const _openSummary=(document.getElementById('open-summary-text')?.value||'').trim();
+  if(_db&&_openSummary){
+    _db.collection('lashon2_submissions').add({
+      lessonId:LESSON_ID+'_open',
+      lessonTitle:LESSON_TITLE+' — סיכום פתוח',
+      studentName:STUDENT_NAME,className:STUDENT_CLASS,
+      writingTask:_openSummary,
+      ts:firebase.firestore.FieldValue.serverTimestamp(),
+      submissionDate:new Date().toLocaleDateString('he-IL'),read:false
+    }).catch(()=>{});
+  }
   if(window.opener)try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID,score:pct,studentName:STUDENT_NAME,className:STUDENT_CLASS},'*')}catch{}
 }
 function resetQuiz(){
