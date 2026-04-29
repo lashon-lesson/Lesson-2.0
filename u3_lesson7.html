@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>יחידה 3 שיעור 7 — צורות הבינוני | לשון Lesson 2.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<style>
+:root{
+  --bg:#f0f2f7;--surface:#fff;--surface2:#f8f9fb;--surface3:#eef0f5;
+  --border:#e4e7ef;--text:#0d1424;--text-mid:#3d4660;--muted:#6b7594;--subtle:#9aa3be;
+  --blue:#1a56db;--blue-lt:#eff4ff;
+  --green:#15803d;--green-lt:#f0fdf4;
+  --amber:#b45309;--amber-lt:#fffbeb;
+  --red:#dc2626;--red-lt:#fef2f2;
+  --gold:#ca8a04;--gold-lt:#fefce8;
+  --rose:#be185d;--rose-lt:#fff1f2;
+  /* Lesson accent — teal */
+  --lc:#0f766e;--lc-lt:#f0fdfa;--lc-dk:#134e4a;
+  --sh1:0 1px 3px rgba(13,20,36,.06);--sh2:0 4px 20px rgba(13,20,36,.08);--sh3:0 12px 40px rgba(13,20,36,.12);
+  --r:14px;--r-lg:20px;--r-xl:26px;--r-pill:999px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#0b0f17;--surface:#131924;--surface2:#192030;--surface3:#1f2840;
+  --border:#252f47;--text:#d8dfe8;--text-mid:#a0adc5;--muted:#7a8aaa;--subtle:#50607e;
+  --lc:#2dd4bf;--lc-lt:#042320;--lc-dk:#99f6e4;
+  --sh1:0 1px 3px rgba(0,0,0,.3);--sh2:0 4px 20px rgba(0,0,0,.4);--sh3:0 12px 40px rgba(0,0,0,.5);
+}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{line-height:1.65;min-height:100vh}
+button,input,select,textarea{font-family:inherit}
+
+/* ═══ TOPBAR ═══ */
+.topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:.62rem 1.1rem;display:flex;align-items:center;gap:.55rem;min-height:54px;box-shadow:var(--sh1)}
+.btn-back{width:40px;height:40px;border:1.5px solid var(--border);border-radius:11px;background:var(--surface2);font-size:1.05rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .14s;flex-shrink:0}
+.btn-back:hover{background:var(--surface3);color:var(--text)}
+.topbar-info{flex:1;min-width:0}
+.topbar-title{font-family:'Secular One',sans-serif;font-size:.9rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar-sub{font-size:.6rem;color:var(--subtle);margin-top:.04rem}
+.topbar-actions{display:flex;gap:.38rem;flex-shrink:0;align-items:center}
+.t-chip{font-size:.62rem;font-weight:700;padding:.2rem .68rem;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface2);color:var(--muted)}
+.t-chip.lc{color:var(--lc);background:var(--lc-lt);border-color:var(--lc)}
+.t-chip.teacher{color:var(--gold);background:var(--gold-lt);border-color:#fde68a;display:none}
+.btn-print{display:inline-flex;align-items:center;gap:.32rem;padding:.32rem .85rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .14s;white-space:nowrap;min-height:36px}
+.btn-print:hover{background:var(--lc-lt);color:var(--lc);border-color:var(--lc)}
+
+/* ═══ TABS ═══ */
+.tabs-bar{background:var(--surface);border-bottom:1px solid var(--border);display:flex;padding:0 1.1rem;overflow-x:auto;scrollbar-width:none;position:sticky;top:54px;z-index:90}
+.tabs-bar::-webkit-scrollbar{display:none}
+.tab-btn{padding:.68rem 1.2rem;border:none;border-bottom:2.5px solid transparent;background:none;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;min-height:46px;margin-bottom:-1px;flex-shrink:0;transition:color .14s}
+.tab-btn:hover{color:var(--lc)}
+.tab-btn.active{color:var(--lc);border-bottom-color:var(--lc);font-weight:800}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* ═══ LESSON WRAP ═══ */
+.lesson-wrap{max-width:800px;margin:0 auto;padding:1.5rem 1.2rem 5rem;width:100%}
+
+/* ─── HERO ─── */
+.lesson-hero{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface) 68%);border:1px solid var(--border);border-radius:var(--r-xl);padding:1.8rem 1.6rem 1.6rem;margin-bottom:1.8rem;position:relative;overflow:hidden;box-shadow:var(--sh1)}
+.lesson-hero::before{content:'';position:absolute;top:0;right:0;bottom:0;width:5px;background:var(--lc);opacity:.75;border-radius:0 var(--r-xl) var(--r-xl) 0}
+.hero-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.62rem;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.07em;background:var(--lc-lt);border:1.5px solid var(--lc);border-radius:var(--r-pill);padding:.22rem .8rem;margin-bottom:.9rem;opacity:.88}
+.hero-emoji{font-size:2.6rem;margin-bottom:.55rem;display:block;line-height:1}
+.hero-title{font-family:'Secular One',sans-serif;font-size:clamp(1.35rem,4vw,1.75rem);color:var(--text);line-height:1.18;margin-bottom:.4rem}
+.hero-desc{font-size:.84rem;color:var(--muted);line-height:1.65;max-width:580px}
+.hero-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
+.hero-chip{font-size:.63rem;font-weight:700;padding:.22rem .72rem;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface);color:var(--muted)}
+.hero-chip.lc{color:var(--lc);background:var(--lc-lt);border-color:var(--lc)}
+.hero-chip.green{color:var(--green);background:var(--green-lt);border-color:#bbf7d0}
+
+/* ─── SECTION HEADING ─── */
+.section-hd{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--lc);display:flex;align-items:center;gap:.55rem;margin:2.2rem 0 1rem;padding-bottom:.48rem;border-bottom:2px solid var(--lc-lt)}
+.section-hd:first-of-type{margin-top:0}
+.sn{width:28px;height:28px;border-radius:50%;background:var(--lc);color:#fff;font-size:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900}
+.sn-icon{font-size:1.3rem;flex-shrink:0;line-height:1}
+
+/* ─── CARDS ─── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;box-shadow:var(--sh1);margin-bottom:1rem}
+.card p{font-size:.9rem;line-height:1.78;color:var(--text-mid)}
+.card p+p{margin-top:.65rem}
+.card h4{font-size:.9rem;font-weight:800;margin-bottom:.42rem;color:var(--text)}
+.card ul,.card ol{padding-right:1.3rem;margin-top:.42rem}
+.card li{font-size:.9rem;line-height:1.78;color:var(--text-mid);margin-bottom:.18rem}
+.card li strong{color:var(--text)}
+
+/* Callouts */
+.box{border-radius:var(--r);padding:1rem 1.2rem;font-size:.86rem;line-height:1.72;color:var(--text-mid);margin-bottom:1rem}
+.box strong{font-weight:800}
+.box-lc{background:var(--lc-lt);border:1.5px solid #99f6e4}.box-lc strong{color:var(--lc)}
+.box-blue{background:var(--blue-lt);border:1.5px solid #bfdbfe}.box-blue strong{color:var(--blue)}
+.box-amber{background:var(--amber-lt);border:1.5px solid #fde68a}.box-amber strong{color:var(--amber)}
+.box-green{background:var(--green-lt);border:1.5px solid #bbf7d0}.box-green strong{color:var(--green)}
+.box-rose{background:var(--rose-lt);border:1.5px solid #fecdd3}.box-rose strong{color:var(--rose)}
+.box-red{background:var(--red-lt);border:1.5px solid #fca5a5}.box-red strong{color:var(--red)}
+
+/* Grid */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1rem}
+@media(max-width:480px){.grid2{grid-template-columns:1fr}}
+.mini-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.95rem 1.05rem}
+.mini-title{font-size:.76rem;font-weight:800;color:var(--text);margin-bottom:.38rem}
+.mini-body{font-size:.8rem;color:var(--text-mid);line-height:1.62}
+
+/* Steps */
+.steps-wrap{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1.5px solid #99f6e4;border-radius:var(--r-lg);padding:1.4rem 1.5rem;margin-bottom:1rem}
+.steps-title{font-family:'Secular One',sans-serif;font-size:.94rem;color:var(--lc);margin-bottom:1rem}
+.step-item{display:flex;align-items:flex-start;gap:.65rem;font-size:.86rem;color:var(--text-mid);line-height:1.55;margin-bottom:.68rem}
+.step-item:last-child{margin-bottom:0}
+.step-num{width:26px;height:26px;border-radius:50%;background:var(--lc);color:#fff;font-size:.7rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+
+/* ══ ROLE DEMO — the key pedagogic widget ══ */
+.role-demo{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.4rem 1.5rem;margin-bottom:1.2rem;box-shadow:var(--sh2)}
+.role-demo-title{font-family:'Secular One',sans-serif;font-size:.92rem;color:var(--lc);margin-bottom:1rem;display:flex;align-items:center;gap:.45rem}
+.role-row{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.85rem;padding-bottom:.85rem;border-bottom:1px solid var(--border)}
+.role-row:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.role-badge{min-width:80px;font-size:.65rem;font-weight:800;padding:.3rem .6rem;border-radius:var(--r-pill);text-align:center;flex-shrink:0;letter-spacing:.04em;margin-top:.1rem}
+.rb-poal{background:#1a56db;color:#fff}
+.rb-shem{background:#0f766e;color:#fff}
+.rb-toar{background:#7c3aed;color:#fff}
+.role-sentence{font-size:.9rem;color:var(--text);line-height:1.6;flex:1}
+.role-sentence .hl{font-weight:800}
+.role-sentence .hl-poal{color:#1a56db}
+.role-sentence .hl-shem{color:#0f766e}
+.role-sentence .hl-toar{color:#7c3aed}
+.role-explain{font-size:.76rem;color:var(--muted);margin-top:.25rem;line-height:1.5}
+
+/* ══ CONJUGATION TABLE ══ */
+.conj-table{width:100%;border-collapse:collapse;font-size:.83rem;margin-bottom:1rem;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
+.conj-table th{padding:.65rem .9rem;text-align:right;font-weight:800;font-size:.75rem}
+.conj-table th:first-child{background:var(--lc);color:#fff}
+.conj-table th.col-b{background:var(--lc-dk);color:#fff}
+.conj-table th.col-c{background:#134e4a;color:#fff}
+.conj-table th.col-d{background:#1e3a5f;color:#fff}
+.conj-table td{padding:.58rem .9rem;border-bottom:1px solid var(--border);vertical-align:middle;line-height:1.5;font-size:.83rem}
+.conj-table tr:last-child td{border-bottom:none}
+.conj-table tr:nth-child(even) td{background:var(--surface2)}
+.conj-table tr:nth-child(odd) td{background:var(--surface)}
+.conj-table .row-label{font-weight:700;color:var(--lc);background:var(--lc-lt)!important;white-space:nowrap}
+.conj-table .form{font-family:'Secular One',sans-serif;font-size:.95rem;color:var(--lc-dk)}
+
+/* ══ CONTRAST CARD ══ */
+.contrast-wrap{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem}
+@media(max-width:500px){.contrast-wrap{grid-template-columns:1fr}}
+.ccard{border-radius:var(--r-lg);padding:1.1rem 1.2rem;border:2px solid transparent}
+.ccard.poal{background:linear-gradient(135deg,#eff4ff,#fff);border-color:#bfdbfe}
+.ccard.paal{background:linear-gradient(135deg,#f0fdfa,#fff);border-color:#99f6e4}
+.ccard-title{font-family:'Secular One',sans-serif;font-size:.92rem;margin-bottom:.32rem}
+.ccard.poal .ccard-title{color:#1a56db}
+.ccard.paal .ccard-title{color:#0f766e}
+.ccard-sub{font-size:.72rem;color:var(--muted);margin-bottom:.65rem;line-height:1.4}
+.ccard-form{font-size:.82rem;color:var(--text-mid);line-height:1.7}
+.ccard-form strong{font-weight:800}
+.ccard.poal .ccard-form strong{color:#1a56db}
+.ccard.paal .ccard-form strong{color:#0f766e}
+
+/* ══ SENTENCE ANALYSIS ══ */
+.sent-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.1rem 1.3rem;margin-bottom:.9rem}
+.sent-text{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.6rem;line-height:1.5}
+.sent-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.5rem}
+.stag{display:inline-flex;flex-direction:column;align-items:center;border-radius:8px;overflow:hidden}
+.stag-word{font-size:.9rem;font-weight:800;padding:.3rem .6rem;color:#fff}
+.stag-label{font-size:.52rem;font-weight:800;padding:.12rem .4rem;background:var(--surface3);color:var(--muted);text-align:center;width:100%}
+.stag.t-poal .stag-word{background:#1a56db}
+.stag.t-shem .stag-word{background:#0f766e}
+.stag.t-toar .stag-word{background:#7c3aed}
+.stag.t-other .stag-word{background:#6b7594}
+.sent-note{font-size:.78rem;color:var(--muted);line-height:1.6;border-right:3px solid var(--lc);padding-right:.7rem}
+
+/* Reading text */
+.reading-text-box{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.5rem 1.6rem;margin-bottom:1.8rem;box-shadow:var(--sh2);position:relative}
+.reading-text-box::before{content:'📄 טקסט לניתוח';position:absolute;top:-12px;right:1.4rem;background:var(--lc);color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill);letter-spacing:.04em}
+.rt-title{font-family:'Secular One',sans-serif;font-size:1.05rem;color:var(--text);margin-bottom:.28rem}
+.rt-body{font-size:.88rem;line-height:1.88;color:var(--text-mid)}
+.rt-body p{margin-bottom:.85rem}
+.rt-body p:last-child{margin-bottom:0}
+.rt-body strong{color:var(--text);font-weight:700}
+
+/* ═══ QUIZ ═══ */
+.quiz-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1px solid #99f6e4;border-radius:var(--r-lg);padding:1.25rem 1.4rem;margin-bottom:1.5rem}
+.quiz-hd-title{font-family:'Secular One',sans-serif;font-size:.97rem;color:var(--lc);margin-bottom:.32rem}
+.quiz-hd-desc{font-size:.82rem;color:var(--muted)}
+.quiz-prog-bar{height:5px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-top:.8rem;border:1px solid var(--border)}
+.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--lc),#2dd4bf);border-radius:var(--r-pill);transition:width .38s ease}
+.quiz-prog-row{display:flex;justify-content:space-between;margin-top:.38rem;font-size:.7rem;color:var(--muted)}
+.q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;margin-bottom:1.25rem;box-shadow:var(--sh1);transition:border-color .2s}
+.q-card.ok{border-color:#bbf7d0}
+.q-card.wrong{border-color:#fca5a5}
+.q-num{font-size:.66rem;font-weight:800;color:var(--subtle);margin-bottom:.55rem;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.q-type-badge{font-size:.56rem;font-weight:700;padding:.14rem .52rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)}
+.q-text{font-size:.94rem;font-weight:700;color:var(--text);line-height:1.52;margin-bottom:1.05rem}
+.q-excerpt{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.75rem 1rem;font-size:.84rem;line-height:1.75;color:var(--text-mid);margin-bottom:.85rem;border-right:3px solid var(--lc);font-style:italic}
+.mc-wrap{display:flex;flex-direction:column;gap:.42rem}
+.mc-btn{width:100%;text-align:right;padding:.78rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.86rem;color:var(--text-mid);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:.68rem;min-height:50px}
+.mc-btn:hover:not(:disabled){border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
+.mc-btn.sel{border-color:var(--lc);background:var(--lc-lt);color:var(--lc);font-weight:700}
+.mc-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important;font-weight:700}
+.mc-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important;font-weight:700}
+.mc-btn:disabled{cursor:default}
+.mc-letter{width:24px;height:24px;border-radius:50%;background:var(--surface3);color:var(--muted);font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .14s}
+.mc-btn.sel .mc-letter{background:var(--lc);color:#fff}
+.mc-btn.correct .mc-letter{background:var(--green);color:#fff}
+.mc-btn.wrong .mc-letter{background:var(--red);color:#fff}
+.tf-row{display:flex;gap:.68rem}
+.tf-btn{flex:1;padding:.8rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.9rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:54px}
+.tf-btn:hover:not(:disabled){border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
+.tf-btn.sel{border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
+.tf-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important}
+.tf-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important}
+.tf-btn:disabled{cursor:default}
+.sort-list{display:flex;flex-direction:column;gap:.42rem;margin-bottom:.55rem}
+.sort-item{display:flex;align-items:center;gap:.68rem;padding:.74rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);cursor:grab;transition:all .15s;user-select:none}
+.sort-item:active{cursor:grabbing;box-shadow:var(--sh2)}
+.sort-item.dragging{opacity:.45}
+.sort-item.drag-over{border-color:var(--lc);background:var(--lc-lt)}
+.sort-handle{font-size:1.1rem;color:var(--muted);flex-shrink:0}
+.sort-text{font-size:.86rem;color:var(--text-mid);flex:1}
+.sort-note{font-size:.7rem;color:var(--muted);margin-bottom:.32rem}
+.q-feedback{margin-top:.72rem;padding:.8rem 1.05rem;border-radius:var(--r);font-size:.83rem;font-weight:600;line-height:1.58;display:none;border-right:3px solid transparent}
+.q-feedback.show{display:block}
+.q-feedback.ok{background:var(--green-lt);color:var(--green);border-color:var(--green)}
+.q-feedback.wrong{background:var(--red-lt);color:var(--red);border-color:var(--red)}
+.results-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:2.2rem 1.8rem;text-align:center;box-shadow:var(--sh2);margin-top:1.5rem}
+.results-emoji{font-size:4rem;margin-bottom:.8rem;display:block}
+.results-score{font-family:'Secular One',sans-serif;font-size:3.4rem;font-weight:800;margin-bottom:.3rem;display:block}
+.results-label{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem;display:block}
+.results-bar{height:10px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-bottom:1.6rem;border:1px solid var(--border)}
+.results-bar-fill{height:100%;border-radius:var(--r-pill);transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.btn-submit{padding:.85rem 2rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(15,118,110,.3);transition:all .15s;min-height:48px}
+.btn-submit:hover{background:var(--lc-dk);transform:translateY(-1px)}
+.btn-reset{padding:.82rem 1.6rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);color:var(--muted);font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:48px}
+.btn-reset:hover{background:var(--surface3);color:var(--text)}
+.btn-send{padding:.82rem 1.8rem;border:none;border-radius:var(--r-pill);background:var(--green);color:#fff;font-size:.86rem;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(21,128,61,.3);transition:all .15s;min-height:48px}
+.btn-send:hover{transform:translateY(-1px)}
+
+/* ANSWERS */
+.answers-locked{background:var(--surface);border:2px dashed var(--border);border-radius:var(--r-xl);padding:2.5rem 2rem;text-align:center;margin-top:.5rem}
+.answer-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.05rem 1.2rem;margin-bottom:.78rem}
+.ans-num{font-size:.66rem;color:var(--subtle);margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem}
+.ans-q{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.5rem;line-height:1.45}
+.ans-correct{background:var(--green-lt);border:1.5px solid #bbf7d0;border-radius:9px;padding:.55rem .95rem;font-size:.82rem;color:var(--green);font-weight:700;margin-bottom:.42rem}
+.ans-explain{font-size:.78rem;color:var(--muted);line-height:1.58;border-right:3px solid var(--border);padding-right:.78rem;margin-top:.4rem}
+.ans-teacher-note{font-size:.78rem;font-weight:700;color:var(--lc);margin-top:.38rem;background:var(--lc-lt);border-radius:8px;padding:.42rem .75rem}
+
+/* GATE */
+#student-gate{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:0;margin-bottom:1.5rem;box-shadow:var(--sh2);overflow:hidden}
+#student-gate.hidden{display:none}
+.gate-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);padding:1.4rem 1.5rem 1.2rem;text-align:center;border-bottom:1px solid var(--border)}
+.gate-icon{font-size:2.4rem;display:block;margin-bottom:.55rem}
+.gate-title{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--text);margin-bottom:.28rem}
+.gate-desc{font-size:.8rem;color:var(--muted);line-height:1.55}
+.gate-body{padding:1.3rem 1.5rem 1.5rem;display:flex;flex-direction:column;gap:.9rem}
+.gate-field label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);margin-bottom:.38rem;letter-spacing:.02em}
+.gate-input{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;min-height:50px}
+.gate-input::placeholder{color:var(--subtle)}
+.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(15,118,110,.14)}
+.gate-input.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.1)}
+.gate-select{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s;min-height:50px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7594' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 1rem center}
+.gate-select:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(15,118,110,.14)}
+.gate-select.err{border-color:var(--red)}
+.gate-err-msg{font-size:.7rem;color:var(--red);margin-top:.26rem;display:none}
+.gate-err-msg.show{display:block}
+.gate-date-display{padding:.78rem 1rem;background:var(--surface3);border:1.5px solid var(--border);border-radius:var(--r);font-size:.88rem;color:var(--muted)}
+.gate-btn{width:100%;padding:.88rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.92rem;font-weight:700;cursor:pointer;min-height:52px;box-shadow:0 4px 18px rgba(15,118,110,.3);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.45rem}
+.gate-btn:hover{background:var(--lc-dk);transform:translateY(-1px)}
+.gate-btn:active{transform:scale(.97)}
+#gate-confirmed{display:none;background:var(--green-lt);border:2px solid #bbf7d0;border-radius:var(--r-xl);padding:1rem 1.3rem;margin-bottom:1.5rem;align-items:center;gap:.85rem}
+#gate-confirmed.show{display:flex}
+#gate-confirmed.hidden{display:none!important}
+.gc-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#15803d,#16a34a);color:#fff;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gc-info{flex:1;min-width:0}
+.gc-name{font-size:.92rem;font-weight:800;color:var(--green)}
+.gc-meta{font-size:.74rem;color:var(--text-mid);margin-top:.15rem}
+.gc-change{font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;margin-top:.22rem;display:block}
+.gc-change:hover{color:var(--lc)}
+#toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%) translateY(14px);background:var(--text);color:var(--bg);padding:.58rem 1.4rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:700;box-shadow:var(--sh3);z-index:9999;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;white-space:nowrap}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media print{
+  .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,#submit-row,#results-container,#toast,#student-gate,#gate-confirmed,.sort-handle{display:none!important}
+  body{background:#fff;color:#000;font-size:10pt;line-height:1.5}
+  html{background:#fff}
+  .tab-pane{display:block!important}
+  .lesson-wrap{padding:.5cm 1cm;max-width:100%}
+  .lesson-hero,.card,.q-card,.reading-text-box,.answer-row,.role-demo,.sent-block{box-shadow:none;break-inside:avoid}
+  .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #0f766e}
+  .print-header h1{font-size:16pt;color:#0f766e}
+  #pane-theory{page-break-after:always}
+  #pane-practice{page-break-after:always}
+  @page{margin:1.5cm;size:A4}
+}
+.print-header{display:none}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <button class="btn-back" onclick="goBack()">←</button>
+  <div class="topbar-info">
+    <div class="topbar-title">🌿 צורות הבינוני — שם עצם ותואר</div>
+    <div class="topbar-sub">יחידה 3 — צורות · שיעור 7</div>
+  </div>
+  <div class="topbar-actions">
+    <span class="t-chip lc">⏱ 45 דק׳</span>
+    <span class="t-chip teacher" id="role-chip">🎓 מורה</span>
+    <button class="btn-print" onclick="printLesson()">🖨️ הדפסה</button>
+  </div>
+</div>
+
+<div class="tabs-bar">
+  <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
+  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (20 שאלות)</button>
+  <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
+  <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     THEORY
+══════════════════════════════════════════════ -->
+<div class="tab-pane active" id="pane-theory">
+<div class="print-header">
+  <h1>🌿 שיעור 7 — צורות הבינוני: שם עצם ותואר</h1>
+  <p>יחידה 3: צורות | לשון Lesson 2.0 | כיתות ט׳–י׳</p>
+</div>
+<div class="lesson-wrap">
+
+  <div class="lesson-hero">
+    <div class="hero-badge">יחידה 3 · שיעור 7</div>
+    <span class="hero-emoji">🌿</span>
+    <h1 class="hero-title">צורות הבינוני — שם עצם ותואר</h1>
+    <p class="hero-desc">הבינוני הוא "שחקן שלושה תפקידים": הוא יכול לשמש כפועל, כשם עצם וכשם תואר — לפעמים באותו משפט. הכרת התפקידים ודרכי ההסכמה היא מפתח לניתוח מדויק</p>
+    <div class="hero-meta">
+      <span class="hero-chip lc">⏱ 45 דק׳</span>
+      <span class="hero-chip">🌿 בינוני</span>
+      <span class="hero-chip green">🎯 יחידה 3 שיעור 7</span>
+    </div>
+  </div>
+
+  <!-- סעיף 1 — פדגוגי: ה-hook -->
+  <div class="section-hd"><span class="sn-icon">🎭</span><div class="sn">1</div>הבינוני — שחקן שלושה תפקידים</div>
+  <div class="card">
+    <p>קחו את המילה <strong>כּוֹתֵב</strong>. באיזה תפקיד היא משמשת במשפטים הבאים?</p>
+  </div>
+
+  <div class="role-demo">
+    <div class="role-demo-title">🔍 "כּוֹתֵב" — שלושה משפטים, שלושה תפקידים</div>
+
+    <div class="role-row">
+      <span class="role-badge rb-poal">📌 פועל — נשוא</span>
+      <div>
+        <div class="role-sentence">דני <span class="hl hl-poal">כּוֹתֵב</span> מכתב לסבתא.</div>
+        <div class="role-explain">שאלה: <em>מה דני עושה?</em> → כּוֹתֵב. הוא הנשוא — הפעולה עצמה. מסכים לנושא: זכר יחיד.</div>
+      </div>
+    </div>
+
+    <div class="role-row">
+      <span class="role-badge rb-shem">📦 שם עצם</span>
+      <div>
+        <div class="role-sentence">ה<span class="hl hl-shem">כּוֹתֵב</span> הצעיר זכה בפרס.</div>
+        <div class="role-explain">שאלה: <em>מי זכה?</em> → הכּוֹתֵב. הוא נושא — שם עצם שמתאר מקצוע/תפקיד. מיודע ב-"ה".</div>
+      </div>
+    </div>
+
+    <div class="role-row">
+      <span class="role-badge rb-toar">🎨 שם תואר</span>
+      <div>
+        <div class="role-sentence">קיבלתי מכתב <span class="hl hl-toar">כּוֹתֵב</span> יפה.</div>
+        <div class="role-explain">שאלה: <em>מה מאפיין את המכתב?</em> → כּוֹתֵב יפה (= שנכתב יפה). מסכים לשם העצם שלפניו.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-lc">🌿 <strong>הגדרה:</strong> הבינוני הוא צורת הפועל בהווה, אך בניגוד לפעלים אחרים — הוא מסכים עם הנושא <strong>בגוף, מין ומספר</strong> כמו שם תואר, ויכול לשמש כשם עצם עצמאי. זה מה שהופך אותו ל"גשר" בין עולם הפועל לעולם השם.</div>
+
+  <!-- סעיף 2 — בינוני פועל: הצורות -->
+  <div class="section-hd"><span class="sn-icon">🔵</span><div class="sn">2</div>בינוני פועל — צורות ההסכמה</div>
+  <div class="card">
+    <p><strong>בינוני פועל</strong> הוא הבינוני האקטיבי — מי שעושה את הפעולה. משקלו בקל: <strong>קוֹטֵל</strong> (זכר יחיד). הוא מסכים עם הנושא בארבע צורות:</p>
+  </div>
+
+  <div style="overflow-x:auto;margin-bottom:1rem">
+    <table class="conj-table">
+      <thead><tr>
+        <th>צורה</th>
+        <th class="col-b">בינוני פועל (קל, שורש כ-ת-ב)</th>
+        <th class="col-c">בינוני פועל (פיעל, שורש ל-מ-ד)</th>
+        <th class="col-d">בינוני פועל (הפעיל, שורש כ-נ-ס)</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="row-label">זכר יחיד</td><td class="form">כּוֹתֵב</td><td class="form">מְלַמֵּד</td><td class="form">מַכְנִיס</td></tr>
+        <tr><td class="row-label">נקבה יחיד</td><td class="form">כּוֹתֶבֶת</td><td class="form">מְלַמֶּדֶת</td><td class="form">מַכְנִיסָה</td></tr>
+        <tr><td class="row-label">זכר רבים</td><td class="form">כּוֹתְבִים</td><td class="form">מְלַמְּדִים</td><td class="form">מַכְנִיסִים</td></tr>
+        <tr><td class="row-label">נקבה רבים</td><td class="form">כּוֹתְבוֹת</td><td class="form">מְלַמְּדוֹת</td><td class="form">מַכְנִיסוֹת</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="box box-blue">🔵 <strong>כלל זיהוי — בינוני פועל:</strong> קל = קוֹ/כּוֹ בתחילה (חולם). פיעל = מְ + עיצור + פתח + דגש (מְלַמֵּד). הפעיל = מַ + עיצור + חיריק (מַכְנִיס). התפעל = מִתְ + (מִתְלַבֵּשׁ). נפעל = נִ + (נִכְתָּב כבינוני = נִכְתָּב).</div>
+
+  <!-- סעיף 3 — בינוני פעול -->
+  <div class="section-hd"><span class="sn-icon">🟢</span><div class="sn">3</div>בינוני פעול — הסביל שמסכים</div>
+  <div class="card">
+    <p><strong>בינוני פעול</strong> הוא הבינוני הסביל של בניין קל — מי שהפעולה <em>נעשתה לו</em>. משקלו: <strong>קָטוּל</strong> (זכר יחיד). הוא מסכים עם השם שהוא מתאר:</p>
+  </div>
+
+  <div class="contrast-wrap">
+    <div class="ccard poal">
+      <div class="ccard-title">בינוני פועל (קוֹטֵל)</div>
+      <div class="ccard-sub">מי שעושה את הפעולה — פעיל</div>
+      <div class="ccard-form">
+        <strong>כּוֹתֵב</strong> — זכר יחיד<br>
+        <strong>כּוֹתֶבֶת</strong> — נקבה יחיד<br>
+        <strong>כּוֹתְבִים</strong> — זכר רבים<br>
+        <strong>כּוֹתְבוֹת</strong> — נקבה רבים
+      </div>
+    </div>
+    <div class="ccard paal">
+      <div class="ccard-title">בינוני פעול (קָטוּל)</div>
+      <div class="ccard-sub">מי שהפעולה נעשתה לו — סביל</div>
+      <div class="ccard-form">
+        <strong>כָּתוּב</strong> — זכר יחיד<br>
+        <strong>כְּתוּבָה</strong> — נקבה יחיד<br>
+        <strong>כְּתוּבִים</strong> — זכר רבים<br>
+        <strong>כְּתוּבוֹת</strong> — נקבה רבים
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-lc">🌿 <strong>בינוני פעול — משמעות:</strong> "כָּתוּב" = שנכתב. "שָׁבוּר" = שנשבר. "נָתוּן" = שניתן. "אָהוּב" = שאוהבים אותו. הוא תמיד מתאר <em>מצב שנוצר</em> מפעולה שכבר קרתה — כמו תוצאה קבועה.</div>
+
+  <!-- סעיף 4 — בינוני כשם עצם -->
+  <div class="section-hd"><span class="sn-icon">📦</span><div class="sn">4</div>בינוני כשם עצם — מיודע ומסכים</div>
+  <div class="card">
+    <p>כשהבינוני משמש <strong>כשם עצם</strong>, הוא מקבל ה' הידיעה ומתייחס לאדם (או דבר) שמאופיין על ידי הפעולה. זהו שם עצם לכל דבר: הוא יכול להיות נושא, מושא, נסמך.</p>
+    <p>הבינוני כשם עצם שומר על <strong>הסכמה מלאה</strong>: הַכּוֹתֵב (ז"י), הַכּוֹתֶבֶת (נ"י), הַכּוֹתְבִים (ז"ר), הַכּוֹתְבוֹת (נ"ר).</p>
+  </div>
+
+  <div class="role-demo">
+    <div class="role-demo-title">📦 בינוני פועל כשם עצם — ניתוח</div>
+    <div class="role-row">
+      <span class="role-badge rb-shem">נושא</span>
+      <div>
+        <div class="role-sentence">ה<span class="hl hl-shem">מְנַהֵל</span> הצעיר הגיע בזמן.</div>
+        <div class="role-explain">"המנהל" = בינוני פועל (פיעל, נ-ה-ל) בתפקיד נושא. מי הגיע? → המנהל. שם עצם מיודע.</div>
+      </div>
+    </div>
+    <div class="role-row">
+      <span class="role-badge rb-shem">מושא</span>
+      <div>
+        <div class="role-sentence">פגשתי את ה<span class="hl hl-shem">כּוֹתֵב</span> הידוע.</div>
+        <div class="role-explain">"הכּוֹתֵב" = בינוני פועל (קל) בתפקיד מושא ישיר. את מי פגשתי? → את הכּוֹתֵב.</div>
+      </div>
+    </div>
+    <div class="role-row">
+      <span class="role-badge rb-shem">נסמך</span>
+      <div>
+        <div class="role-sentence">קראתי את ספר ה<span class="hl hl-shem">מְחַבֵּר</span>.</div>
+        <div class="role-explain">"המחבר" = בינוני פועל בתפקיד סומך בגנות ("ספר של המחבר"). שם עצם לכל דבר.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="role-demo" style="margin-top:.5rem">
+    <div class="role-demo-title">📦 בינוני פעול כשם עצם — ניתוח</div>
+    <div class="role-row">
+      <span class="role-badge rb-shem">נושא</span>
+      <div>
+        <div class="role-sentence">ה<span class="hl hl-shem">כָּתוּב</span> בחוזה מחייב.</div>
+        <div class="role-explain">"הכָּתוּב" = בינוני פעול (קל, כ-ת-ב) כשם עצם. "מה שכתוב" — מתאר תוכן, לא אדם.</div>
+      </div>
+    </div>
+    <div class="role-row">
+      <span class="role-badge rb-shem">מושא</span>
+      <div>
+        <div class="role-sentence">שמרתי את ה<span class="hl hl-shem">נָתוּן</span> החשוב.</div>
+        <div class="role-explain">"הנָּתוּן" = בינוני פעול כשם עצם (= הנתון, המידע). בעברית מודרנית: data.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- סעיף 5 — בינוני כשם תואר -->
+  <div class="section-hd"><span class="sn-icon">🎨</span><div class="sn">5</div>בינוני כשם תואר — מסכים לשם לפניו</div>
+  <div class="card">
+    <p>כשהבינוני משמש <strong>כשם תואר</strong>, הוא בא <em>אחרי</em> שם עצם ומסכים אתו במין, מספר וידיעה. זהו אחד המקרים שהכי מבלבלים — כי אותה צורה יכולה להיות פועל (נשוא) ושם תואר, לפי ההקשר.</p>
+  </div>
+
+  <div class="sent-block">
+    <div class="sent-text">ילד <span style="color:#7c3aed;font-weight:800">קוֹרֵא</span> יושב בפינה.</div>
+    <div class="sent-tags">
+      <div class="stag t-other"><span class="stag-word">ילד</span><span class="stag-label">שם עצם — נושא</span></div>
+      <div class="stag t-toar"><span class="stag-word">קוֹרֵא</span><span class="stag-label">בינוני — שם תואר</span></div>
+      <div class="stag t-poal"><span class="stag-word">יושב</span><span class="stag-label">פועל — נשוא</span></div>
+    </div>
+    <div class="sent-note">"קוֹרֵא" = שם תואר של "ילד" (ילד שקורא). הנשוא האמיתי = "יושב". אם "קוֹרֵא" היה נשוא, לא היה "יושב" כנשוא נוסף.</div>
+  </div>
+
+  <div class="sent-block">
+    <div class="sent-text">הספר <span style="color:#7c3aed;font-weight:800">הכָּתוּב</span> בעברית מרתק.</div>
+    <div class="sent-tags">
+      <div class="stag t-other"><span class="stag-word">הספר</span><span class="stag-label">שם עצם — נושא</span></div>
+      <div class="stag t-toar"><span class="stag-word">הכָּתוּב</span><span class="stag-label">בינוני פעול — תואר</span></div>
+      <div class="stag t-other"><span class="stag-word">בעברית</span><span class="stag-label">צ׳ יחסי</span></div>
+      <div class="stag t-poal"><span class="stag-word">מרתק</span><span class="stag-label">נשוא</span></div>
+    </div>
+    <div class="sent-note">"הכָּתוּב" = בינוני פעול מיודע, מסכים ל"הספר" (ז"י). מה מאפיין את הספר? → שנכתב בעברית.</div>
+  </div>
+
+  <div class="box box-amber">⚠️ <strong>מבחן הזיהוי:</strong> האם הבינוני הוא <em>נשוא</em> (= הפועל הראשי) או <em>תואר</em>? שאלו: "האם יש פועל אחר במשפט?" אם כן — הבינוני הוא כנראה תואר. "ילד <strong>קוֹרֵא</strong> יושב" → "יושב" = נשוא, "קוֹרֵא" = תואר.</div>
+
+  <!-- סעיף 6 — הסכמה: הכלל המלא -->
+  <div class="section-hd"><span class="sn-icon">📐</span><div class="sn">6</div>כללי ההסכמה — הבינוני מסכים תמיד</div>
+  <div class="card">
+    <p>הבינוני — בין כפועל, כשם עצם ובין כשם תואר — תמיד <strong>מסכים</strong>:</p>
+    <ul>
+      <li><strong>כנשוא:</strong> מסכים עם הנושא בגוף, מין ומספר. "היא כּוֹתֶבֶת" (נ"י). "הם כּוֹתְבִים" (ז"ר).</li>
+      <li><strong>כשם תואר:</strong> מסכים עם שם העצם שהוא מתאר במין, מספר וידיעה. "ספר כָּתוּב" (ז"י, סתמי). "ספרים כְּתוּבִים". "הספר הכָּתוּב" (מיודע ← ה' לפניו וגם לפני שם העצם).</li>
+      <li><strong>כשם עצם:</strong> מקבל ה' הידיעה ומשמש בצורה המתאימה. "הַכּוֹתֵב" / "הַכּוֹתֶבֶת" / "הַכּוֹתְבִים".</li>
+    </ul>
+  </div>
+  <div class="box box-red">🚨 <strong>מלכודת ידיעה בשם תואר:</strong> אם שם העצם מיודע — גם הבינוני-תואר חייב להיות מיודע. "הספר <strong>הכָּתוּב</strong>" (נכון). "הספר <strong>כָּתוּב</strong>" = שגוי כשם תואר (נכון רק כנשוא). זו הטעות הנפוצה ביותר בבגרות!</div>
+
+  <!-- סעיף 7 — השוואה ותפקידים בטבלה -->
+  <div class="section-hd"><span class="sn-icon">📊</span><div class="sn">7</div>טבלת השוואה — בינוני פועל לעומת פעול</div>
+  <div style="overflow-x:auto;margin-bottom:1rem">
+    <table class="conj-table">
+      <thead><tr>
+        <th>קריטריון</th>
+        <th class="col-b">בינוני פועל (קוֹטֵל)</th>
+        <th class="col-c">בינוני פעול (קָטוּל)</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="row-label">משמעות</td><td>פעיל — עושה את הפעולה</td><td>סביל — הפעולה נעשתה לו</td></tr>
+        <tr><td class="row-label">בניין</td><td>כל שבעת הבניינים</td><td>קל בלבד (בעברית המקרא/ספרותית)</td></tr>
+        <tr><td class="row-label">דוגמה (כ-ת-ב)</td><td>כּוֹתֵב / כּוֹתֶבֶת</td><td>כָּתוּב / כְּתוּבָה</td></tr>
+        <tr><td class="row-label">כנשוא</td><td>✅ — "הוא כּוֹתֵב"</td><td>✅ — "הדף כָּתוּב" (= נמצא במצב כתוב)</td></tr>
+        <tr><td class="row-label">כשם תואר</td><td>✅ — "ילד קוֹרֵא"</td><td>✅ — "ספר כָּתוּב יפה"</td></tr>
+        <tr><td class="row-label">כשם עצם</td><td>✅ — "הַכּוֹתֵב זכה"</td><td>✅ — "הַכָּתוּב מחייב"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- סעיף 8 — כלי זיהוי -->
+  <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">8</div>כלי זיהוי — 5 שאלות לניתוח בינוני</div>
+  <div class="steps-wrap">
+    <div class="steps-title">📋 5 שאלות לזיהוי תפקיד הבינוני</div>
+    <div class="step-item"><div class="step-num">1</div><span><strong>פועל או שם?</strong> האם הבינוני הוא הנשוא היחיד? אם כן → <strong>פועל (נשוא)</strong>. "הוא כּוֹתֵב" = "כּוֹתֵב" הוא הנשוא.</span></div>
+    <div class="step-item"><div class="step-num">2</div><span><strong>יש ה' הידיעה?</strong> "הַכּוֹתֵב" עם ה' = לרוב שם עצם. "ספר הַכָּתוּב" = תואר מיודע (שם העצם לפניו גם מיודע).</span></div>
+    <div class="step-item"><div class="step-num">3</div><span><strong>בא אחרי שם עצם ומסכים אתו?</strong> "ילד קוֹרֵא" — "קוֹרֵא" אחרי "ילד" ומסכים (ז"י) = <strong>שם תואר</strong>.</span></div>
+    <div class="step-item"><div class="step-num">4</div><span><strong>מה משקלו?</strong> קוֹטֵל = בינוני פועל (פעיל). קָטוּל = בינוני פעול (סביל, קל בלבד). מְקַטֵּל = פיעל. מַקְטִיל = הפעיל.</span></div>
+    <div class="step-item"><div class="step-num">5</div><span><strong>בדוק הסכמה:</strong> הבינוני חייב להסכים עם שם העצם שהוא קשור אליו. שגיאת הסכמה = טעות תחבירית.</span></div>
+  </div>
+  <div class="box box-green">✅ <strong>מוכן לתרגול!</strong> 3 טקסטים ספרותיים עשירים + 20 שאלות על זיהוי תפקידי הבינוני, הסכמה, ובינוני פועל לעומת פעול.</div>
+
+</div>
+</div><!-- /pane-theory -->
+
+
+<!-- ══════════════════════════════════════════════
+     PRACTICE
+══════════════════════════════════════════════ -->
+<div class="tab-pane" id="pane-practice">
+<div class="print-header">
+  <h1>🌿 שיעור 7 — צורות הבינוני: שם עצם ותואר</h1>
+  <p>יחידה 3: צורות | לשון Lesson 2.0 | כיתות ט׳–י׳</p>
+</div>
+<div class="lesson-wrap">
+
+  <div id="student-gate">
+    <div class="gate-header">
+      <span class="gate-icon">✏️</span>
+      <div class="gate-title">כניסה לתרגול</div>
+      <div class="gate-desc">לפני שמתחילים — אנא הזינו שם ושיבוץ כיתה</div>
+    </div>
+    <div class="gate-body">
+      <div class="gate-field">
+        <label>שם מלא (שם + משפחה)</label>
+        <input class="gate-input" id="gate-name" type="text" placeholder="לדוגמה: דנה כהן" autocomplete="off">
+        <div class="gate-err-msg" id="gate-name-err">אנא הזינו שם ושם משפחה</div>
+      </div>
+      <div class="gate-field">
+        <label>כיתה</label>
+        <select class="gate-select" id="gate-class">
+          <option value="">— בחרו כיתה —</option>
+          <option>י׳א</option><option>י׳ב</option><option>י׳ג</option>
+          <option>י׳ד</option><option>י׳ה</option><option>י׳ו</option>
+        </select>
+        <div class="gate-err-msg" id="gate-class-err">אנא בחרו כיתה</div>
+      </div>
+      <div class="gate-field">
+        <label>תאריך</label>
+        <div class="gate-date-display" id="gate-date-display"></div>
+      </div>
+      <button class="gate-btn" onclick="confirmGate()">✅ כניסה לתרגול</button>
+    </div>
+  </div>
+
+  <div id="gate-confirmed">
+    <div class="gc-avatar" id="gc-avatar"></div>
+    <div class="gc-info">
+      <div class="gc-name" id="gc-name-display"></div>
+      <div class="gc-meta" id="gc-meta-display"></div>
+      <button class="gc-change" onclick="reopenGate()">שינוי פרטים</button>
+    </div>
+  </div>
+
+  <div id="practice-content-wrap">
+
+    <div class="reading-text-box">
+      <div class="rt-title">טקסט א׳ — הסופר והספר</div>
+      <div class="rt-body">
+        <p>ה<strong>כּוֹתֵב</strong> הצעיר יושב בחדרו <strong>מְהַרְהֵר</strong> על עלילתו. הוא <strong>מְחַפֵּשׂ</strong> את המילים ה<strong>מְדוּיָּקוֹת</strong>. הפרק ה<strong>כָּתוּב</strong> על דף ה<strong>פָּרוּשׂ</strong> לפניו עדיין חסר קטע <strong>מְסַיֵּם</strong>.</p>
+      </div>
+    </div>
+
+    <div class="reading-text-box">
+      <div class="rt-title">טקסט ב׳ — בכיתה</div>
+      <div class="rt-body">
+        <p>ה<strong>מְלַמֵּד</strong> כותב על הלוח <strong>מְסוּבָּך</strong>. תלמידה <strong>מְקַשֶּׁבֶת</strong> יושבת בשורה הראשונה ו<strong>מְעַתִּיקָה</strong> כל מילה <strong>כְּתוּבָה</strong>. ה<strong>מְנַהֵל</strong> המבקר עובר בפרוזדור ה<strong>שָׁקוּט</strong>.</p>
+      </div>
+    </div>
+
+    <div class="reading-text-box">
+      <div class="rt-title">טקסט ג׳ — סיפור קצר</div>
+      <div class="rt-body">
+        <p>ה<strong>נוֹסֵעַ</strong> עייף ישב על הכיסא ה<strong>שָׁבוּר</strong>. הוא <strong>מְחַכֶּה</strong> לאוטובוס ה<strong>מְאַחֵר</strong>. שלט ה<strong>כָּתוּב</strong> על הקיר ה<strong>סוּיָּד</strong> הודיע: "האוטובוס ה<strong>מְאַחֵר</strong> יגיע בשעה שלוש."</p>
+      </div>
+    </div>
+
+    <div class="quiz-header">
+      <div class="quiz-hd-title">🌿 צורות הבינוני — 20 שאלות</div>
+      <div class="quiz-hd-desc">MC · נכון/לא נכון · סדר — תפקידי הבינוני, הסכמה ופועל-פעול</div>
+      <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 20 נענו</span><span id="prog-pct">0%</span></div>
+    </div>
+
+    <div id="questions-container"></div>
+
+    <div id="submit-row" style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem">
+      <button class="btn-submit" onclick="submitQuiz()">📤 הגשת התרגול</button>
+      <button class="btn-reset" onclick="resetQuiz()">🔄 אתחול</button>
+    </div>
+    <div id="results-container" style="display:none"></div>
+  </div>
+
+</div>
+</div>
+
+<!-- ANSWERS -->
+<div class="tab-pane" id="pane-answers">
+<div class="lesson-wrap">
+  <div id="answers-locked-msg" class="answers-locked">
+    <div style="font-size:2.5rem;margin-bottom:.8rem">🔒</div>
+    <div style="font-family:'Secular One',sans-serif;font-size:1.1rem;margin-bottom:.5rem;color:var(--text)">התשובות נעולות</div>
+    <div style="font-size:.85rem;color:var(--muted)">המורה ישחרר את התשובות בתום השיעור</div>
+  </div>
+  <div id="answers-visible-content" style="display:none">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:.5rem">
+      <div style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--lc)">🔑 תשובות מלאות</div>
+      <span style="font-size:.72rem;color:var(--muted)" id="answers-source"></span>
+    </div>
+    <div id="answers-list"></div>
+  </div>
+</div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const FB_CFG={apiKey:"AIzaSyC1VIJaFqC-HzJHGutib10-A29i1KKO4YI",authDomain:"lashon-project.firebaseapp.com",projectId:"lashon-project",storageBucket:"lashon-project.firebasestorage.app",messagingSenderId:"444024985545",appId:"1:444024985545:web:847f8d4dad43193c147a18",measurementId:"G-26KTLPJ8N1"};
+let _db=null;
+const LESSON_ID='u3_l7';
+const LESSON_TITLE='צורות הבינוני — שם עצם ותואר';
+
+function initFirebase(){try{if(typeof firebase==='undefined')return;if(!firebase.apps.length)firebase.initializeApp(FB_CFG);_db=firebase.firestore();_db.enablePersistence().catch(()=>{});_db.collection('lessons').doc(LESSON_ID).onSnapshot(doc=>{const val=doc.exists?doc.data()?.showAnswers===true:false;const av=LS.get('lashon2_answers_visible',{});av[LESSON_ID]=val;LS.set('lashon2_answers_visible',av);ANSWERS_VISIBLE=val;applyAnswersVisibility();});}catch(e){console.warn('[FB]',e)}}
+async function saveScore(score,sn,sc){if(!_db)return;const now=new Date();const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:sn||'תלמיד/ה',className:sc||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false};try{await _db.collection('lashon2_submissions').add(d);await _db.collection('lashon2_live').doc('latest').set(d);}catch(e){console.warn(e)}}
+
+const LS={get(k,fb=null){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):fb}catch{return fb}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const _params=new URLSearchParams(location.search);
+let STUDENT_NAME=_params.get('student')||LS.get('lashon2_uname','')||'תלמיד/ה';
+let STUDENT_CLASS=LS.get('lashon2_class','')||'';
+const USER_ROLE=_params.get('role')||LS.get('lashon2_role','')||localStorage.getItem('userRole')||'student';
+let ANSWERS_VISIBLE=_params.get('answers_visible')==='1';
+const BACK_URL=_params.get('back')||'index.html';
+
+function applyAnswersVisibility(){const l=document.getElementById('answers-locked-msg');const v=document.getElementById('answers-visible-content');const s=document.getElementById('answers-source');if(USER_ROLE==='teacher'){if(l)l.style.display='none';if(v)v.style.display='';if(s)s.textContent='גישת מורה';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';}else{if(ANSWERS_VISIBLE){if(l)l.style.display='none';if(v)v.style.display='';if(s)s.textContent='שוחרר על ידי המורה';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='';}else{if(l)l.style.display='';if(v)v.style.display='none';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='none';}}}
+
+/* ══════════════════════════════════════════════
+   20 QUESTIONS — 14 MC · 4 TF · 2 SORT
+══════════════════════════════════════════════ */
+const QUESTIONS=[
+
+  /* ── טקסט א׳ ── */
+  {id:'q01',type:'mc',ref:'טקסט א׳',
+   q:'מהו תפקיד "הכּוֹתֵב" במשפט "הכּוֹתֵב הצעיר יושב בחדרו"?',
+   opts:['פועל — נשוא: הוא עושה פעולת כתיבה','שם עצם — נושא: מי שיושב הוא הכּוֹתֵב','שם תואר — מתאר את "חדרו"','שם תואר — מתאר את "יושב"'],
+   ans:1,
+   explain:'"הַכּוֹתֵב" = בינוני פועל (קוֹטֵל) עם ה׳ הידיעה, בתפקיד נושא — שם עצם שמתאר את האדם. הנשוא האמיתי = "יושב". שאלה: "מי יושב?" → "הַכּוֹתֵב". שם עצם שנגזר מבינוני.',
+   teacherNote:''},
+
+  {id:'q02',type:'mc',ref:'טקסט א׳',
+   q:'"מְהַרְהֵר" ב"יושב בחדרו מְהַרְהֵר על עלילתו" — מהו תפקידו?',
+   opts:['שם עצם — הנושא של המשפט','שם תואר — מתאר את "הכּוֹתֵב": ילד כּוֹתֵב מְהַרְהֵר','פועל — נשוא שני: הוא גם יושב וגם מהרהר בו-זמנית','שם תואר — מתאר את "עלילתו"'],
+   ans:2,
+   explain:'"מְהַרְהֵר" = בינוני פועל (הפעיל של ה-ר-ה-ר), משמש כנשוא שני מקביל ל"יושב". שני נשואים לאותו נושא: הוא [יושב] ו[מהרהר]. ניתן גם לנתחו כשם תואר — ההקשר מאפשר שניהם, אך נשוא שני הגיוני יותר.',
+   teacherNote:'שאלה עם תשובה מורכבת — פתוחה לדיון פדגוגי על גבוליות ניתוחים.'},
+
+  {id:'q03',type:'mc',ref:'טקסט א׳',
+   q:'"המילים הַמְדוּיָּקוֹת" — מהי צורת הבינוני ומהו תפקידו?',
+   opts:['בינוני פועל — נשוא: המילים מדייקות','בינוני פעול — שם תואר מיודע: מתאר "המילים" (נקבה רבים מיודע)','בינוני פועל — שם עצם: "הַמְדוּיָּקוֹת" הוא נושא','בינוני פעול — נשוא: "המילים הן מדוייקות"'],
+   ans:1,
+   explain:'"הַמְדוּיָּקוֹת" — משקל קָטוּל בצורת נקבה רבים (כְּתוּבוֹת → מְדוּיָּקוֹת). זהו בינוני פעול. הוא בא אחרי "המילים" ומסכים אתו: נקבה רבים + מיודע (ה׳ לפניו ולפני שם העצם) = שם תואר.',
+   teacherNote:''},
+
+  {id:'q04',type:'tf',ref:'טקסט א׳',
+   q:'"הַכָּתוּב" ב"הפרק הכָּתוּב על דף" ו"מְסַיֵּם" ב"חסר קטע מְסַיֵּם" — שניהם בינוני פועל.',
+   ans:false,
+   explain:'לא נכון. "הַכָּתוּב" = בינוני <strong>פעול</strong> (קָטוּל, סביל — שנכתב). "מְסַיֵּם" = בינוני <strong>פועל</strong> (פיעל של ס-י-ם — פעיל: שמסיים). שניהם שמות תואר, אך מבניינים שונים: פועל = פעיל, פעול = סביל.',
+   teacherNote:''},
+
+  {id:'q05',type:'mc',ref:'טקסט א׳',
+   q:'"דף הַפָּרוּשׂ לפניו" — מה בינוני "הַפָּרוּשׂ"?',
+   opts:['בינוני פועל — נשוא: הדף פורש','בינוני פועל — שם תואר: דף שפרש (פְּרִישָׂה = מתח)','בינוני פעול — שם תואר מיודע: דף שנפרש/נמתח לפניו','בינוני פעול — שם עצם: מה שנפרש'],
+   ans:2,
+   explain:'"הַפָּרוּשׂ" — משקל קָטוּל (פָּרוּשׂ = שנפרש/שנמתח). בינוני פעול. מסכים ל"דף" (ז"י, מיודע). תפקיד: שם תואר מיודע (ה׳ גם בדף וגם בבינוני). "דף שנמתח לפניו" — תיאור מצב.',
+   teacherNote:''},
+
+  /* ── טקסט ב׳ ── */
+  {id:'q06',type:'mc',ref:'טקסט ב׳',
+   q:'"הַמְלַמֵּד כותב על הלוח" — מהו תפקיד "הַמְלַמֵּד"?',
+   opts:['פועל — נשוא: הוא מלמד','שם עצם — נושא: מי שכותב הוא המלמד','שם תואר — מתאר מישהו אחר','שם עצם — מושא'],
+   ans:1,
+   explain:'"הַמְלַמֵּד" = בינוני פועל (פיעל, ל-מ-ד) עם ה׳ הידיעה, בתפקיד נושא — שם עצם. מי כותב? → המלמד. הנשוא האמיתי = "כותב". זהו מקרה קלאסי של בינוני כשם עצם המציין מקצוע.',
+   teacherNote:''},
+
+  {id:'q07',type:'mc',ref:'טקסט ב׳',
+   q:'"תלמידה מְקַשֶּׁבֶת יושבת בשורה הראשונה" — מה תפקיד "מְקַשֶּׁבֶת"?',
+   opts:['פועל — נשוא יחיד: היא מקשיבה','שם תואר — מסכים ל"תלמידה" (נקבה יחיד): תלמידה שמקשיבה','שם עצם — נושא: מי שמקשיבה','שם תואר — מסכים ל"שורה"'],
+   ans:1,
+   explain:'"מְקַשֶּׁבֶת" = בינוני פועל (הפעיל, נקבה יחיד), בתפקיד שם תואר של "תלמידה". הנשוא = "יושבת". כלל: יש שני פעלים לכאורה? → האחד הוא שם תואר. "תלמידה [שמקשיבה] יושבת".',
+   teacherNote:''},
+
+  {id:'q08',type:'tf',ref:'טקסט ב׳',
+   q:'"לוח מְסוּבָּך" — "מְסוּבָּך" הוא בינוני פועל של בניין פיעל.',
+   ans:false,
+   explain:'לא נכון. "מְסוּבָּך" — משקל מְפוּעָל (קָטוּל בפיעל = מְקוּטָּל). זהו בינוני <strong>פעול</strong> של פיעל. בינוני פועל של פיעל יהיה: "מְסַבֵּךְ" (= שמסבך). "מְסוּבָּך" = שסובך/שנסבך — סביל.',
+   teacherNote:'שאלה מתקדמת: בינוני פעול קיים גם לפיעל (מְקוּטָּל), לא רק לקל (קָטוּל).'},
+
+  {id:'q09',type:'mc',ref:'טקסט ב׳',
+   q:'"הַמְנַהֵל המבקר עובר בפרוזדור" — מה תפקיד "המבקר"?',
+   opts:['פועל — נשוא: הוא מבקר','שם עצם — נושא של "עובר"','שם תואר — מתאר "הַמְנַהֵל": המנהל שמבקר','שם תואר — מתאר "הפרוזדור"'],
+   ans:2,
+   explain:'"הַמְנַהֵל הַמְבַקֵּר" — "המבקר" = בינוני פועל מיודע, מסכים ל"הַמְנַהֵל" (ז"י מיודע). זהו שם תואר. הנשוא = "עובר". שימו לב: שניהם מיודעים (שתי ה׳), שניהם ז"י → הסכמה מלאה.',
+   teacherNote:''},
+
+  {id:'q10',type:'mc',ref:'טקסט ב׳',
+   q:'"מִלָּה כְּתוּבָה" — מהי צורת הבינוני ומדוע אינה מיודעת?',
+   opts:['בינוני פועל — כי "מילה" הוא שם פרטי','בינוני פעול — כְּתוּבָה מסכים ל"מילה" (נקבה יחיד). שניהם סתמיים (ללא ה׳) → הסכמה נכונה','בינוני פועל — כי אין ה׳ = שגיאה','בינוני פעול — כי "מילה" מיודע ו"כתובה" סתמי = שגיאה'],
+   ans:1,
+   explain:'"מִלָּה כְּתוּבָה" — "כְּתוּבָה" = בינוני פעול, נקבה יחיד, <strong>סתמי</strong>. "מילה" גם סתמי. כלל ההסכמה: שם עצם סתמי ← תואר סתמי. שם עצם מיודע ← תואר מיודע. שניהם סתמיים = הסכמה נכונה.',
+   teacherNote:''},
+
+  /* ── טקסט ג׳ ── */
+  {id:'q11',type:'mc',ref:'טקסט ג׳',
+   q:'"הַנּוֹסֵעַ עייף ישב" — מה תפקיד "הַנּוֹסֵעַ"?',
+   opts:['פועל — נשוא: הוא נוסע','שם עצם — נושא: מי שישב הוא הנוסע','שם תואר — מסכים ל"עייף"','פועל — מושא'],
+   ans:1,
+   explain:'"הַנּוֹסֵעַ" = בינוני פועל (קל, נ-ס-ע) עם ה׳ הידיעה = שם עצם בתפקיד נושא. מי ישב? → הַנּוֹסֵעַ. הנשוא = "ישב". זוהי דוגמה לבינוני שהפך לשם עצם עצמאי (direct lexicalization).',
+   teacherNote:''},
+
+  {id:'q12',type:'mc',ref:'טקסט ג׳',
+   q:'"כיסא הַשָּׁבוּר" — מהי הצורה הדקדוקית הנכונה בהתחשב בה׳ הידיעה?',
+   opts:['נכון — "כיסא" + "השבור": שם עצם מיודע + בינוני פעול מיודע','שגוי — צריך: "כיסא שבור" (ללא ה׳ בשניהם)','שגוי — צריך: "הכיסא השבור" (ה׳ גם לפני "כיסא")','שגוי — צריך: "כיסא מְשוּבָּר" (פיעל)'],
+   ans:2,
+   explain:'זוהי המלכודת הגדולה! כלל ההסכמה בידיעה: <strong>שם עצם מיודע ↔ תואר מיודע</strong>. "כיסא" (ללא ה׳) + "השבור" (עם ה׳) = חוסר הסכמה. הנכון: "כיסא שבור" (שניהם סתמיים) או "הכיסא השבור" (שניהם מיודעים).',
+   teacherNote:'זוהי שאלת הבגרות הנפוצה ביותר בנושא הבינוני!'},
+
+  {id:'q13',type:'tf',ref:'טקסט ג׳',
+   q:'"האוטובוס הַמְאַחֵר" — "הַמְאַחֵר" הוא בינוני פועל בתפקיד שם תואר.',
+   ans:true,
+   explain:'נכון. "הַמְאַחֵר" = בינוני פועל (הפעיל, א-ח-ר), מיודע, ז"י. הוא מסכים ל"האוטובוס" (ז"י, מיודע). תפקיד: שם תואר. "האוטובוס שמאחר". הנשוא = "יגיע". הסכמה מלאה.',
+   teacherNote:''},
+
+  {id:'q14',type:'mc',ref:'טקסט ג׳',
+   q:'"קיר הַסּוּיָּד" — מהו "הַסּוּיָּד"?',
+   opts:['בינוני פועל — הקיר סיד','בינוני פעול — קָטוּל: קיר שסוּיֵּד (נמרח בסיד), שם תואר מיודע','בינוני פועל של פיעל — מְסַיֵּד','שם עצם עצמאי'],
+   ans:1,
+   explain:'"הַסּוּיָּד" = בינוני פעול (פיעל, ס-י-ד → מְסוּיָּד → סוּיָּד). קיר שסוּיֵּד — הייתה פעולה שנעשתה לו. מסכים ל"הקיר" (ז"י, מיודע) → שם תואר מיודע. צורת פעול של פיעל = מְקוּטָּל.',
+   teacherNote:''},
+
+  /* ── תיאוריה ── */
+  {id:'q15',type:'mc',ref:'תיאוריה',
+   q:'מה ההבדל בין "כּוֹתֵב" כנשוא לבין "כּוֹתֵב" כשם תואר?',
+   opts:['אין הבדל — אותה צורה, אותה משמעות','כנשוא: הוא הפועל הראשי, אין פועל אחר. כשם תואר: יש פועל אחר, והבינוני מתאר שם עצם','כנשוא: תמיד עם ה׳ הידיעה. כשם תואר: תמיד ללא ה׳','כנשוא: נקבה רבים. כשם תואר: זכר יחיד'],
+   ans:1,
+   explain:'המפתח הוא האם יש פועל אחר: "הוא <strong>כּוֹתֵב</strong>" — כּוֹתֵב = נשוא יחיד. "ילד <strong>כּוֹתֵב</strong> <em>יושב</em>" — "יושב" = נשוא; "כּוֹתֵב" = שם תואר. כלל: אם יש פועל נוסף → הבינוני הוא שם תואר (או שם עצם).',
+   teacherNote:''},
+
+  {id:'q16',type:'mc',ref:'תיאוריה',
+   q:'מה ההבדל בין "כָּתוּב" (בינוני פעול) לבין "כּוֹתֵב" (בינוני פועל) מבחינת משמעות?',
+   opts:['"כָּתוּב" — פעיל: מי שכותב. "כּוֹתֵב" — סביל: מה שנכתב','אין הבדל משמעות, רק צורה שונה','"כּוֹתֵב" — פעיל: מי שעושה פעולת כתיבה. "כָּתוּב" — סביל: מה שנמצא במצב כתוב','"כָּתוּב" — עבר. "כּוֹתֵב" — הווה'],
+   ans:2,
+   explain:'ההבדל המהותי: "כּוֹתֵב" (קוֹטֵל) = פעיל — הנושא הוא עושה הפעולה ("הוא כּוֹתֵב" = כותב עכשיו). "כָּתוּב" (קָטוּל) = סביל — הנושא מצוי במצב שנוצר מפעולה ("הדבר כָּתוּב" = נמצא כתוב).',
+   teacherNote:''},
+
+  {id:'q17',type:'tf',ref:'תיאוריה',
+   q:'בינוני פעול (קָטוּל) קיים בכל שבעת הבניינים בדיוק כמו בינוני פועל.',
+   ans:false,
+   explain:'לא נכון. בינוני פעול במשקל קָטוּל (כָּתוּב, שָׁבוּר, אָהוּב) קיים <strong>בקל בלבד</strong> בעברית הקלאסית. בבניינים אחרים יש בינוני פעול בצורות שונות: פיעל → מְקוּטָּל (מְסוּבָּך). הפעיל → מֻקְטָל (מוּכְנָס). נפעל — הבינוני עצמו סביל (נִכְתָּב).',
+   teacherNote:''},
+
+  {id:'q18',type:'sort',ref:'תיאוריה',
+   q:'סדרו: איזה ניתוח נכון ל"הספר הַכָּתוּב בעברית" — מהכלל הראשון שיש לבדוק עד לאחרון:',
+   items:['שלב 4: בדוק הסכמה — "הספר" מיודע ↔ "הכָּתוּב" מיודע ✅','שלב 1: זהה את הבינוני — "הַכָּתוּב" = קָטוּל = בינוני פעול','שלב 3: קבע תפקיד — בא אחרי "הספר" ומסכים = שם תואר','שלב 2: קבע מין ומספר — "הספר" ז"י מיודע → "הכָּתוּב" ז"י מיודע'],
+   correctOrder:[1,3,2,0],
+   explain:'סדר הניתוח הנכון: (1) זיהוי הבינוני ומשקלו. (2) קביעת מין/מספר/ידיעה לפי שם העצם. (3) קביעת תפקיד לפי מיקום. (4) אימות הסכמה. עבודה שיטתית מונעת טעויות.',
+   teacherNote:''},
+
+  {id:'q19',type:'mc',ref:'תיאוריה',
+   q:'באיזו משפט "כּוֹתֵב" משמש כשם עצם?',
+   opts:['הוא כּוֹתֵב מכתב כל יום','ילד כּוֹתֵב יושב בפינה','הַכּוֹתֵב הצעיר זכה בפרס הספרות','ספר כּוֹתֵב נמכר רבות'],
+   ans:2,
+   explain:'"הַכּוֹתֵב הצעיר זכה" — "הַכּוֹתֵב" עם ה׳ הידיעה = שם עצם בתפקיד נושא. (א) = נשוא. (ב) = שם תואר (של "ילד"). (ד) = שם תואר (של "ספר"). רק (ג) הוא שם עצם עצמאי.',
+   teacherNote:''},
+
+  {id:'q20',type:'mc',ref:'תיאוריה',
+   q:'מה הביטוי הנכון מבחינת הסכמת הבינוני?',
+   opts:['הבנות הכּוֹתֵב בכיתה (שגיאה)','הבנות הַכּוֹתְבוֹת בכיתה (נכון — נקבה רבים מיודע, הסכמה מלאה)','בנות כּוֹתֵב בכיתה (שגיאה)','הבנות הכּוֹתְבִים בכיתה (שגיאה)'],
+   ans:1,
+   explain:'"הַכּוֹתְבוֹת" — נקבה רבים מיודע, מסכים ל"הבנות" (נקבה רבים מיודע). ✅ (א) שגוי: "כּוֹתֵב" = ז"י, לא מסכים ל"הבנות". (ג) שגוי: "בנות" סתמי, "כּוֹתֵב" ז"י — גם מין וגם ידיעה שגויים. (ד) שגוי: "כּוֹתְבִים" = ז"ר.',
+   teacherNote:''},
+];
+
+/* ══════════════════════════════════════════════
+   STATE & GATE
+══════════════════════════════════════════════ */
+const QS={answers:{},submitted:false};
+let _lastScore=null,_lastCorrect=0,_gateConfirmed=false;
+
+function switchTab(t){
+  ['theory','practice','answers'].forEach(x=>{
+    document.getElementById('pane-'+x)?.classList.toggle('active',x===t);
+    document.getElementById('btn-'+x)?.classList.toggle('active',x===t);
+    document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);
+  });
+  if(t==='answers')renderAnswers();
+  if(t==='practice'&&!_gateConfirmed)document.getElementById('gate-date-display').textContent=new Date().toLocaleDateString('he-IL');
+}
+function confirmGate(){
+  const nm=document.getElementById('gate-name').value.trim();
+  const cl=document.getElementById('gate-class').value;
+  let ok=true;
+  if(nm.split(/\s+/).length<2){document.getElementById('gate-name').classList.add('err');document.getElementById('gate-name-err').classList.add('show');ok=false;}
+  else{document.getElementById('gate-name').classList.remove('err');document.getElementById('gate-name-err').classList.remove('show');}
+  if(!cl){document.getElementById('gate-class').classList.add('err');document.getElementById('gate-class-err').classList.add('show');ok=false;}
+  else{document.getElementById('gate-class').classList.remove('err');document.getElementById('gate-class-err').classList.remove('show');}
+  if(!ok)return;
+  STUDENT_NAME=nm;STUDENT_CLASS=cl;LS.set('lashon2_uname',nm);LS.set('lashon2_class',cl);
+  _gateConfirmed=true;
+  document.getElementById('student-gate').classList.add('hidden');
+  const av=document.getElementById('gc-avatar'),nm2=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');
+  if(av)av.textContent=nm[0].toUpperCase();if(nm2)nm2.textContent=nm;if(mt)mt.textContent='כיתה '+cl+' · '+new Date().toLocaleDateString('he-IL');
+  document.getElementById('gate-confirmed').classList.add('show');
+  document.getElementById('practice-content-wrap').style.display='';
+}
+function reopenGate(){_gateConfirmed=false;document.getElementById('student-gate').classList.remove('hidden');document.getElementById('gate-confirmed').classList.remove('show');document.getElementById('practice-content-wrap').style.display='none';}
+
+const LETTERS=['א','ב','ג','ד'];
+let _dragSrc=null;
+function renderQuestions(){const cont=document.getElementById('questions-container');if(!cont)return;cont.innerHTML=QUESTIONS.map((q,i)=>buildCard(q,i)).join('');updateProgress();renderAnswers();}
+function buildCard(q,i){
+  const typeLbl=q.type==='mc'?'בחירה מרובה':q.type==='tf'?'נכון/לא נכון':'סידור';
+  let inner='';
+  if(q.type==='mc'){inner='<div class="mc-wrap">'+q.opts.map((o,j)=>'<button class="mc-btn" id="mc_'+q.id+'_'+j+'" onclick="pickMC(\''+q.id+'\','+j+')" '+(QS.submitted?'disabled':'')+'><span class="mc-letter">'+LETTERS[j]+'</span><span>'+o+'</span></button>').join('')+'</div>';}
+  else if(q.type==='tf'){inner='<div class="tf-row"><button class="tf-btn" id="tf_'+q.id+'_t" onclick="pickTF(\''+q.id+'\',true)" '+(QS.submitted?'disabled':'')+'>✅ נכון</button><button class="tf-btn" id="tf_'+q.id+'_f" onclick="pickTF(\''+q.id+'\',false)" '+(QS.submitted?'disabled':'')+'>❌ לא נכון</button></div>';}
+  else{const order=QS.answers[q.id]?.order||q.items.map((_,j)=>j);inner='<div class="sort-note">גרור את הפריטים לסדר הנכון ↕</div><div class="sort-list" id="sort_'+q.id+'">'+order.map(j=>'<div class="sort-item" draggable="true" data-idx="'+j+'" ondragstart="dStart(event,\''+q.id+'\')" ondragover="dOver(event)" ondrop="dDrop(event,\''+q.id+'\')" ondragend="dEnd(event)"><span class="sort-handle">⠿</span><span class="sort-text">'+q.items[j]+'</span></div>').join('')+'</div>';}
+  return '<div class="q-card" id="qcard_'+q.id+'"><div class="q-num">שאלה '+(i+1)+' <span class="q-type-badge">'+typeLbl+'</span> <span style="font-size:.62rem;color:var(--lc);font-weight:700">'+q.ref+'</span></div><div class="q-text">'+q.q+'</div>'+inner+'<div class="q-feedback" id="fb_'+q.id+'"></div></div>';
+}
+function pickMC(id,j){if(QS.submitted)return;QS.answers[id]={sel:j};QUESTIONS.forEach(q=>{if(q.id===id&&q.type==='mc')q.opts.forEach((_,k)=>{const b=document.getElementById('mc_'+id+'_'+k);if(b)b.classList.toggle('sel',k===j);});});updateProgress();}
+function pickTF(id,val){if(QS.submitted)return;QS.answers[id]={sel:val};const bt=document.getElementById('tf_'+id+'_t'),bf=document.getElementById('tf_'+id+'_f');if(bt)bt.classList.toggle('sel',val===true);if(bf)bf.classList.toggle('sel',val===false);updateProgress();}
+function dStart(e,id){_dragSrc=e.currentTarget;e.dataTransfer.effectAllowed='move';e.currentTarget.classList.add('dragging');}
+function dOver(e){e.preventDefault();e.dataTransfer.dropEffect='move';const t=e.currentTarget;if(t!==_dragSrc&&t.classList.contains('sort-item'))t.classList.add('drag-over');}
+function dEnd(e){e.currentTarget.classList.remove('dragging');document.querySelectorAll('.sort-item').forEach(el=>el.classList.remove('drag-over'));}
+function dDrop(e,id){e.preventDefault();if(!_dragSrc||_dragSrc===e.currentTarget)return;const list=document.getElementById('sort_'+id);const items=[...list.querySelectorAll('.sort-item')];const fi=items.indexOf(_dragSrc),ti=items.indexOf(e.currentTarget);if(fi<0||ti<0)return;const clone=_dragSrc.cloneNode(true);list.insertBefore(clone,fi<ti?e.currentTarget.nextSibling:e.currentTarget);_dragSrc.remove();clone.ondragstart=ev=>dStart(ev,id);clone.ondragover=dOver;clone.ondrop=ev=>dDrop(ev,id);clone.ondragend=dEnd;QS.answers[id]={order:[...list.querySelectorAll('.sort-item')].map(el=>parseInt(el.dataset.idx))};updateProgress();}
+function updateProgress(){const ans=Object.keys(QS.answers).length,tot=QUESTIONS.length,pct=Math.round(ans/tot*100);const pf=document.getElementById('prog-fill'),pt=document.getElementById('prog-txt'),pp=document.getElementById('prog-pct');if(pf)pf.style.width=pct+'%';if(pt)pt.textContent=ans+' מתוך '+tot+' נענו';if(pp)pp.textContent=pct+'%';}
+function submitQuiz(){
+  const un=QUESTIONS.filter(q=>!QS.answers[q.id]||(q.type==='mc'&&QS.answers[q.id].sel===undefined)||(q.type==='tf'&&QS.answers[q.id].sel===undefined));
+  if(un.length>0){toast('⚠️ יש '+un.length+' שאלות שלא נענו');return;}
+  QS.submitted=true;let correct=0;
+  QUESTIONS.forEach(q=>{
+    const a=QS.answers[q.id];let ok=false;
+    if(q.type==='mc')ok=a?.sel===q.ans;
+    else if(q.type==='tf')ok=a?.sel===q.ans;
+    else if(q.type==='sort')ok=JSON.stringify(a?.order)===JSON.stringify(q.correctOrder);
+    if(ok)correct++;
+    const card=document.getElementById('qcard_'+q.id);if(card){card.classList.toggle('ok',ok);card.classList.toggle('wrong',!ok);}
+    const fb=document.getElementById('fb_'+q.id);
+    if(fb){fb.classList.add('show',ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain+(q.teacherNote&&USER_ROLE==='teacher'?'<br><strong>🎓 '+q.teacherNote+'</strong>':'');}
+    if(q.type==='mc'){q.opts.forEach((_,j)=>{const b=document.getElementById('mc_'+q.id+'_'+j);if(b){b.disabled=true;if(j===q.ans)b.classList.add('correct');else if(a?.sel===j)b.classList.add('wrong');}});}
+    else if(q.type==='tf'){const bt=document.getElementById('tf_'+q.id+'_t'),bf=document.getElementById('tf_'+q.id+'_f');if(bt)bt.disabled=true;if(bf)bf.disabled=true;if(q.ans===true&&bt)bt.classList.add('correct');else if(q.ans===false&&bf)bf.classList.add('correct');if(a?.sel===true&&!q.ans&&bt)bt.classList.add('wrong');if(a?.sel===false&&q.ans&&bf)bf.classList.add('wrong');}
+  });
+  _lastCorrect=correct;_lastScore=Math.round(correct/QUESTIONS.length*100);
+  document.getElementById('submit-row').style.display='none';
+  const res=document.getElementById('results-container');res.style.display='';
+  const emoji=_lastScore>=90?'🏆':_lastScore>=75?'⭐':_lastScore>=55?'👍':'💪';
+  const color=_lastScore>=75?'var(--green)':_lastScore>=55?'var(--amber)':'var(--red)';
+  res.innerHTML='<div class="results-card"><span class="results-emoji">'+emoji+'</span><span class="results-score" style="color:'+color+'">'+_lastScore+'%</span><span class="results-label">'+correct+' מתוך '+QUESTIONS.length+' תשובות נכונות</span><div class="results-bar"><div class="results-bar-fill" style="width:'+_lastScore+'%;background:'+color+'"></div></div><div style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center"><button class="btn-reset" onclick="resetQuiz()">🔄 נסה שוב</button><button class="btn-send" onclick="sendResults()">📨 שלח למורה</button></div></div>';
+  saveScore(_lastScore,STUDENT_NAME,STUDENT_CLASS);
+}
+function resetQuiz(){QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;document.getElementById('results-container').style.display='none';document.getElementById('submit-row').style.display='flex';renderQuestions();toast('🔄 התרגול אותחל');}
+function sendResults(){if(_lastScore===null){toast('אנא הגש תחילה');return;}toast('✅ הציון נשלח: '+_lastScore+'%');}
+function renderAnswers(){
+  const al=document.getElementById('answers-list');if(!al)return;
+  al.innerHTML=QUESTIONS.map((q,i)=>{
+    let ans='';
+    if(q.type==='mc')ans=LETTERS[q.ans]+'. '+q.opts[q.ans];
+    else if(q.type==='tf')ans=q.ans?'✅ נכון':'❌ לא נכון';
+    else if(q.type==='sort')ans=q.correctOrder.map(j=>q.items[j]).join(' ← ');
+    return '<div class="answer-row"><div class="ans-num">שאלה '+(i+1)+' <span style="color:var(--lc)">'+q.ref+'</span></div><div class="ans-q">'+q.q+'</div><div class="ans-correct">✅ '+ans+'</div><div class="ans-explain">💡 '+q.explain+'</div>'+(q.teacherNote?'<div class="ans-teacher-note">🎓 '+q.teacherNote+'</div>':'')+'</div>';
+  }).join('');
+}
+function printLesson(){
+  const pw=window.open('','_blank','width=900,height=700');
+  const SNP=STUDENT_NAME||'תלמיד/ה',SCP=STUDENT_CLASS||'—';
+  const sh=QS.submitted?'<div style="background:#f0fdfa;border:2px solid #99f6e4;border-radius:12px;padding:1rem 1.4rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem"><span style="font-size:2rem">'+(_lastScore>=90?'🏆':_lastScore>=75?'⭐':'👍')+'</span><div><div style="font-weight:800;font-size:1.1rem;color:#0f766e">'+_lastScore+'%</div><div style="font-size:.85rem;color:#6b7594">'+_lastCorrect+' מתוך '+QUESTIONS.length+' נכון</div></div></div>':'';
+  pw.document.write('<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><title>הדפסה — יח׳3 שיעור 7</title><link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;700;800&display=swap" rel="stylesheet"><style>body{font-family:\'Heebo\',sans-serif;direction:rtl;background:#fff;color:#0d1424;font-size:10pt;line-height:1.6}.doc{max-width:700px;margin:0 auto;padding:1cm}.doc-header{text-align:center;border-bottom:3px solid #0f766e;padding-bottom:.8rem;margin-bottom:1.5rem}.doc-header h1{font-family:\'Secular One\',sans-serif;font-size:16pt;color:#0f766e;margin-bottom:.3rem}.sec-title{font-family:\'Secular One\',sans-serif;font-size:12pt;color:#0f766e;border-bottom:1.5px solid #99f6e4;padding-bottom:.35rem;margin:1.4rem 0 .8rem}.q-row{display:flex;gap:.6rem;border:1px solid #e4e7ef;border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid}.q-row.ok{border-color:#bbf7d0;background:#fafffe}.q-row.wrong{border-color:#fca5a5;background:#fffbfb}.q-num-c{width:20px;height:20px;border-radius:50%;background:#0f766e;color:#fff;font-size:.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}.q-row.ok .q-num-c{background:#15803d}.q-row.wrong .q-num-c{background:#dc2626}.q-body{flex:1}.q-txt{font-size:9.5pt;font-weight:700;margin-bottom:.3rem}.ans-ok{font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem}.ans-bad{font-size:9pt;padding:.3rem .65rem;background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;border-radius:6px;margin-bottom:.25rem}.ans-cor{font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem}.q-expl{font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem;line-height:1.5}.q-tip{font-size:8pt;color:#0f766e;margin-top:.2rem;background:#f0fdfa;border-radius:5px;padding:.25rem .55rem}@page{margin:1.5cm;size:A4}</style></head><body><div class="doc"><div class="doc-header"><h1>🌿 שיעור 7 — צורות הבינוני: שם עצם ותואר</h1><p>יחידה 3: צורות | לשון Lesson 2.0</p><div style="font-size:11pt;font-weight:700;margin-top:.5rem">תלמיד/ה: '+SNP+' | כיתה: '+SCP+' | '+new Date().toLocaleDateString('he-IL')+'</div></div>'+sh+'<div class="sec-title">תרגול ותשובות</div>'+QUESTIONS.map((q,i)=>{const a=QS.answers[q.id];let ok=false,gv='לא נענה';if(q.type==='mc'&&a?.sel!==undefined){gv=LETTERS[a.sel]+'. '+q.opts[a.sel];ok=a.sel===q.ans;}else if(q.type==='tf'&&a?.sel!==undefined){gv=a.sel?'נכון':'לא נכון';ok=a.sel===q.ans;}else if(q.type==='sort'&&a?.order){gv=a.order.map(j=>q.items[j]).join(' ← ');ok=JSON.stringify(a.order)===JSON.stringify(q.correctOrder);}const ca=q.type==='mc'?LETTERS[q.ans]+'. '+q.opts[q.ans]:q.type==='tf'?(q.ans?'נכון':'לא נכון'):q.correctOrder.map(j=>q.items[j]).join(' ← ');return '<div class="q-row '+(QS.submitted?(ok?'ok':'wrong'):'')+'"><div class="q-num-c">'+(i+1)+'</div><div class="q-body"><div class="q-txt">'+q.q+'</div><div class="'+(QS.submitted?(ok?'ans-ok':'ans-bad'):'ans-ok')+'" style="'+(QS.submitted?'':'background:#f0fdfa;color:#0f766e;border-color:#99f6e4')+'"><strong>'+(QS.submitted?(ok?'✅':'❌'):'→')+' תשובת התלמיד/ה:</strong> '+gv+'</div>'+(QS.submitted&&!ok&&gv!=='לא נענה'?'<div class="ans-cor"><strong>✅ התשובה הנכונה:</strong> '+ca+'</div>':'')+'<div class="q-expl">💡 '+q.explain+'</div>'+(q.teacherNote?'<div class="q-tip">🎓 '+q.teacherNote+'</div>':'')+'</div></div>';}).join('')+'</div><script>window.onload=()=>{setTimeout(()=>window.print(),400)}<\/script></body></html>');
+  pw.document.close();
+}
+let _tt;
+function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800)}
+function goBack(){if(window.opener){try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}window.close();return;}window.location.href=BACK_URL;}
+function init(){
+  initFirebase();
+  if(USER_ROLE==='teacher'){
+    const rc=document.getElementById('role-chip');if(rc)rc.style.display='';
+    const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';
+    _gateConfirmed=true;
+    const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='';
+    document.getElementById('student-gate')?.classList.add('hidden');
+    document.getElementById('gate-confirmed')?.classList.add('hidden');
+  }else{
+    const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';
+    if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){
+      _gateConfirmed=true;if(wrap)wrap.style.display='';
+      document.getElementById('student-gate')?.classList.add('hidden');
+      const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');
+      if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');
+      document.getElementById('gate-confirmed')?.classList.remove('hidden');
+    }
+  }
+  applyAnswersVisibility();renderQuestions();
+}
+init();
+</script>
+</body>
+</html>
