@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/Lesson-2.0/*"
+  to = "/:splat"
+  status = 301
+  force = true
