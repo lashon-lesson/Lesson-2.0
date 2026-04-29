@@ -540,63 +540,75 @@ button,input,select,textarea{font-family:inherit}
 
 <!-- ═══ ANSWERS ═══ -->
 <div class="tab-pane" id="pane-answers">
+<div class="print-header">
+  <h1>מפתח תשובות — שיעור 6: הפיסוק התקני</h1>
+  <p>20 שאלות + הסברים | לשון Lesson 2.0</p>
+</div>
 <div class="lesson-wrap">
-  <div id="answers-list"></div>
+  <div id="answers-locked-msg" class="answers-locked">
+    <div style="font-size:3rem;margin-bottom:1rem">🔒</div>
+    <div style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:.6rem">התשובות טרם פורסמו</div>
+    <p style="font-size:.86rem;color:var(--muted);max-width:380px;margin:0 auto;line-height:1.65">המורה יפתח את התשובות לאחר שהכיתה תסיים.</p>
+  </div>
+  <div id="answers-visible-content" style="display:none">
+    <div style="background:var(--gold-lt);border:1.5px solid #fde68a;border-radius:var(--r-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem">
+      <div style="font-size:.78rem;font-weight:800;color:var(--gold)">🔑 מפתח תשובות + הסברים פדגוגיים</div>
+      <div id="answers-source" style="font-size:.74rem;color:var(--amber);margin-top:.25rem"></div>
+    </div>
+    <div id="answers-container"></div>
+  </div>
 </div>
 </div>
 
 <div id="toast"></div>
 
 <script>
-// ═══ CONFIG ═══
-const LESSON_ID = 'u4_l6';
-const LESSON_TITLE = 'הפיסוק התקני';
-const BACK_URL = 'index.html';
-const USER_ROLE = (()=>{try{return localStorage.getItem('lashon2_role')||'student'}catch{return 'student'}})();
-let STUDENT_NAME = (()=>{try{return localStorage.getItem('lashon2_uname')||'תלמיד/ה'}catch{return 'תלמיד/ה'}})();
-let STUDENT_CLASS = (()=>{try{return localStorage.getItem('lashon2_class')||''}catch{return ''}})();
-
-const LS = {
-  get:(k)=>{try{return localStorage.getItem(k)}catch{return null}},
-  set:(k,v)=>{try{localStorage.setItem(k,v)}catch{}}
-};
-
-// ═══ FIREBASE ═══
+const FB_CFG={apiKey:"AIzaSyC1VIJaFqC-HzJHGutib10-A29i1KKO4YI",authDomain:"lashon-project.firebaseapp.com",projectId:"lashon-project",storageBucket:"lashon-project.firebasestorage.app",messagingSenderId:"444024985545",appId:"1:444024985545:web:847f8d4dad43193c147a18",measurementId:"G-26KTLPJ8N1"};
 let _db=null;
-function initFirebase(){
-  try{
-    if(!firebase.apps.length){
-      firebase.initializeApp({apiKey:"AIzaSyDemo",authDomain:"lashon-project.firebaseapp.com",projectId:"lashon-project"});
-    }
-    _db=firebase.firestore();
-  }catch(e){console.warn('Firebase init failed',e);}
-}
-async function saveScore(score,name,cls){
-  if(!_db)return;
-  try{
-    await _db.collection('lashon2_submissions').add({
-      lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,
-      studentName:name,studentClass:cls,score,
-      ts:firebase.firestore.FieldValue.serverTimestamp()
-    });
-  }catch(e){console.warn('Save score failed',e);}
+const LESSON_ID='u4_l6';
+const LESSON_TITLE='הפיסוק התקני';
+async function saveScore(score,studentName,className){if(!_db)return;const now=new Date();const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:studentName||'תלמיד/ה',className:className||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false};try{await _db.collection('lashon2_submissions').add(d);await _db.collection('lashon2_live').doc('latest').set(d);}catch(e){console.warn(e)}}
+const LS={get(k,fb=null){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):fb}catch{return fb}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const _params=new URLSearchParams(location.search);
+let STUDENT_NAME=_params.get('student')||LS.get('lashon2_uname','')||'תלמיד/ה';
+let STUDENT_CLASS=LS.get('lashon2_class','')||'';
+const USER_ROLE=_params.get('role')||LS.get('lashon2_role','')||localStorage.getItem('userRole')||'student';
+let ANSWERS_VISIBLE=_params.get('answers_visible')==='1';
+const BACK_URL=_params.get('back')||'index.html';
+
+function initFirebase(){try{if(typeof firebase==='undefined')return;if(!firebase.apps.length)firebase.initializeApp(FB_CFG);_db=firebase.firestore();_db.enablePersistence().catch(()=>{});_db.collection('lessons').doc(LESSON_ID).onSnapshot(doc=>{const val=doc.exists?doc.data()?.showAnswers===true:false;const av=LS.get('lashon2_answers_visible',{});av[LESSON_ID]=val;LS.set('lashon2_answers_visible',av);ANSWERS_VISIBLE=val;applyAnswersVisibility();});}catch(e){console.warn('[FB]',e)}}
+
+function applyAnswersVisibility(){
+  const locked=document.getElementById('answers-locked-msg');
+  const visible=document.getElementById('answers-visible-content');
+  const src=document.getElementById('answers-source');
+  if(USER_ROLE==='teacher'){if(locked)locked.style.display='none';if(visible)visible.style.display='';if(src)src.textContent='גישת מורה';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';}
+  else{if(ANSWERS_VISIBLE){if(locked)locked.style.display='none';if(visible)visible.style.display='';if(src)src.textContent='שוחרר על ידי המורה';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='';}else{if(locked)locked.style.display='';if(visible)visible.style.display='none';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='none';}}
 }
 
-// ═══ TABS ═══
 function switchTab(t){
-  ['theory','practice','answers'].forEach(id=>{
-    document.getElementById('pane-'+id)?.classList.toggle('active',id===t);
-    const btn=document.getElementById('btn-'+id);
-    if(btn) btn.classList.toggle('active',id===t);
+  ['theory','practice','answers'].forEach(x=>{
+    document.getElementById('pane-'+x)?.classList.toggle('active',x===t);
+    document.getElementById('btn-'+x)?.classList.toggle('active',x===t);
+    document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);
   });
-  if(t==='answers') renderAnswers();
-}
-function applyAnswersVisibility(){
-  if(USER_ROLE==='teacher'){
-    const ta=document.getElementById('btn-answers');if(ta)ta.style.display='';
-  }else{
-    const ta=document.getElementById('btn-answers');if(ta)ta.style.display='none';
+  if(t==='practice'&&USER_ROLE==='teacher'){
+    document.getElementById('student-gate')?.classList.add('hidden');
+    document.getElementById('gate-confirmed')?.classList.add('hidden');
+    const tw=document.getElementById('practice-content-wrap');if(tw)tw.style.display='';
   }
+  if(t==='practice'&&USER_ROLE==='student'){
+    const dateEl=document.getElementById('gate-date-display');
+    if(dateEl)dateEl.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    const gate=document.getElementById('student-gate'),conf=document.getElementById('gate-confirmed'),wrap=document.getElementById('practice-content-wrap');
+    const ne=document.getElementById('gate-name'),ce=document.getElementById('gate-class');
+    if(!_gateConfirmed){
+      if(ne&&STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה')ne.value=STUDENT_NAME;
+      if(ce&&STUDENT_CLASS)ce.value=STUDENT_CLASS;
+      if(gate)gate.classList.remove('hidden');if(conf)conf.classList.add('hidden');if(wrap)wrap.style.display='none';
+    }else{if(gate)gate.classList.add('hidden');if(conf)conf.classList.remove('hidden');if(wrap)wrap.style.display='';}
+  }
+  if(t==='answers')renderAnswers();
 }
 
 // ═══ DATE ═══
@@ -848,15 +860,18 @@ function resetQuiz(){
 
 // ═══ ANSWERS ═══
 function renderAnswers(){
-  const al=document.getElementById('answers-list');if(!al)return;
-  const LETTERS=['א','ב','ג','ד'];
-  al.innerHTML=QUESTIONS.map((q,i)=>{
-    let ans='';
-    if(q.type==='mc')ans=`${LETTERS[q.ans]}. ${q.opts[q.ans]}`;
-    else if(q.type==='tf')ans=q.ans?'✅ נכון':'❌ לא נכון';
-    else if(q.type==='sort')ans=q.correctOrder.map(j=>q.items[j]).join(' ← ');
-    return `<div class="answer-row"><div class="ans-num">שאלה ${i+1} <span style="color:var(--lc)">${q.ref}</span></div><div class="ans-q">${q.q}</div><div class="ans-correct">✅ ${ans}</div><div class="ans-explain">💡 ${q.explain}</div>${q.teacherNote?`<div class="ans-teacher-note">🎓 ${q.teacherNote}</div>`:''}</div>`;
-  }).join('');
+  const c=document.getElementById('answers-container');if(!c)return;
+  c.innerHTML=QUESTIONS.map((q,i)=>`
+  <div class="answer-row">
+    <div class="ans-num">שאלה ${i+1}
+      <span style="font-size:.56rem;font-weight:700;padding:.12rem .45rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור'}</span>
+      ${q.ref?`<span style="font-size:.56rem;color:var(--lc);font-weight:700">📍 ${q.ref}</span>`:''}
+    </div>
+    <div class="ans-q">${q.q}</div>
+    <div class="ans-correct">✅ ${q.type==='mc'?`<strong>${['א','ב','ג','ד'][q.ans]}</strong> — ${q.opts[q.ans]}`:q.type==='tf'?`<strong>${q.ans?'נכון':'לא נכון'}</strong>`:`סדר: ${q.correctOrder.map(j=>q.items[j]).join(' ← ')}`}</div>
+    <div class="ans-explain">💡 ${q.explain}</div>
+    ${q.teacherNote?`<div class="ans-teacher-note">🎓 ${q.teacherNote}</div>`:''}
+  </div>`).join('');
 }
 
 // ═══ PRINT ═══
@@ -874,29 +889,24 @@ function goBack(){if(window.opener){try{window.opener.postMessage({type:'lessonD
 
 function init(){
   initFirebase();
-  const tb=document.getElementById('btn-answers');
   if(USER_ROLE==='teacher'){
     const rc=document.getElementById('role-chip');if(rc)rc.style.display='';
-    if(tb)tb.style.display='inline-flex';
+    const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';
     _gateConfirmed=true;
     const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='';
     document.getElementById('student-gate')?.classList.add('hidden');
     document.getElementById('gate-confirmed')?.classList.add('hidden');
   }else{
-    if(tb)tb.style.display='none';
     const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';
     if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){
-      _gateConfirmed=true;
-      if(wrap)wrap.style.display='';
+      _gateConfirmed=true;if(wrap)wrap.style.display='';
       document.getElementById('student-gate')?.classList.add('hidden');
       const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');
-      if(av)av.textContent=STUDENT_NAME[0].toUpperCase();
-      if(nm)nm.textContent=STUDENT_NAME;
-      if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');
+      if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');
       document.getElementById('gate-confirmed')?.classList.remove('hidden');
     }
   }
-  renderQuestions();
+  applyAnswersVisibility();renderQuestions();
 }
 init();
 </script>
