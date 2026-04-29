@@ -235,6 +235,7 @@ button,input,select,textarea{font-family:inherit}
   @page{margin:1.5cm;size:A4}
 }
 .print-header{display:none}
+#btn-answers{display:none}
 </style>
 </head>
 <body>
@@ -255,7 +256,7 @@ button,input,select,textarea{font-family:inherit}
 <div class="tabs-bar">
   <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
   <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (20 שאלות)</button>
-  <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה) 🔒</button>
+  <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')">🔑 תשובות (מורה) 🔒</button>
 </div>
 
 <!-- ═══ THEORY ═══ -->
@@ -876,7 +877,7 @@ function init(){
   const tb=document.getElementById('btn-answers');
   if(USER_ROLE==='teacher'){
     const rc=document.getElementById('role-chip');if(rc)rc.style.display='';
-    if(tb)tb.style.display='';
+    if(tb)tb.style.display='inline-flex';
     _gateConfirmed=true;
     const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='';
     document.getElementById('student-gate')?.classList.add('hidden');
