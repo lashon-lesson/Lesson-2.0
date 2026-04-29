@@ -256,7 +256,6 @@ button,input,select,textarea{font-family:inherit}
   <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
   <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (20 שאלות)</button>
   <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
-  <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
 </div>
 
 <!-- ═══ THEORY ═══ -->
@@ -588,15 +587,13 @@ function switchTab(t){
     document.getElementById('pane-'+id)?.classList.toggle('active',id===t);
     document.getElementById('btn-'+id)?.classList.toggle('active',id===t);
   });
-  document.getElementById('btn-answers-student')?.classList.toggle('active',t==='answers');
+
 }
 function applyAnswersVisibility(){
   if(USER_ROLE==='teacher'){
     const ta=document.getElementById('btn-answers');if(ta)ta.style.display='';
-    const sa=document.getElementById('btn-answers-student');if(sa)sa.style.display='none';
   }else{
     const ta=document.getElementById('btn-answers');if(ta)ta.style.display='none';
-    const sa=document.getElementById('btn-answers-student');if(sa)sa.style.display='';
   }
 }
 
