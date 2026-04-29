@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>יחידה 4 שיעור 6 — הפיסוק התקני | לשון Lesson 2.0</title>
+<title>יחידה 4 שיעור 1 — שם המספר: המספר המונה | לשון Lesson 2.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -12,29 +12,29 @@
   --bg:#f0f2f7;--surface:#fff;--surface2:#f8f9fb;--surface3:#eef0f5;
   --border:#e4e7ef;--text:#0d1424;--text-mid:#3d4660;--muted:#6b7594;--subtle:#9aa3be;
   --blue:#1a56db;--blue-lt:#eff4ff;
-  --amber:#b45309;--amber-lt:#fffbeb;
+  --green:#15803d;--green-lt:#f0fdf4;
   --red:#dc2626;--red-lt:#fef2f2;
-  --purple:#6d28d9;--purple-lt:#faf5ff;
   --gold:#ca8a04;--gold-lt:#fefce8;
   --teal:#0f766e;--teal-lt:#f0fdfa;
   --rose:#be185d;--rose-lt:#fff1f2;
-  --lc:#ca8a04;--lc-lt:#fefce8;--lc-dk:#a16207;
+  --purple:#7c3aed;--purple-lt:#faf5ff;
+  --sky:#0284c7;--sky-lt:#f0f9ff;
+  /* Lesson accent — amber/brown */
+  --lc:#ca8a04;--lc-lt:#fffbeb;--lc-dk:#a16207;
   --sh1:0 1px 3px rgba(13,20,36,.06);--sh2:0 4px 20px rgba(13,20,36,.08);--sh3:0 12px 40px rgba(13,20,36,.12);
   --r:14px;--r-lg:20px;--r-xl:26px;--r-pill:999px;
 }
 @media(prefers-color-scheme:dark){:root{
   --bg:#0b0f17;--surface:#131924;--surface2:#192030;--surface3:#1f2840;
   --border:#252f47;--text:#d8dfe8;--text-mid:#a0adc5;--muted:#7a8aaa;--subtle:#50607e;
-  --blue:#4d8aff;--blue-lt:#162040;--amber:#f5a623;--amber-lt:#28200c;
-  --red:#fc8080;--red-lt:#281414;--purple:#b09dfa;--purple-lt:#1a1432;
-  --gold:#f5a623;--gold-lt:#28200c;--teal:#34d4c2;--teal-lt:#0c221e;--rose:#fb7185;--rose-lt:#1f0a0f;
-  --lc:#f5a623;--lc-lt:#28200c;--lc-dk:#fbbf24;
+  --lc:#f59e0b;--lc-lt:#271c04;--lc-dk:#fcd34d;
   --sh1:0 1px 3px rgba(0,0,0,.3);--sh2:0 4px 20px rgba(0,0,0,.4);--sh3:0 12px 40px rgba(0,0,0,.5);
 }}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{line-height:1.65;min-height:100vh}
 button,input,select,textarea{font-family:inherit}
+
 .topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:.62rem 1.1rem;display:flex;align-items:center;gap:.55rem;min-height:54px;box-shadow:var(--sh1)}
 .btn-back{width:40px;height:40px;border:1.5px solid var(--border);border-radius:11px;background:var(--surface2);font-size:1.05rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .14s;flex-shrink:0}
 .btn-back:hover{background:var(--surface3);color:var(--text)}
@@ -47,6 +47,7 @@ button,input,select,textarea{font-family:inherit}
 .t-chip.teacher{color:var(--gold);background:var(--gold-lt);border-color:#fde68a;display:none}
 .btn-print{display:inline-flex;align-items:center;gap:.32rem;padding:.32rem .85rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .14s;white-space:nowrap;min-height:36px}
 .btn-print:hover{background:var(--lc-lt);color:var(--lc);border-color:var(--lc)}
+
 .tabs-bar{background:var(--surface);border-bottom:1px solid var(--border);display:flex;padding:0 1.1rem;overflow-x:auto;scrollbar-width:none;position:sticky;top:54px;z-index:90}
 .tabs-bar::-webkit-scrollbar{display:none}
 .tab-btn{padding:.68rem 1.2rem;border:none;border-bottom:2.5px solid transparent;background:none;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;min-height:46px;margin-bottom:-1px;flex-shrink:0;transition:color .14s}
@@ -54,6 +55,7 @@ button,input,select,textarea{font-family:inherit}
 .tab-btn.active{color:var(--lc);border-bottom-color:var(--lc);font-weight:800}
 .tab-pane{display:none}.tab-pane.active{display:block}
 .lesson-wrap{max-width:800px;margin:0 auto;padding:1.5rem 1.2rem 5rem;width:100%}
+
 .lesson-hero{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface) 68%);border:1px solid var(--border);border-radius:var(--r-xl);padding:1.8rem 1.6rem 1.6rem;margin-bottom:1.8rem;position:relative;overflow:hidden;box-shadow:var(--sh1)}
 .lesson-hero::before{content:'';position:absolute;top:0;right:0;bottom:0;width:5px;background:var(--lc);opacity:.75;border-radius:0 var(--r-xl) var(--r-xl) 0}
 .hero-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.62rem;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.07em;background:var(--lc-lt);border:1.5px solid var(--lc);border-radius:var(--r-pill);padding:.22rem .8rem;margin-bottom:.9rem;opacity:.88}
@@ -63,77 +65,131 @@ button,input,select,textarea{font-family:inherit}
 .hero-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
 .hero-chip{font-size:.63rem;font-weight:700;padding:.22rem .72rem;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface);color:var(--muted)}
 .hero-chip.lc{color:var(--lc);background:var(--lc-lt);border-color:var(--lc)}
+.hero-chip.green{color:var(--green);background:var(--green-lt);border-color:#bbf7d0}
+.hero-chip.new{color:var(--purple);background:var(--purple-lt);border-color:#ddd6fe}
+
 .section-hd{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--lc);display:flex;align-items:center;gap:.55rem;margin:2.2rem 0 1rem;padding-bottom:.48rem;border-bottom:2px solid var(--lc-lt)}
 .section-hd:first-of-type{margin-top:0}
 .sn{width:28px;height:28px;border-radius:50%;background:var(--lc);color:#fff;font-size:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900}
 .sn-icon{font-size:1.3rem;flex-shrink:0;line-height:1}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;box-shadow:var(--sh1);margin-bottom:1rem}
-.card p{font-size:.9rem;line-height:1.78;color:var(--text-mid)}.card p+p{margin-top:.65rem}
-.card h4{font-size:.9rem;font-weight:800;margin-bottom:.42rem;color:var(--text)}
+.card p{font-size:.9rem;line-height:1.78;color:var(--text-mid)}
+.card p+p{margin-top:.65rem}
 .card ul,.card ol{padding-right:1.3rem;margin-top:.42rem}
-.card li{font-size:.9rem;line-height:1.78;color:var(--text-mid);margin-bottom:.18rem}
+.card li{font-size:.9rem;line-height:1.78;color:var(--text-mid);margin-bottom:.22rem}
 .card li strong{color:var(--text)}
 .box{border-radius:var(--r);padding:1rem 1.2rem;font-size:.86rem;line-height:1.72;color:var(--text-mid);margin-bottom:1rem}
 .box strong{font-weight:800}
 .box-lc{background:var(--lc-lt);border:1.5px solid #fde68a}.box-lc strong{color:var(--lc)}
-.box-amber{background:var(--amber-lt);border:1.5px solid #fde68a}.box-amber strong{color:var(--amber)}
 .box-blue{background:var(--blue-lt);border:1.5px solid #bfdbfe}.box-blue strong{color:var(--blue)}
-.box-purple{background:var(--purple-lt);border:1.5px solid #ddd6fe}.box-purple strong{color:var(--purple)}
-.box-rose{background:var(--rose-lt);border:1.5px solid #fecdd3}.box-rose strong{color:var(--rose)}
+.box-green{background:var(--green-lt);border:1.5px solid #bbf7d0}.box-green strong{color:var(--green)}
 .box-red{background:var(--red-lt);border:1.5px solid #fca5a5}.box-red strong{color:var(--red)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.85rem}
-@media(max-width:480px){.grid2{grid-template-columns:1fr}}
+.box-purple{background:var(--purple-lt);border:1.5px solid #ddd6fe}.box-purple strong{color:var(--purple)}
+.box-teal{background:var(--teal-lt);border:1.5px solid #99f6e4}.box-teal strong{color:var(--teal)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1rem}
+@media(max-width:500px){.grid2{grid-template-columns:1fr}}
 .mini-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.95rem 1.05rem}
 .mini-title{font-size:.76rem;font-weight:800;color:var(--text);margin-bottom:.38rem}
-.mini-body{font-size:.8rem;color:var(--text-mid);line-height:1.62}
+.mini-body{font-size:.8rem;color:var(--text-mid);line-height:1.65}
+
 .steps-wrap{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1.5px solid #fde68a;border-radius:var(--r-lg);padding:1.4rem 1.5rem;margin-bottom:1rem}
 .steps-title{font-family:'Secular One',sans-serif;font-size:.94rem;color:var(--lc);margin-bottom:1rem}
 .step-item{display:flex;align-items:flex-start;gap:.65rem;font-size:.86rem;color:var(--text-mid);line-height:1.55;margin-bottom:.68rem}
 .step-item:last-child{margin-bottom:0}
 .step-num{width:26px;height:26px;border-radius:50%;background:var(--lc);color:#fff;font-size:.7rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
-.cmp-table{width:100%;border-collapse:collapse;font-size:.82rem;margin-bottom:1rem;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
-.cmp-table th{padding:.68rem .9rem;text-align:right;font-weight:800;font-size:.76rem}
-.cmp-table th:first-child{background:var(--lc);color:#fff}
-.cmp-table th.col-b{background:var(--lc-dk);color:#fff}
-.cmp-table th.col-c{background:#374151;color:#fff}
-.cmp-table td{padding:.6rem .9rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
-.cmp-table tr:last-child td{border-bottom:none}
-.cmp-table tr:nth-child(even) td{background:var(--surface2)}
-.cmp-table tr:nth-child(odd) td{background:var(--surface)}
-.cmp-table .row-label{font-weight:700;color:var(--lc);background:var(--lc-lt)!important;white-space:nowrap}
 
-/* ═══ PUNCTUATION DEMO BOX ═══ */
-.punct-demo{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.4rem 1.6rem;margin-bottom:1.2rem;box-shadow:var(--sh1);position:relative}
-.punct-demo::before{content:attr(data-label);position:absolute;top:-12px;right:1.4rem;background:var(--lc);color:#fff;font-size:.62rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill);letter-spacing:.04em}
-.punct-sentence{font-size:1.08rem;font-weight:700;color:var(--text);line-height:1.65;direction:rtl;margin-bottom:.75rem}
-.punct-mark{color:var(--lc);font-weight:900;font-size:1.2rem}
-.punct-explain{font-size:.82rem;color:var(--text-mid);line-height:1.65;border-right:3px solid var(--lc-lt);padding-right:.8rem}
+/* ══ HOOK — paradox reveal ══ */
+.paradox-box{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.4rem 1.5rem;margin-bottom:1.2rem;box-shadow:var(--sh2)}
+.paradox-title{font-family:'Secular One',sans-serif;font-size:.95rem;color:var(--lc);margin-bottom:1rem;display:flex;align-items:center;gap:.4rem}
+.paradox-pair{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem;padding-bottom:.8rem;border-bottom:1px dashed var(--border);flex-wrap:wrap}
+.paradox-pair:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.pp-wrong{font-family:'Secular One',sans-serif;font-size:1.1rem;padding:.35rem .7rem;border-radius:var(--r);background:var(--red-lt);border:2px solid #fca5a5;color:var(--red);min-width:120px;text-align:center;flex-shrink:0;position:relative}
+.pp-wrong::after{content:'✗';position:absolute;top:-8px;left:-8px;background:var(--red);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.65rem;display:flex;align-items:center;justify-content:center;font-weight:900}
+.pp-arrow{font-size:1.3rem;color:var(--muted);flex-shrink:0}
+.pp-right{font-family:'Secular One',sans-serif;font-size:1.1rem;padding:.35rem .7rem;border-radius:var(--r);background:var(--green-lt);border:2px solid #bbf7d0;color:var(--green);min-width:120px;text-align:center;flex-shrink:0;position:relative}
+.pp-right::after{content:'✓';position:absolute;top:-8px;left:-8px;background:var(--green);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.65rem;display:flex;align-items:center;justify-content:center;font-weight:900}
+.pp-explain{flex:1;min-width:150px;font-size:.8rem;color:var(--text-mid);line-height:1.55;border-right:3px solid var(--lc);padding-right:.6rem}
 
-/* ═══ SIGN CARD ═══ */
-.sign-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1rem}
-@media(max-width:500px){.sign-grid{grid-template-columns:1fr 1fr}}
-.sign-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:1rem 1.05rem;text-align:center;box-shadow:var(--sh1)}
-.sign-symbol{font-size:2rem;font-weight:900;color:var(--lc);margin-bottom:.35rem;display:block;font-family:'Secular One',sans-serif}
-.sign-name{font-size:.72rem;font-weight:800;color:var(--text);margin-bottom:.28rem}
-.sign-desc{font-size:.7rem;color:var(--muted);line-height:1.55}
+/* ══ THE BIG TABLE ══ */
+.num-table{width:100%;border-collapse:collapse;font-size:.83rem;margin-bottom:1rem;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
+.num-table th{padding:.68rem .9rem;text-align:center;font-weight:800;font-size:.76rem}
+.num-table th:first-child{background:var(--lc);color:#fff;text-align:right}
+.num-table th.hdr-m{background:#1a56db;color:#fff}
+.num-table th.hdr-f{background:#be185d;color:#fff}
+.num-table th.hdr-note{background:#374151;color:#fff}
+.num-table td{padding:.6rem .9rem;border-bottom:1px solid var(--border);text-align:center;vertical-align:middle;line-height:1.45}
+.num-table td:first-child{text-align:right;font-weight:700;color:var(--lc);background:var(--lc-lt);white-space:nowrap}
+.num-table tr:last-child td{border-bottom:none}
+.num-table tr:nth-child(even) td:not(:first-child){background:var(--surface2)}
+.num-table tr:nth-child(odd) td:not(:first-child){background:var(--surface)}
+.num-table .form-m{color:#1a56db;font-weight:700;font-family:'Secular One',sans-serif;font-size:.9rem}
+.num-table .form-f{color:#be185d;font-weight:700;font-family:'Secular One',sans-serif;font-size:.9rem}
+.num-table .form-inv{background:linear-gradient(135deg,#fef3c7,#fff);font-weight:900}
+.num-table .form-inv .form-m{color:#92400e}
+.num-table .form-inv .form-f{color:#9d174d}
+.inv-badge{display:inline-block;font-size:.55rem;font-weight:800;padding:.1rem .35rem;border-radius:var(--r-pill);background:var(--lc);color:#fff;vertical-align:middle;margin-right:2px}
+.reg-badge{display:inline-block;font-size:.55rem;font-weight:800;padding:.1rem .35rem;border-radius:var(--r-pill);background:var(--green);color:#fff;vertical-align:middle;margin-right:2px}
 
-/* ═══ READING TEXT BOX ═══ */
+/* ══ RULE CARDS ══ */
+.rule-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1.2rem}
+@media(max-width:520px){.rule-grid{grid-template-columns:1fr}}
+.rule-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:1.1rem 1.2rem;box-shadow:var(--sh1);position:relative;overflow:hidden}
+.rule-card::before{content:'';position:absolute;top:0;right:0;bottom:0;width:4px;border-radius:0 var(--r-lg) var(--r-lg) 0}
+.rule-card.inv::before{background:var(--lc)}
+.rule-card.reg::before{background:var(--green)}
+.rule-card.spec::before{background:var(--purple)}
+.rule-card.trap::before{background:var(--red)}
+.rc-tag{font-size:.62rem;font-weight:800;padding:.2rem .6rem;border-radius:var(--r-pill);display:inline-block;margin-bottom:.42rem;border:1px solid}
+.rule-card.inv .rc-tag{background:var(--lc-lt);color:var(--lc);border-color:#fde68a}
+.rule-card.reg .rc-tag{background:var(--green-lt);color:var(--green);border-color:#bbf7d0}
+.rule-card.spec .rc-tag{background:var(--purple-lt);color:var(--purple);border-color:#ddd6fe}
+.rule-card.trap .rc-tag{background:var(--red-lt);color:var(--red);border-color:#fca5a5}
+.rc-title{font-family:'Secular One',sans-serif;font-size:.9rem;margin-bottom:.32rem}
+.rule-card.inv .rc-title{color:var(--lc-dk)}
+.rule-card.reg .rc-title{color:var(--green)}
+.rule-card.spec .rc-title{color:var(--purple)}
+.rule-card.trap .rc-title{color:var(--red)}
+.rc-body{font-size:.82rem;color:var(--text-mid);line-height:1.62}
+.rc-examples{display:flex;flex-wrap:wrap;gap:.28rem;margin-top:.45rem}
+.rc-ex{font-size:.78rem;font-weight:700;padding:.16rem .48rem;border-radius:var(--r-pill);background:var(--surface2);border:1px solid var(--border)}
+.rule-card.inv .rc-ex{background:var(--lc-lt);color:var(--lc-dk);border-color:#fde68a}
+.rule-card.reg .rc-ex{background:var(--green-lt);color:var(--green);border-color:#bbf7d0}
+.rule-card.spec .rc-ex{background:var(--purple-lt);color:var(--purple);border-color:#ddd6fe}
+.rule-card.trap .rc-ex{background:var(--red-lt);color:var(--red);border-color:#fca5a5}
+
+/* ══ ORDER TABLE ══ */
+.order-table{width:100%;border-collapse:collapse;font-size:.83rem;margin-bottom:1rem;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
+.order-table th{padding:.65rem .9rem;text-align:center;font-weight:800;font-size:.75rem}
+.order-table th:first-child{background:var(--lc);color:#fff;text-align:right}
+.order-table th.om{background:#1a56db;color:#fff}
+.order-table th.of{background:#be185d;color:#fff}
+.order-table td{padding:.55rem .9rem;border-bottom:1px solid var(--border);text-align:center;vertical-align:middle}
+.order-table td:first-child{text-align:right;font-weight:700;color:var(--lc);background:var(--lc-lt);white-space:nowrap}
+.order-table tr:last-child td{border-bottom:none}
+.order-table tr:nth-child(even) td:not(:first-child){background:var(--surface2)}
+.order-table tr:nth-child(odd) td:not(:first-child){background:var(--surface)}
+.oform-m{color:#1a56db;font-weight:700;font-family:'Secular One',sans-serif;font-size:.88rem}
+.oform-f{color:#be185d;font-weight:700;font-family:'Secular One',sans-serif;font-size:.88rem}
+
+/* Reading text */
 .reading-text-box{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.5rem 1.6rem;margin-bottom:1.8rem;box-shadow:var(--sh2);position:relative}
 .reading-text-box::before{content:'📄 טקסט לניתוח';position:absolute;top:-12px;right:1.4rem;background:var(--lc);color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill);letter-spacing:.04em}
 .rt-title{font-family:'Secular One',sans-serif;font-size:1.05rem;color:var(--text);margin-bottom:.28rem}
 .rt-body{font-size:.88rem;line-height:1.88;color:var(--text-mid)}
-.rt-body p{margin-bottom:.85rem}.rt-body p:last-child{margin-bottom:0}
-.rt-body strong{color:var(--lc);font-weight:800}
+.rt-body p{margin-bottom:.85rem}
+.rt-body p:last-child{margin-bottom:0}
+.rt-body strong{color:var(--text);font-weight:700}
 
-/* ═══ PRACTICE ═══ */
+/* Quiz */
 .quiz-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1px solid #fde68a;border-radius:var(--r-lg);padding:1.25rem 1.4rem;margin-bottom:1.5rem}
 .quiz-hd-title{font-family:'Secular One',sans-serif;font-size:.97rem;color:var(--lc);margin-bottom:.32rem}
 .quiz-hd-desc{font-size:.82rem;color:var(--muted)}
 .quiz-prog-bar{height:5px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-top:.8rem;border:1px solid var(--border)}
-.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--lc),#f59e0b);border-radius:var(--r-pill);transition:width .38s ease}
+.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--lc),#fcd34d);border-radius:var(--r-pill);transition:width .38s ease}
 .quiz-prog-row{display:flex;justify-content:space-between;margin-top:.38rem;font-size:.7rem;color:var(--muted)}
 .q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;margin-bottom:1.25rem;box-shadow:var(--sh1);transition:border-color .2s}
-.q-card.ok{border-color:#fde68a}.q-card.wrong{border-color:#fca5a5}
+.q-card.ok{border-color:#bbf7d0}.q-card.wrong{border-color:#fca5a5}
 .q-num{font-size:.66rem;font-weight:800;color:var(--subtle);margin-bottom:.55rem;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
 .q-type-badge{font-size:.56rem;font-weight:700;padding:.14rem .52rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)}
 .q-text{font-size:.94rem;font-weight:700;color:var(--text);line-height:1.52;margin-bottom:1.05rem}
@@ -141,18 +197,18 @@ button,input,select,textarea{font-family:inherit}
 .mc-btn{width:100%;text-align:right;padding:.78rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.86rem;color:var(--text-mid);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:.68rem;min-height:50px}
 .mc-btn:hover:not(:disabled){border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
 .mc-btn.sel{border-color:var(--lc);background:var(--lc-lt);color:var(--lc);font-weight:700}
-.mc-btn.correct{border-color:#a16207!important;background:var(--lc-lt)!important;color:#a16207!important;font-weight:700}
+.mc-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important;font-weight:700}
 .mc-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important;font-weight:700}
 .mc-btn:disabled{cursor:default}
 .mc-letter{width:24px;height:24px;border-radius:50%;background:var(--surface3);color:var(--muted);font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .14s}
 .mc-btn.sel .mc-letter{background:var(--lc);color:#fff}
-.mc-btn.correct .mc-letter{background:#a16207;color:#fff}
+.mc-btn.correct .mc-letter{background:var(--green)!important;color:#fff}
 .mc-btn.wrong .mc-letter{background:var(--red);color:#fff}
 .tf-row{display:flex;gap:.68rem}
 .tf-btn{flex:1;padding:.8rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.9rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:54px}
 .tf-btn:hover:not(:disabled){border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
 .tf-btn.sel{border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
-.tf-btn.correct{border-color:#a16207!important;background:var(--lc-lt)!important;color:#a16207!important}
+.tf-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important}
 .tf-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important}
 .tf-btn:disabled{cursor:default}
 .sort-list{display:flex;flex-direction:column;gap:.42rem;margin-bottom:.55rem}
@@ -165,7 +221,7 @@ button,input,select,textarea{font-family:inherit}
 .sort-note{font-size:.7rem;color:var(--muted);margin-bottom:.32rem}
 .q-feedback{margin-top:.72rem;padding:.8rem 1.05rem;border-radius:var(--r);font-size:.83rem;font-weight:600;line-height:1.58;display:none;border-right:3px solid transparent}
 .q-feedback.show{display:block}
-.q-feedback.ok{background:var(--lc-lt);color:var(--lc-dk);border-color:var(--lc)}
+.q-feedback.ok{background:var(--green-lt);color:var(--green);border-color:var(--green)}
 .q-feedback.wrong{background:var(--red-lt);color:var(--red);border-color:var(--red)}
 .results-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:2.2rem 1.8rem;text-align:center;box-shadow:var(--sh2);margin-top:1.5rem}
 .results-emoji{font-size:4rem;margin-bottom:.8rem;display:block}
@@ -173,17 +229,17 @@ button,input,select,textarea{font-family:inherit}
 .results-label{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem;display:block}
 .results-bar{height:10px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-bottom:1.6rem;border:1px solid var(--border)}
 .results-bar-fill{height:100%;border-radius:var(--r-pill);transition:width 1.2s cubic-bezier(.22,1,.36,1)}
-.btn-submit{padding:.85rem 2rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(202,138,4,.28);transition:all .15s;min-height:48px}
+.btn-submit{padding:.85rem 2rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(180,83,9,.28);transition:all .15s;min-height:48px}
 .btn-submit:hover{background:var(--lc-dk);transform:translateY(-1px)}
 .btn-reset{padding:.82rem 1.6rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);color:var(--muted);font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:48px}
 .btn-reset:hover{background:var(--surface3);color:var(--text)}
-.btn-send{padding:.82rem 1.8rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:48px}
+.btn-send{padding:.82rem 1.8rem;border:none;border-radius:var(--r-pill);background:var(--green);color:#fff;font-size:.86rem;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(21,128,61,.3);transition:all .15s;min-height:48px}
 .btn-send:hover{transform:translateY(-1px)}
 .answers-locked{background:var(--surface);border:2px dashed var(--border);border-radius:var(--r-xl);padding:2.5rem 2rem;text-align:center;margin-top:.5rem}
 .answer-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.05rem 1.2rem;margin-bottom:.78rem}
 .ans-num{font-size:.66rem;color:var(--subtle);margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem}
 .ans-q{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.5rem;line-height:1.45}
-.ans-correct{background:var(--lc-lt);border:1.5px solid #fde68a;border-radius:9px;padding:.55rem .95rem;font-size:.82rem;color:var(--lc-dk);font-weight:700;margin-bottom:.42rem}
+.ans-correct{background:var(--green-lt);border:1.5px solid #bbf7d0;border-radius:9px;padding:.55rem .95rem;font-size:.82rem;color:var(--green);font-weight:700;margin-bottom:.42rem}
 .ans-explain{font-size:.78rem;color:var(--muted);line-height:1.58;border-right:3px solid var(--border);padding-right:.78rem;margin-top:.4rem}
 .ans-teacher-note{font-size:.78rem;font-weight:700;color:var(--lc);margin-top:.38rem;background:var(--lc-lt);border-radius:8px;padding:.42rem .75rem}
 #student-gate{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:0;margin-bottom:1.5rem;box-shadow:var(--sh2);overflow:hidden}
@@ -196,46 +252,40 @@ button,input,select,textarea{font-family:inherit}
 .gate-field label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);margin-bottom:.38rem;letter-spacing:.02em}
 .gate-input{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;min-height:50px}
 .gate-input::placeholder{color:var(--subtle)}
-.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(202,138,4,.14)}
+.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(180,83,9,.14)}
 .gate-input.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.1)}
 .gate-select{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s;min-height:50px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7594' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 1rem center}
-.gate-select:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(202,138,4,.14)}
+.gate-select:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(180,83,9,.14)}
 .gate-select.err{border-color:var(--red)}
 .gate-err-msg{font-size:.7rem;color:var(--red);margin-top:.26rem;display:none}
 .gate-err-msg.show{display:block}
 .gate-date-display{padding:.78rem 1rem;background:var(--surface3);border:1.5px solid var(--border);border-radius:var(--r);font-size:.88rem;color:var(--muted)}
-.gate-btn{width:100%;padding:.88rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.92rem;font-weight:700;cursor:pointer;min-height:52px;box-shadow:0 4px 18px rgba(202,138,4,.28);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.45rem}
+.gate-btn{width:100%;padding:.88rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.92rem;font-weight:700;cursor:pointer;min-height:52px;box-shadow:0 4px 18px rgba(180,83,9,.28);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.45rem}
 .gate-btn:hover{background:var(--lc-dk);transform:translateY(-1px)}
 .gate-btn:active{transform:scale(.97)}
-#gate-confirmed{display:none;background:var(--lc-lt);border:2px solid #fde68a;border-radius:var(--r-xl);padding:1rem 1.3rem;margin-bottom:1.5rem;align-items:center;gap:.85rem}
+#gate-confirmed{display:none;background:var(--green-lt);border:2px solid #bbf7d0;border-radius:var(--r-xl);padding:1rem 1.3rem;margin-bottom:1.5rem;align-items:center;gap:.85rem}
 #gate-confirmed.show{display:flex}
 #gate-confirmed.hidden{display:none!important}
-.gc-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#ca8a04,#a16207);color:#fff;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gc-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#15803d,#16a34a);color:#fff;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .gc-info{flex:1;min-width:0}
-.gc-name{font-size:.92rem;font-weight:800;color:var(--lc)}
+.gc-name{font-size:.92rem;font-weight:800;color:var(--green)}
 .gc-meta{font-size:.74rem;color:var(--text-mid);margin-top:.15rem}
 .gc-change{font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;margin-top:.22rem;display:block}
-.gc-change:hover{color:var(--lc)}
 #toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%) translateY(14px);background:var(--text);color:var(--bg);padding:.58rem 1.4rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:700;box-shadow:var(--sh3);z-index:9999;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;white-space:nowrap}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media print{
   .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,#submit-row,#results-container,#toast,#student-gate,#gate-confirmed,.sort-handle{display:none!important}
-  body{background:#fff;color:#000;font-size:10pt;line-height:1.5}
-  html{background:#fff}
+  body{background:#fff;color:#000;font-size:10pt}html{background:#fff}
   .tab-pane{display:block!important}
   .lesson-wrap{padding:.5cm 1cm;max-width:100%}
-  .lesson-hero,.card,.q-card,.reading-text-box,.answer-row,.cmp-table,.punct-demo{box-shadow:none;break-inside:avoid;page-break-inside:avoid}
-  .q-feedback{display:block!important}
-  .mc-btn.correct{display:flex!important}
+  .lesson-hero,.card,.q-card,.reading-text-box,.answer-row,.paradox-box,.num-table,.order-table{box-shadow:none;break-inside:avoid}
   .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #ca8a04}
   .print-header h1{font-size:16pt;color:#ca8a04}
-  .print-header p{font-size:10pt;color:#555}
   #pane-theory{page-break-after:always}
   #pane-practice{page-break-after:always}
   @page{margin:1.5cm;size:A4}
 }
 .print-header{display:none}
-
 </style>
 </head>
 <body>
@@ -257,9 +307,12 @@ button,input,select,textarea{font-family:inherit}
   <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
   <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (20 שאלות)</button>
   <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
+  <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
 </div>
 
-<!-- ═══ THEORY ═══ -->
+<!-- ══════════════════════════════════════════════
+     THEORY
+══════════════════════════════════════════════ -->
 <div class="tab-pane active" id="pane-theory">
 <div class="print-header"><h1>⏸️ שיעור 6 — הפיסוק התקני</h1><p>יחידה 4: תקינות | לשון Lesson 2.0</p></div>
 <div class="lesson-wrap">
@@ -478,84 +531,101 @@ button,input,select,textarea{font-family:inherit}
 
 <!-- ═══ PRACTICE ═══ -->
 <div class="tab-pane" id="pane-practice">
+<div class="print-header">
+  <h1>📏 שיעור 1 — שם המספר: המספר המונה</h1>
+  <p>יחידה 4: תקינות | לשון Lesson 2.0 | כיתות ט׳–י׳</p>
+</div>
 <div class="lesson-wrap">
 
   <div id="student-gate">
     <div class="gate-header">
-      <span class="gate-icon">⏸️</span>
-      <div class="gate-title">תרגול — הפיסוק התקני</div>
-      <div class="gate-desc">20 שאלות | הזן פרטים כדי להתחיל</div>
+      <span class="gate-icon">✏️</span>
+      <div class="gate-title">כניסה לתרגול</div>
+      <div class="gate-desc">לפני שמתחילים — אנא הזינו שם ושיבוץ כיתה</div>
     </div>
     <div class="gate-body">
-      <div class="gate-field">
-        <label>שם מלא (שם ושם משפחה)</label>
-        <input class="gate-input" id="gate-name" placeholder="למשל: ישראל ישראלי" autocomplete="name">
-        <div class="gate-err-msg" id="gate-name-err">נא להזין שם ושם משפחה</div>
+      <div class="gate-field"><label>שם מלא</label>
+        <input class="gate-input" id="gate-name" type="text" placeholder="לדוגמה: דנה כהן" autocomplete="off">
+        <div class="gate-err-msg" id="gate-name-err">אנא הזינו שם ושם משפחה</div>
       </div>
-      <div class="gate-field">
-        <label>כיתה</label>
+      <div class="gate-field"><label>כיתה</label>
         <select class="gate-select" id="gate-class">
-          <option value="">בחר כיתה...</option>
-          <option>י׳1</option><option>י׳2</option><option>י׳3</option><option>י׳4</option>
-          <option>י׳5</option><option>י׳6</option><option>י׳7</option><option>י׳8</option>
+          <option value="">— בחרו כיתה —</option>
+          <option>י׳א</option><option>י׳ב</option><option>י׳ג</option><option>י׳ד</option><option>י׳ה</option><option>י׳ו</option>
         </select>
-        <div class="gate-err-msg" id="gate-class-err">נא לבחור כיתה</div>
+        <div class="gate-err-msg" id="gate-class-err">אנא בחרו כיתה</div>
       </div>
-      <div class="gate-field">
-        <label>תאריך</label>
+      <div class="gate-field"><label>תאריך</label>
         <div class="gate-date-display" id="gate-date-display"></div>
       </div>
-      <button class="gate-btn" onclick="confirmGate()">✅ שמירה והתחלת תרגול</button>
+      <button class="gate-btn" onclick="confirmGate()">✅ כניסה לתרגול</button>
     </div>
   </div>
 
-  <div id="gate-confirmed" class="hidden">
+  <div id="gate-confirmed">
     <div class="gc-avatar" id="gc-avatar"></div>
     <div class="gc-info">
       <div class="gc-name" id="gc-name-display"></div>
       <div class="gc-meta" id="gc-meta-display"></div>
-      <button class="gc-change" onclick="reopenGate()">✏️ עריכת פרטים</button>
+      <button class="gc-change" onclick="reopenGate()">שינוי פרטים</button>
     </div>
   </div>
 
   <div id="practice-content-wrap">
+
+    <div class="reading-text-box">
+      <div class="rt-title">טקסט א׳ — יום קניות</div>
+      <div class="rt-body">
+        <p>לילי הלכה לשוק עם רשימה. היא קנתה <strong>שלושה עגבניות</strong> ו<strong>חמישה תפוחים</strong>. אצל הדייג קנתה <strong>ארבע דגים</strong>. בקצביה נכנסה בדיוק <strong>שש לקוחות</strong> לפניה. היא חיכתה <strong>עשרה דקות</strong> ולבסוף קנתה <strong>שני קילוגרמים</strong> בשר.</p>
+      </div>
+    </div>
+
+    <div class="reading-text-box">
+      <div class="rt-title">טקסט ב׳ — חידה היסטורית</div>
+      <div class="rt-body">
+        <p>לפני <strong>שלושת אלפים</strong> שנה, מלך נחשב לאלוהי כשהוביל <strong>שנים עשר שבטים</strong> למלחמה. לאחד המלכים היו <strong>שבעה בנים</strong> ו<strong>שלוש בנות</strong>. <strong>תשעת האחים</strong> הצעירים הלכו ללמוד, ואילו <strong>שלושת הבכורים</strong> נשארו בארמון.</p>
+      </div>
+    </div>
+
+    <div class="reading-text-box">
+      <div class="rt-title">טקסט ג׳ — שאלון</div>
+      <div class="rt-body">
+        <p>"כמה שפות אתה מדבר?" "רק <strong>שתי שפות</strong>." "כמה ספרים קראת השנה?" "<strong>עשרים ואחד</strong> — <strong>אחד עשר</strong> רומנים ו<strong>עשרה</strong> ספרי עיון." "בכמה מדינות ביקרת?" "ב<strong>שלושים ושלוש</strong>."</p>
+      </div>
+    </div>
+
     <div class="quiz-header">
-      <div class="quiz-hd-title">⏸️ תרגול — הפיסוק התקני</div>
-      <div class="quiz-hd-desc">20 שאלות — רב-ברירה, נכון/לא נכון וסידור</div>
+      <div class="quiz-hd-title">📏 המספר המונה — 20 שאלות</div>
+      <div class="quiz-hd-desc">MC · נכון/לא נכון · סדר — הסכמה, נסמך ומלכודות</div>
       <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="prog-fill" style="width:0%"></div></div>
       <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 20 נענו</span><span id="prog-pct">0%</span></div>
     </div>
 
     <div id="questions-container"></div>
-    <div id="results-container" style="display:none"></div>
 
     <div id="submit-row" style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem">
       <button class="btn-submit" onclick="submitQuiz()">📤 הגשת התרגול</button>
       <button class="btn-reset" onclick="resetQuiz()">🔄 אתחול</button>
     </div>
+    <div id="results-container" style="display:none"></div>
   </div>
 
 </div>
 </div>
 
-<!-- ═══ ANSWERS ═══ -->
 <div class="tab-pane" id="pane-answers">
-<div class="print-header">
-  <h1>מפתח תשובות — שיעור 6: הפיסוק התקני</h1>
-  <p>20 שאלות + הסברים | לשון Lesson 2.0</p>
-</div>
 <div class="lesson-wrap">
   <div id="answers-locked-msg" class="answers-locked">
-    <div style="font-size:3rem;margin-bottom:1rem">🔒</div>
-    <div style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:.6rem">התשובות טרם פורסמו</div>
-    <p style="font-size:.86rem;color:var(--muted);max-width:380px;margin:0 auto;line-height:1.65">המורה יפתח את התשובות לאחר שהכיתה תסיים.</p>
+    <div style="font-size:2.5rem;margin-bottom:.8rem">🔒</div>
+    <div style="font-family:'Secular One',sans-serif;font-size:1.1rem;margin-bottom:.5rem;color:var(--text)">התשובות נעולות</div>
+    <div style="font-size:.85rem;color:var(--muted)">המורה ישחרר את התשובות בתום השיעור</div>
   </div>
   <div id="answers-visible-content" style="display:none">
-    <div style="background:var(--gold-lt);border:1.5px solid #fde68a;border-radius:var(--r-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem">
-      <div style="font-size:.78rem;font-weight:800;color:var(--gold)">🔑 מפתח תשובות + הסברים פדגוגיים</div>
-      <div id="answers-source" style="font-size:.74rem;color:var(--amber);margin-top:.25rem"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:.5rem">
+      <div style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--lc)">🔑 תשובות מלאות</div>
+      <span style="font-size:.72rem;color:var(--muted)" id="answers-source"></span>
     </div>
-    <div id="answers-container"></div>
+    <div id="answers-list"></div>
   </div>
 </div>
 </div>
@@ -697,7 +767,7 @@ function submitQuiz(){const un=QUESTIONS.filter(q=>!QS.answers[q.id]||(q.type===
 function resetQuiz(){QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;document.getElementById('results-container').style.display='none';document.getElementById('submit-row').style.display='flex';renderQuestions();toast('🔄 התרגול אותחל');}
 function sendResults(){if(_lastScore===null){toast('אנא הגש תחילה');return;}toast('✅ הציון נשלח: '+_lastScore+'%');}
 function renderAnswers(){const al=document.getElementById('answers-list');if(!al)return;al.innerHTML=QUESTIONS.map((q,i)=>{let ans='';if(q.type==='mc')ans=LETTERS[q.ans]+'. '+q.opts[q.ans];else if(q.type==='tf')ans=q.ans?'✅ נכון':'❌ לא נכון';else if(q.type==='sort')ans=q.correctOrder.map(j=>q.items[j]).join(' ← ');return '<div class="answer-row"><div class="ans-num">שאלה '+(i+1)+' <span style="color:var(--lc)">'+q.ref+'</span></div><div class="ans-q">'+q.q+'</div><div class="ans-correct">✅ '+ans+'</div><div class="ans-explain">💡 '+q.explain+'</div>'+(q.teacherNote?'<div class="ans-teacher-note">🎓 '+q.teacherNote+'</div>':'')+'</div>';}).join('');}
-function printLesson(){const pw=window.open('','_blank','width=900,height=700');const SNP=STUDENT_NAME||'תלמיד/ה',SCP=STUDENT_CLASS||'—';const sh=QS.submitted?'<div style="background:#fffbeb;border:2px solid #fde68a;border-radius:12px;padding:1rem 1.4rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem"><span style="font-size:2rem">'+(_lastScore>=90?'🏆':_lastScore>=75?'⭐':'👍')+'</span><div><div style="font-weight:800;font-size:1.1rem;color:#b45309">'+_lastScore+'%</div><div style="font-size:.85rem;color:#6b7594">'+_lastCorrect+' מתוך '+QUESTIONS.length+' נכון</div></div></div>':'';pw.document.write('<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><title>הדפסה — יח׳4 שיעור 1</title><link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;700;800&display=swap" rel="stylesheet"><style>body{font-family:\'Heebo\',sans-serif;direction:rtl;background:#fff;color:#0d1424;font-size:10pt;line-height:1.6}.doc{max-width:700px;margin:0 auto;padding:1cm}.doc-header{text-align:center;border-bottom:3px solid #b45309;padding-bottom:.8rem;margin-bottom:1.5rem}.doc-header h1{font-family:\'Secular One\',sans-serif;font-size:16pt;color:#b45309;margin-bottom:.3rem}.sec-title{font-family:\'Secular One\',sans-serif;font-size:12pt;color:#b45309;border-bottom:1.5px solid #fde68a;padding-bottom:.35rem;margin:1.4rem 0 .8rem}.q-row{display:flex;gap:.6rem;border:1px solid #e4e7ef;border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid}.q-row.ok{border-color:#bbf7d0;background:#fafffe}.q-row.wrong{border-color:#fca5a5;background:#fffbfb}.q-num-c{width:20px;height:20px;border-radius:50%;background:#b45309;color:#fff;font-size:.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}.q-row.ok .q-num-c{background:#15803d}.q-row.wrong .q-num-c{background:#dc2626}.q-body{flex:1}.q-txt{font-size:9.5pt;font-weight:700;margin-bottom:.3rem}.ans-ok{font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem}.ans-bad{font-size:9pt;padding:.3rem .65rem;background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;border-radius:6px;margin-bottom:.25rem}.ans-cor{font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem}.q-expl{font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem;line-height:1.5}.q-tip{font-size:8pt;color:#b45309;margin-top:.2rem;background:#fffbeb;border-radius:5px;padding:.25rem .55rem}@page{margin:1.5cm;size:A4}</style></head><body><div class="doc"><div class="doc-header"><h1>📏 שיעור 1 — שם המספר: המספר המונה</h1><p>יחידה 4: תקינות | לשון Lesson 2.0</p><div style="font-size:11pt;font-weight:700;margin-top:.5rem">תלמיד/ה: '+SNP+' | כיתה: '+SCP+' | '+new Date().toLocaleDateString('he-IL')+'</div></div>'+sh+'<div class="sec-title">תרגול ותשובות</div>'+QUESTIONS.map((q,i)=>{const a=QS.answers[q.id];let ok=false,gv='לא נענה';if(q.type==='mc'&&a?.sel!==undefined){gv=LETTERS[a.sel]+'. '+q.opts[a.sel];ok=a.sel===q.ans;}else if(q.type==='tf'&&a?.sel!==undefined){gv=a.sel?'נכון':'לא נכון';ok=a.sel===q.ans;}else if(q.type==='sort'&&a?.order){gv=a.order.map(j=>q.items[j]).join(' ← ');ok=JSON.stringify(a.order)===JSON.stringify(q.correctOrder);}const ca=q.type==='mc'?LETTERS[q.ans]+'. '+q.opts[q.ans]:q.type==='tf'?(q.ans?'נכון':'לא נכון'):q.correctOrder.map(j=>q.items[j]).join(' ← ');return '<div class="q-row '+(QS.submitted?(ok?'ok':'wrong'):'')+'"><div class="q-num-c">'+(i+1)+'</div><div class="q-body"><div class="q-txt">'+q.q+'</div><div class="'+(QS.submitted?(ok?'ans-ok':'ans-bad'):'ans-ok')+'" style="'+(QS.submitted?'':'background:#fffbeb;color:#b45309;border-color:#fde68a')+'"><strong>'+(QS.submitted?(ok?'✅':'❌'):'→')+' תשובת התלמיד/ה:</strong> '+gv+'</div>'+(QS.submitted&&!ok&&gv!=='לא נענה'?'<div class="ans-cor"><strong>✅ התשובה הנכונה:</strong> '+ca+'</div>':'')+'<div class="q-expl">💡 '+q.explain+'</div>'+(q.teacherNote?'<div class="q-tip">🎓 '+q.teacherNote+'</div>':'')+'</div></div>';}).join('')+'</div><script>window.onload=()=>{setTimeout(()=>window.print(),400)}<\/script></body></html>');pw.document.close();}
+function printLesson(){const pw=window.open('','_blank','width=900,height=700');const SNP=STUDENT_NAME||'תלמיד/ה',SCP=STUDENT_CLASS||'—';const sh=QS.submitted?'<div style="background:#fffbeb;border:2px solid #fde68a;border-radius:12px;padding:1rem 1.4rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem"><span style="font-size:2rem">'+(_lastScore>=90?'🏆':_lastScore>=75?'⭐':'👍')+'</span><div><div style="font-weight:800;font-size:1.1rem;color:#ca8a04">'+_lastScore+'%</div><div style="font-size:.85rem;color:#6b7594">'+_lastCorrect+' מתוך '+QUESTIONS.length+' נכון</div></div></div>':'';pw.document.write('<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><title>הדפסה — יח׳4 שיעור 1</title><link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;700;800&display=swap" rel="stylesheet"><style>body{font-family:\'Heebo\',sans-serif;direction:rtl;background:#fff;color:#0d1424;font-size:10pt;line-height:1.6}.doc{max-width:700px;margin:0 auto;padding:1cm}.doc-header{text-align:center;border-bottom:3px solid #ca8a04;padding-bottom:.8rem;margin-bottom:1.5rem}.doc-header h1{font-family:\'Secular One\',sans-serif;font-size:16pt;color:#ca8a04;margin-bottom:.3rem}.sec-title{font-family:\'Secular One\',sans-serif;font-size:12pt;color:#ca8a04;border-bottom:1.5px solid #fde68a;padding-bottom:.35rem;margin:1.4rem 0 .8rem}.q-row{display:flex;gap:.6rem;border:1px solid #e4e7ef;border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid}.q-row.ok{border-color:#bbf7d0;background:#fafffe}.q-row.wrong{border-color:#fca5a5;background:#fffbfb}.q-num-c{width:20px;height:20px;border-radius:50%;background:#ca8a04;color:#fff;font-size:.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}.q-row.ok .q-num-c{background:#15803d}.q-row.wrong .q-num-c{background:#dc2626}.q-body{flex:1}.q-txt{font-size:9.5pt;font-weight:700;margin-bottom:.3rem}.ans-ok{font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem}.ans-bad{font-size:9pt;padding:.3rem .65rem;background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;border-radius:6px;margin-bottom:.25rem}.ans-cor{font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem}.q-expl{font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem;line-height:1.5}.q-tip{font-size:8pt;color:#ca8a04;margin-top:.2rem;background:#fffbeb;border-radius:5px;padding:.25rem .55rem}@page{margin:1.5cm;size:A4}</style></head><body><div class="doc"><div class="doc-header"><h1>📏 שיעור 1 — שם המספר: המספר המונה</h1><p>יחידה 4: תקינות | לשון Lesson 2.0</p><div style="font-size:11pt;font-weight:700;margin-top:.5rem">תלמיד/ה: '+SNP+' | כיתה: '+SCP+' | '+new Date().toLocaleDateString('he-IL')+'</div></div>'+sh+'<div class="sec-title">תרגול ותשובות</div>'+QUESTIONS.map((q,i)=>{const a=QS.answers[q.id];let ok=false,gv='לא נענה';if(q.type==='mc'&&a?.sel!==undefined){gv=LETTERS[a.sel]+'. '+q.opts[a.sel];ok=a.sel===q.ans;}else if(q.type==='tf'&&a?.sel!==undefined){gv=a.sel?'נכון':'לא נכון';ok=a.sel===q.ans;}else if(q.type==='sort'&&a?.order){gv=a.order.map(j=>q.items[j]).join(' ← ');ok=JSON.stringify(a.order)===JSON.stringify(q.correctOrder);}const ca=q.type==='mc'?LETTERS[q.ans]+'. '+q.opts[q.ans]:q.type==='tf'?(q.ans?'נכון':'לא נכון'):q.correctOrder.map(j=>q.items[j]).join(' ← ');return '<div class="q-row '+(QS.submitted?(ok?'ok':'wrong'):'')+'"><div class="q-num-c">'+(i+1)+'</div><div class="q-body"><div class="q-txt">'+q.q+'</div><div class="'+(QS.submitted?(ok?'ans-ok':'ans-bad'):'ans-ok')+'" style="'+(QS.submitted?'':'background:#fffbeb;color:#ca8a04;border-color:#fde68a')+'"><strong>'+(QS.submitted?(ok?'✅':'❌'):'→')+' תשובת התלמיד/ה:</strong> '+gv+'</div>'+(QS.submitted&&!ok&&gv!=='לא נענה'?'<div class="ans-cor"><strong>✅ התשובה הנכונה:</strong> '+ca+'</div>':'')+'<div class="q-expl">💡 '+q.explain+'</div>'+(q.teacherNote?'<div class="q-tip">🎓 '+q.teacherNote+'</div>':'')+'</div></div>';}).join('')+'</div><script>window.onload=()=>{setTimeout(()=>window.print(),400)}<\/script></body></html>');pw.document.close();}
 let _tt;
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800)}
 function goBack(){if(window.opener){try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}window.close();return;}window.location.href=BACK_URL;}
