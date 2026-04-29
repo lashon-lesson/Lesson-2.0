@@ -585,9 +585,10 @@ async function saveScore(score,name,cls){
 function switchTab(t){
   ['theory','practice','answers'].forEach(id=>{
     document.getElementById('pane-'+id)?.classList.toggle('active',id===t);
-    document.getElementById('btn-'+id)?.classList.toggle('active',id===t);
+    const btn=document.getElementById('btn-'+id);
+    if(btn) btn.classList.toggle('active',id===t);
   });
-
+  if(t==='answers') renderAnswers();
 }
 function applyAnswersVisibility(){
   if(USER_ROLE==='teacher'){
