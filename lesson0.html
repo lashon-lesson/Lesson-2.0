@@ -783,7 +783,10 @@ async function saveScore(score,studentName,className){
     ts:firebase.firestore.FieldValue.serverTimestamp(),
     submissionDate:now.toLocaleDateString('he-IL'),
     submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),
-    read:false   // for dashboard notification badge
+    read:false,   // for dashboard notification badge
+    correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,
+    wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,
+    totalQuestions:QUESTIONS.length
   };
   try{
     // Main submissions collection

@@ -941,6 +941,15 @@ function enterApp(role,name){
   subscribeLocks();
   subscribeAnswers();
   renderGrid();
+  if(role==='teacher'){
+    loadTeacherClassesFromFirebase();
+    // Prompt teacher to add classes if none set
+    setTimeout(()=>{
+      if(role==='teacher'&&getTeacherClasses().length===0){
+        toast('🏫 טיפ: הגדירי כיתות בהגדרות ← "כיתות" כדי לראות הגשות');
+      }
+    },3000);
+  }
 }
 
 /* ════════════════════════════════════════════════
@@ -1199,23 +1208,48 @@ function loadProgress(){
 function _renderSubmissions(el, docs){
   if(!docs.length){el.innerHTML='<p style="color:var(--muted);font-size:.82rem">לא נמצאו הגשות.</p>';return}
 
-  // Group by class
+  // Filter by teacher's classes — show only submissions from MY classes
+  const myClasses=getTeacherClasses();
+  const hasClassFilter=myClasses.length>0;
+  const myDocs=hasClassFilter
+    ? docs.filter(d=>myClasses.includes(d.className||''))
+    : docs;
+
+  // Group by class (from filtered set)
   const byClass={};
-  docs.forEach(d=>{
+  myDocs.forEach(d=>{
     const cls=d.className||'כיתה לא ידועה';
     if(!byClass[cls]) byClass[cls]=[];
     byClass[cls].push(d);
   });
-
   const sortedClasses=Object.keys(byClass).sort((a,b)=>a.localeCompare(b,'he'));
 
-  let html=`
+  // Banner: explain filtering
+  const hiddenCount=docs.length-myDocs.length;
+  const filterBanner=hasClassFilter&&hiddenCount>0
+    ? `<div style="background:var(--amber-lt);border:1px solid #fde68a;border-radius:var(--r);padding:.45rem .85rem;font-size:.72rem;color:var(--amber);margin-bottom:.75rem">
+        🏫 מוצגות הגשות מ-${myClasses.join(', ')} בלבד (${myDocs.length} מתוך ${docs.length}).
+        <span style="color:var(--muted)">להוספת כיתות ← טאב "כיתות"</span>
+      </div>`
+    : (hasClassFilter&&!myDocs.length
+        ? `<div style="background:var(--amber-lt);border:1px solid #fde68a;border-radius:var(--r);padding:.45rem .85rem;font-size:.72rem;color:var(--amber);margin-bottom:.75rem">
+            🏫 אין הגשות מכיתותייך (${myClasses.join(', ')}) עדיין.
+          </div>`
+        : '');
+
+  let html=filterBanner;
+
+  if(myDocs.length===0){
+    el.innerHTML=html+'<p style="color:var(--muted);font-size:.82rem">לא נמצאו הגשות לכיתות שלך.</p>';return;
+  }
+
+  html+=`
   <!-- Filter bar -->
   <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.9rem;align-items:center">
     <span style="font-size:.7rem;font-weight:700;color:var(--muted)">סנן לפי כיתה:</span>
     <button onclick="filterClass('all',this)" class="cls-filter-btn active" data-cls="all"
       style="font-size:.68rem;font-weight:700;padding:.2rem .7rem;border-radius:var(--r-pill);border:1.5px solid var(--lc,var(--blue));background:var(--blue-lt);color:var(--blue);cursor:pointer">
-      הכל (${docs.length})
+      הכל (${myDocs.length})
     </button>
     ${sortedClasses.map(c=>`
     <button onclick="filterClass('${c}',this)" class="cls-filter-btn" data-cls="${c}"
@@ -1225,17 +1259,15 @@ function _renderSubmissions(el, docs){
   </div>
   <div id="submissions-table-wrap" style="overflow-x:auto;max-height:380px;overflow-y:auto">`;
 
-  // Build full table (all classes visible by default)
-  html+=buildSubmissionsTable(docs);
+  html+=buildSubmissionsTable(myDocs);
   html+=`</div>
   <p style="font-size:.65rem;color:var(--muted);margin-top:.5rem">
-    סה״כ ${docs.length} הגשות | ${sortedClasses.length} כיתות | מקור: Firebase
+    סה״כ ${myDocs.length} הגשות | ${sortedClasses.length} כיתות | מקור: Firebase
     <button onclick="loadProgress()" style="margin-right:.5rem;background:none;border:none;color:var(--blue);font-size:.65rem;cursor:pointer;text-decoration:underline">🔄 רענן</button>
   </p>`;
 
   el.innerHTML=html;
-  // Store docs for filtering
-  el._allDocs=docs;
+  el._allDocs=myDocs;
 }
 
 function buildSubmissionsTable(docs){
@@ -1257,6 +1289,12 @@ function buildSubmissionsTable(docs){
       <td style="padding:7px 8px;font-size:.7rem">${d.lessonTitle||d.lessonId||'—'}</td>
       <td style="padding:7px 8px;font-size:.7rem;white-space:nowrap">${d.submissionDate||d.date||'—'}${timeDisplay}</td>
       <td style="padding:7px 8px">${scoreDisplay}</td>
+      <td style="padding:7px 8px;text-align:center">
+        ${typeof d.correct==='number'?`<span style="font-size:.72rem;font-weight:800;color:var(--green)">✓ ${d.correct}</span>`:'—'}
+      </td>
+      <td style="padding:7px 8px;text-align:center">
+        ${typeof d.wrong==='number'?`<span style="font-size:.72rem;font-weight:800;color:var(--red)">✗ ${d.wrong}</span>`:'—'}
+      </td>
     </tr>`;
   });
   return `<table style="width:100%;border-collapse:collapse;font-size:.74rem;direction:rtl;min-width:500px">
@@ -1266,6 +1304,8 @@ function buildSubmissionsTable(docs){
       <th style="padding:7px 8px;text-align:right">שיעור</th>
       <th style="padding:7px 8px;text-align:right">תאריך הגשה</th>
       <th style="padding:7px 8px;text-align:right">ציון</th>
+      <th style="padding:7px 8px;text-align:center;color:var(--green)">✓ נכון</th>
+      <th style="padding:7px 8px;text-align:center;color:var(--red)">✗ שגוי</th>
     </tr></thead>
     <tbody>${rows}</tbody>
   </table>`;
