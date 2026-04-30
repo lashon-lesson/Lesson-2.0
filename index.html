@@ -1095,7 +1095,7 @@ function switchTab(t){
     // Reset new submissions badge
     _newSubmissionsCount=0;
     document.querySelectorAll('.m-tab').forEach((b,i)=>{
-      if(['general','locks','answers','progress'][i]==='progress') b.innerHTML='📊 מעקב';
+      if(['general','classes','locks','answers','progress'][i]==='progress') b.innerHTML='📊 מעקב';
     });
   }
   if(t==='answers')buildAnswersControlList();
