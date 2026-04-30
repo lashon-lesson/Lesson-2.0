@@ -419,8 +419,37 @@ a{text-decoration:none;color:inherit}
              onkeydown="if(event.key==='Enter')doTeacherLogin()">
       <button class="tcp-go" onclick="doTeacherLogin()">כניסה</button>
     </div>
-    <p class="tcp-hint">ברירת מחדל: 1234 | כל מורה שומר את הפרטים שלו</p>
+    <p class="tcp-hint">קיבלת קוד כניסה ראשוני? הזן אותו כאן</p>
     <button class="tcp-back" onclick="hideTCP()">← חזרה</button>
+  </div>
+</div>
+
+<!-- CHANGE PASSWORD SCREEN -->
+<div id="chpass-screen" style="display:none;position:fixed;inset:0;z-index:1000;background:linear-gradient(160deg,#04081a 0%,#0a1535 45%,#060e1e 100%);display:none;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem">
+  <div style="position:relative;z-index:1;width:100%;max-width:400px">
+    <div style="text-align:center;margin-bottom:1.8rem">
+      <div style="font-size:2.2rem;margin-bottom:.6rem">🔐</div>
+      <div style="font-family:'Secular One',sans-serif;font-size:1.5rem;color:#fff">ברוכ/ה הבא/ה!</div>
+      <div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:.4rem">כניסה ראשונה — יש לקבוע סיסמה אישית</div>
+    </div>
+    <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:1.5rem">
+      <div style="margin-bottom:.9rem">
+        <label class="tcp-lbl">🔑 סיסמה חדשה</label>
+        <input class="tcp-input ltr" id="cp-pass1" type="password" placeholder="לפחות 8 תווים" maxlength="32"
+               onkeydown="if(event.key==='Enter')document.getElementById('cp-pass2').focus()">
+      </div>
+      <div style="margin-bottom:.6rem">
+        <label class="tcp-lbl">🔁 אישור סיסמה</label>
+        <input class="tcp-input ltr" id="cp-pass2" type="password" placeholder="הקלד/י שוב" maxlength="32"
+               onkeydown="if(event.key==='Enter')doChangePass()">
+      </div>
+      <div id="cp-rules" style="font-size:.66rem;color:rgba(255,255,255,.35);margin-bottom:.9rem;line-height:1.8">
+        <div id="cpr-len">⚪ לפחות 8 תווים</div>
+        <div id="cpr-upper">⚪ אות גדולה באנגלית (A-Z)</div>
+        <div id="cpr-symbol">⚪ סימן אחד לפחות (!@#$%^&*)</div>
+      </div>
+      <button class="tcp-go" style="width:100%;justify-content:center" onclick="doChangePass()">✅ קבע סיסמה והיכנס</button>
+    </div>
   </div>
 </div>
 
@@ -692,7 +721,7 @@ function subscribeAnswers(){
   });
   // Live submission listener — notifies teacher in real-time
   _db.collection('lashon2_live').doc('latest').onSnapshot(doc=>{
-    if(!doc.exists||S.role!=='teacher') return;
+    if(!doc.exists||(S.role!=='teacher'&&S.role!=='admin')) return;
     const d=doc.data();
     if(!d||!d.studentName) return;
     // Only notify if this is recent (within last 60 seconds)
@@ -878,7 +907,30 @@ async function hashPass(raw){
     return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
   }catch{let h=5381;for(let i=0;i<raw.length;i++)h=((h<<5)+h)^raw.charCodeAt(i);return 'fb_'+(h>>>0).toString(16)}
 }
-async function verifyPass(raw){const s=LS.get('lashon2_tpass','');if(!s)return raw===DEFAULT_PASS;return(await hashPass(raw))===s}
+async function verifyPass(raw){
+  // 1. Check temp password in Firebase
+  if(_db){
+    try{
+      const doc=await _db.collection('lashon2_config').doc('auth').get();
+      if(doc.exists && doc.data().tempPassword && doc.data().tempPassword===raw) return 'temp';
+    }catch(e){}
+  }
+  // 2. Check personal hashed password in Firebase
+  if(_db && S._pendingName){
+    try{
+      const key=S._pendingName.replace(/\s+/g,'_');
+      const doc=await _db.collection('lashon2_teachers').doc(key).get();
+      if(doc.exists && doc.data().passHash){
+        const h=await hashPass(raw);
+        if(h===doc.data().passHash) return 'ok';
+      }
+    }catch(e){}
+  }
+  // 3. Fallback: local hash (legacy)
+  const s=LS.get('lashon2_tpass','');
+  if(s) return (await hashPass(raw))===s ? 'ok' : false;
+  return false;
+}
 
 function buildStars(){
   const c=document.getElementById('ls-stars');if(!c)return;
@@ -921,40 +973,83 @@ async function doTeacherLogin(){
   const nameVal=(document.getElementById('tname')?.value||'').trim();
   const waVal=(document.getElementById('t-wa')?.value||'').replace(/\D/g,'');
 
-  // Validate: name required
-  if(!nameVal){
-    document.getElementById('tname')?.focus();
-    toast('⚠️ הזינו שם מלא');
-    return;
+  if(!nameVal){document.getElementById('tname')?.focus();toast('⚠️ הזינו שם מלא');return;}
+  if(!pass){pi.classList.add('shake');setTimeout(()=>pi.classList.remove('shake'),360);toast('⚠️ הזינו קוד כניסה');return;}
+
+  // Store pending name for verifyPass
+  S._pendingName=nameVal;
+  const result=await verifyPass(pass);
+  if(!result){toast('❌ קוד שגוי');pi.value='';pi.focus();return;}
+
+  // Fetch role from Firebase
+  let role='teacher';
+  if(_db){
+    try{
+      const key=nameVal.replace(/\s+/g,'_');
+      const doc=await _db.collection('lashon2_teachers').doc(key).get();
+      if(doc.exists && doc.data().role) role=doc.data().role;
+    }catch(e){}
   }
-  // Validate: password required
-  if(!pass){
-    pi.classList.add('shake');
-    setTimeout(()=>pi.classList.remove('shake'),360);
-    toast('⚠️ הזינו קוד כניסה');
+  S._pendingRole=role;
+  S._pendingWa=waVal;
+
+  if(result==='temp'){
+    // First login — show change password screen
+    hideTCP();
+    document.getElementById('login-screen').style.display='none';
+    const cp=document.getElementById('chpass-screen');
+    cp.style.display='flex';
+    document.getElementById('cp-pass1').focus();
+    // Live validation
+    document.getElementById('cp-pass1').addEventListener('input',updateCpRules);
     return;
-  }
-  if(!await verifyPass(pass)){
-    toast('❌ קוד שגוי');pi.value='';pi.focus();return;
   }
 
-  // Save teacher profile (per teacher — keyed by name)
-  const h=await hashPass(pass);
+  // Normal login
+  _finalizeTeacherLogin(nameVal,waVal,role);
+}
+
+function updateCpRules(){
+  const v=document.getElementById('cp-pass1').value;
+  const ok=(id,pass)=>{document.getElementById(id).textContent=(pass?'✅':'⚪')+document.getElementById(id).textContent.slice(1)};
+  document.getElementById('cpr-len').textContent=(v.length>=8?'✅':'⚪')+' לפחות 8 תווים';
+  document.getElementById('cpr-upper').textContent=(/[A-Z]/.test(v)?'✅':'⚪')+' אות גדולה באנגלית (A-Z)';
+  document.getElementById('cpr-symbol').textContent=(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(v)?'✅':'⚪')+' סימן אחד לפחות (!@#$%^&*)';
+}
+
+async function doChangePass(){
+  const p1=(document.getElementById('cp-pass1').value||'').trim();
+  const p2=(document.getElementById('cp-pass2').value||'').trim();
+  if(p1.length<8){toast('⚠️ סיסמה חייבת להיות לפחות 8 תווים');return;}
+  if(!/[A-Z]/.test(p1)){toast('⚠️ חסרה אות גדולה באנגלית');return;}
+  if(!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(p1)){toast('⚠️ חסר סימן (!@#$%^& וכו׳)');return;}
+  if(p1!==p2){toast('⚠️ הסיסמאות אינן תואמות');document.getElementById('cp-pass2').classList.add('shake');setTimeout(()=>document.getElementById('cp-pass2').classList.remove('shake'),360);return;}
+
+  const h=await hashPass(p1);
+  // Save to Firebase
+  if(_db){
+    try{
+      const key=S._pendingName.replace(/\s+/g,'_');
+      await _db.collection('lashon2_teachers').doc(key).set({passHash:h,updatedAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});
+    }catch(e){console.warn('[chpass]',e);}
+  }
+  LS.set('lashon2_tpass',h);
+  document.getElementById('chpass-screen').style.display='none';
+  toast('✅ סיסמה נקבעה בהצלחה!');
+  _finalizeTeacherLogin(S._pendingName,S._pendingWa,S._pendingRole);
+}
+
+function _finalizeTeacherLogin(nameVal,waVal,role){
   const teacherKey='lashon2_teacher_'+nameVal.replace(/\s+/g,'_');
   LS.set(teacherKey,{name:nameVal,wa:waVal,ts:Date.now()});
-
-  // Save globals (used throughout the app)
-  LS.set('lashon2_tpass',h);
   LS.set('lashon2_tname',nameVal);
   LS.set('lashon2_role','teacher');
   LS.set('lashon2_uname',nameVal);
   LS.set('lashon2_teacher_wa',waVal);
   localStorage.setItem('userRole','teacher');
-
-  // Push teacher profile to Firestore (so lesson pages can read it)
   _saveTeacherProfile(nameVal,waVal);
-
-  fadeLogin(()=>enterApp('teacher',nameVal));
+  S._role_resolved=role;
+  fadeLogin(()=>enterApp(role,nameVal));
 }
 
 async function _saveTeacherProfile(name,wa){
@@ -974,33 +1069,33 @@ function fadeLogin(cb){
 }
 function enterApp(role,name){
   S.role=role;S.name=name;S.prog=LS.get('lashon2_prog_'+name,{});
+  const isTeacher=(role==='teacher'||role==='admin');
+  const isAdmin=role==='admin';
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app').classList.add('on');
-  const av=document.getElementById('sb-av');if(av){av.textContent=(name||'?')[0].toUpperCase();av.className='sb-av '+(role==='teacher'?'t':'s')}
+  const av=document.getElementById('sb-av');if(av){av.textContent=(name||'?')[0].toUpperCase();av.className='sb-av '+(isTeacher?'t':'s')}
   document.getElementById('sb-uname').textContent=name;
-  const rt=document.getElementById('sb-role');if(rt)rt.style.display=role==='teacher'?'':'none';
+  const rt=document.getElementById('sb-role');
+  if(rt){rt.style.display=isTeacher?'':'none';rt.textContent=isAdmin?'מנהל':'מורה';}
   const greet=document.getElementById('tb-greet');if(greet){greet.textContent='👋 שלום, '+name;greet.style.display=''}
-  document.getElementById('desk-cfg').style.display=role==='teacher'?'':'none';
-  document.getElementById('mob-cfg').style.display=role==='teacher'?'':'none';
-  // Show logout button for ALL users (teacher + student)
+  document.getElementById('desk-cfg').style.display=isTeacher?'':'none';
+  document.getElementById('mob-cfg').style.display=isTeacher?'':'none';
   const dl=document.getElementById('desk-logout');if(dl)dl.style.display='';
   const ml=document.getElementById('mob-logout');if(ml)ml.style.display='';
-  // Update mobile title to show user name briefly
   const mt=document.getElementById('mob-title-name');if(mt)mt.textContent='לשון 2.0';
-  document.getElementById('t-strip').classList.toggle('on',role==='teacher');
-  if(role==='teacher'){
+  document.getElementById('t-strip').classList.toggle('on',isTeacher);
+  if(isTeacher){
     const strip=document.getElementById('t-strip-text');
-    if(strip) strip.textContent='מצב מורה — נעילות, תשובות ומעקב תלמידים זמינים';
+    if(strip) strip.textContent=isAdmin?'מצב מנהל — גישה מלאה לכל הכלים':'מצב מורה — נעילות, תשובות ומעקב תלמידים זמינים';
   }
   document.getElementById('prog-banner').style.display=role==='student'?'':'none';
   subscribeLocks();
   subscribeAnswers();
   renderGrid();
-  if(role==='teacher'){
+  if(isTeacher){
     loadTeacherClassesFromFirebase();
-    // Prompt teacher to add classes if none set
     setTimeout(()=>{
-      if(role==='teacher'&&getTeacherClasses().length===0){
+      if(isTeacher&&getTeacherClasses().length===0){
         toast('🏫 טיפ: הגדירי כיתות בהגדרות ← "כיתות" כדי לראות הגשות');
       }
     },3000);
@@ -1012,7 +1107,7 @@ function enterApp(role,name){
 ════════════════════════════════════════════════ */
 function renderGrid(){
   const wrap=document.getElementById('units-wrap');if(!wrap)return;
-  const isT=S.role==='teacher';let totalOpen=0,totalDone=0;let html='';
+  const isT=(S.role==='teacher'||S.role==='admin');let totalOpen=0,totalDone=0;let html='';
   UNITS.forEach((unit,ui)=>{
     let ud=0,ut=0;
     unit.lessons.forEach(l=>{if(!isLocked(l.id,l.locked)||isT)ut++;if(S.prog[l.id]?.done)ud++;});
@@ -1160,8 +1255,19 @@ function saveGeneral(){
 }
 async function changePass(){
   const np=(document.getElementById('cfg-pass').value||'').trim();
-  if(np.length<4){toast('⚠️ קוד חייב להיות לפחות 4 תווים');return}
-  LS.set('lashon2_tpass',await hashPass(np));document.getElementById('cfg-pass').value='';toast('🔐 קוד שונה!');
+  if(np.length<8){toast('⚠️ סיסמה חייבת להיות לפחות 8 תווים');return;}
+  if(!/[A-Z]/.test(np)){toast('⚠️ חסרה אות גדולה באנגלית');return;}
+  if(!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(np)){toast('⚠️ חסר סימן (!@#$%^& וכו׳)');return;}
+  const h=await hashPass(np);
+  LS.set('lashon2_tpass',h);
+  if(_db){
+    try{
+      const key=S.name.replace(/\s+/g,'_');
+      await _db.collection('lashon2_teachers').doc(key).set({passHash:h,updatedAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});
+    }catch(e){}
+  }
+  document.getElementById('cfg-pass').value='';
+  toast('🔐 קוד שונה ונשמר ב-Firebase!');
 }
 
 /* ════════════════════════════════════════════════
