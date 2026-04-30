@@ -314,6 +314,55 @@ a{text-decoration:none;color:inherit}
 .toggle-wrap input:checked+.toggle-slider::before{transform:translateX(-17px);background:#fff}
 .toggle-wrap.answers input:checked+.toggle-slider{background:#6d28d9;border-color:#5b21b6}
 
+/* ── ROSTER ── */
+.roster-class-block{margin-bottom:1.3rem;border:1.5px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.roster-class-hd{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;background:var(--surface2);cursor:pointer;user-select:none;gap:.6rem}
+.roster-class-name{font-size:.88rem;font-weight:800;color:var(--text);display:flex;align-items:center;gap:.45rem}
+.roster-class-count{font-size:.68rem;font-weight:700;color:var(--muted);background:var(--surface3);border:1px solid var(--border);border-radius:var(--r-pill);padding:.1rem .55rem}
+.roster-class-body{display:none;padding:.7rem .85rem .85rem}
+.roster-class-body.open{display:block}
+.roster-add-row{display:flex;gap:.5rem;margin-bottom:.7rem}
+.roster-name-inp{flex:1;padding:.6rem .85rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface);font-size:.84rem;color:var(--text);outline:none;transition:border-color .15s}
+.roster-name-inp:focus{border-color:var(--blue)}
+.roster-add-btn{padding:.6rem .95rem;border:none;border-radius:var(--r-pill);background:var(--blue);color:#fff;font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .13s}
+.roster-add-btn:hover{background:var(--blue-dk)}
+.roster-student-list{display:flex;flex-direction:column;gap:.3rem;max-height:220px;overflow-y:auto}
+.roster-student-item{display:flex;align-items:center;gap:.55rem;padding:.42rem .65rem;border-radius:9px;background:var(--surface2);border:1px solid var(--border);font-size:.8rem;font-weight:600}
+.roster-student-item .rs-num{width:20px;text-align:center;font-size:.66rem;color:var(--subtle);flex-shrink:0}
+.roster-student-item .rs-name{flex:1}
+.roster-student-del{background:none;border:none;color:var(--subtle);font-size:.85rem;cursor:pointer;padding:0;line-height:1;transition:color .13s}
+.roster-student-del:hover{color:var(--red)}
+.roster-empty{font-size:.74rem;color:var(--subtle);padding:.4rem .2rem;font-style:italic}
+.roster-paste-hint{font-size:.66rem;color:var(--muted);margin-top:.45rem;line-height:1.5;background:var(--blue-lt);border:1px solid #bfdbfe;border-radius:9px;padding:.42rem .7rem}
+
+/* ── UNIT SUMMARY (progress tab) ── */
+.unit-summary-block{margin-bottom:1.4rem}
+.unit-summary-hd{font-family:'Secular One',sans-serif;font-size:.9rem;padding:.6rem .8rem;border-radius:var(--r) var(--r) 0 0;background:var(--surface2);border:1.5px solid var(--border);border-bottom:none;display:flex;align-items:center;gap:.55rem}
+.unit-summary-body{border:1.5px solid var(--border);border-radius:0 0 var(--r) var(--r);overflow:hidden}
+.unit-summary-stats{display:flex;gap:0;border-bottom:1px solid var(--border)}
+.uss-cell{flex:1;text-align:center;padding:.55rem .3rem;border-left:1px solid var(--border);font-size:.78rem;font-weight:700}
+.uss-cell:last-child{border-left:none}
+.uss-cell .uss-n{font-size:1.35rem;font-weight:900;display:block}
+.uss-cell.green{background:var(--green-lt);color:var(--green)}
+.uss-cell.yellow{background:#fefce8;color:#a16207}
+.uss-cell.red{background:var(--red-lt);color:var(--red)}
+.unit-roster-table{width:100%;border-collapse:collapse;font-size:.76rem;direction:rtl}
+.unit-roster-table th{padding:6px 9px;text-align:right;background:var(--surface3);font-weight:800;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0}
+.unit-roster-table td{padding:6px 9px;border-bottom:1px solid var(--border)}
+.unit-roster-table tr:last-child td{border-bottom:none}
+.unit-roster-table tr:hover td{background:var(--surface2)}
+.urt-status{display:inline-flex;align-items:center;gap:.32rem;font-size:.7rem;font-weight:800;padding:.18rem .65rem;border-radius:var(--r-pill)}
+.urt-status.green{background:var(--green-lt);color:var(--green);border:1px solid #bbf7d0}
+.urt-status.yellow{background:#fefce8;color:#a16207;border:1px solid #fde68a}
+.urt-status.red{background:var(--red-lt);color:var(--red);border:1px solid #fecaca}
+.urt-status.grey{background:var(--surface3);color:var(--subtle);border:1px solid var(--border)}
+.urt-bar{height:6px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;width:80px;display:inline-block;vertical-align:middle;border:1px solid var(--border)}
+.urt-bar-fill{height:100%;border-radius:var(--r-pill);transition:width .4s}
+.progress-tabs{display:flex;gap:.38rem;flex-wrap:wrap;margin-bottom:1rem}
+.ptab{padding:.38rem .85rem;border-radius:var(--r-pill);border:1.5px solid var(--border);background:var(--surface2);font-size:.74rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .13s;white-space:nowrap}
+.ptab:hover{background:var(--blue-lt);color:var(--blue);border-color:var(--blue)}
+.ptab.active{background:var(--blue-lt);color:var(--blue);border-color:var(--blue)}
+
 /* Toast */
 #toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%) translateY(14px);background:var(--text);color:var(--bg);padding:.58rem 1.4rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:700;box-shadow:var(--sh3);z-index:9999;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;white-space:nowrap}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -355,12 +404,6 @@ a{text-decoration:none;color:inherit}
     <div style="margin-bottom:.7rem">
       <label class="tcp-lbl">👤 שם מלא</label>
       <input class="tcp-input" id="tname" type="text" placeholder="שם פרטי + שם משפחה" autocomplete="name">
-    </div>
-
-    <!-- Email -->
-    <div style="margin-bottom:.7rem">
-      <label class="tcp-lbl">📧 אימייל (לקבלת עבודות)</label>
-      <input class="tcp-input ltr" id="t-email" type="email" placeholder="teacher@school.edu" autocomplete="email">
     </div>
 
     <!-- WhatsApp -->
@@ -475,13 +518,9 @@ a{text-decoration:none;color:inherit}
           <div style="font-size:.72rem;color:var(--muted)" id="cfg-teacher-contact">—</div>
         </div>
       </div>
-      <div class="m-section">עדכון פרטי הגשה</div>
+      <div class="m-section">פרטי קשר</div>
       <div style="background:var(--blue-lt);border:1px solid #bfdbfe;border-radius:var(--r);padding:.65rem .9rem;font-size:.76rem;color:var(--blue);margin-bottom:.9rem">
-        💡 הפרטים נשמרים לפי שם המורה. שינוי כאן יעדכן גם ב-Firebase.
-      </div>
-      <div class="m-field">
-        <label class="m-lbl">📧 אימייל לקבלת עבודות</label>
-        <input class="m-in" id="cfg-email" type="email" placeholder="teacher@school.edu" dir="ltr">
+        💡 מספר הוואטסאפ משמש לשליחת סיכומי הגשות. הפרטים נשמרים ב-Firebase.
       </div>
       <div class="m-field">
         <label class="m-lbl">💬 מספר וואטסאפ</label>
@@ -499,23 +538,23 @@ a{text-decoration:none;color:inherit}
     </div>
 
 
-    <!-- My Classes -->
+    <!-- My Classes + Roster -->
     <div class="m-pane" id="tab-classes">
       <div class="m-section">הכיתות שאני מלמד/ת</div>
       <div style="background:var(--blue-lt);border:1px solid #bfdbfe;border-radius:var(--r);padding:.7rem .95rem;font-size:.78rem;color:var(--blue);margin-bottom:1rem;line-height:1.6">
-        💡 הגישי כיתות שאת מלמדת. כל תלמיד שירשום כיתה תואמת — הנתונים שלו יגיעו אלייך ב<strong>מעקב</strong>.
+        💡 הוסיפי כיתה ← לאחר מכן פתחי אותה והוסיפי <strong>רשימה שמית של תלמידים</strong>. המעקב יציג את כל תלמידייך לפי ביצוע.
       </div>
-      <div style="display:flex;gap:.55rem;margin-bottom:.9rem">
+      <div style="display:flex;gap:.55rem;margin-bottom:1rem">
         <input class="m-in" id="new-class-inp" type="text"
                placeholder='לדוגמה: י3 או י"ג'
                style="flex:1;min-width:0"
                onkeydown="if(event.key==='Enter')addTeacherClass()">
         <button class="m-btn" onclick="addTeacherClass()"
-                style="padding:.72rem 1rem;white-space:nowrap;flex-shrink:0">+ הוסף</button>
+                style="padding:.72rem 1rem;white-space:nowrap;flex-shrink:0">+ הוסף כיתה</button>
       </div>
-      <div id="teacher-classes-list" style="display:flex;flex-wrap:wrap;gap:.45rem;min-height:24px"></div>
-      <p id="teacher-classes-empty" style="font-size:.76rem;color:var(--subtle);display:none">לא נוספו כיתות עדיין.</p>
-      <p style="font-size:.65rem;color:var(--subtle);margin-top:.9rem">הכיתות נשמרות ב-Firebase ומשמשות לניתוב הגשות תלמידים.</p>
+      <div id="roster-blocks"></div>
+      <p id="teacher-classes-empty" style="font-size:.76rem;color:var(--subtle);display:none">לא נוספו כיתות עדיין. הוסיפי כיתה למעלה.</p>
+      <p style="font-size:.65rem;color:var(--subtle);margin-top:.9rem">הכיתות והרשימות השמיות נשמרות ב-Firebase.</p>
     </div>
 
     <!-- Lock lessons -->
@@ -556,8 +595,30 @@ a{text-decoration:none;color:inherit}
 
     <!-- Progress -->
     <div class="m-pane" id="tab-progress">
-      <div class="m-section">הגשות תלמידים לפי כיתה</div>
-      <div id="progress-content"><p style="color:var(--muted);font-size:.82rem">פתח את הטאב לטעינה</p></div>
+      <div class="m-section">מעקב תלמידים לפי כיתה ויחידה</div>
+      <!-- WhatsApp Summary Button -->
+      <div style="background:linear-gradient(135deg,#dcfce7,#f0fdf4);border:1.5px solid #86efac;border-radius:var(--r-lg);padding:.9rem 1.1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.85rem">
+        <div style="font-size:1.8rem;flex-shrink:0">📲</div>
+        <div style="flex:1">
+          <div style="font-size:.84rem;font-weight:800;color:#15803d;margin-bottom:.18rem">סיכום יומי לוואטסאפ</div>
+          <div style="font-size:.71rem;color:#166534;line-height:1.5">לחץ/י לפתיחת וואטסאפ עם סיכום מוכן — כל הכיתות, מי הגיש ב-24 שעות האחרונות וציונים</div>
+        </div>
+        <button id="wa-summary-btn" onclick="sendWhatsAppSummary()"
+          style="flex-shrink:0;padding:.65rem 1.1rem;border:none;border-radius:var(--r-pill);background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.8rem;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(21,128,61,.35);transition:all .18s;white-space:nowrap"
+          onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+          📲 שלח סיכום
+        </button>
+      </div>
+      <div class="progress-tabs" id="progress-tabs">
+        <button class="ptab active" onclick="switchProgressTab('submissions',this)">📥 הגשות</button>
+        <button class="ptab" onclick="switchProgressTab('unit_summary',this)">📊 סיכום יחידה</button>
+      </div>
+      <div id="progress-view-submissions">
+        <div id="progress-content"><p style="color:var(--muted);font-size:.82rem">פתח את הטאב לטעינה</p></div>
+      </div>
+      <div id="progress-view-unit_summary" style="display:none">
+        <div id="unit-summary-content"><p style="color:var(--muted);font-size:.82rem">טוען סיכום…</p></div>
+      </div>
     </div>
   </div>
 </div>
@@ -836,13 +897,10 @@ function showTCP(){
   c.style.opacity='.25'; c.style.pointerEvents='none';
   // Pre-fill with saved values for returning teachers
   const savedName=LS.get('lashon2_tname','');
-  const savedEmail=LS.get('lashon2_teacher_email','');
   const savedWa=LS.get('lashon2_teacher_wa','');
   const nameEl=document.getElementById('tname');
-  const emailEl=document.getElementById('t-email');
   const waEl=document.getElementById('t-wa');
   if(nameEl&&savedName) nameEl.value=savedName;
-  if(emailEl&&savedEmail) emailEl.value=savedEmail;
   if(waEl&&savedWa) waEl.value=savedWa;
   document.getElementById('tcp').classList.add('open');
   setTimeout(()=>{ (savedName?document.getElementById('tpass'):nameEl)?.focus(); },80);
@@ -861,7 +919,6 @@ async function doTeacherLogin(){
   const pi=document.getElementById('tpass');
   const pass=(pi.value||'').trim();
   const nameVal=(document.getElementById('tname')?.value||'').trim();
-  const emailVal=(document.getElementById('t-email')?.value||'').trim();
   const waVal=(document.getElementById('t-wa')?.value||'').replace(/\D/g,'');
 
   // Validate: name required
@@ -884,29 +941,28 @@ async function doTeacherLogin(){
   // Save teacher profile (per teacher — keyed by name)
   const h=await hashPass(pass);
   const teacherKey='lashon2_teacher_'+nameVal.replace(/\s+/g,'_');
-  LS.set(teacherKey,{name:nameVal,email:emailVal,wa:waVal,ts:Date.now()});
+  LS.set(teacherKey,{name:nameVal,wa:waVal,ts:Date.now()});
 
   // Save globals (used throughout the app)
   LS.set('lashon2_tpass',h);
   LS.set('lashon2_tname',nameVal);
   LS.set('lashon2_role','teacher');
   LS.set('lashon2_uname',nameVal);
-  LS.set('lashon2_teacher_email',emailVal);
   LS.set('lashon2_teacher_wa',waVal);
   localStorage.setItem('userRole','teacher');
 
   // Push teacher profile to Firestore (so lesson pages can read it)
-  _saveTeacherProfile(nameVal,emailVal,waVal);
+  _saveTeacherProfile(nameVal,waVal);
 
   fadeLogin(()=>enterApp('teacher',nameVal));
 }
 
-async function _saveTeacherProfile(name,email,wa){
+async function _saveTeacherProfile(name,wa){
   if(!_db||!name) return;
   try{
     const key=name.replace(/\s+/g,'_');
     await _db.collection('lashon2_teachers').doc(key).set({
-      name,email:email||'',wa:wa||'',
+      name,wa:wa||'',
       updatedAt:firebase.firestore.FieldValue.serverTimestamp()
     },{merge:true});
   }catch(e){console.warn('[FB teacher]',e);}
@@ -933,9 +989,8 @@ function enterApp(role,name){
   const mt=document.getElementById('mob-title-name');if(mt)mt.textContent='לשון 2.0';
   document.getElementById('t-strip').classList.toggle('on',role==='teacher');
   if(role==='teacher'){
-    const email=LS.get('lashon2_teacher_email','');
     const strip=document.getElementById('t-strip-text');
-    if(strip) strip.textContent='מצב מורה' + (email?` · ${email}`:'') + ' — נעילות, תשובות ומעקב';
+    if(strip) strip.textContent='מצב מורה — נעילות, תשובות ומעקב תלמידים זמינים';
   }
   document.getElementById('prog-banner').style.display=role==='student'?'':'none';
   subscribeLocks();
@@ -1069,9 +1124,7 @@ function closeSidebar(){document.getElementById('sidebar').classList.remove('ope
    SETTINGS
 ════════════════════════════════════════════════ */
 function openSettings(){
-  const email=LS.get('lashon2_teacher_email','')||'';
   const wa=LS.get('lashon2_teacher_wa','')||'';
-  document.getElementById('cfg-email').value=email;
   document.getElementById('cfg-wa').value=wa;
   // Populate teacher info card
   const av=document.getElementById('cfg-teacher-av');
@@ -1079,10 +1132,7 @@ function openSettings(){
   const ct=document.getElementById('cfg-teacher-contact');
   if(av) av.textContent=(S.name||'מ')[0].toUpperCase();
   if(nm) nm.textContent=S.name||'—';
-  const parts=[];
-  if(email) parts.push('✉️ '+email);
-  if(wa)    parts.push('💬 '+wa);
-  if(ct)    ct.textContent=parts.join('  ·  ')||'לא הוזנו פרטי קשר';
+  if(ct) ct.textContent=wa?('💬 0'+wa.replace(/^972/,'')):'לא הוזן מספר וואטסאפ';
   buildLockList();buildAnswersControlList();switchTab('general');
   document.getElementById('settings-overlay').classList.add('open');document.body.style.overflow='hidden';
 }
@@ -1099,21 +1149,123 @@ function switchTab(t){
     });
   }
   if(t==='answers')buildAnswersControlList();
-  if(t==='classes')renderTeacherClassesList();
+  if(t==='classes')renderRosterAll();
 }
 function saveGeneral(){
-  const email=(document.getElementById('cfg-email').value||'').trim();
   const wa=(document.getElementById('cfg-wa').value||'').replace(/\D/g,'');
-  if(!email&&!wa){toast('⚠️ הזינו לפחות שדה אחד');return}
-  LS.set('lashon2_teacher_email',email);LS.set('lashon2_teacher_wa',wa);
-  // Also update teacher profile in Firestore with new email/wa
-  _saveTeacherProfile(S.name,email,wa);
+  if(!wa){toast('⚠️ הזינו מספר וואטסאפ');return}
+  LS.set('lashon2_teacher_wa',wa);
+  _saveTeacherProfile(S.name,wa);
   toast('✅ נשמר ועודכן ב-Firebase!');
 }
 async function changePass(){
   const np=(document.getElementById('cfg-pass').value||'').trim();
   if(np.length<4){toast('⚠️ קוד חייב להיות לפחות 4 תווים');return}
   LS.set('lashon2_tpass',await hashPass(np));document.getElementById('cfg-pass').value='';toast('🔐 קוד שונה!');
+}
+
+/* ════════════════════════════════════════════════
+   WHATSAPP DAILY SUMMARY
+════════════════════════════════════════════════ */
+async function sendWhatsAppSummary(){
+  const btn = document.getElementById('wa-summary-btn');
+  if(btn){ btn.textContent='⏳ מייצר סיכום…'; btn.disabled=true; }
+
+  const myClasses = getTeacherClasses();
+  const now = new Date();
+  const todayStr = now.toLocaleDateString('he-IL');
+  const dayNames = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
+  const dayName = dayNames[now.getDay()];
+  const timeStr = now.getHours()+':'+(String(now.getMinutes()).padStart(2,'0'));
+
+  // Fetch all submissions from Firebase
+  let allDocs = [];
+  if(_db){
+    try{
+      // Get last 24h submissions
+      const since = new Date(Date.now() - 24*60*60*1000);
+      const snap = await _db.collection('lashon2_submissions')
+        .orderBy('ts','desc').limit(500).get();
+      allDocs = snap.docs
+        .map(d=>({...d.data(),_id:d.id}))
+        .filter(d=>{
+          const ts = d.ts?.toDate?.();
+          return ts && ts >= since;
+        });
+    }catch(e){ console.warn('[WA summary]',e); }
+  }
+
+  // Filter to my classes
+  const myDocs = myClasses.length
+    ? allDocs.filter(d=>myClasses.includes(d.className||''))
+    : allDocs;
+
+  // Build message
+  let msg = `📊 *סיכום הגשות — לשון Lesson 2.0*\n`;
+  msg += `📅 יום ${dayName} | ${todayStr} | ${timeStr}\n`;
+  msg += `━━━━━━━━━━━━━━━\n`;
+
+  if(myClasses.length===0){
+    msg += `אין כיתות מוגדרות. הגדר/י כיתות בהגדרות.\n`;
+  } else {
+    let grandTotal = 0;
+    let grandScores = [];
+
+    myClasses.forEach(cls=>{
+      const roster = getRoster(cls);
+      const classDocs = myDocs.filter(d=>(d.className||'')=== cls);
+      const submitterNames = [...new Set(classDocs.map(d=>d.studentName).filter(Boolean))];
+      const notSubmitted = roster.filter(n=>!submitterNames.includes(n));
+
+      msg += `\n🏫 *כיתה ${cls}*`;
+      if(roster.length) msg += ` — ${roster.length} תלמידים`;
+      msg += `\n━━━━━━━━━━━━━━━\n`;
+
+      if(classDocs.length===0){
+        msg += `⏳ לא הוגשו עבודות היום\n`;
+      } else {
+        msg += `✅ הגישו (${classDocs.length}):\n`;
+        classDocs.forEach(d=>{
+          const score = typeof d.score==='number' ? ` | ${d.score}%` : '';
+          const unit = d.lessonTitle || d.lessonId || '—';
+          msg += `• ${d.studentName||'—'} — ${unit}${score}\n`;
+          if(typeof d.score==='number') grandScores.push(d.score);
+        });
+        grandTotal += classDocs.length;
+      }
+
+      if(notSubmitted.length>0){
+        msg += `\n⏳ לא הגישו (${notSubmitted.length}):\n`;
+        // Show up to 8 names to keep message manageable
+        const show = notSubmitted.slice(0,8);
+        show.forEach(n=>{ msg += `• ${n}\n`; });
+        if(notSubmitted.length>8) msg += `• ועוד ${notSubmitted.length-8} נוספים…\n`;
+      }
+    });
+
+    msg += `\n━━━━━━━━━━━━━━━\n`;
+    msg += `📈 *סה״כ היום:* ${grandTotal} הגשות`;
+    if(grandScores.length){
+      const avg = Math.round(grandScores.reduce((a,b)=>a+b,0)/grandScores.length);
+      msg += ` | ממוצע: ${avg}%`;
+    }
+    msg += `\n_נשלח מפלטפורמת לשון Lesson 2.0_`;
+  }
+
+  if(btn){ btn.textContent='📲 שלח סיכום לוואטסאפ'; btn.disabled=false; }
+
+  // Open WhatsApp
+  const wa = LS.get('lashon2_teacher_wa','');
+  const encoded = encodeURIComponent(msg);
+  if(wa){
+    // Send to self (teacher's own number)
+    const num = wa.startsWith('972') ? wa : '972'+wa.replace(/^0/,'');
+    window.open(`https://wa.me/${num}?text=${encoded}`, '_blank');
+  } else {
+    // No number saved — open generic WhatsApp
+    window.open(`https://wa.me/?text=${encoded}`, '_blank');
+    toast('💡 הגדר/י מספר וואטסאפ בהגדרות לשליחה ישירה לעצמך');
+  }
 }
 
 /* Lock list */
@@ -1417,8 +1569,9 @@ function initApp(){
 initApp();
 
 /* ════════════════════════════════════════════════
-   TEACHER CLASSES — per-teacher class list
+   TEACHER CLASSES + ROSTER
    Firestore: lashon2_teachers/{name}/classes: [...]
+             lashon2_teachers/{name}/roster/{cls}: {students:[...]}
 ════════════════════════════════════════════════ */
 function getTeacherClasses(){
   return LS.get('lashon2_teacher_classes',[]) || [];
@@ -1431,6 +1584,49 @@ function _saveTeacherClasses(arr){
        .set({classes: arr},{merge:true}).catch(()=>{});
   }
 }
+
+/* ── Roster (per-class student list) ── */
+function getRoster(cls){
+  const all = LS.get('lashon2_roster',{}) || {};
+  return all[cls] || [];
+}
+function setRoster(cls, students){
+  const all = LS.get('lashon2_roster',{}) || {};
+  all[cls] = students;
+  LS.set('lashon2_roster', all);
+  // Push to Firebase
+  if(_db && S.name){
+    const key = S.name.replace(/\s+/g,'_');
+    _db.collection('lashon2_teachers').doc(key)
+       .set({roster: all},{merge:true}).catch(()=>{});
+  }
+}
+function addStudentToClass(cls){
+  const inp = document.getElementById('roster-inp-'+_cid(cls));
+  const raw = (inp?.value||'').trim();
+  if(!raw){ toast('⚠️ הזיני שם תלמיד/ה'); return; }
+  // Support multi-line paste (one name per line)
+  const names = raw.split(/[\n,]+/).map(n=>n.trim()).filter(Boolean);
+  const arr = getRoster(cls);
+  let added = 0;
+  names.forEach(n=>{
+    if(!arr.includes(n)){ arr.push(n); added++; }
+  });
+  if(!added){ toast('השמות כבר ברשימה'); inp.value=''; return; }
+  setRoster(cls, arr);
+  inp.value='';
+  renderRosterBlock(cls);
+  toast('✅ נוסף' + (names.length>1?' '+added+' תלמידים':': '+names[0]));
+}
+function removeStudentFromClass(cls, name){
+  const arr = getRoster(cls).filter(n=>n!==name);
+  setRoster(cls, arr);
+  renderRosterBlock(cls);
+  toast('🗑️ '+name+' הוסר/ה');
+}
+
+function _cid(cls){ return cls.replace(/[^א-תa-zA-Z0-9]/g,'_'); }
+
 function addTeacherClass(){
   const inp = document.getElementById('new-class-inp');
   const val = (inp?.value||'').trim();
@@ -1440,45 +1636,223 @@ function addTeacherClass(){
   arr.push(val);
   _saveTeacherClasses(arr);
   inp.value = '';
-  renderTeacherClassesList();
-  toast('✅ כיתה ' + val + ' נוספה');
+  renderRosterAll();
+  toast('✅ כיתה ' + val + ' נוספה — פתחי אותה להוספת תלמידים');
 }
 function removeTeacherClass(cls){
   const arr = getTeacherClasses().filter(c=>c!==cls);
   _saveTeacherClasses(arr);
-  renderTeacherClassesList();
+  renderRosterAll();
   toast('🗑️ כיתה ' + cls + ' הוסרה');
 }
-function renderTeacherClassesList(){
-  const arr = getTeacherClasses();
-  const list = document.getElementById('teacher-classes-list');
+
+function renderRosterBlock(cls){
+  const block = document.getElementById('rblock-'+_cid(cls));
+  if(!block) return;
+  const students = getRoster(cls);
+  const body = block.querySelector('.roster-class-body');
+  if(!body) return;
+  body.innerHTML = `
+    <div class="roster-add-row">
+      <input class="roster-name-inp" id="roster-inp-${_cid(cls)}"
+        type="text" placeholder="שם תלמיד/ה (אפשר להדביק כמה שורות)"
+        onkeydown="if(event.key==='Enter')addStudentToClass('${cls}')">
+      <button class="roster-add-btn" onclick="addStudentToClass('${cls}')">+ הוסף</button>
+    </div>
+    <p class="roster-paste-hint">💡 ניתן להדביק רשימה שלמה (שם בכל שורה) ולחץ הוסף</p>
+    <div class="roster-student-list">
+      ${students.length===0
+        ? '<div class="roster-empty">אין תלמידים ברשימה עדיין.</div>'
+        : students.map((n,i)=>`
+          <div class="roster-student-item">
+            <span class="rs-num">${i+1}</span>
+            <span class="rs-name">${n}</span>
+            <button class="roster-student-del" onclick="removeStudentFromClass('${cls}','${n.replace(/'/g,"\\'")}')">✕</button>
+          </div>`).join('')
+      }
+    </div>`;
+}
+
+function renderRosterAll(){
+  const classes = getTeacherClasses();
   const empty = document.getElementById('teacher-classes-empty');
-  if(!list) return;
-  if(arr.length===0){
-    list.innerHTML = '';
-    if(empty) empty.style.display = '';
+  const wrap = document.getElementById('roster-blocks');
+  if(!wrap) return;
+  if(classes.length===0){
+    wrap.innerHTML='';
+    if(empty) empty.style.display='';
     return;
   }
-  if(empty) empty.style.display = 'none';
-  list.innerHTML = arr.map(cls =>
-    '<span style="display:inline-flex;align-items:center;gap:.35rem;background:var(--blue-lt);color:var(--blue);' +
-    'border:1.5px solid #bfdbfe;border-radius:var(--r-pill);padding:.26rem .72rem .26rem .5rem;' +
-    'font-size:.82rem;font-weight:700">' +
-    '🏫 '+cls+
-    '<button onclick="removeTeacherClass(\'' + cls + '\')" ' +
-    'style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:.85rem;padding:0;line-height:1;margin-right:.08rem">✕</button>' +
-    '</span>'
-  ).join('');
+  if(empty) empty.style.display='none';
+  // Keep existing blocks, add new ones
+  classes.forEach(cls=>{
+    const cid = _cid(cls);
+    if(!document.getElementById('rblock-'+cid)){
+      const students = getRoster(cls);
+      const div = document.createElement('div');
+      div.className='roster-class-block';
+      div.id='rblock-'+cid;
+      div.innerHTML=`
+        <div class="roster-class-hd" onclick="toggleRosterBlock('${cls}')">
+          <span class="roster-class-name">🏫 ${cls}<span class="roster-class-count" id="rcount-${cid}">${students.length} תלמידים</span></span>
+          <div style="display:flex;gap:.5rem;align-items:center">
+            <button onclick="event.stopPropagation();removeTeacherClass('${cls}')" style="background:none;border:none;cursor:pointer;color:var(--subtle);font-size:.75rem;padding:.1rem .4rem;border-radius:6px;transition:all .13s" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--subtle)'">🗑️ הסר</button>
+            <span id="rchev-${cid}" style="font-size:.68rem;color:var(--subtle);transition:transform .2s">▼</span>
+          </div>
+        </div>
+        <div class="roster-class-body" id="rbody-${cid}"></div>`;
+      wrap.appendChild(div);
+    }
+    // Update count badge
+    const cnt = document.getElementById('rcount-'+cid);
+    if(cnt) cnt.textContent = getRoster(cls).length + ' תלמידים';
+    renderRosterBlock(cls);
+  });
+  // Remove blocks for deleted classes
+  wrap.querySelectorAll('.roster-class-block').forEach(b=>{
+    const cls = classes.find(c=>_cid(c)===b.id.replace('rblock-',''));
+    if(!cls) b.remove();
+  });
 }
+function toggleRosterBlock(cls){
+  const cid = _cid(cls);
+  const body = document.getElementById('rbody-'+cid);
+  const chev = document.getElementById('rchev-'+cid);
+  if(!body) return;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  if(chev) chev.style.transform = isOpen ? '' : 'rotate(180deg)';
+}
+
 function loadTeacherClassesFromFirebase(){
   if(!_db || !S.name) return;
   const key = S.name.replace(/\s+/g,'_');
   _db.collection('lashon2_teachers').doc(key).get().then(doc=>{
-    if(doc.exists && doc.data().classes){
-      LS.set('lashon2_teacher_classes', doc.data().classes);
-      renderTeacherClassesList();
-    }
+    if(!doc.exists) return;
+    const data = doc.data();
+    if(data.classes) LS.set('lashon2_teacher_classes', data.classes);
+    if(data.roster)  LS.set('lashon2_roster', data.roster);
+    renderRosterAll();
   }).catch(()=>{});
+}
+
+/* ════════════════════════════════════════════════
+   PROGRESS TAB — sub-views
+════════════════════════════════════════════════ */
+function switchProgressTab(view, btn){
+  ['submissions','unit_summary'].forEach(v=>{
+    const el=document.getElementById('progress-view-'+v);
+    if(el) el.style.display = v===view ? '' : 'none';
+  });
+  document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  if(view==='unit_summary') loadUnitSummary();
+}
+
+/* ════════════════════════════════════════════════
+   UNIT SUMMARY — per-unit roster status
+════════════════════════════════════════════════ */
+async function loadUnitSummary(){
+  const el = document.getElementById('unit-summary-content');
+  if(!el) return;
+  el.innerHTML = '<p style="color:var(--muted);font-size:.82rem">⏳ טוען נתונים…</p>';
+
+  // Fetch all submissions from Firebase
+  let submissions = [];
+  if(_db){
+    try{
+      const snap = await _db.collection('lashon2_submissions').orderBy('ts','desc').limit(500).get();
+      submissions = snap.docs.map(d=>({...d.data()}));
+    }catch(e){ console.warn('[summary]',e); }
+  }
+
+  const myClasses = getTeacherClasses();
+  if(!myClasses.length){
+    el.innerHTML='<div style="background:var(--amber-lt);border:1px solid #fde68a;border-radius:var(--r);padding:.65rem .9rem;font-size:.78rem;color:var(--amber)">🏫 הגדירי כיתות תחילה בטאב "כיתות" כדי לראות את הסיכום.</div>';
+    return;
+  }
+
+  // Build: for each unit, for each class, map student→set of lessonIds completed
+  let html = '';
+  UNITS.forEach(unit=>{
+    const lessonCount = unit.lessons.length;
+    const lessonIds = unit.lessons.map(l=>l.id);
+
+    html += `<div class="unit-summary-block">
+      <div class="unit-summary-hd" style="border-top:3px solid ${unit.color}">${unit.emoji} ${unit.label} — ${unit.title} <span style="font-size:.68rem;color:var(--muted);font-weight:400">(${lessonCount} שיעורים)</span></div>
+      <div class="unit-summary-body">`;
+
+    // Per class
+    myClasses.forEach(cls=>{
+      const roster = getRoster(cls);
+
+      // Build completion map: studentName → Set of lessonIds done in this unit
+      const doneMap = {}; // name→Set
+      submissions
+        .filter(d=>(d.className||'')=== cls && lessonIds.includes(d.lessonId))
+        .forEach(d=>{
+          if(!doneMap[d.studentName]) doneMap[d.studentName]=new Set();
+          doneMap[d.studentName].add(d.lessonId);
+        });
+
+      // Roster students + any submitters not in roster
+      const allNames = [...new Set([...roster, ...Object.keys(doneMap)])];
+      if(!allNames.length){
+        html += `<div style="padding:.55rem .85rem;font-size:.74rem;color:var(--subtle);border-bottom:1px solid var(--border)">📋 ${cls} — אין תלמידים ברשימה</div>`;
+        return;
+      }
+
+      // Count stats
+      let green=0, yellow=0, red=0;
+      allNames.forEach(name=>{
+        const done = doneMap[name]?.size || 0;
+        if(done===lessonCount) green++;
+        else if(done>0) yellow++;
+        else red++;
+      });
+
+      html += `
+        <div style="padding:.55rem .85rem .35rem;font-size:.76rem;font-weight:800;color:var(--blue);background:var(--blue-lt);border-bottom:1px solid var(--border)">🏫 כיתה ${cls} — ${allNames.length} תלמידים</div>
+        <div class="unit-summary-stats">
+          <div class="uss-cell green"><span class="uss-n">${green}</span>ביצעו הכל ✅</div>
+          <div class="uss-cell yellow"><span class="uss-n">${yellow}</span>ביצעו חלק 🟡</div>
+          <div class="uss-cell red"><span class="uss-n">${red}</span>לא ביצעו ❌</div>
+        </div>
+        <div style="overflow-x:auto;max-height:260px;overflow-y:auto">
+        <table class="unit-roster-table">
+          <thead><tr>
+            <th>#</th><th>שם תלמיד/ה</th><th>שיעורים שבוצעו</th><th>התקדמות</th><th>סטטוס</th>
+          </tr></thead>
+          <tbody>`;
+
+      allNames.forEach((name,i)=>{
+        const done = doneMap[name]?.size || 0;
+        const pct = Math.round(done/lessonCount*100);
+        let statusClass, statusLabel;
+        if(done===lessonCount){ statusClass='green'; statusLabel='ביצע/ה הכל ✅'; }
+        else if(done>0){ statusClass='yellow'; statusLabel=`${done}/${lessonCount} שיעורים 🟡`; }
+        else { statusClass='red'; statusLabel='לא ביצע/ה ❌'; }
+
+        const barColor = done===lessonCount ? '#15803d' : done>0 ? '#ca8a04' : '#dc2626';
+        html += `<tr>
+          <td style="color:var(--subtle);font-size:.68rem">${i+1}</td>
+          <td style="font-weight:700">${name}</td>
+          <td style="text-align:center;font-weight:700">${done} / ${lessonCount}</td>
+          <td>
+            <span class="urt-bar"><span class="urt-bar-fill" style="width:${pct}%;background:${barColor}"></span></span>
+            <span style="font-size:.68rem;color:var(--muted);margin-right:.4rem">${pct}%</span>
+          </td>
+          <td><span class="urt-status ${statusClass}">${statusLabel}</span></td>
+        </tr>`;
+      });
+
+      html += `</tbody></table></div>`;
+    });
+
+    html += `</div></div>`;
+  });
+
+  el.innerHTML = html || '<p style="color:var(--muted)">לא נמצאו נתונים.</p>';
 }
 </script>
 <script>
