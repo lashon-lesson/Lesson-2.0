@@ -306,24 +306,14 @@ button,input,select,textarea{font-family:inherit}
 }
 .print-header{display:none}
 
-/* ─── OPEN QUESTION (כתיבה חופשית) ─── */
+/* ─── OPEN QUESTION ─── */
 .open-wrap{margin-bottom:.55rem}
-.open-textarea{
-  width:100%;min-height:110px;padding:.9rem 1.1rem;
-  border:1.5px solid var(--border);border-radius:var(--r);
-  background:var(--surface2);font-family:'Heebo',sans-serif;
-  font-size:.88rem;color:var(--text);line-height:1.72;
-  resize:vertical;outline:none;transition:border-color .15s,box-shadow .15s;
-}
-.open-textarea:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.12)}
+.open-textarea{width:100%;min-height:110px;padding:.9rem 1.1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text);line-height:1.72;resize:vertical;outline:none;transition:border-color .15s,box-shadow .15s;}
+.open-textarea:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(190,24,93,.12)}
 .open-textarea:disabled{opacity:.7;cursor:default;background:var(--surface3)}
 .open-hint{font-size:.72rem;color:var(--muted);margin-top:.32rem;line-height:1.5}
-.open-rubric{margin-top:.65rem;background:var(--surface2);border:1px solid var(--border);
-  border-radius:var(--r);padding:.75rem 1rem;font-size:.78rem;color:var(--text-mid);line-height:1.6}
+.open-rubric{margin-top:.65rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.75rem 1rem;font-size:.78rem;color:var(--text-mid);line-height:1.6}
 .open-rubric strong{color:var(--text)}
-.ans-open-note{font-size:.82rem;color:var(--text-mid);line-height:1.65;border-right:3px solid var(--lc);
-  padding-right:.85rem;margin-top:.42rem;background:var(--lc-lt);border-radius:0 var(--r) var(--r) 0;
-  padding:.65rem .85rem .65rem .75rem}
 </style>
 </head>
 <body>
@@ -345,7 +335,7 @@ button,input,select,textarea{font-family:inherit}
 <!-- TABS -->
 <div class="tabs-bar">
   <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
-  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (20 שאלות)</button>
+  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (21 שאלות)</button>
   <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
   <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
 </div>
@@ -486,7 +476,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="step-item"><div class="step-num">5</div><span><strong>הפתיחה תופסת?</strong> אם הייתי קורא בלי לדעת שאני חייב — הייתי ממשיך?</span></div>
     <div class="step-item"><div class="step-num">6</div><span><strong>הסיום נחרת?</strong> המשפט האחרון — פרדוקס / תמונה / שאלה?</span></div>
   </div>
-  <div class="box box-green">✅ <strong>מוכן לתרגול!</strong> קטע ספרותי לניתוח + 20 שאלות על מבנה, אמצעים ופרקטיקה של כתיבה.</div>
+  <div class="box box-green">✅ <strong>מוכן לתרגול!</strong> קטע ספרותי לניתוח + 21 שאלות על מבנה, אמצעים ופרקטיקה של כתיבה.</div>
 
 </div>
 </div><!-- /pane-theory -->
@@ -500,7 +490,7 @@ button,input,select,textarea{font-family:inherit}
 <div class="tab-pane" id="pane-practice">
 <div class="print-header">
   <h1>תרגול — שיעור 5: כתיבה יוצרת</h1>
-  <p>20 שאלות על כתיבה יוצרת | לשון Lesson 2.0</p>
+  <p>21 שאלות על כתיבה יוצרת | לשון Lesson 2.0</p>
 </div>
 <div class="lesson-wrap">
 
@@ -563,10 +553,10 @@ button,input,select,textarea{font-family:inherit}
   </div>
 
   <div class="quiz-header">
-    <div class="quiz-hd-title">✏️ תרגול — 20 שאלות על כתיבה יוצרת</div>
+    <div class="quiz-hd-title">✏️ תרגול — 21 שאלות על כתיבה יוצרת</div>
     <div class="quiz-hd-desc">שאלות על הקטע, מבנה, אמצעים ספרותיים ופרקטיקה של כתיבה.</div>
     <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="qp-fill" style="width:0%"></div></div>
-    <div class="quiz-prog-row"><span id="qp-counter">0 / 20 נענו</span></div>
+    <div class="quiz-prog-row"><span id="qp-counter">0 / 21 נענו</span></div>
   </div>
 
   <div id="questions-container"></div>
@@ -587,7 +577,7 @@ button,input,select,textarea{font-family:inherit}
 <div class="tab-pane" id="pane-answers">
 <div class="print-header">
   <h1>מפתח תשובות — שיעור 5: כתיבה יוצרת</h1>
-  <p>20 שאלות + הסברים | לשון Lesson 2.0</p>
+  <p>21 שאלות + הסברים | לשון Lesson 2.0</p>
 </div>
 <div class="lesson-wrap">
   <div id="answers-locked-msg" class="answers-locked">
@@ -669,85 +659,152 @@ function applyAnswersVisibility(){
    13 MC + 5 TF + 2 SORT
 ════════════════════════════════════════════════ */
 const QUESTIONS=[
+  /* ── הקטע — ניתוח ── */
   {id:'q01',type:'mc',ref:'הקטע',
-   q:'מהו הסוג הספרותי של הקטע המכתב שלא נשלח?',
+   q:'מהו הסוג הספרותי של הקטע "המכתב שלא נשלח"?',
    opts:['מאמר עיוני','קטע מסיפור קצר — פרוזה ספרותית','שיר בפרוזה','מאמר דעה'],
-   ans:1,explain:'הקטע כולל דמות (האישה), עלילה (כתיבת מכתב), דיאלוג פנימי, ואמצעים ספרותיים — מאפיינים של פרוזה ספרותית קצרה.',teacherNote:''},
+   ans:1,
+   explain:'הקטע כולל דמות (האישה), עלילה (כתיבת מכתב), דיאלוג פנימי, ואמצעים ספרותיים — מאפיינים של פרוזה ספרותית קצרה.',
+   teacherNote:''},
+
   {id:'q02',type:'mc',ref:'הקטע',
-   q:'זהה את האמצעי הספרותי: הדף הלבן בחן אותה כמו שאלה שמסרבת להיענות',
-   opts:['מטפורה — השוואה ישירה','דימוי — השוואה עם כמו','האנשה — ייחוס תכונות אנוש','פרדוקס — טענה הסותרת עצמה'],
-   ans:1,explain:'כמו = מילת השוואה = דימוי. הדף מושווה לשאלה. גם יש כאן יסוד של האנשה, אך הסימן הבולט הוא כמו — לכן דימוי.',teacherNote:'שים לב שיש כאן שני אמצעים — הדימוי והאנשה שבתוכו.'},
+   q:'זהה את האמצעי הספרותי: "הדף הלבן בחן אותה כמו שאלה שמסרבת להיענות"',
+   opts:['מטפורה — השוואה ישירה','דימוי — השוואה עם "כמו"','האנשה — ייחוס תכונות אנוש','פרדוקס — טענה הסותרת עצמה'],
+   ans:1,
+   explain:'"כמו" = מילת השוואה = דימוי. הדף מושווה לשאלה. גם יש כאן יסוד של האנשה (הדף "בוחן"), אך הסימן הבולט הוא "כמו" — לכן דימוי.',
+   teacherNote:'שים לב שיש פה שני אמצעים — הדימוי והאנשה שבתוכו.'},
+
   {id:'q03',type:'mc',ref:'הקטע',
-   q:'מהו האמצעי הספרותי: הגשם ירד בלי שאלות, בלי היסוסים, כאילו הוא יודע בדיוק לאן הוא הולך?',
+   q:'מהו האמצעי הספרותי: "הגשם ירד בלי שאלות, בלי היסוסים, כאילו הוא יודע בדיוק לאן הוא הולך"?',
    opts:['דימוי בלבד','חזרה בלבד','האנשה — הגשם מקבל תכונות אנוש (לדעת, לא להסס)','פרדוקס'],
-   ans:2,explain:'הגשם יודע לאן הוא הולך ולא מהסס — תכונות אנושיות שמיוחסות לדומם. האנשה קלאסית. תפקידה: ליצור ניגוד בין הגשם הנחוש לאישה המהססת.',teacherNote:''},
+   ans:2,
+   explain:'הגשם "יודע לאן הוא הולך" ו"לא מהסס" — אלו תכונות אנושיות שמיוחסות לדומם. זוהי האנשה קלאסית. תפקידה: ליצור ניגוד בין הגשם הנחוש לאישה המהססת.',
+   teacherNote:''},
+
   {id:'q04',type:'mc',ref:'הקטע',
-   q:'שלושים ושלוש הזדמנויות שהפכו לשתיקה — מה תפקיד המשפט הזה בסיפור?',
+   q:'"שלושים ושלוש הזדמנויות שהפכו לשתיקה" — מה תפקיד המשפט הזה בסיפור?',
    opts:['לפתוח את הסיפור בצורה מעניינת','לסכם בסיום נחרת שמגלה את עומק הבעיה','לתאר את הגשם בחוץ','לספר כמה מכתבים יש במגירה'],
-   ans:1,explain:'זהו משפט הסיום — הוא חושף את ממד הזמן (שלושים ושלוש) ואת הפרדוקס: הזדמנויות שהפכו להפך שלהן. הסיום הנחרת הזה הופך רגע אחד לסיפור שלם.',teacherNote:''},
+   ans:1,
+   explain:'זהו משפט הסיום — הוא חושף את ממד הזמן (שלושים ושלוש) ואת הפרדוקס: הזדמנויות שהפכו להפך שלהן. הסיום הנחרת הזה הופך רגע אחד לסיפור שלם.',
+   teacherNote:''},
+
   {id:'q05',type:'tf',ref:'הקטע',
-   q:'הקטע המכתב שלא נשלח מתאר פעולה חיצונית ועמוסת אירועים.',
-   ans:false,explain:'לא נכון. הקטע מתאר רגע slice of life עם מינימום פעולה חיצונית — רק ניסיונות לכתוב מכתב. העומק הוא פנימי-רגשי, לא חיצוני-עלילתי.',teacherNote:''},
+   q:'הקטע "המכתב שלא נשלח" מתאר פעולה חיצונית ועמוסת אירועים.',
+   ans:false,
+   explain:'לא נכון. הקטע מתאר רגע "slice of life" עם מינימום פעולה חיצונית — רק ניסיונות לכתוב מכתב. העומק הוא פנימי-רגשי, לא חיצוני-עלילתי.',
+   teacherNote:''},
+
   {id:'q06',type:'mc',ref:'הקטע',
    q:'מה מבנה הקטע מבחינת פירמידת פרייטאג?',
-   opts:['יש את כל 5 השלבים במלואם','מדגים slice of life — רגע אחד בעומק, ללא עלייה וירידת מתח קלאסיות','יש שיא דרמטי ברור','הקטע חסר מבנה לגמרי'],
-   ans:1,explain:'הקטע הוא דוגמה מצוינת ל-slice of life: רגע אחד (כתיבת מכתב) שמתנפח לכדי עולם שלם. אין פירמידה קלאסית — אך יש חשיפה, קונפליקט וסיום נחרת.',teacherNote:''},
+   opts:['יש את כל 5 השלבים במלואם','מדגים slice of life — רגע אחד בעומק, ללא עלייה וירידה מתח קלאסיות','יש שיא דרמטי ברור','הקטע חסר מבנה לגמרי'],
+   ans:1,
+   explain:'הקטע הוא דוגמה מצוינת ל-slice of life: רגע אחד (כתיבת מכתב) שמתנפח לכדי עולם שלם. אין פירמידה קלאסית — אך יש חשיפה, קונפליקט וסיום נחרת.',
+   teacherNote:''},
+
+  /* ── מבנה ותיאוריה ── */
   {id:'q07',type:'mc',ref:'תיאוריה',
-   q:'מהו השיא (Climax) בפירמידת פרייטאג?',
+   q:'מהו ה"שיא" (Climax) בפירמידת פרייטאג?',
    opts:['הפתיחה שמציגה את הגיבור','נקודת המתח הגבוהה ביותר — ההחלטה המכרעת','הסיום שבו הכל נפתר','התיאור של הרקע'],
-   ans:1,explain:'השיא הוא הנקודה הגבוהה ביותר של המתח — הרגע שאחריו הכל משתנה. הוא בדרך כלל כולל החלטה, עימות או גילוי.',teacherNote:''},
+   ans:1,
+   explain:'השיא הוא הנקודה הגבוהה ביותר של המתח — הרגע שאחריו הכל משתנה. הוא בד"כ כולל החלטה, עימות או גילוי.',
+   teacherNote:''},
+
   {id:'q08',type:'tf',ref:'תיאוריה',
    q:'בכתיבה יוצרת לבגרות חייבים לכלול את כל חמשת שלבי פירמידת פרייטאג.',
-   ans:false,explain:'לא נכון. ניתן לכתוב slice of life (רגע אחד בעומק). הכי חשוב: פתיחה תופסת + סיום נחרת + קונפליקט ברור + אמצעים ספרותיים.',teacherNote:''},
+   ans:false,
+   explain:'לא נכון. ניתן לכתוב slice of life (רגע אחד בעומק). הכי חשוב: פתיחה תופסת + סיום נחרת + קונפליקט ברור + אמצעים ספרותיים.',
+   teacherNote:''},
+
   {id:'q09',type:'mc',ref:'תיאוריה',
-   q:'מהי האנשה?',
-   opts:['השוואה עם כמו/כ','ייחוס תכונות אנושיות לדומם, לטבע או למופשט','השוואה ישירה ללא מילת השוואה','טענה שסותרת את עצמה'],
-   ans:1,explain:'האנשה = Personification. הרוח לחשה, השמש חייכה, הפחד אחז בגרונו — כולן האנשות. תפקיד: ליצור אווירה חיה ולחבר בין הסביבה לרגש הדמות.',teacherNote:''},
+   q:'מהי "האנשה"?',
+   opts:['השוואה עם "כמו/כ"','ייחוס תכונות אנושיות לדומם, לטבע או למופשט','השוואה ישירה ללא מילת השוואה','טענה שסותרת את עצמה'],
+   ans:1,
+   explain:'האנשה = Personification. "הרוח לחשה", "השמש חייכה", "הפחד אחז בגרונו" — כולן האנשות. תפקיד: ליצור אווירה חיה ולחבר בין הסביבה לרגש הדמות.',
+   teacherNote:''},
+
   {id:'q10',type:'mc',ref:'תיאוריה',
-   q:'מהו הכלל Show, don't tell?',
+   q:'מהו הכלל "Show, don\'t tell"?',
    opts:['יש לכתוב סיפורים קצרים בלבד','במקום לתאר רגש ישירות — מראים אותו דרך פעולה, תיאור פיזי ודיאלוג','יש להוסיף תמיד תיאורי טבע ארוכים','אסור להשתמש בתיאורים'],
-   ans:1,explain:'Show, don't tell = הראה אל תספר. במקום הוא היה מפוחד — אצבעותיו נקשו על הדלת שלוש פעמים, עצרו, נקשו שוב. הפעולה מגלה את הרגש.',teacherNote:''},
+   ans:1,
+   explain:'Show, don\'t tell = הראה אל תספר. במקום "הוא היה מפוחד" — "אצבעותיו נקשו על הדלת שלוש פעמים, עצרו, נקשו שוב." הפעולה מגלה את הרגש בלי לציין אותו.',
+   teacherNote:''},
+
   {id:'q11',type:'mc',ref:'תיאוריה',
    q:'מהו פרדוקס?',
    opts:['חזרה על מילה לחיזוק','טענה שנראית סותרת עצמה אך מבטאת אמת עמוקה','השוואה עם מילת השוואה','שאלה שלא מצפה לתשובה'],
-   ans:1,explain:'פרדוקס = Paradox. בדידות מלאה אנשים, כוורת ריקה מלאה — נראה כסתירה אך מבטא תובנה. תפקיד: לייצר הפתעה ולכפות חשיבה.',teacherNote:''},
+   ans:1,
+   explain:'פרדוקס = Paradox. "בדידות מלאה אנשים", "כוורת ריקה מלאה" — נראה כסתירה אך מבטא תובנה. תפקיד: לייצר הפתעה ולכפות חשיבה.',
+   teacherNote:''},
+
   {id:'q12',type:'mc',ref:'תיאוריה',
    q:'איזו פתיחה משתמשת ב-in medias res?',
-   opts:['בסיפור הזה אספר על ילד ששמו דני.','הדלת נפתחה לפני שהספקתי לדפוק.','פעם הייתה ילדה קטנה שגרה ביער.','הנושא שאני רוצה לדון בו הוא בדידות.'],
-   ans:1,explain:'In medias res = פתיחה באמצע הפעולה. הדלת נפתחה לפני שהספקתי לדפוק זורקת אותנו ישר לרגע — אנחנו לא יודעים מה קדם, ורוצים לדעת.',teacherNote:''},
+   opts:['"בסיפור הזה אספר על ילד ששמו דני."','"הדלת נפתחה לפני שהספקתי לדפוק."','"פעם הייתה ילדה קטנה שגרה ביער."','"הנושא שאני רוצה לדון בו הוא בדידות."'],
+   ans:1,
+   explain:'In medias res = פתיחה באמצע הפעולה. "הדלת נפתחה לפני שהספקתי לדפוק" זורקת אותנו ישר לרגע — אנחנו לא יודעים מה קדם, ורוצים לדעת. זהו הטריגר לקריאה.',
+   teacherNote:''},
+
   {id:'q13',type:'tf',ref:'תיאוריה',
-   q:'סיום פתוח (ללא פתרון) הוא סיום כושל בכתיבה יוצרת.',
-   ans:false,explain:'לא נכון. סיום פתוח הוא כלי ספרותי לגיטימי שמזמין את הקורא להשלים. סיומים פתוחים לעיתים נחרתים יותר מסיומים סגורים.',teacherNote:''},
+   q:'סיום פתוח (ללא פתרון) הוא סיום "כושל" בכתיבה יוצרת.',
+   ans:false,
+   explain:'לא נכון. סיום פתוח הוא כלי ספרותי לגיטימי שמזמין את הקורא להשלים. סיומים פתוחים לעיתים נחרתים יותר מסיומים סגורים — כי הם ממשיכים להדהד.',
+   teacherNote:''},
+
+  /* ── שאלות יישום — כתיבה ── */
   {id:'q14',type:'mc',ref:'יישום',
-   q:'המשפט עיניו נצמדו לרצפה, ידיו חיפשו כיס שלא היה שם — מה הוא מדגים?',
+   q:'המשפט "עיניו נצמדו לרצפה, ידיו חיפשו כיס שלא היה שם" — מה הוא מדגים?',
    opts:['Tell — תיאור ישיר של רגש','Show — פעולה פיזית שמגלה מבוכה בלי לציין אותה','מטפורה — השוואה ישירה','שאלה רטורית'],
-   ans:1,explain:'זהו Show מושלם — לא כתוב הוא היה נבוך. פעולות הגוף מגלות את הרגש. הקורא מסיק בעצמו — זה מה שיוצר מעורבות.',teacherNote:''},
+   ans:1,
+   explain:'זהו Show מושלם — לא כתוב "הוא היה נבוך". פעולות הגוף (עיניים לרצפה, ידיים מחפשות) מגלות את הרגש. הקורא מסיק בעצמו — זה מה שיוצר מעורבות.',
+   teacherNote:''},
+
   {id:'q15',type:'mc',ref:'יישום',
-   q:'תלמיד כתב: הוא הרגיש עצמאי ושמח כשיצא מהבית. מה הבעיה?',
+   q:'תלמיד כתב: "הוא הרגיש עצמאי ושמח כשיצא מהבית." מה הבעיה?',
    opts:['המשפט ארוך מדי','זהו Tell — מספר רגש במקום להראותו דרך פעולה','חסר אמצעי ספרותי','שתי תשובות: ב ו-ג'],
-   ans:3,explain:'גם Tell (הרגיש עצמאי) וגם חסר אמצעי ספרותי. עדיף: הרים ראש לשמיים, שאף אוויר רחב, ופסע ראשון ללא מפה — מראה עצמאות ושמחה.',teacherNote:''},
+   ans:3,
+   explain:'גם Tell (מספר ישירות "הרגיש עצמאי") וגם חסר אמצעי ספרותי. עדיף: "הרים ראש לשמיים, שאף אוויר רחב, ופסע ראשון ללא מפה." — מראה עצמאות ושמחה בלי לציין אותן.',
+   teacherNote:''},
+
   {id:'q16',type:'tf',ref:'יישום',
    q:'ניתן לפתוח סיפור בדיאלוג ישיר בין דמויות.',
-   ans:true,explain:'נכון ומומלץ. פתיחה בדיאלוג זורקת את הקורא ישר לתוך הסיפור ומציגה דמויות ומתח מיידית: האם את בוכה? לא. — כבר יש לנו שתי דמויות וסיפור.',teacherNote:''},
+   ans:true,
+   explain:'נכון ומומלץ. פתיחה בדיאלוג זורקת את הקורא ישר לתוך הסיפור ומציגה דמויות ומתח מיידית: "האם את בוכה?" "לא." — כבר יש לנו שתי דמויות וסיפור.',
+   teacherNote:''},
+
   {id:'q17',type:'mc',ref:'יישום',
-   q:'איזה סיום הוא מעגלי?',
+   q:'איזה סיום הוא "מעגלי"?',
    opts:['הסיפור מסתיים בשאלה פתוחה לקורא','הסוף חוזר לאלמנט מהפתיחה ויוצר תחושת שלמות','הגיבור מת בסוף','הסיום מפתיע ומנוגד לציפייה'],
-   ans:1,explain:'סיום מעגלי = הסוף מהדהד את הפתיחה. אם הסיפור פתח בריח הקפה של סבתא, סיום מעגלי יחזור לאותו ריח — טעון במשמעות שונה לאחר כל שעבר.',teacherNote:''},
+   ans:1,
+   explain:'סיום מעגלי = הסוף מהדהד את הפתיחה. אם הסיפור פתח ב"ריח הקפה של סבתא", סיום מעגלי יחזור לאותו ריח — רק עכשיו טעון במשמעות שונה לאחר כל שעבר.',
+   teacherNote:''},
+
   {id:'q18',type:'mc',ref:'יישום',
-   q:'מהו הקונפליקט הדומיננטי בקטע המכתב שלא נשלח?',
+   q:'מהו הקונפליקט הדומיננטי בקטע "המכתב שלא נשלח"?',
    opts:['אדם מול אדם — הבת נגד האמא','אדם מול טבע — היא נגד הגשם','אדם מול עצמו — היא לא מצליחה לבטא מה שהיא מרגישה','אדם מול חברה — המשפחה לא מבינה אותה'],
-   ans:2,explain:'הקונפליקט הוא פנימי לחלוטין: האישה רוצה לכתוב ולא מצליחה. המכשול הוא הפנימי — לא אחר. זהו אדם מול עצמו, הסוג הנפוץ ביותר בכתיבה ספרותית מודרנית.',teacherNote:''},
+   ans:2,
+   explain:'הקונפליקט הוא פנימי לחלוטין: האישה רוצה לכתוב ולא מצליחה. המכשול הוא הפנימי — לא אחר. זהו אדם מול עצמו, הסוג הנפוץ ביותר בכתיבה ספרותית מודרנית.',
+   teacherNote:''},
+
   {id:'q19',type:'sort',ref:'תיאוריה',
    q:'סדרו את שלבי כתיבה יוצרת לבגרות מהראשון לאחרון:',
-   items:['כתוב פתיחה חזקה (in medias res / שאלה / תיאור חושי)','בחר גיבור אחד וקונפליקט אחד','סיים במשפט נחרת','תכנן בשתי שורות: פתיחה->שיא->סיום'],
+   items:['כתוב פתיחה חזקה (in medias res / שאלה / תיאור חושי)','בחר גיבור אחד וקונפליקט אחד','סיים במשפט נחרת','תכנן בשתי שורות: פתיחה→שיא→סיום'],
    correctOrder:[1,3,0,2],
-   explain:'גיבור+קונפליקט <- תכנון מהיר <- פתיחה חזקה <- סיום נחרת. קודם יודעים מה רוצים להגיד, אחר כך איך.',teacherNote:''},
+   explain:'גיבור+קונפליקט ← תכנון מהיר ← פתיחה חזקה ← סיום נחרת. זהו סדר העבודה: קודם יודעים מה רוצים להגיד, אחר כך איך.',
+   teacherNote:''},
+
+  {id:'q19b',type:'sort',ref:'תיאוריה',
+   q:'סדרו לפי עוצמת ההשפעה על הקורא (מהחזק לחלש):',
+   items:['Show: "אצבעותיו רעדו כשפתח את הדלת"','Tell: "הוא היה מפוחד"','Show+אמצעי: "ליבו דהר כסוס בריצה, אצבעותיו קפאו על הידית"','תיאור ניטרלי: "הוא עמד ליד הדלת"'],
+   correctOrder:[2,0,1,3],
+   explain:'Show+אמצעי (הכי חזק) ← Show נקי ← Tell ← תיאור ניטרלי (הכי חלש). שילוב Show עם אמצעי ספרותי הוא הנוסחה לכתיבה שנחרתת.',
+   teacherNote:''},
+
   {id:'q20',type:'open',ref:'כתיבה יוצרת',
-   q:'כתוב/י פתיחה לסיפור קצר (4-5 משפטים) בנושא חופשי. השתמש/י ב: (א) פתיחה in medias res או פתיחה בדיאלוג, (ב) לפחות אמצעי ספרותי אחד, (ג) עקרון Show, don't tell.',
-   placeholder:'כתוב/י ישר את הפתיחה — אל תסביר/י מה את/ה עושה. אחרי כתיבה, ציין/י בסוגריים: (האמצעי הספרותי שהשתמשתי בו: ...)',
-   hint:'טיפ: פתח/י בדיאלוג אחד (2 משפטים) ואז תאר/י פרט אחד שחושף רגש דרך פעולה (Show). כך יש פתיחה, דמות ורגש ב-4 משפטים.',
-   rubric:'(א) פתיחה in medias res / דיאלוג — ולא תיאור רקע ישיר (ב) אמצעי ספרותי זיהוי (ג) לפחות משפט אחד שמראה רגש דרך פעולה (ד) תחושת קריאה מיידית',
-   explain:'זוהי הכתיבה הפתוחה שנבחנת בבגרות. אין תשובה אחת נכונה — המטרה היא לראות שימוש מודע בכלים שנלמדו.',teacherNote:'בדקו: האם הפתיחה מיידית? האם יש אמצעי ספרותי מזוהה? האם יש Show ולא רק Tell? תנו משוב קצר על כל אחד מהקריטריונים.'},
+   q:'כתוב/י פתיחה לסיפור קצר (4-5 משפטים) בנושא חופשי. השתמש/י ב: (א) פתיחה in medias res או פתיחה בדיאלוג, (ב) לפחות אמצעי ספרותי אחד, (ג) עקרון הראה-אל-תספר.',
+   placeholder:'כתוב/י ישר את הפתיחה — אל תסביר/י מה את/ה עושה. אחרי הכתיבה ציין/י בסוגריים: (האמצעי שהשתמשתי בו: ...)',
+   hint:'פתח/י בדיאלוג (2 משפטים) ואז תאר/י פרט אחד שחושף רגש דרך פעולה. כך תהיה פתיחה, דמות ורגש ב-4 משפטים.',
+   rubric:'(א) פתיחה מיידית ולא תיאור רקע (ב) אמצעי ספרותי מזוהה (ג) הראה ולא ספר — רגש דרך פעולה (ד) תחושת קריאה מיידית',
+   explain:'כתיבה פתוחה — אין תשובה אחת נכונה. המטרה היא שימוש מודע בכלים שנלמדו. ניתן לכתיבה יוצרת בבגרות.',
+   teacherNote:'בדקו: פתיחה מיידית? אמצעי ספרותי מזוהה? הראה ולא ספר? תנו משוב קצר על כל קריטריון.'},
 ];
 
 /* ════════════════════════════════════════════════
@@ -833,12 +890,7 @@ function buildCard(q,i){
         </div>`).join('')}
       </div>`;
   }else if(q.type==='open'){
-    input=`<div class="open-wrap">
-      <textarea class="open-textarea" id="${q.id}_oa" rows="4"
-        placeholder="${q.placeholder||'כתוב/י את תשובתך כאן...'}"
-        oninput="pickOpen('${q.id}')"></textarea>
-      ${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}
-    </div>`;
+    input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י את תשובתך כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
   }
   const refBadge=q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#ddd6fe">📍 ${q.ref}</span>`:'';
   const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>`;
@@ -900,7 +952,7 @@ function updateCounter(){
 ════════════════════════════════════════════════ */
 function submitQuiz(){
   const answered=Object.keys(QS.answers).length;
-  if(answered<QUESTIONS.length){toast(`⚠️ ענה על כל 20 השאלות (נענו ${answered})`);return}
+  if(answered<QUESTIONS.length){toast(`⚠️ ענה על כל 21 השאלות (נענו ${answered})`);return}
   if(QS.submitted){toast('כבר הגשת');return}
   if(USER_ROLE==='student'&&!_gateConfirmed){toast('⚠️ נא למלא שם וכיתה');reopenGate();return}
   QS.submitted=true;
@@ -910,7 +962,6 @@ function submitQuiz(){
     if(q.type==='mc')ok=a?.sel===q.ans;
     else if(q.type==='tf')ok=a?.sel===q.ans;
     else if(q.type==='sort')ok=JSON.stringify(a?.order)===JSON.stringify(q.correctOrder);
-    else if(q.type==='open')ok=!!(a?.text&&a.text.length>10);
     if(ok)correct++;
     const card=document.getElementById(`card_${q.id}`);if(card)card.classList.add(ok?'ok':'wrong');
     const fb=document.getElementById(`${q.id}_fb`);
@@ -919,8 +970,7 @@ function submitQuiz(){
       const tb=document.getElementById(`${q.id}_t`),fb2=document.getElementById(`${q.id}_f`);
       if(tb){tb.disabled=true;tb.classList.remove('sel');if(q.ans===true)tb.classList.add('correct');else if(a?.sel===true)tb.classList.add('wrong')}
       if(fb2){fb2.disabled=true;fb2.classList.remove('sel');if(q.ans===false)fb2.classList.add('correct');else if(a?.sel===false)fb2.classList.add('wrong')}
-    }else if(q.type==='sort'){const con=document.getElementById(`${q.id}_sort`);if(con){con.style.pointerEvents='none';con.style.opacity=ok?'1':'0.8';}}
-    else if(q.type==='open'){const ta=document.getElementById(`${q.id}_oa`);if(ta)ta.disabled=true;}
+    }else if(q.type==='sort'){const con=document.getElementById(`${q.id}_sort`);if(con){con.style.pointerEvents='none';con.style.opacity=ok?'1':'0.8';}} else if(q.type==='open'){const ta=document.getElementById(`${q.id}_oa`);if(ta)ta.disabled=true;}
     if(fb){
       if(q.type==='open'){fb.innerHTML=`<div class="open-rubric"><strong>✍️ תשובתך נשמרה.</strong> ${q.explain}${q.rubric?'<br><br><strong>נקודות לבדיקה:</strong> '+q.rubric:''}</div>`;fb.className='q-feedback show ok';}
       else{fb.textContent=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;fb.className=`q-feedback show ${ok?'ok':'wrong'}`;}
@@ -970,7 +1020,7 @@ function resetQuiz(){
   });
   const rc=document.getElementById('results-container');if(rc)rc.innerHTML='';
   const fill=document.getElementById('qp-fill');if(fill)fill.style.width='0%';
-  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent='0 / 20 נענו';
+  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent='0 / 21 נענו';
 }
 function sendResults(pct){
   const email=LS.get('lashon2_teacher_email','')||LS.get('teacher_email','');
@@ -993,7 +1043,7 @@ function renderAnswers(){
       ${q.ref?`<span style="font-size:.56rem;color:var(--lc);font-weight:700">📍 ${q.ref}</span>`:''}
     </div>
     <div class="ans-q">${q.q}</div>
-    <div class="ans-correct">✅ ${q.type==='mc'?`<strong>${['א','ב','ג','ד'][q.ans]}</strong> — ${q.opts[q.ans]}`:q.type==='tf'?`<strong>${q.ans?'נכון':'לא נכון'}</strong>`:q.type==='open'?`<span style="color:var(--lc);font-weight:600">שאלת כתיבה פתוחה</span>`:`סדר: ${q.correctOrder.map(j=>q.items[j]).join(' ← ')}`}</div>
+    <div class="ans-correct">✅ ${q.type==='mc'?`<strong>${['א','ב','ג','ד'][q.ans]}</strong> — ${q.opts[q.ans]}`:q.type==='tf'?`<strong>${q.ans?'נכון':'לא נכון'}</strong>`:`סדר: ${q.correctOrder.map(j=>q.items[j]).join(' ← ')}`}</div>
     <div class="ans-explain">💡 ${q.explain}</div>
     ${q.teacherNote?`<div class="ans-teacher-note">🎓 ${q.teacherNote}</div>`:''}
   </div>`).join('');
