@@ -264,7 +264,7 @@ button,input,select{font-family:inherit}
 }
 .ph{display:none}
 
-/* ── open question ── */
+/* open q */
 .open-wrap{margin-bottom:.5rem}
 .open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none;transition:border-color .15s}
 .open-textarea:focus{border-color:var(--lc)}
@@ -686,12 +686,11 @@ const QS=[
    ex:'"אתמול ראיתי..." = תיאור זמן מקדים → מסגרת. "ראיתי אתמול..." ≈ SVO עם "אתמול" מוטמע. ההבדל: בראשון, "אתמול" = המידע החשוב. בשני, "ראיתי... בשוק" = העיקר, ו"אתמול" = פרט נוסף.'},
   {id:'q21',type:'open',ref:'ניתוח סדר מילים',
    q:'השווה/י: (א) <strong>"הספר הזה קראה רחל."</strong> (ב) <strong>"רחל קראה את הספר הזה."</strong><br>מה מודגש בכל משפט ולמה?',
-   placeholder:'(א) הדגש: הספר (מגיע ראשון). משובש: הנושא "רחל" אחרי הנשוא.\n(ב) סדר רגיל. הדגש: הפעולה.',
-   hint:'מה שמגיע ראשון = מודגש. סדר רגיל: נושא + נשוא + מושא.',
-   rubric:'(א) זיהוי הדגש (ב) הסבר מדוע (מיקום) (ג) זיהוי הסטייה',
-   explain:'סדר מילים = כלי הדגש. ראשון = רקע נתון. אחרון = מידע חדש.',
-   teacherNote:'בדקו: מחבר מיקום לדגש, לא רק מתאר השינוי.'}
-,
+   placeholder:'(א) הדגש: הספר (מגיע ראשון). משובש: "רחל" אחרי הנשוא.\n(ב) סדר רגיל. הדגש: הפעולה.',
+   hint:'מה שמגיע ראשון = מודגש.',
+   rubric:'(א) זיהוי הדגש (ב) הסבר מדוע (ג) זיהוי הסטייה',
+   explain:'סדר מילים = כלי הדגש.',
+   teacherNote:'מחבר מיקום לדגש, לא רק מתאר השינוי.'},
 ];
 
 // ═══════════════════════════════════════════════
@@ -763,6 +762,8 @@ function buildC(q,i){
     inp=`<div class="tfr"><button class="tf" id="${q.id}_t" onclick="pickTF('${q.id}',true)">✅ נכון</button><button class="tf" id="${q.id}_f" onclick="pickTF('${q.id}',false)">❌ לא נכון</button></div>`;
   }else if(q.type==='sort'){
     inp=`<div class="snote">גרור לסדר הנכון</div><div class="slist" id="${q.id}_sl">${q.items.map((it,j)=>`<div class="sitem" draggable="true" data-idx="${j}" id="${q.id}_si${j}" ondragstart="dStart(event,'${q.id}',${j})" ondragover="dOver(event)" ondrop="dDrop(event,'${q.id}')" ondragleave="dLeave(event)"><span class="shandle">⠿</span><span class="stext">${it}</span></div>`).join('')}</div>`;
+  } else if(q.type==='open'){
+    inp=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
   }
   return `<div class="qc" id="${q.id}_card"><div class="qn2">שאלה ${i+1} מתוך ${QS.length} <span class="qtb2">${q.ref}</span></div><div class="qt2">${q.q}</div>${inp}<div class="qfb" id="${q.id}_fb"></div></div>`;
 }
@@ -800,17 +801,7 @@ function pickTF(qid,val){
   updP();
 }
 
-function pickOpen(qid){
-  var st=(typeof QST!=='undefined')?QST:QS;
-  if(st.submitted)return;
-  var el=document.getElementById(qid+'_oa');if(!el)return;
-  var val=(el.value||'').trim();
-  if(val.length>0)st.answers[qid]={type:'open',text:val};
-  else delete st.answers[qid];
-  if(typeof updateCounter==='function')updateCounter();
-  else if(typeof updateProgress==='function')updateProgress();
-  else if(typeof updP==='function')updP();
-}
+function pickOpen(qid){var st=(typeof QST!='undefined')?QST:QS;if(st.submitted)return;var el=document.getElementById(qid+'_oa');if(!el)return;var val=(el.value||'').trim();if(val.length>0)st.answers[qid]={type:'open',text:val};else delete st.answers[qid];if(typeof updateCounter=='function')updateCounter();else if(typeof updateProgress=='function')updateProgress();else if(typeof updP=='function')updP();}
 function updP(){
   const d=Object.keys(QST.answers).length,p=Math.round(d/QS.length*100);
   document.getElementById('pf')?.style.setProperty('width',p+'%');
@@ -838,7 +829,7 @@ function submitQ(){
     if(ok)cor++;
     document.getElementById(q.id+'_card')?.classList.add(ok?'ok':'wrong');
     const fb=document.getElementById(q.id+'_fb');
-    if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='qfb show ok';fb.innerHTML='<div class="open-rubric">✍️ ' + q.ex+'</div>';}else{if(q.type==='open'){const ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='qfb show ok';fb.innerHTML='<div class="open-rubric"><strong>✍️ נשמר.</strong> '+q.ex+'</div>';}else{fb.className='qfb show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.ex;}}}
+    if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='qfb show ok';fb.innerHTML='<div class="open-rubric">✍️ '+q.ex+'</div>';}else{fb.className='qfb show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.ex;}}
   });
   _lc=cor;_ls=Math.round(cor/QS.length*100);
   const p=_ls,em=p>=90?'🏆':p>=75?'⭐':p>=60?'👍':'💪',cl=p>=90?'#15803d':p>=75?'#059669':p>=60?'#1a56db':'#dc2626';

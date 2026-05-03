@@ -242,7 +242,7 @@ button,input,select,textarea{font-family:inherit}
 }
 .print-header{display:none}
 
-/* ── open question ── */
+/* open q */
 .open-wrap{margin-bottom:.5rem}
 .open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none;transition:border-color .15s}
 .open-textarea:focus{border-color:var(--lc)}
@@ -792,12 +792,11 @@ const QUESTIONS=[
    teacherNote:'שגיאה נפוצה מאוד בקרב תלמידים.'},
   {id:'q21',type:'open',ref:'ניתוח פיסוק',
    q:'הוסף/י פיסוק נכון והסבר/י כל סימן:<br><strong>"מנהל בית הספר אמר שמחר יום חופש אבל מי שלא הגיע ייאלץ להישאר"</strong>',
-   placeholder:'מנהל בית הספר אמר, שמחר יום חופש, אבל מי שלא הגיע — ייאלץ להישאר.\nפסיק אחרי "אמר": לפני פסוקית מובאת.\nפסיק אחרי "חופש": בין שתי פסוקיות.\nמקף: הדגשת הניגוד.',
+   placeholder:'...אמר, שמחר יום חופש, אבל מי שלא הגיע — ייאלץ להישאר.\nפסיק אחרי "אמר": לפני פסוקית. פסיק אחרי "חופש": בין פסוקיות. מקף: הדגשה.',
    hint:'פסיק: לפני "אבל/אך", בין פסוקיות. מקף: הדגשה.',
    rubric:'(א) 3+ סימנים (ב) הסבר כל סימן (ג) כללי הפסיק',
    explain:'פסיק לפני "אבל", בין פסוקיות, מקף להדגשה.',
-   teacherNote:'בדקו: הסבר הכלל > הנחת הסימן. הבנה > שינון.'}
-,
+   teacherNote:'הסבר הכלל > הנחת הסימן.'},
 ];
 
 /* ════════════════════════════════════════════════
@@ -882,9 +881,9 @@ function buildCard(q,i){
           <span class="sort-handle">⠿</span><span class="sort-text">${s.item}</span>
         </div>`).join('')}
       </div>`;
-  }
   } else if(q.type==='open'){
     input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
+  }
   const refBadge=q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#fde68a">📍 ${q.ref}</span>`:'';
   const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור'}</span>`;
   return `
@@ -925,17 +924,7 @@ function dDrop(e,qid){
   _ds.classList.remove('dragging');_ds=null;saveSA(qid);updateCounter();
 }
 function saveSA(qid){const con=document.getElementById(qid+'_sort');if(!con)return;QS.answers[qid]={type:'sort',order:[...con.children].map(el=>parseInt(el.dataset.origidx))};}
-function pickOpen(qid){
-  var st=(typeof QST!=='undefined')?QST:QS;
-  if(st.submitted)return;
-  var el=document.getElementById(qid+'_oa');if(!el)return;
-  var val=(el.value||'').trim();
-  if(val.length>0)st.answers[qid]={type:'open',text:val};
-  else delete st.answers[qid];
-  if(typeof updateCounter==='function')updateCounter();
-  else if(typeof updateProgress==='function')updateProgress();
-  else if(typeof updP==='function')updP();
-}
+function pickOpen(qid){var st=(typeof QST!='undefined')?QST:QS;if(st.submitted)return;var el=document.getElementById(qid+'_oa');if(!el)return;var val=(el.value||'').trim();if(val.length>0)st.answers[qid]={type:'open',text:val};else delete st.answers[qid];if(typeof updateCounter=='function')updateCounter();else if(typeof updateProgress=='function')updateProgress();else if(typeof updP=='function')updP();}
 function updateCounter(){
   const n=Object.keys(QS.answers).length;const pct=Math.round(n/QUESTIONS.length*100);
   const fill=document.getElementById('qp-fill');if(fill)fill.style.width=pct+'%';
@@ -967,7 +956,7 @@ function submitQuiz(){
       if(tb){tb.disabled=true;tb.classList.remove('sel');if(q.ans===true)tb.classList.add('correct');else if(a?.sel===true)tb.classList.add('wrong')}
       if(fb2){fb2.disabled=true;fb2.classList.remove('sel');if(q.ans===false)fb2.classList.add('correct');else if(a?.sel===false)fb2.classList.add('wrong')}
     }else if(q.type==='sort'){const con=document.getElementById(`${q.id}_sort`);if(con){con.style.pointerEvents='none';con.style.opacity=ok?'1':'0.8';}}
-    if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='q-feedback show ok';fb.innerHTML='<div class="open-rubric">✍️ '+q.explain+'</div>';}else{fb.textContent=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;fb.className=`q-feedback show ${ok?'ok':'wrong'}`; }}
+    if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='q-feedback show ok';fb.innerHTML='<div class="open-rubric">✍️ '+q.explain+'</div>';}else{fb.textContent=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;fb.className=`q-feedback show ${ok?'ok':'wrong'}`;}}
   });
   _lastScore=Math.round(correct/QUESTIONS.length*100);_lastCorrect=correct;
   const pct=_lastScore;const col=pct>=80?'var(--green)':pct>=60?'var(--amber)':'var(--red)';const emoji=pct>=90?'🏆':pct>=80?'🎉':pct>=60?'👍':'💪';

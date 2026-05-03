@@ -296,7 +296,7 @@ button,input,select,textarea{font-family:inherit}
 }
 .print-header{display:none}
 
-/* ── open question ── */
+/* open q */
 .open-wrap{margin-bottom:.5rem}
 .open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none;transition:border-color .15s}
 .open-textarea:focus{border-color:var(--lc)}
@@ -893,13 +893,12 @@ const QUESTIONS=[
    explain:'"ריצת" = שם פעולה של ר-צ-ץ (= שם עצם). אין כאן פועל בעל זמן. לכן: "ריצת הכלב בגינה" = צירוף שמני (ראש = "ריצת" + גנות "הכלב" + צ׳ יחסי "בגינה"). השווה: "הכלב רץ בגינה" = משפט.',
    teacherNote:''},
   {id:'q21',type:'open',ref:'ניתוח מבנה',
-   q:'סווג/י כל מבנה והסבר/י:<br>(א) "ריצת הכלב המהיר" (ב) "הכלב רץ" (ג) "הכלב מהיר"',
-   placeholder:'(א) צירוף שמני — "ריצת" הוא שם פעולה, אין נשוא פועלי.\n(ב) משפט פועלי — "רץ" הוא נשוא פועל.\n(ג) משפט שמני — "מהיר" הוא נשוא שמני, אין פועל.',
-   hint:'משפט = יש נשוא. צירוף = אין נשוא, יש שם עצם ראשי.',
-   rubric:'(א) סיווג נכון לשלושתם (ב) הנמקה (ג) שימוש במונחים: נשוא, שם פעולה',
+   q:'סווג/י כל מבנה והסבר/י: (א) "ריצת הכלב המהיר" (ב) "הכלב רץ" (ג) "הכלב מהיר"',
+   placeholder:'(א) צירוף שמני — "ריצת" שם פעולה, אין נשוא.\n(ב) משפט פועלי — "רץ" נשוא פועל.\n(ג) משפט שמני — "מהיר" נשוא שמני.',
+   hint:'משפט = יש נשוא. צירוף = אין נשוא.',
+   rubric:'(א) סיווג נכון לשלושתם (ב) הנמקה (ג) מונחים',
    explain:'פועלי: נשוא=פועל. שמני: נשוא=שם/תואר. צירוף: אין נשוא.',
-   teacherNote:'בדקו: הבחנה בין צירוף למשפט. "ריצת הכלב" — שם פעולה, לא פועל.'}
-,
+   teacherNote:'הבחנה צירוף/משפט.'},
 ];
 
 /* ════════════════════════════════════════════════
@@ -983,9 +982,9 @@ function buildCard(q,i){
         <span class="sort-handle">⠿</span>
         <span class="sort-text">${q.items[j]}</span>
       </div>`).join('')}</div>`;
-  }
   } else if(q.type==='open'){
     input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
+  }
   const tn=q.teacherNote?`<div style="font-size:.75rem;color:var(--lc);margin-top:.45rem;background:var(--lc-lt);border-radius:8px;padding:.38rem .7rem">🎓 ${q.teacherNote}</div>`:'';
   const fb=`<div class="q-feedback" id="${q.id}_fb"></div>`;
   return `<div class="q-card" id="${q.id}_card">
@@ -1032,17 +1031,7 @@ function pickTF(qid,val){
   ['t','f'].forEach(k=>{const b=document.getElementById(qid+'_'+k);if(b)b.classList.toggle('sel',k==='t'?val:!val);});
   updateProgress();
 }
-function pickOpen(qid){
-  var st=(typeof QST!=='undefined')?QST:QS;
-  if(st.submitted)return;
-  var el=document.getElementById(qid+'_oa');if(!el)return;
-  var val=(el.value||'').trim();
-  if(val.length>0)st.answers[qid]={type:'open',text:val};
-  else delete st.answers[qid];
-  if(typeof updateCounter==='function')updateCounter();
-  else if(typeof updateProgress==='function')updateProgress();
-  else if(typeof updP==='function')updP();
-}
+function pickOpen(qid){var st=(typeof QST!='undefined')?QST:QS;if(st.submitted)return;var el=document.getElementById(qid+'_oa');if(!el)return;var val=(el.value||'').trim();if(val.length>0)st.answers[qid]={type:'open',text:val};else delete st.answers[qid];if(typeof updateCounter=='function')updateCounter();else if(typeof updateProgress=='function')updateProgress();else if(typeof updP=='function')updP();}
 function updateProgress(){
   const done=Object.keys(QS.answers).length;
   const pct=Math.round(done/QUESTIONS.length*100);
@@ -1082,7 +1071,7 @@ function submitQuiz(){
     if(ok)correct++;
     const card=document.getElementById(q.id+'_card');if(card)card.classList.add(ok?'ok':'wrong');
     const fb=document.getElementById(q.id+'_fb');
-    if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='q-feedback show ok';fb.innerHTML='<div class="open-rubric">✍️ ' + q.explain+'</div>';}else{fb.className='q-feedback show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;}}
+    if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='q-feedback show ok';fb.innerHTML='<div class="open-rubric">✍️ '+q.explain+'</div>';}else{fb.className='q-feedback show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;}}
   });
   _lastCorrect=correct;_lastScore=Math.round(correct/QUESTIONS.length*100);
   const pct=_lastScore;
