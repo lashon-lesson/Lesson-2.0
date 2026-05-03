@@ -245,6 +245,14 @@ button,input,select,textarea{font-family:inherit}
   @page{margin:1.5cm;size:A4}
 }
 .print-header{display:none}
+
+/* open question */
+.open-wrap{margin-bottom:.5rem}
+.open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none;transition:border-color .15s}
+.open-textarea:focus{border-color:var(--lc)}
+.open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}
+.open-hint{font-size:.72rem;color:var(--muted,#9aa3be);margin-top:.3rem}
+.open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid,#374151)}
 </style>
 </head>
 <body>
@@ -266,7 +274,7 @@ button,input,select,textarea{font-family:inherit}
 <!-- TABS -->
 <div class="tabs-bar">
   <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
-  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (20 שאלות)</button>
+  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (21 שאלות)</button>
   <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
   <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
 </div>
@@ -864,6 +872,13 @@ const QUESTIONS=[
    ans:1,
    explain:'גזרת השלמים = כל 3 עיצורי השורש שלמים (ללא א/ה/ו/י ברגישות). בקל: כָּתַב (כ-ת-ב שלמים). בנפעל: נִכְתַּב (אותם כ-ת-ב). בפיעל: כִּתֵּב (אותם כ-ת-ב, דגש בת).',
    teacherNote:''},
+    {id:'q21',type:'open',ref:'ניתוח בניינים',
+   q:'השווה/י את הפועל <strong>שָׁבַר</strong> בשלושה בניינים:<br><strong>קל:</strong> שָׁבַר | <strong>נפעל:</strong> נִשְׁבַּר | <strong>פיעל:</strong> שִׁבֵּר<br>לכל בניין: (א) מי הנושא ומי מקבל הפעולה (ב) המשמעות המדויקת (ג) צור/י משפט שמדגים את ההבדל.',
+   placeholder:'קל: שָׁבַר — פעיל: הנושא מבצע שבירה. "הילד שָׁבַר את הכוס."\nנפעל: נִשְׁבַּר — סביל: הנושא הוא מה שנשבר. "הכוס נִשְׁבְּרָה." (אין גורם מפורש)\nפיעל: שִׁבֵּר — פעיל מוגבר/חוזר: גורם לשבירה מרובה. "הוא שִׁבֵּר את כל הכלים."',
+   hint:'קל = פעולה פשוטה (מי עשה). נפעל = סביל (מה קרה). פיעל = פעולה חוזרת/מוגברת על מושא. שים/י לב: נפעל ≠ עבר של קל.',
+   rubric:'(א) פעיל/סביל נכון לכל בניין (ב) משמעות ייחודית שמבדילה (ג) משפט דוגמה תקין',
+   explain:'ההבחנה קל/נפעל/פיעל = מרכז שאלות הבניינים בבגרות. נפעל = סביל (המושא הופך נושא). פיעל = הגברה או גרימה.',
+   teacherNote:'מיצ"ב בודק: (1) פעיל/סביל (2) משמעות שונה לכל בניין (3) יכולת הדגמה במשפט. ניסוח "הנושא הוא מה שנשבר" עדיף על "סביל" סתמי.'},
 ];
 
 const QS={answers:{},submitted:false};
@@ -942,9 +957,11 @@ function buildCard(q,i){
           <span class="sort-handle">⠿</span><span class="sort-text">${s.item}</span>
         </div>`).join('')}
       </div>`;
+  } else if(q.type==='open'){
+    input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
   }
   const refBadge=q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#6ee7b7">📍 ${q.ref}</span>`:'';
-  const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור'}</span>`;
+  const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>`;
   return `
   <div class="q-card" id="card_${q.id}">
     <div class="q-num">שאלה ${i+1} מתוך ${QUESTIONS.length} ${tb} ${refBadge}</div>
@@ -980,6 +997,17 @@ function dDrop(e,qid){
   _ds.classList.remove('dragging');_ds=null;saveSA(qid);updateCounter();
 }
 function saveSA(qid){const con=document.getElementById(qid+'_sort');if(!con)return;QS.answers[qid]={type:'sort',order:[...con.children].map(el=>parseInt(el.dataset.origidx))};}
+function pickOpen(qid){
+  var st=(typeof QST!=='undefined')?QST:QS;
+  if(st.submitted)return;
+  var el=document.getElementById(qid+'_oa');if(!el)return;
+  var val=(el.value||'').trim();
+  if(val.length>0)st.answers[qid]={type:'open',text:val};
+  else delete st.answers[qid];
+  if(typeof updateCounter==='function')updateCounter();
+  else if(typeof updateProgress==='function')updateProgress();
+  else if(typeof updP==='function')updP();
+}
 function updateCounter(){
   const n=Object.keys(QS.answers).length;const pct=Math.round(n/QUESTIONS.length*100);
   const fill=document.getElementById('qp-fill');if(fill)fill.style.width=pct+'%';
@@ -998,6 +1026,7 @@ function submitQuiz(){
     if(q.type==='mc')ok=a?.sel===q.ans;
     else if(q.type==='tf')ok=a?.sel===q.ans;
     else if(q.type==='sort')ok=JSON.stringify(a?.order)===JSON.stringify(q.correctOrder);
+    else if(q.type==='open')ok=!!(a?.text&&a.text.length>10);
     if(ok)correct++;
     const card=document.getElementById(`card_${q.id}`);if(card)card.classList.add(ok?'ok':'wrong');
     const fb=document.getElementById(`${q.id}_fb`);
@@ -1007,7 +1036,7 @@ function submitQuiz(){
       if(tb){tb.disabled=true;tb.classList.remove('sel');if(q.ans===true)tb.classList.add('correct');else if(a?.sel===true)tb.classList.add('wrong')}
       if(fb2){fb2.disabled=true;fb2.classList.remove('sel');if(q.ans===false)fb2.classList.add('correct');else if(a?.sel===false)fb2.classList.add('wrong')}
     }else if(q.type==='sort'){const con=document.getElementById(`${q.id}_sort`);if(con){con.style.pointerEvents='none';con.style.opacity=ok?'1':'0.8';}}
-    if(fb){fb.textContent=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;fb.className=`q-feedback show ${ok?'ok':'wrong'}`;}
+    if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='q-feedback show ok';fb.innerHTML='<div class="open-rubric">✍️ '+q.explain+'</div>';}else{fb.textContent=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;fb.className=`q-feedback show ${ok?'ok':'wrong'}`; }}
   });
   _lastScore=Math.round(correct/QUESTIONS.length*100);_lastCorrect=correct;
   const pct=_lastScore;const col=pct>=80?'var(--green)':pct>=60?'var(--amber)':'var(--red)';const emoji=pct>=90?'🏆':pct>=80?'🎉':pct>=60?'👍':'💪';
@@ -1042,7 +1071,7 @@ function submitQuiz(){
   if(window.opener)try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID,score:pct,studentName:STUDENT_NAME,className:STUDENT_CLASS},'*')}catch{}
 }
 function resetQuiz(){
-  Object.keys(QS.answers).forEach(k=>delete QS.answers[k]);QS.submitted=false;_lastScore=null;_lastCorrect=0;
+  QUESTIONS.forEach(function(q){if(q.type==='open'){var t=document.getElementById(q.id+'_oa');if(t){t.disabled=false;t.value='';}}});Object.keys(QS.answers).forEach(k=>delete QS.answers[k]);QS.submitted=false;_lastScore=null;_lastCorrect=0;
   QUESTIONS.forEach(q=>{
     if(q.type==='mc')q.opts.forEach((_,i)=>{const b=document.getElementById(`${q.id}_o${i}`);if(b){b.disabled=false;b.className='mc-btn'}});
     else if(q.type==='tf'){const t=document.getElementById(`${q.id}_t`),f=document.getElementById(`${q.id}_f`);if(t){t.disabled=false;t.className='tf-btn'}if(f){f.disabled=false;f.className='tf-btn'}}
@@ -1068,7 +1097,7 @@ function renderAnswers(){
   c.innerHTML=QUESTIONS.map((q,i)=>`
   <div class="answer-row">
     <div class="ans-num">שאלה ${i+1}
-      <span style="font-size:.56rem;font-weight:700;padding:.12rem .45rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור'}</span>
+      <span style="font-size:.56rem;font-weight:700;padding:.12rem .45rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>
       ${q.ref?`<span style="font-size:.56rem;color:var(--lc);font-weight:700">📍 ${q.ref}</span>`:''}
     </div>
     <div class="ans-q">${q.q}</div>

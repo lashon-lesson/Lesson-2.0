@@ -245,6 +245,14 @@ button,input,select,textarea{font-family:inherit}
   @page{margin:1.5cm;size:A4}
 }
 .print-header{display:none}
+
+/* open question */
+.open-wrap{margin-bottom:.5rem}
+.open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none;transition:border-color .15s}
+.open-textarea:focus{border-color:var(--lc)}
+.open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}
+.open-hint{font-size:.72rem;color:var(--muted,#9aa3be);margin-top:.3rem}
+.open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid,#374151)}
 </style>
 </head>
 <body>
@@ -266,7 +274,7 @@ button,input,select,textarea{font-family:inherit}
 <!-- TABS -->
 <div class="tabs-bar">
   <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
-  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (20 שאלות)</button>
+  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (21 שאלות)</button>
   <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
   <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
 </div>
@@ -907,6 +915,17 @@ const QUESTIONS=[
     ],
     "ans": 1,
     "explain": "\"הִתְגַּדֵּל\" = התפעל = שינוי מצב עצמי. \"הִגְדִּיל\" = הפעיל = גרם לאחר לגדול. ההבחנה: עצמי ↔ גרמה."
+  },
+  {
+    "id": "q21",
+    "type": "open",
+    "ref": "ניתוח בניינים כבדים",
+    "q": "השווה/י את הזוג הִגְדִּיל (הפעיל) ↔ הֻגְדַּל (הופעל):<br>(א) מי פועל ומי מקבל הפעולה (ב) בנה/י משפט דוגמה לכל אחד (ג) הסבר/י מה מסגיר את הבניין צורנית.",
+    "placeholder": "(א) הפעיל: פעיל. הופעל: סביל.\n(ב) הפעיל: \"המנהל הִגְדִּיל את המשכורת.\" הופעל: \"המשכורת הֻגְדְּלָה.\"\n(ג) הפעיל: קידומת הִ. הופעל: קידומת הֻ.",
+    "hint": "הופעל = הסביל של הפעיל. הפעיל: הִ לפני פ' שורש. הופעל: הֻ לפני פ' שורש.",
+    "rubric": "(א) פעיל/סביל נכון (ב) משפט תקין (ג) סימן צורני",
+    "explain": "הפעיל↔הופעל = זוג פעיל-סביל. הסימן: הִ vs הֻ לפני פ' השורש.",
+    "teacherNote": "מיצ\"ב: זיהוי זוג פעיל-סביל + סימן צורני. ציון מלא = שלושת הרכיבים."
   }
 ];
 
@@ -986,6 +1005,8 @@ function buildCard(q,i){
           <span class="sort-handle">⠿</span><span class="sort-text">${s.item}</span>
         </div>`).join('')}
       </div>`;
+  } else if(q.type==='open'){
+    input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
   }
   const refBadge=q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#ddd6fe">📍 ${q.ref}</span>`:'';
   const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור'}</span>`;
@@ -1024,6 +1045,15 @@ function dDrop(e,qid){
   _ds.classList.remove('dragging');_ds=null;saveSA(qid);updateCounter();
 }
 function saveSA(qid){const con=document.getElementById(qid+'_sort');if(!con)return;QS.answers[qid]={type:'sort',order:[...con.children].map(el=>parseInt(el.dataset.origidx))};}
+function pickOpen(qid){
+  if(QS.submitted)return;
+  var el=document.getElementById(qid+'_oa');if(!el)return;
+  var val=(el.value||'').trim();
+  if(val.length>0)QS.answers[qid]={type:'open',text:val};
+  else delete QS.answers[qid];
+  if(typeof updateCounter==='function')updateCounter();
+  else if(typeof updateProgress==='function')updateProgress();
+}
 function updateCounter(){
   const n=Object.keys(QS.answers).length;const pct=Math.round(n/QUESTIONS.length*100);
   const fill=document.getElementById('qp-fill');if(fill)fill.style.width=pct+'%';
@@ -1042,6 +1072,7 @@ function submitQuiz(){
     if(q.type==='mc')ok=a?.sel===q.ans;
     else if(q.type==='tf')ok=a?.sel===q.ans;
     else if(q.type==='sort')ok=JSON.stringify(a?.order)===JSON.stringify(q.correctOrder);
+    else if(q.type==='open')ok=!!(a?.text&&a.text.length>10);
     if(ok)correct++;
     const card=document.getElementById(`card_${q.id}`);if(card)card.classList.add(ok?'ok':'wrong');
     const fb=document.getElementById(`${q.id}_fb`);
@@ -1051,7 +1082,7 @@ function submitQuiz(){
       if(tb){tb.disabled=true;tb.classList.remove('sel');if(q.ans===true)tb.classList.add('correct');else if(a?.sel===true)tb.classList.add('wrong')}
       if(fb2){fb2.disabled=true;fb2.classList.remove('sel');if(q.ans===false)fb2.classList.add('correct');else if(a?.sel===false)fb2.classList.add('wrong')}
     }else if(q.type==='sort'){const con=document.getElementById(`${q.id}_sort`);if(con){con.style.pointerEvents='none';con.style.opacity=ok?'1':'0.8';}}
-    if(fb){fb.textContent=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;fb.className=`q-feedback show ${ok?'ok':'wrong'}`;}
+    if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='q-feedback show ok';fb.innerHTML='<div class="open-rubric">✍️ '+q.explain+'</div>';}else{fb.textContent=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;fb.className=`q-feedback show ${ok?'ok':'wrong'}`; }}
   });
   _lastScore=Math.round(correct/QUESTIONS.length*100);_lastCorrect=correct;
   const pct=_lastScore;const col=pct>=80?'var(--green)':pct>=60?'var(--amber)':'var(--red)';const emoji=pct>=90?'🏆':pct>=80?'🎉':pct>=60?'👍':'💪';
@@ -1086,7 +1117,7 @@ function submitQuiz(){
   if(window.opener)try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID,score:pct,studentName:STUDENT_NAME,className:STUDENT_CLASS},'*')}catch{}
 }
 function resetQuiz(){
-  Object.keys(QS.answers).forEach(k=>delete QS.answers[k]);QS.submitted=false;_lastScore=null;_lastCorrect=0;
+  QUESTIONS.forEach(function(q){if(q.type==='open'){var t=document.getElementById(q.id+'_oa');if(t){t.disabled=false;t.value='';}}});Object.keys(QS.answers).forEach(k=>delete QS.answers[k]);QS.submitted=false;_lastScore=null;_lastCorrect=0;
   QUESTIONS.forEach(q=>{
     if(q.type==='mc')q.opts.forEach((_,i)=>{const b=document.getElementById(`${q.id}_o${i}`);if(b){b.disabled=false;b.className='mc-btn'}});
     else if(q.type==='tf'){const t=document.getElementById(`${q.id}_t`),f=document.getElementById(`${q.id}_f`);if(t){t.disabled=false;t.className='tf-btn'}if(f){f.disabled=false;f.className='tf-btn'}}

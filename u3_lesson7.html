@@ -291,6 +291,14 @@ button,input,select,textarea{font-family:inherit}
   @page{margin:1.5cm;size:A4}
 }
 .print-header{display:none}
+
+/* open question */
+.open-wrap{margin-bottom:.5rem}
+.open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none;transition:border-color .15s}
+.open-textarea:focus{border-color:var(--lc)}
+.open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}
+.open-hint{font-size:.72rem;color:var(--muted,#9aa3be);margin-top:.3rem}
+.open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid,#374151)}
 </style>
 </head>
 <body>
@@ -310,7 +318,7 @@ button,input,select,textarea{font-family:inherit}
 
 <div class="tabs-bar">
   <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
-  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (20 שאלות)</button>
+  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (21 שאלות)</button>
   <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
   <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
 </div>
@@ -828,6 +836,13 @@ const QUESTIONS=[
    ans:1,
    explain:'"הַכּוֹתְבוֹת" — נקבה רבים מיודע, מסכים ל"הבנות" (נקבה רבים מיודע). ✅ (א) שגוי: "כּוֹתֵב" = ז"י, לא מסכים ל"הבנות". (ג) שגוי: "בנות" סתמי, "כּוֹתֵב" ז"י — גם מין וגם ידיעה שגויים. (ד) שגוי: "כּוֹתְבִים" = ז"ר.',
    teacherNote:''},
+  {id:'q21',type:'open',ref:'ניתוח בינוני',
+   q:'נתח/י את שלושת הבינונים הבאים: ציין/י בניין, תפקיד תחבירי ואם הוא פועל/שם תואר/שם עצם:<br><strong>(א) "הַכּוֹתֵב יושב" (ב) "הספר הַכָּתוּב" (ג) "מְהַרְהֵר שם"</strong>',
+   placeholder:'(א) הַכּוֹתֵב: בינוני פועל-קל, שם עצם (=הגבר שכותב), נושא המשפט.\n(ב) הַכָּתוּב: בינוני פעול-קל, שם תואר (מתאר "ספר"), מסכים: זכר יחיד.\n(ג) מְהַרְהֵר: בינוני פועל-פיעל, פועל הווה (פעולה נמשכת), נשוא.',
+   hint:'בינוני פועל = כּוֹתֵב/מְכַתֵּב. בינוני פעול = כָּתוּב/מְכֻתָּב. שים/י לב: שם עצם = מיודע אך אינו מסכים. שם תואר = מסכים עם שם עצם.',
+   rubric:'(א) בניין+תפקיד+פועל/שת/שע לכל אחד (ב) הסכמה נכונה ל-(ב) (ג) הבחנה פועל הווה ל-(ג)',
+   explain:'בינוני = שלושה תפקידים: פועל הווה / שם תואר / שם עצם. ההבחנה = מיודעות + הסכמה.',
+   teacherNote:'מיצ"ב: זיהוי תפקיד בינוני + הסכמה. ציון מלא = בניין + תפקיד + הנמקה.'},
 ];
 
 /* ══════════════════════════════════════════════
@@ -881,6 +896,14 @@ function dStart(e,id){_dragSrc=e.currentTarget;e.dataTransfer.effectAllowed='mov
 function dOver(e){e.preventDefault();e.dataTransfer.dropEffect='move';const t=e.currentTarget;if(t!==_dragSrc&&t.classList.contains('sort-item'))t.classList.add('drag-over');}
 function dEnd(e){e.currentTarget.classList.remove('dragging');document.querySelectorAll('.sort-item').forEach(el=>el.classList.remove('drag-over'));}
 function dDrop(e,id){e.preventDefault();if(!_dragSrc||_dragSrc===e.currentTarget)return;const list=document.getElementById('sort_'+id);const items=[...list.querySelectorAll('.sort-item')];const fi=items.indexOf(_dragSrc),ti=items.indexOf(e.currentTarget);if(fi<0||ti<0)return;const clone=_dragSrc.cloneNode(true);list.insertBefore(clone,fi<ti?e.currentTarget.nextSibling:e.currentTarget);_dragSrc.remove();clone.ondragstart=ev=>dStart(ev,id);clone.ondragover=dOver;clone.ondrop=ev=>dDrop(ev,id);clone.ondragend=dEnd;QS.answers[id]={order:[...list.querySelectorAll('.sort-item')].map(el=>parseInt(el.dataset.idx))};updateProgress();}
+function pickOpen(qid){
+  if(QS.submitted)return;
+  var el=document.getElementById(qid+'_oa');if(!el)return;
+  var val=(el.value||'').trim();
+  if(val.length>0)QS.answers[qid]={type:'open',text:val};
+  else delete QS.answers[qid];
+  if(typeof updateProgress==='function')updateProgress();
+}
 function updateProgress(){const ans=Object.keys(QS.answers).length,tot=QUESTIONS.length,pct=Math.round(ans/tot*100);const pf=document.getElementById('prog-fill'),pt=document.getElementById('prog-txt'),pp=document.getElementById('prog-pct');if(pf)pf.style.width=pct+'%';if(pt)pt.textContent=ans+' מתוך '+tot+' נענו';if(pp)pp.textContent=pct+'%';}
 function submitQuiz(){
   const un=QUESTIONS.filter(q=>!QS.answers[q.id]||(q.type==='mc'&&QS.answers[q.id].sel===undefined)||(q.type==='tf'&&QS.answers[q.id].sel===undefined));
@@ -891,10 +914,11 @@ function submitQuiz(){
     if(q.type==='mc')ok=a?.sel===q.ans;
     else if(q.type==='tf')ok=a?.sel===q.ans;
     else if(q.type==='sort')ok=JSON.stringify(a?.order)===JSON.stringify(q.correctOrder);
+    else if(q.type==='open')ok=!!(a?.text&&a.text.length>10);
     if(ok)correct++;
     const card=document.getElementById('qcard_'+q.id);if(card){card.classList.toggle('ok',ok);card.classList.toggle('wrong',!ok);}
     const fb=document.getElementById('fb_'+q.id);
-    if(fb){fb.classList.add('show',ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain+(q.teacherNote&&USER_ROLE==='teacher'?'<br><strong>🎓 '+q.teacherNote+'</strong>':'');}
+    if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.classList.add('show','ok');fb.innerHTML='<div class="open-rubric">✍️ '+q.explain+'</div>';}else{fb.classList.add('show',ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain}+(q.teacherNote&&USER_ROLE==='teacher'?'<br><strong>🎓 '+q.teacherNote+'</strong>':'');}
     if(q.type==='mc'){q.opts.forEach((_,j)=>{const b=document.getElementById('mc_'+q.id+'_'+j);if(b){b.disabled=true;if(j===q.ans)b.classList.add('correct');else if(a?.sel===j)b.classList.add('wrong');}});}
     else if(q.type==='tf'){const bt=document.getElementById('tf_'+q.id+'_t'),bf=document.getElementById('tf_'+q.id+'_f');if(bt)bt.disabled=true;if(bf)bf.disabled=true;if(q.ans===true&&bt)bt.classList.add('correct');else if(q.ans===false&&bf)bf.classList.add('correct');if(a?.sel===true&&!q.ans&&bt)bt.classList.add('wrong');if(a?.sel===false&&q.ans&&bf)bf.classList.add('wrong');}
   });
@@ -906,7 +930,7 @@ function submitQuiz(){
   res.innerHTML='<div class="results-card"><span class="results-emoji">'+emoji+'</span><span class="results-score" style="color:'+color+'">'+_lastScore+'%</span><span class="results-label">'+correct+' מתוך '+QUESTIONS.length+' תשובות נכונות</span><div class="results-bar"><div class="results-bar-fill" style="width:'+_lastScore+'%;background:'+color+'"></div></div><div style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center"><button class="btn-reset" onclick="resetQuiz()">🔄 נסה שוב</button><button class="btn-send" onclick="sendResults()">📨 שלח למורה</button></div></div>';
   saveScore(_lastScore,STUDENT_NAME,STUDENT_CLASS);
 }
-function resetQuiz(){QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;document.getElementById('results-container').style.display='none';document.getElementById('submit-row').style.display='flex';renderQuestions();toast('🔄 התרגול אותחל');}
+function resetQuiz(){QUESTIONS.forEach(function(q){if(q.type==='open'){var t=document.getElementById(q.id+'_oa');if(t){t.disabled=false;t.value='';}}});QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;document.getElementById('results-container').style.display='none';document.getElementById('submit-row').style.display='flex';renderQuestions();toast('🔄 התרגול אותחל');}
 function sendResults(){if(_lastScore===null){toast('אנא הגש תחילה');return;}toast('✅ הציון נשלח: '+_lastScore+'%');}
 function renderAnswers(){
   const al=document.getElementById('answers-list');if(!al)return;
@@ -915,6 +939,7 @@ function renderAnswers(){
     if(q.type==='mc')ans=LETTERS[q.ans]+'. '+q.opts[q.ans];
     else if(q.type==='tf')ans=q.ans?'✅ נכון':'❌ לא נכון';
     else if(q.type==='sort')ans=q.correctOrder.map(j=>q.items[j]).join(' ← ');
+    else if(q.type==='open')ans='שאלת כתיבה פתוחה';
     return '<div class="answer-row"><div class="ans-num">שאלה '+(i+1)+' <span style="color:var(--lc)">'+q.ref+'</span></div><div class="ans-q">'+q.q+'</div><div class="ans-correct">✅ '+ans+'</div><div class="ans-explain">💡 '+q.explain+'</div>'+(q.teacherNote?'<div class="ans-teacher-note">🎓 '+q.teacherNote+'</div>':'')+'</div>';
   }).join('');
 }

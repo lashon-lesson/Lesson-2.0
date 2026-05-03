@@ -297,6 +297,14 @@ button,input,select,textarea{font-family:inherit}
   @page{margin:1.5cm;size:A4}
 }
 .print-header{display:none}
+
+/* open question */
+.open-wrap{margin-bottom:.5rem}
+.open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none;transition:border-color .15s}
+.open-textarea:focus{border-color:var(--lc)}
+.open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}
+.open-hint{font-size:.72rem;color:var(--muted,#9aa3be);margin-top:.3rem}
+.open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid,#374151)}
 </style>
 </head>
 <body>
@@ -318,7 +326,7 @@ button,input,select,textarea{font-family:inherit}
 <!-- TABS -->
 <div class="tabs-bar">
   <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
-  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (20 שאלות)</button>
+  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (21 שאלות)</button>
   <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
   <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
 </div>
@@ -777,6 +785,13 @@ const QUESTIONS=[
    ans:1,
    explain:'"שָׁבַר" (קל) = שבירה רגילה, בסיסית. "שִׁיבֵּר" (פיעל) = עוצמה: שבר לרסיסים רבים, שבר לחלוטין, או פעולה חוזרת על דברים רבים. פיעל לעיתים קרובות מגביר את עוצמת הפעולה שבקל — "שִׁבֵּר", "כִּיסֵּס", "קִצֵּץ".',
    teacherNote:''},
+  {id:'q21',type:'open',ref:'משמעויות הבניינים',
+   q:'לשורש ל-ב-ש יש צורות בכמה בניינים. נתח/י: <strong>לָבַשׁ / הִלְבִּישׁ / לָבוּשׁ / הִתְלַבֵּשׁ</strong><br>לכל צורה: (א) בניין (ב) משמעות (ג) פעיל/סביל/עצמי.',
+   placeholder:'לָבַשׁ — קל, לבישה עצמית, פעיל.\nהִלְבִּישׁ — הפעיל, גרם לאחר ללבוש, פעיל.\nלָבוּשׁ — קל בינוני פעול, מצב סביל.\nהִתְלַבֵּשׁ — התפעל, עצמי.',
+   hint:'קל=בסיסי. הפעיל=גרמה. בינוני פעול=מצב. התפעל=עצמי/הדדי.',
+   rubric:'(א) בניין נכון (ב) משמעות ייחודית (ג) פעיל/סביל/עצמי — לכל 4 צורות',
+   explain:'קל=פשוט. הפעיל=גרמה. פעול=סביל-מצב. התפעל=עצמי.',
+   teacherNote:'מיצ"ב: הבחנה קל↔הפעיל(גרמה)+התפעל(עצמי). לב שאלות הבניינים בבגרות.'},
 ];
 
 /* ════════════════════════════════════════════════
@@ -846,9 +861,11 @@ function buildCard(q,i){
     inner=`<div class="mc-wrap">${q.opts.map((o,j)=>`<button class="mc-btn" id="mc_${q.id}_${j}" onclick="pickMC('${q.id}',${j})" ${QS.submitted?'disabled':''}><span class="mc-letter">${LETTERS[j]}</span><span>${o}</span></button>`).join('')}</div>`;
   } else if(q.type==='tf'){
     inner=`<div class="tf-row"><button class="tf-btn" id="tf_${q.id}_t" onclick="pickTF('${q.id}',true)" ${QS.submitted?'disabled':''}>✅ נכון</button><button class="tf-btn" id="tf_${q.id}_f" onclick="pickTF('${q.id}',false)" ${QS.submitted?'disabled':''}>❌ לא נכון</button></div>`;
-  } else {
+  } else if(q.type==='sort'){
     const order=QS.answers[q.id]?.order||q.items.map((_,j)=>j);
     inner=`<div class="sort-note">גרור את הפריטים לסדר הנכון ↕</div><div class="sort-list" id="sort_${q.id}">${order.map(j=>`<div class="sort-item" draggable="true" data-idx="${j}" ondragstart="dStart(event,'${q.id}')" ondragover="dOver(event)" ondrop="dDrop(event,'${q.id}')" ondragend="dEnd(event)"><span class="sort-handle">⠿</span><span class="sort-text">${q.items[j]}</span></div>`).join('')}</div>`;
+  } else if(q.type==='open'){
+    inner=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
   }
   return `<div class="q-card" id="qcard_${q.id}"><div class="q-num">שאלה ${i+1} <span class="q-type-badge">${typeLbl}</span> <span style="font-size:.62rem;color:var(--lc);font-weight:700">${q.ref}</span></div><div class="q-text">${q.q}</div>${inner}<div class="q-feedback" id="fb_${q.id}"></div></div>`;
 }
@@ -889,6 +906,14 @@ function dDrop(e,id){
   updateProgress();
 }
 
+function pickOpen(qid){
+  if(QS.submitted)return;
+  var el=document.getElementById(qid+'_oa');if(!el)return;
+  var val=(el.value||'').trim();
+  if(val.length>0)QS.answers[qid]={type:'open',text:val};
+  else delete QS.answers[qid];
+  if(typeof updateProgress==='function')updateProgress();
+}
 function updateProgress(){
   const ans=Object.keys(QS.answers).length,tot=QUESTIONS.length,pct=Math.round(ans/tot*100);
   const pf=document.getElementById('prog-fill'),pt=document.getElementById('prog-txt'),pp=document.getElementById('prog-pct');
@@ -907,11 +932,12 @@ function submitQuiz(){
     if(q.type==='mc')ok=a?.sel===q.ans;
     else if(q.type==='tf')ok=a?.sel===q.ans;
     else if(q.type==='sort')ok=JSON.stringify(a?.order)===JSON.stringify(q.correctOrder);
+    else if(q.type==='open')ok=!!(a?.text&&a.text.length>10);
     if(ok)correct++;
     const card=document.getElementById('qcard_'+q.id);
     if(card){card.classList.toggle('ok',ok);card.classList.toggle('wrong',!ok);}
     const fb=document.getElementById('fb_'+q.id);
-    if(fb){fb.classList.add('show',ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain+(q.teacherNote&&USER_ROLE==='teacher'?'<br><strong>🎓 '+q.teacherNote+'</strong>':'');}
+    if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.classList.add('show','ok');fb.innerHTML='<div class="open-rubric">✍️ '+q.explain+'</div>';}else{fb.classList.add('show',ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain}+(q.teacherNote&&USER_ROLE==='teacher'?'<br><strong>🎓 '+q.teacherNote+'</strong>':'');}
     if(q.type==='mc'){q.opts.forEach((_,j)=>{const b=document.getElementById('mc_'+q.id+'_'+j);if(b){b.disabled=true;if(j===q.ans)b.classList.add('correct');else if(a?.sel===j)b.classList.add('wrong');}});}
     else if(q.type==='tf'){const bt=document.getElementById('tf_'+q.id+'_t'),bf=document.getElementById('tf_'+q.id+'_f');if(bt)bt.disabled=true;if(bf)bf.disabled=true;if(q.ans===true&&bt)bt.classList.add('correct');else if(q.ans===false&&bf)bf.classList.add('correct');if(a?.sel===true&&!q.ans&&bt)bt.classList.add('wrong');if(a?.sel===false&&q.ans&&bf)bf.classList.add('wrong');}
   });
@@ -926,7 +952,7 @@ function submitQuiz(){
 }
 
 function resetQuiz(){
-  QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;
+  QUESTIONS.forEach(function(q){if(q.type==='open'){var t=document.getElementById(q.id+'_oa');if(t){t.disabled=false;t.value='';}}});QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;
   document.getElementById('results-container').style.display='none';
   document.getElementById('submit-row').style.display='flex';
   renderQuestions();
@@ -949,6 +975,7 @@ function renderAnswers(){
     if(q.type==='mc')ans=LETTERS[q.ans]+'. '+q.opts[q.ans];
     else if(q.type==='tf')ans=q.ans?'✅ נכון':'❌ לא נכון';
     else if(q.type==='sort')ans=q.correctOrder.map(j=>q.items[j]).join(' ← ');
+    else if(q.type==='open')ans='שאלת כתיבה פתוחה';
     return '<div class="answer-row"><div class="ans-num">שאלה '+(i+1)+' <span style="color:var(--lc)">'+q.ref+'</span></div><div class="ans-q">'+q.q+'</div><div class="ans-correct">✅ '+ans+'</div><div class="ans-explain">💡 '+q.explain+'</div>'+(q.teacherNote?'<div class="ans-teacher-note">🎓 '+q.teacherNote+'</div>':'')+'</div>';
   }).join('');
 }
