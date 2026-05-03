@@ -305,6 +305,25 @@ button,input,select,textarea{font-family:inherit}
   @page{margin:1.5cm;size:A4}
 }
 .print-header{display:none}
+
+/* ─── OPEN QUESTION (כתיבה חופשית) ─── */
+.open-wrap{margin-bottom:.55rem}
+.open-textarea{
+  width:100%;min-height:110px;padding:.9rem 1.1rem;
+  border:1.5px solid var(--border);border-radius:var(--r);
+  background:var(--surface2);font-family:'Heebo',sans-serif;
+  font-size:.88rem;color:var(--text);line-height:1.72;
+  resize:vertical;outline:none;transition:border-color .15s,box-shadow .15s;
+}
+.open-textarea:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.12)}
+.open-textarea:disabled{opacity:.7;cursor:default;background:var(--surface3)}
+.open-hint{font-size:.72rem;color:var(--muted);margin-top:.32rem;line-height:1.5}
+.open-rubric{margin-top:.65rem;background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--r);padding:.75rem 1rem;font-size:.78rem;color:var(--text-mid);line-height:1.6}
+.open-rubric strong{color:var(--text)}
+.ans-open-note{font-size:.82rem;color:var(--text-mid);line-height:1.65;border-right:3px solid var(--lc);
+  padding-right:.85rem;margin-top:.42rem;background:var(--lc-lt);border-radius:0 var(--r) var(--r) 0;
+  padding:.65rem .85rem .65rem .75rem}
 </style>
 </head>
 <body>
@@ -665,7 +684,7 @@ function initFirebase(){
 async function saveScore(score,studentName,className){
   if(!_db) return;
   const now=new Date();
-  const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:studentName||'תלמיד/ה',className:className||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,totalQuestions:QUESTIONS.length};
+  const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:studentName||'תלמיד/ה',className:className||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,totalQuestions:QUESTIONS.length,openAnswers:QUESTIONS.filter(q=>q.type==='open').map(q=>({id:q.id,q:q.q,text:QS.answers[q.id]?.text||''}))};
   try{await _db.collection('lashon2_submissions').add(d);await _db.collection('lashon2_live').doc('latest').set(d);}catch(e){console.warn(e)}
 }
 
@@ -693,144 +712,84 @@ function applyAnswersVisibility(){
    13 MC + 5 TF + 2 SORT
 ════════════════════════════════════════════════ */
 const QUESTIONS=[
-  /* ── מקור א׳ — כתבת עיתון ── */
-  {id:'q01',type:'mc',ref:'מקור א׳',
-   q:'מהו סוג המקור של מקור א׳?',
+  {id:'q01',type:'mc',ref:'מקור א',
+   q:'מהו סוג המקור של מקור א?',
    opts:['מאמר דעה — מביע עמדה אישית','כתבת עיתון עיונית — מדווחת ומסבירה','ספרות — מתארת חוויה רגשית','פרסומת — משכנעת לפעול'],
-   ans:1,
-   explain:'מקור א׳ מדווח על מחקר (עובדות, נתונים, ציטוטים ממומחה), כתוב בגוף שלישי בלי עמדה ברורה של הכותבת, ומציג מידע בצורה ניטרלית — מאפיינים של כתבת עיתון עיונית.',
-   teacherNote:''},
-
-  {id:'q02',type:'mc',ref:'מקור א׳',
-   q:'מהי הטענה המרכזית של מקור א׳?',
+   ans:1,explain:'מקור א מדווח על מחקר (עובדות, נתונים, ציטוטים ממומחה), כתוב בגוף שלישי בלי עמדה ברורה של הכותבת — מאפיינים של כתבת עיתון עיונית.',teacherNote:''},
+  {id:'q02',type:'mc',ref:'מקור א',
+   q:'מהי הטענה המרכזית של מקור א?',
    opts:['המסך טוב לילדים','שעות המסך עלו בחדות וישנו קשר לפגיעה בשינה ובלמידה','ההורים אשמים בשעות המסך המוגזמות','אין להגביל את שעות המסך'],
-   ans:1,
-   explain:'המחקר מציג עלייה של 40% בשעות מסך ומצא קשר לירידה בשינה ובהישגים — אלו הם הממצאים המרכזיים. הכתבה לא מטילה אשם ולא קוראת לפעולה — היא מדווחת.',
-   teacherNote:''},
-
-  {id:'q03',type:'tf',ref:'מקור א׳',
-   q:'כותבת מקור א׳ מביעה עמדה אישית ברורה כנגד שעות המסך.',
-   ans:false,
-   explain:'לא נכון. הכותבת מדווחת על מחקר בלי להביע עמדה. הציטוט של פרופ׳ לוי אפילו מבחין בין שימוש פסיבי ליצירתי — גישה מאוזנת. זו כתבה עיתונאית, לא מאמר דעה.',
-   teacherNote:''},
-
-  {id:'q04',type:'mc',ref:'מקור א׳',
-   q:'מה תפקיד ציטוט פרופ׳ לוי במקור א׳?',
+   ans:1,explain:'המחקר מציג עלייה של 40% בשעות מסך ומצא קשר לירידה בשינה ובהישגים. הכתבה לא מטילה אשם ולא קוראת לפעולה — היא מדווחת.',teacherNote:''},
+  {id:'q03',type:'tf',ref:'מקור א',
+   q:'כותבת מקור א מביעה עמדה אישית ברורה כנגד שעות המסך.',
+   ans:false,explain:'לא נכון. הכותבת מדווחת על מחקר בלי להביע עמדה. הציטוט של פרופ לוי אפילו מבחין בין שימוש פסיבי ליצירתי — גישה מאוזנת.',teacherNote:''},
+  {id:'q04',type:'mc',ref:'מקור א',
+   q:'מה תפקיד ציטוט פרופ לוי במקור א?',
    opts:['לשכנע את הקורא להגביל מסכים','להביא קול מומחה שמוסיף גוון ומאזן את הנתונים','לבטא את עמדת הכותבת','לסתור את ממצאי המחקר'],
-   ans:1,
-   explain:'ציטוט מומחה בכתבה עיתונאית מוסיף אמינות ומאפשר הצגת זוויות שונות. פרופ׳ לוי מבחין בין שעות פסיביות לפעילות — מה שמאזן את הכתבה ומונע מסר חד-צדדי.',
-   teacherNote:''},
-
-  /* ── מקור ב׳ — מאמר דעה ── */
-  {id:'q05',type:'mc',ref:'מקור ב׳',
-   q:'מהו סוג המקור של מקור ב׳?',
+   ans:1,explain:'ציטוט מומחה בכתבה עיתונאית מוסיף אמינות ומאפשר הצגת זוויות שונות. פרופ לוי מבחין בין שעות פסיביות לפעילות — מה שמאזן את הכתבה.',teacherNote:''},
+  {id:'q05',type:'mc',ref:'מקור ב',
+   q:'מהו סוג המקור של מקור ב?',
    opts:['כתבת עיתון ניטרלית','מחקר מדעי','מאמר דעה שכנועי — מביע עמדה ומשכנע','ספרות — יצירה אמנותית'],
-   ans:2,
-   explain:'מקור ב׳ כתוב בגוף ראשון, מביע עמדה ברורה ("אני חושב"), משתמש בשפה רגשית ("האויב", "מפחד"), מביא טיעון היסטורי ומסיים בקריאה לפעולה — מאפיינים של מאמר דעה שכנועי.',
-   teacherNote:''},
-
-  {id:'q06',type:'mc',ref:'מקור ב׳',
-   q:'מה הטיעון המרכזי של הכותב במקור ב׳?',
+   ans:2,explain:'מקור ב כתוב בגוף ראשון, מביע עמדה ברורה (אני חושב), משתמש בשפה רגשית (האויב, מפחד), מביא טיעון היסטורי ומסיים בקריאה לפעולה.',teacherNote:''},
+  {id:'q06',type:'mc',ref:'מקור ב',
+   q:'מה הטיעון המרכזי של הכותב במקור ב?',
    opts:['יש לאסור מסכים לילדים','שעות המסך לא מזיקות בכלל','הבעיה היא התוכן לא המסך, וההורים צריכים לשוחח עם ילדיהם','מסכים מפתחים מיומנויות ולכן אין שום בעיה'],
-   ans:2,
-   explain:'הכותב מבחין בין תוכן מזיק (TikTok) לתוכן מועיל (Minecraft), ומסיים בקריאה לשיחה עם הילדים — לא לאיסור. הטיעון המרכזי הוא שהתוכן הוא הבעיה, לא המסך כשלעצמו.',
-   teacherNote:''},
-
-  {id:'q07',type:'mc',ref:'מקור ב׳',
-   q:'מה תפקיד ההיסטוריה ("הורינו אמרו שהטלוויזיה תהרוס אותנו") בטיעון הכותב?',
+   ans:2,explain:'הכותב מבחין בין תוכן מזיק (TikTok) לתוכן מועיל (Minecraft), ומסיים בקריאה לשיחה עם הילדים — לא לאיסור. הטיעון: התוכן הוא הבעיה, לא המסך.',teacherNote:''},
+  {id:'q07',type:'mc',ref:'מקור ב',
+   q:'מה תפקיד ההיסטוריה (הורינו אמרו שהטלוויזיה תהרוס אותנו) בטיעון הכותב?',
    opts:['להוכיח שמסכים בריאים','להדגים שכל דור מפחד מהחדש ולרמוז שהפחד הנוכחי לא מוצדק יותר','לשכנע בהגבלת טלוויזיה','לאשש את ממצאי המחקר'],
-   ans:1,
-   explain:'הכותב משתמש בטיעון היסטורי כדי לסגת מהבהלה הנוכחית — אם הפחד הקודם לא התממש, אולי גם הנוכחי מוגזם. זהו כלי שכנועי-רטורי קלאסי: הקשר היסטורי להפחתת אימה.',
-   teacherNote:''},
-
-  {id:'q08',type:'tf',ref:'מקור ב׳',
-   q:'הכותב של מקור ב׳ חושב שאין שום בעיה בשעות מסך גבוהות.',
-   ans:false,
-   explain:'לא נכון. הכותב מבדיל בין TikTok (בעיה) ל-Minecraft (לא בעיה). הוא לא מכחיש שיש בעיה — הוא טוען שהיא בתוכן, לא במסך עצמו. זו עמדה מורכבת, לא הכחשה מוחלטת.',
-   teacherNote:''},
-
-  /* ── מקור ג׳ — ספרות ── */
-  {id:'q09',type:'mc',ref:'מקור ג׳',
-   q:'מהו האמצעי הספרותי: "אצבעות שלמדו לנגן על המסך לפני שלמדו לאחוז בעיפרון"',
+   ans:1,explain:'הכותב משתמש בטיעון היסטורי כדי לסגת מהבהלה הנוכחית — אם הפחד הקודם לא התממש, אולי גם הנוכחי מוגזם. כלי שכנועי-רטורי קלאסי.',teacherNote:''},
+  {id:'q08',type:'tf',ref:'מקור ב',
+   q:'הכותב של מקור ב חושב שאין שום בעיה בשעות מסך גבוהות.',
+   ans:false,explain:'לא נכון. הכותב מבדיל בין TikTok (בעיה) ל-Minecraft (לא בעיה). הוא לא מכחיש שיש בעיה — הוא טוען שהיא בתוכן, לא במסך עצמו.',teacherNote:''},
+  {id:'q09',type:'mc',ref:'מקור ג',
+   q:'מהו האמצעי הספרותי: אצבעות שלמדו לנגן על המסך לפני שלמדו לאחוז בעיפרון',
    opts:['נתון סטטיסטי','השוואה פיוטית המבטאת עדיפות הטכנולוגיה על פני הכתיבה המסורתית','שאלה רטורית','ציטוט ממחקר'],
-   ans:1,
-   explain:'משפט זה מציב את המסך מול העיפרון — שניהם כלים, אך הסדר ההפוך מסמל סדר עדיפויות חדש. זוהי השוואה פיוטית (דימוי) שמבטאת ביקורת עמוקה ומרומזת על העידן הדיגיטלי.',
-   teacherNote:''},
-
-  {id:'q10',type:'mc',ref:'מקור ג׳',
-   q:'מה המשמעות של הביטוי: "לא את הזמן, אלא את הנוכחות עצמה"?',
+   ans:1,explain:'משפט זה מציב את המסך מול העיפרון. הסדר ההפוך מסמל סדר עדיפויות חדש. השוואה פיוטית (דימוי) שמבטאת ביקורת עמוקה ומרומזת.',teacherNote:'שאלת עומק — תמה ספרותית מרכזית.'},
+  {id:'q10',type:'mc',ref:'מקור ג',
+   q:'מה המשמעות של הביטוי: לא את הזמן, אלא את הנוכחות עצמה?',
    opts:['ילדים לא מבלים מספיק זמן עם משפחה','המסך גורם לאנשים להיות נוכחים פיזית אך נעדרים רגשית','מסכים גורמים לשכחה','ילדים רצים מהר מדי'],
-   ans:1,
-   explain:'הביטוי מבחין בין נוכחות פיזית (הגוף שם) לבין נוכחות נפשית/רגשית (הקשב, הקשר). זוהי תמה ספרותית עמוקה: מה פירוש "להיות ביחד" בעידן הדיגיטלי?',
-   teacherNote:'שאלת עומק — תמה ספרותית מרכזית.'},
-
-  /* ── סינתזה ── */
+   ans:1,explain:'הביטוי מבחין בין נוכחות פיזית לבין נוכחות נפשית/רגשית. תמה ספרותית עמוקה: מה פירוש להיות ביחד בעידן הדיגיטלי?',teacherNote:''},
   {id:'q11',type:'mc',ref:'סינתזה',
-   q:'כיצד מקור א׳ ומקור ב׳ מתייחסים לשאלת שעות המסך?',
-   opts:['שניהם תומכים בהגבלת מסכים לחלוטין','א׳ מציג נתונים על פגיעה, ב׳ מבקר את המסקנה ומחלק בין סוגי שימוש','שניהם חושבים שאין שום בעיה','שניהם קוראים להורים לאסור מסכים'],
-   ans:1,
-   explain:'מקור א׳ מציג ממצאים על פגיעה בשינה ובלמידה. מקור ב׳ מקבל שיש בעיה (TikTok) אך דוחה את השאלה הכוללת — הוא טוען שהבעיה היא בתוכן. זהו יחס של חלקי הסכמה + הסתייגות.',
-   teacherNote:''},
-
+   q:'כיצד מקור א ומקור ב מתייחסים לשאלת שעות המסך?',
+   opts:['שניהם תומכים בהגבלת מסכים לחלוטין','א מציג נתונים על פגיעה, ב מבקר את המסקנה ומחלק בין סוגי שימוש','שניהם חושבים שאין שום בעיה','שניהם קוראים להורים לאסור מסכים'],
+   ans:1,explain:'מקור א מציג ממצאים על פגיעה. מקור ב מקבל שיש בעיה (TikTok) אך דוחה את השאלה הכוללת — הבעיה היא בתוכן. חלקי הסכמה + הסתייגות.',teacherNote:''},
   {id:'q12',type:'mc',ref:'סינתזה',
    q:'מה משותף לשלושת המקורות?',
    opts:['כולם תומכים באיסור מסכים','כולם עוסקים בקשר בין ילדים ומסכים ומביעים דאגה כלשהי','כולם כתובים בגוף ראשון','כולם מבוססים על נתונים מדעיים'],
-   ans:1,
-   explain:'שלושתם עוסקים בקשר ילדים-מסכים: א׳ מדווח על נתונים מדאיגים, ב׳ מבדיל בין שימושים, ג׳ מתאר רגשית את ניתוק הנוכחות. שלושתם מביעים דאגה — אך בדרכים שונות.',
-   teacherNote:''},
-
+   ans:1,explain:'שלושתם עוסקים בקשר ילדים-מסכים: א מדווח על נתונים, ב מבדיל בין שימושים, ג מתאר רגשית את ניתוק הנוכחות.',teacherNote:''},
   {id:'q13',type:'tf',ref:'סינתזה',
-   q:'מקורות א׳ וב׳ סותרים זה את זה לגמרי.',
-   ans:false,
-   explain:'לא נכון. הם משלימים זה את זה: א׳ מציג את הבעיה בנתונים, ב׳ מציע מסגרת לפרש אותה (תוכן vs. מסך). שניהם מסכימים שיש בעיה — נחלקים בפירוש ובפתרון.',
-   teacherNote:''},
-
+   q:'מקורות א וב סותרים זה את זה לגמרי.',
+   ans:false,explain:'לא נכון. הם משלימים זה את זה: א מציג את הבעיה בנתונים, ב מציע מסגרת לפרש אותה (תוכן vs. מסך). שניהם מסכימים שיש בעיה.',teacherNote:''},
   {id:'q14',type:'mc',ref:'סינתזה',
-   q:'מקור ג׳ שונה ממקורות א׳ וב׳ בעיקר בכך ש:',
+   q:'מקור ג שונה ממקורות א וב בעיקר בכך ש:',
    opts:['הוא קצר יותר','הוא מביע את הנושא דרך חוויה רגשית ודמיון — לא דרך נתונים או טיעון','הוא בעד הגבלת מסכים','הוא כתוב על ידי מומחה'],
-   ans:1,
-   explain:'מקורות א׳ וב׳ עוסקים בנושא ישירות (נתונים / טיעון). מקור ג׳ ניגש אליו דרך ספרות: דמויות, רגש, תיאור. הוא לא אומר "שעות מסך גבוהות" — הוא מראה מה זה מרגיש.',
-   teacherNote:''},
-
+   ans:1,explain:'מקורות א וב עוסקים בנושא ישירות (נתונים / טיעון). מקור ג ניגש אליו דרך ספרות: דמויות, רגש, תיאור.',teacherNote:''},
   {id:'q15',type:'mc',ref:'סינתזה',
    q:'מי מהמקורות הוא הסמכותי ביותר לצורך כתיבת עבודת מחקר?',
-   opts:['מקור ב׳ — כי הוא הכי ברור ומשכנע','מקור ג׳ — כי הוא הכי מרגש','מקור א׳ — כי הוא מבוסס על מחקר אוניברסיטאי עם נתונים','כולם שווים בסמכותיות'],
-   ans:2,
-   explain:'לצורך מחקר, נתונים מאוניברסיטה ומחקר מבוקר הם הסמכות הגבוהה ביותר. מקור ב׳ הוא דעה אישית, מקור ג׳ הוא ספרות — שניהם בעלי ערך, אך לא כ"ראיה מדעית".',
-   teacherNote:''},
-
+   opts:['מקור ב — כי הוא הכי ברור ומשכנע','מקור ג — כי הוא הכי מרגש','מקור א — כי הוא מבוסס על מחקר אוניברסיטאי עם נתונים','כולם שווים בסמכותיות'],
+   ans:2,explain:'לצורך מחקר, נתונים מאוניברסיטה הם הסמכות הגבוהה ביותר. מקור ב הוא דעה אישית, מקור ג הוא ספרות — בעלי ערך, אך לא כ-ראיה מדעית.',teacherNote:''},
   {id:'q16',type:'tf',ref:'סינתזה',
    q:'שלושת המקורות יחד נותנים תמונה מלאה יותר מכל אחד בנפרד.',
-   ans:true,
-   explain:'נכון. א׳ נותן עובדות, ב׳ נותן פרשנות וטיעון, ג׳ נותן חוויה אנושית. ביחד: מידע + ניתוח + רגש = תמונה רב-ממדית. זוהי בדיוק הסיבה לשימוש במקורות מרובים.',
-   teacherNote:''},
-
+   ans:true,explain:'נכון. א נותן עובדות, ב נותן פרשנות וטיעון, ג נותן חוויה אנושית. ביחד: מידע + ניתוח + רגש = תמונה רב-ממדית.',teacherNote:''},
   {id:'q17',type:'mc',ref:'תיאוריה',
-   q:'תלמיד כתב: "מקור א׳ אומר שמסכים מזיקים, מקור ב׳ אומר שמסכים לא מזיקים." מה הבעיה?',
-   opts:['אין בעיה — זו תשובה מדויקת','הוא פישט יתר על המידה — מקור ב׳ לא אומר שמסכים לא מזיקים אלא שהבעיה היא בתוכן','הוא צריך לכתוב ארוך יותר','הוא צריך לצטט'],
-   ans:1,
-   explain:'פישוט יתר (Oversimplification) הוא טעות נפוצה בסינתזה. מקור ב׳ אינו "מסכים לא מזיקים" — הוא מבדיל בין סוגי שימוש. תשובה טובה חייבת לשמר את מורכבות כל מקור.',
-   teacherNote:''},
-
+   q:'תלמיד כתב: מקור א אומר שמסכים מזיקים, מקור ב אומר שמסכים לא מזיקים. מה הבעיה?',
+   opts:['אין בעיה — זו תשובה מדויקת','הוא פישט יתר על המידה — מקור ב לא אומר שמסכים לא מזיקים אלא שהבעיה היא בתוכן','הוא צריך לכתוב ארוך יותר','הוא צריך לצטט'],
+   ans:1,explain:'פישוט יתר הוא טעות נפוצה בסינתזה. מקור ב אינו מסכים לא מזיקים — הוא מבדיל בין סוגי שימוש. תשובה טובה חייבת לשמר את מורכבות כל מקור.',teacherNote:''},
   {id:'q18',type:'tf',ref:'תיאוריה',
    q:'בכתיבת סינתזה, מספיק לסכם כל מקור בנפרד ולא חובה לחבר ביניהם.',
-   ans:false,
-   explain:'לא נכון. סינתזה = חיבור + השוואה + מסקנה משותפת. סיכום בנפרד הוא רק השלב הראשון. הציון בבגרות ניתן על היכולת להראות קשרים בין המקורות.',
-   teacherNote:''},
-
+   ans:false,explain:'לא נכון. סינתזה = חיבור + השוואה + מסקנה משותפת. סיכום בנפרד הוא רק השלב הראשון. הציון בבגרות ניתן על היכולת להראות קשרים.',teacherNote:''},
   {id:'q19',type:'sort',ref:'תיאוריה',
    q:'סדרו את שלבי תשובת הסינתזה מהראשון לאחרון:',
    items:['סיכום כל מקור בנפרד','נקודות שוני בין המקורות','פתיחה: נושא משותף לכל המקורות','מסקנה ועמדה אישית'],
    correctOrder:[2,0,1,3],
-   explain:'פתיחה ← סיכום כל מקור ← שוני ← מסקנה. המבנה הזה מוביל מהכרת המקורות הבודדים ← ניתוח ← מסקנה.',
-   teacherNote:''},
-
-  {id:'q20',type:'sort',ref:'תיאוריה',
-   q:'סדרו לפי רמת הסמכותיות לצורך כתיבת עבודה אקדמית (מגבוה לנמוך):',
-   items:['מאמר דעה אישי בבלוג','מחקר אוניברסיטאי מבוקר','קטע ספרותי','כתבת עיתון על מחקר'],
-   correctOrder:[1,3,0,2],
-   explain:'מחקר מבוקר ← כתבת עיתון על מחקר ← מאמר דעה ← ספרות. המדד: האם הטענות ניתנות לאימות? האם היה תהליך עריכה/ביקורת עמיתים?',
-   teacherNote:''},
+   explain:'פתיחה <- סיכום כל מקור <- שוני <- מסקנה. מבנה זה מוביל מהכרת המקורות -> ניתוח -> מסקנה.',teacherNote:''},
+  {id:'q20',type:'open',ref:'סינתזה — כתיבה',
+   q:'כתוב/י פסקת סינתזה (4-5 משפטים) שמשלבת את שלושת המקורות בנושא: האם מסכים מזיקים לילדים? הצג/י את הדמיון והשוני בין המקורות ואת מסקנתך.',
+   placeholder:'פתח/י כך: שלושת המקורות עוסקים בשאלת המסכים, אך מציגים אותה בדרכים שונות. מקור א...',
+   hint:'מבנה מומלץ: (1) נושא משותף (2) עמדת כל מקור במשפט אחד (3) נקודת שוני מרכזית (4) מסקנתך האישית עם הנמקה.',
+   rubric:'(א) הצגת שלושת המקורות (ב) זיהוי נושא משותף (ג) ציון נקודת שוני מהותית (ד) מסקנה אישית מנומקת (ה) שימוש בלשון סינתזה (מחד, מאידך, לסיכום)',
+   explain:'שאלת סינתזה פתוחה — המיומנות המרכזית הנבדקת בבגרות. נדרש: חיבור בין מקורות, לא סיכום כל אחד בנפרד.',teacherNote:'בדקו שהתלמיד לא סיכם כל מקור בנפרד אלא חיבר ביניהם. חפשו מילות קישור: מחד, לעומת זאת, בניגוד ל-, בדומה ל-.'},
 ];
 
 /* ════════════════════════════════════════════════
@@ -917,7 +876,7 @@ function buildCard(q,i){
       </div>`;
   }
   const refBadge=q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#ddd6fe">📍 ${q.ref}</span>`:'';
-  const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור'}</span>`;
+  const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>`;
   return `
   <div class="q-card" id="card_${q.id}">
     <div class="q-num">שאלה ${i+1} מתוך ${QUESTIONS.length} ${tb} ${refBadge}</div>
@@ -956,6 +915,15 @@ function dDrop(e,qid){
   _ds.classList.remove('dragging');_ds=null;saveSA(qid);updateCounter();
 }
 function saveSA(qid){const con=document.getElementById(qid+'_sort');if(!con)return;QS.answers[qid]={type:'sort',order:[...con.children].map(el=>parseInt(el.dataset.origidx))};}
+
+function pickOpen(qid){
+  if(QS.submitted)return;
+  const el=document.getElementById(qid+'_oa');if(!el)return;
+  const val=(el.value||'').trim();
+  if(val.length>0) QS.answers[qid]={type:'open',text:val};
+  else delete QS.answers[qid];
+  updateCounter();
+}
 function updateCounter(){
   const n=Object.keys(QS.answers).length;const pct=Math.round(n/QUESTIONS.length*100);
   const fill=document.getElementById('qp-fill');if(fill)fill.style.width=pct+'%';
@@ -1026,6 +994,7 @@ function resetQuiz(){
     if(q.type==='mc')q.opts.forEach((_,i)=>{const b=document.getElementById(`${q.id}_o${i}`);if(b){b.disabled=false;b.className='mc-btn'}});
     else if(q.type==='tf'){const t=document.getElementById(`${q.id}_t`),f=document.getElementById(`${q.id}_f`);if(t){t.disabled=false;t.className='tf-btn'}if(f){f.disabled=false;f.className='tf-btn'}}
     else if(q.type==='sort'){const con=document.getElementById(`${q.id}_sort`);if(con){con.style.pointerEvents='';con.style.opacity=''}}
+    else if(q.type==='open'){const ta=document.getElementById(`${q.id}_oa`);if(ta){ta.disabled=false;ta.value=''}}
     const card=document.getElementById(`card_${q.id}`);if(card)card.className='q-card';
     const fb=document.getElementById(`${q.id}_fb`);if(fb){fb.className='q-feedback';fb.textContent=''}
   });
@@ -1050,7 +1019,7 @@ function renderAnswers(){
   c.innerHTML=QUESTIONS.map((q,i)=>`
   <div class="answer-row">
     <div class="ans-num">שאלה ${i+1}
-      <span style="font-size:.56rem;font-weight:700;padding:.12rem .45rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור'}</span>
+      <span style="font-size:.56rem;font-weight:700;padding:.12rem .45rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>
       ${q.ref?`<span style="font-size:.56rem;color:var(--lc);font-weight:700">📍 ${q.ref}</span>`:''}
     </div>
     <div class="ans-q">${q.q}</div>

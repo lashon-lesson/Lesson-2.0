@@ -305,6 +305,16 @@ button,input,select,textarea{font-family:inherit}
   @page{margin:1.5cm;size:A4}
 }
 .print-header{display:none}
+
+/* ─── OPEN QUESTION ─── */
+.open-wrap{margin-bottom:.55rem}
+.open-textarea{width:100%;min-height:110px;padding:.9rem 1.1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text);line-height:1.72;resize:vertical;outline:none;transition:border-color .15s,box-shadow .15s;}
+.open-textarea:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.12)}
+.open-textarea:disabled{opacity:.7;cursor:default;background:var(--surface3)}
+.open-hint{font-size:.72rem;color:var(--muted);margin-top:.32rem;line-height:1.5}
+.open-rubric{margin-top:.65rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.75rem 1rem;font-size:.78rem;color:var(--text-mid);line-height:1.6}
+.open-rubric strong{color:var(--text)}
+.ans-open-note{font-size:.82rem;color:var(--text-mid);line-height:1.65;border-right:3px solid var(--lc);padding-right:.85rem;margin-top:.42rem;background:var(--lc-lt);border-radius:0 var(--r) var(--r) 0;padding:.65rem .85rem .65rem .75rem}
 </style>
 </head>
 <body>
@@ -635,7 +645,7 @@ function initFirebase(){
 async function saveScore(score,studentName,className){
   if(!_db) return;
   const now=new Date();
-  const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:studentName||'תלמיד/ה',className:className||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,totalQuestions:QUESTIONS.length};
+  const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:studentName||'תלמיד/ה',className:className||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,totalQuestions:QUESTIONS.length,openAnswers:QUESTIONS.filter(q=>q.type==='open').map(q=>({id:q.id,q:q.q,text:QS.answers[q.id]?.text||''}))};
   try{await _db.collection('lashon2_submissions').add(d);await _db.collection('lashon2_live').doc('latest').set(d);}catch(e){console.warn(e)}
 }
 
@@ -837,6 +847,13 @@ const QUESTIONS=[
    correctOrder:[1,3,2,0],
    explain:'הגדרה ← מטרה ← ראיה ← תפקיד הראיה. זוהי הנוסחה המלאה לניקוד מלא בבגרות. ללא תפקיד הראיה — הניקוד חלקי.',
    teacherNote:''},
+,
+  {id:'q26',type:'open',ref:'סינתזה — מבחן',
+   q:'בחר/י אחד מהנושאים הבאים וכתוב/י 5-6 משפטים בסגנון טקסט שכנועי קצר: (א) האם יש לאסור טלפונים בבית הספר? (ב) האם יש לבטל את הציונים? השתמש/י בלפחות שני כלי שכנוע שלמדת (נתון, שאלה רטורית, ציטוט, דוגמה). בסיום, ציין/י בסוגריים: (הכלים שהשתמשתי בהם: ...)',
+   placeholder:'כתוב/י את הטיעון שלך כאן. פתח/י בטענה הראשית, הוסף/י נימוק + ראיה, הכר/י בטיעון נגד, וסיים/י בסיכום.',
+   hint:'נוסחה: (1) טענה ראשית ברורה (2) נימוק + ראיה (3) הכרת נגד ודחייתה (4) מסקנה וקריאה לפעולה.',
+   rubric:'(א) טענה ראשית ברורה (ב) לפחות שני כלי שכנוע מזוהים (ג) הכרת טיעון-נגד (ד) שפה שכנועית מתאימה (ה) מסקנה/קריאה לפעולה',
+   explain:'כתיבת טקסט שכנועי — מיומנות מרכזית בבגרות. הציון ניתן על: טענה + כלים + נגד + מסקנה.',teacherNote:'בדקו: האם הטענה מופיעה מוקדם? האם הכלים מזוהים בסוגריים? האם יש הכרת-נגד (ולא רק חד-צדדי)?'},
 ];
 
 /* ════════════════════════════════════════════════
@@ -923,7 +940,7 @@ function buildCard(q,i){
       </div>`;
   }
   const refBadge=q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#ddd6fe">📍 ${q.ref}</span>`:'';
-  const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור'}</span>`;
+  const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>`;
   return `
   <div class="q-card" id="card_${q.id}">
     <div class="q-num">שאלה ${i+1} מתוך ${QUESTIONS.length} ${tb} ${refBadge}</div>
@@ -962,6 +979,15 @@ function dDrop(e,qid){
   _ds.classList.remove('dragging');_ds=null;saveSA(qid);updateCounter();
 }
 function saveSA(qid){const con=document.getElementById(qid+'_sort');if(!con)return;QS.answers[qid]={type:'sort',order:[...con.children].map(el=>parseInt(el.dataset.origidx))};}
+
+function pickOpen(qid){
+  if(QS.submitted)return;
+  const el=document.getElementById(qid+'_oa');if(!el)return;
+  const val=(el.value||'').trim();
+  if(val.length>0) QS.answers[qid]={type:'open',text:val};
+  else delete QS.answers[qid];
+  updateCounter();
+}
 function updateCounter(){
   const n=Object.keys(QS.answers).length;const pct=Math.round(n/QUESTIONS.length*100);
   const fill=document.getElementById('qp-fill');if(fill)fill.style.width=pct+'%';
@@ -973,7 +999,7 @@ function updateCounter(){
 ════════════════════════════════════════════════ */
 function submitQuiz(){
   const answered=Object.keys(QS.answers).length;
-  if(answered<QUESTIONS.length){toast(`⚠️ ענה על כל 20 השאלות (נענו ${answered})`);return}
+  if(answered<QUESTIONS.length){toast(`⚠️ ענה על כל ${QUESTIONS.length} השאלות (נענו ${answered})`);return}
   if(QS.submitted){toast('כבר הגשת');return}
   if(USER_ROLE==='student'&&!_gateConfirmed){toast('⚠️ נא למלא שם וכיתה');reopenGate();return}
   QS.submitted=true;
@@ -983,6 +1009,7 @@ function submitQuiz(){
     if(q.type==='mc')ok=a?.sel===q.ans;
     else if(q.type==='tf')ok=a?.sel===q.ans;
     else if(q.type==='sort')ok=JSON.stringify(a?.order)===JSON.stringify(q.correctOrder);
+    else if(q.type==='open')ok=!!(a?.text&&a.text.length>10);
     if(ok)correct++;
     const card=document.getElementById(`card_${q.id}`);if(card)card.classList.add(ok?'ok':'wrong');
     const fb=document.getElementById(`${q.id}_fb`);
@@ -992,7 +1019,12 @@ function submitQuiz(){
       if(tb){tb.disabled=true;tb.classList.remove('sel');if(q.ans===true)tb.classList.add('correct');else if(a?.sel===true)tb.classList.add('wrong')}
       if(fb2){fb2.disabled=true;fb2.classList.remove('sel');if(q.ans===false)fb2.classList.add('correct');else if(a?.sel===false)fb2.classList.add('wrong')}
     }else if(q.type==='sort'){const con=document.getElementById(`${q.id}_sort`);if(con){con.style.pointerEvents='none';con.style.opacity=ok?'1':'0.8';}}
-    if(fb){fb.textContent=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;fb.className=`q-feedback show ${ok?'ok':'wrong'}`;}
+    else if(q.type==='open'){const ta=document.getElementById(`${q.id}_oa`);if(ta)ta.disabled=true;}
+    if(fb){
+      if(q.type==='open'){fb.innerHTML=`<div class="open-rubric"><strong>✍️ תשובתך נשמרה.</strong> ${q.explain}<br><br><strong>נקודות לבדיקה:</strong> ${q.rubric||q.explain}</div>`;fb.className='q-feedback show ok';}
+      else{fb.textContent=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;fb.className=`q-feedback show ${ok?'ok':'wrong'}`;
+      }
+    }
   });
   _lastScore=Math.round(correct/QUESTIONS.length*100);_lastCorrect=correct;
   const pct=_lastScore;const col=pct>=80?'var(--green)':pct>=60?'var(--amber)':'var(--red)';const emoji=pct>=90?'🏆':pct>=80?'🎉':pct>=60?'👍':'💪';
@@ -1044,6 +1076,7 @@ function resetQuiz(){
     if(q.type==='mc')q.opts.forEach((_,i)=>{const b=document.getElementById(`${q.id}_o${i}`);if(b){b.disabled=false;b.className='mc-btn'}});
     else if(q.type==='tf'){const t=document.getElementById(`${q.id}_t`),f=document.getElementById(`${q.id}_f`);if(t){t.disabled=false;t.className='tf-btn'}if(f){f.disabled=false;f.className='tf-btn'}}
     else if(q.type==='sort'){const con=document.getElementById(`${q.id}_sort`);if(con){con.style.pointerEvents='';con.style.opacity=''}}
+    else if(q.type==='open'){const ta=document.getElementById(`${q.id}_oa`);if(ta){ta.disabled=false;ta.value=''}}
     const card=document.getElementById(`card_${q.id}`);if(card)card.className='q-card';
     const fb=document.getElementById(`${q.id}_fb`);if(fb){fb.className='q-feedback';fb.textContent=''}
   });
@@ -1068,7 +1101,7 @@ function renderAnswers(){
   c.innerHTML=QUESTIONS.map((q,i)=>`
   <div class="answer-row">
     <div class="ans-num">שאלה ${i+1}
-      <span style="font-size:.56rem;font-weight:700;padding:.12rem .45rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור'}</span>
+      <span style="font-size:.56rem;font-weight:700;padding:.12rem .45rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>
       ${q.ref?`<span style="font-size:.56rem;color:var(--lc);font-weight:700">📍 ${q.ref}</span>`:''}
     </div>
     <div class="ans-q">${q.q}</div>
