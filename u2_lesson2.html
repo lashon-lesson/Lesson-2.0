@@ -288,8 +288,13 @@ button,input,select,textarea{font-family:inherit}
 .mp-label{font-size:.54rem;font-weight:800;padding:.18rem .4rem;background:var(--surface3);color:var(--muted);text-align:center;width:100%;letter-spacing:.02em}
 .morph-desc{font-size:.82rem;color:var(--text-mid);line-height:1.65}
 
-/* open question */
-.open-wrap{margin-bottom:.5rem}.open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none}.open-textarea:focus{border-color:var(--lc)}.open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}.open-hint{font-size:.72rem;color:var(--muted);margin-top:.3rem}.open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55}
+/* ── open question ── */
+.open-wrap{margin-bottom:.5rem}
+.open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none;transition:border-color .15s}
+.open-textarea:focus{border-color:var(--lc)}
+.open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}
+.open-hint{font-size:.72rem;color:var(--muted,#9aa3be);margin-top:.3rem}
+.open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid,#374151)}
 </style>
 </head>
 <body>
@@ -809,12 +814,12 @@ const QUESTIONS=[
    explain:'"מנהל" כאן הוא שם עצם — שם מקצוע/תפקיד. הבינוני "מנהל" (מהשורש נ-ה-ל, הפעיל) הפך לשם עצם קבוע שמסמן תפקיד. "להיות <strong>מנהל</strong>" = לרכוש תפקיד. לא מסכים כשם תואר עם נושא ספציפי.',
    teacherNote:'שאלת עומק — הבינוני "מנהל" עבר לקסיקליזציה וכיום פועל כשם עצם מובהק.'},
   {id:'q21',type:'open',ref:'ניתוח בינוני',
-   q:'במשפט: <strong>"הילד הרץ הגיע לפני השחייה המתנהלת."</strong><br>זהה/י שתי צורות בינוני וציין/י לכל אחת: תפקיד (פועל/שם תואר/שם עצם) + ראיה.',
-   placeholder:'הרץ — בינוני כשם תואר. ראיה: מסכים עם הילד, ניתן להחליף ב"הגדול".\nהמתנהלת — בינוני כשם תואר. ראיה: מסכים עם השחייה.',
-   hint:'בינוני כפועל = הווה פעיל. כשם תואר = מסכים עם שם עצם. כשם עצם = מקבל ה"א ואינו מסכים.',
-   rubric:'(א) שתי צורות בינוני (ב) תפקיד נכון (ג) ראיה לכל אחת',
-   explain:'תפקיד הבינוני נבדק בבגרות: זיהוי + ראיה (הסכמה/החלפה/הטיה).',
-   teacherNote:'בדקו שהתלמיד מנמק ולא רק מסמן. שגיאה נפוצה: שם תואר vs שם עצם.'}
+   q:'במשפט: <strong>"הילד הרץ הגיע לפני השחייה המתנהלת."</strong><br>זהה/י שתי צורות בינוני. לכל אחת: תפקיד (פועל הווה / שם תואר / שם עצם) + ראיה.',
+   placeholder:'הרץ — בינוני כשם תואר. ראיה: מסכים עם "הילד", ניתן להחליף ב"הגדול".\nהמתנהלת — בינוני כשם תואר. ראיה: מסכים עם "השחייה".',
+   hint:'כשם תואר = מסכים עם שם עצם. כפועל הווה = מבטא פעולה נמשכת. כשם עצם = מקבל ה"א.',
+   rubric:'(א) שתי צורות בינוני (ב) תפקיד נכון לכל אחת (ג) ראיה',
+   explain:'תפקיד הבינוני נבדק בבגרות: זיהוי + ראיה (הסכמה / החלפה / הטיה).',
+   teacherNote:'בדקו שהתלמיד מנמק. שגיאה נפוצה: שם תואר vs שם עצם.'}
 ,
 ];
 
@@ -900,10 +905,9 @@ function buildCard(q,i){
         <span class="sort-text">${q.items[j]}</span>
       </div>`).join('')}</div>`;
   }
-    }else if(q.type==='open'){
+  } else if(q.type==='open'){
     input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
-  }
-const tn=q.teacherNote?`<div style="font-size:.75rem;color:var(--lc);margin-top:.45rem;background:var(--lc-lt);border-radius:8px;padding:.38rem .7rem">🎓 ${q.teacherNote}</div>`:'';
+  const tn=q.teacherNote?`<div style="font-size:.75rem;color:var(--lc);margin-top:.45rem;background:var(--lc-lt);border-radius:8px;padding:.38rem .7rem">🎓 ${q.teacherNote}</div>`:'';
   const fb=`<div class="q-feedback" id="${q.id}_fb"></div>`;
   const typelabel=q.type==='mc'?'בחירה':'q.type'==='tf'?'נכון/לא נכון':'סדר';
   return `<div class="q-card" id="${q.id}_card">
@@ -953,7 +957,17 @@ function pickTF(qid,val){
   ['t','f'].forEach(k=>{const b=document.getElementById(qid+'_'+k);if(b)b.classList.toggle('sel',k==='t'?val:!val);});
   updateProgress();
 }
-function pickOpen(qid){if(typeof QST!=='undefined'&&QST.submitted)return;if(typeof QS!=='undefined'&&!Array.isArray(QS)&&QS.submitted)return;const el=document.getElementById(qid+'_oa');if(!el)return;const val=(el.value||'').trim();const st=typeof QST!=='undefined'?QST:QS;if(val.length>0)st.answers[qid]={type:'open',text:val};else delete st.answers[qid];if(typeof updateProgress==='function')updateProgress();}
+function pickOpen(qid){
+  var st=(typeof QST!=='undefined')?QST:QS;
+  if(st.submitted)return;
+  var el=document.getElementById(qid+'_oa');if(!el)return;
+  var val=(el.value||'').trim();
+  if(val.length>0)st.answers[qid]={type:'open',text:val};
+  else delete st.answers[qid];
+  if(typeof updateCounter==='function')updateCounter();
+  else if(typeof updateProgress==='function')updateProgress();
+  else if(typeof updP==='function')updP();
+}
 function updateProgress(){
   const done=Object.keys(QS.answers).length;
   const pct=Math.round(done/QUESTIONS.length*100);
@@ -994,7 +1008,7 @@ function submitQuiz(){
     if(ok)correct++;
     const card=document.getElementById(q.id+'_card');if(card)card.classList.add(ok?'ok':'wrong');
     const fb=document.getElementById(q.id+'_fb');
-    if(fb){if(q.type==='open'){const ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='q-feedback show ok';fb.innerHTML='<div class="open-rubric"><strong>✍️ נשמר.</strong> '+q.explain+'</div>';}else{fb.className='q-feedback show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;}}
+    if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='q-feedback show ok';fb.innerHTML='<div class="open-rubric">✍️ ' + q.explain+'</div>';}else{fb.className='q-feedback show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;}}
   });
   _lastCorrect=correct;_lastScore=Math.round(correct/QUESTIONS.length*100);
   const pct=_lastScore;
@@ -1018,7 +1032,7 @@ async function sendResults(){
 }
 function resetQuiz(){
   QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;
-  QUESTIONS.forEach(q=>{if(q.type==='open'){const t=document.getElementById(q.id+'_oa');if(t){t.disabled=false;t.value='';}}});renderQuestions();updateProgress();
+  QUESTIONS.forEach(function(q){if(q.type==='open'){var t=document.getElementById(q.id+'_oa');if(t){t.disabled=false;t.value='';}}});renderQuestions();updateProgress();
   const rc=document.getElementById('results-container');if(rc){rc.style.display='none';rc.innerHTML='';}
   const sr=document.getElementById('submit-row');
   if(!sr){
@@ -1037,7 +1051,8 @@ function renderAnswers(){
     let ans='';
     if(q.type==='mc')ans=`${LETTERS[q.ans]}. ${q.opts[q.ans]}`;
     else if(q.type==='tf')ans=q.ans?'✅ נכון':'❌ לא נכון';
-    else if(q.type==='sort')ans=q.correctOrder.map(j=>q.items[j]).join(' ← ');else if(q.type==='open')ans='שאלת כתיבה פתוחה';
+    else if(q.type==='sort')ans=q.correctOrder.map(j=>q.items[j]).join(' ← ');
+    else if(q.type==='open')ans='שאלת כתיבה פתוחה';
     return `<div class="answer-row">
       <div class="ans-num">שאלה ${i+1} <span style="color:var(--lc)">${q.ref}</span></div>
       <div class="ans-q">${q.q}</div>

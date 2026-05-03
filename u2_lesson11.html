@@ -264,8 +264,13 @@ button,input,select{font-family:inherit}
 }
 .ph{display:none}
 
-/* open question */
-.open-wrap{margin-bottom:.5rem}.open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none}.open-textarea:focus{border-color:var(--lc)}.open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}.open-hint{font-size:.72rem;color:var(--muted);margin-top:.3rem}.open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55}
+/* ── open question ── */
+.open-wrap{margin-bottom:.5rem}
+.open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none;transition:border-color .15s}
+.open-textarea:focus{border-color:var(--lc)}
+.open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}
+.open-hint{font-size:.72rem;color:var(--muted,#9aa3be);margin-top:.3rem}
+.open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid,#374151)}
 </style>
 </head>
 <body>
@@ -795,7 +800,17 @@ function pickTF(qid,val){
   updP();
 }
 
-function pickOpen(qid){if(typeof QST!=='undefined'&&QST.submitted)return;if(typeof QS!=='undefined'&&!Array.isArray(QS)&&QS.submitted)return;const el=document.getElementById(qid+'_oa');if(!el)return;const val=(el.value||'').trim();const st=typeof QST!=='undefined'?QST:QS;if(val.length>0)st.answers[qid]={type:'open',text:val};else delete st.answers[qid];if(typeof updP==='function')updP();}
+function pickOpen(qid){
+  var st=(typeof QST!=='undefined')?QST:QS;
+  if(st.submitted)return;
+  var el=document.getElementById(qid+'_oa');if(!el)return;
+  var val=(el.value||'').trim();
+  if(val.length>0)st.answers[qid]={type:'open',text:val};
+  else delete st.answers[qid];
+  if(typeof updateCounter==='function')updateCounter();
+  else if(typeof updateProgress==='function')updateProgress();
+  else if(typeof updP==='function')updP();
+}
 function updP(){
   const d=Object.keys(QST.answers).length,p=Math.round(d/QS.length*100);
   document.getElementById('pf')?.style.setProperty('width',p+'%');
@@ -823,7 +838,7 @@ function submitQ(){
     if(ok)cor++;
     document.getElementById(q.id+'_card')?.classList.add(ok?'ok':'wrong');
     const fb=document.getElementById(q.id+'_fb');
-    if(fb){if(q.type==='open'){const ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='qfb show ok';fb.innerHTML='<div class="open-rubric"><strong>✍️ נשמר.</strong> '+q.ex+'</div>';}else{if(q.type==='open'){const ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='qfb show ok';fb.innerHTML='<div class="open-rubric"><strong>✍️ נשמר.</strong> '+q.ex+'</div>';}else{fb.className='qfb show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.ex;}}}
+    if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='qfb show ok';fb.innerHTML='<div class="open-rubric">✍️ ' + q.ex+'</div>';}else{if(q.type==='open'){const ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='qfb show ok';fb.innerHTML='<div class="open-rubric"><strong>✍️ נשמר.</strong> '+q.ex+'</div>';}else{fb.className='qfb show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.ex;}}}
   });
   _lc=cor;_ls=Math.round(cor/QS.length*100);
   const p=_ls,em=p>=90?'🏆':p>=75?'⭐':p>=60?'👍':'💪',cl=p>=90?'#15803d':p>=75?'#059669':p>=60?'#1a56db':'#dc2626';
@@ -852,7 +867,8 @@ function renderA(){
     let a='';
     if(q.type==='mc')a=L[q.ans]+'. '+q.opts[q.ans];
     else if(q.type==='tf')a=q.ans?'✅ נכון':'❌ לא נכון';
-    else if(q.type==='sort')a=q.correctOrder.map(j=>q.items[j]).join(' ← ');else if(q.type==='open')a='שאלת כתיבה פתוחה';
+    else if(q.type==='sort')a=q.correctOrder.map(j=>q.items[j]).join(' ← ');
+    else if(q.type==='open')a='שאלת כתיבה פתוחה';
     return `<div class="ar"><div class="an">שאלה ${i+1} <span style="color:var(--lc)">${q.ref}</span></div><div class="aq">${q.q}</div><div class="ac">✅ ${a}</div><div class="ae">💡 ${q.ex}</div></div>`;
   }).join('');
 }
