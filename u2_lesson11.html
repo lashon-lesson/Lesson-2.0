@@ -263,6 +263,15 @@ button,input,select{font-family:inherit}
   @page{margin:1.5cm;size:A4}
 }
 .ph{display:none}
+
+/* ─── OPEN QUESTION ─── */
+.open-wrap{margin-bottom:.55rem}
+.open-textarea{width:100%;min-height:110px;padding:.9rem 1.1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text);line-height:1.72;resize:vertical;outline:none;transition:border-color .15s,box-shadow .15s;}
+.open-textarea:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.1)}
+.open-textarea:disabled{opacity:.7;cursor:default;background:var(--surface3)}
+.open-hint{font-size:.72rem;color:var(--muted);margin-top:.32rem;line-height:1.5}
+.open-rubric{margin-top:.65rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.75rem 1rem;font-size:.78rem;color:var(--text-mid);line-height:1.6}
+.open-rubric strong{color:var(--text)}
 </style>
 </head>
 <body>
@@ -559,7 +568,7 @@ const FB_CFG={apiKey:"AIzaSyC1VIJaFqC-HzJHGutib10-A29i1KKO4YI",authDomain:"lasho
 let _db=null;
 const LID='u2_l11', LTITLE='סדר מילים במשפט';
 function initFB(){try{if(typeof firebase==='undefined')return;if(!firebase.apps.length)firebase.initializeApp(FB_CFG);_db=firebase.firestore();_db.enablePersistence().catch(()=>{});_db.collection('lessons').doc(LID).onSnapshot(doc=>{const v=doc.exists?doc.data()?.showAnswers===true:false;const av=LS.get('lashon2_answers_visible',{});av[LID]=v;LS.set('lashon2_answers_visible',av);AVIS=v;applyAV();});}catch(e){}}
-async function saveSc(sc,sn,cls){if(!_db)return;const n=new Date();try{await _db.collection('lashon2_submissions').add({lessonId:LID,lessonTitle:LTITLE,score:sc,studentName:sn||'תלמיד/ה',className:cls||'',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:n.toLocaleDateString('he-IL'),submissionTime:n.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lc==='number'?_lc:undefined,wrong:typeof _lc==='number'?QS.length-_lc:undefined,totalQuestions:QS.length});}catch(e){}}
+async function saveSc(sc,sn,cls){if(!_db)return;const n=new Date();try{await _db.collection('lashon2_submissions').add({lessonId:LID,lessonTitle:LTITLE,score:sc,studentName:sn||'תלמיד/ה',className:cls||'',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:n.toLocaleDateString('he-IL'),submissionTime:n.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lc==='number'?_lc:undefined,wrong:typeof _lc==='number'?QS.length-_lc:undefined,totalQuestions:QS.length,openAnswers:QS.filter(q=>q.type==='open').map(q=>({id:q.id,q:q.q,text:QST.answers?.[q.id]?.text||''})));}catch(e){}}
 const LS={get(k,fb=null){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):fb}catch{return fb}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
 const P=new URLSearchParams(location.search);
 let SN=P.get('student')||LS.get('lashon2_uname','')||'תלמיד/ה';
@@ -675,7 +684,16 @@ const QS=[
    q:'המשפט "אתמול ראיתי את יוסף בשוק" לעומת "ראיתי אתמול את יוסף בשוק" — מה ההבדל?',
    opts:['אין הבדל — זהה לגמרי','הראשון: "אתמול" מקודם = הזמן מוצג כמסגרת, דגש על <em>מתי</em>. השני: "ראיתי" ראשון = SVO סטנדרטי יחסי, דגש על <em>מה שקרה</em>','השני: "אתמול" מקודם','הראשון: שגיאה'],
    ans:1,
-   ex:'"אתמול ראיתי..." = תיאור זמן מקדים → מסגרת. "ראיתי אתמול..." ≈ SVO עם "אתמול" מוטמע. ההבדל: בראשון, "אתמול" = המידע החשוב. בשני, "ראיתי... בשוק" = העיקר, ו"אתמול" = פרט נוסף.'},
+   ex:'"אתמול ראיתי..." = תיאור זמן מקדים → מסגרת. "ראיתי אתמול..." ≈ SVO עם "אתמול" מוטמע. ההבדל: בראשון, "אתמול" = המידע החשוב. בשני, "ראיתי... בשוק" = העיקר, ו"אתמול" = פרט נוסף.,
+  {id:'q21',type:'open',ref:'ניתוח — סדר מילים',
+   q:'בדוק/י את שני המשפטים ומצא/י כיצד שינוי סדר המילים משנה את הדגש:<br>(א) <strong>"הספר הזה קראה רחל אתמול."</strong> (ב) <strong>"רחל קראה את הספר הזה אתמול."</strong><br>לכל משפט: מה מודגש? למה? מהו הסדר ה"משובש"?',
+   placeholder:'(א) "הספר הזה קראה רחל אתמול" — הדגש: הספר הספציפי (מגיע ראשון). משובש: הנושא "רחל" אחרי הנשוא.\n(ב) "רחל קראה..." — סדר רגיל. הדגש: הפעולה.',
+   hint:'סדר רגיל: נושא + נשוא + מושא. משובש = סטייה לצורך דגש. מה שמגיע ראשון — מודגש.',
+   rubric:'(א) זיהוי הדגש בכל משפט (ב) הסבר מדוע (מיקום) (ג) זיהוי הסטייה מהסדר הרגיל',
+   ex:'סדר מילים = כלי של הדגש. מה שמגיע ראשון = רקע נתון (Topic), מה שמגיע אחרון = מידע חדש (Focus).',
+   explain:'סדר מילים = כלי של הדגש. מה שמגיע ראשון = רקע נתון (Topic), מה שמגיע אחרון = מידע חדש (Focus).',
+   teacherNote:'בדקו שהתלמיד מחבר בין מיקום לדגש — לא רק מתאר השינוי אלא מסביר הכוונה הסגנונית.'},
+];'},
 ];
 
 // ═══════════════════════════════════════════════
@@ -784,6 +802,14 @@ function pickTF(qid,val){
   updP();
 }
 
+function pickOpen(qid){
+  if(QST.submitted)return;
+  const el=document.getElementById(qid+'_oa');if(!el)return;
+  const val=(el.value||'').trim();
+  if(val.length>0)QST.answers[qid]={type:'open',text:val};
+  else delete QST.answers[qid];
+  updP();
+}
 function updP(){
   const d=Object.keys(QST.answers).length,p=Math.round(d/QS.length*100);
   document.getElementById('pf')?.style.setProperty('width',p+'%');
@@ -805,11 +831,13 @@ function submitQ(){
       ['t','f'].forEach(k=>{const b=document.getElementById(q.id+'_'+k);if(!b)return;b.disabled=true;const bv=k==='t';if(bv===q.ans)b.classList.add('correct');else if(bv===a.sel&&!ok)b.classList.add('wrong');});
     }else if(q.type==='sort'&&a?.order){
       ok=JSON.stringify(a.order)===JSON.stringify(q.correctOrder);
+    }else if(q.type==='open'){
+      ok=!!(a?.text&&a.text.length>10);
     }
     if(ok)cor++;
     document.getElementById(q.id+'_card')?.classList.add(ok?'ok':'wrong');
     const fb=document.getElementById(q.id+'_fb');
-    if(fb){fb.className='qfb show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.ex;}
+    if(fb){if(q.type==='open'){fb.className='qfb show ok';fb.innerHTML=`<div class="open-rubric"><strong>✍️ תשובתך נשמרה.</strong> ${q.ex}${q.rubric?'<br><strong>נקודות לבדיקה:</strong> '+q.rubric:''}</div>`;}else{fb.className='qfb show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.ex;}}
   });
   _lc=cor;_ls=Math.round(cor/QS.length*100);
   const p=_ls,em=p>=90?'🏆':p>=75?'⭐':p>=60?'👍':'💪',cl=p>=90?'#15803d':p>=75?'#059669':p>=60?'#1a56db':'#dc2626';
@@ -838,7 +866,7 @@ function renderA(){
     let a='';
     if(q.type==='mc')a=L[q.ans]+'. '+q.opts[q.ans];
     else if(q.type==='tf')a=q.ans?'✅ נכון':'❌ לא נכון';
-    else a=q.correctOrder.map(j=>q.items[j]).join(' ← ');
+    else if(q.type==='sort')a=q.correctOrder.map(j=>q.items[j]).join(' ← ');else if(q.type==='open')a='שאלת כתיבה פתוחה';
     return `<div class="ar"><div class="an">שאלה ${i+1} <span style="color:var(--lc)">${q.ref}</span></div><div class="aq">${q.q}</div><div class="ac">✅ ${a}</div><div class="ae">💡 ${q.ex}</div></div>`;
   }).join('');
 }

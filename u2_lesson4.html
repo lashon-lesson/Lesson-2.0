@@ -295,6 +295,15 @@ button,input,select,textarea{font-family:inherit}
   @page{margin:1.5cm;size:A4}
 }
 .print-header{display:none}
+
+/* ─── OPEN QUESTION ─── */
+.open-wrap{margin-bottom:.55rem}
+.open-textarea{width:100%;min-height:110px;padding:.9rem 1.1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text);line-height:1.72;resize:vertical;outline:none;transition:border-color .15s,box-shadow .15s;}
+.open-textarea:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.1)}
+.open-textarea:disabled{opacity:.7;cursor:default;background:var(--surface3)}
+.open-hint{font-size:.72rem;color:var(--muted);margin-top:.32rem;line-height:1.5}
+.open-rubric{margin-top:.65rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.75rem 1rem;font-size:.78rem;color:var(--text-mid);line-height:1.6}
+.open-rubric strong{color:var(--text)}
 </style>
 </head>
 <body>
@@ -316,7 +325,7 @@ button,input,select,textarea{font-family:inherit}
 <!-- TABS -->
 <div class="tabs-bar">
   <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
-  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (23 שאלות)</button>
+  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (24 שאלות)</button>
   <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
   <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
 </div>
@@ -577,7 +586,7 @@ function initFirebase(){
 async function saveScore(score,studentName,className){
   if(!_db) return;
   const now=new Date();
-  const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:studentName||'תלמיד/ה',className:className||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,totalQuestions:QUESTIONS.length};
+  const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:studentName||'תלמיד/ה',className:className||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,totalQuestions:QUESTIONS.length,openAnswers:QUESTIONS.filter(q=>q.type==='open').map(q=>({id:q.id,q:q.q,text:QS.answers[q.id]?.text||''}))};
   try{await _db.collection('lashon2_submissions').add(d);await _db.collection('lashon2_live').doc('latest').set(d);}catch(e){console.warn(e)}
 }
 
@@ -766,7 +775,16 @@ const QUESTIONS=[
    opts:['כי','אולם','לכן — שתיהן תוצאה: מה שאחריהן הוא מה שנגרם','למרות ש'],
    ans:2,
    explain:'"לפיכך" = תוצאה פורמלית. מחליפות: "לכן", "על כן", "כתוצאה מכך". "כי" = סיבה (כיוון הפוך). "אולם" = ניגוד.',
-   teacherNote:''},
+   teacherNote:''},,
+  {id:'q24',type:'open',ref:'ניתוח — קשרים לוגיים',
+   q:'קרא/י את המשפט: <strong>"למרות שגשם, יצאנו לטיול, כי חיכינו לרגע הזה כל השנה."</strong><br>זהה/י את כל מילות הקישור, ציין/י את הקשר הלוגי של כל אחת ואת יחידות המידע שהן מחברות.',
+   placeholder:'למרות ש — ויתור/הפניה: מחברת "גשם" (גורם שהיינו מצפים שימנע) עם "יצאנו" (מה שקרה בפועל).
+כי — ...',
+   hint:'קשרים לוגיים: סיבה (כי, מפני ש), תוצאה (לכן, לפיכך), ניגוד (אבל, אך, אולם), ויתור (למרות ש, אף על פי ש), תנאי (אם, כאשר).',
+   rubric:'(א) זיהוי שתי מילות קישור לפחות (ב) שם הקשר הלוגי הנכון (ג) פירוט יחידות המידע המחוברות',
+   explain:'ניתוח מילות קישור = שם הקישור + סוג הקשר + מה הוא מחבר. בגרות: לא מספיק לציין שם — יש לנמק.',
+   teacherNote:'שאלה מורכבת — בודקת שלוש מיומנויות: זיהוי, קטגוריה, ויחסים. ציינו נקודה על כל אחת.'},
+];
 ];
 
 /* ════════════════════════════════════════════════
@@ -851,6 +869,9 @@ function buildCard(q,i){
         <span class="sort-text">${q.items[j]}</span>
       </div>`).join('')}</div>`;
   }
+  }else if(q.type==='open'){
+    input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י את תשובתך כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
+  }
   const tn=q.teacherNote?`<div style="font-size:.75rem;color:var(--lc);margin-top:.45rem;background:var(--lc-lt);border-radius:8px;padding:.38rem .7rem">🎓 ${q.teacherNote}</div>`:'';
   const fb=`<div class="q-feedback" id="${q.id}_fb"></div>`;
   return `<div class="q-card" id="${q.id}_card">
@@ -897,6 +918,15 @@ function pickTF(qid,val){
   ['t','f'].forEach(k=>{const b=document.getElementById(qid+'_'+k);if(b)b.classList.toggle('sel',k==='t'?val:!val);});
   updateProgress();
 }
+
+function pickOpen(qid){
+  if(QS.submitted)return;
+  const el=document.getElementById(qid+'_oa');if(!el)return;
+  const val=(el.value||'').trim();
+  if(val.length>0) QS.answers[qid]={type:'open',text:val};
+  else delete QS.answers[qid];
+  updateProgress();
+}
 function updateProgress(){
   const done=Object.keys(QS.answers).length;
   const pct=Math.round(done/QUESTIONS.length*100);
@@ -930,11 +960,14 @@ function submitQuiz(){
       });
     }else if(q.type==='sort'&&a?.order){
       ok=JSON.stringify(a.order)===JSON.stringify(q.correctOrder);
+    }else if(q.type==='open'){
+      ok=!!(a?.text&&a.text.length>10);
     }
     if(ok)correct++;
+    if(q.type==='open'){const ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;}
     const card=document.getElementById(q.id+'_card');if(card)card.classList.add(ok?'ok':'wrong');
     const fb=document.getElementById(q.id+'_fb');
-    if(fb){fb.className='q-feedback show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;}
+    if(fb){if(q.type==='open'){fb.className='q-feedback show ok';fb.innerHTML=`<div class="open-rubric"><strong>✍️ תשובתך נשמרה.</strong> ${q.explain}${q.rubric?'<br><strong>נקודות לבדיקה:</strong> '+q.rubric:''}</div>`;}else{fb.className='q-feedback show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;}}
   });
   _lastCorrect=correct;_lastScore=Math.round(correct/QUESTIONS.length*100);
   const pct=_lastScore;
@@ -978,6 +1011,7 @@ function renderAnswers(){
     if(q.type==='mc')ans=`${LETTERS[q.ans]}. ${q.opts[q.ans]}`;
     else if(q.type==='tf')ans=q.ans?'✅ נכון':'❌ לא נכון';
     else if(q.type==='sort')ans=q.correctOrder.map(j=>q.items[j]).join(' ← ');
+    else if(q.type==='open')ans='שאלת כתיבה פתוחה';
     return `<div class="answer-row">
       <div class="ans-num">שאלה ${i+1} <span style="color:var(--lc)">${q.ref}</span></div>
       <div class="ans-q">${q.q}</div>
