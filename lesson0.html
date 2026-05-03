@@ -1437,6 +1437,7 @@ function printLesson(){
     const correctAnswer=q.type==='mc'
       ?`${['א','ב','ג','ד'][q.ans]}. ${q.opts[q.ans]}`
       :q.type==='tf'?(q.ans?'נכון':'לא נכון')
+      :q.type==='open'?'שאלת כתיבה פתוחה'
       :q.correctOrder.map(j=>q.items[j]).join(' ← ');
 
     return `<div class="prow ${isCorrect?'prow-ok':'prow-wrong'}">

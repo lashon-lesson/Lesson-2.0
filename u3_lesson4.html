@@ -1009,7 +1009,7 @@ function buildCard(q,i){
     input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
   }
   const refBadge=q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#ddd6fe">📍 ${q.ref}</span>`:'';
-  const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור'}</span>`;
+  const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>`;
   return `
   <div class="q-card" id="card_${q.id}">
     <div class="q-num">שאלה ${i+1} מתוך ${QUESTIONS.length} ${tb} ${refBadge}</div>
@@ -1143,13 +1143,14 @@ function renderAnswers(){
   c.innerHTML=QUESTIONS.map((q,i)=>`
   <div class="answer-row">
     <div class="ans-num">שאלה ${i+1}
-      <span style="font-size:.56rem;font-weight:700;padding:.12rem .45rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור'}</span>
+      <span style="font-size:.56rem;font-weight:700;padding:.12rem .45rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>
       ${q.ref?`<span style="font-size:.56rem;color:var(--lc);font-weight:700">📍 ${q.ref}</span>`:''}
     </div>
     <div class="ans-q">${q.q}</div>
     <div class="ans-correct">✅ ${
       q.type==='mc'?`${'אבגד'[q.ans]}. ${q.opts[q.ans]}`:
       q.type==='tf'?(q.ans?'נכון':'לא נכון'):
+      q.type==='open'?'שאלת כתיבה פתוחה':
       q.correctOrder.map(j=>q.items[j]).join(' → ')
     }</div>
     <div class="ans-explain">💡 ${q.explain}</div>
@@ -1233,7 +1234,7 @@ body{font-family:'Heebo',sans-serif;direction:rtl;background:#fff;color:#000;fon
     if(q.type==='mc'&&a?.sel!==undefined){gv=`${'אבגד'[a.sel]}. ${q.opts[a.sel]}`;ok=a.sel===q.ans;}
     else if(q.type==='tf'&&a?.sel!==undefined){gv=a.sel?'נכון':'לא נכון';ok=a.sel===q.ans;}
     else if(q.type==='sort'&&a?.order){gv=a.order.map(j=>q.items[j]).join(' → ');ok=JSON.stringify(a.order)===JSON.stringify(q.correctOrder);}
-    const ca=q.type==='mc'?`${'אבגד'[q.ans]}. ${q.opts[q.ans]}`:q.type==='tf'?(q.ans?'נכון':'לא נכון'):q.correctOrder.map(j=>q.items[j]).join(' → ');
+    const ca=q.type==='mc'?`${'אבגד'[q.ans]}. ${q.opts[q.ans]}`:q.type==='tf'?(q.ans?'נכון':'לא נכון'):q.type==='open'?'שאלת כתיבה פתוחה':q.correctOrder.map(j=>q.items[j]).join(' → ');
     return `<div class="q-row ${QS.submitted?(ok?'ok':'wrong'):''}">
       <div class="q-num-c">${i+1}</div>
       <div class="q-body">
@@ -1251,8 +1252,7 @@ body{font-family:'Heebo',sans-serif;direction:rtl;background:#fff;color:#000;fon
   pw.document.close();
 }
 
-let _tt;
-function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800)}
+let _tt;.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800)}
 function goBack(){
   if(window.opener){try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}window.close();return;}
   window.location.href=BACK_URL;
