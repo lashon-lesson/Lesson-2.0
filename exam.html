@@ -336,7 +336,7 @@ button,input,select,textarea{font-family:inherit}
 <!-- TABS -->
 <div class="tabs-bar">
   <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
-  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">📝 מבחן (26 שאלות)</button>
+  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">📝 מבחן (27 שאלות)</button>
   <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
   <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
 </div>
@@ -358,7 +358,7 @@ button,input,select,textarea{font-family:inherit}
     <p class="hero-desc">מבחן מסכם לכל נושאי יחידה 1 — סוגי טקסטים, השוואה, מקורות מרובים, טקסט טיעון וכתיבה יוצרת</p>
     <div class="hero-meta">
       <span class="hero-chip lc">⏱ 90 דק׳</span>
-      <span class="hero-chip">📝 26 שאלות</span>
+      <span class="hero-chip">📝 27 שאלות</span>
       <span class="hero-chip green">🎯 מבחן מסכם</span>
     </div>
   </div>
@@ -374,7 +374,7 @@ button,input,select,textarea{font-family:inherit}
       </div>
       <div style="display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem;color:var(--text-mid)">
         <span style="background:var(--lc);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;flex-shrink:0;margin-top:.05rem">2</span>
-        <span><strong>המבחן כולל 26 שאלות</strong> בסגנונות שונים: רב-בחירה, נכון/לא נכון וסידור. ענה/י על כולן.</span>
+        <span><strong>המבחן כולל 27 שאלות</strong> בסגנונות שונים: רב-בחירה, נכון/לא נכון וסידור. ענה/י על כולן.</span>
       </div>
       <div style="display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem;color:var(--text-mid)">
         <span style="background:var(--lc);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;flex-shrink:0;margin-top:.05rem">3</span>
@@ -473,7 +473,7 @@ button,input,select,textarea{font-family:inherit}
 <div class="tab-pane" id="pane-practice">
 <div class="print-header">
   <h1>מבחן סיכום — הבנה והבעה</h1>
-  <p>26 שאלות | יחידה 1 — הבנה והבעה | לשון Lesson 2.0</p>
+  <p>27 שאלות | יחידה 1 — הבנה והבעה | לשון Lesson 2.0</p>
 </div>
 <div class="lesson-wrap">
 
@@ -555,10 +555,10 @@ button,input,select,textarea{font-family:inherit}
   </div>
 
   <div class="quiz-header">
-    <div class="quiz-hd-title">📝 מבחן סיכום — 26 שאלות</div>
+    <div class="quiz-hd-title">📝 מבחן סיכום — 27 שאלות</div>
     <div class="quiz-hd-desc">5 נושאים · 2 טקסטים לניתוח · רב-בחירה, נכון/לא נכון וסידור.</div>
     <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="qp-fill" style="width:0%"></div></div>
-    <div class="quiz-prog-row"><span id="qp-counter">0 / 26 נענו</span></div>
+    <div class="quiz-prog-row"><span id="qp-counter">0 / 27 נענו</span></div>
   </div>
 
   <div id="questions-container"></div>
@@ -848,7 +848,15 @@ const QUESTIONS=[
    explain:'הגדרה ← מטרה ← ראיה ← תפקיד הראיה. זוהי הנוסחה המלאה לניקוד מלא בבגרות. ללא תפקיד הראיה — הניקוד חלקי.',
    teacherNote:''},
 ,
-  {id:'q26',type:'open',ref:'סינתזה — מבחן',
+  ,
+  {id:'q26',type:'sort',ref:'שיעורים 1-5',
+   q:'סדרו את כלי השכנוע לפי עוצמת ההשפעה הרגשית (מהאובייקטיבי ביותר לרגשי ביותר):',
+   items:['פנייה רגשית ישירה: "ילדינו יסבלו"','נתון מחקרי: "80% מהתלמידים..."','שאלה רטורית: "האם לא הגיע הזמן?"','ציטוט מומחה: "לפי פרופ׳ X..."'],
+   correctOrder:[1,3,2,0],
+   explain:'נתון מחקרי (הכי אובייקטיבי) ← ציטוט מומחה ← שאלה רטורית ← פנייה רגשית ישירה (הכי רגשי). סדר זה חיוני לניתוח טיעון בבגרות.',
+   teacherNote:'שאלת סיכום — בודקת הבחנה בין Logos (הגיון) ל-Pathos (רגש) בטיעון.'},
+
+  {id:'q27',type:'open',ref:'סינתזה — מבחן',
    q:'בחר/י אחד מהנושאים הבאים וכתוב/י 5-6 משפטים בסגנון טקסט שכנועי קצר: (א) האם יש לאסור טלפונים בבית הספר? (ב) האם יש לבטל את הציונים? השתמש/י בלפחות שני כלי שכנוע שלמדת (נתון, שאלה רטורית, ציטוט, דוגמה). בסיום, ציין/י בסוגריים: (הכלים שהשתמשתי בהם: ...)',
    placeholder:'כתוב/י את הטיעון שלך כאן. פתח/י בטענה הראשית, הוסף/י נימוק + ראיה, הכר/י בטיעון נגד, וסיים/י בסיכום.',
    hint:'נוסחה: (1) טענה ראשית ברורה (2) נימוק + ראיה (3) הכרת נגד ודחייתה (4) מסקנה וקריאה לפעולה.',
@@ -1089,7 +1097,7 @@ function resetQuiz(){
   });
   const rc=document.getElementById('results-container');if(rc)rc.innerHTML='';
   const fill=document.getElementById('qp-fill');if(fill)fill.style.width='0%';
-  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent='0 / 26 נענו';
+  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent='0 / 27 נענו';
 }
 function sendResults(pct){
   const email=LS.get('lashon2_teacher_email','')||LS.get('teacher_email','');
