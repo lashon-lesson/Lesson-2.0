@@ -1185,9 +1185,7 @@ function _doSubmitQuiz(){
     if(q.type==='mc') ok=a?.sel===q.ans;
     else if(q.type==='tf') ok=a?.sel===q.ans;
     else if(q.type==='sort') ok=JSON.stringify(a?.order)===JSON.stringify(q.correctOrder);
-    else if(q.type==='open') ok=!!(a?.text&&a.text.length>10); // credit for attempting
-    else if(q.type==='open') ok=!!(a?.text&&a.text.length>10); // credit for attempting
-    else if(q.type==='open') ok=!!(a?.text&&a.text.length>10); // credit for attempting
+    else if(q.type==='open') ok=!!(a?.text&&a.text.length>10);
     if(ok) correct++;
     const card=document.getElementById(`card_${q.id}`);if(card)card.classList.add(ok?'ok':'wrong');
     const fb=document.getElementById(`${q.id}_fb`);

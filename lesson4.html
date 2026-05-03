@@ -910,6 +910,8 @@ function buildCard(q,i){
         <span class="sort-handle">⠿</span>
         <span class="sort-text">${q.items[idx]}</span>
       </div>`).join('')}</div>`;
+  }else if(q.type==='open'){
+    input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י את תשובתך כאן...'}" oninput="pickOpen('${q.id}')" ${QS.submitted?'disabled':''}></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
   }
   const a=QS.answers[q.id];
   let feedbackHtml='';
@@ -918,12 +920,12 @@ function buildCard(q,i){
     if(q.type==='mc')ok=a.sel===q.ans;
     else if(q.type==='tf')ok=a.sel===q.ans;
     else if(q.type==='sort')ok=JSON.stringify(a.order)===JSON.stringify(q.correctOrder);
-    const corr=q.type==='mc'?`${LETTERS[q.ans]}. ${q.opts[q.ans]}`:q.type==='tf'?(q.ans?'נכון':'לא נכון'):q.correctOrder.map(j=>q.items[j]).join(' ← ');
-    feedbackHtml=`<div class="q-feedback ${ok?'ok':'wrong'} show">${ok?'✅ נכון!':'❌ '+corr}<br><small>${q.explain}</small>${q.teacherNote?`<br><small style="color:var(--lc)">🎓 ${q.teacherNote}</small>`:''}</div>`;
+    const corr=q.type==='mc'?`${LETTERS[q.ans]}. ${q.opts[q.ans]}`:q.type==='tf'?(q.ans?'נכון':'לא נכון'):q.type==='open'?'שאלת כתיבה פתוחה':(q.correctOrder||[]).map(j=>q.items[j]).join(' ← ');
+    feedbackHtml=q.type==='open'?`<div class="open-rubric"><strong>✍️ תשובתך נשמרה.</strong> ${q.explain}${q.rubric?'<br><strong>נקודות לבדיקה:</strong> '+q.rubric:''}</div>`:`<div class="q-feedback ${ok?'ok':'wrong'} show">${ok?'✅ נכון!':'❌ '+corr}<br><small>${q.explain}</small>${q.teacherNote?`<br><small style="color:var(--lc)">🎓 ${q.teacherNote}</small>`:''}</div>`;
   }
-  const typeLabel=q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור';
+  const typeLabel=q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור';
   const a2=QS.answers[q.id];
-  const cardClass=QS.submitted&&a2?(()=>{let ok=false;if(q.type==='mc')ok=a2.sel===q.ans;else if(q.type==='tf')ok=a2.sel===q.ans;else if(q.type==='sort')ok=JSON.stringify(a2.order)===JSON.stringify(q.correctOrder);return ok?'ok':'wrong';})():'';
+  const cardClass=QS.submitted&&a2?(()=>{let ok=false;if(q.type==='mc')ok=a2.sel===q.ans;else if(q.type==='tf')ok=a2.sel===q.ans;else if(q.type==='sort')ok=JSON.stringify(a2.order)===JSON.stringify(q.correctOrder);else if(q.type==='open')ok=!!(a2.text&&a2.text.length>10);return ok?'ok':'wrong';})():'';
   return `<div class="q-card ${cardClass}" id="card_${q.id}">
     <div class="q-num">שאלה ${i+1} <span class="q-type-badge">${typeLabel}</span>${q.ref?`<span class="q-type-badge" style="background:var(--lc-lt);color:var(--lc);border-color:var(--lc)">${q.ref}</span>`:''}
     </div>
@@ -971,6 +973,15 @@ function dropSort(e){
   updateProgress();
   document.querySelectorAll('.sort-item').forEach(el=>el.classList.remove('drag-over'));
 }
+
+function pickOpen(qid){
+  if(QS.submitted)return;
+  const el=document.getElementById(qid+'_oa');if(!el)return;
+  const val=(el.value||'').trim();
+  if(val.length>0) QS.answers[qid]={type:'open',text:val};
+  else delete QS.answers[qid];
+  updateProgress();
+}
 function updateProgress(){
   const answered=Object.keys(QS.answers).length;
   const pct=Math.round(answered/QUESTIONS.length*100);
@@ -991,6 +1002,7 @@ function submitQuiz(){
     const a=QS.answers[q.id];if(!a)return;
     if(q.type==='mc'&&a.sel===q.ans)correct++;
     else if(q.type==='tf'&&a.sel===q.ans)correct++;
+    else if(q.type==='open'&&a.text&&a.text.length>10)correct++;
     else if(q.type==='sort'&&JSON.stringify(a.order)===JSON.stringify(q.correctOrder))correct++;
   });
   _lastCorrect=correct;
@@ -1033,6 +1045,7 @@ function renderAnswers(){
   c.innerHTML=QUESTIONS.map((q,i)=>{
     const corr=q.type==='mc'?`${LETTERS[q.ans]}. ${q.opts[q.ans]}`:
                q.type==='tf'?(q.ans?'✅ נכון':'❌ לא נכון'):
+               q.type==='open'?'שאלת כתיבה פתוחה':
                q.correctOrder.map(j=>q.items[j]).join(' ← ');
     return `<div class="answer-row">
       <div class="ans-num">שאלה ${i+1} <span style="background:var(--lc-lt);color:var(--lc);font-size:.56rem;font-weight:700;padding:.12rem .48rem;border-radius:99px;border:1px solid var(--lc)">${q.ref||''}</span></div>
