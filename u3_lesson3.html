@@ -1206,7 +1206,8 @@ body{font-family:'Heebo',sans-serif;direction:rtl;background:#fff;color:#000;fon
   pw.document.close();
 }
 
-let _tt;.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800)}
+let _tt;
+function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800)}
 function goBack(){
   if(window.opener){try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}window.close();return;}
   window.location.href=BACK_URL;

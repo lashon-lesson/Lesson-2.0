@@ -1092,6 +1092,10 @@ function enterApp(role,name){
   subscribeLocks();
   subscribeAnswers();
   renderGrid();
+  {const _ubp=new URLSearchParams(window.location.search),_uid=_ubp.get('unit');
+   if(_uid){setTimeout(()=>{toggleUnit(_uid);
+     const _uel=document.getElementById('unit-'+_uid);
+     if(_uel)_uel.scrollIntoView({behavior:'smooth',block:'start'});},300);}}
   if(isTeacher){
     loadTeacherClassesFromFirebase();
     setTimeout(()=>{
@@ -1121,7 +1125,7 @@ function renderGrid(){
         l.exam?`<span class="lr-chip exam">📝 מבחן</span>`:'',
         l.isNew?`<span class="lr-chip new">✨ חדש</span>`:'',
       ].filter(Boolean).join('');
-      const action=locked?'':`openLesson('${l.id}','${l.file||''}')`;
+      const action=locked?'':`openLesson('${l.id}','${l.file||''}','${unit.id}')`;
       rows+=`
       <div class="lesson-row${done?' done':''}${locked?' locked':''}" style="--lc:${l.color}" onclick="${action}">
         <div class="lr-icon" style="background:${l.color}18">${l.emoji}<div class="lr-done">✓</div></div>
@@ -1198,12 +1202,13 @@ function scrollToUnit(uid){
 /* ════════════════════════════════════════════════
    OPEN LESSON — pass answers_visible flag via URL
 ════════════════════════════════════════════════ */
-function openLesson(lid,file){
+function openLesson(lid,file,uid){
   if(!file){toast('🚧 שיעור זה בפיתוח');return}
+  const backUrl=uid?'index.html?unit='+uid:'index.html';
   const params=new URLSearchParams({
     student:S.name,
     role:S.role,
-    back:'index.html',
+    back:backUrl,
     answers_visible: isAnswersVisible(lid) ? '1' : '0'
   });
   window.location.href=file+'?'+params.toString();
