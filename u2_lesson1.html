@@ -306,14 +306,8 @@ button,input,select,textarea{font-family:inherit}
 }
 .print-header{display:none}
 
-/* ─── OPEN QUESTION ─── */
-.open-wrap{margin-bottom:.55rem}
-.open-textarea{width:100%;min-height:110px;padding:.9rem 1.1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text);line-height:1.72;resize:vertical;outline:none;transition:border-color .15s,box-shadow .15s;}
-.open-textarea:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.1)}
-.open-textarea:disabled{opacity:.7;cursor:default;background:var(--surface3)}
-.open-hint{font-size:.72rem;color:var(--muted);margin-top:.32rem;line-height:1.5}
-.open-rubric{margin-top:.65rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.75rem 1rem;font-size:.78rem;color:var(--text-mid);line-height:1.6}
-.open-rubric strong{color:var(--text)}
+/* open question */
+.open-wrap{margin-bottom:.5rem}.open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none}.open-textarea:focus{border-color:var(--lc)}.open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}.open-hint{font-size:.72rem;color:var(--muted);margin-top:.3rem}.open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55}
 </style>
 </head>
 <body>
@@ -589,7 +583,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="quiz-hd-title">✏️ תרגול — 20 שאלות על חלקי הדיבור</div>
     <div class="quiz-hd-desc">שאלות על זיהוי ותפקיד חלקי הדיבור בשלושת המשפטים ובתיאוריה.</div>
     <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="qp-fill" style="width:0%"></div></div>
-    <div class="quiz-prog-row"><span id="qp-counter">0 / 21 נענו</span></div>
+    <div class="quiz-prog-row"><span id="qp-counter">0 / 20 נענו</span></div>
   </div>
 
   <div id="questions-container"></div>
@@ -664,7 +658,7 @@ function initFirebase(){
 async function saveScore(score,studentName,className){
   if(!_db) return;
   const now=new Date();
-  const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:studentName||'תלמיד/ה',className:className||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,totalQuestions:QUESTIONS.length,openAnswers:QUESTIONS.filter(q=>q.type==='open').map(q=>({id:q.id,q:q.q,text:QS.answers[q.id]?.text||''}))};
+  const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:studentName||'תלמיד/ה',className:className||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,totalQuestions:QUESTIONS.length};
   try{await _db.collection('lashon2_submissions').add(d);await _db.collection('lashon2_live').doc('latest').set(d);}catch(e){console.warn(e)}
 }
 
@@ -704,7 +698,7 @@ const QUESTIONS=[
    q:'מהו חלק הדיבור של "בשקט"?',
    opts:['מילת יחס — ב + שקט','תואר הפועל — מתאר איך קראה','שם עצם — שם של מצב','שם תואר — מתאר את הקריאה'],
    ans:1,
-   explain:'"בשקט" = ב (מילת יחס) + שקט (שם עצם). בניתוח תחבירי של הצירוף כולו — תפקידו <strong>תואר הפועל</strong> (עונה: איך קראה?). ברמת המילה הבודדת "ב" = מילת יחס, אך כצירוף = תואר הפועל.',
+   explain:'"בשקט" = ב (מילת יחס) + שקט (שם עצם). אבל כמכלול תפקידו הוא <strong>תואר הפועל</strong> — הוא עונה על "איך קראה?" = בשקט. בניתוח תחבירי — תואר הפועל; ברמת המילה הבודדת "ב" = מילת יחס.',
    teacherNote:'שאלה עדינה — ההבדל בין ניתוח מילה לניתוח צירוף.'},
 
   {id:'q03',type:'mc',ref:'משפט א׳',
@@ -819,26 +813,27 @@ const QUESTIONS=[
    explain:'לא נכון. כינוי קניין מבטא שייכות ולרוב מצטרף לשם עצם, לא מחליף אותו לגמרי. "הספר שלי" — שלי מבטא שייכות, לא מחליף את "הספר". כינוי גוף ("הוא") מחליף שם עצם שלם.',
    teacherNote:''},
 
-  {id:'q19',type:'mc',ref:'תיאוריה',
-   q:'מהי ההגדרה הנכונה לשם תואר?',
-   opts:['מבטא פעולה ומשתנה לפי גוף, זמן ומין','מתאר שם עצם ומסכים אתו בגוף, מין ומספר','מקשר בין שם עצם לשאר המשפט — אחריו תמיד שם','מחליף שם עצם ומונע חזרה'],
-   ans:1,
-   explain:'שם תואר: (1) מתאר שם עצם (2) מסכים אתו — גוף, מין, מספר, ידיעה. "ילד גדול" → גדול מסכים עם ילד (זכר יחיד). זו הבחנה קריטית משם עצם ומתואר הפועל.',
-   teacherNote:'הגדרת שם תואר נבדקת ישירות בבגרות. מלכודת: שם תואר מסכים; תואר הפועל אינו מסכים.'},
+  {id:'q19',type:'sort',ref:'תיאוריה',
+   q:'סדרו לפי הגדרה → חלק הדיבור המתאים:',
+   items:['מקשר שני משפטים ומבטא סיבה/ניגוד → מילת קישור','מתאר שם עצם ומסכים אתו → שם תואר','מבטא פעולה ומשתנה לפי גוף/זמן → פועל','מקשר שם עצם לשאר המשפט, אחריו שם → מילת יחס'],
+   correctOrder:[1,0,2,3],
+   explain:'שם תואר (מתאר+מסכים) ← מילת קישור (מקשר משפטים) ← פועל (פעולה+הטיה) ← מילת יחס (מקשר+שם אחריה). סדר לפי מורכבות ההגדרה.',
+   teacherNote:''},
 
   {id:'q20',type:'mc',ref:'תיאוריה',
    q:'המשפט: "היא רצה מהר לבית הספר." — כמה תארי פועל יש בו?',
    opts:['אחד — מהר','שניים — מהר, לבית הספר','שלושה — מהר, ל, בית הספר','אין תארי פועל'],
    ans:1,
    explain:'"מהר" = תואר הפועל (איך רצה?). "לבית הספר" = צירוף יחסי שעונה על "לאן?" = גם הוא תואר פועל (מקום/כיוון). סה"כ שני תארי פועל: מהר (אופן) + לבית הספר (מקום).',
-   teacherNote:''},,
+   teacherNote:''},
   {id:'q21',type:'open',ref:'ניתוח תחבירי',
-   q:'נתח/י את המשפט הבא: <strong>"הילדה החכמה קראה ספר מרתק על הטבע בשקט."</strong><br>בחר/י שלוש מילים שונות וציין/י לכל אחת: (א) חלק הדיבור (ב) הנמקה קצרה.',
-   placeholder:'לדוגמה:\n"קראה" — פועל, כי ניתן להטות אותו (קראתי, קראת...) ומבטא פעולה.\n"החכמה" — שם תואר, כי מסכים עם "הילדה" ומתאר תכונה שלה.\n"על" — מילת יחס, כי מקשרת בין "ספר" ל"הטבע".',
-   hint:'חלקי הדיבור: שם עצם, שם תואר, פועל, מילת יחס, כינוי, תואר הפועל, מילת קישור.',
-   rubric:'(א) שלוש מילים מסוגים שונים (ב) שם חלק הדיבור הנכון (ג) הנמקה מבוססת (הטיה/הסכמה/קישור) (ד) לשון מדויקת',
-   explain:'ניתוח תחבירי מלא נדרש בבגרות: חלק הדיבור + ראיה/הנמקה. ציון חלק הדיבור בלבד = ניקוד חלקי.',
-   teacherNote:'בדקו: האם התלמיד מנמק? הנמקה ב"בשקט": כצירוף = תואר הפועל. ב"על" לבד = מילת יחס.'},
+   q:'נתח/י שלוש מילים מהמשפט: <strong>"הילדה החכמה קראה ספר מרתק על הטבע בשקט."</strong><br>לכל מילה: חלק דיבור + הנמקה קצרה.',
+   placeholder:'קראה — פועל, כי ניתן להטות: קראתי, קראת.\nהחכמה — שם תואר, כי מסכים עם הילדה.\nעל — מילת יחס, כי מקשרת ספר לטבע.',
+   hint:'חלקי דיבור: שם עצם / שם תואר / פועל / מילת יחס / כינוי / תואר הפועל / מילת קישור.',
+   rubric:'(א) שלוש מילים שונות (ב) חלק הדיבור הנכון (ג) הנמקה מבוססת',
+   explain:'ניתוח תחבירי = חלק הדיבור + הנמקה. ציון שם בלבד = ניקוד חלקי.',
+   teacherNote:'בדקו: האם התלמיד מנמק? הנמקה: הטיה לפועל, הסכמה לשם תואר, קישור למילת יחס.'}
+,
 ];
 
 /* ════════════════════════════════════════════════
@@ -924,11 +919,11 @@ function buildCard(q,i){
         </div>`).join('')}
       </div>`;
   }
-  }else if(q.type==='open'){
-    input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י את תשובתך כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
+    }else if(q.type==='open'){
+    input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
   }
-  const refBadge=q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#ddd6fe">📍 ${q.ref}</span>`:'';
-  const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>`;
+const refBadge=q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#ddd6fe">📍 ${q.ref}</span>`:'';
+  const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור'}</span>`;
   return `
   <div class="q-card" id="card_${q.id}">
     <div class="q-num">שאלה ${i+1} מתוך ${QUESTIONS.length} ${tb} ${refBadge}</div>
@@ -967,15 +962,7 @@ function dDrop(e,qid){
   _ds.classList.remove('dragging');_ds=null;saveSA(qid);updateCounter();
 }
 function saveSA(qid){const con=document.getElementById(qid+'_sort');if(!con)return;QS.answers[qid]={type:'sort',order:[...con.children].map(el=>parseInt(el.dataset.origidx))};}
-
-function pickOpen(qid){
-  if(QS.submitted)return;
-  const el=document.getElementById(qid+'_oa');if(!el)return;
-  const val=(el.value||'').trim();
-  if(val.length>0) QS.answers[qid]={type:'open',text:val};
-  else delete QS.answers[qid];
-  updateCounter();
-}
+function pickOpen(qid){if(typeof QST!=='undefined'&&QST.submitted)return;if(typeof QS!=='undefined'&&!Array.isArray(QS)&&QS.submitted)return;const el=document.getElementById(qid+'_oa');if(!el)return;const val=(el.value||'').trim();const st=typeof QST!=='undefined'?QST:QS;if(val.length>0)st.answers[qid]={type:'open',text:val};else delete st.answers[qid];if(typeof updateCounter==='function')updateCounter();}
 function updateCounter(){
   const n=Object.keys(QS.answers).length;const pct=Math.round(n/QUESTIONS.length*100);
   const fill=document.getElementById('qp-fill');if(fill)fill.style.width=pct+'%';
@@ -987,7 +974,7 @@ function updateCounter(){
 ════════════════════════════════════════════════ */
 function submitQuiz(){
   const answered=Object.keys(QS.answers).length;
-  if(answered<QUESTIONS.length){toast(`⚠️ ענה על כל 21 השאלות (נענו ${answered})`);return}
+  if(answered<QUESTIONS.length){toast(`⚠️ ענה על כל 20 השאלות (נענו ${answered})`);return}
   if(QS.submitted){toast('כבר הגשת');return}
   if(USER_ROLE==='student'&&!_gateConfirmed){toast('⚠️ נא למלא שם וכיתה');reopenGate();return}
   QS.submitted=true;
@@ -1007,11 +994,7 @@ function submitQuiz(){
       if(tb){tb.disabled=true;tb.classList.remove('sel');if(q.ans===true)tb.classList.add('correct');else if(a?.sel===true)tb.classList.add('wrong')}
       if(fb2){fb2.disabled=true;fb2.classList.remove('sel');if(q.ans===false)fb2.classList.add('correct');else if(a?.sel===false)fb2.classList.add('wrong')}
     }else if(q.type==='sort'){const con=document.getElementById(`${q.id}_sort`);if(con){con.style.pointerEvents='none';con.style.opacity=ok?'1':'0.8';}}
-    else if(q.type==='open'){const ta=document.getElementById(`${q.id}_oa`);if(ta)ta.disabled=true;}
-    if(fb){
-      if(q.type==='open'){fb.innerHTML=`<div class="open-rubric"><strong>✍️ תשובתך נשמרה.</strong> ${q.explain}${q.rubric?'<br><strong>נקודות לבדיקה:</strong> '+q.rubric:''}</div>`;fb.className='q-feedback show ok';}
-      else{fb.textContent=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;fb.className=`q-feedback show ${ok?'ok':'wrong'}`;}
-    }
+    if(fb){fb.textContent=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;fb.className=`q-feedback show ${ok?'ok':'wrong'}`;}
   });
   _lastScore=Math.round(correct/QUESTIONS.length*100);_lastCorrect=correct;
   const pct=_lastScore;const col=pct>=80?'var(--green)':pct>=60?'var(--amber)':'var(--red)';const emoji=pct>=90?'🏆':pct>=80?'🎉':pct>=60?'👍':'💪';
@@ -1046,18 +1029,17 @@ function submitQuiz(){
   if(window.opener)try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID,score:pct,studentName:STUDENT_NAME,className:STUDENT_CLASS},'*')}catch{}
 }
 function resetQuiz(){
-  Object.keys(QS.answers).forEach(k=>delete QS.answers[k]);QS.submitted=false;_lastScore=null;_lastCorrect=0;
+  QUESTIONS.forEach(q=>{if(q.type==='open'){const t=document.getElementById(q.id+'_oa');if(t){t.disabled=false;t.value='';}}}); Object.keys(QS.answers).forEach(k=>delete QS.answers[k]);QS.submitted=false;_lastScore=null;_lastCorrect=0;
   QUESTIONS.forEach(q=>{
     if(q.type==='mc')q.opts.forEach((_,i)=>{const b=document.getElementById(`${q.id}_o${i}`);if(b){b.disabled=false;b.className='mc-btn'}});
     else if(q.type==='tf'){const t=document.getElementById(`${q.id}_t`),f=document.getElementById(`${q.id}_f`);if(t){t.disabled=false;t.className='tf-btn'}if(f){f.disabled=false;f.className='tf-btn'}}
     else if(q.type==='sort'){const con=document.getElementById(`${q.id}_sort`);if(con){con.style.pointerEvents='';con.style.opacity=''}}
-    else if(q.type==='open'){const ta=document.getElementById(`${q.id}_oa`);if(ta){ta.disabled=false;ta.value=''}}
     const card=document.getElementById(`card_${q.id}`);if(card)card.className='q-card';
     const fb=document.getElementById(`${q.id}_fb`);if(fb){fb.className='q-feedback';fb.textContent=''}
   });
   const rc=document.getElementById('results-container');if(rc)rc.innerHTML='';
   const fill=document.getElementById('qp-fill');if(fill)fill.style.width='0%';
-  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent='0 / 21 נענו';
+  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent='0 / 20 נענו';
 }
 function sendResults(pct){
   const email=LS.get('lashon2_teacher_email','')||LS.get('teacher_email','');
@@ -1076,11 +1058,11 @@ function renderAnswers(){
   c.innerHTML=QUESTIONS.map((q,i)=>`
   <div class="answer-row">
     <div class="ans-num">שאלה ${i+1}
-      <span style="font-size:.56rem;font-weight:700;padding:.12rem .45rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>
+      <span style="font-size:.56rem;font-weight:700;padding:.12rem .45rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור'}</span>
       ${q.ref?`<span style="font-size:.56rem;color:var(--lc);font-weight:700">📍 ${q.ref}</span>`:''}
     </div>
     <div class="ans-q">${q.q}</div>
-    <div class="ans-correct">✅ ${q.type==='mc'?`<strong>${['א','ב','ג','ד'][q.ans]}</strong> — ${q.opts[q.ans]}`:q.type==='tf'?`<strong>${q.ans?'נכון':'לא נכון'}</strong>`:q.type==='open'?`<span style="color:var(--lc);font-weight:600">שאלת כתיבה פתוחה</span>`:`סדר: ${q.correctOrder.map(j=>q.items[j]).join(' ← ')}`}</div>
+    <div class="ans-correct">✅ ${q.type==='mc'?`<strong>${['א','ב','ג','ד'][q.ans]}</strong> — ${q.opts[q.ans]}`:q.type==='tf'?`<strong>${q.ans?'נכון':'לא נכון'}</strong>`:q.type==='open'?'שאלת כתיבה פתוחה':`סדר: ${q.correctOrder.map(j=>q.items[j]).join(' ← ')}`}</div>
     <div class="ans-explain">💡 ${q.explain}</div>
     ${q.teacherNote?`<div class="ans-teacher-note">🎓 ${q.teacherNote}</div>`:''}
   </div>`).join('');

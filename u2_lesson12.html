@@ -242,14 +242,8 @@ button,input,select,textarea{font-family:inherit}
 }
 .print-header{display:none}
 
-/* ─── OPEN QUESTION ─── */
-.open-wrap{margin-bottom:.55rem}
-.open-textarea{width:100%;min-height:110px;padding:.9rem 1.1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text);line-height:1.72;resize:vertical;outline:none;transition:border-color .15s,box-shadow .15s;}
-.open-textarea:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.1)}
-.open-textarea:disabled{opacity:.7;cursor:default;background:var(--surface3)}
-.open-hint{font-size:.72rem;color:var(--muted);margin-top:.32rem;line-height:1.5}
-.open-rubric{margin-top:.65rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.75rem 1rem;font-size:.78rem;color:var(--text-mid);line-height:1.6}
-.open-rubric strong{color:var(--text)}
+/* open question */
+.open-wrap{margin-bottom:.5rem}.open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none}.open-textarea:focus{border-color:var(--lc)}.open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}.open-hint{font-size:.72rem;color:var(--muted);margin-top:.3rem}.open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55}
 </style>
 </head>
 <body>
@@ -626,7 +620,7 @@ function initFirebase(){
 async function saveScore(score,studentName,className){
   if(!_db) return;
   const now=new Date();
-  const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:studentName||'תלמיד/ה',className:className||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,totalQuestions:QUESTIONS.length,openAnswers:QUESTIONS.filter(q=>q.type==='open').map(q=>({id:q.id,q:q.q,text:QS.answers?.[q.id]?.text||''}))};
+  const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:studentName||'תלמיד/ה',className:className||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,totalQuestions:QUESTIONS.length};
   try{await _db.collection('lashon2_submissions').add(d);await _db.collection('lashon2_live').doc('latest').set(d);}catch(e){console.warn(e)}
 }
 
@@ -790,15 +784,15 @@ const QUESTIONS=[
    opts:['בין שני פריטים ברשימה','לפני "אבל"','בין נושא לנשוא ללא תוסף ביניהם — "דנה קראה ספר"','לפני תוסף מוקף'],
    ans:2,
    explain:'בין נושא לנשוא — ללא פסיק (אלא אם יש תוסף ביניהם). ✗ "דנה, קראה ספר." ✓ "דנה קראה ספר." ✓ "דנה, האחות שלי, קראה ספר." (תוסף)',
-   teacherNote:'שגיאה נפוצה מאוד בקרב תלמידים.,
-  {id:'q21',type:'open',ref:'ניתוח — פיסוק',
-   q:'הוסף/י פיסוק נכון למשפט הבא והסבר/י כל סימן שהוספת ומדוע: <br><strong>"מנהל בית הספר אמר לתלמידים שמחר יום חופש אבל מי שלא הגיע לשיעורים ייאלץ להישאר"</strong>',
-   placeholder:'מנהל בית הספר אמר לתלמידים, שמחר יום חופש, אבל מי שלא הגיע לשיעורים — ייאלץ להישאר.\nסימנים:\n, אחרי "לתלמידים" — הפסקה לפני ביטוי מובא.\n, אחרי "יום חופש" — הפסקה בין שתי פסוקיות מחוברות.\n— לפני "ייאלץ" — הדגשת הניגוד.',
-   hint:'פסיק: בין פסוקיות, אחרי תיאור ארוך, לפני "אבל/אך/אולם". מקף: הדגשה, הכנסת הסבר. נקודה-פסיק: בין יחידות מורכבות.',
-   rubric:'(א) הוספת לפחות 3 סימני פיסוק (ב) הסבר תפקיד כל סימן (ג) שימוש נכון בכללי הפסיק',
-   explain:'פיסוק תקני: פסיק לפני "אבל", בין פסוקיות תלויות ועצמאיות, מקף להדגשה.',
-   teacherNote:'בדקו: האם התלמיד מסביר כל סימן ולא רק מוסיף? הבנת הכלל > הנחת הסימן.'},
-];'},
+   teacherNote:'שגיאה נפוצה מאוד בקרב תלמידים.'},
+  {id:'q21',type:'open',ref:'ניתוח פיסוק',
+   q:'הוסף/י פיסוק נכון והסבר/י כל סימן:<br><strong>"מנהל בית הספר אמר שמחר יום חופש אבל מי שלא הגיע ייאלץ להישאר"</strong>',
+   placeholder:'מנהל בית הספר אמר, שמחר יום חופש, אבל מי שלא הגיע — ייאלץ להישאר.\nפסיק אחרי "אמר": לפני פסוקית מובאת.\nפסיק אחרי "חופש": בין שתי פסוקיות.\nמקף לפני "ייאלץ": הדגשת הניגוד.',
+   hint:'פסיק: לפני "אבל/אך", בין פסוקיות. מקף: הדגשה, הכנסת הסבר.',
+   rubric:'(א) 3+ סימני פיסוק (ב) הסבר תפקיד כל סימן (ג) שימוש נכון בכללי הפסיק',
+   explain:'פיסוק תקני: פסיק לפני "אבל", בין פסוקיות, מקף להדגשה.',
+   teacherNote:'בדקו: הסבר הכלל > הנחת הסימן. הבנה > שינון.'}
+,
 ];
 
 /* ════════════════════════════════════════════════
@@ -884,11 +878,11 @@ function buildCard(q,i){
         </div>`).join('')}
       </div>`;
   }
-  }else if(q.type==='open'){
-    input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י את תשובתך כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
+    }else if(q.type==='open'){
+    input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
   }
-  const refBadge=q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#fde68a">📍 ${q.ref}</span>`:'';
-  const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>`;
+const refBadge=q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#fde68a">📍 ${q.ref}</span>`:'';
+  const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור'}</span>`;
   return `
   <div class="q-card" id="card_${q.id}">
     <div class="q-num">שאלה ${i+1} מתוך ${QUESTIONS.length} ${tb} ${refBadge}</div>
@@ -927,14 +921,7 @@ function dDrop(e,qid){
   _ds.classList.remove('dragging');_ds=null;saveSA(qid);updateCounter();
 }
 function saveSA(qid){const con=document.getElementById(qid+'_sort');if(!con)return;QS.answers[qid]={type:'sort',order:[...con.children].map(el=>parseInt(el.dataset.origidx))};}
-function pickOpen(qid){
-  if(QS.submitted)return;
-  const el=document.getElementById(qid+'_oa');if(!el)return;
-  const val=(el.value||'').trim();
-  if(val.length>0)QS.answers[qid]={type:'open',text:val};
-  else delete QS.answers[qid];
-  updateCounter();
-}
+function pickOpen(qid){if(typeof QST!=='undefined'&&QST.submitted)return;if(typeof QS!=='undefined'&&!Array.isArray(QS)&&QS.submitted)return;const el=document.getElementById(qid+'_oa');if(!el)return;const val=(el.value||'').trim();const st=typeof QST!=='undefined'?QST:QS;if(val.length>0)st.answers[qid]={type:'open',text:val};else delete st.answers[qid];if(typeof updateCounter==='function')updateCounter();}
 function updateCounter(){
   const n=Object.keys(QS.answers).length;const pct=Math.round(n/QUESTIONS.length*100);
   const fill=document.getElementById('qp-fill');if(fill)fill.style.width=pct+'%';
@@ -1001,7 +988,7 @@ function submitQuiz(){
   if(window.opener)try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID,score:pct,studentName:STUDENT_NAME,className:STUDENT_CLASS},'*')}catch{}
 }
 function resetQuiz(){
-  Object.keys(QS.answers).forEach(k=>delete QS.answers[k]);QS.submitted=false;_lastScore=null;_lastCorrect=0;
+  QUESTIONS.forEach(q=>{if(q.type==='open'){const t=document.getElementById(q.id+'_oa');if(t){t.disabled=false;t.value='';}}}); Object.keys(QS.answers).forEach(k=>delete QS.answers[k]);QS.submitted=false;_lastScore=null;_lastCorrect=0;
   QUESTIONS.forEach(q=>{
     if(q.type==='mc')q.opts.forEach((_,i)=>{const b=document.getElementById(`${q.id}_o${i}`);if(b){b.disabled=false;b.className='mc-btn'}});
     else if(q.type==='tf'){const t=document.getElementById(`${q.id}_t`),f=document.getElementById(`${q.id}_f`);if(t){t.disabled=false;t.className='tf-btn'}if(f){f.disabled=false;f.className='tf-btn'}}
@@ -1030,7 +1017,7 @@ function renderAnswers(){
   c.innerHTML=QUESTIONS.map((q,i)=>`
   <div class="answer-row">
     <div class="ans-num">שאלה ${i+1}
-      <span style="font-size:.56rem;font-weight:700;padding:.12rem .45rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>
+      <span style="font-size:.56rem;font-weight:700;padding:.12rem .45rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':'סידור'}</span>
       ${q.ref?`<span style="font-size:.56rem;color:var(--lc);font-weight:700">📍 ${q.ref}</span>`:''}
     </div>
     <div class="ans-q">${q.q}</div>

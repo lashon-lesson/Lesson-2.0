@@ -296,14 +296,8 @@ button,input,select,textarea{font-family:inherit}
 }
 .print-header{display:none}
 
-/* ─── OPEN QUESTION ─── */
-.open-wrap{margin-bottom:.55rem}
-.open-textarea{width:100%;min-height:110px;padding:.9rem 1.1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text);line-height:1.72;resize:vertical;outline:none;transition:border-color .15s,box-shadow .15s;}
-.open-textarea:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.1)}
-.open-textarea:disabled{opacity:.7;cursor:default;background:var(--surface3)}
-.open-hint{font-size:.72rem;color:var(--muted);margin-top:.32rem;line-height:1.5}
-.open-rubric{margin-top:.65rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.75rem 1rem;font-size:.78rem;color:var(--text-mid);line-height:1.6}
-.open-rubric strong{color:var(--text)}
+/* open question */
+.open-wrap{margin-bottom:.5rem}.open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none}.open-textarea:focus{border-color:var(--lc)}.open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}.open-hint{font-size:.72rem;color:var(--muted);margin-top:.3rem}.open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55}
 </style>
 </head>
 <body>
@@ -586,7 +580,7 @@ function initFirebase(){
 async function saveScore(score,studentName,className){
   if(!_db) return;
   const now=new Date();
-  const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:studentName||'תלמיד/ה',className:className||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,totalQuestions:QUESTIONS.length,openAnswers:QUESTIONS.filter(q=>q.type==='open').map(q=>({id:q.id,q:q.q,text:QS.answers[q.id]?.text||''}))};
+  const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:studentName||'תלמיד/ה',className:className||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,totalQuestions:QUESTIONS.length};
   try{await _db.collection('lashon2_submissions').add(d);await _db.collection('lashon2_live').doc('latest').set(d);}catch(e){console.warn(e)}
 }
 
@@ -775,16 +769,15 @@ const QUESTIONS=[
    opts:['כי','אולם','לכן — שתיהן תוצאה: מה שאחריהן הוא מה שנגרם','למרות ש'],
    ans:2,
    explain:'"לפיכך" = תוצאה פורמלית. מחליפות: "לכן", "על כן", "כתוצאה מכך". "כי" = סיבה (כיוון הפוך). "אולם" = ניגוד.',
-   teacherNote:''},,
-  {id:'q24',type:'open',ref:'ניתוח — קשרים לוגיים',
-   q:'קרא/י את המשפט: <strong>"למרות שגשם, יצאנו לטיול, כי חיכינו לרגע הזה כל השנה."</strong><br>זהה/י את כל מילות הקישור, ציין/י את הקשר הלוגי של כל אחת ואת יחידות המידע שהן מחברות.',
-   placeholder:'למרות ש — ויתור/הפניה: מחברת "גשם" (גורם שהיינו מצפים שימנע) עם "יצאנו" (מה שקרה בפועל).
-כי — ...',
-   hint:'קשרים לוגיים: סיבה (כי, מפני ש), תוצאה (לכן, לפיכך), ניגוד (אבל, אך, אולם), ויתור (למרות ש, אף על פי ש), תנאי (אם, כאשר).',
-   rubric:'(א) זיהוי שתי מילות קישור לפחות (ב) שם הקשר הלוגי הנכון (ג) פירוט יחידות המידע המחוברות',
-   explain:'ניתוח מילות קישור = שם הקישור + סוג הקשר + מה הוא מחבר. בגרות: לא מספיק לציין שם — יש לנמק.',
-   teacherNote:'שאלה מורכבת — בודקת שלוש מיומנויות: זיהוי, קטגוריה, ויחסים. ציינו נקודה על כל אחת.'},
-];
+   teacherNote:''},
+  {id:'q24',type:'open',ref:'ניתוח קשרים',
+   q:'זהה/י את מילות הקישור במשפט וציין/י את הקשר הלוגי של כל אחת:<br><strong>"למרות שגשם, יצאנו לטיול, כי חיכינו כל השנה."</strong>',
+   placeholder:'למרות ש — ויתור: גשם לא מנע את הטיול.\nכי — סיבה: הסיבה ליציאה היא ההמתנה.',
+   hint:'קשרים: סיבה (כי), תוצאה (לכן), ניגוד (אבל), ויתור (למרות ש), תנאי (אם).',
+   rubric:'(א) שתי מילות קישור (ב) שם הקשר הלוגי (ג) הסבר מה הן מחברות',
+   explain:'ניתוח = שם הקישור + סוג הקשר + היחידות המחוברות.',
+   teacherNote:'בדקו: שם הקשר הלוגי + פירוט. לא מספיק "למרות ש = ויתור" בלי הסבר.'}
+,
 ];
 
 /* ════════════════════════════════════════════════
@@ -869,10 +862,10 @@ function buildCard(q,i){
         <span class="sort-text">${q.items[j]}</span>
       </div>`).join('')}</div>`;
   }
-  }else if(q.type==='open'){
-    input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י את תשובתך כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
+    }else if(q.type==='open'){
+    input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
   }
-  const tn=q.teacherNote?`<div style="font-size:.75rem;color:var(--lc);margin-top:.45rem;background:var(--lc-lt);border-radius:8px;padding:.38rem .7rem">🎓 ${q.teacherNote}</div>`:'';
+const tn=q.teacherNote?`<div style="font-size:.75rem;color:var(--lc);margin-top:.45rem;background:var(--lc-lt);border-radius:8px;padding:.38rem .7rem">🎓 ${q.teacherNote}</div>`:'';
   const fb=`<div class="q-feedback" id="${q.id}_fb"></div>`;
   return `<div class="q-card" id="${q.id}_card">
     <div class="q-num">שאלה ${i+1} מתוך ${QUESTIONS.length} <span class="q-type-badge">${q.ref}</span></div>
@@ -918,15 +911,7 @@ function pickTF(qid,val){
   ['t','f'].forEach(k=>{const b=document.getElementById(qid+'_'+k);if(b)b.classList.toggle('sel',k==='t'?val:!val);});
   updateProgress();
 }
-
-function pickOpen(qid){
-  if(QS.submitted)return;
-  const el=document.getElementById(qid+'_oa');if(!el)return;
-  const val=(el.value||'').trim();
-  if(val.length>0) QS.answers[qid]={type:'open',text:val};
-  else delete QS.answers[qid];
-  updateProgress();
-}
+function pickOpen(qid){if(typeof QST!=='undefined'&&QST.submitted)return;if(typeof QS!=='undefined'&&!Array.isArray(QS)&&QS.submitted)return;const el=document.getElementById(qid+'_oa');if(!el)return;const val=(el.value||'').trim();const st=typeof QST!=='undefined'?QST:QS;if(val.length>0)st.answers[qid]={type:'open',text:val};else delete st.answers[qid];if(typeof updateProgress==='function')updateProgress();}
 function updateProgress(){
   const done=Object.keys(QS.answers).length;
   const pct=Math.round(done/QUESTIONS.length*100);
@@ -964,10 +949,9 @@ function submitQuiz(){
       ok=!!(a?.text&&a.text.length>10);
     }
     if(ok)correct++;
-    if(q.type==='open'){const ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;}
     const card=document.getElementById(q.id+'_card');if(card)card.classList.add(ok?'ok':'wrong');
     const fb=document.getElementById(q.id+'_fb');
-    if(fb){if(q.type==='open'){fb.className='q-feedback show ok';fb.innerHTML=`<div class="open-rubric"><strong>✍️ תשובתך נשמרה.</strong> ${q.explain}${q.rubric?'<br><strong>נקודות לבדיקה:</strong> '+q.rubric:''}</div>`;}else{fb.className='q-feedback show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;}}
+    if(fb){if(q.type==='open'){const ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='q-feedback show ok';fb.innerHTML='<div class="open-rubric"><strong>✍️ נשמר.</strong> '+q.explain+'</div>';}else{fb.className='q-feedback show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;}}
   });
   _lastCorrect=correct;_lastScore=Math.round(correct/QUESTIONS.length*100);
   const pct=_lastScore;
@@ -991,7 +975,7 @@ async function sendResults(){
 }
 function resetQuiz(){
   QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;
-  renderQuestions();updateProgress();
+  QUESTIONS.forEach(q=>{if(q.type==='open'){const t=document.getElementById(q.id+'_oa');if(t){t.disabled=false;t.value='';}}});renderQuestions();updateProgress();
   const rc=document.getElementById('results-container');if(rc){rc.style.display='none';rc.innerHTML='';}
   const sr=document.getElementById('submit-row');
   if(!sr){
@@ -1010,8 +994,7 @@ function renderAnswers(){
     let ans='';
     if(q.type==='mc')ans=`${LETTERS[q.ans]}. ${q.opts[q.ans]}`;
     else if(q.type==='tf')ans=q.ans?'✅ נכון':'❌ לא נכון';
-    else if(q.type==='sort')ans=q.correctOrder.map(j=>q.items[j]).join(' ← ');
-    else if(q.type==='open')ans='שאלת כתיבה פתוחה';
+    else if(q.type==='sort')ans=q.correctOrder.map(j=>q.items[j]).join(' ← ');else if(q.type==='open')ans='שאלת כתיבה פתוחה';
     return `<div class="answer-row">
       <div class="ans-num">שאלה ${i+1} <span style="color:var(--lc)">${q.ref}</span></div>
       <div class="ans-q">${q.q}</div>
