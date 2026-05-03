@@ -227,6 +227,14 @@ button,input,select,textarea{font-family:inherit}
   @page{margin:1.5cm;size:A4}
 }
 .print-header{display:none}
+
+/* open question */
+.open-wrap{margin-bottom:.5rem}
+.open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none;transition:border-color .15s}
+.open-textarea:focus{border-color:var(--lc)}
+.open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}
+.open-hint{font-size:.72rem;color:var(--muted,#9aa3be);margin-top:.3rem}
+.open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid,#374151)}
 </style>
 </head>
 <body>
@@ -238,7 +246,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="topbar-sub">לשון Lesson 2.0 · כיתה י׳</div>
   </div>
   <div class="topbar-actions">
-    <span class="t-chip lc">⏱ 60 דק׳</span>
+    <span class="t-chip lc">⏱ 90 דק׳</span>
     <span class="t-chip teacher" id="role-chip">🎓 מורה</span>
     <button class="btn-print" onclick="printLesson()">🖨️ הדפסה</button>
   </div>
@@ -246,7 +254,7 @@ button,input,select,textarea{font-family:inherit}
 
 <div class="tabs-bar">
   <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📋 הנחיות</button>
-  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">📝 מבחן (25 שאלות)</button>
+  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">📝 מבחן (26 שאלות)</button>
   <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 פתרונות (מורה)</button>
   <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 פתרונות</button>
 </div>
@@ -257,7 +265,7 @@ button,input,select,textarea{font-family:inherit}
 <div class="tab-pane active" id="pane-theory">
 <div class="print-header">
   <h1>📝 מבחן סיכום — יחידה 4: תקינות</h1>
-  <p>לשון Lesson 2.0 | כיתות ט׳–י׳ | 60 דקות | 25 שאלות</p>
+  <p>לשון Lesson 2.0 | כיתות ט׳–י׳ | 90 דקות | 25 שאלות</p>
 </div>
 <div class="lesson-wrap">
 
@@ -267,7 +275,7 @@ button,input,select,textarea{font-family:inherit}
     <h1 class="hero-title">מבחן סיכום — צורות</h1>
     <p class="hero-desc">מבחן מסכם לכל נושאי יחידה 4 — שם המספר, אותיות השימוש, כתיב חסר ומלא, הפיסוק התקני. 25 שאלות ברמות שונות.</p>
     <div class="hero-meta">
-      <span class="hero-chip lc">⏱ 60 דק׳</span>
+      <span class="hero-chip lc">⏱ 90 דק׳</span>
       <span class="hero-chip">📝 30 שאלות</span>
       <span class="hero-chip green">🎯 מבחן מסכם</span>
     </div>
@@ -278,7 +286,7 @@ button,input,select,textarea{font-family:inherit}
   <div style="background:var(--lc-lt);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.4rem 1.6rem;margin-bottom:1.4rem;box-shadow:var(--sh1)">
     <div style="font-family:'Secular One',sans-serif;font-size:.95rem;color:var(--lc);margin-bottom:1rem">📋 קרא/י בעיון לפני שמתחילים</div>
     <div style="display:flex;flex-direction:column;gap:.6rem">
-      <div style="display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem;color:var(--text-mid)"><span style="background:var(--lc);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;flex-shrink:0;margin-top:.05rem">1</span><span><strong>זמן המבחן: 60 דקות.</strong> נהלו את הזמן: ~2 דק' לשאלת רב-בחירה, ~1 דק' לנכון/לא נכון. שאלות הטקסט — הקצו 3-4 דק' לקריאה ראשונית.</span></div>
+      <div style="display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem;color:var(--text-mid)"><span style="background:var(--lc);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;flex-shrink:0;margin-top:.05rem">1</span><span><strong>זמן המבחן: 90 דקות.</strong> נהלו את הזמן: ~2 דק' לשאלת רב-בחירה, ~1 דק' לנכון/לא נכון. שאלות הטקסט — הקצו 3-4 דק' לקריאה ראשונית.</span></div>
       <div style="display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem;color:var(--text-mid)"><span style="background:var(--lc);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;flex-shrink:0;margin-top:.05rem">2</span><span><strong>המבחן מחולק ל-4 חלקים:</strong> שם המספר (q01–q06), אותיות השימוש (q07–q12), כתיב חסר ומלא (q13–q19), הפיסוק התקני (q20–q25).</span></div>
       <div style="display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem;color:var(--text-mid)"><span style="background:var(--lc);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;flex-shrink:0;margin-top:.05rem">3</span><span><strong>שים/י לב לפרטים הקטנים</strong> — פסיק אחד, אות אחת, תנועה אחת — משנים את כל התשובה.</span></div>
       <div style="display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem;color:var(--text-mid)"><span style="background:var(--lc);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;flex-shrink:0;margin-top:.05rem">4</span><span><strong>קרא/י בעיון את הדוגמאות</strong> שמופיעות בשאלות — ניסוח המשפטים חשוב לתשובה הנכונה.</span></div>
@@ -361,7 +369,7 @@ button,input,select,textarea{font-family:inherit}
 <div class="tab-pane" id="pane-practice">
 <div class="print-header">
   <h1>📝 מבחן סיכום — יחידה 4: תקינות</h1>
-  <p>לשון Lesson 2.0 | כיתות ט׳–י׳ | 60 דקות | 25 שאלות</p>
+  <p>לשון Lesson 2.0 | כיתות ט׳–י׳ | 90 דקות | 25 שאלות</p>
 </div>
 <div class="lesson-wrap">
 
@@ -415,7 +423,7 @@ button,input,select,textarea{font-family:inherit}
 
     <div class="quiz-header">
       <div class="quiz-hd-title">📝 מבחן סיכום יחידה 3 — 30 שאלות</div>
-      <div class="quiz-hd-desc">MC · נכון/לא נכון · סדר | 60 דקות | חלקים א–ו</div>
+      <div class="quiz-hd-desc">MC · נכון/לא נכון · סדר | 90 דקות | חלקים א–ו</div>
       <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="prog-fill" style="width:0%"></div></div>
       <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 30 נענו</span><span id="prog-pct">0%</span></div>
     </div>
@@ -658,6 +666,14 @@ const QUESTIONS=[
    explain:'"אמרה המורה: ״פתחו את הספרים״, והתלמידים שמעו." — נקודתיים לפני ציטוט ✅, מירכאות עוטפות ✅, פסיק אחרי הציטוט לפני "ו" שמחבר שני משפטים ✅.',
    teacherNote:'שאלת סיכום — מצריכה שליטה בכמה כללי פיסוק.'},
 
+  {id:'q26',type:'open',ref:'ניתוח מלא — שאלה פתוחה',
+   pts:8,
+   q:'קרא/י את המשפט וענה/י על הסעיפים:<br><strong>"בַּחֲמִישִׁי לַחֹדֶשׁ קָנִינוּ עֶשְׂרִים וּשְׁלֹשָׁה סְפָרִים."</strong><br>(א) הסבר/י את ניקוד בַּ ו-לַ — ציין/י כלל לכל אחד בנפרד (ב) מהו סוג המספר "חמישי" ומדוע? (ג) האם "שלושה" בצורה הנכונה? הסבר/י לפי כלל ההסכמה.',
+   placeholder:'(א) בַּחֲמִישִׁי: ב׳ בפתח + ה׳ נבלעת (ב/כ/ל + ה׳). לַחֹדֶשׁ: ל׳ בפתח + ה׳ נבלעת.\n(ב) חמישי = סודר (מציין מיקום ברצף), מסכים לזכר.\n(ג) שלושה = נכון. ספר=זכר, 3–10 = כלל הפוך → צורה עם ה׳ לזכר.',
+   hint:'ב/כ/ל + ה׳ = ה׳ נבלעת. סודר = מיקום. 3–10: צורה עם ה׳ לזכר.',
+   rubric:'(א) ניקוד + כלל לשניהם — 3נק (ב) סוג + הסבר — 2נק (ג) נכון/לא + כלל — 3נק',
+   explain:'ניתוח מלא = אות שימוש + סוג מספר + כלל הסכמה. פורמט בגרות.',
+   teacherNote:'(א) 3נק: ב׳+ל׳ כלל + ה׳ נבלעת. (ב) 2נק: סודר+הסבר. (ג) 3נק: נכון+כלל ה"הפוך".'},
 ];
 
 /* ══════════════════════════════════════════════
@@ -703,7 +719,7 @@ const SECTION_LABELS={
   q06:'חלק ב — בניינים, משמעויות ובינוני: שיעורים 3–5, 7 (שאלות 6–12)',
   q13:'חלק ג — גזרות: שיעורים 8–10 (שאלות 13–19)',
   q20:'חלק ד — תצורת שם: שיעורים 6, 11 (שאלות 20–24)',
-  q25:'חלק ה — ניתוח הטקסט (שאלות 25–28)',
+  q25:'חלק ה — ניתוח הטקסט (שאלה 26)',
   q29:'חלק ו — שורשים תניינים: שיעור 12 (שאלות 29–30)'
 };
 
@@ -725,9 +741,11 @@ function buildCard(q,i){
     inner='<div class="mc-wrap">'+q.opts.map((o,j)=>`<button class="mc-btn" id="mc_${q.id}_${j}" onclick="pickMC('${q.id}',${j})" ${QS.submitted?'disabled':''}><span class="mc-letter">${LETTERS[j]}</span><span>${o}</span></button>`).join('')+'</div>';
   }else if(q.type==='tf'){
     inner=`<div class="tf-row"><button class="tf-btn" id="tf_${q.id}_t" onclick="pickTF('${q.id}',true)" ${QS.submitted?'disabled':''}>✅ נכון</button><button class="tf-btn" id="tf_${q.id}_f" onclick="pickTF('${q.id}',false)" ${QS.submitted?'disabled':''}>❌ לא נכון</button></div>`;
-  }else{
+  } else if(q.type==='sort'){
     const order=QS.answers[q.id]?.order||q.items.map((_,j)=>j);
     inner=`<div class="sort-note">גרור את הפריטים לסדר הנכון ↕</div><div class="sort-list" id="sort_${q.id}">${order.map(j=>`<div class="sort-item" draggable="true" data-idx="${j}" ondragstart="dStart(event,'${q.id}')" ondragover="dOver(event)" ondrop="dDrop(event,'${q.id}')" ondragend="dEnd(event)"><span class="sort-handle">⠿</span><span class="sort-text">${q.items[j]}</span></div>`).join('')}</div>`;
+  } else if(q.type==='open'){
+    input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
   }
   return `<div class="q-card" id="qcard_${q.id}"><div class="q-num">שאלה ${i+1} <span class="q-type-badge">${tl}</span> <span class="q-pts">${q.pts} נק׳</span> <span style="font-size:.62rem;color:var(--lc);font-weight:700">${q.ref}</span></div><div class="q-text">${q.q}</div>${inner}<div class="q-feedback" id="fb_${q.id}"></div></div>`;
 }
@@ -739,6 +757,15 @@ function dOver(e){e.preventDefault();e.dataTransfer.dropEffect='move';const t=e.
 function dEnd(e){e.currentTarget.classList.remove('dragging');document.querySelectorAll('.sort-item').forEach(el=>el.classList.remove('drag-over'));}
 function dDrop(e,id){e.preventDefault();if(!_dragSrc||_dragSrc===e.currentTarget)return;const list=document.getElementById('sort_'+id);const items=[...list.querySelectorAll('.sort-item')];const fi=items.indexOf(_dragSrc),ti=items.indexOf(e.currentTarget);if(fi<0||ti<0)return;const clone=_dragSrc.cloneNode(true);list.insertBefore(clone,fi<ti?e.currentTarget.nextSibling:e.currentTarget);_dragSrc.remove();clone.ondragstart=ev=>dStart(ev,id);clone.ondragover=dOver;clone.ondrop=ev=>dDrop(ev,id);clone.ondragend=dEnd;QS.answers[id]={order:[...list.querySelectorAll('.sort-item')].map(el=>parseInt(el.dataset.idx))};updateProgress();}
 
+function pickOpen(qid){
+  if(QS.submitted)return;
+  var el=document.getElementById(qid+'_oa');if(!el)return;
+  var val=(el.value||'').trim();
+  if(val.length>0)QS.answers[qid]={type:'open',text:val};
+  else delete QS.answers[qid];
+  if(typeof updateProgress==='function')updateProgress();
+  else if(typeof updateCounter==='function')updateCounter();
+}
 function updateProgress(){
   const ans=Object.keys(QS.answers).length,tot=QUESTIONS.length,pct=Math.round(ans/tot*100);
   const pf=document.getElementById('prog-fill'),pt=document.getElementById('prog-txt'),pp=document.getElementById('prog-pct');
@@ -756,10 +783,11 @@ function submitQuiz(){
     if(q.type==='mc')ok=a?.sel===q.ans;
     else if(q.type==='tf')ok=a?.sel===q.ans;
     else if(q.type==='sort')ok=JSON.stringify(a?.order)===JSON.stringify(q.correctOrder);
+    else if(q.type==='open')ok=!!(a?.text&&a.text.length>10);
     if(ok){correct++;earnedPts+=q.pts;}
     const card=document.getElementById('qcard_'+q.id);if(card){card.classList.toggle('ok',ok);card.classList.toggle('wrong',!ok);}
     const fb=document.getElementById('fb_'+q.id);
-    if(fb){fb.classList.add('show',ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain+(q.teacherNote&&USER_ROLE==='teacher'?'<br><strong>🎓 '+q.teacherNote+'</strong>':'');}
+    if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.classList.add('show','ok');fb.innerHTML='<div class="open-rubric">✍️ '+q.explain+'</div>';}else{fb.classList.add('show',ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain}+(q.teacherNote&&USER_ROLE==='teacher'?'<br><strong>🎓 '+q.teacherNote+'</strong>':'');}
     if(q.type==='mc'){q.opts.forEach((_,j)=>{const b=document.getElementById('mc_'+q.id+'_'+j);if(b){b.disabled=true;if(j===q.ans)b.classList.add('correct');else if(a?.sel===j)b.classList.add('wrong');}});}
     else if(q.type==='tf'){const bt=document.getElementById('tf_'+q.id+'_t'),bf=document.getElementById('tf_'+q.id+'_f');if(bt)bt.disabled=true;if(bf)bf.disabled=true;if(q.ans===true&&bt)bt.classList.add('correct');else if(q.ans===false&&bf)bf.classList.add('correct');if(a?.sel===true&&!q.ans&&bt)bt.classList.add('wrong');if(a?.sel===false&&q.ans&&bf)bf.classList.add('wrong');}
   });
@@ -774,7 +802,7 @@ function submitQuiz(){
   saveScore(_lastScore,STUDENT_NAME,STUDENT_CLASS);
 }
 
-function resetQuiz(){QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;document.getElementById('results-container').style.display='none';document.getElementById('submit-row').style.display='flex';renderQuestions();toast('🔄 המבחן אותחל');}
+function resetQuiz(){QUESTIONS.forEach(function(q){if(q.type==='open'){var t=document.getElementById(q.id+'_oa');if(t){t.disabled=false;t.value='';}}});QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;document.getElementById('results-container').style.display='none';document.getElementById('submit-row').style.display='flex';renderQuestions();toast('🔄 המבחן אותחל');}
 function sendResults(){if(_lastScore===null){toast('אנא הגש/י תחילה');return;}toast('✅ הציון נשלח: '+_lastScore+'%');}
 
 function renderAnswers(){
@@ -783,7 +811,7 @@ function renderAnswers(){
     let ans='';
     if(q.type==='mc')ans=LETTERS[q.ans]+'. '+q.opts[q.ans];
     else if(q.type==='tf')ans=q.ans?'✅ נכון':'❌ לא נכון';
-    else if(q.type==='sort')ans=q.correctOrder.map(j=>q.items[j]).join(' ← ');
+    else if(q.type==='sort')ans=q.correctOrder.map(j=>q.items[j]).join(' ← ');else if(q.type==='open')ans='שאלת כתיבה פתוחה';
     return `<div class="answer-row"><div class="ans-num">שאלה ${i+1} <span class="ans-score">${q.pts} נק׳</span> <span style="color:var(--lc)">${q.ref}</span></div><div class="ans-q">${q.q}</div><div class="ans-correct">✅ ${ans}</div><div class="ans-explain">💡 ${q.explain}</div>${q.teacherNote?'<div class="ans-teacher-note">🎓 '+q.teacherNote+'</div>':''}</div>`;
   }).join('');
 }
