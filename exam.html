@@ -1170,8 +1170,9 @@ function printLesson(){
     var h='<div style="display:flex;gap:.6rem;border:1px solid '+rowBorder+';border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid;background:'+rowBg+'">';
     h+='<div style="width:20px;height:20px;border-radius:50%;background:'+numBg+';color:#fff;font-size:.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem">'+(i+1)+'</div>';
     h+='<div style="flex:1">'+pts+'<div style="font-size:9.5pt;font-weight:700;color:#0d1424;margin-bottom:.3rem">'+q.q+'</div>';
-    h+='<div style="font-size:9pt;padding:.3rem .65rem;border-radius:6px;margin-bottom:.25rem;'+ansStyle+'"><strong>'+ansIcon+' תשובת התלמיד/ה:</strong> '+gv+'</div>';
-    if(submitted&&!ok&&gv!=='לא נענה')h+='<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ התשובה הנכונה:</strong> '+ca+'</div>';
+    if(!isTeacher){h+='<div style="font-size:9pt;padding:.3rem .65rem;border-radius:6px;margin-bottom:.25rem;'+ansStyle+'"><strong>'+ansIcon+' תשובת התלמיד/ה:</strong> '+gv+'</div>';}
+    if(isTeacher){h+='<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ תשובה נכונה:</strong> '+ca+'</div>';}
+    else if(submitted&&!ok&&gv!=='לא נענה'){h+='<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ התשובה הנכונה:</strong> '+ca+'</div>';}
     h+='<div style="font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem;line-height:1.5">'+q.explain+'</div>';
     if(q.teacherNote)h+='<div style="font-size:8pt;color:#ca8a04;margin-top:.2rem;background:#fefce8;border-radius:5px;padding:.25rem .55rem">'+q.teacherNote+'</div>';
     h+='</div></div>';
