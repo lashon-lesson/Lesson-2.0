@@ -1,0 +1,299 @@
+/* ══════════════════════════════════════════════════════════
+   print.css — לשון Lesson 2.0
+   קובץ הדפסה אוניברסלי לכל השיעורים
+   https://lashon-lesson.github.io/Lesson-2.0/print.css
+══════════════════════════════════════════════════════════ */
+
+@media print {
+
+  /* ── הסתר אלמנטי ממשק ── */
+  .topbar,
+  .tabs-bar,
+  .btn-print,
+  .btn-submit,
+  .btn-reset,
+  .btn-send,
+  .btn-back,
+  #submit-row,
+  #results-container,
+  #toast,
+  #student-gate,
+  #gate-confirmed,
+  .sort-handle,
+  .hero-badge,
+  .hero-chip,
+  .hero-meta,
+  .t-chip,
+  .sn-icon,
+  .quiz-prog-bar,
+  .quiz-prog-row,
+  .quiz-header,
+  .open-hint,
+  .gate-btn,
+  .gc-change {
+    display: none !important;
+  }
+
+  /* ── בסיס עמוד ── */
+  @page {
+    margin: 1.5cm;
+    size: A4 portrait;
+  }
+
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 10pt !important;
+    line-height: 1.55 !important;
+  }
+
+  /* ── הצג את כל החלוניות ── */
+  .tab-pane {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  /* ── עטיפת שיעור ── */
+  .lesson-wrap {
+    padding: 0.5cm 1cm !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* ── כותרת הדפסה ── */
+  .print-header {
+    display: block !important;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #0891b2;
+  }
+  .print-header h1 { font-size: 16pt; color: #0891b2; }
+  .print-header p  { font-size: 10pt; color: #555; }
+
+  /* ── מניעת חיתוך באלמנטים ── */
+  .lesson-hero,
+  .card,
+  .q-card,
+  .reading-text-box,
+  .answer-row,
+  .text-panel,
+  .venn-wrap,
+  .cmp-table,
+  .bagrut-template,
+  .mini-card,
+  .steps-wrap,
+  .bagrut-sample,
+  .grid2,
+  .q-row {
+    box-shadow: none !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* ── מעברי עמוד בין חלקים ── */
+  #pane-theory   { page-break-after: always; }
+  #pane-practice { page-break-after: always; }
+
+  /* ── Hero ── */
+  .lesson-hero {
+    background: #faf5ff !important;
+    border: 1px solid #ddd6fe !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .lesson-hero::before { display: none !important; }
+
+  /* ── Cards & Boxes (CSS Variables → ערכים קשיחים) ── */
+  .card {
+    border: 1px solid #e4e7ef;
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.7rem;
+  }
+  .mini-card {
+    background: #f8f9fb !important;
+    border: 1px solid #e4e7ef !important;
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .box-lc, .box {
+    background: #ecfeff !important;
+    border: 1.5px solid #a5f3fc !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .box-amber {
+    background: #fffbeb !important;
+    border: 1.5px solid #fde68a !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .box-green {
+    background: #f0fdf4 !important;
+    border: 1.5px solid #bbf7d0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Section Headers ── */
+  .section-hd {
+    color: #0891b2 !important;
+    border-bottom-color: #ecfeff !important;
+    page-break-after: avoid;
+  }
+  .sn {
+    background: #0891b2 !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Reading Texts ── */
+  .reading-text-box {
+    background: #faf5ff !important;
+    border: 2px solid #0891b2 !important;
+    border-radius: 10px;
+    position: relative;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .rt-tag {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Text Panels ── */
+  .text-panel.a .text-panel-header {
+    background: #7c3aed !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .text-panel.b .text-panel-header {
+    background: #5b21b6 !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Venn ── */
+  .venn-left {
+    background: #eff4ff !important;
+    border: 1.5px solid #bfdbfe !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .venn-center {
+    background: #ede9fe !important;
+    border: 1.5px solid #c4b5fd !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .venn-right {
+    background: #fdf4ff !important;
+    border: 1.5px solid #d8b4fe !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Tables ── */
+  .cmp-table th:first-child,
+  .cmp-table th.col-a {
+    background: #0891b2 !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .cmp-table th.col-b {
+    background: #5b21b6 !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .cmp-table tr:nth-child(even) td {
+    background: #f8f9fb !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .row-label {
+    background: #faf5ff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Steps & Bagrut ── */
+  .steps-wrap {
+    background: #faf5ff !important;
+    border: 1.5px solid #ddd6fe !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .bagrut-sample {
+    background: #faf5ff !important;
+    border: 1.5px solid #ddd6fe !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .bagrut-template {
+    border: 2px dashed #0891b2 !important;
+  }
+
+  /* ── שאלות ── */
+  .q-feedback { display: block !important; }
+
+  .mc-btn { display: none !important; }
+  .mc-btn.correct {
+    display: flex !important;
+    background: #f0fdf4 !important;
+    border-color: #bbf7d0 !important;
+    color: #15803d !important;
+    font-weight: 700;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .q-row {
+    display: flex !important;
+    border: 1px solid #e4e7ef;
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    margin-bottom: 0.6rem;
+  }
+  .q-row.ok {
+    border-color: #bbf7d0 !important;
+    background: #fafffe !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .q-row.wrong {
+    border-color: #fca5a5 !important;
+    background: #fffbfb !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .q-num-c {
+    background: #0891b2 !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .q-row.ok  .q-num-c { background: #15803d !important; }
+  .q-row.wrong .q-num-c { background: #dc2626 !important; }
+
+  .ans-ok  { background: #f0fdf4 !important; color: #15803d !important; border-color: #bbf7d0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .ans-bad { background: #fef2f2 !important; color: #dc2626 !important; border-color: #fca5a5 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .ans-cor { background: #f0fdf4 !important; color: #15803d !important; border-color: #bbf7d0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .q-tip   { background: #faf5ff !important; color: #7c3aed !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  /* ── Open question ── */
+  .open-textarea {
+    border: 1px solid #ccc !important;
+    background: #fff !important;
+    min-height: 60px !important;
+    resize: none !important;
+  }
+}
