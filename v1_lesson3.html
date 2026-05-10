@@ -1204,7 +1204,62 @@ function renderAnswers(){
   </div>`).join('');
 }
 function printLesson(){
-  window.print();
+  var pw=window.open('','_blank','width=960,height=760');
+  if(!pw){alert('popup blocked');return;}
+  var accent=getComputedStyle(document.documentElement).getPropertyValue('--lc').trim()||'#1e40af';
+  var isTeacher=(USER_ROLE==='teacher');
+  var score=(typeof _lastScore!=='undefined')?_lastScore:null;
+  var correct=(typeof _lastCorrect!=='undefined')?_lastCorrect:0;
+  var sn=isTeacher?'':STUDENT_NAME;
+  var sc=isTeacher?'':STUDENT_CLASS;
+  var qs=(typeof QUESTIONS!=='undefined')?QUESTIONS:[];
+  var submitted=(typeof QS!=='undefined')&&QS.submitted;
+  var scoreHtml='';
+  if(!isTeacher){
+    scoreHtml=score!==null
+      ?'<div style="background:#f0fdf4;border:2px solid #15803d;border-radius:12px;padding:1rem 1.5rem;margin-bottom:1.5rem;text-align:center"><div style="font-size:36pt;color:#15803d">'+score+'%</div><div style="font-size:11pt;color:#15803d;font-weight:700">'+correct+' נכון מתוך '+qs.length+'</div></div>'
+      :'<div style="background:#fffbeb;border:2px solid #b45309;border-radius:12px;padding:1rem;text-align:center;color:#b45309;font-weight:700">⏳ טרם הוגש</div>';
+  }
+  var theoryHtml=(document.getElementById('pane-theory')||{innerHTML:''}).innerHTML||'';
+  var practiceEl=document.getElementById('pane-practice');
+  var textsHtml='';
+  if(practiceEl){var boxes=practiceEl.querySelectorAll('.reading-text-box');for(var t=0;t<boxes.length;t++){textsHtml+=boxes[t].outerHTML;}}
+  var LETTERS=['א','ב','ג','ד'];
+  var questionsHtml=qs.map(function(q,i){
+    var a=(typeof QS!=='undefined'&&QS.answers)?QS.answers[q.id]:undefined;
+    var ok=false,gv='לא נענה';
+    if(q.type==='mc'&&a&&a.sel!==undefined){gv=LETTERS[a.sel]+'. '+q.opts[a.sel];ok=(a.sel===q.ans);}
+    else if(q.type==='tf'&&a&&a.sel!==undefined){gv=a.sel?'נכון':'לא נכון';ok=(a.sel===q.ans);}
+    else if(q.type==='open'){gv=(a&&a.text)?a.text:'(לא נכתב)';ok=!!(a&&a.text&&a.text.length>10);}
+    var ca='';
+    if(q.type==='mc')ca=LETTERS[q.ans]+'. '+q.opts[q.ans];
+    else if(q.type==='tf')ca=q.ans?'נכון':'לא נכון';
+    else ca='שאלת כתיבה פתוחה';
+    var rowBg=submitted?(ok?'#fafffe':'#fffbfb'):'#fff';
+    var rowBorder=submitted?(ok?'#bbf7d0':'#fca5a5'):'#e4e7ef';
+    var numBg=submitted?(ok?'#15803d':'#dc2626'):'#1e40af';
+    var ansStyle=submitted?(ok?'background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0':'background:#fef2f2;color:#dc2626;border:1px solid #fca5a5'):'background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe';
+    var ansIcon=submitted?(ok?'✅':'❌'):'→';
+    var refHtml=q.ref?'<div style="font-size:7.5pt;color:#1e40af;margin-bottom:.2rem">📍 '+q.ref+'</div>':'';
+    var h='<div style="display:flex;gap:.6rem;border:1px solid '+rowBorder+';border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid;background:'+rowBg+'">';
+    h+='<div style="width:20px;height:20px;border-radius:50%;background:'+numBg+';color:#fff;font-size:.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem">'+(i+1)+'</div>';
+    h+='<div style="flex:1">'+refHtml+'<div style="font-size:9.5pt;font-weight:700;color:#0d1424;margin-bottom:.3rem">'+q.q+'</div>';
+    if(!isTeacher){h+='<div style="font-size:9pt;padding:.3rem .65rem;border-radius:6px;margin-bottom:.25rem;'+ansStyle+'"><strong>'+ansIcon+' תשובת התלמיד/ה:</strong> '+gv+'</div>';}
+    h+='<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ תשובה נכונה:</strong> '+ca+'</div>';
+    if(q.modelAnswer){h+='<div style="font-size:8.5pt;color:#1e40af;margin-top:.25rem;background:#eff6ff;border-radius:5px;padding:.3rem .6rem;border-right:3px solid #1e40af"><strong>✏️ דוגמה לתשובה:</strong> '+q.modelAnswer+'</div>';}
+    h+='<div style="font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem;line-height:1.5;margin-top:.25rem">'+q.explain+'</div>';
+    if(q.teacherNote&&isTeacher)h+='<div style="font-size:8pt;color:#b45309;margin-top:.2rem;background:#fffbeb;border-radius:5px;padding:.25rem .55rem">🎓 '+q.teacherNote+'</div>';
+    h+='</div></div>';
+    return h;
+  }).join('');
+  var css='*{box-sizing:border-box;margin:0;padding:0}body{font-family:Heebo,sans-serif;direction:rtl;background:#fff;color:#0d1424;font-size:10pt;line-height:1.6}@page{margin:1.5cm;size:A4}.doc{max-width:210mm;margin:0 auto;padding:1cm}.doc-header{text-align:center;padding-bottom:1.2rem;border-bottom:3px solid '+accent+';margin-bottom:1.5rem}.doc-header h1{font-size:18pt;color:'+accent+'}.doc-header p{font-size:9pt;color:#555}.sec-title{font-size:13pt;color:'+accent+';border-bottom:2px solid #e4e7ef;padding-bottom:.4rem;margin:1.5rem 0 1rem;page-break-after:avoid}.card{border:1px solid #e4e7ef;border-radius:8px;padding:.8rem 1rem;margin-bottom:.7rem;break-inside:avoid}.mini-card{background:#f8f9fb;border:1px solid #e4e7ef;border-radius:8px;padding:.7rem .9rem;break-inside:avoid}.lesson-hero{background:#f8f9fb;border:1px solid #e4e7ef;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid}.lesson-hero::before{display:none}.section-hd{font-size:11pt;color:'+accent+';border-bottom:1.5px solid #e4e7ef;padding-bottom:.3rem;margin:1.2rem 0 .6rem;display:flex;align-items:center;gap:.4rem;page-break-after:avoid}.sn{width:22px;height:22px;border-radius:50%;background:'+accent+';color:#fff;font-size:.65rem;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900;-webkit-print-color-adjust:exact;print-color-adjust:exact}.box,.box-lc,.box-lc.strong,.steps-wrap,.bagrut-template{border:1.5px solid #e4e7ef;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.box-green{background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.box-amber{background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.box-rose{background:#fff1f2;border:1.5px solid #fecdd3;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.6rem}.reading-text-box{border:2px solid '+accent+';border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid;position:relative}.reading-text-box::before{display:none}.cmp-table{width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:.8rem;break-inside:avoid}.cmp-table th{padding:.5rem .7rem;text-align:right;font-weight:800;font-size:.72rem;background:'+accent+';color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.cmp-table td{padding:.45rem .7rem;border-bottom:1px solid #e4e7ef}.cmp-table tr:nth-child(even) td{background:#f8f9fb}.row-label{font-weight:700;background:#f8f9fb!important}.pair-wrap,.arg-box,.writing-sample,.anno-text,.struct-block,.tech-card,.word-card,.dim-card,.vs-col{border:1px solid #e4e7ef;border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid}.goto-practice-btn,.gc-avatar,.gc-info,.hero-badge,.hero-chip,.hero-meta,.btn-print,.sn-icon,.read-time-badge{display:none!important}.answers-locked{display:none!important}#answers-visible-content{display:block!important}.open-rubric{border:1px solid #e4e7ef;border-radius:6px;padding:.5rem .7rem;font-size:8.5pt;margin-top:.3rem}';
+  var studentLine=(sn&&sn!=='תלמיד/ה'&&sn.length>0)?'<div style="font-size:11pt;font-weight:700;margin-top:.5rem">תלמיד/ה: '+sn+(sc?' | כיתה: '+sc:'')+' | '+new Date().toLocaleDateString('he-IL')+'</div>':'<div style="font-size:10pt;color:#6b7594;margin-top:.4rem">'+new Date().toLocaleDateString('he-IL')+'</div>';
+  var subtitleEl=document.querySelector('.topbar-sub');
+  var subtitle=subtitleEl?subtitleEl.textContent:'לשון 70%';
+  var bodyHtml='<div class="doc"><div class="doc-header"><h1>'+LESSON_TITLE+'</h1><p>'+subtitle+'</p>'+studentLine+'</div>'+scoreHtml+'<div class="sec-title">חלק א — תיאוריה</div><div>'+theoryHtml+'</div>'+(textsHtml?'<div class="sec-title" style="page-break-before:always">טקסטים לקריאה</div>'+textsHtml:'')+(questionsHtml?'<div class="sec-title" style="page-break-before:always">חלק ב — שאלות ותשובות</div>'+questionsHtml:'')+'</div>';
+  var fullHtml='<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><title>'+LESSON_TITLE+'</title><link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet"><style>'+css+'</style></head><body>'+bodyHtml+'<'+'script>document.fonts.ready.then(function(){setTimeout(function(){window.print();},300);}).catch(function(){setTimeout(function(){window.print();},1200);});<'+'/script></body></html>';
+  pw.document.write(fullHtml);
+  pw.document.close();
 }
 let _tt;
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800)}
