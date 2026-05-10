@@ -222,6 +222,12 @@ button,input,select,textarea{font-family:inherit}
 .ucb-icon{font-size:2.5rem;flex-shrink:0}
 .ucb-title{font-family:'Secular One',sans-serif;font-size:1.05rem;color:var(--gold)}
 .ucb-desc{font-size:.82rem;color:var(--amber);margin-top:.22rem;line-height:1.55}
+
+/* ── tab fade transition ── */
+.tab-pane{display:none}
+.tab-pane.active{display:block;animation:fadeIn .18s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
 @media print{
   .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,
   #submit-row,#results-container,#toast,#student-gate,#gate-confirmed,
@@ -242,11 +248,7 @@ button,input,select,textarea{font-family:inherit}
   @page{margin:1.5cm;size:A4}
 }
 .print-header{display:none}
-
-/* ── tab fade transition ── */
-.tab-pane{animation:none}
-.tab-pane.active{animation:fadeIn .18s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+to{opacity:1;transform:translateY(0)}}
 
 /* ── go-to-practice button ── */
 .goto-practice-btn{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;padding:.95rem 1.4rem;border:none;border-radius:var(--r-pill);background:linear-gradient(135deg,var(--lc),var(--lc-dk));color:#fff;font-size:.9rem;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.15);transition:all .18s;margin-top:.5rem}
