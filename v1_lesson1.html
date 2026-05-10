@@ -247,16 +247,22 @@ button,input,select,textarea{font-family:inherit}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 @media print{
-  .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,#submit-row,#results-container,#toast,#student-gate,#gate-confirmed{display:none!important}
-  body{background:#fff;color:#000;font-size:10pt;line-height:1.5}
-  .tab-pane{display:block!important}
-  .lesson-wrap{padding:.5cm 1cm;max-width:100%}
-  .lesson-hero,.card,.q-card,.reading-text-box,.answer-row{box-shadow:none;break-inside:avoid}
-  .q-feedback{display:block!important}
-  .mc-btn.correct{display:flex!important}
-  .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #0891b2}
-  .print-header h1{font-size:16pt;color:#0891b2}
+  .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,
+  #submit-row,#results-container,#toast,#student-gate,#gate-confirmed,
+  .goto-practice-btn,.gc-avatar,.gc-info{display:none!important}
+  body{background:#fff!important;color:#000!important;font-size:10pt;line-height:1.5}
+  .tab-pane{display:block!important;animation:none!important}
+  .tab-pane.active{animation:none!important}
+  .lesson-wrap{padding:.5cm 1cm!important;max-width:100%!important}
+  .lesson-hero,.card,.q-card,.reading-text-box,.answer-row,
+  .word-card,.pair-wrap,.arg-box,.writing-sample,.anno-text,
+  .steps-wrap,.bagrut-template,.struct-block{box-shadow:none!important;break-inside:avoid}
+  .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;
+    padding-bottom:1rem;border-bottom:2px solid currentColor}
+  .print-header h1{font-size:16pt}
   .print-header p{font-size:10pt;color:#555}
+  .answers-locked{display:none!important}
+  #answers-visible-content{display:block!important}
   @page{margin:1.5cm;size:A4}
 }
 .print-header{display:none}
@@ -1254,49 +1260,7 @@ function renderAnswers(){
    PRINT
 ════════════════════════════════════════════════ */
 function printLesson(){
-  var pw=window.open('','_blank','width=960,height=760');
-  if(!pw){alert('popup blocked');return;}
-  var isTeacher=(USER_ROLE==='teacher');
-  var score=(typeof _lastScore!=='undefined')?_lastScore:null;
-  var correct=(typeof _lastCorrect!=='undefined')?_lastCorrect:0;
-  var qs=QUESTIONS;
-  var submitted=QS.submitted;
-  var scoreHtml='';
-  if(!isTeacher){
-    scoreHtml=score!==null
-      ?'<div style="background:#f0fdf4;border:2px solid #15803d;border-radius:12px;padding:1rem 1.5rem;margin-bottom:1.5rem;text-align:center"><div style="font-size:36pt;color:#15803d">'+score+'%</div><div style="font-size:11pt;color:#15803d;font-weight:700">'+correct+' נכון מתוך '+qs.length+'</div></div>'
-      :'<div style="background:#fffbeb;border:2px solid #b45309;border-radius:12px;padding:1rem;text-align:center;color:#b45309;font-weight:700">⏳ טרם הוגש</div>';
-  }
-  var LETTERS=['א','ב','ג','ד'];
-  var questionsHtml=qs.map(function(q,i){
-    var a=QS.answers[q.id];var ok=false,gv='לא נענה';
-    if(q.type==='mc'&&a&&a.sel!==undefined){gv=LETTERS[a.sel]+'. '+q.opts[a.sel];ok=(a.sel===q.ans);}
-    else if(q.type==='tf'&&a&&a.sel!==undefined){gv=a.sel?'נכון':'לא נכון';ok=(a.sel===q.ans);}
-    else if(q.type==='open'){gv=(a&&a.text)?a.text:'(לא נכתב)';ok=!!(a&&a.text&&a.text.length>10);}
-    var ca='';
-    if(q.type==='mc')ca=LETTERS[q.ans]+'. '+q.opts[q.ans];
-    else if(q.type==='tf')ca=q.ans?'נכון':'לא נכון';
-    else ca='שאלת כתיבה פתוחה';
-    var rowBg=submitted?(ok?'#fafffe':'#fffbfb'):'#fff';
-    var rowBorder=submitted?(ok?'#bbf7d0':'#fca5a5'):'#e4e7ef';
-    var numBg=submitted?(ok?'#15803d':'#dc2626'):'#0891b2';
-    var ansStyle=submitted?(ok?'background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0':'background:#fef2f2;color:#dc2626;border:1px solid #fca5a5'):'background:#ecfeff;color:#0891b2;border:1px solid #a5f3fc';
-    var h='<div style="display:flex;gap:.6rem;border:1px solid '+rowBorder+';border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid;background:'+rowBg+'">';
-    h+='<div style="width:20px;height:20px;border-radius:50%;background:'+numBg+';color:#fff;font-size:.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem">'+(i+1)+'</div>';
-    h+='<div style="flex:1"><div style="font-size:9.5pt;font-weight:700;color:#0d1424;margin-bottom:.3rem">'+q.q+'</div>';
-    if(q.ref)h+='<div style="font-size:7.5pt;color:#0891b2;margin-bottom:.2rem">📍 '+q.ref+'</div>';
-    if(!isTeacher&&gv!=='לא נענה')h+='<div style="font-size:9pt;padding:.3rem .65rem;border-radius:6px;margin-bottom:.25rem;'+ansStyle+'">תשובתך: '+gv+'</div>';
-    if(isTeacher)h+='<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ תשובה נכונה:</strong> '+ca+'</div>';
-    else if(submitted&&!ok&&gv!=='לא נענה')h+='<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ התשובה הנכונה:</strong> '+ca+'</div>';
-    h+='<div style="font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem;line-height:1.5">'+q.explain+'</div>';
-    if(q.teacherNote)h+='<div style="font-size:8pt;color:#0891b2;margin-top:.2rem;background:#ecfeff;border-radius:5px;padding:.25rem .55rem">🎓 '+q.teacherNote+'</div>';
-    h+='</div></div>';
-    return h;
-  }).join('');
-  var bodyHtml='<div class="doc"><div class="doc-header"><h1>מתחילים שנה — מיומנויות יסוד</h1><p>לשון 70% · יחידה א׳ — הבנה והבעה · שיעור 1</p><div style="font-size:10pt;color:#555;margin-top:.3rem">'+new Date().toLocaleDateString('he-IL')+'</div></div>'+scoreHtml+(questionsHtml?'<div class="sec-title">שאלות ותשובות</div>'+questionsHtml:'')+'</div>';
-  var css='*{box-sizing:border-box;margin:0;padding:0}body{font-family:Heebo,sans-serif;direction:rtl;background:#fff;color:#0d1424;font-size:10pt;line-height:1.6}@page{margin:1.5cm;size:A4}.doc{max-width:210mm;margin:0 auto;padding:1cm}.doc-header{text-align:center;padding-bottom:1.2rem;border-bottom:3px solid #0891b2;margin-bottom:1.5rem}.doc-header h1{font-size:18pt;color:#0891b2}.sec-title{font-size:13pt;color:#0891b2;border-bottom:2px solid #ecfeff;padding-bottom:.4rem;margin:1.5rem 0 1rem;page-break-after:avoid}';
-  var fullHtml='<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><title>מתחילים שנה</title><link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet"><style>'+css+'</style></head><body>'+bodyHtml+'<'+'script>document.fonts.ready.then(function(){setTimeout(function(){window.print();},300);});<'+'/script></body></html>';
-  pw.document.write(fullHtml);pw.document.close();
+  window.print();
 }
 
 /* ════════════════════════════════════════════════

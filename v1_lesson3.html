@@ -215,13 +215,22 @@ button,input,select,textarea{font-family:inherit}
 #toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%) translateY(14px);background:var(--text);color:var(--bg);padding:.58rem 1.4rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:700;box-shadow:var(--sh3);z-index:9999;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;white-space:nowrap}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media print{
-  .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,#submit-row,#results-container,#toast,#student-gate,#gate-confirmed{display:none!important}
-  body{background:#fff;color:#000;font-size:10pt}
-  .tab-pane{display:block!important}
-  .lesson-wrap{padding:.5cm 1cm;max-width:100%}
-  .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #0f766e}
-  .print-header h1{font-size:16pt;color:#0f766e}
+  .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,
+  #submit-row,#results-container,#toast,#student-gate,#gate-confirmed,
+  .goto-practice-btn,.gc-avatar,.gc-info{display:none!important}
+  body{background:#fff!important;color:#000!important;font-size:10pt;line-height:1.5}
+  .tab-pane{display:block!important;animation:none!important}
+  .tab-pane.active{animation:none!important}
+  .lesson-wrap{padding:.5cm 1cm!important;max-width:100%!important}
+  .lesson-hero,.card,.q-card,.reading-text-box,.answer-row,
+  .word-card,.pair-wrap,.arg-box,.writing-sample,.anno-text,
+  .steps-wrap,.bagrut-template,.struct-block{box-shadow:none!important;break-inside:avoid}
+  .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;
+    padding-bottom:1rem;border-bottom:2px solid currentColor}
+  .print-header h1{font-size:16pt}
   .print-header p{font-size:10pt;color:#555}
+  .answers-locked{display:none!important}
+  #answers-visible-content{display:block!important}
   @page{margin:1.5cm;size:A4}
 }
 .print-header{display:none}
@@ -1186,9 +1195,7 @@ function renderAnswers(){
   </div>`).join('');
 }
 function printLesson(){
-  const pw=window.open('','_blank','width=960,height=760');if(!pw)return;
-  const html=`<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><title>${LESSON_TITLE}</title><link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;800&display=swap" rel="stylesheet"><style>@page{margin:1.5cm;size:A4}body{font-family:Heebo,sans-serif;direction:rtl;font-size:10pt}</style></head><body><div style="text-align:center;border-bottom:3px solid #0f766e;padding-bottom:1rem;margin-bottom:1.5rem"><h1 style="color:#0f766e;font-size:18pt">${LESSON_TITLE}</h1><p>לשון 70% · יחידה א׳ · שיעור 3 | ${new Date().toLocaleDateString('he-IL')}</p></div><${'script'}>document.fonts.ready.then(()=>setTimeout(()=>window.print(),300));</${'script'}></body></html>`;
-  pw.document.write(html);pw.document.close();
+  window.print();
 }
 let _tt;
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800)}
