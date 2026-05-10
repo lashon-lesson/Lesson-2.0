@@ -260,6 +260,25 @@ button,input,select,textarea{font-family:inherit}
   @page{margin:1.5cm;size:A4}
 }
 .print-header{display:none}
+
+/* ── tab fade transition ── */
+.tab-pane{animation:none}
+.tab-pane.active{animation:fadeIn .18s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── go-to-practice button ── */
+.goto-practice-btn{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;padding:.95rem 1.4rem;border:none;border-radius:var(--r-pill);background:linear-gradient(135deg,var(--lc),var(--lc-dk));color:#fff;font-size:.9rem;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.15);transition:all .18s;margin-top:.5rem}
+.goto-practice-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+
+/* ── mobile table fix ── */
+.cmp-table-wrap{overflow-x:auto;border-radius:var(--r-lg);box-shadow:var(--sh1);margin-bottom:1rem}
+@media(max-width:520px){.cmp-table{font-size:.72rem}.cmp-table th,.cmp-table td{padding:.45rem .6rem}}
+
+/* ── VS block mobile fix ── */
+@media(max-width:520px){.vs-wrap{grid-template-columns:1fr!important}.vs-col{min-height:unset!important}.vs-divider{display:none}}
+
+/* ── read time badge ── */
+.read-time-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.62rem;font-weight:700;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-pill);padding:.18rem .65rem;margin-bottom:.75rem}
 </style>
 </head>
 <body>
@@ -305,7 +324,15 @@ button,input,select,textarea{font-family:inherit}
       <span class="hero-chip lc">⏱ 45 דק׳</span>
       <span class="hero-chip">📘 לשון 70%</span>
       <span class="hero-chip green">🎯 שיעור פתיחה</span>
+      <span class="hero-chip" style="color:var(--lc);background:var(--lc-lt);border-color:var(--lc)">📍 שיעור 1 מתוך 6 ביחידה א׳</span>
     </div>
+  </div>
+
+  <!-- שאלת פתיחה -->
+  <div style="background:linear-gradient(135deg,var(--lc-lt),var(--surface));border:2px dashed var(--lc);border-radius:var(--r-xl);padding:1.3rem 1.5rem;margin-bottom:1.8rem">
+    <div style="font-size:.65rem;font-weight:900;color:var(--lc);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.6rem">💭 שאלת פתיחה — חשבו לפני שקוראים</div>
+    <p style="font-size:.95rem;font-weight:700;color:var(--text);line-height:1.55;margin-bottom:.65rem">מה לדעתכם ההבדל בין "להבין טקסט" ל"לנתח טקסט"? תנו דוגמה מחיי היומיום.</p>
+    <p style="font-size:.8rem;color:var(--muted);line-height:1.6">💡 רמז: חשבו על סרט שראיתם לאחרונה — האם <em>הבנתם</em> את העלילה, או גם <em>ניתחתם</em> את המסר?</p>
   </div>
 
   <!-- 1 — מה לומדים בלשון 70% -->
@@ -580,6 +607,39 @@ button,input,select,textarea{font-family:inherit}
     <div class="step-item"><div class="step-num">3</div><span><strong>דקות 55–95:</strong> חלק ב׳ — כתיבה מזומנת. קראו את ההנחיה, בחרו מסלול, כתבו טיוטה קצרה (3 שורות), ואז כתבו. בסוף — קראו ותקנו.</span></div>
     <div class="step-item"><div class="step-num">4</div><span><strong>דקות 95–120:</strong> חלק ג׳ — צורות ותקינות. 25 דקות לשאלות מבניות. ענו מהמהיר לקשה.</span></div>
     <div class="step-item"><div class="step-num">5</div><span><strong>דקות 118–120:</strong> בדיקה מהירה — האם כתבתם שם? האם ענתם על כל השאלות? שאלה שלא נענתה = 0 נקודות בוודאות.</span></div>
+  </div>
+
+  <!-- 11.5 — טעויות נפוצות -->
+  <div class="section-hd"><span class="sn-icon">⚠️</span><div class="sn" style="font-size:.6rem">טע׳</div>טעויות נפוצות — מה לא לעשות בבגרות</div>
+  <div style="display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.5rem">
+    <div style="display:flex;gap:.75rem;align-items:flex-start;padding:.85rem 1rem;background:var(--red-lt);border:1px solid #fca5a5;border-radius:var(--r);border-right:4px solid var(--red)">
+      <span style="font-size:1.1rem;flex-shrink:0">❌</span>
+      <div>
+        <div style="font-size:.82rem;font-weight:800;color:var(--red);margin-bottom:.2rem">להעתיק ישירות מהטקסט</div>
+        <div style="font-size:.8rem;color:var(--text-mid);line-height:1.6">העתקה אינה הבנה. כתבו בשפתכם + ציטוט קצר כראיה. "ניתן לראות זאת ב..." — לא העתקת פסקה.</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:.75rem;align-items:flex-start;padding:.85rem 1rem;background:var(--red-lt);border:1px solid #fca5a5;border-radius:var(--r);border-right:4px solid var(--red)">
+      <span style="font-size:1.1rem;flex-shrink:0">❌</span>
+      <div>
+        <div style="font-size:.82rem;font-weight:800;color:var(--red);margin-bottom:.2rem">לזהות אמצעי ספרותי בלי להסביר תפקיד</div>
+        <div style="font-size:.8rem;color:var(--text-mid);line-height:1.6">"הכותב משתמש בדימוי" = חצי ניקוד. תמיד: "הדימוי משמש כדי ל... ובכך יוצר..."</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:.75rem;align-items:flex-start;padding:.85rem 1rem;background:var(--red-lt);border:1px solid #fca5a5;border-radius:var(--r);border-right:4px solid var(--red)">
+      <span style="font-size:1.1rem;flex-shrink:0">❌</span>
+      <div>
+        <div style="font-size:.82rem;font-weight:800;color:var(--red);margin-bottom:.2rem">לכתוב "לדעתי" בשאלת הבנה</div>
+        <div style="font-size:.8rem;color:var(--text-mid);line-height:1.6">שאלת הבנה = מה הטקסט אומר, לא דעתכם. "לדעתי" שמור לשאלות עמדה בלבד.</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:.75rem;align-items:flex-start;padding:.85rem 1rem;background:var(--red-lt);border:1px solid #fca5a5;border-radius:var(--r);border-right:4px solid var(--red)">
+      <span style="font-size:1.1rem;flex-shrink:0">❌</span>
+      <div>
+        <div style="font-size:.82rem;font-weight:800;color:var(--red);margin-bottom:.2rem">לבזבז את כל הזמן על חלק א׳</div>
+        <div style="font-size:.8rem;color:var(--text-mid);line-height:1.6">50% מהתלמידים לא מסיימים חלק ב׳ — 30 נקודות הולכות לפח. זכרו: 50–40–30 דקות.</div>
+      </div>
+    </div>
   </div>
 
   <!-- 12 — 5 הכלים לשנה -->
@@ -955,6 +1015,7 @@ const QUESTIONS=[
    hint:'השתמש/י במבנה: סוג הטקסט + ראיה ספציפית (ציטוט) + הסבר תפקיד הראיה.',
    rubric:'(א) זיהוי נכון של סוג (ב) ציטוט מדויק (ג) הסבר הקשר בין הראיה לסוג',
    explain:'נוסחת הבגרות: סוג + ראיה + הסבר. שלושה חלקים חובה. זהו הבסיס לכל שאלת ניתוח.',
+   modelAnswer:'דוגמה לתשובה מלאה על טקסט ג׳ (שכנועי): "טקסט ג׳ הוא שכנועי, כי הכותב מביע עמדה ברורה וקורא לפעולה. ניתן לראות זאת במשפט: \'ילד שלא קורא — עתידו מצומצם\'. משפט זה הוא שיפוט גורף ולא עובדה ניטרלית, ומסתיים בקריאה ישירה: \'לא מחר — היום\'. אלה מאפיינים של כתיבה שכנועית."',
    teacherNote:'בדקו שהתלמיד ציטט ישירות מהטקסט ולא הכליל. המבנה (טענה + ראיה + הסבר) הוא המטרה.'},
 ];
 
@@ -1106,7 +1167,11 @@ function submitQuiz(){
       if(fb2){fb2.disabled=true;fb2.classList.remove('sel');if(q.ans===false)fb2.classList.add('correct');else if(a?.sel===false)fb2.classList.add('wrong')}
     }else if(q.type==='open'){const ta=document.getElementById(`${q.id}_oa`);if(ta)ta.disabled=true;}
     if(fb){
-      if(q.type==='open'){fb.innerHTML=`<div class="open-rubric"><strong>✍️ תשובתך נשמרה.</strong> ${q.explain}${q.rubric?'<br><br><strong>נקודות לבדיקה:</strong> '+q.rubric:''}</div>`;fb.className='q-feedback show ok';}
+      if(q.type==='open'){
+        const modelHtml=q.modelAnswer?`<div style="margin-top:.75rem;padding:.75rem .9rem;background:var(--surface3);border-radius:var(--r);border-right:3px solid var(--lc)"><div style="font-size:.68rem;font-weight:800;color:var(--lc);margin-bottom:.3rem">✏️ דוגמה לתשובה מלאה</div><div style="font-size:.8rem;color:var(--text-mid);line-height:1.65">${q.modelAnswer}</div></div>`:'';
+        fb.innerHTML=`<div class="open-rubric"><strong>✍️ תשובתך נשמרה.</strong> ${q.explain}${q.rubric?'<br><br><strong>נקודות לבדיקה:</strong> '+q.rubric:''}</div>${modelHtml}`;
+        fb.className='q-feedback show ok';
+      }
       else{fb.textContent=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;fb.className=`q-feedback show ${ok?'ok':'wrong'}`;}
     }
   });

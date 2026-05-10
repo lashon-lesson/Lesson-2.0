@@ -230,6 +230,25 @@ button,input,select,textarea{font-family:inherit}
   @page{margin:1.5cm;size:A4}
 }
 .print-header{display:none}
+
+/* ── tab fade transition ── */
+.tab-pane{animation:none}
+.tab-pane.active{animation:fadeIn .18s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── go-to-practice button ── */
+.goto-practice-btn{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;padding:.95rem 1.4rem;border:none;border-radius:var(--r-pill);background:linear-gradient(135deg,var(--lc),var(--lc-dk));color:#fff;font-size:.9rem;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.15);transition:all .18s;margin-top:.5rem}
+.goto-practice-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+
+/* ── mobile table fix ── */
+.cmp-table-wrap{overflow-x:auto;border-radius:var(--r-lg);box-shadow:var(--sh1);margin-bottom:1rem}
+@media(max-width:520px){.cmp-table{font-size:.72rem}.cmp-table th,.cmp-table td{padding:.45rem .6rem}}
+
+/* ── VS block mobile fix ── */
+@media(max-width:520px){.vs-wrap{grid-template-columns:1fr!important}.vs-col{min-height:unset!important}.vs-divider{display:none}}
+
+/* ── read time badge ── */
+.read-time-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.62rem;font-weight:700;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-pill);padding:.18rem .65rem;margin-bottom:.75rem}
 </style>
 </head>
 <body>
@@ -271,7 +290,15 @@ button,input,select,textarea{font-family:inherit}
       <span class="hero-chip lc">⏱ 45 דק׳</span>
       <span class="hero-chip">📘 לשון 70%</span>
       <span class="hero-chip green">🎯 אוצר מילים</span>
+      <span class="hero-chip" style="color:var(--lc);background:var(--lc-lt);border-color:var(--lc)">📍 שיעור 2 מתוך 6 ביחידה א׳</span>
     </div>
+  </div>
+
+  <!-- שאלת פתיחה -->
+  <div style="background:linear-gradient(135deg,var(--lc-lt),var(--surface));border:2px dashed var(--lc);border-radius:var(--r-xl);padding:1.3rem 1.5rem;margin-bottom:1.8rem">
+    <div style="font-size:.65rem;font-weight:900;color:var(--lc);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.6rem">💭 שאלת פתיחה — חשבו לפני שקוראים</div>
+    <p style="font-size:.95rem;font-weight:700;color:var(--text);line-height:1.55;margin-bottom:.65rem">מה ההבדל בין מילה "שמכירים" למילה "שיודעים להשתמש בה"? תנו דוגמה מחיי היומיום.</p>
+    <p style="font-size:.8rem;color:var(--muted);line-height:1.6">💡 רמז: האם "אמביוולנטי" — מילה שאולי שמעתם — היא מילה שאתם יכולים לכתוב בתשובת בגרות?</p>
   </div>
 
   <!-- 1 — למה אוצר מילים -->
@@ -597,6 +624,60 @@ button,input,select,textarea{font-family:inherit}
       </tbody>
     </table>
   </div>
+
+  <!-- טעויות נפוצות -->
+  <div style="font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--lc);display:flex;align-items:center;gap:.55rem;margin:2.2rem 0 1rem;padding-bottom:.48rem;border-bottom:2px solid var(--lc-lt)"><span style="font-size:1.3rem">⚠️</span><div style="width:28px;height:28px;border-radius:50%;background:var(--red);color:#fff;font-size:.65rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900">טע׳</div>טעויות נפוצות — מה לא לעשות</div>
+  <div style="display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.5rem">
+    <div style="display:flex;gap:.75rem;align-items:flex-start;padding:.85rem 1rem;background:var(--red-lt);border:1px solid #fca5a5;border-radius:var(--r);border-right:4px solid var(--red)">
+      <span style="font-size:1.1rem;flex-shrink:0">❌</span>
+      <div>
+        <div style="font-size:.82rem;font-weight:800;color:var(--red);margin-bottom:.2rem">לשים מילת אוצר בלי ראיה</div>
+        <div style="font-size:.8rem;color:var(--text-mid);line-height:1.6">"הכותב אירוני" — לא מספיק. חובה: "הכותב אירוני כי... [ציטוט]. הניגוד בין... ל... יוצר..."</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:.75rem;align-items:flex-start;padding:.85rem 1rem;background:var(--red-lt);border:1px solid #fca5a5;border-radius:var(--r);border-right:4px solid var(--red)">
+      <span style="font-size:1.1rem;flex-shrink:0">❌</span>
+      <div>
+        <div style="font-size:.82rem;font-weight:800;color:var(--red);margin-bottom:.2rem">לבלבל מופשט עם מורכב</div>
+        <div style="font-size:.8rem;color:var(--text-mid);line-height:1.6">מופשט = לא ניתן לגעת בו (רעיון). מורכב = בעל שכבות. שני מושגים שונים לחלוטין.</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:.75rem;align-items:flex-start;padding:.85rem 1rem;background:var(--red-lt);border:1px solid #fca5a5;border-radius:var(--r);border-right:4px solid var(--red)">
+      <span style="font-size:1.1rem;flex-shrink:0">❌</span>
+      <div>
+        <div style="font-size:.82rem;font-weight:800;color:var(--red);margin-bottom:.2rem">לחשוב שסרקזם = אירוניה</div>
+        <div style="font-size:.8rem;color:var(--text-mid);line-height:1.6">סרקזם הוא תת-סוג של אירוניה — תמיד שלילי ופוגעני. אירוניה יכולה להיות עדינה וחיובית.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- תרגיל בניית משפט -->
+  <div class="section-hd"><span class="sn-icon">✏️</span><div class="sn">7</div>תרגיל — מהגדרה למשפט חי</div>
+  <div class="card">
+    <p>ידיעת הגדרה ≠ שליטה במילה. מילה הופכת לחלק מאוצר המילים הפעיל רק כאשר משתמשים בה בהקשר. הנה תרגיל קצר:</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.2rem">
+    <div style="background:var(--surface);border:1.5px solid var(--lc);border-radius:var(--r-lg);padding:1.1rem 1.3rem">
+      <div style="font-size:.75rem;font-weight:800;color:var(--lc);margin-bottom:.5rem">📝 שלב 1: בחרו מילה מהרשימה</div>
+      <div style="font-size:.84rem;color:var(--text-mid);margin-bottom:.5rem">בחרו מילה שלא הכרתם לפני השיעור — אחת שנשמעה מוזרה או מאתגרת.</div>
+    </div>
+    <div style="background:var(--surface);border:1.5px solid var(--lc);border-radius:var(--r-lg);padding:1.1rem 1.3rem">
+      <div style="font-size:.75rem;font-weight:800;color:var(--lc);margin-bottom:.5rem">📝 שלב 2: בנו משפט בסגנון בגרות</div>
+      <div style="font-size:.84rem;color:var(--text-mid);margin-bottom:.5rem">כתבו משפט ניתוח שמשלב את המילה: <em>"הכותב משתמש ב[מילה] כדי..."</em></div>
+    </div>
+    <div style="background:var(--surface);border:1.5px solid var(--lc);border-radius:var(--r-lg);padding:1.1rem 1.3rem">
+      <div style="font-size:.75rem;font-weight:800;color:var(--lc);margin-bottom:.5rem">📝 שלב 3: בדקו — האם יש ראיה?</div>
+      <div style="font-size:.84rem;color:var(--text-mid)">כל משפט ניתוח חייב ראיה. הוסיפו: <em>"ניתן לראות זאת ב... [ציטוט]"</em></div>
+    </div>
+  </div>
+  <div style="background:var(--lc-lt);border:1.5px solid #bae6fd;border-radius:var(--r-lg);padding:1.1rem 1.3rem;margin-bottom:1rem">
+    <div style="font-size:.75rem;font-weight:800;color:var(--lc);margin-bottom:.5rem">✅ דוגמה מלאה</div>
+    <div style="font-size:.84rem;color:var(--text-mid);line-height:1.75">
+      מילה: <strong>אמביוולנטי</strong><br>
+      משפט: "הדמות <strong>אמביוולנטית</strong> כלפי עברה — היא אוהבת ושונאת אותו בו-זמנית. ניתן לראות זאת בשאלה: <em>'האם לא הייתי שמחה אז?'</em> — שאלה שמצביעה על כפל רגשות."
+    </div>
+  </div>
+
   <div class="box box-green">✅ <strong>מוכנים!</strong> שני טקסטים ו-20 שאלות על אוצר מילים בהקשר, פענוח וצמדי מילים.</div>
 
 </div>
@@ -910,6 +991,7 @@ const QUESTIONS=[
    hint:'בחרו מילים שמבינות אותן — לא המסובכות ביותר, אלא אלה שתוכלו להסביר את תפקידן.',
    rubric:'(א) זיהוי נכון של המילה בטקסט (ב) הסבר המשמעות (ג) הסבר תרומתה להבנת הטקסט',
    explain:'שאלה זו בודקת הבנה עמוקה — לא שינון. כל מילת אוצר צריכה ראיה מהטקסט והסבר מה היא מוסיפה.',
+   modelAnswer:'דוגמה: "הכותב של טקסט א׳ משתמש ב\"מובהקת\" כדי לתאר שהשכחה אינה מקרית. המילה בולטת כי היא שיפוטית — לא \"ברורה\" אלא \"מובהקת\", שמשמעותה שאי-אפשר להתעלם ממנה. בכך הכותב מחזק את הטיעון שהשכחה היא בחירה פוליטית."',
    teacherNote:'בדקו שהתלמיד לא רק מגדיר את המילה, אלא גם מסביר מה היא עושה בטקסט הספציפי.'},
 ];
 
@@ -1044,7 +1126,7 @@ function submitQuiz(){
       if(fb2){fb2.disabled=true;fb2.classList.remove('sel');if(q.ans===false)fb2.classList.add('correct');else if(a?.sel===false)fb2.classList.add('wrong')}
     }else if(q.type==='open'){const ta=document.getElementById(`${q.id}_oa`);if(ta)ta.disabled=true;}
     if(fb){
-      if(q.type==='open'){fb.innerHTML=`<div class="open-rubric"><strong>✍️ תשובתך נשמרה.</strong> ${q.explain}${q.rubric?'<br><br><strong>נקודות לבדיקה:</strong> '+q.rubric:''}</div>`;fb.className='q-feedback show ok';}
+      if(q.type==='open'){const modelHtml=q.modelAnswer?`<div style="margin-top:.75rem;padding:.75rem .9rem;background:var(--surface3);border-radius:var(--r);border-right:3px solid var(--lc)"><div style="font-size:.68rem;font-weight:800;color:var(--lc);margin-bottom:.3rem">✏️ דוגמה לתשובה מלאה</div><div style="font-size:.8rem;color:var(--text-mid);line-height:1.65">${q.modelAnswer}</div></div>`:'';fb.innerHTML=`<div class="open-rubric"><strong>✍️ תשובתך נשמרה.</strong> ${q.explain}${q.rubric?'<br><br><strong>נקודות לבדיקה:</strong> '+q.rubric:''}</div>${modelHtml}`;fb.className='q-feedback show ok';}
       else{fb.textContent=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;fb.className=`q-feedback show ${ok?'ok':'wrong'}`;}
     }
   });
