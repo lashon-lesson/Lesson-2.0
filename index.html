@@ -32,6 +32,7 @@
   --r:14px;--r-lg:20px;--r-xl:28px;--r-pill:999px;
   --sidebar:240px;
   --lc:var(--blue);--lc-lt:var(--blue-lt);
+  --c70:#7c3aed;--c70-lt:#faf5ff;--c70-dk:#5b21b6;
 }
 @media(prefers-color-scheme:dark){:root{
   --bg:#0b0f17;--surface:#131924;--surface2:#192030;--surface3:#1f2840;
@@ -363,6 +364,50 @@ a{text-decoration:none;color:inherit}
 .ptab:hover{background:var(--blue-lt);color:var(--blue);border-color:var(--blue)}
 .ptab.active{background:var(--blue-lt);color:var(--blue);border-color:var(--blue)}
 
+/* ── SECTION DIVIDER (30% / 70%) ── */
+.section-divider{
+  margin:2rem 0 1.2rem;
+  display:flex;align-items:center;gap:.85rem;
+  padding:0 .25rem;
+}
+.section-divider-line{flex:1;height:1.5px;background:var(--border)}
+.section-divider-badge{
+  display:flex;align-items:center;gap:.6rem;
+  padding:.52rem 1.2rem;
+  border-radius:var(--r-pill);
+  font-family:'Secular One',sans-serif;
+  font-size:.82rem;
+  white-space:nowrap;
+  border:2px solid;
+  flex-shrink:0;
+}
+.section-divider-badge.p30{
+  background:var(--blue-lt);color:var(--blue);border-color:var(--blue);
+}
+.section-divider-badge.p70{
+  background:var(--c70-lt);color:var(--c70);border-color:var(--c70);
+}
+.section-divider-tag{
+  font-size:.58rem;font-weight:900;letter-spacing:.06em;
+  padding:.2rem .55rem;border-radius:var(--r-pill);
+  background:rgba(0,0,0,.08);
+}
+.section-divider-badge.p70 .section-divider-sub{
+  font-size:.65rem;color:var(--c70);opacity:.7;font-family:'Heebo',sans-serif;font-weight:600;
+}
+
+/* 70% unit-card accent override */
+.unit-card.p70 .unit-hd::after{background:var(--c70)}
+.unit-card.p70 .unit-eyebrow{color:var(--c70)}
+
+/* Sidebar section label */
+.sb-section-label{
+  font-size:.58rem;font-weight:900;letter-spacing:.07em;text-transform:uppercase;
+  padding:.15rem .6rem;border-radius:var(--r-pill);margin-right:.45rem;
+}
+.sb-section-label.p30{background:var(--blue-lt);color:var(--blue)}
+.sb-section-label.p70{background:var(--c70-lt);color:var(--c70)}
+
 /* Toast */
 #toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%) translateY(14px);background:var(--text);color:var(--bg);padding:.58rem 1.4rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:700;box-shadow:var(--sh3);z-index:9999;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;white-space:nowrap}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -377,11 +422,12 @@ a{text-decoration:none;color:inherit}
   <div class="ls-header">
     <div class="ls-emblem">📖</div>
     <h1 class="ls-title">לשון <em>Lesson</em> 2.0</h1>
-    <p class="ls-tagline">פלטפורמה דיגיטלית ללימודי עברית — כיתות ט׳–י׳</p>
+    <p class="ls-tagline">לימוד לשון כיתות י׳–י״א</p>
     <div class="ls-chips">
-      <span class="ls-chip">הבנה והבעה</span>
+      <span class="ls-chip">30% — הבנה והבעה</span>
       <span class="ls-chip">תחביר</span>
       <span class="ls-chip">צורות</span>
+      <span class="ls-chip">70% — גזרות</span>
       <span class="ls-chip">תקינות</span>
     </div>
   </div>
@@ -458,14 +504,18 @@ a{text-decoration:none;color:inherit}
   <aside class="sidebar" id="sidebar">
     <div class="sb-head">
       <div class="sb-brand">📖 לשון Lesson 2.0</div>
-      <div class="sb-brand-sub">עברית לכיתות ט׳–י׳</div>
+      <div class="sb-brand-sub">לימוד לשון כיתות י׳–י״א</div>
     </div>
     <nav class="sb-nav">
-      <div class="sb-section">יחידות הקורס</div>
+      <div class="sb-section"><span class="sb-section-label p30">30%</span> לשון תיכון</div>
       <button class="sb-item active" onclick="scrollToUnit('u1');closeSidebar()"><span class="sb-em">📖</span><span>יחידה 1 — הבנה והבעה</span></button>
       <button class="sb-item" onclick="scrollToUnit('u2');closeSidebar()"><span class="sb-em">🔗</span><span>יחידה 2 — תחביר</span></button>
       <button class="sb-item" onclick="scrollToUnit('u3');closeSidebar()"><span class="sb-em">🔤</span><span>יחידה 3 — צורות</span></button>
       <button class="sb-item" onclick="scrollToUnit('u4');closeSidebar()"><span class="sb-em">✅</span><span>יחידה 4 — תקינות</span></button>
+      <div class="sb-section" style="margin-top:.9rem"><span class="sb-section-label p70">70%</span> לשון תיכון</div>
+      <button class="sb-item" onclick="scrollToUnit('v1');closeSidebar()"><span class="sb-em">📚</span><span>יחידה א — הבנה והבעה</span></button>
+      <button class="sb-item" onclick="scrollToUnit('v2');closeSidebar()"><span class="sb-em">🔤</span><span>יחידה ב — צורות</span></button>
+      <button class="sb-item" onclick="scrollToUnit('v3');closeSidebar()"><span class="sb-em">✅</span><span>יחידה ג — תקינות</span></button>
     </nav>
     <div class="sb-foot">
       <div class="sb-user">
@@ -493,7 +543,7 @@ a{text-decoration:none;color:inherit}
     <div class="topbar">
       <div class="topbar-text">
         <div class="topbar-title">פלטפורמת לשון 2.0</div>
-        <div class="topbar-sub">לכיתות ט׳–י׳ | מבוסס "לשון תיכון: צורות"</div>
+        <div class="topbar-sub">לימוד לשון כיתות י׳–י״א</div>
       </div>
       <div class="topbar-right">
         <span id="tb-greet" class="tb-greet" style="display:none">👋 שלום!</span>
@@ -878,8 +928,65 @@ const UNITS=[
 ];
 
 /* ════════════════════════════════════════════════
-   STATE & STORAGE
+   CURRICULUM DATA — לשון תיכון 70%
 ════════════════════════════════════════════════ */
+const UNITS_70=[
+  { id:'v1',emoji:'📚',label:'יחידה א׳',title:'הבנה והבעה',color:'#0891b2',colorLt:'#ecfeff',
+    desc:'אוצר מילים, הבנת טקסטים, כתיבה מזומנת ומיומנויות בגרות',
+    lessons:[
+      {id:'v1_l1',short:'שיעור 1',emoji:'📖',color:'#0891b2',mins:45,locked:false,
+       title:'מתחילים שנה — מיומנויות יסוד',desc:'אוצר מילים, מושגי יסוד ומיומנויות לקריאה',file:'v1_lesson1.html'},
+      {id:'v1_l2',short:'שיעור 2',emoji:'📝',color:'#0284c7',mins:45,locked:true,
+       title:'אוצר המילים מבחינות הבגרות',desc:'מילים נפוצות בבגרות — זיהוי ושימוש בהקשר',file:'v1_lesson2.html'},
+      {id:'v1_l3',short:'שיעור 3',emoji:'🔍',color:'#0f766e',mins:45,locked:true,
+       title:'דרכים להבנת טקסטים',desc:'טקסט לא צייף, השוואה ואסטרטגיות קריאה',file:'v1_lesson3.html'},
+      {id:'v1_l4',short:'שיעור 4',emoji:'⚖️',color:'#7c3aed',mins:45,locked:true,
+       title:'השוואה בין טקסטים',desc:'זיהוי דמיון ושוני, כתיבת פסקת השוואה',file:'v1_lesson4.html'},
+      {id:'v1_l5',short:'שיעור 5',emoji:'🎯',color:'#be185d',mins:45,locked:true,
+       title:'הבנת טקסט טיעון',desc:'טענה ראשית, נימוקים, עמדת הכותב — זיהוי וניתוח',file:'v1_lesson5.html'},
+      {id:'v1_l6',short:'שיעור 6',emoji:'✍️',color:'#b45309',mins:50,locked:true,
+       title:'כתיבה מזומנת',desc:'מבנה, ציר הסיפור, אמצעים ספרותיים ואסטרטגיות כתיבה',file:'v1_lesson6.html'},
+      {id:'v1_exam',short:'מבחן',emoji:'🏆',color:'#ca8a04',mins:90,locked:true,exam:true,
+       title:'מבחן סיכום — הבנה והבעה 70%',desc:'מבחן מסכם בסגנון בגרות',file:'v1_exam.html'},
+    ]
+  },
+  { id:'v2',emoji:'🔤',label:'יחידה ב׳',title:'צורות',color:'#7c3aed',colorLt:'#faf5ff',
+    desc:'מערכת הפועל, גזרות, שמות הפעולה, דרכי תצורת השם ושורשים מורכבים',
+    lessons:[
+      {id:'v2_l1',short:'שיעור 1',emoji:'🌱',color:'#4f46e5',mins:45,locked:true,
+       title:'מבוא למערכת הצורות',desc:'זון גירה, זוון נסייה, מאפייני הפועל — שורש ותבנית',file:'v2_lesson1.html'},
+      {id:'v2_l2',short:'שיעור 2',emoji:'⚙️',color:'#0f766e',mins:45,locked:true,
+       title:'גזרת השלמים — כל הבניינים',desc:'בניין קל, נפעל, פיעל, פועל, הפעיל, הופעל, התפעל',file:'v2_lesson2.html'},
+      {id:'v2_l3',short:'שיעור 3',emoji:'🏗️',color:'#059669',mins:45,locked:true,
+       title:'גזרת המרובעים ועצורים גרוניים',desc:'מרובעים: נטייה ומאפיינים; ע׳ גרוניות — שינויי ניקוד',file:'v2_lesson3.html'},
+      {id:'v2_l4',short:'שיעור 4',emoji:'🔷',color:'#0891b2',mins:45,locked:true,
+       title:'גזרות חסרי פ״נ ופ״י',desc:'חפ״נ (ניתוח, נפל) וחפ״י (ישב, ידע) — זיהוי ונטייה',file:'v2_lesson4.html'},
+      {id:'v2_l5',short:'שיעור 5',emoji:'🔶',color:'#7c3aed',mins:45,locked:true,
+       title:'גזרות נחי ל״א ול״ה',desc:'נחי ל״א (קרא, מצא) ונחי ל״ה (בנה, עלה) — נטייה ומלכודות',file:'v2_lesson5.html'},
+      {id:'v2_l6',short:'שיעור 6',emoji:'🔸',color:'#be185d',mins:45,locked:true,
+       title:'גזרות נחי ע״ו ונ׳ ועי״ן כפולות',desc:'נחי ע״ו/נ (קם, שב) וגזרת ע״י — הכפולים (סבב, קלל)',file:'v2_lesson6.html'},
+      {id:'v2_l7',short:'שיעור 7',emoji:'🏷️',color:'#b45309',mins:45,locked:true,
+       title:'שורשים מורכבים וגזורי שם',desc:'שורשים תניינים, שורשים מורכבים — פעלים ושמות מורכבים',file:'v2_lesson7.html'},
+      {id:'v2_l8',short:'שיעור 8',emoji:'🔗',color:'#0f766e',mins:45,locked:true,
+       title:'דרכי תצורת השם',desc:'שורש ומשקל, בסיס וצורן, הלחם בסיסים — זיהוי ויישום',file:'v2_lesson8.html'},
+      {id:'v2_exam',short:'מבחן',emoji:'📝',color:'#ca8a04',mins:90,locked:true,exam:true,
+       title:'מבחן סיכום — צורות 70%',desc:'מבחן מסכם — גזרות, תצורה ושורשים',file:'v2_exam.html'},
+    ]
+  },
+  { id:'v3',emoji:'✅',label:'יחידה ג׳',title:'תקינות',color:'#ca8a04',colorLt:'#fefce8',
+    desc:'שם המספר — מונה, סודר, הסתמי, שימוש — וטיפים לבגרות',
+    lessons:[
+      {id:'v3_l1',short:'שיעור 1',emoji:'📏',color:'#b45309',mins:45,locked:true,
+       title:'שם המספר — המספר המונה',desc:'מונה: זכר ונקבה, כללים ומלכודות נפוצות',file:'v3_lesson1.html'},
+      {id:'v3_l2',short:'שיעור 2',emoji:'🔢',color:'#0284c7',mins:45,locked:true,
+       title:'המספר הסודר והסתמי',desc:'סודר (ראשון, שני...) וסתמי (כמה, הרבה) — צורה ושימוש',file:'v3_lesson2.html'},
+      {id:'v3_l3',short:'שיעור 3',emoji:'📐',color:'#059669',mins:45,locked:true,
+       title:'שם המספר בשימוש',desc:'צירוף שם המספר עם שמות ואותיות שימוש — כללים מיוחדים',file:'v3_lesson3.html'},
+      {id:'v3_exam',short:'מבחן',emoji:'🎯',color:'#ca8a04',mins:60,locked:true,exam:true,
+       title:'מבחן סיכום — תקינות 70%',desc:'מבחן מסכם — שם המספר וטיפים לבגרות',file:'v3_exam.html'},
+    ]
+  }
+];
 const S={role:'',name:'',prog:{}};
 const LS={
   get(k,fb=null){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):fb}catch{return fb}},
@@ -1112,55 +1219,92 @@ function enterApp(role,name){
 function renderGrid(){
   const wrap=document.getElementById('units-wrap');if(!wrap)return;
   const isT=(S.role==='teacher'||S.role==='admin');let totalOpen=0,totalDone=0;let html='';
-  UNITS.forEach((unit,ui)=>{
-    let ud=0,ut=0;
-    unit.lessons.forEach(l=>{if(!isLocked(l.id,l.locked)||isT)ut++;if(S.prog[l.id]?.done)ud++;});
-    const pct=ut?Math.round(ud/ut*100):0;
-    let rows='';
-    unit.lessons.forEach(l=>{
-      const locked=isLocked(l.id,l.locked)&&!isT;
-      const done=!!S.prog[l.id]?.done;
-      const chips=[
-        `<span class="lr-chip time">⏱ ${l.mins} דק׳</span>`,
-        l.exam?`<span class="lr-chip exam">📝 מבחן</span>`:'',
-        l.isNew?`<span class="lr-chip new">✨ חדש</span>`:'',
-      ].filter(Boolean).join('');
-      const action=locked?'':`openLesson('${l.id}','${l.file||''}','${unit.id}')`;
-      rows+=`
-      <div class="lesson-row${done?' done':''}${locked?' locked':''}" style="--lc:${l.color}" onclick="${action}">
-        <div class="lr-icon" style="background:${l.color}18">${l.emoji}<div class="lr-done">✓</div></div>
-        <div class="lr-body">
-          <div class="lr-short">${l.short}</div>
-          <div class="lr-title">${l.title}</div>
-          <div class="lr-desc">${l.desc||''}</div>
-          <div class="lr-chips">${chips}</div>
-        </div>
-        <div class="lr-right">${locked?`<span class="lock-chip">🔒 נעול</span>`:'<span class="lr-arrow">‹</span>'}</div>
-      </div>`;
-      if(!locked||isT)totalOpen++;
-      if(done)totalDone++;
-    });
-    html+=`
-    <div class="unit-card" id="unit-${unit.id}">
-      <button class="unit-hd" id="uh-${unit.id}" style="--uc:${unit.color};--uc-lt:${unit.colorLt}" onclick="toggleUnit('${unit.id}')">
-        <div class="unit-icon">${unit.emoji}</div>
-        <div class="unit-body-text">
-          <div class="unit-eyebrow">${unit.label}</div>
-          <div class="unit-name">${unit.title}</div>
-          <div class="unit-desc">${unit.desc}</div>
-        </div>
-        <div class="unit-meta">
-          <div class="unit-bar-wrap">
-            <div class="unit-bar-track"><div class="unit-bar-fill" style="width:${pct}%;background:${unit.color}"></div></div>
-            <div class="unit-bar-pct" style="color:${unit.color}">${pct}%</div>
+
+  /* ── helper: render one group of units ── */
+  function renderUnitGroup(units, groupClass){
+    let out='';
+    units.forEach((unit)=>{
+      let ud=0,ut=0;
+      unit.lessons.forEach(l=>{if(!isLocked(l.id,l.locked)||isT)ut++;if(S.prog[l.id]?.done)ud++;});
+      const pct=ut?Math.round(ud/ut*100):0;
+      let rows='';
+      unit.lessons.forEach(l=>{
+        const locked=isLocked(l.id,l.locked)&&!isT;
+        const done=!!S.prog[l.id]?.done;
+        const chips=[
+          `<span class="lr-chip time">⏱ ${l.mins} דק׳</span>`,
+          l.exam?`<span class="lr-chip exam">📝 מבחן</span>`:'',
+          l.isNew?`<span class="lr-chip new">✨ חדש</span>`:'',
+          locked&&!isT?`<span class="lr-chip" style="color:var(--muted);background:var(--surface3)">🔜 בקרוב</span>`:'',
+        ].filter(Boolean).join('');
+        const action=locked?'':`openLesson('${l.id}','${l.file||''}','${unit.id}')`;
+        rows+=`
+        <div class="lesson-row${done?' done':''}${locked?' locked':''}" style="--lc:${l.color}" onclick="${action}">
+          <div class="lr-icon" style="background:${l.color}18">${l.emoji}<div class="lr-done">✓</div></div>
+          <div class="lr-body">
+            <div class="lr-short">${l.short}</div>
+            <div class="lr-title">${l.title}</div>
+            <div class="lr-desc">${l.desc||''}</div>
+            <div class="lr-chips">${chips}</div>
           </div>
-          <span class="unit-chev">▼</span>
-        </div>
-      </button>
-      <div class="unit-div"></div>
-      <div class="unit-lessons" id="ul-${unit.id}">${rows}</div>
-    </div>`;
-  });
+          <div class="lr-right">${locked?`<span class="lock-chip">🔒 נעול</span>`:'<span class="lr-arrow">‹</span>'}</div>
+        </div>`;
+        if(!locked||isT)totalOpen++;
+        if(done)totalDone++;
+      });
+      out+=`
+      <div class="unit-card${groupClass?' '+groupClass:''}" id="unit-${unit.id}">
+        <button class="unit-hd" id="uh-${unit.id}" style="--uc:${unit.color};--uc-lt:${unit.colorLt}" onclick="toggleUnit('${unit.id}')">
+          <div class="unit-icon">${unit.emoji}</div>
+          <div class="unit-body-text">
+            <div class="unit-eyebrow">${unit.label}</div>
+            <div class="unit-name">${unit.title}</div>
+            <div class="unit-desc">${unit.desc}</div>
+          </div>
+          <div class="unit-meta">
+            <div class="unit-bar-wrap">
+              <div class="unit-bar-track"><div class="unit-bar-fill" style="width:${pct}%;background:${unit.color}"></div></div>
+              <div class="unit-bar-pct" style="color:${unit.color}">${pct}%</div>
+            </div>
+            <span class="unit-chev">▼</span>
+          </div>
+        </button>
+        <div class="unit-div"></div>
+        <div class="unit-lessons" id="ul-${unit.id}">${rows}</div>
+      </div>`;
+    });
+    return out;
+  }
+
+  /* ── 30% section ── */
+  html+=`<div class="section-divider">
+    <div class="section-divider-line"></div>
+    <div class="section-divider-badge p30">
+      <span>📗 לשון</span>
+      <span class="section-divider-tag">30%</span>
+    </div>
+    <div class="section-divider-line"></div>
+  </div>`;
+  html+=renderUnitGroup(UNITS,'');
+
+  /* ── 70% section ── */
+  html+=`<div class="section-divider" style="margin-top:2.8rem">
+    <div class="section-divider-line"></div>
+    <div class="section-divider-badge p70">
+      <span>📘 לשון</span>
+      <span class="section-divider-tag">70%</span>
+    </div>
+    <div class="section-divider-line"></div>
+  </div>
+  <div style="background:linear-gradient(135deg,var(--c70-lt),var(--surface));border:1.5px dashed #c4b5fd;border-radius:var(--r-lg);padding:.7rem 1.1rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.75rem">
+    <span style="font-size:1.4rem">🚧</span>
+    <div>
+      <div style="font-size:.8rem;font-weight:800;color:var(--c70)">יחידות 70% — בפיתוח</div>
+      <div style="font-size:.68rem;color:var(--muted);margin-top:.1rem">שיעורים אלו יפתחו בהדרגה. המורה יוכל לפתוח כל שיעור ידנית כשיהיה מוכן.</div>
+    </div>
+  </div>`;
+  html+=renderUnitGroup(UNITS_70,'p70');
+
   wrap.innerHTML=html;
   if(S.role==='student'){
     const pct=totalOpen?Math.round(totalDone/totalOpen*100):0;
@@ -1170,12 +1314,13 @@ function renderGrid(){
     if(stats)stats.innerHTML=`<span class="prog-stat"><b>${totalOpen}</b> שיעורים</span><span class="prog-stat"><b>${totalDone}</b> הושלמו</span><span class="prog-stat"><b>${totalOpen-totalDone}</b> נותרו</span>`;
   }
 }
+const ALL_UNITS=[...UNITS,...UNITS_70];
 function toggleUnit(uid){
   const uh=document.getElementById('uh-'+uid),ul=document.getElementById('ul-'+uid);
   if(!uh||!ul)return;
   const isOpen=uh.classList.contains('open');
   // Close all units first (accordion behavior)
-  UNITS.forEach(u=>{
+  ALL_UNITS.forEach(u=>{
     document.getElementById('uh-'+u.id)?.classList.remove('open');
     document.getElementById('ul-'+u.id)?.classList.remove('open');
   });
@@ -1187,7 +1332,7 @@ function toggleUnit(uid){
   }
 }
 function closeAllUnits(){
-  UNITS.forEach(u=>{
+  ALL_UNITS.forEach(u=>{
     document.getElementById('uh-'+u.id)?.classList.remove('open');
     document.getElementById('ul-'+u.id)?.classList.remove('open');
   });
@@ -1383,21 +1528,27 @@ async function sendWhatsAppSummary(){
 function buildLockList(){
   const list=document.getElementById('lock-list');if(!list)return;
   let html='';
-  UNITS.forEach(unit=>{
-    html+=`<div style="margin:.85rem 0 .35rem;font-size:.66rem;font-weight:800;color:var(--subtle);text-transform:uppercase;letter-spacing:.07em">${unit.emoji} ${unit.label} — ${unit.title}</div>`;
-    unit.lessons.forEach(l=>{
-      const locked=isLocked(l.id,l.locked);
-      html+=`<div class="lock-item">
-        <span class="lock-emoji">${l.emoji}</span>
-        <div class="lock-info"><div class="lock-name">${l.title}</div><div class="lock-meta">${unit.label} · ${l.short}</div></div>
-        <label class="toggle-wrap">
-          <input type="checkbox" ${!locked?'checked':''}
-            onchange="setLock('${l.id}',!this.checked);renderGrid();buildLockList();toast(this.checked?'🔓 שיעור נפתח':'🔒 שיעור ננעל')">
-          <span class="toggle-slider"></span>
-        </label>
-      </div>`;
+  function renderLockGroup(units, groupLabel){
+    let out=`<div style="margin:1rem 0 .35rem;font-size:.7rem;font-weight:900;color:var(--subtle);text-transform:uppercase;letter-spacing:.07em;display:flex;align-items:center;gap:.5rem">${groupLabel}</div>`;
+    units.forEach(unit=>{
+      out+=`<div style="margin:.6rem 0 .2rem;font-size:.64rem;font-weight:800;color:var(--muted);letter-spacing:.04em">${unit.emoji} ${unit.label} — ${unit.title}</div>`;
+      unit.lessons.forEach(l=>{
+        const locked=isLocked(l.id,l.locked);
+        out+=`<div class="lock-item">
+          <span class="lock-emoji">${l.emoji}</span>
+          <div class="lock-info"><div class="lock-name">${l.title}</div><div class="lock-meta">${unit.label} · ${l.short}</div></div>
+          <label class="toggle-wrap">
+            <input type="checkbox" ${!locked?'checked':''}
+              onchange="setLock('${l.id}',!this.checked);renderGrid();buildLockList();toast(this.checked?'🔓 שיעור נפתח':'🔒 שיעור ננעל')">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>`;
+      });
     });
-  });
+    return out;
+  }
+  html+=renderLockGroup(UNITS,'📗 לשון תיכון 30%');
+  html+=renderLockGroup(UNITS_70,'📘 לשון תיכון 70%');
   list.innerHTML=html;
 }
 
@@ -1422,25 +1573,31 @@ function buildAnswersControlList(){
   }
   // Build list for remaining lessons
   const list=document.getElementById('answers-control-list');if(!list)return;
-  let html='<div style="font-size:.68rem;font-weight:800;color:var(--subtle);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem">כל השיעורים</div>';
-  UNITS.forEach(unit=>{
-    unit.lessons.forEach(l=>{
-      if(l.id==='u1_l0') return; // handled by dedicated toggle above
-      const vis=isAnswersVisible(l.id);
-      html+=`<div class="lock-item">
-        <span class="lock-emoji">${l.emoji}</span>
-        <div class="lock-info">
-          <div class="lock-name">${l.title}</div>
-          <div class="lock-meta" style="color:${vis?'var(--green)':'var(--muted)'}">${vis?'✅ תשובות גלויות':'🔒 מוסתרות'}</div>
-        </div>
-        <label class="toggle-wrap answers">
-          <input type="checkbox" ${vis?'checked':''}
-            onchange="setAnswersVisible('${l.id}',this.checked);buildAnswersControlList();toast(this.checked?'🔓 תשובות גלויות':'🔒 תשובות הוסתרו')">
-          <span class="toggle-slider"></span>
-        </label>
-      </div>`;
+  let html='';
+  function renderAnswersGroup(units, groupLabel){
+    let out=`<div style="margin:1rem 0 .35rem;font-size:.7rem;font-weight:900;color:var(--subtle);text-transform:uppercase;letter-spacing:.07em">${groupLabel}</div>`;
+    units.forEach(unit=>{
+      unit.lessons.forEach(l=>{
+        if(l.id==='u1_l0') return;
+        const vis=isAnswersVisible(l.id);
+        out+=`<div class="lock-item">
+          <span class="lock-emoji">${l.emoji}</span>
+          <div class="lock-info">
+            <div class="lock-name">${l.title}</div>
+            <div class="lock-meta" style="color:${vis?'var(--green)':'var(--muted)'}">${vis?'✅ תשובות גלויות':'🔒 מוסתרות'}</div>
+          </div>
+          <label class="toggle-wrap answers">
+            <input type="checkbox" ${vis?'checked':''}
+              onchange="setAnswersVisible('${l.id}',this.checked);buildAnswersControlList();toast(this.checked?'🔓 תשובות גלויות':'🔒 תשובות הוסתרו')">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>`;
+      });
     });
-  });
+    return out;
+  }
+  html+=renderAnswersGroup(UNITS,'📗 לשון תיכון 30%');
+  html+=renderAnswersGroup(UNITS_70,'📘 לשון תיכון 70%');
   list.innerHTML=html;
 }
 
@@ -1600,7 +1757,7 @@ function _loadProgressLocal(el){
     let prog={};try{prog=JSON.parse(localStorage.getItem(key))||{}}catch{}
     Object.keys(prog).forEach(lid=>{
       const d=prog[lid];if(!d?.done)return;
-      const lname=UNITS.flatMap(u=>u.lessons).find(l=>l.id===lid)?.title||lid;
+      const lname=ALL_UNITS.flatMap(u=>u.lessons).find(l=>l.id===lid)?.title||lid;
       const perf=typeof d.score==='number'
         ?`<span style="font-weight:800;color:${d.score>=80?'var(--green)':d.score>=60?'var(--amber)':'var(--red)'}">${d.score}%</span>`
         :`<span style="color:var(--green);font-weight:700">✅</span>`;
@@ -1885,7 +2042,7 @@ async function loadUnitSummary(){
 
   // Build: for each unit, for each class, map student→set of lessonIds completed
   let html = '';
-  UNITS.forEach(unit=>{
+  ALL_UNITS.forEach(unit=>{
     const lessonCount = unit.lessons.length;
     const lessonIds = unit.lessons.map(l=>l.id);
 
