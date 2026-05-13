@@ -980,16 +980,18 @@ const UNITS_70=[
     ]
   },
   { id:'v3',emoji:'✅',label:'יחידה ג׳',title:'תקינות',color:'#ca8a04',colorLt:'#fefce8',
-    desc:'שם המספר — מונה, סודר, הסתמי, שימוש — וטיפים לבגרות',
+    desc:'שם המספר, אותיות השימוש, כתיב חסר ומלא, פיסוק — זיהוי ותיקון שגיאות ברמת בגרות 70%',
     lessons:[
       {id:'v3_l1',short:'שיעור 1',emoji:'📏',color:'#b45309',mins:45,locked:true,
-       title:'שם המספר — המספר המונה',desc:'מונה: זכר ונקבה, כללים ומלכודות נפוצות',file:'v3_lesson1.html'},
-      {id:'v3_l2',short:'שיעור 2',emoji:'🔢',color:'#0284c7',mins:45,locked:true,
-       title:'המספר הסודר והסתמי',desc:'סודר (ראשון, שני...) וסתמי (כמה, הרבה) — צורה ושימוש',file:'v3_lesson2.html'},
-      {id:'v3_l3',short:'שיעור 3',emoji:'📐',color:'#059669',mins:45,locked:true,
-       title:'שם המספר בשימוש',desc:'צירוף שם המספר עם שמות ואותיות שימוש — כללים מיוחדים',file:'v3_lesson3.html'},
+       title:'שם המספר',desc:'מונה (חוק ההפוך), סודר, עשרות ואלפיים — זיהוי ותיקון שגיאות בקטעים',file:'v3_lesson1.html'},
+      {id:'v3_l2',short:'שיעור 2',emoji:'🔤',color:'#0284c7',mins:45,locked:true,
+       title:'אותיות השימוש',desc:'ב, כ, ל, מ, ו, ש, ה — כתיב, ניקוד וצירוף לשם. זיהוי שגיאות בקטעים',file:'v3_lesson2.html'},
+      {id:'v3_l3',short:'שיעור 3',emoji:'📚',color:'#059669',mins:45,locked:true,
+       title:'כתיב חסר ומלא',desc:'כללי כתיב בלא ניקוד, יוצאים מן הכלל, מלכודות — תיקון בטקסטים',file:'v3_lesson3.html'},
+      {id:'v3_l4',short:'שיעור 4',emoji:'⏸️',color:'#7c3aed',mins:45,locked:true,
+       title:'פיסוק תקני',desc:'פסיק, נקודה-פסיק, מקף, מירכאות — כללים ותיקון בטקסטים מבגרות',file:'v3_lesson4.html'},
       {id:'v3_exam',short:'מבחן',emoji:'🎯',color:'#ca8a04',mins:60,locked:true,exam:true,
-       title:'מבחן סיכום — תקינות 70%',desc:'מבחן מסכם — שם המספר וטיפים לבגרות',file:'v3_exam.html'},
+       title:'מבחן סיכום — תקינות 70%',desc:'25 שאלות — זיהוי ותיקון שגיאות בכל נושאי התקינות',file:'v3_exam.html'},
     ]
   }
 ];
@@ -1305,13 +1307,7 @@ function renderGrid(){
     </div>
     <div class="section-divider-line"></div>
   </div>
-  <div style="background:linear-gradient(135deg,var(--c70-lt),var(--surface));border:1.5px dashed #c4b5fd;border-radius:var(--r-lg);padding:.7rem 1.1rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.75rem">
-    <span style="font-size:1.4rem">🚧</span>
-    <div>
-      <div style="font-size:.8rem;font-weight:800;color:var(--c70)">יחידות 70% — בפיתוח</div>
-      <div style="font-size:.68rem;color:var(--muted);margin-top:.1rem">שיעורים אלו יפתחו בהדרגה. המורה יוכל לפתוח כל שיעור ידנית כשיהיה מוכן.</div>
-    </div>
-  </div>`;
+  `;
   html+=renderUnitGroup(UNITS_70,'p70');
 
   wrap.innerHTML=html;
