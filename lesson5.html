@@ -11,7 +11,7 @@
 :root{
   --bg:#f0f2f7;--surface:#fff;--surface2:#f8f9fb;--surface3:#eef0f5;
   --border:#e4e7ef;--text:#0d1424;--text-mid:#3d4660;--muted:#6b7594;--subtle:#9aa3be;
-  --blue:#1a56db;--blue-lt:#eff4ff;--blue-dk:#1340b0;
+  --blue:#1a56db;--blue-lt:#eff4ff;
   --green:#15803d;--green-lt:#f0fdf4;
   --amber:#b45309;--amber-lt:#fffbeb;
   --red:#dc2626;--red-lt:#fef2f2;
@@ -19,7 +19,6 @@
   --gold:#ca8a04;--gold-lt:#fefce8;
   --teal:#0f766e;--teal-lt:#f0fdfa;
   --rose:#be185d;--rose-lt:#fff1f2;
-  /* Lesson accent — purple for lesson 2 */
   --lc:#be185d;--lc-lt:#fff1f2;--lc-dk:#9d174d;
   --sh1:0 1px 3px rgba(13,20,36,.06);--sh2:0 4px 20px rgba(13,20,36,.08);--sh3:0 12px 40px rgba(13,20,36,.12);
   --r:14px;--r-lg:20px;--r-xl:26px;--r-pill:999px;
@@ -27,7 +26,7 @@
 @media(prefers-color-scheme:dark){:root{
   --bg:#0b0f17;--surface:#131924;--surface2:#192030;--surface3:#1f2840;
   --border:#252f47;--text:#d8dfe8;--text-mid:#a0adc5;--muted:#7a8aaa;--subtle:#50607e;
-  --blue:#4d8aff;--blue-lt:#162040;--blue-dk:#6aa0ff;
+  --blue:#4d8aff;--blue-lt:#162040;
   --green:#34d875;--green-lt:#0c2618;
   --amber:#f5a623;--amber-lt:#28200c;
   --red:#fc8080;--red-lt:#281414;
@@ -42,8 +41,6 @@
 html{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{line-height:1.65;min-height:100vh}
 button,input,select,textarea{font-family:inherit}
-
-/* ═══ TOPBAR ═══ */
 .topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:.62rem 1.1rem;display:flex;align-items:center;gap:.55rem;min-height:54px;box-shadow:var(--sh1)}
 .btn-back{width:40px;height:40px;border:1.5px solid var(--border);border-radius:11px;background:var(--surface2);font-size:1.05rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .14s;flex-shrink:0}
 .btn-back:hover{background:var(--surface3);color:var(--text)}
@@ -56,20 +53,16 @@ button,input,select,textarea{font-family:inherit}
 .t-chip.teacher{color:var(--gold);background:var(--gold-lt);border-color:#fde68a;display:none}
 .btn-print{display:inline-flex;align-items:center;gap:.32rem;padding:.32rem .85rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .14s;white-space:nowrap;min-height:36px}
 .btn-print:hover{background:var(--lc-lt);color:var(--lc);border-color:var(--lc)}
-
-/* ═══ TABS ═══ */
 .tabs-bar{background:var(--surface);border-bottom:1px solid var(--border);display:flex;padding:0 1.1rem;overflow-x:auto;scrollbar-width:none;position:sticky;top:54px;z-index:90}
 .tabs-bar::-webkit-scrollbar{display:none}
 .tab-btn{padding:.68rem 1.2rem;border:none;border-bottom:2.5px solid transparent;background:none;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;min-height:46px;margin-bottom:-1px;flex-shrink:0;transition:color .14s}
 .tab-btn:hover{color:var(--lc)}
 .tab-btn.active{color:var(--lc);border-bottom-color:var(--lc);font-weight:800}
 .tab-pane{display:none}
-.tab-pane.active{display:block}
-
-/* ═══ LESSON WRAP ═══ */
+.tab-pane.active{display:block;animation:fadeIn .18s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@media print{.tab-pane{display:block!important}}
 .lesson-wrap{max-width:800px;margin:0 auto;padding:1.5rem 1.2rem 5rem;width:100%}
-
-/* ─── HERO ─── */
 .lesson-hero{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface) 68%);border:1px solid var(--border);border-radius:var(--r-xl);padding:1.8rem 1.6rem 1.6rem;margin-bottom:1.8rem;position:relative;overflow:hidden;box-shadow:var(--sh1)}
 .lesson-hero::before{content:'';position:absolute;top:0;right:0;bottom:0;width:5px;background:var(--lc);opacity:.75;border-radius:0 var(--r-xl) var(--r-xl) 0}
 .hero-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.62rem;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.07em;background:var(--lc-lt);border:1.5px solid var(--lc);border-radius:var(--r-pill);padding:.22rem .8rem;margin-bottom:.9rem;opacity:.88}
@@ -80,14 +73,11 @@ button,input,select,textarea{font-family:inherit}
 .hero-chip{font-size:.63rem;font-weight:700;padding:.22rem .72rem;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface);color:var(--muted)}
 .hero-chip.lc{color:var(--lc);background:var(--lc-lt);border-color:var(--lc)}
 .hero-chip.green{color:var(--green);background:var(--green-lt);border-color:#bbf7d0}
-
-/* ─── SECTION HEADING ─── */
+.hero-chip.amber{color:var(--amber);background:var(--amber-lt);border-color:#fde68a}
 .section-hd{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--lc);display:flex;align-items:center;gap:.55rem;margin:2.2rem 0 1rem;padding-bottom:.48rem;border-bottom:2px solid var(--lc-lt)}
 .section-hd:first-of-type{margin-top:0}
 .sn{width:28px;height:28px;border-radius:50%;background:var(--lc);color:#fff;font-size:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900}
 .sn-icon{font-size:1.3rem;flex-shrink:0;line-height:1}
-
-/* ─── CARDS ─── */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;box-shadow:var(--sh1);margin-bottom:1rem}
 .card p{font-size:.9rem;line-height:1.78;color:var(--text-mid)}
 .card p+p{margin-top:.65rem}
@@ -95,100 +85,84 @@ button,input,select,textarea{font-family:inherit}
 .card ul,.card ol{padding-right:1.3rem;margin-top:.42rem}
 .card li{font-size:.9rem;line-height:1.78;color:var(--text-mid);margin-bottom:.18rem}
 .card li strong{color:var(--text)}
-
-/* Callouts */
 .box{border-radius:var(--r);padding:1rem 1.2rem;font-size:.86rem;line-height:1.72;color:var(--text-mid);margin-bottom:1rem}
 .box strong{font-weight:800}
-.box-lc{background:var(--lc-lt);border:1.5px solid #ddd6fe}.box-lc strong{color:var(--lc)}
-.box-blue{background:var(--blue-lt);border:1.5px solid #bfdbfe}.box-blue strong{color:var(--blue)}
+.box-lc{background:var(--lc-lt);border:1.5px solid #fecdd3}.box-lc strong{color:var(--lc)}
 .box-amber{background:var(--amber-lt);border:1.5px solid #fde68a}.box-amber strong{color:var(--amber)}
 .box-green{background:var(--green-lt);border:1.5px solid #bbf7d0}.box-green strong{color:var(--green)}
-.box-teal{background:var(--teal-lt);border:1.5px solid #99f6e4;border-radius:var(--r-lg);padding:1.25rem 1.35rem;margin-bottom:1rem}
-.box-teal-label{font-size:.78rem;font-weight:800;color:var(--teal);margin-bottom:.78rem}
+.box-blue{background:var(--blue-lt);border:1.5px solid #bfdbfe}.box-blue strong{color:var(--blue)}
 .box-rose{background:var(--rose-lt);border:1.5px solid #fecdd3}.box-rose strong{color:var(--rose)}
-
-/* Grid */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.85rem}
 @media(max-width:480px){.grid2{grid-template-columns:1fr}}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;margin-top:.85rem}
+@media(max-width:580px){.grid3{grid-template-columns:1fr}}
 .mini-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.95rem 1.05rem}
 .mini-title{font-size:.76rem;font-weight:800;color:var(--text);margin-bottom:.38rem}
 .mini-body{font-size:.8rem;color:var(--text-mid);line-height:1.62}
-
-/* Steps */
-.steps-wrap{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1.5px solid #ddd6fe;border-radius:var(--r-lg);padding:1.4rem 1.5rem;margin-bottom:1rem}
+.steps-wrap{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1.5px solid #fecdd3;border-radius:var(--r-lg);padding:1.4rem 1.5rem;margin-bottom:1rem}
 .steps-title{font-family:'Secular One',sans-serif;font-size:.94rem;color:var(--lc);margin-bottom:1rem}
 .step-item{display:flex;align-items:flex-start;gap:.65rem;font-size:.86rem;color:var(--text-mid);line-height:1.55;margin-bottom:.68rem}
 .step-item:last-child{margin-bottom:0}
 .step-num{width:26px;height:26px;border-radius:50%;background:var(--lc);color:#fff;font-size:.7rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
-
-/* ─── COMPARISON DIAGRAM ─── */
-/* Side-by-side texts */
-.texts-side{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem}
-@media(max-width:560px){.texts-side{grid-template-columns:1fr}}
-.text-panel{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
-.text-panel-header{padding:.7rem 1rem;font-size:.75rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
-.text-panel.a .text-panel-header{background:#7c3aed;color:#fff}
-.text-panel.b .text-panel-header{background:#5b21b6;color:#fff}
-.text-panel-body{background:var(--surface);border:1px solid var(--border);border-top:none;padding:.9rem 1rem;font-size:.82rem;line-height:1.7;color:var(--text-mid)}
-
-/* Venn-style overlap diagram */
-.venn-wrap{position:relative;margin:1.5rem 0;display:flex;gap:0;align-items:stretch;min-height:160px}
-.venn-left,.venn-right{flex:1;padding:1rem 1.1rem;border-radius:var(--r-lg) 0 0 var(--r-lg)}
-.venn-right{border-radius:0 var(--r-lg) var(--r-lg) 0}
-.venn-center{width:160px;flex-shrink:0;background:linear-gradient(135deg,#ede9fe,#ddd6fe);border:1.5px solid #c4b5fd;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.9rem .8rem;text-align:center;z-index:1}
-.venn-left{background:linear-gradient(135deg,#eff4ff,#dbeafe);border:1.5px solid #bfdbfe;border-left:none;padding-right:1.5rem}
-.venn-right{background:linear-gradient(135deg,#fdf4ff,#e9d5ff);border:1.5px solid #d8b4fe;border-right:none;padding-left:1.5rem}
-@media(max-width:520px){
-  .venn-wrap{flex-direction:column;min-height:auto}
-  .venn-left,.venn-right,.venn-center{border-radius:var(--r-lg);border:1.5px solid #ddd6fe;width:auto}
-}
-.venn-label{font-size:.65rem;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;display:block}
-.venn-items{font-size:.78rem;color:var(--text-mid);line-height:1.65}
-.venn-items li{list-style:none;padding:0;margin-bottom:.25rem}
-.venn-items li::before{content:'• ';color:var(--lc)}
-.venn-center .venn-label{color:var(--purple-dk)}
-.venn-center .venn-items li::before{color:var(--purple)}
-
-/* Comparison table */
 .cmp-table{width:100%;border-collapse:collapse;font-size:.82rem;margin-bottom:1rem;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
-.cmp-table th{padding:.68rem .9rem;text-align:right;font-weight:800;font-size:.76rem}
-.cmp-table th:first-child{background:var(--lc);color:#fff}
-.cmp-table th.col-a{background:#7c3aed;color:#fff}
-.cmp-table th.col-b{background:#5b21b6;color:#fff}
+.cmp-table th{padding:.68rem .9rem;text-align:right;font-weight:800;font-size:.76rem;color:#fff}
+.cmp-table th:first-child{background:var(--lc)}
 .cmp-table td{padding:.6rem .9rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
 .cmp-table tr:last-child td{border-bottom:none}
 .cmp-table tr:nth-child(even) td{background:var(--surface2)}
 .cmp-table tr:nth-child(odd) td{background:var(--surface)}
 .cmp-table .row-label{font-weight:700;color:var(--text);background:var(--lc-lt)!important;white-space:nowrap}
-
-/* Bagrut answer template */
 .bagrut-template{background:var(--surface);border:2px dashed var(--lc);border-radius:var(--r-xl);padding:1.4rem 1.5rem;margin-bottom:1rem}
 .bagrut-template-title{font-family:'Secular One',sans-serif;font-size:.88rem;color:var(--lc);margin-bottom:.9rem;display:flex;align-items:center;gap:.38rem}
 .bagrut-line{display:flex;align-items:flex-start;gap:.7rem;font-size:.85rem;color:var(--text-mid);line-height:1.55;margin-bottom:.6rem;padding:.6rem .75rem;background:var(--surface2);border-radius:var(--r);border-right:3px solid var(--lc)}
 .bagrut-num{min-width:22px;height:22px;border-radius:50%;background:var(--lc);color:#fff;font-size:.68rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem}
-.bagrut-sample{background:var(--lc-lt);border:1.5px solid #ddd6fe;border-radius:var(--r-lg);padding:1.1rem 1.3rem;font-size:.85rem;line-height:1.75;color:var(--text-mid);margin-top:.8rem}
-.bagrut-sample em{color:var(--lc);font-style:normal;font-weight:700}
-
-/* ═══ READING TEXT ═══ */
-.reading-text-box{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.5rem 1.6rem;margin-bottom:1.8rem;box-shadow:var(--sh2);position:relative}
-.reading-text-box::before{content:'📄 טקסט לקריאה';position:absolute;top:-12px;right:1.4rem;background:var(--lc);color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill);letter-spacing:.04em}
+.bagrut-sample{background:var(--lc-lt);border:1.5px solid #fecdd3;border-radius:var(--r-lg);padding:1.1rem 1.3rem;font-size:.85rem;line-height:1.8;color:var(--text-mid);margin-top:.8rem}
+.bagrut-sample em{color:var(--lc);font-style:italic;font-weight:600}
+/* pyramid */
+.pyr-wrap{display:flex;flex-direction:column;gap:.42rem;margin-bottom:1rem}
+.pyr-step{display:flex;align-items:flex-start;gap:.7rem;padding:.78rem 1rem;border-radius:var(--r);border:1.5px solid}
+.pyr-step.s1{background:linear-gradient(135deg,#fef2f2,#fff);border-color:#fca5a5}
+.pyr-step.s2{background:linear-gradient(135deg,#fffbeb,#fff);border-color:#fde68a}
+.pyr-step.s3{background:linear-gradient(135deg,var(--lc-lt),#fff);border-color:#fecdd3}
+.pyr-step.s4{background:linear-gradient(135deg,#eff6ff,#fff);border-color:#bfdbfe}
+.pyr-step.s5{background:linear-gradient(135deg,#f0fdf4,#fff);border-color:#bbf7d0}
+.pyr-num{width:26px;height:26px;border-radius:50%;color:#fff;font-size:.72rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+.pyr-step.s1 .pyr-num{background:#dc2626}
+.pyr-step.s2 .pyr-num{background:#b45309}
+.pyr-step.s3 .pyr-num{background:var(--lc)}
+.pyr-step.s4 .pyr-num{background:#1a56db}
+.pyr-step.s5 .pyr-num{background:#15803d}
+.pyr-title{font-size:.84rem;font-weight:800;color:var(--text)}
+.pyr-desc{font-size:.8rem;color:var(--text-mid);line-height:1.55;margin-top:.2rem}
+/* show/tell */
+.st-pair{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem}
+@media(max-width:500px){.st-pair{grid-template-columns:1fr}}
+.st-bad{background:var(--red-lt);border:1.5px solid #fca5a5;border-radius:var(--r);padding:.85rem 1rem}
+.st-good{background:var(--green-lt);border:1.5px solid #bbf7d0;border-radius:var(--r);padding:.85rem 1rem}
+.st-label{font-size:.72rem;font-weight:800;margin-bottom:.42rem}
+.st-text{font-size:.83rem;color:var(--text-mid);line-height:1.72;font-style:italic}
+/* opening cards */
+.opening-row{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1rem}
+.op-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.82rem 1rem;box-shadow:var(--sh1);border-right:4px solid var(--lc)}
+.op-label{font-size:.74rem;font-weight:800;color:var(--lc);margin-bottom:.28rem}
+.op-ex{font-size:.83rem;color:var(--text-mid);font-style:italic;line-height:1.65}
+/* reading text */
+.reading-text-box{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.5rem 1.6rem;margin-bottom:1.5rem;box-shadow:var(--sh2);position:relative}
+.reading-text-box::before{content:'קטע לניתוח';position:absolute;top:-12px;right:1.4rem;background:var(--lc);color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill);letter-spacing:.04em}
+.rt-tag{display:inline-block;font-size:.62rem;font-weight:800;padding:.2rem .65rem;border-radius:var(--r-pill);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.05em;color:#fff;background:var(--lc)}
 .rt-title{font-family:'Secular One',sans-serif;font-size:1.05rem;color:var(--text);margin-bottom:.28rem}
-.rt-byline{font-size:.7rem;color:var(--muted);margin-bottom:1rem;display:flex;gap:.9rem;flex-wrap:wrap}
-.rt-body{font-size:.88rem;line-height:1.88;color:var(--text-mid)}
+.rt-byline{font-size:.7rem;color:var(--muted);margin-bottom:1rem}
+.rt-body{font-size:.9rem;line-height:2;color:var(--text-mid)}
 .rt-body p{margin-bottom:.85rem}
 .rt-body p:last-child{margin-bottom:0}
 .rt-body strong{color:var(--text);font-weight:700}
-.rt-body em{font-style:italic;color:var(--purple)}
-.rt-tag{display:inline-block;font-size:.62rem;font-weight:800;padding:.2rem .65rem;border-radius:var(--r-pill);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.05em}
-.rt-tag.a{background:#7c3aed;color:#fff}
-.rt-tag.b{background:#5b21b6;color:#fff}
-
-/* ═══ QUIZ ═══ */
-.quiz-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1px solid #ddd6fe;border-radius:var(--r-lg);padding:1.25rem 1.4rem;margin-bottom:1.5rem}
+.rt-body em{font-style:italic;color:var(--lc)}
+/* quiz */
+.quiz-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1px solid #fecdd3;border-radius:var(--r-lg);padding:1.25rem 1.4rem;margin-bottom:1.5rem}
 .quiz-hd-title{font-family:'Secular One',sans-serif;font-size:.97rem;color:var(--lc);margin-bottom:.32rem}
 .quiz-hd-desc{font-size:.82rem;color:var(--muted)}
 .quiz-prog-bar{height:5px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-top:.8rem;border:1px solid var(--border)}
-.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--lc),#a78bfa);border-radius:var(--r-pill);transition:width .38s ease}
+.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--lc),#fb7185);border-radius:var(--r-pill);transition:width .38s ease}
 .quiz-prog-row{display:flex;justify-content:space-between;margin-top:.38rem;font-size:.7rem;color:var(--muted)}
 .q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;margin-bottom:1.25rem;box-shadow:var(--sh1);transition:border-color .2s}
 .q-card.ok{border-color:#bbf7d0}
@@ -196,7 +170,6 @@ button,input,select,textarea{font-family:inherit}
 .q-num{font-size:.66rem;font-weight:800;color:var(--subtle);margin-bottom:.55rem;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
 .q-type-badge{font-size:.56rem;font-weight:700;padding:.14rem .52rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)}
 .q-text{font-size:.94rem;font-weight:700;color:var(--text);line-height:1.52;margin-bottom:1.05rem}
-.q-excerpt{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.75rem 1rem;font-size:.84rem;line-height:1.75;color:var(--text-mid);margin-bottom:.85rem;border-right:3px solid var(--lc);font-style:italic}
 .mc-wrap{display:flex;flex-direction:column;gap:.42rem}
 .mc-btn{width:100%;text-align:right;padding:.78rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.86rem;color:var(--text-mid);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:.68rem;min-height:50px}
 .mc-btn:hover:not(:disabled){border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
@@ -209,12 +182,16 @@ button,input,select,textarea{font-family:inherit}
 .mc-btn.correct .mc-letter{background:var(--green);color:#fff}
 .mc-btn.wrong .mc-letter{background:var(--red);color:#fff}
 .tf-row{display:flex;gap:.68rem}
-.tf-btn{flex:1;padding:.8rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.9rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:54px}
-.tf-btn:hover:not(:disabled){border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
-.tf-btn.sel{border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
-.tf-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important}
-.tf-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important}
+.tf-btn{flex:1;padding:.72rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.86rem;font-weight:600;color:var(--text-mid);cursor:pointer;transition:all .15s;min-height:48px}
+.tf-btn:hover:not(:disabled){border-color:var(--lc);background:var(--lc-lt)}
+.tf-btn.sel{border-color:var(--lc);background:var(--lc-lt);color:var(--lc);font-weight:700}
+.tf-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important;font-weight:700}
+.tf-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important;font-weight:700}
 .tf-btn:disabled{cursor:default}
+.q-feedback{font-size:.82rem;line-height:1.65;padding:.7rem .9rem;border-radius:var(--r);margin-top:.78rem;display:none}
+.q-feedback.show{display:block}
+.q-feedback.ok{background:var(--green-lt);color:var(--green);border:1px solid #bbf7d0}
+.q-feedback.wrong{background:var(--red-lt);color:var(--red);border:1px solid #fca5a5}
 .sort-list{display:flex;flex-direction:column;gap:.42rem;margin-bottom:.55rem}
 .sort-item{display:flex;align-items:center;gap:.68rem;padding:.74rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);cursor:grab;transition:all .15s;user-select:none}
 .sort-item:active{cursor:grabbing;box-shadow:var(--sh2)}
@@ -223,301 +200,251 @@ button,input,select,textarea{font-family:inherit}
 .sort-handle{font-size:1.1rem;color:var(--muted);flex-shrink:0}
 .sort-text{font-size:.86rem;color:var(--text-mid);flex:1}
 .sort-note{font-size:.7rem;color:var(--muted);margin-bottom:.32rem}
-.q-feedback{margin-top:.72rem;padding:.8rem 1.05rem;border-radius:var(--r);font-size:.83rem;font-weight:600;line-height:1.58;display:none;border-right:3px solid transparent}
-.q-feedback.show{display:block}
-.q-feedback.ok{background:var(--green-lt);color:var(--green);border-color:var(--green)}
-.q-feedback.wrong{background:var(--red-lt);color:var(--red);border-color:var(--red)}
-.results-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:2.2rem 1.8rem;text-align:center;box-shadow:var(--sh2);margin-top:1.5rem}
-.results-emoji{font-size:4rem;margin-bottom:.8rem;display:block}
-.results-score{font-family:'Secular One',sans-serif;font-size:3.4rem;font-weight:800;margin-bottom:.3rem;display:block}
-.results-label{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem;display:block}
-.results-bar{height:10px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-bottom:1.6rem;border:1px solid var(--border)}
-.results-bar-fill{height:100%;border-radius:var(--r-pill);transition:width 1.2s cubic-bezier(.22,1,.36,1)}
-.btn-submit{padding:.85rem 2rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,.28);transition:all .15s;min-height:48px}
-.btn-submit:hover{background:var(--lc-dk);transform:translateY(-1px)}
-.btn-reset{padding:.82rem 1.6rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);color:var(--muted);font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:48px}
-.btn-reset:hover{background:var(--surface3);color:var(--text)}
-.btn-send{padding:.82rem 1.8rem;border:none;border-radius:var(--r-pill);background:var(--green);color:#fff;font-size:.86rem;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(21,128,61,.3);transition:all .15s;min-height:48px}
-.btn-send:hover{transform:translateY(-1px)}
-
-/* ═══ ANSWERS TAB ═══ */
-.answers-locked{background:var(--surface);border:2px dashed var(--border);border-radius:var(--r-xl);padding:2.5rem 2rem;text-align:center;margin-top:.5rem}
-.answer-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.05rem 1.2rem;margin-bottom:.78rem}
-.ans-num{font-size:.66rem;color:var(--subtle);margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem}
-.ans-q{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.5rem;line-height:1.45}
-.ans-correct{background:var(--green-lt);border:1.5px solid #bbf7d0;border-radius:9px;padding:.55rem .95rem;font-size:.82rem;color:var(--green);font-weight:700;margin-bottom:.42rem}
-.ans-explain{font-size:.78rem;color:var(--muted);line-height:1.58;border-right:3px solid var(--border);padding-right:.78rem;margin-top:.4rem}
-.ans-teacher-note{font-size:.78rem;font-weight:700;color:var(--lc);margin-top:.38rem;background:var(--lc-lt);border-radius:8px;padding:.42rem .75rem}
-
-/* ═══ GATE ═══ */
-#student-gate{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:0;margin-bottom:1.5rem;box-shadow:var(--sh2);overflow:hidden}
-#student-gate.hidden{display:none}
-.gate-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);padding:1.4rem 1.5rem 1.2rem;text-align:center;border-bottom:1px solid var(--border)}
-.gate-icon{font-size:2.4rem;display:block;margin-bottom:.55rem}
-.gate-title{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--text);margin-bottom:.28rem}
-.gate-desc{font-size:.8rem;color:var(--muted);line-height:1.55}
-.gate-body{padding:1.3rem 1.5rem 1.5rem;display:flex;flex-direction:column;gap:.9rem}
-.gate-field label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);margin-bottom:.38rem;letter-spacing:.02em}
-.gate-input{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;min-height:50px}
-.gate-input::placeholder{color:var(--subtle)}
-.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(124,58,237,.14)}
-.gate-input.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.1)}
-.gate-select{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s;min-height:50px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7594' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 1rem center}
-.gate-select:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(124,58,237,.14)}
-.gate-select.err{border-color:var(--red)}
-.gate-err-msg{font-size:.7rem;color:var(--red);margin-top:.26rem;display:none}
+.btn-submit{padding:.88rem 2rem;border:none;border-radius:var(--r-pill);background:linear-gradient(135deg,var(--lc),var(--lc-dk));color:#fff;font-size:.9rem;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(190,24,93,.3);transition:all .18s}
+.btn-submit:hover{transform:translateY(-2px)}
+.btn-reset{padding:.82rem 1.6rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);font-size:.86rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .15s}
+.btn-reset:hover{background:var(--surface3)}
+.results-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:2rem 1.6rem;text-align:center;box-shadow:var(--sh2);margin-top:1.5rem}
+.results-emoji{font-size:3rem;display:block;margin-bottom:.6rem}
+.results-score{font-family:'Secular One',sans-serif;font-size:3.5rem;display:block;margin-bottom:.3rem}
+.results-label{font-size:.88rem;color:var(--muted);display:block;margin-bottom:1.2rem}
+.results-bar{height:10px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-bottom:1.4rem;border:1px solid var(--border)}
+.results-bar-fill{height:100%;border-radius:var(--r-pill);transition:width .7s cubic-bezier(.22,1,.36,1)}
+.hidden{display:none!important}
+.gate-header{text-align:center;margin-bottom:1.5rem;padding:1.5rem 1.4rem 0}
+.gate-icon{font-size:2.5rem;display:block;margin-bottom:.7rem}
+.gate-title{font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:.38rem}
+.gate-desc{font-size:.82rem;color:var(--muted);line-height:1.6}
+.gate-body{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:1.5rem;box-shadow:var(--sh2);max-width:420px;margin:0 auto 2rem}
+.gate-field{margin-bottom:1.1rem}
+.gate-field label{display:block;font-size:.75rem;font-weight:700;color:var(--muted);margin-bottom:.42rem}
+.gate-input{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.9rem;color:var(--text);outline:none;transition:border-color .15s}
+.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(190,24,93,.12)}
+.gate-input.err{border-color:var(--red)}
+.gate-date-display{padding:.72rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface3);font-size:.88rem;color:var(--muted)}
+.gate-err-msg{font-size:.72rem;color:var(--red);margin-top:.32rem;display:none}
 .gate-err-msg.show{display:block}
-.gate-date-display{padding:.78rem 1rem;background:var(--surface3);border:1.5px solid var(--border);border-radius:var(--r);font-size:.88rem;color:var(--muted)}
-.gate-btn{width:100%;padding:.88rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.92rem;font-weight:700;cursor:pointer;min-height:52px;box-shadow:0 4px 18px rgba(124,58,237,.28);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.45rem}
-.gate-btn:hover{background:var(--lc-dk);transform:translateY(-1px)}
-.gate-btn:active{transform:scale(.97)}
-#gate-confirmed{display:none;background:var(--green-lt);border:2px solid #bbf7d0;border-radius:var(--r-xl);padding:1rem 1.3rem;margin-bottom:1.5rem;align-items:center;gap:.85rem}
-#gate-confirmed.show{display:flex}
-#gate-confirmed.hidden{display:none!important}
-.gc-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#15803d,#16a34a);color:#fff;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.gc-info{flex:1;min-width:0}
-.gc-name{font-size:.92rem;font-weight:800;color:var(--green)}
-.gc-meta{font-size:.74rem;color:var(--text-mid);margin-top:.15rem}
-.gc-change{font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;margin-top:.22rem;display:block}
-.gc-change:hover{color:var(--lc)}
-
-/* Toast */
-#toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%) translateY(14px);background:var(--text);color:var(--bg);padding:.58rem 1.4rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:700;box-shadow:var(--sh3);z-index:9999;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;white-space:nowrap}
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* Print */
-@media print{
-  .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,#submit-row,#results-container,#toast,#student-gate,#gate-confirmed,.sort-handle{display:none!important}
-  body{background:#fff;color:#000;font-size:10pt;line-height:1.5}
-  html{background:#fff}
-  .tab-pane{display:block!important}
-  .lesson-wrap{padding:.5cm 1cm;max-width:100%;page-break-inside:avoid}
-  .lesson-hero,.card,.q-card,.reading-text-box,.answer-row,.text-panel,.venn-wrap,.cmp-table,.bagrut-template{box-shadow:none;break-inside:avoid;page-break-inside:avoid}
-  .q-feedback{display:block!important}
-  .mc-btn.correct{display:flex!important}
-  .text-panel.a .text-panel-header,.text-panel.b .text-panel-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .venn-left,.venn-right,.venn-center{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #7c3aed}
-  .print-header h1{font-size:16pt;color:#7c3aed}
-  .print-header p{font-size:10pt;color:#555}
-  #pane-theory{page-break-after:always}
-  #pane-practice{page-break-after:always}
-  @page{margin:1.5cm;size:A4}
-}
-.print-header{display:none}
-
-/* ─── OPEN QUESTION ─── */
+.gate-btn{width:100%;padding:.92rem;border:none;border-radius:var(--r-pill);background:linear-gradient(135deg,var(--lc),var(--lc-dk));color:#fff;font-size:.9rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.55rem;box-shadow:0 4px 18px rgba(190,24,93,.28);transition:all .18s}
+.gate-btn:hover{transform:translateY(-2px)}
+.gc-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--lc),var(--lc-dk));color:#fff;font-size:1.3rem;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto .85rem;box-shadow:0 4px 16px rgba(190,24,93,.28)}
+.gc-info{text-align:center;margin-bottom:1.5rem}
+.gc-name{font-family:'Secular One',sans-serif;font-size:1rem;color:var(--text);margin-bottom:.22rem}
+.gc-meta{font-size:.78rem;color:var(--muted)}
+.gc-change{margin-top:.55rem;background:none;border:1px solid var(--border);border-radius:var(--r-pill);padding:.28rem .85rem;font-size:.72rem;color:var(--muted);cursor:pointer}
+.answers-locked{text-align:center;padding:4rem 2rem;color:var(--muted)}
+.answers-locked-icon{font-size:2.5rem;display:block;margin-bottom:.8rem}
+.answers-locked-title{font-family:'Secular One',sans-serif;font-size:1rem;color:var(--text);margin-bottom:.5rem}
+.answers-locked-desc{font-size:.84rem;color:var(--muted);line-height:1.65;max-width:380px;margin:0 auto}
+.answer-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.1rem 1.3rem;margin-bottom:.9rem;box-shadow:var(--sh1)}
+.ans-num{font-size:.65rem;font-weight:800;color:var(--subtle);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.42rem;display:flex;align-items:center;gap:.42rem;flex-wrap:wrap}
+.ans-q{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.55rem;line-height:1.5}
+.ans-correct{font-size:.84rem;color:var(--green);font-weight:700;background:var(--green-lt);border:1px solid #bbf7d0;border-radius:var(--r);padding:.5rem .85rem;margin-bottom:.42rem}
+.ans-explain{font-size:.8rem;color:var(--text-mid);line-height:1.65;border-right:3px solid var(--lc);padding-right:.8rem}
+.ans-teacher-note{font-size:.75rem;color:var(--amber);background:var(--amber-lt);border:1px solid #fde68a;border-radius:var(--r);padding:.42rem .8rem;margin-top:.42rem}
 .open-wrap{margin-bottom:.55rem}
-.open-textarea{width:100%;min-height:110px;padding:.9rem 1.1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text);line-height:1.72;resize:vertical;outline:none;transition:border-color .15s,box-shadow .15s;}
+.open-textarea{width:100%;min-height:120px;padding:.9rem 1.1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text);line-height:1.72;resize:vertical;outline:none;transition:border-color .15s}
 .open-textarea:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(190,24,93,.12)}
 .open-textarea:disabled{opacity:.7;cursor:default;background:var(--surface3)}
 .open-hint{font-size:.72rem;color:var(--muted);margin-top:.32rem;line-height:1.5}
 .open-rubric{margin-top:.65rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.75rem 1rem;font-size:.78rem;color:var(--text-mid);line-height:1.6}
-.open-rubric strong{color:var(--text)}
+.goto-practice-btn{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;padding:.95rem 1.4rem;border:none;border-radius:var(--r-pill);background:linear-gradient(135deg,var(--lc),var(--lc-dk));color:#fff;font-size:.9rem;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(190,24,93,.25);transition:all .18s;margin-top:.5rem}
+.goto-practice-btn:hover{transform:translateY(-2px)}
+.confetti-piece{position:fixed;width:10px;height:10px;border-radius:2px;pointer-events:none;z-index:9998;animation:confettiFall 2.2s ease-in forwards}
+@keyframes confettiFall{0%{transform:translateY(-10px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+#toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%) translateY(14px);background:var(--text);color:var(--bg);padding:.58rem 1.4rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:700;box-shadow:var(--sh3);z-index:9999;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;white-space:nowrap}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media print{
+  .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,#submit-row,#results-container,#toast,#student-gate,#gate-confirmed,.goto-practice-btn,.gc-avatar,.gc-info,.sort-handle{display:none!important}
+  body{background:#fff!important;color:#000!important;font-size:10pt;line-height:1.5}
+  .tab-pane{display:block!important;animation:none!important}
+  .lesson-wrap{padding:.5cm 1cm!important;max-width:100%!important}
+  .lesson-hero,.card,.q-card,.reading-text-box,.answer-row,.steps-wrap,.bagrut-template,.cmp-table{box-shadow:none!important;break-inside:avoid}
+  .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #be185d}
+  .print-header h1{font-size:16pt;color:#be185d}
+  .print-header p{font-size:10pt;color:#555}
+  .answers-locked{display:none!important}
+  #answers-visible-content{display:block!important}
+  @page{margin:1.5cm;size:A4}
+}
+.print-header{display:none}
 </style>
 </head>
 <body>
-
-<!-- TOPBAR -->
 <div class="topbar">
-  <button class="btn-back" onclick="goBack()">←</button>
+  <button class="btn-back" onclick="goBack()" title="חזור">&#9664;</button>
   <div class="topbar-info">
-    <div class="topbar-title">✍️ כתיבה יוצרת</div>
-    <div class="topbar-sub">יחידה 1 — הבנה והבעה · שיעור 5</div>
+    <div class="topbar-title">כתיבה יוצרת</div>
+    <div class="topbar-sub">יחידה א · שיעור 5 · לשון 30% בגרות</div>
   </div>
   <div class="topbar-actions">
-    <span class="t-chip lc">⏱ 45 דק׳</span>
-    <span class="t-chip teacher" id="role-chip">🎓 מורה</span>
+    <span class="t-chip lc">שיעור 5</span>
+    <span class="t-chip teacher" id="role-chip">🏫 מורה</span>
     <button class="btn-print" onclick="printLesson()">🖨️ הדפסה</button>
   </div>
 </div>
-
-<!-- TABS -->
 <div class="tabs-bar">
-  <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
-  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (21 שאלות)</button>
-  <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
-  <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
+  <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📖 תיאוריה</button>
+  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול</button>
+  <button class="tab-btn" id="btn-answers" style="display:none" onclick="switchTab('answers')">🔑 תשובות (מורה)</button>
+  <button class="tab-btn" id="btn-answers-student" style="display:none" onclick="switchTab('answers')">🔑 תשובות</button>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     THEORY
-══════════════════════════════════════════════ -->
+<!-- THEORY -->
 <div class="tab-pane active" id="pane-theory">
-<div class="print-header">
-  <h1>שיעור 2 — טקסט ההשוואה</h1>
-  <p>יחידה 1: הבנה והבעה | לשון Lesson 2.0 | כיתות ט׳–י׳</p>
-</div>
+<div class="print-header"><h1>תיאוריה — שיעור 5: כתיבה יוצרת</h1><p>יחידה א · לשון 30% בגרות | לשון Lesson 2.0</p></div>
 <div class="lesson-wrap">
-
   <div class="lesson-hero">
-    <div class="hero-badge">יחידה 1 · שיעור 5</div>
+    <div class="hero-badge">יחידה א · שיעור 5</div>
     <span class="hero-emoji">✍️</span>
     <h1 class="hero-title">כתיבה יוצרת</h1>
-    <p class="hero-desc">מבנה הסיפור, ציר העלילה ואמצעים ספרותיים — כלים לכתיבה שמרגשת ומשכנעת</p>
+    <p class="hero-desc">מבנה הסיפור, ציר העלילה ואמצעים ספרותיים — כלים לכתיבה שמרגשת ונחרתת</p>
     <div class="hero-meta">
-      <span class="hero-chip lc">⏱ 45 דק׳</span>
+      <span class="hero-chip amber">⏱ 45 דק׳</span>
       <span class="hero-chip">✍️ הבעה בכתב</span>
       <span class="hero-chip green">🎯 20 נקודות בגרות</span>
     </div>
   </div>
 
-  <div class="section-hd"><span class="sn-icon">✍️</span><div class="sn">1</div>מהי כתיבה יוצרת — ולמה היא שונה?</div>
+  <div style="background:var(--lc-lt);border:2px dashed var(--lc);border-radius:var(--r-xl);padding:1.4rem 1.5rem;margin-bottom:1.8rem">
+    <div style="font-size:.72rem;font-weight:800;color:var(--lc);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.06em">💭 שאלת פתיחה</div>
+    <p style="font-size:.94rem;font-weight:700;color:var(--text);line-height:1.6;margin-bottom:.6rem">שני תלמידים כתבו על פחד. האחד: "הוא היה מפוחד מאוד." השני: "אצבעותיו נקשו על הדלת שלוש פעמים, עצרו, נקשו שוב." — מי כתב טוב יותר, ולמה? מה ההבדל בין שתי הכתיבות?</p>
+    <p style="font-size:.82rem;color:var(--muted);line-height:1.6">זוהי שאלת הבגרות. אחרי השיעור תוכלו לנמק — ולכתוב כמו השני.</p>
+  </div>
+
+  <div class="section-hd"><span class="sn-icon">✍️</span><div class="sn">1</div>מהי כתיבה יוצרת ולמה היא שונה?</div>
   <div class="card">
     <p><strong>כתיבה יוצרת</strong> היא כתיבה שמטרתה לרגש, לעורר, לבדר או להעביר חוויה — בניגוד לכתיבה עיונית שמטרתה להסביר, או לשכנועית שמטרתה לשכנע.</p>
-    <p>בבגרות נדרשים לכתוב <strong>קטע ספרותי קצר</strong> (סיפור, רשימה, מונולוג) בהינתן נושא או פתיח. הציון ניתן על: מבנה, עושר לשוני, אמצעים ספרותיים ומקוריות.</p>
+    <p>בבגרות נדרשים לכתוב <strong>קטע ספרותי קצר</strong> (סיפור, רשימה, מונולוג) בהינתן נושא או פתיח. הציון: מבנה, עושר לשוני, אמצעים ספרותיים ומקוריות.</p>
   </div>
-  <div class="box box-lc">💡 <strong>ההבדל המכריע:</strong> בכתיבה יוצרת אתה לא <em>מסביר</em> — אתה <em>מראה</em>. לא "הוא היה עצוב" אלא "עיניו נצמדו לרצפה, ידיו חיפשו כיס שלא היה שם."</div>
+  <div class="box box-lc">💡 <strong>ההבדל המכריע:</strong> בכתיבה יוצרת אתה לא <em>מסביר</em> — אתה <em>מראה</em>. לא "הוא היה עצוב" אלא "עיניו נצמדו לרצפה, ידיו חיפשו כיס שלא היה שם." הפעולה מגלה את הרגש.</div>
 
-  <div class="section-hd"><span class="sn-icon">🏗️</span><div class="sn">2</div>מבנה הסיפור — חמישה חלקים</div>
-  <div class="steps-wrap">
-    <div class="steps-title">🏗️ מודל פירמידת פרייטאג — מבנה קלאסי</div>
-    <div class="step-item"><div class="step-num">1</div><span><strong>חשיפה (Exposition):</strong> הצגת הגיבור, הזמן, המקום והמצב ההתחלתי. קצרה — 1-2 משפטים.</span></div>
-    <div class="step-item"><div class="step-num">2</div><span><strong>עלייה במתח (Rising Action):</strong> בעיה, קונפליקט, התפתחות — הגיבור נתקל במכשול.</span></div>
-    <div class="step-item"><div class="step-num">3</div><span><strong>שיא (Climax):</strong> נקודת השיא — ההחלטה הגדולה, העימות, הרגע המכריע.</span></div>
-    <div class="step-item"><div class="step-num">4</div><span><strong>ירידה במתח (Falling Action):</strong> תוצאות ההחלטה — מה קרה אחרי השיא?</span></div>
-    <div class="step-item"><div class="step-num">5</div><span><strong>סיום (Resolution):</strong> הסיום — לא חייב להיות "happy end". יכול לסיים בשאלה פתוחה.</span></div>
+  <div class="section-hd"><span class="sn-icon">🏗️</span><div class="sn">2</div>מבנה הסיפור — פירמידת פרייטאג</div>
+  <div class="pyr-wrap">
+    <div class="pyr-step s1"><div class="pyr-num">1</div><div><div class="pyr-title">חשיפה (Exposition)</div><div class="pyr-desc">הצגת הגיבור, הזמן, המקום והמצב ההתחלתי. קצרה — 1–2 משפטים בלבד.</div></div></div>
+    <div class="pyr-step s2"><div class="pyr-num">2</div><div><div class="pyr-title">עלייה במתח (Rising Action)</div><div class="pyr-desc">בעיה, קונפליקט, התפתחות — הגיבור נתקל במכשול. המתח עולה לקראת השיא.</div></div></div>
+    <div class="pyr-step s3"><div class="pyr-num">3</div><div><div class="pyr-title">שיא (Climax) ⭐</div><div class="pyr-desc">נקודת השיא — ההחלטה הגדולה, העימות, הרגע המכריע. לכאן מוביל כל הסיפור.</div></div></div>
+    <div class="pyr-step s4"><div class="pyr-num">4</div><div><div class="pyr-title">ירידה במתח (Falling Action)</div><div class="pyr-desc">תוצאות ההחלטה — מה קרה אחרי השיא? ניתן לקצר או לדלג.</div></div></div>
+    <div class="pyr-step s5"><div class="pyr-num">5</div><div><div class="pyr-title">סיום (Resolution)</div><div class="pyr-desc">הסיום — לא חייב "happy end". יכול לסיים בשאלה פתוחה. המשפט האחרון הכי חשוב.</div></div></div>
   </div>
-  <div class="box box-amber">⚠️ <strong>שיעור קצר בבגרות?</strong> לא חייבים את כל חמשת השלבים. אפשר לכתוב <em>רגע אחד</em> בעומק — "slice of life". הכי חשוב: פתיחה שמושכת + סיום שנחרת.</div>
+  <div class="box box-amber">⚠️ <strong>בגרות קצרה?</strong> לא חייבים את כל חמשת השלבים. אפשר לכתוב <em>slice of life</em> — רגע אחד בעומק. הכי חשוב: פתיחה תופסת + קונפליקט ברור + סיום שנחרת.</div>
 
-  <div class="section-hd"><span class="sn-icon">⚙️</span><div class="sn">3</div>ציר הסיפור — שלושת המנועים</div>
-  <div class="grid2" style="grid-template-columns:1fr 1fr 1fr">
-    <div class="mini-card" style="border-color:#fecdd3;background:linear-gradient(135deg,#fff1f2,#fff)">
-      <div class="mini-title" style="color:#be185d">🧑 דמות</div>
-      <div class="mini-body">מי הגיבור? מה הוא רוצה? מה מונע ממנו? הדמות צריכה <strong>להשתנות</strong> לאורך הסיפור — אחרת אין עלילה.</div>
+  <div class="section-hd"><span class="sn-icon">⚙️</span><div class="sn">3</div>שלושת מנועי הסיפור</div>
+  <div class="grid3">
+    <div class="mini-card" style="border-color:#fecdd3;background:linear-gradient(135deg,var(--lc-lt),#fff)">
+      <div class="mini-title" style="color:var(--lc)">🧑 דמות</div>
+      <div class="mini-body">מי הגיבור? מה הוא רוצה? מה מונע ממנו? הדמות צריכה <strong>להשתנות</strong> — אחרת אין עלילה.</div>
     </div>
-    <div class="mini-card" style="border-color:#fecdd3;background:linear-gradient(135deg,#fff1f2,#fff)">
-      <div class="mini-title" style="color:#be185d">⚡ קונפליקט</div>
-      <div class="mini-body">הגיבור מול מי/מה? אדם מול אדם / אדם מול עצמו / אדם מול חברה / אדם מול טבע. ללא קונפליקט — אין סיפור.</div>
+    <div class="mini-card" style="border-color:#fecdd3;background:linear-gradient(135deg,var(--lc-lt),#fff)">
+      <div class="mini-title" style="color:var(--lc)">⚡ קונפליקט</div>
+      <div class="mini-body">הגיבור מול מי/מה? אדם מול אדם / אדם מול עצמו / אדם מול חברה / אדם מול טבע. <strong>ללא קונפליקט — אין סיפור.</strong></div>
     </div>
-    <div class="mini-card" style="border-color:#fecdd3;background:linear-gradient(135deg,#fff1f2,#fff)">
-      <div class="mini-title" style="color:#be185d">🌍 רקע</div>
-      <div class="mini-body">זמן + מקום + אווירה. הרקע <strong>משפיע</strong> על הדמות — חדר צר יוצר מחנק, שדה פתוח יוצר חופש.</div>
+    <div class="mini-card" style="border-color:#fecdd3;background:linear-gradient(135deg,var(--lc-lt),#fff)">
+      <div class="mini-title" style="color:var(--lc)">🌍 רקע</div>
+      <div class="mini-body">זמן + מקום + אווירה. הרקע <strong>משפיע</strong> על הדמות — חדר צר = מחנק, שדה פתוח = חופש.</div>
     </div>
   </div>
 
-  <div class="section-hd"><span class="sn-icon">🎨</span><div class="sn">4</div>אמצעים ספרותיים — ארגז הכלים</div>
+  <div class="section-hd"><span class="sn-icon">🎨</span><div class="sn">4</div>אמצעים ספרותיים — הגדרה, דוגמה ותפקיד</div>
+  <div class="box box-rose">🎯 <strong>כלל התפקיד:</strong> בבגרות לא מספיק לזהות — חייבים לנמק. לא "יש כאן דימוי" אלא <em>"הכותב משתמש בדימוי <strong>כדי</strong> לייצר..."</em>. ה-<strong>כדי</strong> שווה חצי מהניקוד.</div>
   <div style="overflow-x:auto;margin-bottom:1rem;border-radius:var(--r-lg);box-shadow:var(--sh1)">
     <table class="cmp-table">
       <thead><tr>
         <th>אמצעי</th>
-        <th style="background:#be185d;color:#fff">הגדרה</th>
-        <th style="background:#9d174d;color:#fff">דוגמה</th>
-        <th style="background:#7c1d3f;color:#fff">תפקיד</th>
+        <th style="background:#be185d">הגדרה</th>
+        <th style="background:#9d174d">דוגמה</th>
+        <th style="background:#7c1d3f">תפקיד</th>
       </tr></thead>
       <tbody>
-        <tr><td class="row-label">דימוי</td><td>השוואה עם "כמו/כ"</td><td>"כמו ציפור כלואה"</td><td>מוחשיות, עושר</td></tr>
-        <tr><td class="row-label">מטפורה</td><td>השוואה ישירה</td><td>"חייו היו כלא"</td><td>עוצמה, ישירות</td></tr>
-        <tr><td class="row-label">האנשה</td><td>תכונות אנוש לדומם</td><td>"הרוח לחשה סודות"</td><td>אווירה, חיים</td></tr>
-        <tr><td class="row-label">פרדוקס</td><td>סתירה לכאורה</td><td>"בדידות מלאה אנשים"</td><td>תובנה עמוקה</td></tr>
-        <tr><td class="row-label">חזרה</td><td>מילה/מבנה חוזרים</td><td>"שוב ושוב, שוב ושוב"</td><td>הדגשה, קצב</td></tr>
-        <tr><td class="row-label">שאלה רטורית</td><td>שאלה ללא תשובה</td><td>"מה יישאר אחרינו?"</td><td>מעורבות קורא</td></tr>
-        <tr><td class="row-label">ניגוד (אנטיתזה)</td><td>הצבת ניגודים</td><td>"אור מול חושך"</td><td>חיזוק הרעיון</td></tr>
-        <tr><td class="row-label">סמל</td><td>פריט=רעיון מופשט</td><td>יונה = שלום</td><td>עומק, משמעות</td></tr>
+        <tr><td class="row-label">דימוי</td><td>השוואה עם כמו/כ</td><td>"כמו ציפור כלואה"</td><td>מוחשיות, קרבה רגשית</td></tr>
+        <tr><td class="row-label">מטפורה</td><td>השוואה ישירה ללא כמו</td><td>"חייו היו כלא"</td><td>עוצמה, ישירות</td></tr>
+        <tr><td class="row-label">האנשה</td><td>תכונות אנוש לדומם/טבע</td><td>"הרוח לחשה סודות"</td><td>אווירה חיה, חיבור רגשי</td></tr>
+        <tr><td class="row-label">פרדוקס</td><td>סתירה לכאורה=אמת עמוקה</td><td>"בדידות מלאה אנשים"</td><td>הפתעה, תובנה, זכירות</td></tr>
+        <tr><td class="row-label">חזרה / אנפורה</td><td>מילה/מבנה חוזרים</td><td>"שוב ושוב, שוב ושוב"</td><td>הדגשה, קצב, מוזיקליות</td></tr>
+        <tr><td class="row-label">שאלה רטורית</td><td>שאלה ללא תשובה מצופה</td><td>"מה יישאר אחרינו?"</td><td>מעורבות קורא, הרהור</td></tr>
+        <tr><td class="row-label">ניגוד (אנטיתזה)</td><td>הצבת מנוגדים זה לזה</td><td>"אור מול חושך"</td><td>חיזוק הרעיון, חדות</td></tr>
+        <tr><td class="row-label">סמל</td><td>פריט קונקרטי=רעיון מופשט</td><td>יונה = שלום</td><td>עומק, משמעות נוספת</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="section-hd"><span class="sn-icon">📐</span><div class="sn">5</div>הראה, אל תספר — הכלל הזהוב</div>
-  <div class="card">
-    <h4>Show, don't tell — הכלל החשוב ביותר בכתיבה יוצרת</h4>
-    <p>במקום לכתוב מה הדמות <em>מרגישה</em> — תאר מה היא <em>עושה, אומרת, מרגישה פיזית</em>.</p>
-  </div>
-  <div class="grid2">
-    <div class="mini-card" style="border-color:#fca5a5;background:#fef2f2">
-      <div class="mini-title" style="color:#dc2626">❌ Tell (לא טוב)</div>
-      <div class="mini-body">"הוא היה מפוחד מאוד."<br><br>"היא הרגישה עצובה."<br><br>"הם היו שמחים."</div>
+  <div class="card"><p><strong>Show, don't tell</strong> — במקום לכתוב מה הדמות <em>מרגישה</em>, תאר מה היא <em>עושה, אומרת, מרגישה פיזית</em>. הקורא מסיק את הרגש בעצמו — זה מה שיוצר מעורבות עמוקה.</p></div>
+  <div class="st-pair">
+    <div class="st-bad">
+      <div class="st-label" style="color:var(--red)">❌ Tell — אל תכתבו כך</div>
+      <div class="st-text">"הוא היה מפוחד מאוד."<br><br>"היא הרגישה עצובה."<br><br>"הם שמחו מאוד."<br><br>"הוא הרגיש עצמאי."</div>
     </div>
-    <div class="mini-card" style="border-color:#bbf7d0;background:#f0fdf4">
-      <div class="mini-title" style="color:#15803d">✅ Show (טוב)</div>
-      <div class="mini-body">"אצבעותיו נקשו על הדלת שלוש פעמים, עצרו, נקשו שוב."<br><br>"היא חיפשה בכיסה טלפון שלא שמה שם."<br><br>"פרצו בצחוק גדול שמילא את החדר."</div>
+    <div class="st-good">
+      <div class="st-label" style="color:var(--green)">✅ Show — כתבו כך</div>
+      <div class="st-text">"אצבעותיו נקשו שלוש פעמים, עצרו, נקשו שוב."<br><br>"היא חיפשה בכיסה טלפון שלא שמה שם."<br><br>"פרצו בצחוק שמילא את החדר."<br><br>"הרים ראש לשמיים ושאף אוויר רחב."</div>
     </div>
   </div>
 
-  <div class="section-hd"><span class="sn-icon">🎬</span><div class="sn">6</div>פתיחות וסיומות — איך לתפוס ולהשאיר</div>
-  <div class="card">
-    <h4>5 סוגי פתיחה שעובדים:</h4>
-    <ul>
-      <li><strong>In medias res</strong> — פתיחה באמצע הפעולה: "הדלת נפתחה לפני שהספקתי לדפוק."</li>
-      <li><strong>שאלה</strong> — "מה הייתם עושים אם הייתם יודעים שזה היום האחרון?"</li>
-      <li><strong>תיאור חושי</strong> — ריח, צבע, קול שמיידית מעביר לאווירה.</li>
-      <li><strong>דיאלוג</strong> — פותח בשיחה כדי לייצר מיד דמויות ומתח.</li>
-      <li><strong>פרדוקס</strong> — "ביום שנולדתי, מישהו מת."</li>
-    </ul>
-    <h4 style="margin-top:.8rem">3 סוגי סיום שנחרתים:</h4>
-    <ul>
-      <li><strong>מעגלי</strong> — הסוף חוזר לפתיחה, יוצר תחושת שלמות.</li>
-      <li><strong>פתוח</strong> — מסתיים בשאלה, מזמין את הקורא להשלים.</li>
-      <li><strong>ניגודי</strong> — סיום שמפתיע — ציפינו ל-X, קיבלנו Y.</li>
-    </ul>
+  <div class="section-hd"><span class="sn-icon">🎬</span><div class="sn">6</div>5 פתיחות שעובדות ו-3 סיומות שנחרתות</div>
+  <div class="opening-row">
+    <div class="op-card"><div class="op-label">1. In medias res — פתיחה באמצע הפעולה</div><div class="op-ex">"הדלת נפתחה לפני שהספקתי לדפוק." — אנחנו בפנים, לא יודעים מה קדם, רוצים לדעת.</div></div>
+    <div class="op-card" style="border-right-color:var(--purple)"><div class="op-label" style="color:var(--purple)">2. פתיחה בדיאלוג</div><div class="op-ex">"האם את בוכה?" "לא." — שתי דמויות ומתח ב-4 מילים.</div></div>
+    <div class="op-card" style="border-right-color:var(--teal)"><div class="op-label" style="color:var(--teal)">3. תיאור חושי — ריח / קול / צבע</div><div class="op-ex">"ריח הקפה של סבתא מילא את המדרגות כבר שנים אחרי שהיא עזבה."</div></div>
+    <div class="op-card" style="border-right-color:var(--amber)"><div class="op-label" style="color:var(--amber)">4. שאלה</div><div class="op-ex">"מה הייתם עושים אם הייתם יודעים שזה היום האחרון?"</div></div>
+    <div class="op-card" style="border-right-color:var(--blue)"><div class="op-label" style="color:var(--blue)">5. פרדוקס</div><div class="op-ex">"ביום שנולדתי, מישהו מת." — מייד פרדוקס שמחייב להמשיך לקרוא.</div></div>
+  </div>
+  <div class="grid3" style="margin-top:0;margin-bottom:1rem">
+    <div class="mini-card" style="border-color:#fecdd3"><div class="mini-title" style="color:var(--lc)">🔄 סיום מעגלי</div><div class="mini-body">הסוף חוזר לאלמנט מהפתיחה — רק עכשיו טעון במשמעות שונה.</div></div>
+    <div class="mini-card" style="border-color:#fecdd3"><div class="mini-title" style="color:var(--lc)">❓ סיום פתוח</div><div class="mini-body">מסתיים בשאלה — מזמין את הקורא להשלים ומשאיר הדהוד.</div></div>
+    <div class="mini-card" style="border-color:#fecdd3"><div class="mini-title" style="color:var(--lc)">⚡ סיום ניגודי</div><div class="mini-body">ציפינו ל-X, קיבלנו Y — הפתעה שמחדדת את כל הסיפור למפרע.</div></div>
   </div>
 
-  <div class="section-hd"><span class="sn-icon">🔧</span><div class="sn">7</div>נוסחת כתיבה יוצרת לבגרות — 5 שלבים</div>
+  <div class="section-hd"><span class="sn-icon">🔧</span><div class="sn">7</div>תהליך כתיבה לבגרות — 5 שלבים</div>
   <div class="bagrut-template">
-    <div class="bagrut-template-title">📋 תהליך הכתיבה — 5 שלבים לפני ובזמן הכתיבה</div>
-    <div class="bagrut-line"><div class="bagrut-num">1</div><span><strong>בחר נושא + גיבור:</strong> דמות אחת ברורה, קונפליקט אחד. לא לנסות "לספר הכל".</span></div>
+    <div class="bagrut-template-title">📋 5 שלבים לפני ובזמן הכתיבה</div>
+    <div class="bagrut-line"><div class="bagrut-num">1</div><span><strong>בחר נושא + גיבור:</strong> דמות אחת ברורה, קונפליקט אחד. לא לנסות לספר הכל.</span></div>
     <div class="bagrut-line"><div class="bagrut-num">2</div><span><strong>תכנן בשתי שורות:</strong> פתיחה → שיא → סיום. זה מספיק כתכנון.</span></div>
-    <div class="bagrut-line"><div class="bagrut-num">3</div><span><strong>כתוב פתיחה חזקה:</strong> in medias res / שאלה / תיאור חושי — תפוס את הקורא בשורה הראשונה.</span></div>
-    <div class="bagrut-line"><div class="bagrut-num">4</div><span><strong>השתמש ב-3 אמצעים לפחות:</strong> דימוי / מטפורה / האנשה / פרדוקס — שזור אותם בטבעיות.</span></div>
-    <div class="bagrut-line"><div class="bagrut-num">5</div><span><strong>סיים בזכרון:</strong> משפט אחרון שנחרת — פרדוקס / שאלה / תמונה חזותית חדה.</span></div>
+    <div class="bagrut-line"><div class="bagrut-num">3</div><span><strong>כתוב פתיחה חזקה:</strong> in medias res / שאלה / תיאור חושי — תפוס בשורה הראשונה.</span></div>
+    <div class="bagrut-line"><div class="bagrut-num">4</div><span><strong>שלב 3 אמצעים לפחות:</strong> דימוי / מטפורה / האנשה / פרדוקס — שזור בטבעיות.</span></div>
+    <div class="bagrut-line"><div class="bagrut-num">5</div><span><strong>סיים בזיכרון:</strong> משפט אחרון שנחרת — פרדוקס / שאלה / תמונה חדה.</span></div>
   </div>
   <div class="bagrut-sample">
     <strong style="color:var(--lc)">✏️ דוגמה לפתיחה חזקה (in medias res + דימוי + האנשה):</strong><br><br>
-    "הטלפון רטט פעם, פעמיים, שלוש — ולא עניתי. <em>המסך האיר כמו עין חשדנית</em> בחושך חדרי, וה<em>שקט שנכנס בין הרטט לרטט לחש</em>: 'אתה לא חייב לענות.' ידעתי שהוא צודק. ידעתי גם שמחר יהיה מאוחר מדי."
+    "הטלפון רטט פעם, פעמיים, שלוש — ולא עניתי. <em>המסך האיר כמו עין חשדנית</em> בחושך חדרי, וה<em>שקט שנכנס בין הרטט לרטט לחש</em>: את לא חייב לענות. ידעתי שהוא צודק. ידעתי גם שמחר יהיה מאוחר מדי."
   </div>
 
-  <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">8</div>צ׳קליסט לפני הגשה — 6 שאלות</div>
+  <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">8</div>צ׳קליסט — 6 שאלות לפני הגשה</div>
   <div class="steps-wrap">
-    <div class="steps-title">📋 בדוק לפני שאתה מגיש</div>
-    <div class="step-item"><div class="step-num">1</div><span><strong>יש גיבור עם שם/תכונה ברורה</strong> שהתפתחה לאורך הסיפור?</span></div>
-    <div class="step-item"><div class="step-num">2</div><span><strong>יש קונפליקט אחד ברור</strong> — פנימי או חיצוני?</span></div>
-    <div class="step-item"><div class="step-num">3</div><span><strong>הראיתי — לא סיפרתי:</strong> כתבתי תיאורים חושיים ולא רק "הוא הרגיש X"?</span></div>
-    <div class="step-item"><div class="step-num">4</div><span><strong>3 אמצעים ספרותיים לפחות</strong> — ויש לי שם לכל אחד?</span></div>
-    <div class="step-item"><div class="step-num">5</div><span><strong>הפתיחה תופסת?</strong> אם הייתי קורא בלי לדעת שאני חייב — הייתי ממשיך?</span></div>
+    <div class="steps-title">📋 בדקו לפני שמגישים</div>
+    <div class="step-item"><div class="step-num">1</div><span><strong>יש גיבור עם תכונה ברורה</strong> שהתפתחה לאורך הסיפור?</span></div>
+    <div class="step-item"><div class="step-num">2</div><span><strong>יש קונפליקט ברור</strong> — פנימי או חיצוני?</span></div>
+    <div class="step-item"><div class="step-num">3</div><span><strong>הראיתי — לא סיפרתי:</strong> כתבתי תיאורים פיזיים ולא רק "הרגיש X"?</span></div>
+    <div class="step-item"><div class="step-num">4</div><span><strong>3 אמצעים ספרותיים לפחות</strong> — ויודע/ת את שם כל אחד?</span></div>
+    <div class="step-item"><div class="step-num">5</div><span><strong>הפתיחה תופסת?</strong> אם הייתי קורא ללא חובה — הייתי ממשיך?</span></div>
     <div class="step-item"><div class="step-num">6</div><span><strong>הסיום נחרת?</strong> המשפט האחרון — פרדוקס / תמונה / שאלה?</span></div>
   </div>
-  <div class="box box-green">✅ <strong>מוכן לתרגול!</strong> קטע ספרותי לניתוח + 21 שאלות על מבנה, אמצעים ופרקטיקה של כתיבה.</div>
 
+  <button class="goto-practice-btn" onclick="switchTab('practice')">✏️ עבור לתרגול — קטע לניתוח ו-20 שאלות</button>
 </div>
-</div><!-- /pane-theory -->
+</div>
 
-
-
-
-<!-- ══════════════════════════════════════════════
-     PRACTICE
-══════════════════════════════════════════════ -->
+<!-- PRACTICE -->
 <div class="tab-pane" id="pane-practice">
-<div class="print-header">
-  <h1>תרגול — שיעור 5: כתיבה יוצרת</h1>
-  <p>21 שאלות על כתיבה יוצרת | לשון Lesson 2.0</p>
-</div>
+<div class="print-header"><h1>תרגול — שיעור 5: כתיבה יוצרת</h1><p>20 שאלות על כתיבה יוצרת | לשון Lesson 2.0</p></div>
 <div class="lesson-wrap">
-
-  <!-- Gate -->
   <div id="student-gate" class="hidden">
     <div class="gate-header">
       <span class="gate-icon">✍️</span>
       <div class="gate-title">לפני שמתחילים — פרטי התלמיד/ה</div>
-      <div class="gate-desc">מלא/י את הפרטים כדי להתחיל.<br>יישמרו אצל המורה עם ההגשה.</div>
+      <div class="gate-desc">מלא/י את הפרטים כדי להתחיל את התרגול.</div>
     </div>
     <div class="gate-body">
       <div class="gate-field">
         <label for="gate-name">👤 שם מלא</label>
-        <input class="gate-input" id="gate-name" type="text" placeholder="שם פרטי + שם משפחה"
-               autocomplete="name" onkeydown="if(event.key==='Enter')document.getElementById('gate-class').focus()">
+        <input class="gate-input" id="gate-name" type="text" placeholder="שם פרטי + שם משפחה" autocomplete="name" autocorrect="off" onkeydown="if(event.key==='Enter')document.getElementById('gate-class').focus()">
         <div class="gate-err-msg" id="gate-name-err">נא להזין שם מלא</div>
       </div>
       <div class="gate-field">
         <label for="gate-class">🏫 כיתה</label>
-        <input class="gate-input" id="gate-class" type="text" placeholder='לדוגמה: י3'
-               autocomplete="off">
+        <input class="gate-input" id="gate-class" type="text" placeholder="לדוגמה: י3" autocomplete="off" autocorrect="off">
         <div class="gate-err-msg" id="gate-class-err">נא להזין שם כיתה</div>
       </div>
-      <div class="gate-field">
-        <label>📅 תאריך</label>
-        <div class="gate-date-display" id="gate-date-display">—</div>
-      </div>
+      <div class="gate-field"><label>📅 תאריך</label><div class="gate-date-display" id="gate-date-display">—</div></div>
       <button class="gate-btn" onclick="confirmGate()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         מאשר/ת ומתחיל/ה בתרגול
@@ -533,16 +460,12 @@ button,input,select,textarea{font-family:inherit}
     </div>
     <div style="font-size:1.5rem">✅</div>
   </div>
-  <div id="practice-content-wrap">
 
-  <!-- READING TEXT — קטע ספרותי לניתוח -->
-  <div class="reading-text-box" style="border-color:#be185d">
-    <div style="position:absolute;top:-12px;right:1.4rem;background:#be185d;color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill)">📄 טקסט לקריאה</div>
-    <div class="rt-tag a" style="background:#be185d">הקטע לניתוח — כתיבה יוצרת</div>
+  <div id="practice-content-wrap">
+  <div class="reading-text-box">
+    <span class="rt-tag">הקטע לניתוח — כתיבה יוצרת</span>
     <div class="rt-title">המכתב שלא נשלח</div>
-    <div class="rt-byline">
-      <span>✍️ קטע מסיפור קצר — לצורך הפעילות</span>
-    </div>
+    <div class="rt-byline">✍️ קטע מסיפור קצר — לצורך הפעילות</div>
     <div class="rt-body">
       <p>הייתה מניחה את העט, מרימה אותו, מניחה שוב. <em>הדף הלבן בחן אותה כמו שאלה שמסרבת להיענות.</em></p>
       <p>"שלום אמא," כתבה — ומחקה.</p>
@@ -553,41 +476,33 @@ button,input,select,textarea{font-family:inherit}
   </div>
 
   <div class="quiz-header">
-    <div class="quiz-hd-title">✏️ תרגול — 21 שאלות על כתיבה יוצרת</div>
-    <div class="quiz-hd-desc">שאלות על הקטע, מבנה, אמצעים ספרותיים ופרקטיקה של כתיבה.</div>
+    <div class="quiz-hd-title">✏️ תרגול — 20 שאלות על כתיבה יוצרת</div>
+    <div class="quiz-hd-desc">ניתוח הקטע, זיהוי אמצעים ותפקידם, מבנה, Show/Tell, סוגי פתיחה וסיום, וכתיבה | ענה על הכול לפני ההגשה</div>
     <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="qp-fill" style="width:0%"></div></div>
-    <div class="quiz-prog-row"><span id="qp-counter">0 / 21 נענו</span></div>
+    <div class="quiz-prog-row"><span id="qp-counter">0 / 20 נענו</span><span id="qp-score" style="display:none;font-weight:700;color:var(--lc)"></span></div>
   </div>
-
   <div id="questions-container"></div>
-
   <div id="submit-row" style="display:flex;gap:.78rem;flex-wrap:wrap;align-items:center;margin-top:1.5rem">
     <button class="btn-submit" onclick="submitQuiz()">📊 הגש תרגול</button>
     <button class="btn-reset" onclick="resetQuiz()">🔄 איפוס</button>
   </div>
   <div id="results-container"></div>
-
-  </div><!-- /practice-content-wrap -->
+  </div>
 </div>
-</div><!-- /pane-practice -->
+</div>
 
-<!-- ══════════════════════════════════════════════
-     ANSWERS
-══════════════════════════════════════════════ -->
+<!-- ANSWERS -->
 <div class="tab-pane" id="pane-answers">
-<div class="print-header">
-  <h1>מפתח תשובות — שיעור 5: כתיבה יוצרת</h1>
-  <p>21 שאלות + הסברים | לשון Lesson 2.0</p>
-</div>
+<div class="print-header"><h1>מפתח תשובות — שיעור 5: כתיבה יוצרת</h1><p>20 שאלות + הסברים פדגוגיים | לשון Lesson 2.0</p></div>
 <div class="lesson-wrap">
   <div id="answers-locked-msg" class="answers-locked">
-    <div style="font-size:3rem;margin-bottom:1rem">🔒</div>
-    <div style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:.6rem">התשובות טרם פורסמו</div>
-    <p style="font-size:.86rem;color:var(--muted);max-width:380px;margin:0 auto;line-height:1.65">המורה יפתח את התשובות לאחר שהכיתה תסיים.</p>
+    <span class="answers-locked-icon">🔒</span>
+    <div class="answers-locked-title">התשובות טרם פורסמו על ידי המורה</div>
+    <p class="answers-locked-desc">המורה יפתח את התשובות לאחר שהכיתה תסיים את התרגול.</p>
   </div>
   <div id="answers-visible-content" style="display:none">
     <div style="background:var(--gold-lt);border:1.5px solid #fde68a;border-radius:var(--r-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem">
-      <div style="font-size:.78rem;font-weight:800;color:var(--gold)">🔑 מפתח תשובות + הסברים פדגוגיים</div>
+      <div style="font-size:.78rem;font-weight:800;color:var(--gold)">🔑 מפתח תשובות מלא + הסברים פדגוגיים</div>
       <div id="answers-source" style="font-size:.74rem;color:var(--amber);margin-top:.25rem"></div>
     </div>
     <div id="answers-container"></div>
@@ -598,46 +513,10 @@ button,input,select,textarea{font-family:inherit}
 <div id="toast"></div>
 
 <script>
-/* ════════════════════════════════════════════════
-   FIREBASE
-════════════════════════════════════════════════ */
-const FB_CFG={
-  apiKey:"AIzaSyC1VIJaFqC-HzJHGutib10-A29i1KKO4YI",
-  authDomain:"lashon-project.firebaseapp.com",
-  projectId:"lashon-project",
-  storageBucket:"lashon-project.firebasestorage.app",
-  messagingSenderId:"444024985545",
-  appId:"1:444024985545:web:847f8d4dad43193c147a18",
-  measurementId:"G-26KTLPJ8N1"
-};
-let _db=null;
-const LESSON_ID='u1_l5';
-const LESSON_TITLE='כתיבה יוצרת';
-
-function initFirebase(){
-  try{
-    if(typeof firebase==='undefined') return;
-    if(!firebase.apps.length) firebase.initializeApp(FB_CFG);
-    _db=firebase.firestore();
-    _db.enablePersistence().catch(()=>{});
-    _db.collection('lessons').doc(LESSON_ID).onSnapshot(doc=>{
-      const val=doc.exists?doc.data()?.showAnswers===true:false;
-      const av=LS.get('lashon2_answers_visible',{});
-      av[LESSON_ID]=val; LS.set('lashon2_answers_visible',av);
-      ANSWERS_VISIBLE=val; applyAnswersVisibility();
-    });
-  }catch(e){console.warn('[FB]',e)}
-}
-async function saveScore(score,studentName,className){
-  if(!_db) return;
-  const now=new Date();
-  const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:studentName||'תלמיד/ה',className:className||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,totalQuestions:QUESTIONS.length,openAnswers:QUESTIONS.filter(q=>q.type==='open').map(q=>({id:q.id,q:q.q,text:QS.answers[q.id]?.text||''}))};
-  try{await _db.collection('lashon2_submissions').add(d);await _db.collection('lashon2_live').doc('latest').set(d);}catch(e){console.warn(e)}
-}
-
-/* ════════════════════════════════════════════════
-   SESSION
-════════════════════════════════════════════════ */
+const FB_CFG={apiKey:"AIzaSyC1VIJaFqC-HzJHGutib10-A29i1KKO4YI",authDomain:"lashon-project.firebaseapp.com",projectId:"lashon-project",storageBucket:"lashon-project.firebasestorage.app",messagingSenderId:"444024985545",appId:"1:444024985545:web:847f8d4dad43193c147a18"};
+const LESSON_ID='u1_l5';const LESSON_TITLE='כתיבה יוצרת';let _db=null;
+function initFirebase(){try{if(typeof firebase==='undefined')return;if(!firebase.apps.length)firebase.initializeApp(FB_CFG);_db=firebase.firestore();_db.enablePersistence().catch(()=>{});_db.collection('lessons').doc(LESSON_ID).onSnapshot(doc=>{const val=doc.exists?doc.data()?.showAnswers===true:false;const av=LS.get('lashon2_answers_visible',{});av[LESSON_ID]=val;LS.set('lashon2_answers_visible',av);ANSWERS_VISIBLE=val;renderAnswersTab();});}catch(e){console.warn('[FB]',e)}}
+async function saveScore(score,sn,cls){if(!_db)return;const now=new Date();const correct=typeof _lastCorrect==='number'?_lastCorrect:0;const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:sn||'תלמיד/ה',className:cls||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct,wrong:QUESTIONS.length-correct,totalQuestions:QUESTIONS.length,openAnswers:QUESTIONS.filter(q=>q.type==='open').map(q=>({id:q.id,q:q.q,text:QS.answers[q.id]?.text||''}))};try{await _db.collection('lashon2_submissions').add(d);await _db.collection('lashon2_live').doc('latest').set(d);}catch(e){console.warn(e)}}
 const LS={get(k,fb=null){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):fb}catch{return fb}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
 const _params=new URLSearchParams(location.search);
 let STUDENT_NAME=_params.get('student')||LS.get('lashon2_uname','')||'תלמיד/ה';
@@ -645,506 +524,171 @@ let STUDENT_CLASS=LS.get('lashon2_class','')||'';
 const USER_ROLE=_params.get('role')||LS.get('lashon2_role','')||localStorage.getItem('userRole')||'student';
 let ANSWERS_VISIBLE=_params.get('answers_visible')==='1';
 const BACK_URL=_params.get('back')||'index.html';
+function renderAnswersTab(){const locked=document.getElementById('answers-locked-msg');const visible=document.getElementById('answers-visible-content');const src=document.getElementById('answers-source');if(USER_ROLE==='teacher'){if(locked)locked.style.display='none';if(visible)visible.style.display='';if(src)src.textContent='גישת מורה';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';}else{if(ANSWERS_VISIBLE){if(locked)locked.style.display='none';if(visible)visible.style.display='';if(src)src.textContent='שוחרר על ידי המורה';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='';}else{if(locked)locked.style.display='';if(visible)visible.style.display='none';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='none';}}}
+let _gateConfirmed=false;
+function switchTab(name){['theory','practice','answers'].forEach(t=>{const pane=document.getElementById('pane-'+t);const btn=document.getElementById('btn-'+t);if(pane)pane.classList.toggle('active',t===name);if(btn)btn.classList.toggle('active',t===name);});if(name==='practice'&&USER_ROLE==='student'&&!_gateConfirmed){const gate=document.getElementById('student-gate');if(gate){gate.classList.remove('hidden');const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';const dd=document.getElementById('gate-date-display');if(dd)dd.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});setTimeout(()=>document.getElementById('gate-name')?.focus(),200);}}window.scrollTo({top:0,behavior:'smooth'});}
+function confirmGate(){const nameEl=document.getElementById('gate-name');const classEl=document.getElementById('gate-class');const nameErr=document.getElementById('gate-name-err');const classErr=document.getElementById('gate-class-err');const nameVal=(nameEl?.value||'').trim();const classVal=(classEl?.value||'').trim();let valid=true;if(nameVal.split(/\s+/).filter(Boolean).length<2){nameEl?.classList.add('err');nameErr?.classList.add('show');valid=false;}else{nameEl?.classList.remove('err');nameErr?.classList.remove('show');}if(!classVal){classEl?.classList.add('err');classErr?.classList.add('show');valid=false;}else{classEl?.classList.remove('err');classErr?.classList.remove('show');}if(!valid)return;STUDENT_NAME=nameVal;STUDENT_CLASS=classVal;LS.set('lashon2_uname',nameVal);LS.set('lashon2_class',classVal);_gateConfirmed=true;document.getElementById('student-gate')?.classList.add('hidden');const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='';const av=document.getElementById('gc-avatar');const nm=document.getElementById('gc-name-display');const mt=document.getElementById('gc-meta-display');if(av)av.textContent=nameVal[0].toUpperCase();if(nm)nm.textContent=nameVal;if(mt)mt.textContent='כיתה '+classVal+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed')?.classList.remove('hidden');}
+function reopenGate(){_gateConfirmed=false;document.getElementById('student-gate')?.classList.remove('hidden');document.getElementById('gate-confirmed')?.classList.add('hidden');const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';const dd=document.getElementById('gate-date-display');if(dd)dd.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});}
 
-function applyAnswersVisibility(){
-  const locked=document.getElementById('answers-locked-msg');
-  const visible=document.getElementById('answers-visible-content');
-  const src=document.getElementById('answers-source');
-  if(USER_ROLE==='teacher'){if(locked)locked.style.display='none';if(visible)visible.style.display='';if(src)src.textContent='גישת מורה';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';}
-  else{if(ANSWERS_VISIBLE){if(locked)locked.style.display='none';if(visible)visible.style.display='';if(src)src.textContent='שוחרר על ידי המורה';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='';}else{if(locked)locked.style.display='';if(visible)visible.style.display='none';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='none';}}
-}
-
-/* ════════════════════════════════════════════════
-   20 QUESTIONS — on 2 texts about smartphones in class
-   13 MC + 5 TF + 2 SORT
-════════════════════════════════════════════════ */
 const QUESTIONS=[
-  /* ── הקטע — ניתוח ── */
-  {id:'q01',type:'mc',ref:'הקטע',
-   q:'מהו הסוג הספרותי של הקטע "המכתב שלא נשלח"?',
-   opts:['מאמר עיוני','קטע מסיפור קצר — פרוזה ספרותית','שיר בפרוזה','מאמר דעה'],
+  {id:'q01',type:'mc',ref:'הקטע — אמצעי ספרותי',
+   q:'זהה את האמצעי הספרותי ב"הדף הלבן בחן אותה כמו שאלה שמסרבת להיענות" ופרש את תפקידו.',
+   opts:['מטפורה — מקרב בין הדף לשאלה','דימוי + האנשה: הדף מושווה לשאלה (דימוי) ומקבל תכונת סירוב (האנשה) — ממחיש את קיפאון הכתיבה','פרדוקס — הדף ריק אך מלא','חזרה — שאלה חוזרת'],
    ans:1,
-   explain:'הקטע כולל דמות (האישה), עלילה (כתיבת מכתב), דיאלוג פנימי, ואמצעים ספרותיים — מאפיינים של פרוזה ספרותית קצרה.',
-   teacherNote:''},
-
-  {id:'q02',type:'mc',ref:'הקטע',
-   q:'זהה את האמצעי הספרותי: "הדף הלבן בחן אותה כמו שאלה שמסרבת להיענות"',
-   opts:['מטפורה — השוואה ישירה','דימוי — השוואה עם "כמו"','האנשה — ייחוס תכונות אנוש','פרדוקס — טענה הסותרת עצמה'],
+   explain:'שני אמצעים משולבים: דימוי ("כמו שאלה") + האנשה (הדף "בוחן" ו"מסרב להיענות"). שילובם הופך את הדף הלבן לאויב פנימי — ממחיש את הקושי הפסיכולוגי לכתוב.',
+   teacherNote:'שאלה מורכבת — שני אמצעים בביטוי אחד. בדקו שהתלמיד ציין שניהם.'},
+  {id:'q02',type:'mc',ref:'הקטע — האנשה',
+   q:'מה תפקיד ההאנשה ב"גשם ירד בלי שאלות, בלי היסוסים, כאילו הוא יודע לאן הוא הולך"?',
+   opts:['לתאר מזג האוויר בצורה מדויקת','ליצור ניגוד (אנטיתזה): הגשם נחוש — בניגוד לאישה המהססת — ומחדד את הקונפליקט הפנימי','להסביר מדוע לא נשלח המכתב','לסמל את האמא'],
    ans:1,
-   explain:'"כמו" = מילת השוואה = דימוי. הדף מושווה לשאלה. גם יש כאן יסוד של האנשה (הדף "בוחן"), אך הסימן הבולט הוא "כמו" — לכן דימוי.',
-   teacherNote:'שים לב שיש פה שני אמצעים — הדימוי והאנשה שבתוכו.'},
-
-  {id:'q03',type:'mc',ref:'הקטע',
-   q:'מהו האמצעי הספרותי: "הגשם ירד בלי שאלות, בלי היסוסים, כאילו הוא יודע בדיוק לאן הוא הולך"?',
-   opts:['דימוי בלבד','חזרה בלבד','האנשה — הגשם מקבל תכונות אנוש (לדעת, לא להסס)','פרדוקס'],
-   ans:2,
-   explain:'הגשם "יודע לאן הוא הולך" ו"לא מהסס" — אלו תכונות אנושיות שמיוחסות לדומם. זוהי האנשה קלאסית. תפקידה: ליצור ניגוד בין הגשם הנחוש לאישה המהססת.',
+   explain:'האנשת הגשם (יודע, לא מהסס) משרתת ניגוד: הגשם = נחישות, האישה = ספק. זהו אנטיתזה רגשית — הטבע מצליח להיות ישיר, הדמות לא. תפקיד כפול: אווירה + חידוד הקונפליקט.',
    teacherNote:''},
-
-  {id:'q04',type:'mc',ref:'הקטע',
-   q:'"שלושים ושלוש הזדמנויות שהפכו לשתיקה" — מה תפקיד המשפט הזה בסיפור?',
-   opts:['לפתוח את הסיפור בצורה מעניינת','לסכם בסיום נחרת שמגלה את עומק הבעיה','לתאר את הגשם בחוץ','לספר כמה מכתבים יש במגירה'],
+  {id:'q03',type:'mc',ref:'הקטע — סיום',
+   q:'נתח את משפט הסיום: "שלושים ושלוש הזדמנויות שהפכו לשתיקה." מה ייחודו?',
+   opts:['מסכם את העלילה בצורה ניטרלית','פרדוקס + מספר מדויק: "הזדמנות" = פוטנציאל, "שתיקה" = ניצולו ההפוך — ביחד יוצרים עומק מזעזע','חזרה על נושא הגשם','מציין שהיו עוד מכתבים'],
    ans:1,
-   explain:'זהו משפט הסיום — הוא חושף את ממד הזמן (שלושים ושלוש) ואת הפרדוקס: הזדמנויות שהפכו להפך שלהן. הסיום הנחרת הזה הופך רגע אחד לסיפור שלם.',
+   explain:'שני כוחות: (1) פרדוקס ספרותי: "הזדמנות" = פוטנציאל לחיים, "שתיקה" = ההפך. (2) המספר המדויק 33 הופך רגע אחד לחיים שלמים של בחירה לשתוק.',
    teacherNote:''},
-
-  {id:'q05',type:'tf',ref:'הקטע',
-   q:'הקטע "המכתב שלא נשלח" מתאר פעולה חיצונית ועמוסת אירועים.',
-   ans:false,
-   explain:'לא נכון. הקטע מתאר רגע "slice of life" עם מינימום פעולה חיצונית — רק ניסיונות לכתוב מכתב. העומק הוא פנימי-רגשי, לא חיצוני-עלילתי.',
-   teacherNote:''},
-
-  {id:'q06',type:'mc',ref:'הקטע',
-   q:'מה מבנה הקטע מבחינת פירמידת פרייטאג?',
-   opts:['יש את כל 5 השלבים במלואם','מדגים slice of life — רגע אחד בעומק, ללא עלייה וירידה מתח קלאסיות','יש שיא דרמטי ברור','הקטע חסר מבנה לגמרי'],
+  {id:'q04',type:'mc',ref:'הקטע — קונפליקט',
+   q:'מהו הקונפליקט הדומיננטי בקטע ולאיזה סוג הוא שייך?',
+   opts:['אדם מול אדם — היא נגד אמא שלה','אדם מול עצמו — היא לא מצליחה לבטא את מה שרוצה לומר','אדם מול חברה — ציפיות שמנגד לרצון','אדם מול טבע — הגשם מפריע'],
    ans:1,
-   explain:'הקטע הוא דוגמה מצוינת ל-slice of life: רגע אחד (כתיבת מכתב) שמתנפח לכדי עולם שלם. אין פירמידה קלאסית — אך יש חשיפה, קונפליקט וסיום נחרת.',
+   explain:'קונפליקט פנימי מובהק: אין שום מכשול חיצוני. האישה רוצה לכתוב ולא מצליחה — לא בגלל מישהו אחר אלא בגלל חוסר יכולתה לבטא עצמה. "אדם מול עצמו" — הנפוץ ביותר בספרות מודרנית.',
    teacherNote:''},
-
-  /* ── מבנה ותיאוריה ── */
-  {id:'q07',type:'mc',ref:'תיאוריה',
-   q:'מהו ה"שיא" (Climax) בפירמידת פרייטאג?',
-   opts:['הפתיחה שמציגה את הגיבור','נקודת המתח הגבוהה ביותר — ההחלטה המכרעת','הסיום שבו הכל נפתר','התיאור של הרקע'],
+  {id:'q05',type:'mc',ref:'הקטע — Show',
+   q:'המשפט "הייתה מניחה את העט, מרימה אותו, מניחה שוב" — איזה עיקרון כתיבתי מיישם?',
+   opts:['Tell — מספרת ישירות שהיא מהססת','Show — פעולות חוזרות-נשנות מגלות היסוס ללא מילה אחת של הסבר ישיר','פרדוקס — להניח ולהרים סותרים','האנשה — העט מקבל תכונות'],
    ans:1,
-   explain:'השיא הוא הנקודה הגבוהה ביותר של המתח — הרגע שאחריו הכל משתנה. הוא בד"כ כולל החלטה, עימות או גילוי.',
+   explain:'Show מושלם: לא נכתב "היא הססה" — אלא הפעולה החוזרת מגלה את ההיסוס. הקורא מסיק לבד. הרווח: מעורבות רגשית ולא רק מידע.',
    teacherNote:''},
-
-  {id:'q08',type:'tf',ref:'תיאוריה',
+  {id:'q06',type:'tf',ref:'הקטע — מבנה',
+   q:'הקטע בנוי כ-slice of life — רגע אחד בעומק, ולא כפירמידה קלאסית עם עלייה וירידה מתח.',
+   ans:true,
+   explain:'נכון. אין חשיפה קלאסית, אין עלייה דרמטית, אין שיא בולט. הקטע הוא רגע אחד — ניסיון לכתוב מכתב — שמתנפח לכדי שלמות של חיים. הסיום הנחרת הוא הרגע המכריע.',
+   teacherNote:''},
+  {id:'q07',type:'mc',ref:'הקטע — פתיחה',
+   q:'באיזה סוג פתיחה נוקט הקטע, ומה הוא משיג?',
+   opts:['הצגת רקע: מספר לנו על האישה לפני הפעולה','In medias res: זורק אותנו ישר לפעולה (הנחת העט/הרמתו) — מייצר מיידיות ומתח','פתיחה בדיאלוג','פרדוקס כפתיחה'],
+   ans:1,
+   explain:'In medias res: אנחנו באמצע הפעולה מרגע ראשון — ניסיון כתיבה שוב ושוב. לא "היה פעם..." אלא הפעולה מייד. זה יוצר מיידיות ומושך לקריאה כי אנחנו כבר בתוך הרגע.',
+   teacherNote:''},
+  {id:'q08',type:'mc',ref:'תיאוריה — פרייטאג',
+   q:'מהו השיא (Climax) בפירמידת פרייטאג ומה מיוחד בו לעומת שאר השלבים?',
+   opts:['הפתיחה שמציגה את הגיבור','נקודת המתח הגבוהה ביותר — ההחלטה המכרעת שאחריה הגיבור שונה ולא ניתן לחזור','הסיום שבו הכל נפתר לטוב','הרגע הראשון שהגיבור מופיע'],
+   ans:1,
+   explain:'השיא = Climax = הנקודה שאליה כל הסיפור הוביל. לאחר השיא — הגיבור שונה, הדברים השתנו. ניתן לזהות: ההחלטה שאי-אפשר לחזור ממנה, הגילוי שמשנה הכל.',
+   teacherNote:''},
+  {id:'q09',type:'tf',ref:'תיאוריה — מבנה',
    q:'בכתיבה יוצרת לבגרות חייבים לכלול את כל חמשת שלבי פירמידת פרייטאג.',
    ans:false,
-   explain:'לא נכון. ניתן לכתוב slice of life (רגע אחד בעומק). הכי חשוב: פתיחה תופסת + סיום נחרת + קונפליקט ברור + אמצעים ספרותיים.',
+   explain:'לא נכון. slice of life (רגע אחד בעומק) הוא כלי לגיטימי ויעיל. מה שחשוב: פתיחה תופסת + קונפליקט ברור + סיום נחרת + אמצעים ספרותיים.',
    teacherNote:''},
-
-  {id:'q09',type:'mc',ref:'תיאוריה',
-   q:'מהי "האנשה"?',
-   opts:['השוואה עם "כמו/כ"','ייחוס תכונות אנושיות לדומם, לטבע או למופשט','השוואה ישירה ללא מילת השוואה','טענה שסותרת את עצמה'],
+  {id:'q10',type:'mc',ref:'תיאוריה — האנשה',
+   q:'מהי האנשה ומה תפקידה הייחודי בהשוואה לדימוי?',
+   opts:['השוואה עם כמו/כ — מוחשיות','ייחוס תכונות אנושיות לדומם/טבע — מחיה את הסביבה ומחברת אותה לרגש הדמות','השוואה ישירה ללא מילת השוואה','טענה שסותרת את עצמה'],
    ans:1,
-   explain:'האנשה = Personification. "הרוח לחשה", "השמש חייכה", "הפחד אחז בגרונו" — כולן האנשות. תפקיד: ליצור אווירה חיה ולחבר בין הסביבה לרגש הדמות.',
+   explain:'האנשה = Personification. "הרוח לחשה", "השמש חייכה" — תכונות אנוש לדומם. תפקיד ייחודי לעומת דימוי: ההאנשה לא רק מקרבת — היא מחיה ומייצרת חיבור בין הסביבה לרגש הדמות.',
    teacherNote:''},
-
-  {id:'q10',type:'mc',ref:'תיאוריה',
-   q:'מהו הכלל "Show, don\'t tell"?',
-   opts:['יש לכתוב סיפורים קצרים בלבד','במקום לתאר רגש ישירות — מראים אותו דרך פעולה, תיאור פיזי ודיאלוג','יש להוסיף תמיד תיאורי טבע ארוכים','אסור להשתמש בתיאורים'],
+  {id:'q11',type:'mc',ref:'תיאוריה — פרדוקס',
+   q:'מהו פרדוקס ומדוע הוא כלי יעיל במיוחד לסיום סיפור?',
+   opts:['חזרה על מילה לחיזוק','ביטוי שנראה כסתירה עצמית אך מבטא אמת עמוקה — עוצר את הקורא ומחייב מחשבה','השוואה עם מילת השוואה','שאלה שלא מצפה לתשובה'],
    ans:1,
-   explain:'Show, don\'t tell = הראה אל תספר. במקום "הוא היה מפוחד" — "אצבעותיו נקשו על הדלת שלוש פעמים, עצרו, נקשו שוב." הפעולה מגלה את הרגש בלי לציין אותו.',
+   explain:'פרדוקס = Paradox. "בדידות מלאה אנשים" — ניראה-סתירה, אך נכון ברמה עמוקה. יעיל במיוחד לסיום כי: (1) עוצר את הקורא, (2) מייצר הפתעה, (3) נחרת בזיכרון.',
    teacherNote:''},
-
-  {id:'q11',type:'mc',ref:'תיאוריה',
-   q:'מהו פרדוקס?',
-   opts:['חזרה על מילה לחיזוק','טענה שנראית סותרת עצמה אך מבטאת אמת עמוקה','השוואה עם מילת השוואה','שאלה שלא מצפה לתשובה'],
-   ans:1,
-   explain:'פרדוקס = Paradox. "בדידות מלאה אנשים", "כוורת ריקה מלאה" — נראה כסתירה אך מבטא תובנה. תפקיד: לייצר הפתעה ולכפות חשיבה.',
-   teacherNote:''},
-
-  {id:'q12',type:'mc',ref:'תיאוריה',
-   q:'איזו פתיחה משתמשת ב-in medias res?',
+  {id:'q12',type:'mc',ref:'תיאוריה — in medias res',
+   q:'מהו ייחודה של פתיחת in medias res ומדוע היא אפקטיבית?',
    opts:['"בסיפור הזה אספר על ילד ששמו דני."','"הדלת נפתחה לפני שהספקתי לדפוק."','"פעם הייתה ילדה קטנה שגרה ביער."','"הנושא שאני רוצה לדון בו הוא בדידות."'],
    ans:1,
-   explain:'In medias res = פתיחה באמצע הפעולה. "הדלת נפתחה לפני שהספקתי לדפוק" זורקת אותנו ישר לרגע — אנחנו לא יודעים מה קדם, ורוצים לדעת. זהו הטריגר לקריאה.',
+   explain:'In medias res = באמצע הדברים. "הדלת נפתחה לפני שהספקתי לדפוק" — אנחנו בפנים, לא יודעים מה קדם, ורוצים לדעת. האפקטיביות: הקורא מיידית שואל שאלות ולא יכול לעצור.',
    teacherNote:''},
-
-  {id:'q13',type:'tf',ref:'תיאוריה',
-   q:'סיום פתוח (ללא פתרון) הוא סיום "כושל" בכתיבה יוצרת.',
+  {id:'q13',type:'tf',ref:'תיאוריה — סיום פתוח',
+   q:'סיום פתוח (ללא פתרון) הוא סיום חלש שמצביע על כתיבה לא שלמה.',
    ans:false,
-   explain:'לא נכון. סיום פתוח הוא כלי ספרותי לגיטימי שמזמין את הקורא להשלים. סיומים פתוחים לעיתים נחרתים יותר מסיומים סגורים — כי הם ממשיכים להדהד.',
+   explain:'לא נכון — ההיפך! סיום פתוח הוא כלי ספרותי עוצמתי שמזמין את הקורא להשלים. סיומים פתוחים לעיתים נחרתים יותר מסגורים — הם ממשיכים להדהד.',
    teacherNote:''},
-
-  /* ── שאלות יישום — כתיבה ── */
-  {id:'q14',type:'mc',ref:'יישום',
-   q:'המשפט "עיניו נצמדו לרצפה, ידיו חיפשו כיס שלא היה שם" — מה הוא מדגים?',
-   opts:['Tell — תיאור ישיר של רגש','Show — פעולה פיזית שמגלה מבוכה בלי לציין אותה','מטפורה — השוואה ישירה','שאלה רטורית'],
+  {id:'q14',type:'mc',ref:'יישום — Show',
+   q:'"עיניו נצמדו לרצפה, ידיו חיפשו כיס שלא היה שם" — מה הוא מגלה ואיך?',
+   opts:['Tell — אומר שהוא נבוך','Show: פעולות גוף ספציפיות מגלות מבוכה מבלי לציין אותה — הקורא מסיק לבד','מטפורה — ידיים מושוות לדבר','פרדוקס — לחפש כיס שלא קיים'],
    ans:1,
-   explain:'זהו Show מושלם — לא כתוב "הוא היה נבוך". פעולות הגוף (עיניים לרצפה, ידיים מחפשות) מגלות את הרגש. הקורא מסיק בעצמו — זה מה שיוצר מעורבות.',
+   explain:'Show מושלם: לא כתוב "הוא היה נבוך". שתי פעולות גוף — עיניים למטה + ידיים מחפשות — מצטרפות לתמונה. הקורא מזהה מניסיון אישי. זה מה שיוצר מעורבות.',
    teacherNote:''},
-
-  {id:'q15',type:'mc',ref:'יישום',
-   q:'תלמיד כתב: "הוא הרגיש עצמאי ושמח כשיצא מהבית." מה הבעיה?',
-   opts:['המשפט ארוך מדי','זהו Tell — מספר רגש במקום להראותו דרך פעולה','חסר אמצעי ספרותי','שתי תשובות: ב ו-ג'],
-   ans:3,
-   explain:'גם Tell (מספר ישירות "הרגיש עצמאי") וגם חסר אמצעי ספרותי. עדיף: "הרים ראש לשמיים, שאף אוויר רחב, ופסע ראשון ללא מפה." — מראה עצמאות ושמחה בלי לציין אותן.',
+  {id:'q15',type:'mc',ref:'יישום — שיפור',
+   q:'תלמיד כתב: "הוא הרגיש עצמאי ושמח כשיצא מהבית." מה הבעיה ואיך לתקן?',
+   opts:['המשפט ארוך — לקצר','Tell + חסר אמצעי: מספר ישירות "הרגיש עצמאי". תיקון: "הרים ראש לשמיים, שאף אוויר רחב, ופסע ראשון ללא מפה"','חסר מטפורה בלבד','הבעיה: כתב "הרגיש" — להחליף ב"חשב"'],
+   ans:1,
+   explain:'שתי בעיות: (1) Tell — מספר ישירות את הרגש. (2) חסר אמצעי ספרותי. תיקון: "הרים ראש לשמיים, שאף אוויר רחב, ופסע ראשון ללא מפה" — Show + אמצעי.',
    teacherNote:''},
-
-  {id:'q16',type:'tf',ref:'יישום',
+  {id:'q16',type:'tf',ref:'יישום — דיאלוג',
    q:'ניתן לפתוח סיפור בדיאלוג ישיר בין דמויות.',
    ans:true,
-   explain:'נכון ומומלץ. פתיחה בדיאלוג זורקת את הקורא ישר לתוך הסיפור ומציגה דמויות ומתח מיידית: "האם את בוכה?" "לא." — כבר יש לנו שתי דמויות וסיפור.',
+   explain:'נכון ומומלץ. פתיחה בדיאלוג זורקת ישר לתוך הסיפור: "האם את בוכה?" "לא." — שתי דמויות, מתח, עולם. לא צריך הצגה ארוכה.',
    teacherNote:''},
-
-  {id:'q17',type:'mc',ref:'יישום',
-   q:'איזה סיום הוא "מעגלי"?',
-   opts:['הסיפור מסתיים בשאלה פתוחה לקורא','הסוף חוזר לאלמנט מהפתיחה ויוצר תחושת שלמות','הגיבור מת בסוף','הסיום מפתיע ומנוגד לציפייה'],
+  {id:'q17',type:'mc',ref:'יישום — סיום מעגלי',
+   q:'איזה סיום מוגדר "מעגלי" ומה הוא משיג?',
+   opts:['הגיבור מת — בניגוד לציפייה','הסוף חוזר לאלמנט מהפתיחה — רק עכשיו טעון במשמעות שונה, ויוצר תחושת שלמות','מסתיים בשאלה פתוחה','כולם חיים ושמחים'],
    ans:1,
-   explain:'סיום מעגלי = הסוף מהדהד את הפתיחה. אם הסיפור פתח ב"ריח הקפה של סבתא", סיום מעגלי יחזור לאותו ריח — רק עכשיו טעון במשמעות שונה לאחר כל שעבר.',
+   explain:'סיום מעגלי = Circular Ending. הפתיחה ב"ריח קפה של סבתא" → הסיום ב"ריח קפה" שוב — רק עכשיו טעון באובדן. האלמנט שחוזר קיבל משמעות חדשה. מייצר שלמות ועגמה.',
    teacherNote:''},
-
-  {id:'q18',type:'mc',ref:'יישום',
-   q:'מהו הקונפליקט הדומיננטי בקטע "המכתב שלא נשלח"?',
-   opts:['אדם מול אדם — הבת נגד האמא','אדם מול טבע — היא נגד הגשם','אדם מול עצמו — היא לא מצליחה לבטא מה שהיא מרגישה','אדם מול חברה — המשפחה לא מבינה אותה'],
-   ans:2,
-   explain:'הקונפליקט הוא פנימי לחלוטין: האישה רוצה לכתוב ולא מצליחה. המכשול הוא הפנימי — לא אחר. זהו אדם מול עצמו, הסוג הנפוץ ביותר בכתיבה ספרותית מודרנית.',
+  {id:'q18',type:'sort',ref:'תיאוריה — כוח כתיבה',
+   q:'סדרו מהחזק לחלש על הקורא:',
+   items:['Show+אמצעי: "ליבו דהר כסוס, אצבעותיו קפאו על הידית"','Tell: "הוא היה מפוחד"','Show נקי: "אצבעותיו רעדו כשפתח את הדלת"','תיאור ניטרלי: "הוא עמד ליד הדלת"'],
+   correctOrder:[0,2,1,3],
+   explain:'Show+אמצעי (הכי חזק) — Show נקי — Tell — ניטרלי (הכי חלש). שילוב Show עם דימוי/מטפורה = הנוסחה הכי אפקטיבית לכתיבה שנחרתת.',
    teacherNote:''},
-
-  {id:'q19',type:'sort',ref:'תיאוריה',
-   q:'סדרו את שלבי כתיבה יוצרת לבגרות מהראשון לאחרון:',
-   items:['כתוב פתיחה חזקה (in medias res / שאלה / תיאור חושי)','בחר גיבור אחד וקונפליקט אחד','סיים במשפט נחרת','תכנן בשתי שורות: פתיחה→שיא→סיום'],
-   correctOrder:[1,3,0,2],
-   explain:'גיבור+קונפליקט ← תכנון מהיר ← פתיחה חזקה ← סיום נחרת. זהו סדר העבודה: קודם יודעים מה רוצים להגיד, אחר כך איך.',
-   teacherNote:''},
-
-  {id:'q19b',type:'sort',ref:'תיאוריה',
-   q:'סדרו לפי עוצמת ההשפעה על הקורא (מהחזק לחלש):',
-   items:['Show: "אצבעותיו רעדו כשפתח את הדלת"','Tell: "הוא היה מפוחד"','Show+אמצעי: "ליבו דהר כסוס בריצה, אצבעותיו קפאו על הידית"','תיאור ניטרלי: "הוא עמד ליד הדלת"'],
-   correctOrder:[2,0,1,3],
-   explain:'Show+אמצעי (הכי חזק) ← Show נקי ← Tell ← תיאור ניטרלי (הכי חלש). שילוב Show עם אמצעי ספרותי הוא הנוסחה לכתיבה שנחרתת.',
-   teacherNote:''},
-
-  {id:'q20',type:'open',ref:'כתיבה יוצרת',
-   q:'כתוב/י פתיחה לסיפור קצר (4-5 משפטים) בנושא חופשי. השתמש/י ב: (א) פתיחה in medias res או פתיחה בדיאלוג, (ב) לפחות אמצעי ספרותי אחד, (ג) עקרון הראה-אל-תספר.',
-   placeholder:'כתוב/י ישר את הפתיחה — אל תסביר/י מה את/ה עושה. אחרי הכתיבה ציין/י בסוגריים: (האמצעי שהשתמשתי בו: ...)',
-   hint:'פתח/י בדיאלוג (2 משפטים) ואז תאר/י פרט אחד שחושף רגש דרך פעולה. כך תהיה פתיחה, דמות ורגש ב-4 משפטים.',
-   rubric:'(א) פתיחה מיידית ולא תיאור רקע (ב) אמצעי ספרותי מזוהה (ג) הראה ולא ספר — רגש דרך פעולה (ד) תחושת קריאה מיידית',
-   explain:'כתיבה פתוחה — אין תשובה אחת נכונה. המטרה היא שימוש מודע בכלים שנלמדו. ניתן לכתיבה יוצרת בבגרות.',
-   teacherNote:'בדקו: פתיחה מיידית? אמצעי ספרותי מזוהה? הראה ולא ספר? תנו משוב קצר על כל קריטריון.'},
+  {id:'q19',type:'open',ref:'כתיבה — ניתוח אמצעי',
+   q:'בחרו אמצעי ספרותי אחד מהקטע "המכתב שלא נשלח". כתבו 4 משפטים: (1) שם האמצעי (2) הציטוט (3) תפקידו — "כדי ל..." (4) מדוע הוא אפקטיבי בהקשר הסיפור.',
+   placeholder:'האמצעי הוא...\nהכותב/ת כותב/ת: "..."\nתפקידו הוא... כדי ל...\nהוא אפקטיבי כי...',
+   hint:'כלים אפשריים: דימוי (שורה 1), האנשה (גשם), פרדוקס (סיום), סמל (המכתבים).',
+   rubric:'(א) זיהוי נכון ושם האמצעי (ב) ציטוט מדויק (ג) תפקיד: כדי ל... (ד) הסבר האפקטיביות בהקשר הסיפור',
+   explain:'דוגמה: האמצעי הוא פרדוקס. הכותב/ת: "שלושים ושלוש הזדמנויות שהפכו לשתיקה." תפקידו: כדי לחדד בסיכום שהזדמנויות הפכו לניגודן. אפקטיבי כי המספר המדויק הופך רגע לחיים שלמים.',
+   teacherNote:'בדקו: ציטוט מדויק + כדי ל... + הקשר לסיפור.'},
+  {id:'q20',type:'open',ref:'כתיבה יוצרת — יישום',
+   q:'כתבו פתיחה לסיפור קצר (4–5 משפטים). השתמשו ב: (א) in medias res או פתיחה בדיאלוג (ב) לפחות אמצעי ספרותי אחד (ג) עקרון הראה-אל-תספר. בסוף ציינו בסוגריים: (האמצעי ששלבתי: ...)',
+   placeholder:'כתבו ישר את הפתיחה — אל תסבירו מה אתם עושים.\n\n(האמצעי ששלבתי: ...)',
+   hint:'אפשרות א: פתחו בדיאלוג 2 משפטים + תיאור פיזי שמגלה רגש. אפשרות ב: in medias res + פעולה שמגלה מתח דרך גוף.',
+   rubric:'(א) פתיחה מיידית — לא תיאור רקע (ב) אמצעי ספרותי מזוהה (ג) Show — רגש דרך פעולה (ד) תחושת רצון להמשיך לקרוא',
+   explain:'כתיבה פתוחה — אין תשובה אחת נכונה. המטרה: שימוש מודע בכלים. בדקו: פתיחה מיידית? אמצעי מזוהה? הראה ולא ספר?',
+   teacherNote:'תנו משוב לפי 4 הקריטריונים. שאלו: מה האמצעי ששלבת? האם הצלחת להראות בלי לספר?'}
 ];
 
-/* ════════════════════════════════════════════════
-   STATE & GATE
-════════════════════════════════════════════════ */
 const QS={answers:{},submitted:false};
-let _lastScore=null,_lastCorrect=0,_gateConfirmed=false;
+let _lastCorrect=0,_lastScore=null;
 
-function switchTab(t){
-  ['theory','practice','answers'].forEach(x=>{
-    document.getElementById('pane-'+x)?.classList.toggle('active',x===t);
-    document.getElementById('btn-'+x)?.classList.toggle('active',x===t);
-    document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);
-  });
-  if(t==='practice'&&USER_ROLE==='teacher'){
-    document.getElementById('student-gate')?.classList.add('hidden');
-    document.getElementById('gate-confirmed')?.classList.add('hidden');
-    const tw=document.getElementById('practice-content-wrap');if(tw)tw.style.display='';
-  }
-  if(t==='practice'&&USER_ROLE==='student'){
-    const dateEl=document.getElementById('gate-date-display');
-    if(dateEl)dateEl.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-    const gate=document.getElementById('student-gate'),conf=document.getElementById('gate-confirmed'),wrap=document.getElementById('practice-content-wrap');
-    const ne=document.getElementById('gate-name'),ce=document.getElementById('gate-class');
-    if(!_gateConfirmed){
-      if(ne&&STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה')ne.value=STUDENT_NAME;
-      if(ce&&STUDENT_CLASS)ce.value=STUDENT_CLASS;
-      if(gate)gate.classList.remove('hidden');if(conf)conf.classList.add('hidden');if(wrap)wrap.style.display='none';
-    }else{if(gate)gate.classList.add('hidden');if(conf)conf.classList.remove('hidden');if(wrap)wrap.style.display='';}
-  }
-}
-function confirmGate(){
-  const ne=document.getElementById('gate-name'),ce=document.getElementById('gate-class');
-  const nv=(ne?.value||'').trim(),cv=ce?.value||'';let ok=true;
-  if(nv.split(/\s+/).filter(Boolean).length<2){ne?.classList.add('err');document.getElementById('gate-name-err')?.classList.add('show');ok=false;}
-  else{ne?.classList.remove('err');document.getElementById('gate-name-err')?.classList.remove('show');}
-  if(!cv){ce?.classList.add('err');document.getElementById('gate-class-err')?.classList.add('show');ok=false;}
-  else{ce?.classList.remove('err');document.getElementById('gate-class-err')?.classList.remove('show');}
-  if(!ok)return;
-  STUDENT_NAME=nv;STUDENT_CLASS=cv;LS.set('lashon2_uname',nv);LS.set('lashon2_class',cv);_gateConfirmed=true;
-  const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');
-  if(av)av.textContent=nv[0].toUpperCase();if(nm)nm.textContent=nv;if(mt)mt.textContent='כיתה '+cv+' · '+new Date().toLocaleDateString('he-IL');
-  document.getElementById('student-gate')?.classList.add('hidden');document.getElementById('gate-confirmed')?.classList.remove('hidden');
-  const wrap=document.getElementById('practice-content-wrap');if(wrap){wrap.style.display='';wrap.scrollIntoView({behavior:'smooth',block:'start'});}
-}
-function reopenGate(){
-  _gateConfirmed=false;
-  document.getElementById('student-gate')?.classList.remove('hidden');document.getElementById('gate-confirmed')?.classList.add('hidden');
-  const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';
-  document.getElementById('student-gate')?.scrollIntoView({behavior:'smooth',block:'start'});
-  setTimeout(()=>document.getElementById('gate-name')?.focus(),250);
-}
-
-/* ════════════════════════════════════════════════
-   RENDER
-════════════════════════════════════════════════ */
-function renderQuestions(){
-  const c=document.getElementById('questions-container');if(!c)return;
-  c.innerHTML=QUESTIONS.map((q,i)=>buildCard(q,i)).join('');
-  renderAnswers();
-}
+function renderQuestions(){const c=document.getElementById('questions-container');if(!c)return;c.innerHTML=QUESTIONS.map((q,i)=>buildCard(q,i)).join('');}
 function buildCard(q,i){
   let input='';
-  const LETTERS=['א','ב','ג','ד'];
-  if(q.type==='mc'){
-    input=`<div class="mc-wrap">${q.opts.map((o,oi)=>`
-      <button class="mc-btn" id="${q.id}_o${oi}" onclick="pickMC('${q.id}',${oi})">
-        <span class="mc-letter">${LETTERS[oi]}</span><span>${o}</span>
-      </button>`).join('')}</div>`;
-  }else if(q.type==='tf'){
-    input=`<div class="tf-row">
-      <button class="tf-btn" id="${q.id}_t" onclick="pickTF('${q.id}',true)">✅ נכון</button>
-      <button class="tf-btn" id="${q.id}_f" onclick="pickTF('${q.id}',false)">❌ לא נכון</button>
-    </div>`;
-  }else if(q.type==='sort'){
-    const sh=[...q.items.map((item,oi)=>({item,oi}))].sort(()=>Math.random()-.5);
-    input=`<p class="sort-note">גרור ושחרר לסידור הנכון ↕</p>
-      <div class="sort-list" id="${q.id}_sort">
-        ${sh.map((s,si)=>`
-        <div class="sort-item" draggable="true" data-origidx="${s.oi}" id="${q.id}_si${si}"
-          ondragstart="dStart(event,'${q.id}')" ondragover="dOver(event)" ondrop="dDrop(event,'${q.id}')" ondragleave="dLeave(event)">
-          <span class="sort-handle">⠿</span><span class="sort-text">${s.item}</span>
-        </div>`).join('')}
-      </div>`;
-  }else if(q.type==='open'){
-    input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י את תשובתך כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
-  }
-  const refBadge=q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#ddd6fe">📍 ${q.ref}</span>`:'';
-  const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>`;
-  return `
-  <div class="q-card" id="card_${q.id}">
-    <div class="q-num">שאלה ${i+1} מתוך ${QUESTIONS.length} ${tb} ${refBadge}</div>
-    <p class="q-text">${q.q}</p>
-    ${input}
-    <div class="q-feedback" id="${q.id}_fb"></div>
-  </div>`;
+  if(q.type==='mc'){input=`<div class="mc-wrap">${q.opts.map((o,oi)=>`<button class="mc-btn" id="${q.id}_o${oi}" onclick="pickMC('${q.id}',${oi})"><span class="mc-letter">${['א','ב','ג','ד'][oi]}</span><span>${o}</span></button>`).join('')}</div>`;}
+  else if(q.type==='tf'){input=`<div class="tf-row"><button class="tf-btn" id="${q.id}_t" onclick="pickTF('${q.id}',true)">✅ נכון</button><button class="tf-btn" id="${q.id}_f" onclick="pickTF('${q.id}',false)">❌ לא נכון</button></div>`;}
+  else if(q.type==='sort'){const sh=[...q.items.map((item,oi)=>({item,oi}))].sort(()=>Math.random()-.5);input=`<p class="sort-note">גרור ושחרר לסידור הנכון ↕</p><div class="sort-list" id="${q.id}_sort">${sh.map((s,si)=>`<div class="sort-item" draggable="true" data-origidx="${s.oi}" id="${q.id}_si${si}" ondragstart="dStart(event,'${q.id}')" ondragover="dOver(event)" ondrop="dDrop(event,'${q.id}')" ondragleave="dLeave(event)"><span class="sort-handle">⠿</span><span class="sort-text">${s.item}</span></div>`).join('')}</div>`;}
+  else if(q.type==='open'){input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="5" placeholder="${q.placeholder||'כתוב/י את תשובתך כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}${q.rubric?`<div class="open-rubric"><strong>📋 מה נבדק:</strong> ${q.rubric}</div>`:''}</div>`;}
+  const typeLabel=q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='sort'?'סידור':'כתיבה פתוחה';
+  return `<div class="q-card" id="card_${q.id}"><div class="q-num">שאלה ${i+1} מתוך ${QUESTIONS.length} <span class="q-type-badge">${typeLabel}</span>${q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#fecdd3">📍 ${q.ref}</span>`:''}</div><p class="q-text">${q.q}</p>${input}<div class="q-feedback" id="${q.id}_fb"></div></div>`;
 }
-
-/* ════════════════════════════════════════════════
-   INTERACTION
-════════════════════════════════════════════════ */
-function pickMC(qid,oi){
-  if(QS.submitted)return;
-  const q=QUESTIONS.find(x=>x.id===qid);if(!q)return;
-  QS.answers[qid]={type:'mc',sel:oi};
-  q.opts.forEach((_,i)=>{const b=document.getElementById(`${qid}_o${i}`);if(!b)return;b.classList.toggle('sel',i===oi);});
-  updateCounter();
-}
-function pickTF(qid,val){
-  if(QS.submitted)return;
-  QS.answers[qid]={type:'tf',sel:val};
-  const t=document.getElementById(`${qid}_t`),f=document.getElementById(`${qid}_f`);
-  if(t)t.classList.toggle('sel',val===true);if(f)f.classList.toggle('sel',val===false);
-  updateCounter();
-}
-let _ds=null;
-function dStart(e,qid){_ds=e.currentTarget;e.currentTarget.classList.add('dragging');saveSA(qid)}
+function pickMC(qid,oi){if(QS.submitted)return;const q=QUESTIONS.find(x=>x.id===qid);if(!q)return;QS.answers[qid]={type:'mc',sel:oi};q.opts.forEach((_,i)=>{const b=document.getElementById(`${qid}_o${i}`);if(!b)return;b.classList.toggle('sel',i===oi);});updateCounter();}
+function pickTF(qid,val){if(QS.submitted)return;QS.answers[qid]={type:'tf',sel:val};const t=document.getElementById(`${qid}_t`),f=document.getElementById(`${qid}_f`);if(t)t.classList.toggle('sel',val===true);if(f)f.classList.toggle('sel',val===false);updateCounter();}
+let _dragSrc=null;
+function dStart(e,qid){_dragSrc=e.currentTarget;e.currentTarget.classList.add('dragging');saveSortAnswer(qid)}
 function dOver(e){e.preventDefault();e.currentTarget.classList.add('drag-over')}
 function dLeave(e){e.currentTarget.classList.remove('drag-over')}
-function dDrop(e,qid){
-  e.preventDefault();const tgt=e.currentTarget;tgt.classList.remove('drag-over');
-  if(!_ds||_ds===tgt)return;
-  const con=document.getElementById(qid+'_sort');const ch=[...con.children];const si=ch.indexOf(_ds),ti=ch.indexOf(tgt);
-  if(si<ti)con.insertBefore(tgt,_ds);else con.insertBefore(_ds,tgt);
-  _ds.classList.remove('dragging');_ds=null;saveSA(qid);updateCounter();
-}
-function saveSA(qid){const con=document.getElementById(qid+'_sort');if(!con)return;QS.answers[qid]={type:'sort',order:[...con.children].map(el=>parseInt(el.dataset.origidx))};}
-
-function pickOpen(qid){
-  if(QS.submitted)return;
-  const el=document.getElementById(qid+'_oa');if(!el)return;
-  const val=(el.value||'').trim();
-  if(val.length>0) QS.answers[qid]={type:'open',text:val};
-  else delete QS.answers[qid];
-  updateCounter();
-}
-function updateCounter(){
-  const n=Object.keys(QS.answers).length;const pct=Math.round(n/QUESTIONS.length*100);
-  const fill=document.getElementById('qp-fill');if(fill)fill.style.width=pct+'%';
-  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent=`${n} / ${QUESTIONS.length} נענו`;
-}
-
-/* ════════════════════════════════════════════════
-   SUBMIT
-════════════════════════════════════════════════ */
-function submitQuiz(){
-  const answered=Object.keys(QS.answers).length;
-  if(answered<QUESTIONS.length){toast(`⚠️ ענה על כל 21 השאלות (נענו ${answered})`);return}
-  if(QS.submitted){toast('כבר הגשת');return}
-  if(USER_ROLE==='student'&&!_gateConfirmed){toast('⚠️ נא למלא שם וכיתה');reopenGate();return}
-  QS.submitted=true;
-  let correct=0;
-  QUESTIONS.forEach(q=>{
-    const a=QS.answers[q.id];let ok=false;
-    if(q.type==='mc')ok=a?.sel===q.ans;
-    else if(q.type==='tf')ok=a?.sel===q.ans;
-    else if(q.type==='sort')ok=JSON.stringify(a?.order)===JSON.stringify(q.correctOrder);
-    if(ok)correct++;
-    const card=document.getElementById(`card_${q.id}`);if(card)card.classList.add(ok?'ok':'wrong');
-    const fb=document.getElementById(`${q.id}_fb`);
-    if(q.type==='mc'){q.opts.forEach((_,i)=>{const b=document.getElementById(`${q.id}_o${i}`);if(!b)return;b.disabled=true;b.classList.remove('sel');if(i===q.ans)b.classList.add('correct');else if(i===a?.sel&&a.sel!==q.ans)b.classList.add('wrong');});}
-    else if(q.type==='tf'){
-      const tb=document.getElementById(`${q.id}_t`),fb2=document.getElementById(`${q.id}_f`);
-      if(tb){tb.disabled=true;tb.classList.remove('sel');if(q.ans===true)tb.classList.add('correct');else if(a?.sel===true)tb.classList.add('wrong')}
-      if(fb2){fb2.disabled=true;fb2.classList.remove('sel');if(q.ans===false)fb2.classList.add('correct');else if(a?.sel===false)fb2.classList.add('wrong')}
-    }else if(q.type==='sort'){const con=document.getElementById(`${q.id}_sort`);if(con){con.style.pointerEvents='none';con.style.opacity=ok?'1':'0.8';}} else if(q.type==='open'){const ta=document.getElementById(`${q.id}_oa`);if(ta)ta.disabled=true;}
-    if(fb){
-      if(q.type==='open'){fb.innerHTML=`<div class="open-rubric"><strong>✍️ תשובתך נשמרה.</strong> ${q.explain}${q.rubric?'<br><br><strong>נקודות לבדיקה:</strong> '+q.rubric:''}</div>`;fb.className='q-feedback show ok';}
-      else{fb.textContent=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;fb.className=`q-feedback show ${ok?'ok':'wrong'}`;}
-    }
-  });
-  _lastScore=Math.round(correct/QUESTIONS.length*100);_lastCorrect=correct;
-  const pct=_lastScore;const col=pct>=80?'var(--green)':pct>=60?'var(--amber)':'var(--red)';const emoji=pct>=90?'🏆':pct>=80?'🎉':pct>=60?'👍':'💪';
-  const rc=document.getElementById('results-container');
-  if(rc){
-    rc.innerHTML=`
-    <div class="results-card">
-      <span class="results-emoji">${emoji}</span>
-      <span class="results-score" style="color:${col}">${pct}%</span>
-      <span class="results-label">${correct} נכון מתוך ${QUESTIONS.length} שאלות</span>
-      <div class="results-bar"><div class="results-bar-fill" id="res-bar" style="width:0%;background:${col}"></div></div>
-      ${USER_ROLE==='student'&&STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'?`
-      <div style="background:var(--green-lt);border:1.5px solid #bbf7d0;border-radius:var(--r-lg);padding:.9rem 1.1rem;margin-bottom:1.2rem;text-align:right">
-        <div style="font-size:.72rem;font-weight:800;color:var(--green);margin-bottom:.32rem">✅ נשמר אצל המורה</div>
-        <div style="font-size:.84rem;color:var(--text);font-weight:700">${STUDENT_NAME}</div>
-        <div style="font-size:.75rem;color:var(--muted);margin-top:.15rem">כיתה ${STUDENT_CLASS||'—'} · ${new Date().toLocaleDateString('he-IL')}</div>
-      </div>`:''}
-      ${pct>=80?`<div class="box box-green" style="text-align:right;margin-bottom:1.2rem">✅ ביצוע מצוין!</div>`:''}
-      <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
-        ${USER_ROLE==='student'?`<button class="btn-send" onclick="sendResults(${pct})">📤 שלח למורה</button>`:''}
-        <button class="btn-reset" onclick="resetQuiz()">🔄 נסה שוב</button>
-        <button class="btn-print" onclick="printLesson()">🖨️ הדפס</button>
-      </div>
-    </div>`;
-    rc.scrollIntoView({behavior:'smooth',block:'center'});
-    setTimeout(()=>{const b=document.getElementById('res-bar');if(b)b.style.width=pct+'%'},120);
-  }
-  const prog=LS.get('lashon2_prog_'+STUDENT_NAME,{});
-  prog[LESSON_ID]={done:true,score:pct,date:new Date().toLocaleDateString('he-IL'),className:STUDENT_CLASS};
-  LS.set('lashon2_prog_'+STUDENT_NAME,prog);
-  saveScore(pct,STUDENT_NAME,STUDENT_CLASS);
-  if(window.opener)try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID,score:pct,studentName:STUDENT_NAME,className:STUDENT_CLASS},'*')}catch{}
-}
-function resetQuiz(){
-  Object.keys(QS.answers).forEach(k=>delete QS.answers[k]);QS.submitted=false;_lastScore=null;_lastCorrect=0;
-  QUESTIONS.forEach(q=>{
-    if(q.type==='mc')q.opts.forEach((_,i)=>{const b=document.getElementById(`${q.id}_o${i}`);if(b){b.disabled=false;b.className='mc-btn'}});
-    else if(q.type==='tf'){const t=document.getElementById(`${q.id}_t`),f=document.getElementById(`${q.id}_f`);if(t){t.disabled=false;t.className='tf-btn'}if(f){f.disabled=false;f.className='tf-btn'}}
-    else if(q.type==='sort'){const con=document.getElementById(`${q.id}_sort`);if(con){con.style.pointerEvents='';con.style.opacity=''}}
-    else if(q.type==='open'){const ta=document.getElementById(`${q.id}_oa`);if(ta){ta.disabled=false;ta.value=''}}
-    const card=document.getElementById(`card_${q.id}`);if(card)card.className='q-card';
-    const fb=document.getElementById(`${q.id}_fb`);if(fb){fb.className='q-feedback';fb.textContent=''}
-  });
-  const rc=document.getElementById('results-container');if(rc)rc.innerHTML='';
-  const fill=document.getElementById('qp-fill');if(fill)fill.style.width='0%';
-  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent='0 / 21 נענו';
-}
-function sendResults(pct){
-  const email=LS.get('lashon2_teacher_email','')||LS.get('teacher_email','');
-  const wa=LS.get('lashon2_teacher_wa','')||LS.get('teacher_whatsapp','');
-  const body=`שיעור 2 — טקסט ההשוואה\nתלמיד/ה: ${STUDENT_NAME}\nכיתה: ${STUDENT_CLASS||'?'}\nציון: ${pct}%\nתאריך: ${new Date().toLocaleDateString('he-IL')} ${new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})}`;
-  if(wa){window.open('https://wa.me/972'+wa.replace(/^0/,'')+'?text='+encodeURIComponent(body),'_blank');return}
-  if(email){window.location.href='mailto:'+email+'?subject='+encodeURIComponent('שיעור 5 — '+STUDENT_NAME+' כיתה '+STUDENT_CLASS)+'&body='+encodeURIComponent(body);return}
-  toast('⚠️ לא הוגדרו פרטי המורה.');
-}
-
-/* ════════════════════════════════════════════════
-   ANSWERS KEY
-════════════════════════════════════════════════ */
-function renderAnswers(){
-  const c=document.getElementById('answers-container');if(!c)return;
-  c.innerHTML=QUESTIONS.map((q,i)=>`
-  <div class="answer-row">
-    <div class="ans-num">שאלה ${i+1}
-      <span style="font-size:.56rem;font-weight:700;padding:.12rem .45rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>
-      ${q.ref?`<span style="font-size:.56rem;color:var(--lc);font-weight:700">📍 ${q.ref}</span>`:''}
-    </div>
-    <div class="ans-q">${q.q}</div>
-    <div class="ans-correct">✅ ${q.type==='mc'?`<strong>${['א','ב','ג','ד'][q.ans]}</strong> — ${q.opts[q.ans]}`:q.type==='tf'?`<strong>${q.ans?'נכון':'לא נכון'}</strong>`:q.type==='open'?`<span style="color:var(--lc);font-weight:600">שאלת כתיבה פתוחה</span>`:`סדר: ${q.correctOrder.map(j=>q.items[j]).join(' ← ')}`}</div>
-    <div class="ans-explain">💡 ${q.explain}</div>
-    ${q.teacherNote?`<div class="ans-teacher-note">🎓 ${q.teacherNote}</div>`:''}
-  </div>`).join('');
-}
-
-/* ════════════════════════════════════════════════
-   PRINT
-════════════════════════════════════════════════ */
-function printLesson(){
-  var pw=window.open('','_blank','width=960,height=760');
-  if(!pw){alert('popup blocked');return;}
-  var accent='#be185d';
-  var isTeacher=(document.body.classList.contains('is-teacher')||(new URLSearchParams(window.location.search)).get('role')==='teacher');
-  var score=(typeof _lastScore!=='undefined')?_lastScore:null;
-  var correct=(typeof _lastCorrect!=='undefined')?_lastCorrect:0;
-  var sn=isTeacher?'':((typeof SNP!=='undefined'&&SNP)?SNP:((typeof STUDENT_NAME!=='undefined'&&STUDENT_NAME)?STUDENT_NAME:''));
-  var sc=isTeacher?'':((typeof SCP!=='undefined'&&SCP)?SCP:((typeof STUDENT_CLASS!=='undefined'&&STUDENT_CLASS)?STUDENT_CLASS:''));
-  var qs=(typeof QUESTIONS!=='undefined')?QUESTIONS:[];
-  var submitted=(typeof QS!=='undefined')&&QS.submitted;
-  var scoreHtml='';
-  if(!isTeacher){
-    scoreHtml=score!==null
-      ?'<div style="background:#f0fdf4;border:2px solid #15803d;border-radius:12px;padding:1rem 1.5rem;margin-bottom:1.5rem;text-align:center"><div style="font-size:36pt;color:#15803d">'+score+'%</div><div style="font-size:11pt;color:#15803d;font-weight:700">'+correct+' נכון מתוך '+qs.length+'</div></div>'
-      :'<div style="background:#fffbeb;border:2px solid #b45309;border-radius:12px;padding:1rem;text-align:center;color:#b45309;font-weight:700">⏳ טרם הוגש</div>';
-  }
-  var theoryHtml=(document.getElementById('pane-theory')||{innerHTML:''}).innerHTML||'';
-  var practiceEl=document.getElementById('pane-practice');
-  var textsHtml='';
-  if(practiceEl){var boxes=practiceEl.querySelectorAll('.reading-text-box');for(var t=0;t<boxes.length;t++){textsHtml+=boxes[t].outerHTML;}}
-  var LETTERS=['א','ב','ג','ד'];
-  var questionsHtml=qs.map(function(q,i){
-    var a=(typeof QS!=='undefined'&&QS.answers)?QS.answers[q.id]:undefined;
-    var ok=false,gv='לא נענה';
-    if(q.type==='mc'&&a&&a.sel!==undefined){gv=LETTERS[a.sel]+'. '+q.opts[a.sel];ok=(a.sel===q.ans);}
-    else if(q.type==='tf'&&a&&a.sel!==undefined){gv=a.sel?'נכון':'לא נכון';ok=(a.sel===q.ans);}
-    else if(q.type==='sort'&&a&&a.order){gv=a.order.map(function(j){return q.items[j];}).join(' ← ');ok=(JSON.stringify(a.order)===JSON.stringify(q.correctOrder));}
-    else if(q.type==='open'){gv=(a&&a.text)?a.text:'(לא נכתב)';ok=!!(a&&a.text&&a.text.length>10);}
-    var ca='';
-    if(q.type==='mc')ca=LETTERS[q.ans]+'. '+q.opts[q.ans];
-    else if(q.type==='tf')ca=q.ans?'נכון':'לא נכון';
-    else if(q.type==='sort')ca=q.correctOrder.map(function(j){return q.items[j];}).join(' ← ');
-    else ca='שאלת כתיבה פתוחה';
-    var pts=q.pts?'<div style="font-size:8pt;color:#be185d;font-weight:700;margin-bottom:.2rem">'+q.pts+' נקודות'+(q.ref?' · '+q.ref:'')+'</div>':(q.ref?'<div style="font-size:7.5pt;color:#be185d">'+q.ref+'</div>':'');
-    var rowBg=submitted?(ok?'#fafffe':'#fffbfb'):'#fff';
-    var rowBorder=submitted?(ok?'#bbf7d0':'#fca5a5'):'#e4e7ef';
-    var numBg=submitted?(ok?'#15803d':'#dc2626'):'#be185d';
-    var ansStyle=submitted?(ok?'background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0':'background:#fef2f2;color:#dc2626;border:1px solid #fca5a5'):'background:#fefce8;color:#be185d;border:1px solid #fde68a';
-    var ansIcon=submitted?(ok?'✅':'❌'):'→';
-    var h='<div style="display:flex;gap:.6rem;border:1px solid '+rowBorder+';border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid;background:'+rowBg+'">';
-    h+='<div style="width:20px;height:20px;border-radius:50%;background:'+numBg+';color:#fff;font-size:.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem">'+(i+1)+'</div>';
-    h+='<div style="flex:1">'+pts+'<div style="font-size:9.5pt;font-weight:700;color:#0d1424;margin-bottom:.3rem">'+q.q+'</div>';
-    if(!isTeacher){h+='<div style="font-size:9pt;padding:.3rem .65rem;border-radius:6px;margin-bottom:.25rem;'+ansStyle+'"><strong>'+ansIcon+' תשובת התלמיד/ה:</strong> '+gv+'</div>';}
-    if(isTeacher){h+='<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ תשובה נכונה:</strong> '+ca+'</div>';}
-    else if(submitted&&!ok&&gv!=='לא נענה'){h+='<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ התשובה הנכונה:</strong> '+ca+'</div>';}
-    h+='<div style="font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem;line-height:1.5">'+q.explain+'</div>';
-    if(q.teacherNote)h+='<div style="font-size:8pt;color:#be185d;margin-top:.2rem;background:#fefce8;border-radius:5px;padding:.25rem .55rem">'+q.teacherNote+'</div>';
-    h+='</div></div>';
-    return h;
-  }).join('');
-  var css='*{box-sizing:border-box;margin:0;padding:0}body{font-family:Heebo,sans-serif;direction:rtl;background:#fff;color:#0d1424;font-size:10pt;line-height:1.6}@page{margin:1.5cm;size:A4}.doc{max-width:210mm;margin:0 auto;padding:1cm}.doc-header{text-align:center;padding-bottom:1.2rem;border-bottom:3px solid #be185d;margin-bottom:1.5rem}.doc-header h1{font-size:18pt;color:#be185d}.doc-header p{font-size:9pt;color:#555}.sec-title{font-size:13pt;color:#be185d;border-bottom:2px solid #ecfeff;padding-bottom:.4rem;margin:1.5rem 0 1rem;page-break-after:avoid}.card{border:1px solid #e4e7ef;border-radius:8px;padding:.8rem 1rem;margin-bottom:.7rem;break-inside:avoid}.mini-card{background:#f8f9fb;border:1px solid #e4e7ef;border-radius:8px;padding:.7rem .9rem;break-inside:avoid}.lesson-hero{background:#faf5ff;border:1px solid #ddd6fe;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid}.lesson-hero::before{display:none}.section-hd{font-size:11pt;color:#be185d;border-bottom:1.5px solid #ecfeff;padding-bottom:.3rem;margin:1.2rem 0 .6rem;display:flex;align-items:center;gap:.4rem;page-break-after:avoid}.sn{width:22px;height:22px;border-radius:50%;background:#be185d;color:#fff;font-size:.65rem;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900;-webkit-print-color-adjust:exact;print-color-adjust:exact}.box-lc,.box{background:#ecfeff;border:1.5px solid #a5f3fc;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.box-amber{background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.box-green{background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.6rem}.texts-side{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.8rem}.text-panel{border-radius:8px;overflow:hidden;break-inside:avoid}.text-panel.a .text-panel-header{background:#7c3aed;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.text-panel.b .text-panel-header{background:#5b21b6;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.text-panel-header{padding:.5rem .8rem;font-size:.72rem;font-weight:800}.text-panel-body{background:#f8f9fb;border:1px solid #e4e7ef;border-top:none;padding:.7rem .8rem;font-size:.78rem;line-height:1.6}.venn-wrap{display:flex;gap:0;margin:.8rem 0;break-inside:avoid}.venn-left{flex:1;background:#eff4ff;border:1.5px solid #bfdbfe;padding:.7rem .9rem;font-size:.78rem}.venn-center{width:130px;flex-shrink:0;background:#ede9fe;border:1.5px solid #c4b5fd;padding:.7rem .6rem;text-align:center;font-size:.78rem}.venn-right{flex:1;background:#fdf4ff;border:1.5px solid #d8b4fe;padding:.7rem .9rem;font-size:.78rem}.cmp-table{width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:.8rem;break-inside:avoid}.cmp-table th{padding:.5rem .7rem;text-align:right;font-weight:800;font-size:.72rem;background:#be185d;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.cmp-table th.col-b{background:#5b21b6}.cmp-table td{padding:.45rem .7rem;border-bottom:1px solid #e4e7ef}.cmp-table tr:nth-child(even) td{background:#f8f9fb}.row-label{font-weight:700;background:#faf5ff!important}.steps-wrap{background:#faf5ff;border:1.5px solid #ddd6fe;border-radius:10px;padding:1rem;margin-bottom:.8rem;break-inside:avoid}.bagrut-template{border:2px dashed #be185d;border-radius:10px;padding:1rem;margin-bottom:.8rem;break-inside:avoid}.bagrut-sample{background:#faf5ff;border:1.5px solid #ddd6fe;border-radius:8px;padding:.8rem 1rem;font-size:.82rem;line-height:1.7;break-inside:avoid}.reading-text-box{background:#faf5ff;border:2px solid #be185d;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid;position:relative}.reading-text-box::before{display:none}.hero-badge,.hero-chip,.hero-meta,.btn-print,.print-header,.sn-icon{display:none!important}';
-  var studentLine=(sn&&sn.length>0)?'<div style="font-size:11pt;font-weight:700;margin-top:.5rem">תלמיד/ה: '+sn+(sc?' | כיתה: '+sc:'')+' | '+new Date().toLocaleDateString('he-IL')+'</div>':'<div style="font-size:10pt;color:#6b7594;margin-top:.4rem">'+new Date().toLocaleDateString('he-IL')+'</div>';
-  var bodyHtml='<div class="doc"><div class="doc-header"><h1>כתיבה יוצרת</h1><p>יחידה 1 — הבנה והבעה · שיעור 5</p>'+studentLine+'</div>'+scoreHtml+'<div class="sec-title">חלק א — תיאוריה</div><div>'+theoryHtml+'</div>'+(textsHtml?'<div class="sec-title" style="page-break-before:always">טקסטים לקריאה</div>'+textsHtml:'')+(questionsHtml?'<div class="sec-title" style="page-break-before:always">חלק ב — תרגול ותשובות</div>'+questionsHtml:'')+'</div>';
-  var fullHtml='<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><title>כתיבה יוצרת</title><link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet"><style>'+css+'</style></head><body>'+bodyHtml+'<'+'script>document.fonts.ready.then(function(){setTimeout(function(){window.print();},300);}).catch(function(){setTimeout(function(){window.print();},1200);});<'+'/script></body></html>';
-  pw.document.write(fullHtml);
-  pw.document.close();
-}
-
-/* ════════════════════════════════════════════════
-   TOAST, NAV, INIT
-════════════════════════════════════════════════ */
+function dDrop(e,qid){e.preventDefault();const tgt=e.currentTarget;tgt.classList.remove('drag-over');if(!_dragSrc||_dragSrc===tgt)return;const con=document.getElementById(qid+'_sort');const ch=[...con.children];const si=ch.indexOf(_dragSrc),ti=ch.indexOf(tgt);if(si<ti)con.insertBefore(tgt,_dragSrc);else con.insertBefore(_dragSrc,tgt);_dragSrc.classList.remove('dragging');_dragSrc=null;saveSortAnswer(qid);updateCounter();}
+function saveSortAnswer(qid){const con=document.getElementById(qid+'_sort');if(!con)return;QS.answers[qid]={type:'sort',order:[...con.children].map(el=>parseInt(el.dataset.origidx))};}
+function pickOpen(qid){if(QS.submitted)return;const el=document.getElementById(qid+'_oa');if(!el)return;const val=(el.value||'').trim();if(val.length>0)QS.answers[qid]={type:'open',text:val};else delete QS.answers[qid];updateCounter();}
+function updateCounter(){const n=Object.keys(QS.answers).length;const pct=Math.round(n/QUESTIONS.length*100);const fill=document.getElementById('qp-fill');if(fill)fill.style.width=pct+'%';const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent=`${n} / ${QUESTIONS.length} נענו`;}
+function submitQuiz(){const answered=Object.keys(QS.answers).length;if(answered<QUESTIONS.length){toast(`⚠️ ענה על כל 20 השאלות (נענו ${answered})`);return}if(QS.submitted){toast('כבר הגשת');return}if(USER_ROLE==='student'&&!_gateConfirmed){toast('⚠️ נא למלא שם וכיתה');switchTab('practice');reopenGate();return}_doSubmitQuiz();}
+function _doSubmitQuiz(){QS.submitted=true;let correct=0;QUESTIONS.forEach(q=>{const a=QS.answers[q.id];let ok=false;if(q.type==='mc')ok=a?.sel===q.ans;else if(q.type==='tf')ok=a?.sel===q.ans;else if(q.type==='sort')ok=JSON.stringify(a?.order)===JSON.stringify(q.correctOrder);else if(q.type==='open')ok=!!(a?.text&&a.text.length>20);if(ok)correct++;const card=document.getElementById(`card_${q.id}`);if(card)card.classList.add(ok?'ok':'wrong');if(q.type==='mc'){q.opts.forEach((_,i)=>{const b=document.getElementById(`${q.id}_o${i}`);if(!b)return;b.disabled=true;b.classList.remove('sel');if(i===q.ans)b.classList.add('correct');else if(i===a?.sel&&a.sel!==q.ans)b.classList.add('wrong');});}else if(q.type==='tf'){const tb=document.getElementById(`${q.id}_t`),fb2=document.getElementById(`${q.id}_f`);if(tb){tb.disabled=true;tb.classList.remove('sel');if(q.ans===true)tb.classList.add('correct');else if(a?.sel===true)tb.classList.add('wrong');}if(fb2){fb2.disabled=true;fb2.classList.remove('sel');if(q.ans===false)fb2.classList.add('correct');else if(a?.sel===false)fb2.classList.add('wrong');}}else if(q.type==='open'){const el=document.getElementById(`${q.id}_oa`);if(el)el.disabled=true;}const fb=document.getElementById(`${q.id}_fb`);if(fb){fb.classList.add('show',ok?'ok':'wrong');fb.innerHTML=ok?`✅ ${q.explain}`:`❌ ${q.explain}`;}});_lastCorrect=correct;const pct=Math.round(correct/QUESTIONS.length*100);_lastScore=pct;saveScore(pct+'%',STUDENT_NAME,STUDENT_CLASS);if(pct>=80)launchConfetti();showResults(correct,QUESTIONS.length,pct);const sc=document.getElementById('qp-score');if(sc){sc.style.display='';sc.textContent=pct+'%';}}
+function showResults(correct,total,pct){const el=document.getElementById('results-container');if(!el)return;const emoji=pct>=90?'🏆':pct>=80?'⭐':pct>=70?'👍':pct>=55?'💪':'📚';const label=pct>=80?'מצוין! עברת את הרף 80%!':pct>=55?'כמעט! חזור על הנושאים שטעית.':'כדאי לחזור על התיאוריה.';const fillColor=pct>=80?'var(--green)':pct>=55?'var(--amber)':'var(--red)';el.innerHTML=`<div class="results-card"><span class="results-emoji">${emoji}</span><span class="results-score" style="color:${fillColor}">${pct}%</span><span class="results-label">${correct} מתוך ${total} נכונות · ${label}</span><div class="results-bar"><div class="results-bar-fill" style="width:0%;background:${fillColor}" id="res-fill"></div></div><button class="btn-print" onclick="printLesson()" style="margin:0 auto">🖨️ הדפסת תרגול</button></div>`;setTimeout(()=>{const f=document.getElementById('res-fill');if(f)f.style.width=pct+'%';},80);}
+function resetQuiz(){if(QS.submitted&&!confirm('לאפס את התרגול?'))return;QS.submitted=false;QS.answers={};renderQuestions();const rc=document.getElementById('results-container');if(rc)rc.innerHTML='';const fill=document.getElementById('qp-fill');if(fill)fill.style.width='0%';const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent='0 / 20 נענו';const sc=document.getElementById('qp-score');if(sc){sc.style.display='none';sc.textContent='';}}
+function renderAnswers(){const c=document.getElementById('answers-container');if(!c)return;c.innerHTML=QUESTIONS.map((q,i)=>{const typeLabel=q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='sort'?'סידור':'כתיבה פתוחה';const caDisplay=q.type==='mc'?q.opts[q.ans]:q.type==='tf'?(q.ans?'✅ נכון':'❌ לא נכון'):q.type==='sort'?q.correctOrder.map(i=>q.items[i]).join(' → '):'(ראה הסבר)';return `<div class="answer-row"><div class="ans-num">שאלה ${i+1} <span class="q-type-badge">${typeLabel}</span>${q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#fecdd3">📍 ${q.ref}</span>`:''}</div><div class="ans-q">${q.q}</div><div class="ans-correct">✅ תשובה: ${caDisplay}</div><div class="ans-explain">${q.explain}</div>${q.teacherNote?`<div class="ans-teacher-note">📌 הערת מורה: ${q.teacherNote}</div>`:''}</div>`;}).join('');}
+function printLesson(){const pw=window.open('','_blank');if(!pw)return;const sn=STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'?STUDENT_NAME:'';const sc=STUDENT_CLASS||'';const theoryHtml=document.getElementById('pane-theory')?.innerHTML||'';const questionsHtml=QUESTIONS.map((q,i)=>{const a=QS.answers[q.id];const caDisplay=q.type==='mc'?q.opts[q.ans]:q.type==='tf'?(q.ans?'נכון':'לא נכון'):q.type==='sort'?q.correctOrder.map(i=>q.items[i]).join(' → '):'(ראה הסבר)';const gv=q.type==='mc'?(a?.sel!=null?q.opts[a.sel]:'לא נענה'):q.type==='tf'?(a?.sel!=null?(a.sel?'נכון':'לא נכון'):'לא נענה'):(a?.text||'לא נענה');const ok=q.type==='mc'?a?.sel===q.ans:q.type==='tf'?a?.sel===q.ans:q.type==='sort'?JSON.stringify(a?.order)===JSON.stringify(q.correctOrder):!!(a?.text&&a.text.length>20);const submitted=QS.submitted;const numBg=submitted?(ok?'#15803d':'#dc2626'):'#be185d';const rowBg=submitted?(ok?'#fafffe':'#fffbfb'):'#fff';const rowBorder=submitted?(ok?'#bbf7d0':'#fca5a5'):'#e4e7ef';let h=`<div style="display:flex;gap:.6rem;border:1px solid ${rowBorder};border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid;background:${rowBg}">`;h+=`<div style="width:20px;height:20px;border-radius:50%;background:${numBg};color:#fff;font-size:.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem">${i+1}</div>`;h+=`<div style="flex:1"><div style="font-size:9.5pt;font-weight:700;color:#0d1424;margin-bottom:.3rem">${q.q}</div>`;if(submitted){h+=`<div style="font-size:9pt;padding:.3rem .65rem;border-radius:6px;margin-bottom:.25rem;background:${ok?'#f0fdf4':'#fef2f2'};color:${ok?'#15803d':'#dc2626'};border:1px solid ${ok?'#bbf7d0':'#fca5a5'}"><strong>${ok?'✅':'❌'} תשובתך:</strong> ${gv}</div>`;}h+=`<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ תשובה נכונה:</strong> ${caDisplay}</div>`;h+=`<div style="font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem;line-height:1.5">${q.explain}</div>`;if(q.teacherNote)h+=`<div style="font-size:8pt;color:#be185d;margin-top:.2rem;background:#fff1f2;border-radius:5px;padding:.25rem .55rem">${q.teacherNote}</div>`;h+='</div></div>';return h;}).join('');const css=`*{box-sizing:border-box;margin:0;padding:0}body{font-family:Heebo,sans-serif;direction:rtl;background:#fff;color:#0d1424;font-size:10pt;line-height:1.6}@page{margin:1.5cm;size:A4}.doc{max-width:210mm;margin:0 auto;padding:1cm}.doc-header{text-align:center;padding-bottom:1.2rem;border-bottom:3px solid #be185d;margin-bottom:1.5rem}.doc-header h1{font-size:18pt;color:#be185d}.doc-header p{font-size:9pt;color:#555}.sec-title{font-size:13pt;color:#be185d;border-bottom:2px solid #fff1f2;padding-bottom:.4rem;margin:1.5rem 0 1rem}.card{border:1px solid #e4e7ef;border-radius:8px;padding:.8rem 1rem;margin-bottom:.7rem;break-inside:avoid}.lesson-hero{background:#fff1f2;border:1px solid #fecdd3;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid}.section-hd{font-size:11pt;color:#be185d;border-bottom:1.5px solid #fff1f2;padding-bottom:.3rem;margin:1.2rem 0 .6rem;display:flex;align-items:center;gap:.4rem;page-break-after:avoid}.sn{width:22px;height:22px;border-radius:50%;background:#be185d;color:#fff;font-size:.65rem;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900;-webkit-print-color-adjust:exact;print-color-adjust:exact}.reading-text-box{border:2px solid #be185d;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid}.hero-badge,.hero-chip,.hero-meta,.btn-print,.print-header,.sn-icon,.goto-practice-btn{display:none!important}`;
+const studentLine=(sn&&sn.length>0)?`<div style="font-size:11pt;font-weight:700;margin-top:.5rem">תלמיד/ה: ${sn}${sc?' | כיתה: '+sc:''} | ${new Date().toLocaleDateString('he-IL')}</div>`:`<div style="font-size:10pt;color:#6b7594;margin-top:.4rem">${new Date().toLocaleDateString('he-IL')}</div>`;
+const bodyHtml=`<div class="doc"><div class="doc-header"><h1>כתיבה יוצרת</h1><p>יחידה א — שיעור 5 · לשון 30% בגרות</p>${studentLine}</div><div class="sec-title">חלק א — תיאוריה</div><div>${theoryHtml}</div>${questionsHtml?`<div class="sec-title" style="page-break-before:always">חלק ב — תרגול ותשובות</div>${questionsHtml}`:''}</div>`;
+const fullHtml=`<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><title>כתיבה יוצרת</title><link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet"><style>${css}</style></head><body>${bodyHtml}<${'script'}>document.fonts.ready.then(()=>setTimeout(()=>window.print(),300)).catch(()=>setTimeout(()=>window.print(),1200));</${'script'}></body></html>`;
+pw.document.write(fullHtml);pw.document.close();}
+function launchConfetti(){const colors=['#be185d','#fb7185','#fbbf24','#34d399','#60a5fa','#a78bfa'];for(let i=0;i<70;i++){const el=document.createElement('div');el.className='confetti-piece';el.style.cssText=`left:${Math.random()*100}vw;background:${colors[Math.floor(Math.random()*colors.length)]};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;animation-delay:${Math.random()*.8}s;animation-duration:${1.8+Math.random()*.8}s;border-radius:${Math.random()>.5?'50%':'2px'}`;document.body.appendChild(el);el.addEventListener('animationend',()=>el.remove());}}
 let _tt;
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800)}
-function goBack(){
-  if(window.opener){
-    try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}
-    window.close();
-    return;
-  }
-  window.location.href=BACK_URL;
-}
-function init(){
-  initFirebase();
-  if(USER_ROLE==='teacher'){
-    const rc=document.getElementById('role-chip');if(rc)rc.style.display='';
-    const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';
-    _gateConfirmed=true;
-    const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='';
-    document.getElementById('student-gate')?.classList.add('hidden');
-    document.getElementById('gate-confirmed')?.classList.add('hidden');
-  }else{
-    const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';
-    if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){
-      _gateConfirmed=true;if(wrap)wrap.style.display='';
-      document.getElementById('student-gate')?.classList.add('hidden');
-      const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');
-      if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');
-      document.getElementById('gate-confirmed')?.classList.remove('hidden');
-    }
-  }
-  applyAnswersVisibility();renderQuestions();
-}
+function goBack(){if(window.opener)try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}window.location.href=BACK_URL;}
+function init(){initFirebase();if(USER_ROLE==='teacher'){const rc=document.getElementById('role-chip');if(rc)rc.style.display='';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';_gateConfirmed=true;const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='';document.getElementById('student-gate')?.classList.add('hidden');document.getElementById('gate-confirmed')?.classList.add('hidden');}else{const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){_gateConfirmed=true;if(wrap)wrap.style.display='';document.getElementById('student-gate')?.classList.add('hidden');const av=document.getElementById('gc-avatar');const nm=document.getElementById('gc-name-display');const mt=document.getElementById('gc-meta-display');if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed')?.classList.remove('hidden');}}renderAnswersTab();renderAnswers();renderQuestions();}
 init();
 </script>
 </body>

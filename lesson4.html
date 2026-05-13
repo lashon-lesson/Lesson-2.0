@@ -11,7 +11,7 @@
 :root{
   --bg:#f0f2f7;--surface:#fff;--surface2:#f8f9fb;--surface3:#eef0f5;
   --border:#e4e7ef;--text:#0d1424;--text-mid:#3d4660;--muted:#6b7594;--subtle:#9aa3be;
-  --blue:#1a56db;--blue-lt:#eff4ff;--blue-dk:#1340b0;
+  --blue:#1a56db;--blue-lt:#eff4ff;
   --green:#15803d;--green-lt:#f0fdf4;
   --amber:#b45309;--amber-lt:#fffbeb;
   --red:#dc2626;--red-lt:#fef2f2;
@@ -19,7 +19,7 @@
   --gold:#ca8a04;--gold-lt:#fefce8;
   --teal:#0f766e;--teal-lt:#f0fdfa;
   --rose:#be185d;--rose-lt:#fff1f2;
-  /* Lesson accent — amber for lesson 4 */
+  /* Lesson accent — amber/orange for lesson 4 */
   --lc:#b45309;--lc-lt:#fffbeb;--lc-dk:#92400e;
   --sh1:0 1px 3px rgba(13,20,36,.06);--sh2:0 4px 20px rgba(13,20,36,.08);--sh3:0 12px 40px rgba(13,20,36,.12);
   --r:14px;--r-lg:20px;--r-xl:26px;--r-pill:999px;
@@ -27,7 +27,7 @@
 @media(prefers-color-scheme:dark){:root{
   --bg:#0b0f17;--surface:#131924;--surface2:#192030;--surface3:#1f2840;
   --border:#252f47;--text:#d8dfe8;--text-mid:#a0adc5;--muted:#7a8aaa;--subtle:#50607e;
-  --blue:#4d8aff;--blue-lt:#162040;--blue-dk:#6aa0ff;
+  --blue:#4d8aff;--blue-lt:#162040;
   --green:#34d875;--green-lt:#0c2618;
   --amber:#f5a623;--amber-lt:#28200c;
   --red:#fc8080;--red-lt:#281414;
@@ -64,7 +64,9 @@ button,input,select,textarea{font-family:inherit}
 .tab-btn:hover{color:var(--lc)}
 .tab-btn.active{color:var(--lc);border-bottom-color:var(--lc);font-weight:800}
 .tab-pane{display:none}
-.tab-pane.active{display:block}
+.tab-pane.active{display:block;animation:fadeIn .18s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@media print{.tab-pane{display:block!important}}
 
 /* ═══ LESSON WRAP ═══ */
 .lesson-wrap{max-width:800px;margin:0 auto;padding:1.5rem 1.2rem 5rem;width:100%}
@@ -80,6 +82,7 @@ button,input,select,textarea{font-family:inherit}
 .hero-chip{font-size:.63rem;font-weight:700;padding:.22rem .72rem;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface);color:var(--muted)}
 .hero-chip.lc{color:var(--lc);background:var(--lc-lt);border-color:var(--lc)}
 .hero-chip.green{color:var(--green);background:var(--green-lt);border-color:#bbf7d0}
+.hero-chip.amber{color:var(--amber);background:var(--amber-lt);border-color:#fde68a}
 
 /* ─── SECTION HEADING ─── */
 .section-hd{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--lc);display:flex;align-items:center;gap:.55rem;margin:2.2rem 0 1rem;padding-bottom:.48rem;border-bottom:2px solid var(--lc-lt)}
@@ -103,8 +106,8 @@ button,input,select,textarea{font-family:inherit}
 .box-blue{background:var(--blue-lt);border:1.5px solid #bfdbfe}.box-blue strong{color:var(--blue)}
 .box-amber{background:var(--amber-lt);border:1.5px solid #fde68a}.box-amber strong{color:var(--amber)}
 .box-green{background:var(--green-lt);border:1.5px solid #bbf7d0}.box-green strong{color:var(--green)}
-.box-red{background:var(--red-lt);border:1.5px solid #fca5a5}.box-red strong{color:var(--red)}
 .box-purple{background:var(--purple-lt);border:1.5px solid #ddd6fe}.box-purple strong{color:var(--purple)}
+.box-rose{background:var(--rose-lt);border:1.5px solid #fecdd3}.box-rose strong{color:var(--rose)}
 
 /* Grid */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.85rem}
@@ -120,15 +123,15 @@ button,input,select,textarea{font-family:inherit}
 .step-item:last-child{margin-bottom:0}
 .step-num{width:26px;height:26px;border-radius:50%;background:var(--lc);color:#fff;font-size:.7rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
 
-/* Argument structure diagram */
-.arg-structure{background:var(--surface);border:1.5px solid var(--lc);border-radius:var(--r-xl);overflow:hidden;margin-bottom:1rem;box-shadow:var(--sh1)}
-.arg-header{background:var(--lc);color:#fff;padding:.9rem 1.2rem;font-family:'Secular One',sans-serif;font-size:.88rem;display:flex;align-items:center;gap:.5rem}
-.arg-body{padding:1rem 1.2rem;display:flex;flex-direction:column;gap:.5rem}
-.arg-layer{display:flex;align-items:flex-start;gap:.75rem;padding:.7rem .9rem;border-radius:var(--r);border-right:3px solid transparent}
-.arg-layer.claim{background:linear-gradient(135deg,#fffbeb,#fff);border-color:var(--lc)}
-.arg-layer.reason{background:linear-gradient(135deg,#eff4ff,#fff);border-color:#1a56db}
+/* ─── ARG STRUCTURE ─── */
+.arg-structure{background:var(--surface);border:1.5px solid var(--lc-lt);border-radius:var(--r-xl);overflow:hidden;margin-bottom:1rem;box-shadow:var(--sh1)}
+.arg-header{background:linear-gradient(135deg,var(--lc-lt),var(--surface2));padding:.75rem 1.2rem;font-family:'Secular One',sans-serif;font-size:.88rem;color:var(--lc);border-bottom:1px solid var(--border)}
+.arg-body{padding:.85rem 1rem;display:flex;flex-direction:column;gap:.5rem}
+.arg-layer{display:flex;align-items:flex-start;gap:.7rem;padding:.75rem 1rem;border-radius:var(--r);border:1.5px solid var(--border)}
+.arg-layer.claim{background:linear-gradient(135deg,var(--lc-lt),#fff);border-color:var(--lc)}
+.arg-layer.reason{background:linear-gradient(135deg,#eff6ff,#fff);border-color:#1a56db}
 .arg-layer.evidence{background:linear-gradient(135deg,#f0fdf4,#fff);border-color:#15803d}
-.arg-layer.counter{background:linear-gradient(135deg,#fff1f2,#fff);border-color:#dc2626}
+.arg-layer.counter{background:linear-gradient(135deg,#fef2f2,#fff);border-color:#dc2626}
 .arg-layer.conclusion{background:linear-gradient(135deg,#faf5ff,#fff);border-color:#6d28d9}
 .arg-icon{font-size:1.2rem;flex-shrink:0;margin-top:.05rem}
 .arg-label{font-size:.65rem;font-weight:900;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.22rem}
@@ -137,22 +140,22 @@ button,input,select,textarea{font-family:inherit}
 .arg-layer.evidence .arg-label{color:#15803d}
 .arg-layer.counter .arg-label{color:#dc2626}
 .arg-layer.conclusion .arg-label{color:#6d28d9}
-.arg-text{font-size:.82rem;color:var(--text-mid);line-height:1.55}
+.arg-text{font-size:.82rem;color:var(--text-mid);line-height:1.58}
 
-/* Rhetorical tools grid */
+/* ─── RHETORICAL TOOLS GRID ─── */
 .tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-top:.75rem}
 @media(max-width:500px){.tools-grid{grid-template-columns:1fr}}
-.tool-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.85rem 1rem;box-shadow:var(--sh1)}
+.tool-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.85rem 1rem;box-shadow:var(--sh1);border-right:3px solid var(--lc)}
 .tool-name{font-size:.78rem;font-weight:800;color:var(--lc);margin-bottom:.3rem;display:flex;align-items:center;gap:.4rem}
 .tool-def{font-size:.77rem;color:var(--text-mid);line-height:1.58;margin-bottom:.3rem}
-.tool-ex{font-size:.75rem;color:var(--muted);font-style:italic;background:var(--surface2);border-radius:6px;padding:.28rem .55rem;border-right:2.5px solid var(--lc)}
+.tool-ex{font-size:.75rem;color:var(--muted);font-style:italic;background:var(--surface2);border-radius:6px;padding:.28rem .55rem;border-right:2.5px solid var(--lc-lt)}
 
 /* Comparison table */
 .cmp-table{width:100%;border-collapse:collapse;font-size:.82rem;margin-bottom:1rem;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
-.cmp-table th{padding:.68rem .9rem;text-align:right;font-weight:800;font-size:.76rem}
-.cmp-table th:first-child{background:var(--lc);color:#fff}
-.cmp-table th.col-a{background:#b45309;color:#fff}
-.cmp-table th.col-b{background:#92400e;color:#fff}
+.cmp-table th{padding:.68rem .9rem;text-align:right;font-weight:800;font-size:.76rem;color:#fff}
+.cmp-table th:first-child{background:var(--lc)}
+.cmp-table th.col-a{background:#b45309}
+.cmp-table th.col-b{background:#92400e}
 .cmp-table td{padding:.6rem .9rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
 .cmp-table tr:last-child td{border-bottom:none}
 .cmp-table tr:nth-child(even) td{background:var(--surface2)}
@@ -167,9 +170,15 @@ button,input,select,textarea{font-family:inherit}
 .bagrut-sample{background:var(--lc-lt);border:1.5px solid #fde68a;border-radius:var(--r-lg);padding:1.1rem 1.3rem;font-size:.85rem;line-height:1.75;color:var(--text-mid);margin-top:.8rem}
 .bagrut-sample em{color:var(--lc);font-style:normal;font-weight:700}
 
-/* Reading text box */
-.reading-text-box{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.5rem 1.6rem;margin-bottom:1.8rem;box-shadow:var(--sh2);position:relative}
+/* Error cards */
+.err-card{background:var(--red-lt);border:1.5px solid #fca5a5;border-radius:var(--r);padding:.9rem 1.05rem;margin-bottom:.5rem}
+.err-title{font-size:.76rem;font-weight:800;color:var(--red);margin-bottom:.3rem}
+.err-body{font-size:.8rem;color:var(--text-mid);line-height:1.6}
+
+/* ═══ READING TEXT ═══ */
+.reading-text-box{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.5rem 1.6rem;margin-bottom:1.5rem;box-shadow:var(--sh2);position:relative}
 .reading-text-box::before{content:'📄 טקסט לקריאה';position:absolute;top:-12px;right:1.4rem;background:var(--lc);color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill);letter-spacing:.04em}
+.rt-tag{display:inline-block;font-size:.62rem;font-weight:800;padding:.2rem .65rem;border-radius:var(--r-pill);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.05em;color:#fff}
 .rt-title{font-family:'Secular One',sans-serif;font-size:1.05rem;color:var(--text);margin-bottom:.28rem}
 .rt-byline{font-size:.7rem;color:var(--muted);margin-bottom:1rem;display:flex;gap:.9rem;flex-wrap:wrap}
 .rt-body{font-size:.88rem;line-height:1.88;color:var(--text-mid)}
@@ -177,8 +186,6 @@ button,input,select,textarea{font-family:inherit}
 .rt-body p:last-child{margin-bottom:0}
 .rt-body strong{color:var(--text);font-weight:700}
 .rt-body em{font-style:italic;color:var(--purple)}
-.rt-tag{display:inline-block;font-size:.62rem;font-weight:800;padding:.2rem .65rem;border-radius:var(--r-pill);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.05em}
-.rt-tag.main{background:var(--lc);color:#fff}
 
 /* ═══ QUIZ ═══ */
 .quiz-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1px solid #fde68a;border-radius:var(--r-lg);padding:1.25rem 1.4rem;margin-bottom:1.5rem}
@@ -206,12 +213,16 @@ button,input,select,textarea{font-family:inherit}
 .mc-btn.correct .mc-letter{background:var(--green);color:#fff}
 .mc-btn.wrong .mc-letter{background:var(--red);color:#fff}
 .tf-row{display:flex;gap:.68rem}
-.tf-btn{flex:1;padding:.8rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.9rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:54px}
-.tf-btn:hover:not(:disabled){border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
-.tf-btn.sel{border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
-.tf-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important}
-.tf-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important}
+.tf-btn{flex:1;padding:.72rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.86rem;font-weight:600;color:var(--text-mid);cursor:pointer;transition:all .15s;min-height:48px}
+.tf-btn:hover:not(:disabled){border-color:var(--lc);background:var(--lc-lt)}
+.tf-btn.sel{border-color:var(--lc);background:var(--lc-lt);color:var(--lc);font-weight:700}
+.tf-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important;font-weight:700}
+.tf-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important;font-weight:700}
 .tf-btn:disabled{cursor:default}
+.q-feedback{font-size:.82rem;line-height:1.65;padding:.7rem .9rem;border-radius:var(--r);margin-top:.78rem;display:none}
+.q-feedback.show{display:block}
+.q-feedback.ok{background:var(--green-lt);color:var(--green);border:1px solid #bbf7d0}
+.q-feedback.wrong{background:var(--red-lt);color:var(--red);border:1px solid #fca5a5}
 .sort-list{display:flex;flex-direction:column;gap:.42rem;margin-bottom:.55rem}
 .sort-item{display:flex;align-items:center;gap:.68rem;padding:.74rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);cursor:grab;transition:all .15s;user-select:none}
 .sort-item:active{cursor:grabbing;box-shadow:var(--sh2)}
@@ -220,60 +231,67 @@ button,input,select,textarea{font-family:inherit}
 .sort-handle{font-size:1.1rem;color:var(--muted);flex-shrink:0}
 .sort-text{font-size:.86rem;color:var(--text-mid);flex:1}
 .sort-note{font-size:.7rem;color:var(--muted);margin-bottom:.32rem}
-.q-feedback{margin-top:.72rem;padding:.8rem 1.05rem;border-radius:var(--r);font-size:.83rem;font-weight:600;line-height:1.58;display:none;border-right:3px solid transparent}
-.q-feedback.show{display:block}
-.q-feedback.ok{background:var(--green-lt);color:var(--green);border-color:var(--green)}
-.q-feedback.wrong{background:var(--red-lt);color:var(--red);border-color:var(--red)}
-.results-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:2.2rem 1.8rem;text-align:center;box-shadow:var(--sh2);margin-top:1.5rem}
-.results-emoji{font-size:4rem;margin-bottom:.8rem;display:block}
-.results-score{font-family:'Secular One',sans-serif;font-size:3.4rem;font-weight:800;margin-bottom:.3rem;display:block}
-.results-label{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem;display:block}
-.results-bar{height:10px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-bottom:1.6rem;border:1px solid var(--border)}
-.results-bar-fill{height:100%;border-radius:var(--r-pill);transition:width 1.2s cubic-bezier(.22,1,.36,1)}
-.btn-submit{padding:.85rem 2rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(180,83,9,.28);transition:all .15s;min-height:48px}
-.btn-submit:hover{background:var(--lc-dk);transform:translateY(-1px)}
-.btn-reset{padding:.82rem 1.6rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);color:var(--muted);font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:48px}
-.btn-reset:hover{background:var(--surface3);color:var(--text)}
-.btn-send{padding:.82rem 1.8rem;border:none;border-radius:var(--r-pill);background:var(--green);color:#fff;font-size:.86rem;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(21,128,61,.3);transition:all .15s;min-height:48px}
-.btn-send:hover{transform:translateY(-1px)}
+.btn-submit{padding:.88rem 2rem;border:none;border-radius:var(--r-pill);background:linear-gradient(135deg,var(--lc),var(--lc-dk));color:#fff;font-size:.9rem;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(180,83,9,.3);transition:all .18s}
+.btn-submit:hover{transform:translateY(-2px)}
+.btn-reset{padding:.82rem 1.6rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);font-size:.86rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .15s}
+.btn-reset:hover{background:var(--surface3)}
+.results-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:2rem 1.6rem;text-align:center;box-shadow:var(--sh2);margin-top:1.5rem}
+.results-emoji{font-size:3rem;display:block;margin-bottom:.6rem}
+.results-score{font-family:'Secular One',sans-serif;font-size:3.5rem;display:block;margin-bottom:.3rem}
+.results-label{font-size:.88rem;color:var(--muted);display:block;margin-bottom:1.2rem}
+.results-bar{height:10px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-bottom:1.4rem;border:1px solid var(--border)}
+.results-bar-fill{height:100%;border-radius:var(--r-pill);transition:width .7s cubic-bezier(.22,1,.36,1)}
 
-/* ═══ ANSWERS TAB ═══ */
-.answers-locked{background:var(--surface);border:2px dashed var(--border);border-radius:var(--r-xl);padding:2.5rem 2rem;text-align:center;margin-top:.5rem}
-.answer-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.05rem 1.2rem;margin-bottom:.78rem}
-.ans-num{font-size:.66rem;color:var(--subtle);margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem}
-.ans-q{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.5rem;line-height:1.45}
-.ans-correct{background:var(--green-lt);border:1.5px solid #bbf7d0;border-radius:9px;padding:.55rem .95rem;font-size:.82rem;color:var(--green);font-weight:700;margin-bottom:.42rem}
-.ans-explain{font-size:.78rem;color:var(--muted);line-height:1.58;border-right:3px solid var(--border);padding-right:.78rem;margin-top:.4rem}
-.ans-teacher-note{font-size:.78rem;font-weight:700;color:var(--lc);margin-top:.38rem;background:var(--lc-lt);border-radius:8px;padding:.42rem .75rem}
-
-/* ═══ GATE ═══ */
-#student-gate{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:0;margin-bottom:1.5rem;box-shadow:var(--sh2);overflow:hidden}
-#student-gate.hidden{display:none}
-.gate-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);padding:1.4rem 1.5rem 1.2rem;text-align:center;border-bottom:1px solid var(--border)}
-.gate-icon{font-size:2.4rem;display:block;margin-bottom:.55rem}
-.gate-title{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--text);margin-bottom:.28rem}
-.gate-desc{font-size:.8rem;color:var(--muted);line-height:1.55}
-.gate-body{padding:1.3rem 1.5rem 1.5rem;display:flex;flex-direction:column;gap:.9rem}
-.gate-field label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);margin-bottom:.38rem;letter-spacing:.02em}
-.gate-input{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;min-height:50px}
-.gate-input::placeholder{color:var(--subtle)}
-.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(180,83,9,.14)}
-.gate-input.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.1)}
-.gate-err-msg{font-size:.7rem;color:var(--red);margin-top:.26rem;display:none}
+/* GATE */
+.hidden{display:none!important}
+.gate-header{text-align:center;margin-bottom:1.5rem;padding:1.5rem 1.4rem 0}
+.gate-icon{font-size:2.5rem;display:block;margin-bottom:.7rem}
+.gate-title{font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:.38rem}
+.gate-desc{font-size:.82rem;color:var(--muted);line-height:1.6}
+.gate-body{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:1.5rem;box-shadow:var(--sh2);max-width:420px;margin:0 auto 2rem}
+.gate-field{margin-bottom:1.1rem}
+.gate-field label{display:block;font-size:.75rem;font-weight:700;color:var(--muted);margin-bottom:.42rem}
+.gate-input{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.9rem;color:var(--text);outline:none;transition:border-color .15s}
+.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(180,83,9,.12)}
+.gate-input.err{border-color:var(--red)}
+.gate-date-display{padding:.72rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface3);font-size:.88rem;color:var(--muted)}
+.gate-err-msg{font-size:.72rem;color:var(--red);margin-top:.32rem;display:none}
 .gate-err-msg.show{display:block}
-.gate-date-display{padding:.78rem 1rem;background:var(--surface3);border:1.5px solid var(--border);border-radius:var(--r);font-size:.88rem;color:var(--muted)}
-.gate-btn{width:100%;padding:.88rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.92rem;font-weight:700;cursor:pointer;min-height:52px;box-shadow:0 4px 18px rgba(180,83,9,.28);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.45rem}
-.gate-btn:hover{background:var(--lc-dk);transform:translateY(-1px)}
-.gate-btn:active{transform:scale(.97)}
-#gate-confirmed{display:none;background:var(--green-lt);border:2px solid #bbf7d0;border-radius:var(--r-xl);padding:1rem 1.3rem;margin-bottom:1.5rem;align-items:center;gap:.85rem}
-#gate-confirmed.show{display:flex}
-#gate-confirmed.hidden{display:none!important}
-.gc-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#15803d,#16a34a);color:#fff;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.gc-info{flex:1;min-width:0}
-.gc-name{font-size:.92rem;font-weight:800;color:var(--green)}
-.gc-meta{font-size:.74rem;color:var(--text-mid);margin-top:.15rem}
-.gc-change{font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;margin-top:.22rem;display:block}
-.gc-change:hover{color:var(--lc)}
+.gate-btn{width:100%;padding:.92rem;border:none;border-radius:var(--r-pill);background:linear-gradient(135deg,var(--lc),var(--lc-dk));color:#fff;font-size:.9rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.55rem;box-shadow:0 4px 18px rgba(180,83,9,.28);transition:all .18s}
+.gate-btn:hover{transform:translateY(-2px)}
+.gc-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--lc),var(--lc-dk));color:#fff;font-size:1.3rem;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto .85rem;box-shadow:0 4px 16px rgba(180,83,9,.28)}
+.gc-info{text-align:center;margin-bottom:1.5rem}
+.gc-name{font-family:'Secular One',sans-serif;font-size:1rem;color:var(--text);margin-bottom:.22rem}
+.gc-meta{font-size:.78rem;color:var(--muted)}
+.gc-change{margin-top:.55rem;background:none;border:1px solid var(--border);border-radius:var(--r-pill);padding:.28rem .85rem;font-size:.72rem;color:var(--muted);cursor:pointer}
+
+/* ANSWERS */
+.answers-locked{text-align:center;padding:4rem 2rem;color:var(--muted)}
+.answers-locked-icon{font-size:2.5rem;display:block;margin-bottom:.8rem}
+.answers-locked-title{font-family:'Secular One',sans-serif;font-size:1rem;color:var(--text);margin-bottom:.5rem}
+.answers-locked-desc{font-size:.84rem;color:var(--muted);line-height:1.65;max-width:380px;margin:0 auto}
+.answer-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.1rem 1.3rem;margin-bottom:.9rem;box-shadow:var(--sh1)}
+.ans-num{font-size:.65rem;font-weight:800;color:var(--subtle);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.42rem;display:flex;align-items:center;gap:.42rem;flex-wrap:wrap}
+.ans-q{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.55rem;line-height:1.5}
+.ans-correct{font-size:.84rem;color:var(--green);font-weight:700;background:var(--green-lt);border:1px solid #bbf7d0;border-radius:var(--r);padding:.5rem .85rem;margin-bottom:.42rem}
+.ans-explain{font-size:.8rem;color:var(--text-mid);line-height:1.65;border-right:3px solid var(--lc);padding-right:.8rem}
+.ans-teacher-note{font-size:.75rem;color:var(--amber);background:var(--amber-lt);border:1px solid #fde68a;border-radius:var(--r);padding:.42rem .8rem;margin-top:.42rem}
+
+/* OPEN */
+.open-wrap{margin-bottom:.55rem}
+.open-textarea{width:100%;min-height:120px;padding:.9rem 1.1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text);line-height:1.72;resize:vertical;outline:none;transition:border-color .15s}
+.open-textarea:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(180,83,9,.12)}
+.open-textarea:disabled{opacity:.7;cursor:default;background:var(--surface3)}
+.open-hint{font-size:.72rem;color:var(--muted);margin-top:.32rem;line-height:1.5}
+.open-rubric{margin-top:.65rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.75rem 1rem;font-size:.78rem;color:var(--text-mid);line-height:1.6}
+
+/* goto practice */
+.goto-practice-btn{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;padding:.95rem 1.4rem;border:none;border-radius:var(--r-pill);background:linear-gradient(135deg,var(--lc),var(--lc-dk));color:#fff;font-size:.9rem;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(180,83,9,.25);transition:all .18s;margin-top:.5rem}
+.goto-practice-btn:hover{transform:translateY(-2px)}
+
+/* Confetti */
+.confetti-piece{position:fixed;width:10px;height:10px;border-radius:2px;pointer-events:none;z-index:9998;animation:confettiFall 2.2s ease-in forwards}
+@keyframes confettiFall{0%{transform:translateY(-10px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
 
 /* Toast */
 #toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%) translateY(14px);background:var(--text);color:var(--bg);padding:.58rem 1.4rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:700;box-shadow:var(--sh3);z-index:9999;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;white-space:nowrap}
@@ -281,196 +299,192 @@ button,input,select,textarea{font-family:inherit}
 
 /* Print */
 @media print{
-  .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,#submit-row,#results-container,#toast,#student-gate,#gate-confirmed,.sort-handle{display:none!important}
-  body{background:#fff;color:#000;font-size:10pt;line-height:1.5}
-  html{background:#fff}
-  .tab-pane{display:block!important}
-  .lesson-wrap{padding:.5cm 1cm;max-width:100%;page-break-inside:avoid}
-  .lesson-hero,.card,.q-card,.reading-text-box,.answer-row,.arg-structure,.cmp-table,.bagrut-template{box-shadow:none;break-inside:avoid;page-break-inside:avoid}
-  .q-feedback{display:block!important}
-  .mc-btn.correct{display:flex!important}
+  .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,
+  #submit-row,#results-container,#toast,#student-gate,#gate-confirmed,
+  .goto-practice-btn,.gc-avatar,.gc-info,.sort-handle{display:none!important}
+  body{background:#fff!important;color:#000!important;font-size:10pt;line-height:1.5}
+  .tab-pane{display:block!important;animation:none!important}
+  .lesson-wrap{padding:.5cm 1cm!important;max-width:100%!important}
+  .lesson-hero,.card,.q-card,.reading-text-box,.answer-row,.steps-wrap,.bagrut-template,.cmp-table,.arg-structure{box-shadow:none!important;break-inside:avoid}
   .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #b45309}
   .print-header h1{font-size:16pt;color:#b45309}
   .print-header p{font-size:10pt;color:#555}
-  #pane-theory{page-break-after:always}
-  #pane-practice{page-break-after:always}
+  .answers-locked{display:none!important}
+  #answers-visible-content{display:block!important}
   @page{margin:1.5cm;size:A4}
 }
 .print-header{display:none}
-
-/* ─── OPEN QUESTION (כתיבה חופשית) ─── */
-.open-wrap{margin-bottom:.55rem}
-.open-textarea{
-  width:100%;min-height:110px;padding:.9rem 1.1rem;
-  border:1.5px solid var(--border);border-radius:var(--r);
-  background:var(--surface2);font-family:'Heebo',sans-serif;
-  font-size:.88rem;color:var(--text);line-height:1.72;
-  resize:vertical;outline:none;transition:border-color .15s,box-shadow .15s;
-}
-.open-textarea:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(26,86,219,.12)}
-.open-textarea:disabled{opacity:.7;cursor:default;background:var(--surface3)}
-.open-hint{font-size:.72rem;color:var(--muted);margin-top:.32rem;line-height:1.5}
-.open-rubric{margin-top:.65rem;background:var(--surface2);border:1px solid var(--border);
-  border-radius:var(--r);padding:.75rem 1rem;font-size:.78rem;color:var(--text-mid);line-height:1.6}
-.open-rubric strong{color:var(--text)}
-.ans-open-note{font-size:.82rem;color:var(--text-mid);line-height:1.65;border-right:3px solid var(--lc);
-  padding-right:.85rem;margin-top:.42rem;background:var(--lc-lt);border-radius:0 var(--r) var(--r) 0;
-  padding:.65rem .85rem .65rem .75rem}
 </style>
 </head>
 <body>
 
 <!-- TOPBAR -->
 <div class="topbar">
-  <button class="btn-back" onclick="goBack()">←</button>
+  <button class="btn-back" onclick="goBack()" title="חזור">◀</button>
   <div class="topbar-info">
-    <div class="topbar-title">🎯 טקסט טיעון</div>
-    <div class="topbar-sub">יחידה 1 — הבנה והבעה · שיעור 4</div>
+    <div class="topbar-title">טקסט טיעון</div>
+    <div class="topbar-sub">יחידה א · שיעור 4 · לשון 30% בגרות</div>
   </div>
   <div class="topbar-actions">
-    <span class="t-chip lc">⏱ 45 דק׳</span>
-    <span class="t-chip teacher" id="role-chip">🎓 מורה</span>
+    <span class="t-chip lc">שיעור 4</span>
+    <span class="t-chip teacher" id="role-chip">🏫 מורה</span>
     <button class="btn-print" onclick="printLesson()">🖨️ הדפסה</button>
   </div>
 </div>
 
 <!-- TABS -->
 <div class="tabs-bar">
-  <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
-  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (20 שאלות)</button>
-  <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 תשובות (מורה)</button>
-  <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
+  <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📖 תיאוריה</button>
+  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול</button>
+  <button class="tab-btn" id="btn-answers" style="display:none" onclick="switchTab('answers')">🔑 תשובות (מורה)</button>
+  <button class="tab-btn" id="btn-answers-student" style="display:none" onclick="switchTab('answers')">🔑 תשובות</button>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     THEORY
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════
+     THEORY TAB
+══════════════════════════════ -->
 <div class="tab-pane active" id="pane-theory">
 <div class="print-header">
-  <h1>שיעור 4 — טקסט טיעון</h1>
-  <p>יחידה 1: הבנה והבעה | לשון Lesson 2.0 | כיתות ט׳–י׳</p>
+  <h1>תיאוריה — שיעור 4: טקסט טיעון</h1>
+  <p>יחידה א · לשון 30% בגרות | לשון Lesson 2.0</p>
 </div>
 <div class="lesson-wrap">
 
+  <!-- HERO -->
   <div class="lesson-hero">
-    <div class="hero-badge">יחידה 1 · שיעור 4</div>
+    <div class="hero-badge">יחידה א · שיעור 4</div>
     <span class="hero-emoji">🎯</span>
     <h1 class="hero-title">טקסט טיעון</h1>
-    <p class="hero-desc">זיהוי טענה ראשית, נימוקים, עמדת הכותב וכלים שכנועיים — מיומנות מרכזית בבגרות</p>
+    <p class="hero-desc">זיהוי טענה ראשית, נימוקים, ראיות, עמדת הכותב וכלים שכנועיים — מיומנות מרכזית בבגרות</p>
     <div class="hero-meta">
-      <span class="hero-chip lc">⏱ 45 דק׳</span>
+      <span class="hero-chip amber">⏱ 45 דק׳</span>
       <span class="hero-chip">📖 הבנת הנקרא</span>
       <span class="hero-chip green">🎯 15 נקודות בגרות</span>
     </div>
   </div>
 
+  <!-- שאלת פתיחה -->
+  <div style="background:var(--lc-lt);border:2px dashed var(--lc);border-radius:var(--r-xl);padding:1.4rem 1.5rem;margin-bottom:1.8rem">
+    <div style="font-size:.72rem;font-weight:800;color:var(--lc);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.06em">💭 שאלת פתיחה</div>
+    <p style="font-size:.94rem;font-weight:700;color:var(--text);line-height:1.6;margin-bottom:.6rem">אתם קוראים מאמר שכותב: "מחקרים מוכיחים שלימוד מוזיקה משפר הישגים במתמטיקה ב-15%." — האם זוהי עמדה, נימוק או ראיה? ומה ההבדל ביניהם?</p>
+    <p style="font-size:.82rem;color:var(--muted);line-height:1.6">בסוף השיעור תדעו לזהות בדיוק מה כל אחד מהמרכיבים ואיך לנתח אותם בבגרות.</p>
+  </div>
+
+  <!-- 1 -->
   <div class="section-hd"><span class="sn-icon">🎯</span><div class="sn">1</div>מהו טקסט טיעון?</div>
   <div class="card">
     <p><strong>טקסט טיעון</strong> (argumentative text) הוא טקסט שמטרתו לשכנע את הקורא לקבל עמדה מסוימת. הכותב מציג <strong>טענה ראשית</strong>, מגבה אותה ב<strong>נימוקים</strong> וב<strong>ראיות</strong>, ולעיתים מתמודד גם עם <strong>טענות נגד</strong>.</p>
-    <p>סוגי טקסטי טיעון: מאמר דעה, נאום, כתבת עמדה, מכתב פתוח, ביקורת, פרסומת, נאמנות.</p>
+    <p>סוגי טקסטי טיעון: מאמר דעה, נאום, כתבת עמדה, מכתב פתוח, ביקורת, פרסומת, נאום בוגרים.</p>
   </div>
-  <div class="box box-lc">💡 <strong>ההבדל מטקסט עיוני:</strong> בטקסט עיוני הכותב מסביר — בטקסט טיעון הכותב משכנע. בעיוני: "כך הדבר". בטיעון: "כך צריך להיות / כך נכון".</div>
+  <div class="box box-lc">💡 <strong>ההבדל מטקסט עיוני:</strong> בטקסט עיוני הכותב מסביר — בטקסט טיעון הכותב משכנע. בעיוני: <em>"כך הדבר"</em>. בטיעון: <em>"כך צריך להיות / כך נכון"</em>. ההבדל ניכר בשפה, בגוף הדיבר ובמבנה.</div>
 
-  <div class="section-hd"><span class="sn-icon">🏗️</span><div class="sn">2</div>מבנה טקסט הטיעון</div>
+  <!-- 2 -->
+  <div class="section-hd"><span class="sn-icon">🏗️</span><div class="sn">2</div>מבנה טקסט הטיעון — 5 שכבות</div>
   <div class="arg-structure">
-    <div class="arg-header">🏗️ שכבות מבנה הטיעון</div>
+    <div class="arg-header">🏗️ שכבות מבנה הטיעון — מהטענה למסקנה</div>
     <div class="arg-body">
       <div class="arg-layer claim">
         <div class="arg-icon">🎯</div>
         <div>
           <div class="arg-label">טענה ראשית (Claim)</div>
-          <div class="arg-text">העמדה המרכזית שהכותב רוצה להוכיח. לרוב מופיעה בפתיחה ובסיכום. ניתן לזהות אותה בביטויים: "לדעתי", "אני סבור ש-", "יש לשנות", "חובה ל-".</div>
+          <div class="arg-text">העמדה המרכזית שהכותב רוצה להוכיח. לרוב בפתיחה ובסיכום. סימנים: <em>"לדעתי", "אני סבור ש-", "יש לשנות", "חובה ל-", "הגיע הזמן ל-"</em>.</div>
         </div>
       </div>
       <div class="arg-layer reason">
         <div class="arg-icon">📋</div>
         <div>
           <div class="arg-label">נימוק (Reason)</div>
-          <div class="arg-text">הסבר מדוע הטענה נכונה. ניתן לזהות בביטויים: "כי", "מפני ש-", "הסיבה לכך היא", "שכן".</div>
+          <div class="arg-text">הסבר <em>מדוע</em> הטענה נכונה. סימנים: <em>"כי", "מפני ש-", "הסיבה לכך היא", "שכן"</em>. הנימוק עונה על <strong>למה?</strong></div>
         </div>
       </div>
       <div class="arg-layer evidence">
         <div class="arg-icon">🔬</div>
         <div>
           <div class="arg-label">ראיה / דוגמה (Evidence)</div>
-          <div class="arg-text">עובדה, נתון, ציטוט, דוגמה שמחזקת את הנימוק. "מחקר מ-X הראה...", "לדוגמה, במדינת Y...", "לפי נתוני...".</div>
+          <div class="arg-text">עובדה, נתון, ציטוט, דוגמה שמחזקת את הנימוק. הראיה עונה על <strong>מה ההוכחה?</strong> <em>"מחקר מ-X הראה...", "לדוגמה, במדינת Y...", "לפי נתוני..."</em></div>
         </div>
       </div>
       <div class="arg-layer counter">
         <div class="arg-icon">⚡</div>
         <div>
           <div class="arg-label">טענת נגד ותשובה לה (Counter-argument)</div>
-          <div class="arg-text">מחזק את הטיעון! הכותב מציג עמדה מנוגדת ואז דוחה אותה. ביטויים: "יש הטוענים ש-... אולם...", "אמנם... אך...".</div>
+          <div class="arg-text"><strong>מחזקת</strong> את הטיעון! הכותב מציג עמדה מנוגדת ואז דוחה אותה — מראה שהכיר את הצד השני. סימנים: <em>"יש הטוענים ש-... אולם...", "אמנם... אך..."</em></div>
         </div>
       </div>
       <div class="arg-layer conclusion">
         <div class="arg-icon">🏁</div>
         <div>
           <div class="arg-label">מסקנה / קריאה לפעולה (Conclusion)</div>
-          <div class="arg-text">סיכום הטיעון, לעיתים עם קריאה לפעולה. "לפיכך", "לסיכום", "אנו חייבים", "הגיע הזמן ל-".</div>
+          <div class="arg-text">סיכום הטיעון, לעיתים עם קריאה לפעולה. סימנים: <em>"לפיכך", "לסיכום", "אנו חייבים", "הגיע הזמן ל-"</em></div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="section-hd"><span class="sn-icon">🛠️</span><div class="sn">3</div>כלים שכנועיים — 8 אמצעים עיקריים</div>
+  <!-- 3 -->
+  <div class="section-hd"><span class="sn-icon">🛠️</span><div class="sn">3</div>8 כלים שכנועיים — זיהוי ותפקיד</div>
+  <div class="card">
+    <p>בבגרות לא מספיק לזהות כלי שכנועי — חייבים להסביר <strong>מה תפקידו ולמה הוא אפקטיבי</strong>.</p>
+  </div>
   <div class="tools-grid">
     <div class="tool-card">
       <div class="tool-name">🔢 נתונים וסטטיסטיקה</div>
-      <div class="tool-def">מספרים, אחוזים, ממצאי מחקר — מגבירים אמינות ומראים שהטענה מבוססת.</div>
-      <div class="tool-ex">"80% מהתלמידים מדווחים על עומס לימודי מוגזם"</div>
+      <div class="tool-def">מספרים, אחוזים, ממצאי מחקר — מגבירים אמינות.</div>
+      <div class="tool-ex">תפקיד: יוצרים תחושת אמינות מדעית ומקשים על הפרכה.</div>
     </div>
     <div class="tool-card">
-      <div class="tool-name">👩‍🔬 ציטוט מומחה / סמכות</div>
-      <div class="tool-def">הכותב מביא דברי מומחה, חוקר, דמות מוכרת כדי לחזק את עמדתו.</div>
-      <div class="tool-ex">"פרופ׳ כהן מאוניברסיטת ת"א אמר: '...'"</div>
+      <div class="tool-name">👩‍🔬 ציטוט מומחה (Ethos)</div>
+      <div class="tool-def">דברי מומחה, חוקר, דמות מוכרת — חיזוק הסמכות.</div>
+      <div class="tool-ex">תפקיד: מאחד את הכותב עם סמכות מוכרת.</div>
     </div>
     <div class="tool-card">
       <div class="tool-name">❤️ פנייה רגשית (Pathos)</div>
-      <div class="tool-def">שימוש בשפה רגשית, תיאורים מעוררי אמפתיה, כדי לגרום לקורא להרגיש.</div>
-      <div class="tool-ex">"ילדים קטנים נרדמים מאוחר בגלל שיעורי בית שאינם נגמרים"</div>
+      <div class="tool-def">שפה רגשית, תיאורים מעוררי אמפתיה.</div>
+      <div class="tool-ex">תפקיד: גורמים לקורא להרגיש ולפעול מתוך רגש.</div>
     </div>
     <div class="tool-card">
       <div class="tool-name">🤔 פנייה להיגיון (Logos)</div>
-      <div class="tool-def">טיעון לוגי, סדרת "אם... אז...", הסקת מסקנות שנראות הכרחיות.</div>
-      <div class="tool-ex">"אם לא נקטין עומס, הישגים ימשיכו לרדת"</div>
-    </div>
-    <div class="tool-card">
-      <div class="tool-name">📜 פנייה לסמכות (Ethos)</div>
-      <div class="tool-def">הכותב מציג את עצמו כמומחה, ניסיון אישי, או מוסד מוכר.</div>
-      <div class="tool-ex">"כמורה בעל 20 שנות ניסיון, אני יודע ש..."</div>
+      <div class="tool-def">טיעון לוגי, שרשרת סיבה-תוצאה.</div>
+      <div class="tool-ex">תפקיד: יוצרים תחושה שהמסקנה הכרחית ובלתי-נמנעת.</div>
     </div>
     <div class="tool-card">
       <div class="tool-name">❓ שאלה רטורית</div>
-      <div class="tool-def">שאלה שאין לה תשובה מצופה — מזמינה את הקורא להסכים עם הכותב.</div>
-      <div class="tool-ex">"האם אנחנו באמת רוצים שילדינו ייבחנו בלחץ כזה?"</div>
+      <div class="tool-def">שאלה שהתשובה עליה ברורה — מזמינה הסכמה.</div>
+      <div class="tool-ex">תפקיד: מניחה הנחות ומגייסת את הקורא ללא ויכוח.</div>
     </div>
     <div class="tool-card">
-      <div class="tool-name">🔄 הכחשה / תמרון</div>
-      <div class="tool-def">הכותב מציג טיעון נגד ואז סותר אותו — מחזק את עמדתו בעקיפין.</div>
-      <div class="tool-ex">"יש הטוענים ש-X, אולם מחקרים מראים ש-Y"</div>
+      <div class="tool-name">🔄 טענת נגד + פרכה</div>
+      <div class="tool-def">הכותב מציג קול מנוגד ואז מפריך אותו.</div>
+      <div class="tool-ex">תפקיד: מחזקת אמינות — הכותב מראה שהכיר את הצד השני.</div>
     </div>
     <div class="tool-card">
-      <div class="tool-name">🔁 חזרה והדגשה</div>
-      <div class="tool-def">מילות מפתח חוזרות, אנאפורה, הדגשת מילים — מחריפות את המסר.</div>
-      <div class="tool-ex">"חייבים לשנות. חייבים לפעול. חייבים עכשיו."</div>
+      <div class="tool-name">🌍 דוגמה / השוואה</div>
+      <div class="tool-def">מדינה, מקרה, ניסוי שמדגים את הטענה.</div>
+      <div class="tool-ex">תפקיד: הופכים טיעון מופשט לקונקרטי ומוכח.</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">🔁 חזרה / אנפורה</div>
+      <div class="tool-def">מילות מפתח חוזרות, חזרה על ביטוי.</div>
+      <div class="tool-ex">תפקיד: מחדדות מסר, יוצרות קצב ומגבירות זכירות.</div>
     </div>
   </div>
+  <div class="box box-amber">⚠️ <strong>כלל הניתוח:</strong> לא "הכותב משתמש בשאלה רטורית" — אלא <em>"הכותב משתמש בשאלה רטורית <strong>כדי</strong> לגרות תחושת אחריות..."</em>. ה-<strong>כדי</strong> שווה חצי מהניקוד.</div>
 
-  <div class="section-hd"><span class="sn-icon">🔍</span><div class="sn">4</div>עמדת הכותב — כיצד לזהות?</div>
+  <!-- 4 -->
+  <div class="section-hd"><span class="sn-icon">🔍</span><div class="sn">4</div>עמדת הכותב — 5 דרכים לזיהוי</div>
   <div class="card">
-    <h4>5 מסמנים לעמדת הכותב:</h4>
     <ul>
-      <li><strong>גוף ראשון:</strong> "אני סבור", "לדעתי", "אני מאמין" — עמדה מפורשת</li>
-      <li><strong>שפה בעלת עוצמה:</strong> "חייב", "הכרחי", "פסול", "גורלי" — עמדה חזקה</li>
-      <li><strong>בחירת ראיות:</strong> הכותב בוחר ראיות שתומכות בעמדתו — גם זו עמדה</li>
-      <li><strong>הצגת הצד הנגדי:</strong> אם הכותב "מפחית" מהצד הנגדי — עמדה ברורה</li>
-      <li><strong>מסקנה/קריאה לפעולה:</strong> לאן מוביל הכותב — שם העמדה האמיתית</li>
+      <li><strong>גוף ראשון מפורש:</strong> "אני סבור", "לדעתי", "אני מאמין" — עמדה גלויה</li>
+      <li><strong>שפה בעלת עוצמה:</strong> "חייב", "הכרחי", "פסול", "גורלי" — עמדה נחרצת</li>
+      <li><strong>בחירת ראיות:</strong> הכותב בחר ראיות שתומכות בו — גם זו עמדה</li>
+      <li><strong>הצגת הצד הנגדי:</strong> אם "מפחית" ממנו — עמדה ברורה</li>
+      <li><strong>מסקנה / קריאה לפעולה:</strong> לאן מוביל הכותב — שם העמדה האמיתית</li>
     </ul>
   </div>
-  <div class="box box-amber">⚠️ <strong>שימו לב:</strong> כותב יכול להסתיר עמדה מאחורי "נתונים" — נתונים שנבחרו בכוונה גם הם עמדה. שאלו: "מה הכותב <em>לא</em> הציג?"</div>
+  <div class="box box-amber">⚠️ <strong>עמדה נסתרת:</strong> כותב יכול להסתיר עמדה מאחורי "נתונים" — נתונים שנבחרו בכוונה גם הם עמדה. שאלו: "מה הכותב <em>לא</em> הציג?"</div>
 
-  <div class="section-hd"><span class="sn-icon">⚖️</span><div class="sn">5</div>טקסט טיעון לעומת סוגים אחרים</div>
+  <!-- 5 -->
+  <div class="section-hd"><span class="sn-icon">⚖️</span><div class="sn">5</div>טקסט טיעון מול טקסט עיוני — השוואה</div>
   <div style="overflow-x:auto;margin-bottom:1rem;border-radius:var(--r-lg);box-shadow:var(--sh1)">
     <table class="cmp-table">
       <thead><tr>
@@ -489,39 +503,42 @@ button,input,select,textarea{font-family:inherit}
     </table>
   </div>
 
-  <div class="section-hd"><span class="sn-icon">✍️</span><div class="sn">6</div>כיצד עונים על שאלות טיעון בבגרות?</div>
+  <!-- 6 -->
+  <div class="section-hd"><span class="sn-icon">✍️</span><div class="sn">6</div>נוסחת תשובה — 4 שלבים לעמדת כותב</div>
   <div class="bagrut-template">
     <div class="bagrut-template-title">📋 4 שלבים לתשובה על "מהי עמדת הכותב?"</div>
     <div class="bagrut-line"><div class="bagrut-num">1</div><span><strong>ציין את העמדה:</strong> "עמדת הכותב היא ש-[טענה מרכזית]."</span></div>
-    <div class="bagrut-line"><div class="bagrut-num">2</div><span><strong>הבא ציטוט:</strong> "ניתן לראות זאת בביטוי: '[ציטוט]'."</span></div>
-    <div class="bagrut-line"><div class="bagrut-num">3</div><span><strong>נתח:</strong> "ביטוי זה מגלה ש... הכותב בוחר לשכנע על ידי..."</span></div>
+    <div class="bagrut-line"><div class="bagrut-num">2</div><span><strong>הבא ציטוט:</strong> "ניתן לראות זאת בביטוי: '[ציטוט מדויק]'."</span></div>
+    <div class="bagrut-line"><div class="bagrut-num">3</div><span><strong>נתח:</strong> "ביטוי זה [כלי שכנועי: שאלה רטורית / נתון / דימוי...] ומטרתו לגרות / לשכנע / להוכיח..."</span></div>
     <div class="bagrut-line"><div class="bagrut-num">4</div><span><strong>סכם:</strong> "לסיכום, הכותב מבקש ש-[קריאה לפעולה / מסקנה]."</span></div>
   </div>
   <div class="bagrut-sample">
-    <strong style="color:var(--lc)">✏️ דוגמה לתשובה:</strong><br><br>
-    "<em>עמדת הכותב</em> היא שיש לבטל את שיעורי הבית בבית הספר היסודי. ניתן לראות זאת בביטוי: 'ילדים זקוקים לזמן חופשי לא פחות ממה שהם זקוקים לידע.' ביטוי זה מגלה שהכותב מציג את הזמן החופשי כצורך בסיסי, ולא כפינוק. הכותב מבקש שמשרד החינוך יפעל לשינוי המדיניות."
+    <strong style="color:var(--lc)">✏️ דוגמה לתשובה מלאה:</strong><br><br>
+    <em>עמדת הכותב</em> היא שיש לבטל את שיעורי הבית בבית הספר היסודי. ניתן לראות זאת בביטוי: <em>"ילדים זקוקים לזמן חופשי לא פחות ממה שהם זקוקים לידע."</em> ביטוי זה מציג את הזמן החופשי כצורך בסיסי שווה ערך לידע — כלי שכנועי שמאזן בין שני ערכים ומקשה על ההתנגדות. הכותב מבקש שמשרד החינוך יפעל לשינוי המדיניות.
   </div>
 
+  <!-- 7 -->
   <div class="section-hd"><span class="sn-icon">⚠️</span><div class="sn">7</div>מלכודות נפוצות — 4 שגיאות</div>
   <div class="grid2">
-    <div class="mini-card" style="border-color:#fca5a5;background:linear-gradient(135deg,#fef2f2,#fff)">
-      <div class="mini-title" style="color:#dc2626">❌ לסכם במקום לנתח</div>
-      <div class="mini-body">כתיבה "הכותב אומר X" בלי לנתח מדוע זו עמדה שכנועית ואיך היא פועלת.</div>
+    <div class="err-card">
+      <div class="err-title">❌ לסכם במקום לנתח</div>
+      <div class="err-body">כתיבת "הכותב אומר X" ללא ניתוח מדוע זו עמדה שכנועית ואיך היא פועלת על הקורא.</div>
     </div>
-    <div class="mini-card" style="border-color:#fca5a5;background:linear-gradient(135deg,#fef2f2,#fff)">
-      <div class="mini-title" style="color:#dc2626">❌ לבלבל נימוק עם ראיה</div>
-      <div class="mini-body">נימוק = מדוע. ראיה = הוכחה. לפעמים משולבים, אך חשוב להבחין: "כי X" (נימוק) לעומת "מחקר מצא ש-X" (ראיה).</div>
+    <div class="err-card">
+      <div class="err-title">❌ לבלבל נימוק עם ראיה</div>
+      <div class="err-body">נימוק = מדוע (כי). ראיה = הוכחה. "כי X" = נימוק. "מחקר מצא ש-X" = ראיה. ההבחנה ניקוד.</div>
     </div>
-    <div class="mini-card" style="border-color:#fca5a5;background:linear-gradient(135deg,#fef2f2,#fff)">
-      <div class="mini-title" style="color:#dc2626">❌ לפספס טענת נגד</div>
-      <div class="mini-body">כשהכותב כותב "אמנם... אך" — זו טענת נגד + תשובה. תלמידים רבים מדלגים על החלק הראשון.</div>
+    <div class="err-card">
+      <div class="err-title">❌ לפספס טענת נגד</div>
+      <div class="err-body">כשהכותב כותב "אמנם... אך" — זו טענת נגד + תשובה. תלמידים רבים מדלגים על ה"אמנם".</div>
     </div>
-    <div class="mini-card" style="border-color:#fca5a5;background:linear-gradient(135deg,#fef2f2,#fff)">
-      <div class="mini-title" style="color:#dc2626">❌ לזהות רק עמדה מפורשת</div>
-      <div class="mini-body">עמדה יכולה להיות מרומזת — דרך בחירת המילים, הדוגמאות, או מה שהכותב השמיט.</div>
+    <div class="err-card">
+      <div class="err-title">❌ לזהות רק עמדה מפורשת</div>
+      <div class="err-body">עמדה יכולה להיות מרומזת — דרך בחירת המילים, הדוגמאות, או מה שהכותב <em>השמיט</em>.</div>
     </div>
   </div>
 
+  <!-- 8 -->
   <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">8</div>צ׳קליסט לניתוח טיעון</div>
   <div class="steps-wrap">
     <div class="steps-title">📋 5 שאלות לפני שעונים על שאלת טיעון</div>
@@ -529,17 +546,19 @@ button,input,select,textarea{font-family:inherit}
     <div class="step-item"><div class="step-num">2</div><span><strong>מהם הנימוקים?</strong> מדוע הכותב חושב שהוא צודק?</span></div>
     <div class="step-item"><div class="step-num">3</div><span><strong>אילו ראיות מובאות?</strong> נתונים, ציטוטים, דוגמאות?</span></div>
     <div class="step-item"><div class="step-num">4</div><span><strong>האם יש טענת נגד?</strong> כיצד הכותב מתמודד איתה?</span></div>
-    <div class="step-item"><div class="step-num">5</div><span><strong>אילו כלים שכנועיים?</strong> רגש, היגיון, סמכות?</span></div>
+    <div class="step-item"><div class="step-num">5</div><span><strong>אילו כלים שכנועיים?</strong> + <strong>מה תפקידם?</strong></span></div>
   </div>
-  <div class="box box-green">✅ <strong>מוכן לתרגול!</strong> שלושה מקטעי טיעון ו-20 שאלות על זיהוי טענות, נימוקים וכלים שכנועיים.</div>
+
+  <button class="goto-practice-btn" onclick="switchTab('practice')">
+    ✏️ עבור לתרגול — 3 טקסטי טיעון ו-20 שאלות
+  </button>
 
 </div>
 </div><!-- /pane-theory -->
 
-
-<!-- ══════════════════════════════════════════════
-     PRACTICE
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════
+     PRACTICE TAB
+══════════════════════════════ -->
 <div class="tab-pane" id="pane-practice">
 <div class="print-header">
   <h1>תרגול — שיעור 4: טקסט טיעון</h1>
@@ -547,25 +566,25 @@ button,input,select,textarea{font-family:inherit}
 </div>
 <div class="lesson-wrap">
 
-  <!-- Gate -->
+  <!-- GATE -->
   <div id="student-gate" class="hidden">
     <div class="gate-header">
       <span class="gate-icon">📋</span>
       <div class="gate-title">לפני שמתחילים — פרטי התלמיד/ה</div>
-      <div class="gate-desc">מלא/י את הפרטים כדי להתחיל.<br>יישמרו אצל המורה עם ההגשה.</div>
+      <div class="gate-desc">מלא/י את הפרטים כדי להתחיל את התרגול.<br>הפרטים יישמרו אצל המורה עם הגשת התרגול.</div>
     </div>
     <div class="gate-body">
       <div class="gate-field">
         <label for="gate-name">👤 שם מלא</label>
         <input class="gate-input" id="gate-name" type="text" placeholder="שם פרטי + שם משפחה"
-               autocomplete="name" onkeydown="if(event.key==='Enter')document.getElementById('gate-class').focus()">
-        <div class="gate-err-msg" id="gate-name-err">נא להזין שם מלא (שם פרטי ושם משפחה)</div>
+          autocomplete="name" autocorrect="off"
+          onkeydown="if(event.key==='Enter')document.getElementById('gate-class').focus()">
+        <div class="gate-err-msg" id="gate-name-err">נא להזין שם מלא</div>
       </div>
       <div class="gate-field">
         <label for="gate-class">🏫 כיתה</label>
-        <input class="gate-input" id="gate-class" type="text"
-               placeholder='לדוגמה: י3 או י"ג'
-               autocomplete="off" autocorrect="off">
+        <input class="gate-input" id="gate-class" type="text" placeholder='לדוגמה: י3'
+          autocomplete="off" autocorrect="off">
         <div class="gate-err-msg" id="gate-class-err">נא להזין שם כיתה</div>
       </div>
       <div class="gate-field">
@@ -589,12 +608,11 @@ button,input,select,textarea{font-family:inherit}
     <div style="font-size:1.5rem">✅</div>
   </div>
 
-  <!-- Practice content -->
   <div id="practice-content-wrap">
 
   <!-- TEXT A -->
   <div class="reading-text-box">
-    <div class="rt-tag main">טקסט א׳ — מכתב פתוח</div>
+    <span class="rt-tag" style="background:var(--lc)">טקסט א׳ — מכתב פתוח</span>
     <div class="rt-title">מדוע על כל תלמיד בישראל ללמוד מוזיקה</div>
     <div class="rt-byline">
       <span>✍️ ד"ר ענת לוי, מנהלת הקונסרבטוריון העירוני, ידיעות אחרונות</span>
@@ -603,7 +621,7 @@ button,input,select,textarea{font-family:inherit}
     <div class="rt-body">
       <p>בשנים האחרונות, משרד החינוך מקצץ בתקציבי לימודי המוזיקה בבתי הספר היסודיים. זוהי טעות חינוכית חמורה שחייבים לתקנה.</p>
       <p>מחקרים מוכיחים שלימוד מוזיקה <strong>משפר את ההישגים במתמטיקה ובקריאה</strong> בשיעור של עד 15%. זה לא מקרה — תווים ומספרים פועלים על אותן מעגלים מוחיים. מי שמבין ריתמוס מבין גם שברים.</p>
-      <p>יש הטוענים שאין זמן בלוח הזמנים ללימודי מוזיקה. אולם מדינות כמו פינלנד, שמקדישות שעתיים בשבוע למוזיקה, <em>מדורגות ראשונות בעולם בהישגים לימודיים</em>. הזמן לא חסר — הסדרי העדיפויות צריכים להשתנות.</p>
+      <p>יש הטוענים שאין זמן בלוח הזמנים ללימודי מוזיקה. אולם מדינות כמו פינלנד, שמקדישות שעתיים בשבוע למוזיקה, <em>מדורגות ראשונות בעולם בהישגים לימודיים</em>. הזמן לא חסר — סדרי העדיפויות צריכים להשתנות.</p>
       <p>מוזיקה אינה מקצוע פנאי. <strong>היא כלי חינוכי, רגשי וקוגניטיבי</strong>. הגיע הזמן שמשרד החינוך יחזיר את המוזיקה לתוכנית החובה לכל ילד בישראל.</p>
     </div>
   </div>
@@ -611,7 +629,7 @@ button,input,select,textarea{font-family:inherit}
   <!-- TEXT B -->
   <div class="reading-text-box" style="border-color:#1a56db">
     <div style="position:absolute;top:-12px;right:1.4rem;background:#1a56db;color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill)">📄 טקסט לקריאה</div>
-    <div class="rt-tag main" style="background:#1a56db">טקסט ב׳ — נאום</div>
+    <span class="rt-tag" style="background:#1a56db">טקסט ב׳ — נאום</span>
     <div class="rt-title">הטלפון בכיתה — הגיע הזמן להחליט</div>
     <div class="rt-byline">
       <span>✍️ יאיר אבן, תלמיד כיתה י, נאום בטקס פתיחת שנה</span>
@@ -628,7 +646,7 @@ button,input,select,textarea{font-family:inherit}
   <!-- TEXT C -->
   <div class="reading-text-box" style="border-color:#6d28d9">
     <div style="position:absolute;top:-12px;right:1.4rem;background:#6d28d9;color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill)">📄 טקסט לקריאה</div>
-    <div class="rt-tag main" style="background:#6d28d9">טקסט ג׳ — מאמר דעה</div>
+    <span class="rt-tag" style="background:#6d28d9">טקסט ג׳ — מאמר דעה</span>
     <div class="rt-title">למה לא להשתמש בציונים כדי להעריך תלמידים</div>
     <div class="rt-byline">
       <span>✍️ פרופ׳ רונית שמש, מחנכת וחוקרת חינוך, הארץ</span>
@@ -644,9 +662,9 @@ button,input,select,textarea{font-family:inherit}
 
   <div class="quiz-header">
     <div class="quiz-hd-title">✏️ תרגול — 20 שאלות על טקסט טיעון</div>
-    <div class="quiz-hd-desc">שאלות על שלושת הטקסטים — זיהוי טענה, נימוקים, כלים שכנועיים ועמדת כותב. רב-בחירה, נכון/לא נכון וסידור.</div>
+    <div class="quiz-hd-desc">זיהוי טענה, נימוק, ראיה, טענת נגד, כלים שכנועיים ועמדת כותב | ענה על הכול לפני ההגשה</div>
     <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="qp-fill" style="width:0%"></div></div>
-    <div class="quiz-prog-row"><span id="qp-counter">0 / 20 נענו</span></div>
+    <div class="quiz-prog-row"><span id="qp-counter">0 / 20 נענו</span><span id="qp-score" style="display:none;font-weight:700;color:var(--lc)"></span></div>
   </div>
 
   <div id="questions-container"></div>
@@ -659,25 +677,25 @@ button,input,select,textarea{font-family:inherit}
 
   </div><!-- /practice-content-wrap -->
 </div>
-</div><!-- /pane-practice -->
+</div>
 
-<!-- ══════════════════════════════════════════════
-     ANSWERS
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════
+     ANSWERS TAB
+══════════════════════════════ -->
 <div class="tab-pane" id="pane-answers">
 <div class="print-header">
   <h1>מפתח תשובות — שיעור 4: טקסט טיעון</h1>
-  <p>20 שאלות + הסברים | לשון Lesson 2.0</p>
+  <p>20 שאלות + הסברים פדגוגיים | לשון Lesson 2.0</p>
 </div>
 <div class="lesson-wrap">
   <div id="answers-locked-msg" class="answers-locked">
-    <div style="font-size:3rem;margin-bottom:1rem">🔒</div>
-    <div style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:.6rem">התשובות טרם פורסמו</div>
-    <p style="font-size:.86rem;color:var(--muted);max-width:380px;margin:0 auto;line-height:1.65">המורה יפתח את התשובות לאחר שהכיתה תסיים.</p>
+    <span class="answers-locked-icon">🔒</span>
+    <div class="answers-locked-title">התשובות טרם פורסמו על ידי המורה</div>
+    <p class="answers-locked-desc">המורה יפתח את התשובות לאחר שהכיתה תסיים את התרגול.</p>
   </div>
   <div id="answers-visible-content" style="display:none">
     <div style="background:var(--gold-lt);border:1.5px solid #fde68a;border-radius:var(--r-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem">
-      <div style="font-size:.78rem;font-weight:800;color:var(--gold)">🔑 מפתח תשובות + הסברים פדגוגיים</div>
+      <div style="font-size:.78rem;font-weight:800;color:var(--gold)">🔑 מפתח תשובות מלא + הסברים פדגוגיים</div>
       <div id="answers-source" style="font-size:.74rem;color:var(--amber);margin-top:.25rem"></div>
     </div>
     <div id="answers-container"></div>
@@ -697,12 +715,11 @@ const FB_CFG={
   projectId:"lashon-project",
   storageBucket:"lashon-project.firebasestorage.app",
   messagingSenderId:"444024985545",
-  appId:"1:444024985545:web:847f8d4dad43193c147a18",
-  measurementId:"G-26KTLPJ8N1"
+  appId:"1:444024985545:web:847f8d4dad43193c147a18"
 };
-let _db=null;
 const LESSON_ID='u1_l4';
 const LESSON_TITLE='טקסט טיעון';
+let _db=null;
 
 function initFirebase(){
   try{
@@ -714,21 +731,34 @@ function initFirebase(){
       const val=doc.exists?doc.data()?.showAnswers===true:false;
       const av=LS.get('lashon2_answers_visible',{});
       av[LESSON_ID]=val; LS.set('lashon2_answers_visible',av);
-      ANSWERS_VISIBLE=val; applyAnswersVisibility();
+      ANSWERS_VISIBLE=val; renderAnswersTab();
     });
   }catch(e){console.warn('[FB]',e)}
 }
 async function saveScore(score,studentName,className){
   if(!_db) return;
   const now=new Date();
-  const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:studentName||'תלמיד/ה',className:className||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,totalQuestions:QUESTIONS.length,openAnswers:QUESTIONS.filter(q=>q.type==='open').map(q=>({id:q.id,q:q.q,text:QS.answers[q.id]?.text||''}))};
-  try{await _db.collection('lashon2_submissions').add(d);await _db.collection('lashon2_live').doc('latest').set(d);}catch(e){console.warn(e)}
+  const correct=typeof _lastCorrect==='number'?_lastCorrect:0;
+  const d={
+    lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,
+    studentName:studentName||'תלמיד/ה',className:className||'לא צוין',
+    ts:firebase.firestore.FieldValue.serverTimestamp(),
+    submissionDate:now.toLocaleDateString('he-IL'),
+    submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),
+    read:false,correct,wrong:QUESTIONS.length-correct,totalQuestions:QUESTIONS.length,
+    openAnswers:QUESTIONS.filter(q=>q.type==='open').map(q=>({id:q.id,q:q.q,text:QS.answers[q.id]?.text||''}))
+  };
+  try{await _db.collection('lashon2_submissions').add(d);await _db.collection('lashon2_live').doc('latest').set(d);}
+  catch(e){console.warn(e)}
 }
 
 /* ════════════════════════════════════════════════
    SESSION
 ════════════════════════════════════════════════ */
-const LS={get(k,fb=null){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):fb}catch{return fb}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const LS={
+  get(k,fb=null){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):fb}catch{return fb}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}
+};
 const _params=new URLSearchParams(location.search);
 let STUDENT_NAME=_params.get('student')||LS.get('lashon2_uname','')||'תלמיד/ה';
 let STUDENT_CLASS=LS.get('lashon2_class','')||'';
@@ -736,165 +766,332 @@ const USER_ROLE=_params.get('role')||LS.get('lashon2_role','')||localStorage.get
 let ANSWERS_VISIBLE=_params.get('answers_visible')==='1';
 const BACK_URL=_params.get('back')||'index.html';
 
-function applyAnswersVisibility(){
+function renderAnswersTab(){
   const locked=document.getElementById('answers-locked-msg');
   const visible=document.getElementById('answers-visible-content');
   const src=document.getElementById('answers-source');
-  if(USER_ROLE==='teacher'){if(locked)locked.style.display='none';if(visible)visible.style.display='';if(src)src.textContent='גישת מורה';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';}
-  else{if(ANSWERS_VISIBLE){if(locked)locked.style.display='none';if(visible)visible.style.display='';if(src)src.textContent='שוחרר על ידי המורה';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='';}else{if(locked)locked.style.display='';if(visible)visible.style.display='none';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='none';}}
+  if(USER_ROLE==='teacher'){
+    if(locked) locked.style.display='none';
+    if(visible) visible.style.display='';
+    if(src) src.textContent='גישת מורה — תמיד גלוי';
+    const tb=document.getElementById('btn-answers');if(tb) tb.style.display='';
+  }else{
+    if(ANSWERS_VISIBLE){
+      if(locked) locked.style.display='none';
+      if(visible) visible.style.display='';
+      if(src) src.textContent='שוחרר על ידי המורה';
+      const stb=document.getElementById('btn-answers-student');if(stb) stb.style.display='';
+    }else{
+      if(locked) locked.style.display='';
+      if(visible) visible.style.display='none';
+      const stb=document.getElementById('btn-answers-student');if(stb) stb.style.display='none';
+    }
+  }
 }
 
 /* ════════════════════════════════════════════════
-   20 QUESTIONS — on 3 argument texts
-   13 MC + 5 TF + 2 SORT
+   TABS
 ════════════════════════════════════════════════ */
-const QUESTIONS=[
-  {id:'q01',type:'mc',ref:'טקסט א',
-   q:'מהי הטענה הראשית של ד"ר לוי?',
-   opts:['יש לקצץ בתקציבי המוזיקה','על כל ילד בישראל ללמוד מוזיקה — יש להחזיר אותה לתוכנית החובה','מוזיקה פוגעת בלימוד מתמטיקה','בית הספר צריך להתמקד רק בלימודי ליבה'],
-   ans:1,explain:'הטענה הראשית מופיעה בסיום: הגיע הזמן שמשרד החינוך יחזיר את המוזיקה לתוכנית החובה. כל שאר הפסקאות בונות לעבר המסקנה הזו.',teacherNote:''},
-  {id:'q02',type:'mc',ref:'טקסט א',
-   q:'מה הנימוק המרכזי שהכותבת מביאה לטובת לימוד מוזיקה?',
-   opts:['מוזיקה מהנה ומפחיתת לחץ','לימוד מוזיקה משפר הישגים במתמטיקה ובקריאה — מעגלים מוחיים משותפים','מוזיקה מלמדת משמעת','ילדים אוהבים מוזיקה'],
-   ans:1,explain:'הכותבת מביאה נימוק מדעי — מעגלים מוחיים משותפים למוזיקה ולמתמטיקה, ומחזקת בנתון: עד 15%. זהו הנימוק הכי מבוסס בטיעון.',teacherNote:''},
-  {id:'q03',type:'mc',ref:'טקסט א',
-   q:'כיצד הכותבת מתמודדת עם הטענה אין זמן בלוח הזמנים?',
-   opts:['היא מסכימה שהזמן חסר','היא מתעלמת מהטענה','היא מציגה את פינלנד כדוגמה — מדינה שמקדישה שעתיים ומובילה בהישגים','היא אומרת שאפשר לקצר שיעורים אחרים'],
-   ans:2,explain:'הכותבת מציגה את פינלנד כ-ראיה נגדית — מדינה שהצליחה להכניס מוזיקה ועדיין מובילה. זוהי טכניקת דוגמה מפריכה.',teacherNote:'שאלה על מבנה טיעון: טענת נגד + פרכה.'},
-  {id:'q04',type:'tf',ref:'טקסט א',
-   q:'ד"ר לוי מביאה נתון כמותי לתמיכה בטיעון שלה.',
-   ans:true,explain:'נכון. משפר את ההישגים במתמטיקה ובקריאה בשיעור של עד 15% — זהו נתון מספרי. נתונים כמותיים הם אחד מכלי הטיעון החשובים ביותר.',teacherNote:''},
-  {id:'q05',type:'mc',ref:'טקסט א',
-   q:'המשפט מוזיקה אינה מקצוע פנאי משרת כ:',
-   opts:['ראיה מדעית','פרכת דעה קדומה נפוצה — הכותבת מתמודדת עם תפיסה שגויה','שאלה רטורית','קריאה לפעולה'],
-   ans:1,explain:'הכותבת מניחה שרבים חושבים שמוזיקה = פנאי ולא לימוד רציני. המשפט הזה ישירות פורך את הדעה הקדומה הזו לפני שממשיכים לטיעון.',teacherNote:''},
-  {id:'q06',type:'mc',ref:'טקסט ב',
-   q:'מהי עמדת יאיר לגבי הטלפון בכיתה?',
-   opts:['הטלפון יכול להיות כלי לימודי שימושי','הטלפון צריך להיות כבוי אך מותר לאחסן בכיתה','יש להוציא את הטלפון מהכיתה לגמרי','יש להשאיר את ההחלטה לשיקול דעת המורה'],
-   ans:2,explain:'העמדה מפורשת: הטלפון — החוצה. יאיר לא מציע פשרה — הוא תובע הוצאה מלאה. חשוב לזהות את הנחרצות של העמדה.',teacherNote:''},
-  {id:'q07',type:'mc',ref:'טקסט ב',
-   q:'המשפט האם אנחנו רוצים להיות הדור שוויתר על יכולת הריכוז הוא דוגמה ל:',
-   opts:['נתון סטטיסטי','ציטוט מומחה','שאלה רטורית — שמטרתה לגרום לקהל להסכים','הגדרה מדעית'],
-   ans:2,explain:'שאלה רטורית = שאלה שאין לה תשובה אחרת — התשובה ברורה מראש ומזמינה הסכמה. הקהל אמור לענות לא! ובכך לתמוך בעמדת יאיר.',teacherNote:'שאלה מרכזית על כלי שכנוע.'},
-  {id:'q08',type:'tf',ref:'טקסט ב',
-   q:'יאיר מתנגד לטכנולוגיה בכלל.',
-   ans:false,explain:'לא נכון. יאיר מבהיר: לא כי אני אנטי-טכנולוגיה — אני ממש לא. הוא מצמצם את עמדתו לטלפון בכיתה בלבד.',teacherNote:''},
-  {id:'q09',type:'mc',ref:'טקסט ב',
-   q:'מה תפקיד הנתון 20 אחוז ירידה בביצועים קוגניטיביים בטיעון?',
-   opts:['עמדה אישית של יאיר','ראיה מדעית שמחזקת את הנימוק','דוגמה ספרותית','שאלה רטורית'],
-   ans:1,explain:'הנתון מגיע ממחקר של אוניברסיטת לונדון — ראיה חיצונית ומוסמכת. בטקסט טיעון, ראיה מחקרית מחזקת נימוק ומגבירה אמינות.',teacherNote:''},
-  {id:'q10',type:'mc',ref:'טקסט ב',
-   q:'הביטוי ריכוז הוא מיומנות שנבנית בשקט הוא:',
-   opts:['נתון סטטיסטי','נימוק — טענה על מדוע הטלפון מזיק לריכוז','ציטוט ממחקר','טענה נגד'],
-   ans:1,explain:'זהו נימוק — הכותב אומר מדוע. ריכוז = שקט, טלפון = הפרעה לשקט, הטלפון פוגע בריכוז. שרשרת לוגית שמגובה לאחר מכן בראיה.',teacherNote:''},
-  {id:'q11',type:'mc',ref:'טקסט ג',
-   q:'מה הביקורת המרכזית של פרופ שמש על מערכת הציונים?',
-   opts:['ציונים גורמים לתלמידים ללמוד יותר מדי','ציונים הם כלי של המאה ה-19 שמודד תוצר, לא תהליך ואדם שלם','ציונים יצרו תחרות בריאה','ציונים אינם רלוונטיים לשוק העבודה'],
-   ans:1,explain:'הטענה הראשית: ציונים מדדו פועלים יעילים בתעשייה — לא אדם שלם. הכותבת טוענת שציון אחד לא יכול לבטא סקרנות, עבודת צוות, יצירתיות.',teacherNote:''},
-  {id:'q12',type:'tf',ref:'טקסט ג',
-   q:'הכותבת מתמודדת עם טיעון שתומך בציונים.',
-   ans:true,explain:'נכון. אמנם יש מי שטוען שציונים מניעים תחרות בריאה. אך... — זוהי טענת נגד. הכותבת מציגה את הטיעון הנגדי ואז דוחה אותו.',teacherNote:''},
-  {id:'q13',type:'mc',ref:'טקסט ג',
-   q:'השאלה האם זו המטרה של בית הספר ב-2024 היא:',
-   opts:['שאלה ישירה לקורא שדורשת תשובה','שאלה רטורית — הכותבת מניחה שהתשובה ברורה: לא','נתון מחקרי','ציטוט ממקור אחר'],
-   ans:1,explain:'שאלה רטורית שמניחה שהתשובה ברורה לכולם: לא, כמובן שלא. הכותבת מגייסת את הקורא לצידה בלי לטעון במפורש.',teacherNote:''},
-  {id:'q14',type:'mc',ref:'טקסט ג',
-   q:'מהו הפתרון שהכותבת מציעה במקום ציונים?',
-   opts:['בחינות פנימיות בלבד','מבחנים ממוחשבים','הערכה מילולית עשירה, תיקים, שיחות עם תלמידים','הסרת כל ההערכה'],
-   ans:2,explain:'הכותבת מציגה חלופה קונקרטית: הערכה מילולית עשירה, בתיקים, בשיחות. תשובה על מה הפתרון המוצע חייבת להיגזר מהטקסט.',teacherNote:''},
-  {id:'q15',type:'tf',ref:'טקסט ג',
-   q:'הכותבת טוענת שביטול ציונים יהיה קל ליישום.',
-   ans:false,explain:'לא נכון. הכותבת כותבת: זה קשה יותר — אך אמיתי הרבה יותר. היא מודה בקושי אך טוענת שהיתרון עולה על הקושי.',teacherNote:''},
-  {id:'q16',type:'mc',ref:'תיאוריה',
-   q:'מהו ההבדל העיקרי בין נימוק לבין ראיה?',
-   opts:['אין הבדל — הם מילים נרדפות','נימוק מסביר מדוע הטענה נכונה; ראיה מביאה הוכחה קונקרטית לנימוק','ראיה חייבת להיות מחקר; נימוק יכול להיות דעה','נימוק מופיע בסיום; ראיה בפתיחה'],
-   ans:1,explain:'נימוק = מדוע (כי). ראיה = הוכחה (מחקר מצא, לדוגמה, נתון). הנימוק תמיד עונה על למה? והראיה על מה ההוכחה?',teacherNote:'שאלה תיאורטית מרכזית.'},
-  {id:'q17',type:'mc',ref:'תיאוריה',
-   q:'תלמיד ענה: הכותב אמר שצריך לבטל ציונים. מה חסר בתשובה?',
-   opts:['אין שום בעיה — זו תשובה מלאה','חסר ניתוח: מדוע זו עמדה שכנועית ואילו כלים בה','צריך ציטוט ארוך יותר','צריך לאחד הכל למשפט אחד'],
-   ans:1,explain:'לתאר את הטענה = הבנה. לנתח אותה = ניתוח. בשאלות עמדת הכותב בבגרות מצפים לציטוט + ניתוח הכלי השכנועי.',teacherNote:''},
-  {id:'q18',type:'tf',ref:'תיאוריה',
-   q:'טקסט טיעון שמביא טענות נגד הוא טיעון חלש יותר.',
-   ans:false,explain:'לא נכון! טיעון שמתמודד עם טענות נגד הוא חזק יותר — הוא מראה שהכותב מכיר את הצד השני ועדיין בוחר בעמדתו.',teacherNote:''},
-  {id:'q19',type:'sort',ref:'תיאוריה',
-   q:'סדרו את מרכיבי טקסט הטיעון לפי הסדר הרגיל מהראשון לאחרון:',
-   items:['ראיות ודוגמאות לכל נימוק','נימוקים התומכים בטענה','טענה ראשית ועמדת הכותב','מסקנה וקריאה לפעולה'],
-   correctOrder:[2,1,0,3],
-   explain:'טענה ראשית <- נימוקים <- ראיות <- מסקנה. המבנה מוביל את הקורא מ-מה הטענה? לאמצעים המוכיחים אותה ול-מה עלינו לעשות?',teacherNote:''},
-  {id:'q20',type:'open',ref:'ניתוח כלי שכנוע',
-   q:'בחר/י נימוק אחד מאחד משלושת הטקסטים וכתוב/י 3-4 משפטים: מה הנימוק? מה הראיה שמגבה אותו? מדוע הוא אפקטיבי (או לא)?',
-   placeholder:'לדוגמה: ד"ר לוי טוענת ש... (נימוק). היא מגבה זאת ב... (ראיה). הנימוק אפקטיבי/לא אפקטיבי כי...',
-   hint:'מבנה: נימוק + ראיה + הערכת האפקטיביות. כלי שכנוע יכול להיות: נתון, שאלה רטורית, דוגמה, ציטוט מומחה.',
-   rubric:'(א) זיהוי נימוק ספציפי ומדויק (ב) ציון הראיה המגבה (ג) הערכת האפקטיביות עם הנמקה (ד) שימוש בשפה ניתוחית',
-   explain:'ניתוח כלי שכנוע — מיומנות מרכזית בבגרות. לא מספיק לתאר; צריך לנתח מדוע הכלי עובד על הקורא.',teacherNote:'בדקו שהתלמיד הבחין בין הנימוק (הרעיון) לראיה (ההוכחה). טעות נפוצה: לכתוב רק תיאור ללא ניתוח.'},
-];
-
-/* ════════════════════════════════════════════════
-   STATE & GATE
-════════════════════════════════════════════════ */
-const QS={answers:{},submitted:false};
-let _lastScore=null,_lastCorrect=0,_gateConfirmed=false;
-
-function switchTab(t){
-  ['theory','practice','answers'].forEach(x=>{
-    document.getElementById('pane-'+x)?.classList.toggle('active',x===t);
-    document.getElementById('btn-'+x)?.classList.toggle('active',x===t);
-    document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);
+let _gateConfirmed=false;
+function switchTab(name){
+  ['theory','practice','answers'].forEach(t=>{
+    const pane=document.getElementById('pane-'+t);
+    const btn=document.getElementById('btn-'+t);
+    if(pane) pane.classList.toggle('active',t===name);
+    if(btn) btn.classList.toggle('active',t===name);
   });
-  if(t==='practice'&&USER_ROLE==='teacher'){
-    document.getElementById('student-gate')?.classList.add('hidden');
-    document.getElementById('gate-confirmed')?.classList.add('hidden');
-    const tw=document.getElementById('practice-content-wrap');if(tw)tw.style.display='';
+  if(name==='practice'&&USER_ROLE==='student'&&!_gateConfirmed){
+    const gate=document.getElementById('student-gate');
+    if(gate){
+      gate.classList.remove('hidden');
+      const wrap=document.getElementById('practice-content-wrap');
+      if(wrap) wrap.style.display='none';
+      const dd=document.getElementById('gate-date-display');
+      if(dd) dd.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+      setTimeout(()=>document.getElementById('gate-name')?.focus(),200);
+    }
   }
-  if(t==='practice'&&USER_ROLE==='student'){
-    const dateEl=document.getElementById('gate-date-display');
-    if(dateEl)dateEl.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-    const gate=document.getElementById('student-gate'),conf=document.getElementById('gate-confirmed'),wrap=document.getElementById('practice-content-wrap');
-    const ne=document.getElementById('gate-name'),ce=document.getElementById('gate-class');
-    if(!_gateConfirmed){
-      if(ne&&STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה')ne.value=STUDENT_NAME;
-      if(ce&&STUDENT_CLASS)ce.value=STUDENT_CLASS;
-      if(gate)gate.classList.remove('hidden');if(conf)conf.classList.add('hidden');if(wrap)wrap.style.display='none';
-    }else{if(gate)gate.classList.add('hidden');if(conf)conf.classList.remove('hidden');if(wrap)wrap.style.display='';}
-  }
+  window.scrollTo({top:0,behavior:'smooth'});
 }
+
+/* ════════════════════════════════════════════════
+   GATE
+════════════════════════════════════════════════ */
 function confirmGate(){
-  const ne=document.getElementById('gate-name'),ce=document.getElementById('gate-class');
-  const nv=(ne?.value||'').trim(),cv=ce?.value||'';let ok=true;
-  if(nv.split(/\s+/).filter(Boolean).length<2){ne?.classList.add('err');document.getElementById('gate-name-err')?.classList.add('show');ok=false;}
-  else{ne?.classList.remove('err');document.getElementById('gate-name-err')?.classList.remove('show');}
-  if(!cv){ce?.classList.add('err');document.getElementById('gate-class-err')?.classList.add('show');ok=false;}
-  else{ce?.classList.remove('err');document.getElementById('gate-class-err')?.classList.remove('show');}
-  if(!ok)return;
-  STUDENT_NAME=nv;STUDENT_CLASS=cv;LS.set('lashon2_uname',nv);LS.set('lashon2_class',cv);_gateConfirmed=true;
-  const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');
-  if(av)av.textContent=nv[0].toUpperCase();if(nm)nm.textContent=nv;if(mt)mt.textContent='כיתה '+cv+' · '+new Date().toLocaleDateString('he-IL');
-  document.getElementById('student-gate')?.classList.add('hidden');document.getElementById('gate-confirmed')?.classList.remove('hidden');
-  const wrap=document.getElementById('practice-content-wrap');if(wrap){wrap.style.display='';wrap.scrollIntoView({behavior:'smooth',block:'start'});}
+  const nameEl=document.getElementById('gate-name');
+  const classEl=document.getElementById('gate-class');
+  const nameErr=document.getElementById('gate-name-err');
+  const classErr=document.getElementById('gate-class-err');
+  const nameVal=(nameEl?.value||'').trim();
+  const classVal=(classEl?.value||'').trim();
+  let valid=true;
+  if(nameVal.split(/\s+/).filter(Boolean).length<2){nameEl?.classList.add('err');nameErr?.classList.add('show');valid=false;}
+  else{nameEl?.classList.remove('err');nameErr?.classList.remove('show');}
+  if(!classVal){classEl?.classList.add('err');classErr?.classList.add('show');valid=false;}
+  else{classEl?.classList.remove('err');classErr?.classList.remove('show');}
+  if(!valid) return;
+  STUDENT_NAME=nameVal;STUDENT_CLASS=classVal;
+  LS.set('lashon2_uname',nameVal);LS.set('lashon2_class',classVal);
+  _gateConfirmed=true;
+  document.getElementById('student-gate')?.classList.add('hidden');
+  const wrap=document.getElementById('practice-content-wrap');if(wrap) wrap.style.display='';
+  const av=document.getElementById('gc-avatar');
+  const nm=document.getElementById('gc-name-display');
+  const mt=document.getElementById('gc-meta-display');
+  if(av) av.textContent=nameVal[0].toUpperCase();
+  if(nm) nm.textContent=nameVal;
+  if(mt) mt.textContent='כיתה '+classVal+' · '+new Date().toLocaleDateString('he-IL');
+  document.getElementById('gate-confirmed')?.classList.remove('hidden');
 }
 function reopenGate(){
   _gateConfirmed=false;
-  document.getElementById('student-gate')?.classList.remove('hidden');document.getElementById('gate-confirmed')?.classList.add('hidden');
-  const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';
-  document.getElementById('student-gate')?.scrollIntoView({behavior:'smooth',block:'start'});
-  setTimeout(()=>document.getElementById('gate-name')?.focus(),250);
+  document.getElementById('student-gate')?.classList.remove('hidden');
+  document.getElementById('gate-confirmed')?.classList.add('hidden');
+  const wrap=document.getElementById('practice-content-wrap');if(wrap) wrap.style.display='none';
+  const dd=document.getElementById('gate-date-display');
+  if(dd) dd.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 }
+
+/* ════════════════════════════════════════════════
+   20 QUESTIONS — ברמת בגרות 30% מוגבר
+   טקסט א (מכתב פתוח): q01–q06
+   טקסט ב (נאום):       q07–q11
+   טקסט ג (מאמר דעה):   q12–q16
+   תיאוריה + כתיבה:     q17–q20
+════════════════════════════════════════════════ */
+const QUESTIONS=[
+
+  /* ─── טקסט א — מכתב פתוח ─── */
+  {id:'q01',type:'mc',ref:'טקסט א — טענה ראשית',
+   q:'מהי הטענה הראשית של ד"ר לוי, והיכן בטקסט היא מופיעה?',
+   opts:[
+     'יש לקצץ בתקציבי המוזיקה — מופיעה בפתיחה',
+     'על כל ילד בישראל ללמוד מוזיקה — מופיעה בסיכום כקריאה לפעולה',
+     'פינלנד היא מודל חינוכי מצוין — מופיעה בפסקה 3',
+     'מוזיקה משפרת מתמטיקה — מופיעה בפסקה 2'
+   ],
+   ans:1,
+   explain:`הטענה הראשית היא המסקנה הסופית: הגיע הזמן שמשרד החינוך יחזיר את המוזיקה לתוכנית החובה. היא מופיעה בסיכום — מבנה טיפוסי: טיעונים מובילים למסקנה. כל שאר הפסקאות בונות אליה.`,
+   teacherNote:''},
+
+  {id:'q02',type:'mc',ref:'טקסט א — נימוק וראיה',
+   q:'ניתחו: תווים ומספרים פועלים על אותן מעגלים מוחיים. מה זה — נימוק, ראיה, או שניהם?',
+   opts:[
+     'ראיה בלבד — זהו נתון מדעי',
+     'נימוק בלבד — הסבר מדוע מוזיקה משפרת מתמטיקה',
+     'נימוק שמשמש גם כהסבר לנתון — מדוע יש שיפור ב-15%',
+     'טענה ראשית'
+   ],
+   ans:2,
+   explain:`זהו נימוק-הסבר: הנתון (15%) הוא הראיה, והמשפט תווים ומספרים... מסביר מדוע הנתון נכון — מה המנגנון. שילוב של ראיה (נתון) + נימוק (מנגנון) = טיעון מלא ואמין.`,
+   teacherNote:'הבחנה בין נימוק לראיה — שאלה מרכזית.'},
+
+  {id:'q03',type:'mc',ref:'טקסט א — טענת נגד',
+   q:'כיצד ד"ר לוי מתמודדת עם הטענה שאין זמן ללימוד מוזיקה? מה הכלי הרטורי?',
+   opts:[
+     'מודה שהזמן חסר ומציעה קיצור שיעורים אחרים',
+     'מתעלמת מהטענה ועוברת לנושא אחר',
+     'מביאה דוגמה מפריכה — פינלנד, שמקדישה שעתיים ומובילה עולמי',
+     'מביאה ציטוט ממומחה שמסכים איתה'
+   ],
+   ans:2,
+   explain:`כלי הרטורי: דוגמה מפריכה (Counter-example). הכותבת לא אומרת "לא נכון שאין זמן" — היא מוכיחה שגם עם מוזיקה ניתן להוביל. מבנה: טענת נגד (אין זמן) + פרכה (פינלנד).`,
+   teacherNote:''},
+
+  {id:'q04',type:'mc',ref:'טקסט א — כלי שכנועי',
+   q:'המשפט מוזיקה אינה מקצוע פנאי — מה תפקידו בטיעון?',
+   opts:[
+     'ראיה מדעית שמחזקת את הנתון',
+     'פרכת דעה קדומה: הכותבת מבטלת תפיסה נפוצה כדי לפנות את הדרך לטיעון',
+     'שאלה רטורית שמזמינה הסכמה',
+     'קריאה לפעולה'
+   ],
+   ans:1,
+   explain:`הכותבת מניחה שהקורא חושב מוזיקה = פנאי. המשפט הזה מבטל את ההנחה הזו מראש — טכניקת פרה-פרכה. היא יוצרת מרחב לטיעון עיקרי לפני שהקורא יכול להתנגד.`,
+   teacherNote:''},
+
+  {id:'q05',type:'tf',ref:'טקסט א — סמכות',
+   q:'ד"ר לוי משתמשת בתוארה (מנהלת הקונסרבטוריון) כדי לחזק את אמינות טיעונה.',
+   ans:true,
+   explain:`נכון. Ethos — פנייה לסמכות. מנהלת קונסרבטוריון = מומחית בתחום. הפרסום בידיעות אחרונות מוסיף פנייה לציבור רחב. שניהם יחד מגבירים אמינות.`,
+   teacherNote:''},
+
+  {id:'q06',type:'mc',ref:'טקסט א — עמדה גלויה',
+   q:'כיצד משתנה עמדת הכותבת בין פסקה 1 לפסקה 4?',
+   opts:[
+     'היא מחמירה: מ-טעות ל-שינוי חובה מיידי',
+     'היא מתמתנת: מ-חמורה ל-אפשרית',
+     'היא לא משתנה בכלל',
+     'היא הופכת לניטרלית יותר'
+   ],
+   ans:0,
+   explain:`פסקה 1: טעות חינוכית חמורה שחייבים לתקנה. פסקה 4: הגיע הזמן שמשרד החינוך יחזיר... — מקריאה רגשית לקריאה לפעולה מוסדית ספציפית. הנחרצות מתגברת לאורך הטקסט.`,
+   teacherNote:''},
+
+  /* ─── טקסט ב — נאום ─── */
+  {id:'q07',type:'mc',ref:'טקסט ב — עמדה ונימוק',
+   q:'מהי עמדת יאיר, ומה הנימוק המרכזי שלו?',
+   opts:[
+     'עמדה: טלפון בכיתה מותר; נימוק: הוא כלי לימודי',
+     'עמדה: הטלפון צריך לצאת מהכיתה; נימוק: ריכוז נבנה בשקט ולטלפון אין',
+     'עמדה: יש לאסור גלישה אך לא שיחות; נימוק: ביצועים ירדו',
+     'עמדה: כל תלמיד יחליט בעצמו; נימוק: חירות אישית'
+   ],
+   ans:1,
+   explain:`עמדה: לא בשום אופן (גלויה ונחרצת). נימוק מרכזי: ריכוז הוא מיומנות שנבנית בשקט — הטלפון = רעש, רעש = ריכוז נפגע. שרשרת לוגית ברורה.`,
+   teacherNote:''},
+
+  {id:'q08',type:'mc',ref:'טקסט ב — שאלה רטורית',
+   q:'ניתחו: האם אנחנו רוצים להיות הדור שוויתר על יכולת הריכוז? מה תפקיד השאלה?',
+   opts:[
+     'לבקש מהקהל לענות ולשתף בדעתם',
+     'לגרות תחושת אחריות היסטורית — שלא נהיה הדור שכשל',
+     'להציג נתון מחקרי על ירידת ריכוז',
+     'להכריז על עמדת הכותב'
+   ],
+   ans:1,
+   explain:`שאלה רטורית לא מצפה לתשובה — התשובה ברורה: לא. אבל הכוח: היא ממסגרת את הנושא כשאלה היסטורית של דור שלם. הקורא/מאזין הופך לחלק מהדור שיצטרך להסביר בעתיד.`,
+   teacherNote:''},
+
+  {id:'q09',type:'mc',ref:'טקסט ב — ראיה',
+   q:'מחקר אוניברסיטת לונדון — מה ייחודו כראיה, ומה מחזק אותה בנאום?',
+   opts:[
+     'הוא ישראלי ורלוונטי לקהל',
+     'הוא אוניברסיטאי (סמכותי) ויאיר מדגיש אותו מספרית: עשרים אחוז',
+     'הוא מ-2023 ועדכני',
+     'הוא היחיד שקיים בנושא'
+   ],
+   ans:1,
+   explain:`שתי טכניקות: (1) Ethos — אוניברסיטה מוכרת = סמכות. (2) חזרה על המספר: 20%, ואז עשרים אחוז — מדגיש את הנתון מילולית ומספרית. ה-זה לא זניח = ניתוח רגשי של הנתון.`,
+   teacherNote:''},
+
+  {id:'q10',type:'tf',ref:'טקסט ב — עמדה מסויגת',
+   q:'יאיר מציג את עמדתו כנגד טכנולוגיה בכלל.',
+   ans:false,
+   explain:`לא נכון. יאיר מבהיר מפורשות: לא כי אני אנטי-טכנולוגיה — אני ממש לא. טכניקת הסתייגות (qualification): הוא מצמצם את עמדתו לטלפון בכיתה בלבד. זה מחזק את האמינות.`,
+   teacherNote:''},
+
+  {id:'q11',type:'mc',ref:'טקסט ב — כלי רטורי',
+   q:'הטלפון — החוצה. הריכוז — פנימה. מה הכלי הרטורי וכיצד הוא פועל?',
+   opts:[
+     'שאלה רטורית שמזמינה הסכמה',
+     'אנפורה — חזרה על מבנה דשוה יוצרת ניגוד חריף וקצב שמחדד את המסר',
+     'נתון מחקרי שמסכם את הטיעון',
+     'ציטוט ממומחה'
+   ],
+   ans:1,
+   explain:`אנטיתזה + קצב: מבנה מקביל של ניגוד (החוצה/פנימה). תפקיד: יוצר זכירות, מחדד את ניגוד, ומסכם את כל הטיעון במשפט אחד. מבנה קצר ונחרץ מתאים לנאום.`,
+   teacherNote:''},
+
+  /* ─── טקסט ג — מאמר דעה ─── */
+  {id:'q12',type:'mc',ref:'טקסט ג — טענה ראשית',
+   q:'ד"ר שמש פותחת בהקשר היסטורי (המאה ה-19). מה תפקידו בטיעון?',
+   opts:[
+     'לתת מידע היסטורי לשם ידע',
+     'לבסס את הטענה שמערכת הציונים מיושנת ולא מתאימה לצרכי בית הספר ב-2024',
+     'לשבח את מערכת החינוך הישנה',
+     'להשוות בין ישראל לעולם'
+   ],
+   ans:1,
+   explain:`ההקשר ההיסטורי הוא טיעון מסוג מקור לא מתאים: הכלי נוצר למטרה X (סינון פועלים) — אבל בית הספר אינו מפעל. תפקידו: להציג את הציון כאנכרוניזם ולעורר ביקורת מיד.`,
+   teacherNote:''},
+
+  {id:'q13',type:'mc',ref:'טקסט ג — שאלות רטוריות',
+   q:'בפסקה 2 יש שתי שאלות רטוריות. מה הצטברותן מוסיפה לטיעון?',
+   opts:[
+     'גורמות לקורא לחפש נתונים',
+     'מגבירות את התחושה שמערכת הציונים שרירותית ואבסורדית',
+     'מציגות שתי עמדות מנוגדות',
+     'הן שאלות אמיתיות שהכותבת שואלת לעצמה'
+   ],
+   ans:1,
+   explain:`שתי שאלות רטוריות יחדיו: ציון 74 לעומת 76 — האם ההבדל אמיתי? + האם הוא משנה? — מכפילות את האירוניה. הצטברות שאלות = Pathos: גורמת לקורא לחוש שהמערכת מגוחכת.`,
+   teacherNote:''},
+
+  {id:'q14',type:'tf',ref:'טקסט ג — טענת נגד',
+   q:'הכותבת מציגה ומפריכה טענה שתומכת בשימור ציונים.',
+   ans:true,
+   explain:`נכון. אמנם יש מי שטוען שציונים מניעים תחרות בריאה. אך... זוהי מבנה קלאסי של טענת נגד + פרכה. הכותבת לא מתעלמת — היא מקבלת את הטיעון ואז מגיבה לו.`,
+   teacherNote:''},
+
+  {id:'q15',type:'mc',ref:'טקסט ג — כנות אסטרטגית',
+   q:'הכותבת כותבת: זה קשה יותר — אך אמיתי הרבה יותר. מה הטכניקה הרטורית כאן?',
+   opts:[
+     'ציטוט ממחקר שמאשר את הטענה',
+     'כנות אסטרטגית: הודיית בקושי מחזקת אמינות ומראה שהכותבת לא מבטיחה הבטחות ריקות',
+     'שאלה רטורית שמזמינה הסכמה',
+     'נתון שמוכיח שהחלופה קלה יותר'
+   ],
+   ans:1,
+   explain:`כנות אסטרטגית (Strategic Concession): הודאה בחיסרון לפני שהיריב יעלה אותו. תפקיד: מגבירה אמינות — הקורא סומך על כותב שמודה בקושי. ה-אך מצביע על ניגוד שמחזק.`,
+   teacherNote:''},
+
+  {id:'q16',type:'mc',ref:'טקסט ג — פתרון',
+   q:'מהי החלופה שהכותבת מציעה, ואיזה כלי שכנועי מגבה אותה?',
+   opts:[
+     'בחינות מותאמות אישית; כלי: נתון שמוכיח יעילות',
+     'הערכה מילולית, תיקים ושיחות; כלי: קונקרטיות — פתרון ריאלי לא רק ביקורת',
+     'ביטול כל ההערכה; כלי: שאלה רטורית',
+     'ציונים אחוזיים במקום מספריים; כלי: השוואה'
+   ],
+   ans:1,
+   explain:`הכותבת מציגה חלופה קונקרטית שלוש-מרכיבית: מילולית, תיקים, שיחות. קונקרטיות = כלי שכנוע חזק: היא לא רק מבקרת — היא מציעה. זה מונע התנגדות "ואז מה?" מהקורא.`,
+   teacherNote:''},
+
+  /* ─── תיאוריה + כתיבה ─── */
+  {id:'q17',type:'mc',ref:'תיאוריה — נימוק vs. ראיה',
+   q:'מהו ההבדל העיקרי בין נימוק לבין ראיה? בחרו את ההסבר המדויק ביותר.',
+   opts:[
+     'אין הבדל — הם מילים נרדפות',
+     'נימוק עונה על למה? (כי); ראיה עונה על מה ההוכחה? (מחקר מצא, לדוגמה)',
+     'ראיה חייבת להיות ממחקר; נימוק יכול להיות דעה',
+     'נימוק מופיע בסיכום; ראיה בפתיחה'
+   ],
+   ans:1,
+   explain:`נימוק = מדוע (כי, מפני ש-). ראיה = הוכחה קונקרטית (מחקר מצא, לדוגמה, נתון, ציטוט). לעיתים הם משולבים: נימוק + ראיה מגבה = טיעון מלא. ההבחנה נבדקת ישירות בבגרות.`,
+   teacherNote:''},
+
+  {id:'q18',type:'tf',ref:'תיאוריה — טענת נגד',
+   q:'טקסט טיעון שמביא טענות נגד הוא טיעון חלש יותר כי הוא מציג עמדות מנוגדות.',
+   ans:false,
+   explain:`לא נכון — ההפך! טיעון שמתמודד עם טענות נגד הוא חזק יותר: (1) מראה שהכותב הכיר את הצד השני. (2) מחזק אמינות. (3) מגיב לרוב הנגד-טענות שהקורא עלול לחשוב. הימנעות ממנה = חולשה.`,
+   teacherNote:''},
+
+  {id:'q19',type:'sort',ref:'תיאוריה — מבנה',
+   q:'סדרו את מרכיבי טקסט הטיעון לפי הסדר הרגיל:',
+   items:['ראיות ודוגמאות לכל נימוק','נימוקים התומכים בטענה','טענה ראשית ועמדת הכותב','מסקנה וקריאה לפעולה'],
+   correctOrder:[2,1,0,3],
+   explain:`טענה ראשית → נימוקים → ראיות → מסקנה. המבנה מוביל: מה הטענה? → למה נכונה? → מה ההוכחה? → מה לעשות? זהו מבנה שכנועי שבנוי להוביל את הקורא בהדרגה.`,
+   teacherNote:''},
+
+  {id:'q20',type:'open',ref:'כתיבה — ניתוח טיעון מלא',
+   q:'בחרו כלי שכנועי אחד מאחד הטקסטים. כתבו 4 משפטים: (1) מה הכלי? (2) צטטו אותו. (3) מה תפקידו בטיעון? (4) האם הוא אפקטיבי — ומדוע?',
+   placeholder:'הכלי ב[טקסט] הוא...\nהכותב/ת כותב/ת: "..."\nתפקידו הוא...\nהוא אפקטיבי/לא אפקטיבי כי...',
+   hint:'כלים אפשריים: שאלה רטורית, נתון מדעי, דוגמה מפריכה, כנות אסטרטגית, אנטיתזה.',
+   rubric:`(א) זיהוי ספציפי של הכלי (ב) ציטוט מדויק (ג) ניתוח תפקיד: כדי ל... (ד) הערכת אפקטיביות עם נימוק`,
+   explain:`ניתוח כלי שכנועי — מיומנות מרכזית בבגרות. לא מספיק לתאר; צריך לנתח מדוע הכלי עובד. דוגמה: הכלי בטקסט ב הוא אנטיתזה: הטלפון — החוצה. הריכוז — פנימה. תפקידו: לסכם את הטיעון בקצרה כדי ליצור זכירות. אפקטיבי בנאום כי הקצב מחזיק את הקהל.`,
+   teacherNote:'בדקו: ציטוט + כדי ל... + הערכה. שגיאה נפוצה: תיאור ללא ניתוח.'}
+];
+
+/* ════════════════════════════════════════════════
+   STATE
+════════════════════════════════════════════════ */
+const QS={answers:{},submitted:false};
+let _lastCorrect=0,_lastScore=null;
 
 /* ════════════════════════════════════════════════
    RENDER
 ════════════════════════════════════════════════ */
 function renderQuestions(){
-  const c=document.getElementById('questions-container');if(!c)return;
+  const c=document.getElementById('questions-container');if(!c) return;
   c.innerHTML=QUESTIONS.map((q,i)=>buildCard(q,i)).join('');
-  renderAnswers();
 }
 function buildCard(q,i){
   let input='';
-  const LETTERS=['א','ב','ג','ד'];
   if(q.type==='mc'){
     input=`<div class="mc-wrap">${q.opts.map((o,oi)=>`
       <button class="mc-btn" id="${q.id}_o${oi}" onclick="pickMC('${q.id}',${oi})">
-        <span class="mc-letter">${LETTERS[oi]}</span><span>${o}</span>
+        <span class="mc-letter">${['א','ב','ג','ד'][oi]}</span><span>${o}</span>
       </button>`).join('')}</div>`;
   }else if(q.type==='tf'){
     input=`<div class="tf-row">
@@ -902,37 +1099,35 @@ function buildCard(q,i){
       <button class="tf-btn" id="${q.id}_f" onclick="pickTF('${q.id}',false)">❌ לא נכון</button>
     </div>`;
   }else if(q.type==='sort'){
-    const order=QS.answers[q.id]?.order||q.items.map((_,ii)=>ii);
-    input=`<div class="sort-note">גרור לסידור הנכון:</div>
-    <div class="sort-list" id="sort_${q.id}">${order.map(idx=>`
-      <div class="sort-item" draggable="true" data-idx="${idx}" data-qid="${q.id}"
-           ondragstart="dragStart(event)" ondragover="dragOver(event)" ondrop="dropSort(event)" ondragend="dragEnd(event)">
-        <span class="sort-handle">⠿</span>
-        <span class="sort-text">${q.items[idx]}</span>
-      </div>`).join('')}</div>`;
+    const sh=[...q.items.map((item,oi)=>({item,oi}))].sort(()=>Math.random()-.5);
+    input=`<p class="sort-note">גרור ושחרר לסידור הנכון ↕</p>
+      <div class="sort-list" id="${q.id}_sort">
+        ${sh.map((s,si)=>`
+        <div class="sort-item" draggable="true" data-origidx="${s.oi}" id="${q.id}_si${si}"
+          ondragstart="dStart(event,'${q.id}')" ondragover="dOver(event)" ondrop="dDrop(event,'${q.id}')" ondragleave="dLeave(event)">
+          <span class="sort-handle">⠿</span><span class="sort-text">${s.item}</span>
+        </div>`).join('')}
+      </div>`;
   }else if(q.type==='open'){
-    input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י את תשובתך כאן...'}" oninput="pickOpen('${q.id}')" ${QS.submitted?'disabled':''}></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
+    input=`<div class="open-wrap">
+      <textarea class="open-textarea" id="${q.id}_oa" rows="5"
+        placeholder="${q.placeholder||'כתוב/י את תשובתך כאן...'}"
+        oninput="pickOpen('${q.id}')"></textarea>
+      ${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}
+      ${q.rubric?`<div class="open-rubric"><strong>📋 מה נבדק:</strong> ${q.rubric}</div>`:''}
+    </div>`;
   }
-  const a=QS.answers[q.id];
-  let feedbackHtml='';
-  if(QS.submitted&&a){
-    let ok=false;
-    if(q.type==='mc')ok=a.sel===q.ans;
-    else if(q.type==='tf')ok=a.sel===q.ans;
-    else if(q.type==='sort')ok=JSON.stringify(a.order)===JSON.stringify(q.correctOrder);
-    const corr=q.type==='mc'?`${LETTERS[q.ans]}. ${q.opts[q.ans]}`:q.type==='tf'?(q.ans?'נכון':'לא נכון'):q.type==='open'?'שאלת כתיבה פתוחה':(q.correctOrder||[]).map(j=>q.items[j]).join(' ← ');
-    feedbackHtml=q.type==='open'?`<div class="open-rubric"><strong>✍️ תשובתך נשמרה.</strong> ${q.explain}${q.rubric?'<br><strong>נקודות לבדיקה:</strong> '+q.rubric:''}</div>`:`<div class="q-feedback ${ok?'ok':'wrong'} show">${ok?'✅ נכון!':'❌ '+corr}<br><small>${q.explain}</small>${q.teacherNote?`<br><small style="color:var(--lc)">🎓 ${q.teacherNote}</small>`:''}</div>`;
-  }
-  const typeLabel=q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור';
-  const a2=QS.answers[q.id];
-  const cardClass=QS.submitted&&a2?(()=>{let ok=false;if(q.type==='mc')ok=a2.sel===q.ans;else if(q.type==='tf')ok=a2.sel===q.ans;else if(q.type==='sort')ok=JSON.stringify(a2.order)===JSON.stringify(q.correctOrder);else if(q.type==='open')ok=!!(a2.text&&a2.text.length>10);return ok?'ok':'wrong';})():'';
-  return `<div class="q-card ${cardClass}" id="card_${q.id}">
-    <div class="q-num">שאלה ${i+1} <span class="q-type-badge">${typeLabel}</span>${q.ref?`<span class="q-type-badge" style="background:var(--lc-lt);color:var(--lc);border-color:var(--lc)">${q.ref}</span>`:''}
+  const typeLabel=q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='sort'?'סידור':'כתיבה פתוחה';
+  return `
+  <div class="q-card" id="card_${q.id}">
+    <div class="q-num">
+      שאלה ${i+1} מתוך ${QUESTIONS.length}
+      <span class="q-type-badge">${typeLabel}</span>
+      ${q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#fde68a">📍 ${q.ref}</span>`:''}
     </div>
-    <div class="q-text">${q.q}</div>
-    ${q.excerpt?`<div class="q-excerpt">${q.excerpt}</div>`:''}
+    <p class="q-text">${q.q}</p>
     ${input}
-    ${feedbackHtml}
+    <div class="q-feedback" id="${q.id}_fb"></div>
   </div>`;
 }
 
@@ -940,119 +1135,145 @@ function buildCard(q,i){
    INTERACTION
 ════════════════════════════════════════════════ */
 function pickMC(qid,oi){
-  if(QS.submitted)return;
-  const q=QUESTIONS.find(x=>x.id===qid);if(!q)return;
-  QS.answers[qid]={sel:oi};
-  q.opts.forEach((_,i)=>{const b=document.getElementById(qid+'_o'+i);if(b)b.classList.toggle('sel',i===oi);});
-  updateProgress();
+  if(QS.submitted) return;
+  const q=QUESTIONS.find(x=>x.id===qid);if(!q) return;
+  QS.answers[qid]={type:'mc',sel:oi};
+  q.opts.forEach((_,i)=>{
+    const b=document.getElementById(`${qid}_o${i}`);if(!b) return;
+    b.classList.toggle('sel',i===oi);
+  });
+  updateCounter();
 }
 function pickTF(qid,val){
-  if(QS.submitted)return;
-  QS.answers[qid]={sel:val};
-  const bt=document.getElementById(qid+'_t'),bf=document.getElementById(qid+'_f');
-  if(bt)bt.classList.toggle('sel',val===true);
-  if(bf)bf.classList.toggle('sel',val===false);
-  updateProgress();
+  if(QS.submitted) return;
+  QS.answers[qid]={type:'tf',sel:val};
+  const t=document.getElementById(`${qid}_t`),f=document.getElementById(`${qid}_f`);
+  if(t) t.classList.toggle('sel',val===true);
+  if(f) f.classList.toggle('sel',val===false);
+  updateCounter();
 }
 let _dragSrc=null;
-function dragStart(e){_dragSrc=e.currentTarget;e.currentTarget.classList.add('dragging');e.dataTransfer.effectAllowed='move';}
-function dragOver(e){e.preventDefault();e.dataTransfer.dropEffect='move';e.currentTarget.classList.add('drag-over');}
-function dragEnd(e){document.querySelectorAll('.sort-item').forEach(el=>{el.classList.remove('dragging','drag-over');});}
-function dropSort(e){
-  e.preventDefault();
-  if(_dragSrc===e.currentTarget||!_dragSrc)return;
-  const list=e.currentTarget.closest('.sort-list');
-  const items=[...list.querySelectorAll('.sort-item')];
-  const fromIdx=items.indexOf(_dragSrc),toIdx=items.indexOf(e.currentTarget);
-  if(fromIdx<0||toIdx<0)return;
-  if(fromIdx<toIdx)list.insertBefore(_dragSrc,e.currentTarget.nextSibling);
-  else list.insertBefore(_dragSrc,e.currentTarget);
-  const qid=_dragSrc.dataset.qid;
-  const newOrder=[...list.querySelectorAll('.sort-item')].map(el=>parseInt(el.dataset.idx));
-  QS.answers[qid]={order:newOrder};
-  updateProgress();
-  document.querySelectorAll('.sort-item').forEach(el=>el.classList.remove('drag-over'));
+function dStart(e,qid){_dragSrc=e.currentTarget;e.currentTarget.classList.add('dragging');saveSortAnswer(qid)}
+function dOver(e){e.preventDefault();e.currentTarget.classList.add('drag-over')}
+function dLeave(e){e.currentTarget.classList.remove('drag-over')}
+function dDrop(e,qid){
+  e.preventDefault();const tgt=e.currentTarget;tgt.classList.remove('drag-over');
+  if(!_dragSrc||_dragSrc===tgt) return;
+  const con=document.getElementById(qid+'_sort');
+  const ch=[...con.children];const si=ch.indexOf(_dragSrc),ti=ch.indexOf(tgt);
+  if(si<ti) con.insertBefore(tgt,_dragSrc); else con.insertBefore(_dragSrc,tgt);
+  _dragSrc.classList.remove('dragging');_dragSrc=null;
+  saveSortAnswer(qid);updateCounter();
 }
-
+function saveSortAnswer(qid){
+  const con=document.getElementById(qid+'_sort');if(!con) return;
+  QS.answers[qid]={type:'sort',order:[...con.children].map(el=>parseInt(el.dataset.origidx))};
+}
 function pickOpen(qid){
-  if(QS.submitted)return;
-  const el=document.getElementById(qid+'_oa');if(!el)return;
+  if(QS.submitted) return;
+  const el=document.getElementById(qid+'_oa');if(!el) return;
   const val=(el.value||'').trim();
   if(val.length>0) QS.answers[qid]={type:'open',text:val};
   else delete QS.answers[qid];
-  updateProgress();
+  updateCounter();
 }
-function updateProgress(){
-  const answered=Object.keys(QS.answers).length;
-  const pct=Math.round(answered/QUESTIONS.length*100);
-  const fill=document.getElementById('qp-fill');if(fill)fill.style.width=pct+'%';
-  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent=`${answered} / ${QUESTIONS.length} נענו`;
+function updateCounter(){
+  const n=Object.keys(QS.answers).length;
+  const pct=Math.round(n/QUESTIONS.length*100);
+  const fill=document.getElementById('qp-fill');if(fill) fill.style.width=pct+'%';
+  const ctr=document.getElementById('qp-counter');if(ctr) ctr.textContent=`${n} / ${QUESTIONS.length} נענו`;
 }
 
 /* ════════════════════════════════════════════════
-   SUBMIT / RESET
+   SUBMIT
 ════════════════════════════════════════════════ */
 function submitQuiz(){
-  if(QS.submitted){toast('כבר הוגש!');return;}
-  const unanswered=QUESTIONS.length-Object.keys(QS.answers).length;
-  if(unanswered>0){toast(`⚠️ נותרו ${unanswered} שאלות ללא מענה`);return;}
+  const answered=Object.keys(QS.answers).length;
+  if(answered<QUESTIONS.length){toast(`⚠️ ענה על כל 20 השאלות (נענו ${answered})`);return}
+  if(QS.submitted){toast('כבר הגשת את התרגול');return}
+  if(USER_ROLE==='student'&&!_gateConfirmed){toast('⚠️ נא למלא שם וכיתה');switchTab('practice');reopenGate();return}
+  _doSubmitQuiz();
+}
+function _doSubmitQuiz(){
   QS.submitted=true;
   let correct=0;
   QUESTIONS.forEach(q=>{
-    const a=QS.answers[q.id];if(!a)return;
-    if(q.type==='mc'&&a.sel===q.ans)correct++;
-    else if(q.type==='tf'&&a.sel===q.ans)correct++;
-    else if(q.type==='open'&&a.text&&a.text.length>10)correct++;
-    else if(q.type==='sort'&&JSON.stringify(a.order)===JSON.stringify(q.correctOrder))correct++;
+    const a=QS.answers[q.id];let ok=false;
+    if(q.type==='mc') ok=a?.sel===q.ans;
+    else if(q.type==='tf') ok=a?.sel===q.ans;
+    else if(q.type==='sort') ok=JSON.stringify(a?.order)===JSON.stringify(q.correctOrder);
+    else if(q.type==='open') ok=!!(a?.text&&a.text.length>20);
+    if(ok) correct++;
+    const card=document.getElementById(`card_${q.id}`);if(card) card.classList.add(ok?'ok':'wrong');
+    if(q.type==='mc'){
+      q.opts.forEach((_,i)=>{
+        const b=document.getElementById(`${q.id}_o${i}`);if(!b) return;
+        b.disabled=true;b.classList.remove('sel');
+        if(i===q.ans) b.classList.add('correct');
+        else if(i===a?.sel&&a.sel!==q.ans) b.classList.add('wrong');
+      });
+    }else if(q.type==='tf'){
+      const tb=document.getElementById(`${q.id}_t`),fb2=document.getElementById(`${q.id}_f`);
+      if(tb){tb.disabled=true;tb.classList.remove('sel');if(q.ans===true)tb.classList.add('correct');else if(a?.sel===true)tb.classList.add('wrong');}
+      if(fb2){fb2.disabled=true;fb2.classList.remove('sel');if(q.ans===false)fb2.classList.add('correct');else if(a?.sel===false)fb2.classList.add('wrong');}
+    }else if(q.type==='open'){
+      const el=document.getElementById(`${q.id}_oa`);if(el) el.disabled=true;
+    }
+    const fb=document.getElementById(`${q.id}_fb`);
+    if(fb){fb.classList.add('show',ok?'ok':'wrong');fb.innerHTML=ok?`✅ ${q.explain}`:`❌ ${q.explain}`;}
   });
   _lastCorrect=correct;
-  const score=Math.round(correct/QUESTIONS.length*100);
-  _lastScore=score;
-  saveScore(score,STUDENT_NAME,STUDENT_CLASS);
-  renderQuestions();
-  const emoji=score>=90?'🏆':score>=80?'⭐':score>=60?'👍':'💪';
-  const barColor=score>=80?'#15803d':score>=60?'#b45309':'#dc2626';
-  const rc=document.getElementById('results-container');
-  if(rc)rc.innerHTML=`<div class="results-card">
+  const pct=Math.round(correct/QUESTIONS.length*100);
+  _lastScore=pct;
+  saveScore(pct+'%',STUDENT_NAME,STUDENT_CLASS);
+  if(pct>=80) launchConfetti();
+  showResults(correct,QUESTIONS.length,pct);
+  const sc=document.getElementById('qp-score');
+  if(sc){sc.style.display='';sc.textContent=pct+'%';}
+}
+function showResults(correct,total,pct){
+  const el=document.getElementById('results-container');if(!el) return;
+  const emoji=pct>=90?'🏆':pct>=80?'⭐':pct>=70?'👍':pct>=55?'💪':'📚';
+  const label=pct>=80?'מצוין! עברת את הרף 80%!':pct>=55?'כמעט! חזור על הנושאים שטעית.':'כדאי לחזור על התיאוריה.';
+  const fillColor=pct>=80?'var(--green)':pct>=55?'var(--amber)':'var(--red)';
+  el.innerHTML=`<div class="results-card">
     <span class="results-emoji">${emoji}</span>
-    <span class="results-score" style="color:${barColor}">${score}%</span>
-    <span class="results-label">${correct} נכונות מתוך ${QUESTIONS.length}</span>
-    <div class="results-bar"><div class="results-bar-fill" style="width:0%;background:${barColor}" id="rbar"></div></div>
-    <button class="btn-send" onclick="sendToTeacher()">📤 שלח למורה</button>
+    <span class="results-score" style="color:${fillColor}">${pct}%</span>
+    <span class="results-label">${correct} מתוך ${total} נכונות · ${label}</span>
+    <div class="results-bar"><div class="results-bar-fill" style="width:0%;background:${fillColor}" id="res-fill"></div></div>
+    <button class="btn-print" onclick="printLesson()" style="margin:0 auto">🖨️ הדפסת תרגול</button>
   </div>`;
-  setTimeout(()=>{const b=document.getElementById('rbar');if(b)b.style.width=score+'%';},60);
-  document.getElementById('results-container')?.scrollIntoView({behavior:'smooth',block:'nearest'});
+  setTimeout(()=>{const f=document.getElementById('res-fill');if(f)f.style.width=pct+'%';},80);
 }
+
+/* ════════════════════════════════════════════════
+   RESET
+════════════════════════════════════════════════ */
 function resetQuiz(){
-  QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;
+  if(QS.submitted&&!confirm('לאפס את התרגול?')) return;
+  QS.submitted=false;QS.answers={};
   renderQuestions();
-  const rc=document.getElementById('results-container');if(rc)rc.innerHTML='';
-  updateProgress();
-  toast('🔄 התרגול אופס');
-}
-async function sendToTeacher(){
-  if(_lastScore===null){toast('⚠️ הגש קודם');return;}
-  await saveScore(_lastScore,STUDENT_NAME,STUDENT_CLASS);
-  toast('✅ נשלח למורה! ציון: '+_lastScore+'%');
+  const rc=document.getElementById('results-container');if(rc) rc.innerHTML='';
+  const fill=document.getElementById('qp-fill');if(fill) fill.style.width='0%';
+  const ctr=document.getElementById('qp-counter');if(ctr) ctr.textContent='0 / 20 נענו';
+  const sc=document.getElementById('qp-score');if(sc){sc.style.display='none';sc.textContent='';}
 }
 
 /* ════════════════════════════════════════════════
    ANSWERS RENDER
 ════════════════════════════════════════════════ */
 function renderAnswers(){
-  const c=document.getElementById('answers-container');if(!c)return;
-  const LETTERS=['א','ב','ג','ד'];
+  const c=document.getElementById('answers-container');if(!c) return;
   c.innerHTML=QUESTIONS.map((q,i)=>{
-    const corr=q.type==='mc'?`${LETTERS[q.ans]}. ${q.opts[q.ans]}`:
-               q.type==='tf'?(q.ans?'✅ נכון':'❌ לא נכון'):
-               q.type==='open'?'שאלת כתיבה פתוחה':
-               q.correctOrder.map(j=>q.items[j]).join(' ← ');
+    const typeLabel=q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='sort'?'סידור':'כתיבה פתוחה';
+    const ca=q.type==='mc'?q.opts[q.ans]:q.type==='tf'?(q.ans?'✅ נכון':'❌ לא נכון'):q.type==='sort'?q.items.filter((_,i)=>q.correctOrder.indexOf(i)===q.correctOrder.indexOf(q.correctOrder[q.correctOrder.indexOf(i)])).join(' → '):'(ראה הסבר)';
+    const caDisplay=q.type==='sort'?q.correctOrder.map(i=>q.items[i]).join(' → '):ca;
     return `<div class="answer-row">
-      <div class="ans-num">שאלה ${i+1} <span style="background:var(--lc-lt);color:var(--lc);font-size:.56rem;font-weight:700;padding:.12rem .48rem;border-radius:99px;border:1px solid var(--lc)">${q.ref||''}</span></div>
+      <div class="ans-num">שאלה ${i+1} <span class="q-type-badge">${typeLabel}</span>${q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#fde68a">📍 ${q.ref}</span>`:''}</div>
       <div class="ans-q">${q.q}</div>
-      <div class="ans-correct">✅ ${corr}</div>
-      <div class="ans-explain">💡 ${q.explain}</div>
-      ${q.teacherNote?`<div class="ans-teacher-note">🎓 ${q.teacherNote}</div>`:''}
+      <div class="ans-correct">✅ תשובה: ${caDisplay}</div>
+      <div class="ans-explain">${q.explain}</div>
+      ${q.teacherNote?`<div class="ans-teacher-note">📌 הערת מורה: ${q.teacherNote}</div>`:''}
     </div>`;
   }).join('');
 }
@@ -1061,97 +1282,94 @@ function renderAnswers(){
    PRINT
 ════════════════════════════════════════════════ */
 function printLesson(){
-  var pw=window.open('','_blank','width=960,height=760');
-  if(!pw){alert('popup blocked');return;}
-  var accent='#b45309';
-  var isTeacher=(document.body.classList.contains('is-teacher')||(new URLSearchParams(window.location.search)).get('role')==='teacher');
-  var score=(typeof _lastScore!=='undefined')?_lastScore:null;
-  var correct=(typeof _lastCorrect!=='undefined')?_lastCorrect:0;
-  var sn=isTeacher?'':((typeof SNP!=='undefined'&&SNP)?SNP:((typeof STUDENT_NAME!=='undefined'&&STUDENT_NAME)?STUDENT_NAME:''));
-  var sc=isTeacher?'':((typeof SCP!=='undefined'&&SCP)?SCP:((typeof STUDENT_CLASS!=='undefined'&&STUDENT_CLASS)?STUDENT_CLASS:''));
-  var qs=(typeof QUESTIONS!=='undefined')?QUESTIONS:[];
-  var submitted=(typeof QS!=='undefined')&&QS.submitted;
-  var scoreHtml='';
-  if(!isTeacher){
-    scoreHtml=score!==null
-      ?'<div style="background:#f0fdf4;border:2px solid #15803d;border-radius:12px;padding:1rem 1.5rem;margin-bottom:1.5rem;text-align:center"><div style="font-size:36pt;color:#15803d">'+score+'%</div><div style="font-size:11pt;color:#15803d;font-weight:700">'+correct+' נכון מתוך '+qs.length+'</div></div>'
-      :'<div style="background:#fffbeb;border:2px solid #b45309;border-radius:12px;padding:1rem;text-align:center;color:#b45309;font-weight:700">⏳ טרם הוגש</div>';
-  }
-  var theoryHtml=(document.getElementById('pane-theory')||{innerHTML:''}).innerHTML||'';
-  var practiceEl=document.getElementById('pane-practice');
-  var textsHtml='';
-  if(practiceEl){var boxes=practiceEl.querySelectorAll('.reading-text-box');for(var t=0;t<boxes.length;t++){textsHtml+=boxes[t].outerHTML;}}
-  var LETTERS=['א','ב','ג','ד'];
-  var questionsHtml=qs.map(function(q,i){
-    var a=(typeof QS!=='undefined'&&QS.answers)?QS.answers[q.id]:undefined;
-    var ok=false,gv='לא נענה';
-    if(q.type==='mc'&&a&&a.sel!==undefined){gv=LETTERS[a.sel]+'. '+q.opts[a.sel];ok=(a.sel===q.ans);}
-    else if(q.type==='tf'&&a&&a.sel!==undefined){gv=a.sel?'נכון':'לא נכון';ok=(a.sel===q.ans);}
-    else if(q.type==='sort'&&a&&a.order){gv=a.order.map(function(j){return q.items[j];}).join(' ← ');ok=(JSON.stringify(a.order)===JSON.stringify(q.correctOrder));}
-    else if(q.type==='open'){gv=(a&&a.text)?a.text:'(לא נכתב)';ok=!!(a&&a.text&&a.text.length>10);}
-    var ca='';
-    if(q.type==='mc')ca=LETTERS[q.ans]+'. '+q.opts[q.ans];
-    else if(q.type==='tf')ca=q.ans?'נכון':'לא נכון';
-    else if(q.type==='sort')ca=q.correctOrder.map(function(j){return q.items[j];}).join(' ← ');
-    else ca='שאלת כתיבה פתוחה';
-    var pts=q.pts?'<div style="font-size:8pt;color:#b45309;font-weight:700;margin-bottom:.2rem">'+q.pts+' נקודות'+(q.ref?' · '+q.ref:'')+'</div>':(q.ref?'<div style="font-size:7.5pt;color:#b45309">'+q.ref+'</div>':'');
-    var rowBg=submitted?(ok?'#fafffe':'#fffbfb'):'#fff';
-    var rowBorder=submitted?(ok?'#bbf7d0':'#fca5a5'):'#e4e7ef';
-    var numBg=submitted?(ok?'#15803d':'#dc2626'):'#b45309';
-    var ansStyle=submitted?(ok?'background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0':'background:#fef2f2;color:#dc2626;border:1px solid #fca5a5'):'background:#fefce8;color:#b45309;border:1px solid #fde68a';
-    var ansIcon=submitted?(ok?'✅':'❌'):'→';
-    var h='<div style="display:flex;gap:.6rem;border:1px solid '+rowBorder+';border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid;background:'+rowBg+'">';
-    h+='<div style="width:20px;height:20px;border-radius:50%;background:'+numBg+';color:#fff;font-size:.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem">'+(i+1)+'</div>';
-    h+='<div style="flex:1">'+pts+'<div style="font-size:9.5pt;font-weight:700;color:#0d1424;margin-bottom:.3rem">'+q.q+'</div>';
-    if(!isTeacher){h+='<div style="font-size:9pt;padding:.3rem .65rem;border-radius:6px;margin-bottom:.25rem;'+ansStyle+'"><strong>'+ansIcon+' תשובת התלמיד/ה:</strong> '+gv+'</div>';}
-    if(isTeacher){h+='<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ תשובה נכונה:</strong> '+ca+'</div>';}
-    else if(submitted&&!ok&&gv!=='לא נענה'){h+='<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ התשובה הנכונה:</strong> '+ca+'</div>';}
-    h+='<div style="font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem;line-height:1.5">'+q.explain+'</div>';
-    if(q.teacherNote)h+='<div style="font-size:8pt;color:#b45309;margin-top:.2rem;background:#fefce8;border-radius:5px;padding:.25rem .55rem">'+q.teacherNote+'</div>';
+  const pw=window.open('','_blank');if(!pw) return;
+  const sn=STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'?STUDENT_NAME:'';
+  const sc=STUDENT_CLASS||'';
+  const theoryHtml=document.getElementById('pane-theory')?.innerHTML||'';
+  const questionsHtml=QUESTIONS.map((q,i)=>{
+    const a=QS.answers[q.id];
+    const caDisplay=q.type==='mc'?q.opts[q.ans]:q.type==='tf'?(q.ans?'נכון':'לא נכון'):q.type==='sort'?q.correctOrder.map(i=>q.items[i]).join(' → '):'(ראה הסבר)';
+    const gv=q.type==='mc'?(a?.sel!=null?q.opts[a.sel]:'לא נענה'):q.type==='tf'?(a?.sel!=null?(a.sel?'נכון':'לא נכון'):'לא נענה'):(a?.text||'לא נענה');
+    const ok=q.type==='mc'?a?.sel===q.ans:q.type==='tf'?a?.sel===q.ans:q.type==='sort'?JSON.stringify(a?.order)===JSON.stringify(q.correctOrder):!!(a?.text&&a.text.length>20);
+    const submitted=QS.submitted;
+    const numBg=submitted?(ok?'#15803d':'#dc2626'):'#b45309';
+    const rowBg=submitted?(ok?'#fafffe':'#fffbfb'):'#fff';
+    const rowBorder=submitted?(ok?'#bbf7d0':'#fca5a5'):'#e4e7ef';
+    let h=`<div style="display:flex;gap:.6rem;border:1px solid ${rowBorder};border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid;background:${rowBg}">`;
+    h+=`<div style="width:20px;height:20px;border-radius:50%;background:${numBg};color:#fff;font-size:.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem">${i+1}</div>`;
+    h+=`<div style="flex:1"><div style="font-size:9.5pt;font-weight:700;color:#0d1424;margin-bottom:.3rem">${q.q}</div>`;
+    if(submitted){h+=`<div style="font-size:9pt;padding:.3rem .65rem;border-radius:6px;margin-bottom:.25rem;background:${ok?'#f0fdf4':'#fef2f2'};color:${ok?'#15803d':'#dc2626'};border:1px solid ${ok?'#bbf7d0':'#fca5a5'}"><strong>${ok?'✅':'❌'} תשובתך:</strong> ${gv}</div>`;}
+    h+=`<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ תשובה נכונה:</strong> ${caDisplay}</div>`;
+    h+=`<div style="font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem;line-height:1.5">${q.explain}</div>`;
+    if(q.teacherNote) h+=`<div style="font-size:8pt;color:#b45309;margin-top:.2rem;background:#fffbeb;border-radius:5px;padding:.25rem .55rem">${q.teacherNote}</div>`;
     h+='</div></div>';
     return h;
   }).join('');
-  var css='*{box-sizing:border-box;margin:0;padding:0}body{font-family:Heebo,sans-serif;direction:rtl;background:#fff;color:#0d1424;font-size:10pt;line-height:1.6}@page{margin:1.5cm;size:A4}.doc{max-width:210mm;margin:0 auto;padding:1cm}.doc-header{text-align:center;padding-bottom:1.2rem;border-bottom:3px solid #b45309;margin-bottom:1.5rem}.doc-header h1{font-size:18pt;color:#b45309}.doc-header p{font-size:9pt;color:#555}.sec-title{font-size:13pt;color:#b45309;border-bottom:2px solid #ecfeff;padding-bottom:.4rem;margin:1.5rem 0 1rem;page-break-after:avoid}.card{border:1px solid #e4e7ef;border-radius:8px;padding:.8rem 1rem;margin-bottom:.7rem;break-inside:avoid}.mini-card{background:#f8f9fb;border:1px solid #e4e7ef;border-radius:8px;padding:.7rem .9rem;break-inside:avoid}.lesson-hero{background:#faf5ff;border:1px solid #ddd6fe;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid}.lesson-hero::before{display:none}.section-hd{font-size:11pt;color:#b45309;border-bottom:1.5px solid #ecfeff;padding-bottom:.3rem;margin:1.2rem 0 .6rem;display:flex;align-items:center;gap:.4rem;page-break-after:avoid}.sn{width:22px;height:22px;border-radius:50%;background:#b45309;color:#fff;font-size:.65rem;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900;-webkit-print-color-adjust:exact;print-color-adjust:exact}.box-lc,.box{background:#ecfeff;border:1.5px solid #a5f3fc;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.box-amber{background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.box-green{background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.6rem}.texts-side{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.8rem}.text-panel{border-radius:8px;overflow:hidden;break-inside:avoid}.text-panel.a .text-panel-header{background:#7c3aed;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.text-panel.b .text-panel-header{background:#5b21b6;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.text-panel-header{padding:.5rem .8rem;font-size:.72rem;font-weight:800}.text-panel-body{background:#f8f9fb;border:1px solid #e4e7ef;border-top:none;padding:.7rem .8rem;font-size:.78rem;line-height:1.6}.venn-wrap{display:flex;gap:0;margin:.8rem 0;break-inside:avoid}.venn-left{flex:1;background:#eff4ff;border:1.5px solid #bfdbfe;padding:.7rem .9rem;font-size:.78rem}.venn-center{width:130px;flex-shrink:0;background:#ede9fe;border:1.5px solid #c4b5fd;padding:.7rem .6rem;text-align:center;font-size:.78rem}.venn-right{flex:1;background:#fdf4ff;border:1.5px solid #d8b4fe;padding:.7rem .9rem;font-size:.78rem}.cmp-table{width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:.8rem;break-inside:avoid}.cmp-table th{padding:.5rem .7rem;text-align:right;font-weight:800;font-size:.72rem;background:#b45309;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.cmp-table th.col-b{background:#5b21b6}.cmp-table td{padding:.45rem .7rem;border-bottom:1px solid #e4e7ef}.cmp-table tr:nth-child(even) td{background:#f8f9fb}.row-label{font-weight:700;background:#faf5ff!important}.steps-wrap{background:#faf5ff;border:1.5px solid #ddd6fe;border-radius:10px;padding:1rem;margin-bottom:.8rem;break-inside:avoid}.bagrut-template{border:2px dashed #b45309;border-radius:10px;padding:1rem;margin-bottom:.8rem;break-inside:avoid}.bagrut-sample{background:#faf5ff;border:1.5px solid #ddd6fe;border-radius:8px;padding:.8rem 1rem;font-size:.82rem;line-height:1.7;break-inside:avoid}.reading-text-box{background:#faf5ff;border:2px solid #b45309;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid;position:relative}.reading-text-box::before{display:none}.hero-badge,.hero-chip,.hero-meta,.btn-print,.print-header,.sn-icon{display:none!important}';
-  var studentLine=(sn&&sn.length>0)?'<div style="font-size:11pt;font-weight:700;margin-top:.5rem">תלמיד/ה: '+sn+(sc?' | כיתה: '+sc:'')+' | '+new Date().toLocaleDateString('he-IL')+'</div>':'<div style="font-size:10pt;color:#6b7594;margin-top:.4rem">'+new Date().toLocaleDateString('he-IL')+'</div>';
-  var bodyHtml='<div class="doc"><div class="doc-header"><h1>טקסט טיעון</h1><p>יחידה 1 — הבנה והבעה · שיעור 4</p>'+studentLine+'</div>'+scoreHtml+'<div class="sec-title">חלק א — תיאוריה</div><div>'+theoryHtml+'</div>'+(textsHtml?'<div class="sec-title" style="page-break-before:always">טקסטים לקריאה</div>'+textsHtml:'')+(questionsHtml?'<div class="sec-title" style="page-break-before:always">חלק ב — תרגול ותשובות</div>'+questionsHtml:'')+'</div>';
-  var fullHtml='<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><title>טקסט טיעון</title><link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet"><style>'+css+'</style></head><body>'+bodyHtml+'<'+'script>document.fonts.ready.then(function(){setTimeout(function(){window.print();},300);}).catch(function(){setTimeout(function(){window.print();},1200);});<'+'/script></body></html>';
-  pw.document.write(fullHtml);
-  pw.document.close();
+  const css=`*{box-sizing:border-box;margin:0;padding:0}body{font-family:Heebo,sans-serif;direction:rtl;background:#fff;color:#0d1424;font-size:10pt;line-height:1.6}@page{margin:1.5cm;size:A4}.doc{max-width:210mm;margin:0 auto;padding:1cm}.doc-header{text-align:center;padding-bottom:1.2rem;border-bottom:3px solid #b45309;margin-bottom:1.5rem}.doc-header h1{font-size:18pt;color:#b45309}.doc-header p{font-size:9pt;color:#555}.sec-title{font-size:13pt;color:#b45309;border-bottom:2px solid #fffbeb;padding-bottom:.4rem;margin:1.5rem 0 1rem}.card{border:1px solid #e4e7ef;border-radius:8px;padding:.8rem 1rem;margin-bottom:.7rem;break-inside:avoid}.lesson-hero{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid}.section-hd{font-size:11pt;color:#b45309;border-bottom:1.5px solid #fffbeb;padding-bottom:.3rem;margin:1.2rem 0 .6rem;display:flex;align-items:center;gap:.4rem;page-break-after:avoid}.sn{width:22px;height:22px;border-radius:50%;background:#b45309;color:#fff;font-size:.65rem;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900;-webkit-print-color-adjust:exact;print-color-adjust:exact}.reading-text-box{border:2px solid #b45309;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid}.hero-badge,.hero-chip,.hero-meta,.btn-print,.print-header,.sn-icon,.goto-practice-btn{display:none!important}`;
+  const studentLine=(sn&&sn.length>0)?`<div style="font-size:11pt;font-weight:700;margin-top:.5rem">תלמיד/ה: ${sn}${sc?' | כיתה: '+sc:''} | ${new Date().toLocaleDateString('he-IL')}</div>`:`<div style="font-size:10pt;color:#6b7594;margin-top:.4rem">${new Date().toLocaleDateString('he-IL')}</div>`;
+  const bodyHtml=`<div class="doc"><div class="doc-header"><h1>טקסט טיעון</h1><p>יחידה א — שיעור 4 · לשון 30% בגרות</p>${studentLine}</div><div class="sec-title">חלק א — תיאוריה</div><div>${theoryHtml}</div>${questionsHtml?`<div class="sec-title" style="page-break-before:always">חלק ב — תרגול ותשובות</div>${questionsHtml}`:''}</div>`;
+  const fullHtml=`<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><title>טקסט טיעון</title><link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet"><style>${css}</style></head><body>${bodyHtml}<${'script'}>document.fonts.ready.then(()=>setTimeout(()=>window.print(),300)).catch(()=>setTimeout(()=>window.print(),1200));</${'script'}></body></html>`;
+  pw.document.write(fullHtml);pw.document.close();
 }
 
 /* ════════════════════════════════════════════════
-   TOAST, NAV, INIT
+   CONFETTI
+════════════════════════════════════════════════ */
+function launchConfetti(){
+  const colors=['#b45309','#f59e0b','#fbbf24','#34d399','#60a5fa','#a78bfa'];
+  for(let i=0;i<70;i++){
+    const el=document.createElement('div');
+    el.className='confetti-piece';
+    el.style.cssText=`left:${Math.random()*100}vw;background:${colors[Math.floor(Math.random()*colors.length)]};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;animation-delay:${Math.random()*.8}s;animation-duration:${1.8+Math.random()*.8}s;border-radius:${Math.random()>.5?'50%':'2px'}`;
+    document.body.appendChild(el);
+    el.addEventListener('animationend',()=>el.remove());
+  }
+}
+
+/* ════════════════════════════════════════════════
+   TOAST
 ════════════════════════════════════════════════ */
 let _tt;
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800)}
+
+/* ════════════════════════════════════════════════
+   NAVIGATION
+════════════════════════════════════════════════ */
 function goBack(){
-  if(window.opener){
-    try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}
-    window.close();
-    return;
-  }
+  if(window.opener) try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}
   window.location.href=BACK_URL;
 }
+
+/* ════════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════════ */
 function init(){
   initFirebase();
   if(USER_ROLE==='teacher'){
-    const rc=document.getElementById('role-chip');if(rc)rc.style.display='';
-    const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';
+    const rc=document.getElementById('role-chip');if(rc) rc.style.display='';
+    const tb=document.getElementById('btn-answers');if(tb) tb.style.display='';
     _gateConfirmed=true;
-    const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='';
+    const wrap=document.getElementById('practice-content-wrap');if(wrap) wrap.style.display='';
     document.getElementById('student-gate')?.classList.add('hidden');
     document.getElementById('gate-confirmed')?.classList.add('hidden');
   }else{
-    const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';
+    const wrap=document.getElementById('practice-content-wrap');if(wrap) wrap.style.display='none';
     if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){
-      _gateConfirmed=true;if(wrap)wrap.style.display='';
+      _gateConfirmed=true;
+      if(wrap) wrap.style.display='';
       document.getElementById('student-gate')?.classList.add('hidden');
-      const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');
-      if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');
+      const av=document.getElementById('gc-avatar');
+      const nm=document.getElementById('gc-name-display');
+      const mt=document.getElementById('gc-meta-display');
+      if(av) av.textContent=STUDENT_NAME[0].toUpperCase();
+      if(nm) nm.textContent=STUDENT_NAME;
+      if(mt) mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');
       document.getElementById('gate-confirmed')?.classList.remove('hidden');
     }
   }
-  applyAnswersVisibility();renderQuestions();
+  renderAnswersTab();
+  renderAnswers();
+  renderQuestions();
 }
 init();
 </script>
