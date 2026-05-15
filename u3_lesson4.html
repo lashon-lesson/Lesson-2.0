@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>יחידה 3 שיעור 4 — גזרת השלמים: בניינים קלים | לשון Lesson 2.0</title>
+<title>יחידה 3 שיעור 4 — גזרת השלמים: בניינים כבדים | לשון Lesson 2.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -11,14 +11,10 @@
 :root{
   --bg:#f0f2f7;--surface:#fff;--surface2:#f8f9fb;--surface3:#eef0f5;
   --border:#e4e7ef;--text:#0d1424;--text-mid:#3d4660;--muted:#6b7594;--subtle:#9aa3be;
-  --blue:#1a56db;--blue-lt:#eff4ff;
-  --green:#15803d;--green-lt:#f0fdf4;
-  --amber:#b45309;--amber-lt:#fffbeb;
-  --red:#dc2626;--red-lt:#fef2f2;
+  --green:#15803d;--green-lt:#f0fdf4;--amber:#b45309;--amber-lt:#fffbeb;
+  --red:#dc2626;--red-lt:#fef2f2;--blue:#1a56db;--blue-lt:#eff4ff;
+  --rose:#be185d;--rose-lt:#fff1f2;--purple:#7c3aed;--purple-lt:#faf5ff;
   --gold:#ca8a04;--gold-lt:#fefce8;
-  --teal:#0f766e;--teal-lt:#f0fdfa;
-  --rose:#be185d;--rose-lt:#fff1f2;
-  /* accent — emerald for lesson 3 */
   --lc:#7c3aed;--lc-lt:#faf5ff;--lc-dk:#5b21b6;
   --sh1:0 1px 3px rgba(13,20,36,.06);--sh2:0 4px 20px rgba(13,20,36,.08);--sh3:0 12px 40px rgba(13,20,36,.12);
   --r:14px;--r-lg:20px;--r-xl:26px;--r-pill:999px;
@@ -26,13 +22,10 @@
 @media(prefers-color-scheme:dark){:root{
   --bg:#0b0f17;--surface:#131924;--surface2:#192030;--surface3:#1f2840;
   --border:#252f47;--text:#d8dfe8;--text-mid:#a0adc5;--muted:#7a8aaa;--subtle:#50607e;
-  --blue:#4d8aff;--blue-lt:#162040;
-  --green:#34d875;--green-lt:#0c2618;
-  --amber:#f5a623;--amber-lt:#28200c;
-  --red:#fc8080;--red-lt:#281414;
+  --green:#34d875;--green-lt:#0c2618;--amber:#f5a623;--amber-lt:#28200c;
+  --red:#fc8080;--red-lt:#281414;--blue:#4d8aff;--blue-lt:#162040;
+  --rose:#fb7185;--rose-lt:#1f0a0f;--purple:#b09dfa;--purple-lt:#1a1432;
   --gold:#f5a623;--gold-lt:#28200c;
-  --teal:#34d4c2;--teal-lt:#0c221e;
-  --rose:#fb7185;--rose-lt:#1f0a0f;
   --lc:#a78bfa;--lc-lt:#1e1b4b;--lc-dk:#c4b5fd;
   --sh1:0 1px 3px rgba(0,0,0,.3);--sh2:0 4px 20px rgba(0,0,0,.4);--sh3:0 12px 40px rgba(0,0,0,.5);
 }}
@@ -57,8 +50,8 @@ button,input,select,textarea{font-family:inherit}
 .tab-btn{padding:.68rem 1.2rem;border:none;border-bottom:2.5px solid transparent;background:none;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;min-height:46px;margin-bottom:-1px;flex-shrink:0;transition:color .14s}
 .tab-btn:hover{color:var(--lc)}
 .tab-btn.active{color:var(--lc);border-bottom-color:var(--lc);font-weight:800}
-.tab-pane{display:none}
-.tab-pane.active{display:block}
+.tab-pane{display:none}.tab-pane.active{display:block;animation:fadeIn .18s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .lesson-wrap{max-width:800px;margin:0 auto;padding:1.5rem 1.2rem 5rem;width:100%}
 .lesson-hero{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface) 68%);border:1px solid var(--border);border-radius:var(--r-xl);padding:1.8rem 1.6rem 1.6rem;margin-bottom:1.8rem;position:relative;overflow:hidden;box-shadow:var(--sh1)}
 .lesson-hero::before{content:'';position:absolute;top:0;right:0;bottom:0;width:5px;background:var(--lc);opacity:.75;border-radius:0 var(--r-xl) var(--r-xl) 0}
@@ -71,72 +64,83 @@ button,input,select,textarea{font-family:inherit}
 .hero-chip.lc{color:var(--lc);background:var(--lc-lt);border-color:var(--lc)}
 .hero-chip.green{color:var(--green);background:var(--green-lt);border-color:#bbf7d0}
 .section-hd{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--lc);display:flex;align-items:center;gap:.55rem;margin:2.2rem 0 1rem;padding-bottom:.48rem;border-bottom:2px solid var(--lc-lt)}
-.section-hd:first-of-type{margin-top:0}
 .sn{width:28px;height:28px;border-radius:50%;background:var(--lc);color:#fff;font-size:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900}
 .sn-icon{font-size:1.3rem;flex-shrink:0;line-height:1}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;box-shadow:var(--sh1);margin-bottom:1rem}
-.card p{font-size:.9rem;line-height:1.78;color:var(--text-mid)}
-.card p+p{margin-top:.65rem}
-.card h4{font-size:.9rem;font-weight:800;margin-bottom:.42rem;color:var(--text)}
-.card ul,.card ol{padding-right:1.3rem;margin-top:.42rem}
-.card li{font-size:.9rem;line-height:1.78;color:var(--text-mid);margin-bottom:.18rem}
+.card p{font-size:.9rem;line-height:1.78;color:var(--text-mid)}.card p+p{margin-top:.65rem}
+.card ul{padding-right:1.3rem;margin-top:.42rem}
+.card li{font-size:.9rem;line-height:1.78;color:var(--text-mid);margin-bottom:.22rem}
 .card li strong{color:var(--text)}
 .box{border-radius:var(--r);padding:1rem 1.2rem;font-size:.86rem;line-height:1.72;color:var(--text-mid);margin-bottom:1rem}
 .box strong{font-weight:800}
 .box-lc{background:var(--lc-lt);border:1.5px solid #ddd6fe}.box-lc strong{color:var(--lc)}
-.box-blue{background:var(--blue-lt);border:1.5px solid #bfdbfe}.box-blue strong{color:var(--blue)}
 .box-amber{background:var(--amber-lt);border:1.5px solid #fde68a}.box-amber strong{color:var(--amber)}
 .box-green{background:var(--green-lt);border:1.5px solid #bbf7d0}.box-green strong{color:var(--green)}
+.box-blue{background:var(--blue-lt);border:1.5px solid #bfdbfe}.box-blue strong{color:var(--blue)}
+.box-purple{background:var(--purple-lt);border:1.5px solid #ddd6fe}.box-purple strong{color:var(--purple)}
 .box-rose{background:var(--rose-lt);border:1.5px solid #fecdd3}.box-rose strong{color:var(--rose)}
-.box-teal{background:var(--teal-lt);border:1.5px solid #99f6e4}.box-teal strong{color:var(--teal)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.85rem}
-@media(max-width:480px){.grid2{grid-template-columns:1fr}}
-.mini-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.95rem 1.05rem}
-.mini-title{font-size:.76rem;font-weight:800;color:var(--text);margin-bottom:.38rem}
-.mini-body{font-size:.8rem;color:var(--text-mid);line-height:1.62}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1rem}
+@media(max-width:600px){.grid3{grid-template-columns:1fr}}
+.mini-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem}
+.mini-title{font-size:.78rem;font-weight:800;margin-bottom:.42rem}
+.mini-body{font-size:.8rem;color:var(--text-mid);line-height:1.64}
 .steps-wrap{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1.5px solid #ddd6fe;border-radius:var(--r-lg);padding:1.4rem 1.5rem;margin-bottom:1rem}
 .steps-title{font-family:'Secular One',sans-serif;font-size:.94rem;color:var(--lc);margin-bottom:1rem}
 .step-item{display:flex;align-items:flex-start;gap:.65rem;font-size:.86rem;color:var(--text-mid);line-height:1.55;margin-bottom:.68rem}
-.step-item:last-child{margin-bottom:0}
 .step-num{width:26px;height:26px;border-radius:50%;background:var(--lc);color:#fff;font-size:.7rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
-/* ── conjugation table ── */
-.conj-wrap{margin-bottom:1.2rem}
-.conj-title{font-family:'Secular One',sans-serif;font-size:.92rem;color:var(--lc);margin-bottom:.65rem;display:flex;align-items:center;gap:.5rem}
-.conj-badge{font-size:.65rem;font-weight:800;padding:.2rem .7rem;border-radius:var(--r-pill);color:#fff;background:var(--lc)}
-.conj-table{width:100%;border-collapse:collapse;font-size:.86rem;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1);margin-bottom:.5rem}
-.conj-table th{padding:.58rem .8rem;text-align:right;font-weight:800;font-size:.73rem;background:var(--lc);color:#fff}
-.conj-table th.t-past{background:var(--lc)}
-.conj-table th.t-pres{background:#0284c7}
-.conj-table th.t-fut{background:#7c3aed}
-.conj-table th.t-inf{background:#b45309}
-.conj-table td{padding:.52rem .8rem;border-bottom:1px solid var(--border);vertical-align:middle;line-height:1.45}
-.conj-table tr:last-child td{border-bottom:none}
-.conj-table tr:nth-child(even) td{background:var(--surface2)}
-.conj-table tr:nth-child(odd) td{background:var(--surface)}
-.conj-table .guf{font-weight:700;color:var(--text-mid);font-size:.78rem;white-space:nowrap}
-.conj-table .form{font-family:'Heebo',sans-serif;font-size:1rem;color:var(--text);font-weight:700;direction:rtl}
-.conj-table .root-mark{color:var(--lc);font-weight:900}
-/* ── binyan card ── */
-.binyan-card{border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--sh2);margin-bottom:1.5rem}
-.bc-head{padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem}
-.bc-num{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.25);color:#fff;font-family:'Secular One',sans-serif;font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900}
-.bc-info{flex:1}
-.bc-name{font-family:'Secular One',sans-serif;font-size:1.1rem;color:#fff;line-height:1.2}
-.bc-en{font-size:.68rem;color:rgba(255,255,255,.8);margin-top:.18rem}
-.bc-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.5rem}
-.bc-tag{font-size:.62rem;font-weight:800;padding:.18rem .65rem;border-radius:var(--r-pill);background:rgba(255,255,255,.2);color:#fff}
-.bc-body{background:var(--surface);border:1px solid var(--border);border-top:none;padding:1.1rem 1.4rem}
-.bc-rule{font-size:.86rem;color:var(--text-mid);line-height:1.65;margin-bottom:.6rem;padding-right:.8rem;border-right:3px solid var(--lc-lt)}
-.bc-rule strong{color:var(--text)}
-.bc-example{font-size:.82rem;font-style:italic;color:var(--muted);background:var(--surface2);border-radius:8px;padding:.35rem .8rem;display:inline-block;margin-top:.3rem}
-/* reading text */
+.cmp-table{width:100%;border-collapse:collapse;font-size:.82rem;margin-bottom:1rem;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
+.cmp-table th{padding:.68rem .9rem;text-align:right;font-weight:800;font-size:.76rem}
+.cmp-table th:first-child{background:var(--lc);color:#fff}
+.cmp-table th.col-b{background:var(--lc-dk);color:#fff}
+.cmp-table th.col-c{background:#374151;color:#fff}
+.cmp-table th.col-d{background:#1e293b;color:#fff}
+.cmp-table td{padding:.62rem .9rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.58}
+.cmp-table tr:last-child td{border-bottom:none}
+.cmp-table tr:nth-child(even) td{background:var(--surface2)}
+.cmp-table tr:nth-child(odd) td{background:var(--surface)}
+.cmp-table .row-label{font-weight:700;color:var(--lc);background:var(--lc-lt)!important;white-space:nowrap}
+
+/* ── SPEECH MODE PANELS ── */
+.speech-panel{border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--sh2);margin-bottom:1.3rem}
+.sp-head{padding:.9rem 1.3rem;font-family:'Secular One',sans-serif;font-size:.9rem;color:#fff;display:flex;align-items:center;gap:.5rem}
+.sp-body{background:var(--surface);border:1px solid var(--border);border-top:none;padding:1.1rem 1.3rem}
+.sp-original{background:var(--surface2);border-radius:var(--r);padding:.85rem 1.05rem;font-size:.9rem;color:var(--text-mid);line-height:1.72;margin-bottom:.85rem;border-right:4px solid var(--lc)}
+.sp-original .quote-marks{font-size:1.1rem;color:var(--lc);font-weight:900}
+.sp-features{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.75rem}
+.sp-feat{font-size:.65rem;font-weight:700;padding:.22rem .68rem;border-radius:var(--r-pill);border:1.5px solid}
+.sp-rules{font-size:.83rem;color:var(--text-mid);line-height:1.7}
+.sp-rules li{margin-bottom:.28rem}
+.sp-rules strong{color:var(--text)}
+/* colors per type */
+.direct .sp-head{background:#0f766e}
+.direct .sp-feat{background:var(--lc-lt);color:#0f766e;border-color:#99f6e4}
+.indirect .sp-head{background:#1a56db}
+.indirect .sp-feat{background:var(--blue-lt);color:#1a56db;border-color:#bfdbfe}
+.free .sp-head{background:#7c3aed}
+.free .sp-feat{background:var(--purple-lt);color:#7c3aed;border-color:#ddd6fe}
+
+/* ── TRANSFORMATION ARROWS ── */
+.transform-wrap{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:1.3rem 1.4rem;margin-bottom:1.1rem;box-shadow:var(--sh1)}
+.tr-title{font-family:'Secular One',sans-serif;font-size:.85rem;color:var(--lc);margin-bottom:1rem;display:flex;align-items:center;gap:.4rem}
+.tr-row{display:flex;flex-direction:column;gap:.5rem;margin-bottom:.9rem}
+.tr-row:last-child{margin-bottom:0}
+.tr-from,.tr-to{padding:.65rem 1rem;border-radius:var(--r);font-size:.87rem;line-height:1.62;color:var(--text-mid)}
+.tr-from{background:var(--lc-lt);border:1.5px solid #99f6e4;border-right:4px solid var(--lc)}
+.tr-from .tr-label{font-size:.62rem;font-weight:800;color:var(--lc);margin-bottom:.28rem;letter-spacing:.04em}
+.tr-to{background:var(--blue-lt);border:1.5px solid #bfdbfe;border-right:4px solid #1a56db}
+.tr-to .tr-label{font-size:.62rem;font-weight:800;color:#1a56db;margin-bottom:.28rem;letter-spacing:.04em}
+.tr-free{background:var(--purple-lt);border:1.5px solid #ddd6fe;border-right:4px solid #7c3aed}
+.tr-free .tr-label{font-size:.62rem;font-weight:800;color:#7c3aed;margin-bottom:.28rem;letter-spacing:.04em}
+.tr-arrow{font-size:1rem;color:var(--muted);text-align:center;padding:.1rem 0}
+.change-badge{display:inline-flex;align-items:center;gap:.25rem;font-size:.62rem;font-weight:700;padding:.16rem .55rem;border-radius:var(--r-pill);background:var(--amber-lt);color:var(--amber);border:1px solid #fde68a;margin-right:.25rem}
+
+/* reading */
 .reading-text-box{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.5rem 1.6rem;margin-bottom:1.8rem;box-shadow:var(--sh2);position:relative}
 .reading-text-box::before{content:'📄 טקסט לניתוח';position:absolute;top:-12px;right:1.4rem;background:var(--lc);color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill);letter-spacing:.04em}
 .rt-title{font-family:'Secular One',sans-serif;font-size:1.05rem;color:var(--text);margin-bottom:.28rem}
-.rt-body{font-size:.9rem;line-height:1.9;color:var(--text-mid)}
-.rt-body p{margin-bottom:.75rem}
-.rt-body p:last-child{margin-bottom:0}
-.rt-body strong{color:var(--text)}
+.rt-body{font-size:.88rem;line-height:1.88;color:var(--text-mid)}
+.rt-body p{margin-bottom:.85rem}.rt-body p:last-child{margin-bottom:0}
+.rt-body strong{color:var(--lc);font-weight:800}
 /* quiz */
 .quiz-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1px solid #ddd6fe;border-radius:var(--r-lg);padding:1.25rem 1.4rem;margin-bottom:1.5rem}
 .quiz-hd-title{font-family:'Secular One',sans-serif;font-size:.97rem;color:var(--lc);margin-bottom:.32rem}
@@ -145,11 +149,11 @@ button,input,select,textarea{font-family:inherit}
 .quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--lc),#a78bfa);border-radius:var(--r-pill);transition:width .38s ease}
 .quiz-prog-row{display:flex;justify-content:space-between;margin-top:.38rem;font-size:.7rem;color:var(--muted)}
 .q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;margin-bottom:1.25rem;box-shadow:var(--sh1);transition:border-color .2s}
-.q-card.ok{border-color:#bbf7d0}
-.q-card.wrong{border-color:#fca5a5}
+.q-card.ok{border-color:#bbf7d0}.q-card.wrong{border-color:#fca5a5}
 .q-num{font-size:.66rem;font-weight:800;color:var(--subtle);margin-bottom:.55rem;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
 .q-type-badge{font-size:.56rem;font-weight:700;padding:.14rem .52rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)}
 .q-text{font-size:.94rem;font-weight:700;color:var(--text);line-height:1.52;margin-bottom:1.05rem}
+.q-excerpt{background:var(--surface2);border:1px solid var(--border);border-right:3px solid var(--lc);border-radius:var(--r);padding:.75rem 1rem;font-size:.86rem;line-height:1.75;color:var(--text-mid);margin-bottom:.85rem;font-style:italic}
 .mc-wrap{display:flex;flex-direction:column;gap:.42rem}
 .mc-btn{width:100%;text-align:right;padding:.78rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.86rem;color:var(--text-mid);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:.68rem;min-height:50px}
 .mc-btn:hover:not(:disabled){border-color:var(--lc);background:var(--lc-lt);color:var(--lc)}
@@ -157,7 +161,7 @@ button,input,select,textarea{font-family:inherit}
 .mc-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important;font-weight:700}
 .mc-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important;font-weight:700}
 .mc-btn:disabled{cursor:default}
-.mc-letter{width:24px;height:24px;border-radius:50%;background:var(--surface3);color:var(--muted);font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .14s}
+.mc-letter{width:24px;height:24px;border-radius:50%;background:var(--surface3);color:var(--muted);font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .mc-btn.sel .mc-letter{background:var(--lc);color:#fff}
 .mc-btn.correct .mc-letter{background:var(--green);color:#fff}
 .mc-btn.wrong .mc-letter{background:var(--red);color:#fff}
@@ -170,7 +174,7 @@ button,input,select,textarea{font-family:inherit}
 .tf-btn:disabled{cursor:default}
 .sort-list{display:flex;flex-direction:column;gap:.42rem;margin-bottom:.55rem}
 .sort-item{display:flex;align-items:center;gap:.68rem;padding:.74rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);cursor:grab;transition:all .15s;user-select:none}
-.sort-item:active{cursor:grabbing;box-shadow:var(--sh2)}
+.sort-item:active{cursor:grabbing}
 .sort-item.dragging{opacity:.45}
 .sort-item.drag-over{border-color:var(--lc);background:var(--lc-lt)}
 .sort-handle{font-size:1.1rem;color:var(--muted);flex-shrink:0}
@@ -189,80 +193,140 @@ button,input,select,textarea{font-family:inherit}
 .btn-submit{padding:.85rem 2rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,.28);transition:all .15s;min-height:48px}
 .btn-submit:hover{background:var(--lc-dk);transform:translateY(-1px)}
 .btn-reset{padding:.82rem 1.6rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);color:var(--muted);font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:48px}
-.btn-reset:hover{background:var(--surface3);color:var(--text)}
-.btn-send{padding:.82rem 1.8rem;border:none;border-radius:var(--r-pill);background:var(--green);color:#fff;font-size:.86rem;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(21,128,61,.3);transition:all .15s;min-height:48px}
-.btn-send:hover{transform:translateY(-1px)}
+.btn-send{padding:.82rem 1.8rem;border:none;border-radius:var(--r-pill);background:var(--green);color:#fff;font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:48px}
 .answers-locked{background:var(--surface);border:2px dashed var(--border);border-radius:var(--r-xl);padding:2.5rem 2rem;text-align:center;margin-top:.5rem}
 .answer-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.05rem 1.2rem;margin-bottom:.78rem}
 .ans-num{font-size:.66rem;color:var(--subtle);margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem}
 .ans-q{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.5rem;line-height:1.45}
 .ans-correct{background:var(--green-lt);border:1.5px solid #bbf7d0;border-radius:9px;padding:.55rem .95rem;font-size:.82rem;color:var(--green);font-weight:700;margin-bottom:.42rem}
 .ans-explain{font-size:.78rem;color:var(--muted);line-height:1.58;border-right:3px solid var(--border);padding-right:.78rem;margin-top:.4rem}
-.ans-teacher-note{font-size:.78rem;font-weight:700;color:var(--lc);margin-top:.38rem;background:var(--lc-lt);border-radius:8px;padding:.42rem .75rem}
+/* gate */
 #student-gate{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:0;margin-bottom:1.5rem;box-shadow:var(--sh2);overflow:hidden}
 #student-gate.hidden{display:none}
 .gate-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);padding:1.4rem 1.5rem 1.2rem;text-align:center;border-bottom:1px solid var(--border)}
 .gate-icon{font-size:2.4rem;display:block;margin-bottom:.55rem}
 .gate-title{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--text);margin-bottom:.28rem}
-.gate-desc{font-size:.8rem;color:var(--muted);line-height:1.55}
+.gate-desc{font-size:.8rem;color:var(--muted)}
 .gate-body{padding:1.3rem 1.5rem 1.5rem;display:flex;flex-direction:column;gap:.9rem}
-.gate-field label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);margin-bottom:.38rem;letter-spacing:.02em}
-.gate-input{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;min-height:50px}
+.gate-field label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);margin-bottom:.38rem}
+.gate-input{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s;min-height:50px}
 .gate-input::placeholder{color:var(--subtle)}
-.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(124,58,237,.14)}
-.gate-input.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.1)}
+.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(15,118,110,.14)}
+.gate-input.err{border-color:var(--red)}
+.gate-select{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s;min-height:50px;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7594' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 1rem center}
+.gate-select:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(15,118,110,.14)}
+.gate-select.err{border-color:var(--red)}
 .gate-err-msg{font-size:.7rem;color:var(--red);margin-top:.26rem;display:none}
 .gate-err-msg.show{display:block}
 .gate-date-display{padding:.78rem 1rem;background:var(--surface3);border:1.5px solid var(--border);border-radius:var(--r);font-size:.88rem;color:var(--muted)}
 .gate-btn{width:100%;padding:.88rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.92rem;font-weight:700;cursor:pointer;min-height:52px;box-shadow:0 4px 18px rgba(124,58,237,.28);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.45rem}
 .gate-btn:hover{background:var(--lc-dk);transform:translateY(-1px)}
-.gate-btn:active{transform:scale(.97)}
-#gate-confirmed{display:none;background:var(--green-lt);border:2px solid #bbf7d0;border-radius:var(--r-xl);padding:1rem 1.3rem;margin-bottom:1.5rem;align-items:center;gap:.85rem}
+#gate-confirmed{display:none;background:var(--lc-lt);border:2px solid #99f6e4;border-radius:var(--r-xl);padding:1rem 1.3rem;margin-bottom:1.5rem;align-items:center;gap:.85rem}
 #gate-confirmed.show{display:flex}
 #gate-confirmed.hidden{display:none!important}
-.gc-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#15803d,#16a34a);color:#fff;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gc-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#0f766e,#065f46);color:#fff;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .gc-info{flex:1;min-width:0}
-.gc-name{font-size:.92rem;font-weight:800;color:var(--green)}
+.gc-name{font-size:.92rem;font-weight:800;color:var(--lc)}
 .gc-meta{font-size:.74rem;color:var(--text-mid);margin-top:.15rem}
 .gc-change{font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;margin-top:.22rem;display:block}
-.gc-change:hover{color:var(--lc)}
 #toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%) translateY(14px);background:var(--text);color:var(--bg);padding:.58rem 1.4rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:700;box-shadow:var(--sh3);z-index:9999;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;white-space:nowrap}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media print{
-  .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,#submit-row,#results-container,#toast,#student-gate,#gate-confirmed,.sort-handle{display:none!important}
-  body{background:#fff;color:#000;font-size:10pt;line-height:1.5}
-  html{background:#fff}
-  .tab-pane{display:block!important}
-  .lesson-wrap{padding:.5cm 1cm;max-width:100%;page-break-inside:avoid}
-  .lesson-hero,.card,.q-card,.reading-text-box,.answer-row,.conj-table,.binyan-card{box-shadow:none;break-inside:avoid;page-break-inside:avoid}
-  .q-feedback{display:block!important}
-  .mc-btn.correct{display:flex!important}
-  .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #059669}
-  .print-header h1{font-size:16pt;color:#059669}
-  .print-header p{font-size:10pt;color:#555}
-  #pane-theory{page-break-after:always}
-  #pane-practice{page-break-after:always}
-  @page{margin:1.5cm;size:A4}
-}
+@media print{.topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,#submit-row,#results-container,#toast,#student-gate,#gate-confirmed,.sort-handle{display:none!important}body{background:#fff;color:#000;font-size:10pt;line-height:1.5}html{background:#fff}.tab-pane{display:block!important}.lesson-wrap{padding:.5cm 1cm;max-width:100%}.lesson-hero,.card,.q-card,.reading-text-box,.answer-row,.cmp-table,.speech-panel,.transform-wrap{box-shadow:none;break-inside:avoid}.q-feedback{display:block!important}.mc-btn.correct{display:flex!important}.print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #0f766e}.print-header h1{font-size:16pt;color:#0f766e}.print-header p{font-size:10pt;color:#555}#pane-theory{page-break-after:always}#pane-practice{page-break-after:always}@page{margin:1.5cm;size:A4}}
 .print-header{display:none}
 
-/* open question */
+/* open q */
 .open-wrap{margin-bottom:.5rem}
 .open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none;transition:border-color .15s}
 .open-textarea:focus{border-color:var(--lc)}
 .open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}
 .open-hint{font-size:.72rem;color:var(--muted,#9aa3be);margin-top:.3rem}
 .open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid,#374151)}
+
+.goto-practice-btn{display:block;width:100%;padding:1rem 1.5rem;border:none;border-radius:var(--r-pill,999px);background:#7c3aed;color:#fff;font-size:.92rem;font-weight:800;cursor:pointer;transition:all .18s;margin-top:.8rem;text-align:center;box-shadow:0 4px 18px rgba(124,58,237,.3)}
+.goto-practice-btn:hover{transform:translateY(-2px);opacity:.92}
+
+/* ── THEORY BLOCKS ── */
+.theory-block{border-radius:var(--r-lg);padding:1.2rem 1.4rem;margin-bottom:1rem}
+.theory-block.blue{background:var(--blue-lt);border:1.5px solid #bfdbfe}
+.theory-block.green{background:var(--green-lt);border:1.5px solid #bbf7d0}
+.theory-block.purple{background:var(--purple-lt);border:1.5px solid #ddd6fe}
+.theory-block.amber{background:var(--amber-lt);border:1.5px solid #fde68a}
+.overflow-x-auto{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.data-table{width:100%;border-collapse:collapse;font-size:.82rem;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
+.data-table th{padding:.62rem .85rem;text-align:right;font-weight:800;font-size:.75rem;background:var(--lc);color:#fff}
+.data-table th:not(:first-child){background:var(--lc-dk)}
+.data-table td{padding:.58rem .85rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55;font-size:.84rem;color:var(--text-mid)}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:nth-child(even) td{background:var(--surface2)}
+.data-table tr:nth-child(odd) td{background:var(--surface)}
+.data-table .row-label{font-weight:700;color:var(--lc);background:var(--lc-lt)!important;white-space:nowrap}
+.error-box{background:var(--red-lt);border:1.5px solid #fca5a5;border-radius:var(--r-lg);padding:1.1rem 1.3rem;margin-bottom:1rem}
+
+
+/* ── WORD ANATOMY ── */
+.word-anatomy{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.4rem 1.5rem;margin-bottom:1.3rem;box-shadow:var(--sh2)}
+.wa-title{font-family:'Secular One',sans-serif;font-size:.88rem;color:var(--lc);margin-bottom:.9rem;display:flex;align-items:center;gap:.4rem}
+.wa-word{font-family:'Secular One',sans-serif;font-size:2.2rem;color:var(--text);text-align:center;letter-spacing:.1em;margin-bottom:1rem;line-height:1.3}
+.wa-parts{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.9rem}
+.wa-part{display:flex;flex-direction:column;align-items:center;gap:.3rem;min-width:52px}
+.wa-sym{font-size:1.55rem;font-weight:800;line-height:1}
+.wa-label{font-size:.62rem;font-weight:700;color:var(--muted);text-align:center;letter-spacing:.02em}
+.wa-part.root .wa-sym{color:var(--lc)}
+.wa-part.prefix .wa-sym{color:var(--blue)}
+.wa-part.suffix .wa-sym{color:var(--green)}
+.wa-analysis{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center}
+.wa-badge{font-size:.72rem;font-weight:700;padding:.25rem .75rem;border-radius:var(--r-pill);border:1.5px solid var(--border);background:var(--surface2);color:var(--text-mid)}
+.wa-badge.root{background:var(--lc-lt);color:var(--lc);border-color:var(--lc)}
+.wa-badge.pattern{background:var(--purple-lt);color:var(--purple);border-color:#ddd6fe}
+.wa-badge.suffix{background:var(--green-lt);color:var(--green);border-color:#bbf7d0}
+.wa-badge.prefix{background:var(--blue-lt);color:var(--blue);border-color:#bfdbfe}
+/* derivation path */
+.deriv-path{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-lg);padding:.9rem 1.1rem;margin-bottom:.85rem}
+.deriv-step{font-family:'Secular One',sans-serif;font-size:.88rem;color:var(--text);background:var(--lc-lt);border:1.5px solid var(--lc);border-radius:var(--r);padding:.28rem .75rem}
+.deriv-arrow{color:var(--muted);font-size:1rem;flex-shrink:0}
+.deriv-label{font-size:.65rem;color:var(--muted);flex-basis:100%;margin-top:.25rem;line-height:1.5}
+
+/* ── BINYAN CARDS ── */
+.binyan-card{border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--sh2);margin-bottom:1.3rem}
+.bc-head{padding:1.1rem 1.4rem;display:flex;align-items:flex-start;gap:1rem;color:#fff}
+.bc-num{font-family:"Secular One",sans-serif;font-size:1.8rem;line-height:1;flex-shrink:0;opacity:.9}
+.bc-info{flex:1}
+.bc-name{font-family:"Secular One",sans-serif;font-size:1rem;margin-bottom:.18rem}
+.bc-en{font-size:.68rem;opacity:.78;margin-bottom:.5rem}
+.bc-tags{display:flex;flex-wrap:wrap;gap:.3rem}
+.bc-tag{font-size:.62rem;font-weight:700;padding:.15rem .6rem;border-radius:var(--r-pill);background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3)}
+.bc-body{background:var(--surface);border:1px solid var(--border);border-top:none;padding:1.1rem 1.3rem}
+.bc-rule{font-size:.86rem;line-height:1.72;color:var(--text-mid);margin-bottom:.55rem;padding-right:.75rem;border-right:2.5px solid var(--lc-lt)}
+.bc-rule strong{color:var(--text)}
+.bc-example{display:inline-block;font-family:"Secular One",sans-serif;font-size:.88rem;color:var(--lc);background:var(--lc-lt);border:1.5px solid var(--lc);border-radius:var(--r-pill);padding:.3rem 1rem;margin-top:.4rem;letter-spacing:.04em}
+/* ── CONJUGATION TABLE ── */
+.conj-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1rem 1.1rem;margin-bottom:1rem;box-shadow:var(--sh1)}
+.conj-title{font-family:"Secular One",sans-serif;font-size:.88rem;color:var(--text);margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.conj-badge{font-size:.65rem;font-weight:800;padding:.22rem .75rem;border-radius:var(--r-pill);color:#fff}
+.conj-table{width:100%;border-collapse:collapse;font-size:.84rem}
+.conj-table th{padding:.55rem .75rem;text-align:right;font-weight:800;font-size:.75rem;background:var(--lc);color:#fff}
+.conj-table th.t-past{background:#059669}.conj-table th.t-pres{background:#0284c7}
+.conj-table th.t-fut{background:#7c3aed}.conj-table th.t-inf{background:#b45309}
+.conj-table td{padding:.52rem .75rem;border-bottom:1px solid var(--border);vertical-align:middle}
+.conj-table tr:last-child td{border-bottom:none}
+.conj-table tr:nth-child(even) td{background:var(--surface2)}
+.conj-table tr:nth-child(odd) td{background:var(--surface)}
+.conj-table .guf{font-size:.8rem;color:var(--muted);font-weight:700;white-space:nowrap}
+.conj-table .form{font-family:"Secular One",sans-serif;font-size:.96rem;color:var(--text);letter-spacing:.03em}
+.root-mark{color:var(--lc);font-weight:900}
+/* compare strip */
+.compare-strip{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.cs-item{flex:1;min-width:130px;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
+.cs-head{padding:.6rem .9rem;font-family:"Secular One",sans-serif;font-size:.82rem;color:#fff;display:flex;align-items:center;gap:.4rem}
+.cs-body{background:var(--surface);border:1px solid var(--border);border-top:none;padding:.75rem .9rem;font-size:.83rem;line-height:1.65;color:var(--text-mid)}
 </style>
 </head>
 <body>
-
-<!-- TOPBAR -->
 <div class="topbar">
-  <button class="btn-back" onclick="goBack()">←</button>
+  <button class="btn-back" onclick="goBack()" style="font-family:Arial,sans-serif">←</button>
   <div class="topbar-info">
     <div class="topbar-title">⚡ גזרת השלמים — בניינים כבדים</div>
-    <div class="topbar-sub">יחידה 3 — צורות · שיעור 4</div>
+    <div class="topbar-sub">יחידה 3 — גזרות · שיעור 4</div>
   </div>
   <div class="topbar-actions">
     <span class="t-chip lc">⏱ 45 דק׳</span>
@@ -270,8 +334,6 @@ button,input,select,textarea{font-family:inherit}
     <button class="btn-print" onclick="printLesson()">🖨️ הדפסה</button>
   </div>
 </div>
-
-<!-- TABS -->
 <div class="tabs-bar">
   <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📚 תיאוריה</button>
   <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">✏️ תרגול (21 שאלות)</button>
@@ -279,21 +341,16 @@ button,input,select,textarea{font-family:inherit}
   <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     THEORY
-══════════════════════════════════════════════ -->
+<!-- ═══ THEORY ═══ -->
 <div class="tab-pane active" id="pane-theory">
-<div class="print-header">
-  <h1>שיעור 4 — גזרת השלמים: בניינים כבדים</h1>
-  <p>יחידה 3: צורות | לשון Lesson 2.0 | כיתות ט׳–י׳</p>
-</div>
+<div class="print-header"><h1>⚡ שיעור 4 — גזרת השלמים: בניינים כבדים</h1><p>יחידה 3: גזרות | לשון Lesson 2.0</p></div>
 <div class="lesson-wrap">
 
   <div class="lesson-hero">
     <div class="hero-badge">יחידה 3 · שיעור 4</div>
     <span class="hero-emoji">⚡</span>
     <h1 class="hero-title">גזרת השלמים — בניינים כבדים</h1>
-    <p class="hero-desc">פועל, התפעל, הפעיל, הופעל — ארבעת הבניינים הכבדים: צורות, זמנים וסימנים מזהים</p>
+    <p class="hero-desc">פועל, התפעל, הפעיל, הופעל — ארבעת הבניינים הכבדים: צורות, זמנים וסימנים מזהים. סיכום כל 7 הבניינים.</p>
     <div class="hero-meta">
       <span class="hero-chip lc">⏱ 45 דק׳</span>
       <span class="hero-chip">🌳 גזרות</span>
@@ -301,54 +358,61 @@ button,input,select,textarea{font-family:inherit}
     </div>
   </div>
 
+  <div style="background:var(--lc-lt);border:2px dashed var(--lc);border-radius:var(--r-xl);padding:1.3rem 1.5rem;margin-bottom:1.8rem">
+    <div style="font-family:'Secular One',sans-serif;font-size:.9rem;color:var(--lc);margin-bottom:.7rem">🤔 שאלת פתיחה</div>
+    <div style="font-size:.9rem;line-height:1.85;color:var(--text-mid)">
+      <p>שתי שאלות: מה ההבדל בין <strong>הִגְדִּיל</strong> ל-<strong>הֻגְדַּל</strong>? ומה ההבדל בין <strong>הִתְגַּדֵּל</strong> ל-<strong>הִגְדִּיל</strong>?</p>
+      <p style="margin-top:.5rem">כולן מאותו שורש ג-ד-ל — אבל כל אחת בבניין שונה. קראו את השיעור ואז ענו.</p>
+    </div>
+  </div>
+
   <!-- 1 -->
   <div class="section-hd"><span class="sn-icon">📖</span><div class="sn">1</div>מה הופך בניין ל"כבד"?</div>
   <div class="card">
-    <p>בשיעור הקודם למדנו את שלושת הבניינים ה"קלים" — קל, נפעל ופיעל. בשיעור זה נלמד ארבעה בניינים נוספים הנחשבים "כבדים": <strong>פועל, התפעל, הפעיל, הופעל</strong>.</p>
+    <p>בשיעור הקודם למדנו את שלושת הבניינים ה"קלים" — קל, נפעל ופיעל. בשיעור זה: ארבעת הבניינים ה"כבדים" — <strong>פועל, התפעל, הפעיל, הופעל</strong>.</p>
   </div>
-  <div class="box box-lc">💡 <strong>כלל זהב — 7 בניינים ב-3 זוגות + 1:</strong> קל↔נפעל / פיעל↔פועל / הפעיל↔הופעל / התפעל (בודד). בכל זוג: אחד פעיל, השני סביל.</div>
+  <div class="box box-lc">💡 <strong>כלל הזהב — 7 בניינים ב-3 זוגות + 1:</strong><br>
+    קל ↔ נפעל (בסיסי / סביל) &nbsp;|&nbsp; פיעל ↔ פועל (מחוזק / סביל) &nbsp;|&nbsp; הפעיל ↔ הופעל (גרימה / סביל) &nbsp;|&nbsp; התפעל (חוזר-עצמי, בודד)</div>
 
-  <!-- 2 פועל -->
+  <!-- 2 — פועל -->
   <div class="section-hd"><span class="sn-icon">1️⃣</span><div class="sn">2</div>בניין פועל — הסביל של פיעל</div>
   <div class="binyan-card">
     <div class="bc-head" style="background:linear-gradient(135deg,#be185d,#f472b6)">
       <div class="bc-num">פוע</div>
       <div class="bc-info">
-        <div class="bc-name">בניין פועל — פֻּעַל</div>
-        <div class="bc-en">Pu'al — Passive of Pi'el</div>
+        <div class="bc-name">בניין פועל — פֻּעַל / Pu'al</div>
+        <div class="bc-en">Passive of Pi'el — סביל של פיעל</div>
         <div class="bc-tags"><span class="bc-tag">סביל</span><span class="bc-tag">קיבוץ בפ׳ + דגש בע׳</span><span class="bc-tag">זוג: פיעל↔פועל</span></div>
       </div>
     </div>
     <div class="bc-body">
-      <div class="bc-rule"><strong>משמעות:</strong> הסביל של פיעל. "דֻּבַּר" = דובר (ע"י מישהו). "לֻמַּד" = נלמד.</div>
-      <div class="bc-rule"><strong>סימן מובהק:</strong> <strong>קיבוץ (ֻ) ישירות תחת פ׳ השורש + דגש חזק בע׳.</strong> שילוב ייחודי — לא קיים בשום בניין אחר.</div>
-      <div class="bc-rule"><strong>הווה:</strong> מְפֻעָל — "מְדֻבָּר". <strong>עתיד:</strong> יְפֻעַל — "יְדֻבַּר".</div>
+      <div class="bc-rule"><strong>משמעות:</strong> הסביל של פיעל. "דֻּבַּר" = דובר ע"י מישהו. "לֻמַּד" = נלמד. "שֻׁבַּר" = שובר לרסיסים.</div>
+      <div class="bc-rule"><strong>סימן בלעדי:</strong> <strong>קיבוץ (ֻ) ישירות תחת פ׳ השורש + דגש חזק בע׳</strong>. שילוב ייחודי — לא קיים בשום בניין אחר.</div>
+      <div class="bc-rule"><strong>הווה:</strong> מְפֻעָל (מְדֻבָּר). <strong>עתיד:</strong> יְפֻעַל (יְדֻבַּר). <strong>שם פעולה:</strong> נדיר.</div>
       <span class="bc-example">דֻּבַּר · לֻמַּד · שֻׁבַּר · כֻּתַּב · זֻכַּר · גֻּדַּל</span>
     </div>
   </div>
   <div class="conj-wrap">
-    <div class="conj-title"><span class="conj-badge" style="background:#be185d">כל הזמנים</span> בניין פועל — שורש ד-ב-ר</div>
-    <div style="overflow-x:auto">
-      <table class="conj-table">
-        <thead><tr><th>זמן</th><th class="t-past">עבר ג׳ ז"י</th><th class="t-pres">הווה ז"י</th><th class="t-fut">עתיד ג׳ ז"י</th><th class="t-inf">שם פעולה</th></tr></thead>
-        <tbody>
-          <tr><td class="guf">צורה</td><td class="form">דֻּ<span class="root-mark">בַּ</span>ר</td><td class="form">מְדֻ<span class="root-mark">בָּ</span>ר</td><td class="form">יְדֻ<span class="root-mark">בַּ</span>ר</td><td class="form">—</td></tr>
-          <tr><td class="guf">תבנית</td><td class="form" style="font-size:.8rem;color:#be185d">פֻּעַל</td><td class="form" style="font-size:.8rem;color:#0284c7">מְפֻעָל</td><td class="form" style="font-size:.8rem;color:#059669">יְפֻעַל</td><td></td></tr>
-          <tr><td class="guf">נקבה י׳</td><td class="form">דֻּבְּרָה</td><td class="form">מְדֻבֶּרֶת</td><td class="form">תְּדֻבַּר</td><td class="form">—</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <div class="conj-title"><span class="conj-badge" style="background:#be185d">כל הזמנים</span> פועל — ד-ב-ר</div>
+    <div style="overflow-x:auto"><table class="conj-table">
+      <thead><tr><th>זמן</th><th class="t-past">עבר ג׳ ז"י</th><th class="t-pres">הווה ז"י</th><th class="t-fut">עתיד ג׳ ז"י</th></tr></thead>
+      <tbody>
+        <tr><td class="guf">צורה</td><td class="form">דֻּ<span class="root-mark">בַּ</span>ר</td><td class="form">מְדֻ<span class="root-mark">בָּ</span>ר</td><td class="form">יְדֻ<span class="root-mark">בַּ</span>ר</td></tr>
+        <tr><td class="guf">תבנית</td><td class="form" style="font-size:.76rem;color:#be185d">פֻּעַל</td><td class="form" style="font-size:.76rem;color:#0284c7">מְפֻעָל</td><td class="form" style="font-size:.76rem;color:#059669">יְפֻעַל</td></tr>
+        <tr><td class="guf">נקבה י׳</td><td class="form">דֻּבְּרָה</td><td class="form">מְדֻבֶּרֶת</td><td class="form">תְּדֻבַּר</td></tr>
+      </tbody>
+    </table></div>
   </div>
-  <div class="box box-amber">⚠️ <strong>פועל נדיר בעברית מודרנית</strong> — אבל בבגרות חובה לזהות! הסימן הבלעדי: קיבוץ בפ׳ + דגש חזק בע׳ (ללא ה׳ קידומת). הבדלה מהופעל: הֻ (ה'+קיבוץ) = הופעל; קיבוץ ישירות בפ' = פועל.</div>
+  <div class="box box-amber">⚠️ <strong>פועל ↔ הופעל — מלכודת!</strong> שניהם קיבוץ, אבל: <strong>פועל</strong> = קיבוץ ישירות בפ׳ השורש (דֻּ — ד = פ׳). <strong>הופעל</strong> = קיבוץ בה׳ הקידומת (הֻ — ה = קידומת, לא שורש). "דֻּבַּר" = פועל. "הֻלְבַּשׁ" = הופעל.</div>
 
-  <!-- 3 התפעל -->
+  <!-- 3 — התפעל -->
   <div class="section-hd"><span class="sn-icon">2️⃣</span><div class="sn">3</div>בניין התפעל — חוזר-עצמי ועוד</div>
   <div class="binyan-card">
     <div class="bc-head" style="background:linear-gradient(135deg,#0f766e,#2dd4bf)">
       <div class="bc-num">התפ</div>
       <div class="bc-info">
-        <div class="bc-name">בניין התפעל — הִתְפַּעֵל</div>
-        <div class="bc-en">Hitpa'el — Reflexive / Reciprocal</div>
+        <div class="bc-name">בניין התפעל — הִתְפַּעֵל / Hitpa'el</div>
+        <div class="bc-en">Reflexive / Reciprocal / Change of State</div>
         <div class="bc-tags"><span class="bc-tag">חוזר-עצמי</span><span class="bc-tag">קידומת הִתְ-</span><span class="bc-tag">הדדי / שינוי מצב</span></div>
       </div>
     </div>
@@ -356,808 +420,374 @@ button,input,select,textarea{font-family:inherit}
       <div class="bc-rule"><strong>(1) חוזר-עצמי:</strong> "הִתְלַבֵּשׁ" = לבש את עצמו. "הִתְרַחֵץ" = רחץ את עצמו.</div>
       <div class="bc-rule"><strong>(2) הדדי:</strong> "הִתְכַּתְּבוּ" = כתבו זה לזה. "הִתְוַכְּחוּ" = ויכחו זה עם זה.</div>
       <div class="bc-rule"><strong>(3) שינוי מצב:</strong> "הִתְגַּדֵּל" = הפך לגדול. "הִתְחַמֵּם" = הפך לחם.</div>
-      <div class="bc-rule"><strong>סימן מובהק:</strong> הִתְ- (עבר) · מִתְ- (הווה) · יִתְ- (עתיד).</div>
-      <div class="bc-rule">⚠️ <strong>טרנספוזיציה:</strong> כשפ' השורש = ז/ד/ט/צ — הת' מתחלפת עם פ': "הִצְטַיֵּן" (לא "הִתְצַיֵּן"), "הִזְדַּקֵּן" (לא "הִתְזַקֵּן").</div>
-      <span class="bc-example">הִתְלַבֵּשׁ · הִתְכַּתֵּב · הִתְגַּדֵּל · הִצְטַיֵּן · הִזְדַּקֵּן</span>
+      <div class="bc-rule"><strong>סימן מובהק:</strong> עבר = <strong>הִתְ-</strong> · הווה = <strong>מִתְ-</strong> · עתיד = <strong>יִתְ-</strong>.</div>
+      <div class="bc-rule">⚠️ <strong>טרנספוזיציה:</strong> כשפ׳ = ז/ד/ט/צ — הת׳ מתחלפת עם פ׳: "הִצְטַיֵּן" (←הִתְ+צ). "הִזְדַּקֵּן" (←הִתְ+ז).</div>
+      <span class="bc-example">הִתְלַבֵּשׁ · הִתְכַּתֵּב · הִתְגַּדֵּל · הִצְטַיֵּן · הִזְדַּקֵּן · הִתְרַחֵץ</span>
     </div>
   </div>
   <div class="conj-wrap">
-    <div class="conj-title"><span class="conj-badge" style="background:#0f766e">כל הזמנים</span> בניין התפעל — שורש כ-ת-ב</div>
-    <div style="overflow-x:auto">
-      <table class="conj-table">
-        <thead><tr><th>זמן</th><th class="t-past">עבר ג׳ ז"י</th><th class="t-pres">הווה ז"י</th><th class="t-fut">עתיד ג׳ ז"י</th><th class="t-inf">שם פעולה</th></tr></thead>
-        <tbody>
-          <tr><td class="guf">צורה</td><td class="form">הִתְכַּ<span class="root-mark">תֵּ</span>ב</td><td class="form">מִתְכַּ<span class="root-mark">תֵּ</span>ב</td><td class="form">יִתְכַּ<span class="root-mark">תֵּ</span>ב</td><td class="form">הִתְכַּתְּבוּת</td></tr>
-          <tr><td class="guf">תבנית</td><td class="form" style="font-size:.8rem;color:#0f766e">הִתְפַּעֵל</td><td class="form" style="font-size:.8rem;color:#0284c7">מִתְפַּעֵל</td><td class="form" style="font-size:.8rem;color:#059669">יִתְפַּעֵל</td><td class="form" style="font-size:.8rem;color:#b45309">הִתְפַּעֲלוּת</td></tr>
-          <tr><td class="guf">נקבה י׳</td><td class="form">הִתְכַּתְּבָה</td><td class="form">מִתְכַּתֶּבֶת</td><td class="form">תִּתְכַּתֵּב</td><td class="form">לְהִתְכַּתֵּב</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <div class="conj-title"><span class="conj-badge" style="background:#0f766e">כל הזמנים</span> התפעל — כ-ת-ב</div>
+    <div style="overflow-x:auto"><table class="conj-table">
+      <thead><tr><th>זמן</th><th class="t-past">עבר ג׳ ז"י</th><th class="t-pres">הווה ז"י</th><th class="t-fut">עתיד ג׳ ז"י</th><th class="t-inf">שם פעולה</th></tr></thead>
+      <tbody>
+        <tr><td class="guf">צורה</td><td class="form">הִתְכַּ<span class="root-mark">תֵּ</span>ב</td><td class="form">מִתְכַּ<span class="root-mark">תֵּ</span>ב</td><td class="form">יִתְכַּ<span class="root-mark">תֵּ</span>ב</td><td class="form">הִתְכַּתְּבוּת</td></tr>
+        <tr><td class="guf">תבנית</td><td class="form" style="font-size:.76rem;color:#0f766e">הִתְפַּעֵל</td><td class="form" style="font-size:.76rem;color:#0284c7">מִתְפַּעֵל</td><td class="form" style="font-size:.76rem;color:#059669">יִתְפַּעֵל</td><td class="form" style="font-size:.76rem;color:#b45309">הִתְפַּעֲלוּת</td></tr>
+        <tr><td class="guf">נקבה י׳</td><td class="form">הִתְכַּתְּבָה</td><td class="form">מִתְכַּתֶּבֶת</td><td class="form">תִּתְכַּתֵּב</td><td class="form">לְהִתְכַּתֵּב</td></tr>
+      </tbody>
+    </table></div>
   </div>
 
-  <!-- 4 הפעיל -->
+  <!-- 4 — הפעיל -->
   <div class="section-hd"><span class="sn-icon">3️⃣</span><div class="sn">4</div>בניין הפעיל — גורם לאחר לפעול</div>
   <div class="binyan-card">
     <div class="bc-head" style="background:linear-gradient(135deg,#1a56db,#60a5fa)">
       <div class="bc-num">הפע</div>
       <div class="bc-info">
-        <div class="bc-name">בניין הפעיל — הִפְעִיל</div>
-        <div class="bc-en">Hif'il — Causative Active</div>
+        <div class="bc-name">בניין הפעיל — הִפְעִיל / Hif'il</div>
+        <div class="bc-en">Causative Active — גרימה</div>
         <div class="bc-tags"><span class="bc-tag">גרימה</span><span class="bc-tag">הִ/מַ/יַ + חיריק</span><span class="bc-tag">זוג: הפעיל↔הופעל</span></div>
       </div>
     </div>
     <div class="bc-body">
       <div class="bc-rule"><strong>משמעות — גרימה:</strong> "הִכְנִיס" = גרם להיכנס. "הִלְבִּישׁ" = גרם ללבוש. "הִשְׁמִיעַ" = גרם לשמוע.</div>
       <div class="bc-rule"><strong>משמעות — שינוי מצב:</strong> "הִגְדִּיל" = עשה לגדול. "הִכְשִׁיר" = עשה לכשיר.</div>
-      <div class="bc-rule"><strong>סימנים:</strong> עבר = <strong>הִ</strong> + חיריק אחרי ל׳. הווה = <strong>מַ</strong> (פתח!) + חיריק. עתיד = <strong>יַ</strong> (פתח!) + חיריק.</div>
+      <div class="bc-rule"><strong>סימן:</strong> עבר = <strong>הִ + חיריק אחרי ל׳.</strong> הווה = <strong>מַ (פתח!)</strong>. עתיד = <strong>יַ (פתח!)</strong>. הפתח = סימן מבדיל מפיעל (שוא) ומקל (חיריק).</div>
       <div class="bc-rule"><strong>שם פעולה:</strong> הַקְטָלָה — "הַכְנָסָה", "הַלְבָּשָׁה", "הַשְׁמָעָה".</div>
       <span class="bc-example">הִכְנִיס · הִלְבִּישׁ · הִשְׁמִיעַ · הִגְדִּיל · הִכְשִׁיר · הֶחְלִיף</span>
     </div>
   </div>
   <div class="conj-wrap">
-    <div class="conj-title"><span class="conj-badge" style="background:#1a56db">כל הזמנים</span> בניין הפעיל — שורש כ-נ-ס</div>
-    <div style="overflow-x:auto">
-      <table class="conj-table">
-        <thead><tr><th>זמן</th><th class="t-past">עבר ג׳ ז"י</th><th class="t-pres">הווה ז"י</th><th class="t-fut">עתיד ג׳ ז"י</th><th class="t-inf">שם פעולה</th></tr></thead>
-        <tbody>
-          <tr><td class="guf">צורה</td><td class="form">הִכְ<span class="root-mark">נִיס</span></td><td class="form">מַכְ<span class="root-mark">נִיס</span></td><td class="form">יַכְ<span class="root-mark">נִיס</span></td><td class="form">הַכְנָסָה</td></tr>
-          <tr><td class="guf">תבנית</td><td class="form" style="font-size:.8rem;color:#1a56db">הִקְטִיל</td><td class="form" style="font-size:.8rem;color:#0284c7">מַקְטִיל</td><td class="form" style="font-size:.8rem;color:#059669">יַקְטִיל</td><td class="form" style="font-size:.8rem;color:#b45309">הַקְטָלָה</td></tr>
-          <tr><td class="guf">נקבה י׳</td><td class="form">הִכְנִיסָה</td><td class="form">מַכְנִיסָה</td><td class="form">תַּכְנִיס</td><td class="form">לְהַכְנִיס</td></tr>
-          <tr><td class="guf">ז׳ רבים</td><td class="form">הִכְנִיסוּ</td><td class="form">מַכְנִיסִים</td><td class="form">יַכְנִיסוּ</td><td class="form">—</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <div class="conj-title"><span class="conj-badge" style="background:#1a56db">כל הזמנים</span> הפעיל — כ-נ-ס</div>
+    <div style="overflow-x:auto"><table class="conj-table">
+      <thead><tr><th>זמן</th><th class="t-past">עבר ג׳ ז"י</th><th class="t-pres">הווה ז"י</th><th class="t-fut">עתיד ג׳ ז"י</th><th class="t-inf">שם פעולה</th></tr></thead>
+      <tbody>
+        <tr><td class="guf">צורה</td><td class="form">הִכְ<span class="root-mark">נִיס</span></td><td class="form">מַכְ<span class="root-mark">נִיס</span></td><td class="form">יַכְ<span class="root-mark">נִיס</span></td><td class="form">הַכְנָסָה</td></tr>
+        <tr><td class="guf">תבנית</td><td class="form" style="font-size:.76rem;color:#1a56db">הִקְטִיל</td><td class="form" style="font-size:.76rem;color:#0284c7">מַקְטִיל</td><td class="form" style="font-size:.76rem;color:#059669">יַקְטִיל</td><td class="form" style="font-size:.76rem;color:#b45309">הַקְטָלָה</td></tr>
+        <tr><td class="guf">נקבה י׳</td><td class="form">הִכְנִיסָה</td><td class="form">מַכְנִיסָה</td><td class="form">תַּכְנִיס</td><td class="form">לְהַכְנִיס</td></tr>
+        <tr><td class="guf">ז׳ רבים</td><td class="form">הִכְנִיסוּ</td><td class="form">מַכְנִיסִים</td><td class="form">יַכְנִיסוּ</td><td class="form">—</td></tr>
+      </tbody>
+    </table></div>
   </div>
-  <div class="box box-blue">🔑 <strong>ניקוד יַ (פתח) בהפעיל-עתיד.</strong> שונה מקל (יִ חיריק) ומפיעל (יְ שוא). "יַכְנִיס" (הפעיל) ↔ "יִכְתֹּב" (קל) ↔ "יְדַבֵּר" (פיעל) ↔ "יֻכְנַס" (הופעל).</div>
+  <div class="box box-blue">🔑 <strong>מַ/יַ (פתח) = סימן הפעיל בהווה/עתיד.</strong> שונה מ: קל (יִ חיריק) / פיעל (יְ שוא) / הופעל (יֻ קיבוץ). "יַכְנִיס" = הפעיל. "יִכְתֹּב" = קל. "יְדַבֵּר" = פיעל. "יֻכְנַס" = הופעל.</div>
 
-  <!-- 5 הופעל -->
+  <!-- 5 — הופעל -->
   <div class="section-hd"><span class="sn-icon">4️⃣</span><div class="sn">5</div>בניין הופעל — הסביל של הפעיל</div>
   <div class="binyan-card">
     <div class="bc-head" style="background:linear-gradient(135deg,#b45309,#f59e0b)">
       <div class="bc-num">הופ</div>
       <div class="bc-info">
-        <div class="bc-name">בניין הופעל — הֻפְעַל</div>
-        <div class="bc-en">Huf'al — Passive of Hif'il</div>
-        <div class="bc-tags"><span class="bc-tag">סביל</span><span class="bc-tag">קיבוץ בה׳ הקידומת</span><span class="bc-tag">זוג: הפעיל↔הופעל</span></div>
+        <div class="bc-name">בניין הופעל — הֻפְעַל / Huf'al</div>
+        <div class="bc-en">Passive of Hif'il — סביל של הפעיל</div>
+        <div class="bc-tags"><span class="bc-tag">סביל</span><span class="bc-tag">הֻ / מֻ / יֻ</span><span class="bc-tag">זוג: הפעיל↔הופעל</span></div>
       </div>
     </div>
     <div class="bc-body">
-      <div class="bc-rule"><strong>משמעות:</strong> הסביל של הפעיל. "הֻכְנַס" = הוכנס. "הֻגְדַּל" = הוגדל. "הֻחְלַף" = הוחלף.</div>
-      <div class="bc-rule"><strong>סימן בעבר:</strong> קידומת <strong>הֻ (ה׳ + קיבוץ)</strong> לפני פ׳ השורש.</div>
-      <div class="bc-rule"><strong>סימן בהווה:</strong> קידומת <strong>מֻ</strong> — "מֻכְנָס". <strong>עתיד:</strong> <strong>יֻ</strong> — "יֻכְנַס".</div>
+      <div class="bc-rule"><strong>משמעות:</strong> הסביל של הפעיל. "הֻכְנַס" = הוכנס. "הֻגְדַּל" = הוגדל. "הֻלְבַּשׁ" = הולבש.</div>
+      <div class="bc-rule"><strong>סימן בעבר:</strong> <strong>הֻ (ה׳ + קיבוץ)</strong> לפני פ׳ השורש. לא קיבוץ בפ׳ עצמה (= פועל)!</div>
+      <div class="bc-rule"><strong>הווה:</strong> <strong>מֻ</strong> (קיבוץ במ׳) — "מֻכְנָס". <strong>עתיד:</strong> <strong>יֻ</strong> (קיבוץ ביו׳) — "יֻכְנַס".</div>
       <span class="bc-example">הֻכְנַס · הֻגְדַּל · הֻחְלַף · הֻשְׁמַע · הֻלְבַּשׁ · הֻכְשַׁר</span>
     </div>
   </div>
   <div class="conj-wrap">
-    <div class="conj-title"><span class="conj-badge" style="background:#b45309">כל הזמנים</span> בניין הופעל — שורש כ-נ-ס</div>
-    <div style="overflow-x:auto">
-      <table class="conj-table">
-        <thead><tr><th>זמן</th><th class="t-past">עבר ג׳ ז"י</th><th class="t-pres">הווה ז"י</th><th class="t-fut">עתיד ג׳ ז"י</th></tr></thead>
-        <tbody>
-          <tr><td class="guf">צורה</td><td class="form">הֻכְ<span class="root-mark">נַס</span></td><td class="form">מֻכְ<span class="root-mark">נָס</span></td><td class="form">יֻכְ<span class="root-mark">נַס</span></td></tr>
-          <tr><td class="guf">תבנית</td><td class="form" style="font-size:.8rem;color:#b45309">הֻקְטַל</td><td class="form" style="font-size:.8rem;color:#0284c7">מֻקְטָל</td><td class="form" style="font-size:.8rem;color:#059669">יֻקְטַל</td></tr>
-          <tr><td class="guf">נקבה י׳</td><td class="form">הֻכְנְסָה</td><td class="form">מֻכְנֶסֶת</td><td class="form">תֻּכְנַס</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- 6 טבלת כל 7 הבניינים -->
-  <div class="section-hd"><span class="sn-icon">📊</span><div class="sn">6</div>טבלת זיהוי — כל 7 הבניינים</div>
-  <div style="overflow-x:auto;margin-bottom:1rem">
-    <table class="conj-table">
-      <thead>
-        <tr><th>בניין</th><th class="t-past">עבר ג׳ ז"י</th><th class="t-pres">הווה ז"י</th><th class="t-fut">עתיד ג׳ ז"י</th><th class="t-past">סימן מזהה עיקרי</th></tr>
-      </thead>
+    <div class="conj-title"><span class="conj-badge" style="background:#b45309">כל הזמנים</span> הופעל — כ-נ-ס</div>
+    <div style="overflow-x:auto"><table class="conj-table">
+      <thead><tr><th>זמן</th><th class="t-past">עבר ג׳ ז"י</th><th class="t-pres">הווה ז"י</th><th class="t-fut">עתיד ג׳ ז"י</th></tr></thead>
       <tbody>
-        <tr style="background:var(--lc-lt)"><td class="guf" style="color:var(--lc)">קל</td><td class="form">כָּתַב</td><td class="form">כּוֹתֵב</td><td class="form">יִכְתֹּב</td><td style="font-size:.8rem">קמץ-פתח בעבר, חולם-צרה בהווה</td></tr>
-        <tr><td class="guf" style="color:#0284c7">נפעל</td><td class="form">נִכְתַּב</td><td class="form">נִכְתָּב</td><td class="form">יִכָּתֵב</td><td style="font-size:.8rem">נִ בעבר, דגש בפ׳ בשאר</td></tr>
-        <tr style="background:var(--lc-lt)"><td class="guf" style="color:#7c3aed">פיעל</td><td class="form">כִּתֵּב</td><td class="form">מְכַתֵּב</td><td class="form">יְכַתֵּב</td><td style="font-size:.8rem">דגש חזק בע׳, יְ בעתיד</td></tr>
-        <tr><td class="guf" style="color:#be185d">פועל</td><td class="form">כֻּתַּב</td><td class="form">מְכֻתָּב</td><td class="form">יְכֻתַּב</td><td style="font-size:.8rem">קיבוץ בפ׳ + דגש בע׳</td></tr>
-        <tr style="background:var(--lc-lt)"><td class="guf" style="color:#0f766e">התפעל</td><td class="form">הִתְכַּתֵּב</td><td class="form">מִתְכַּתֵּב</td><td class="form">יִתְכַּתֵּב</td><td style="font-size:.8rem">הִתְ / מִתְ / יִתְ לפני השורש</td></tr>
-        <tr><td class="guf" style="color:#1a56db">הפעיל</td><td class="form">הִכְנִיס</td><td class="form">מַכְנִיס</td><td class="form">יַכְנִיס</td><td style="font-size:.8rem">הִ+חיריק בעבר, מַ בהווה, יַ בעתיד</td></tr>
-        <tr style="background:var(--lc-lt)"><td class="guf" style="color:#b45309">הופעל</td><td class="form">הֻכְנַס</td><td class="form">מֻכְנָס</td><td class="form">יֻכְנַס</td><td style="font-size:.8rem">הֻ / מֻ / יֻ (קיבוץ) לפני פ׳</td></tr>
+        <tr><td class="guf">צורה</td><td class="form">הֻכְ<span class="root-mark">נַס</span></td><td class="form">מֻכְ<span class="root-mark">נָס</span></td><td class="form">יֻכְ<span class="root-mark">נַס</span></td></tr>
+        <tr><td class="guf">תבנית</td><td class="form" style="font-size:.76rem;color:#b45309">הֻקְטַל</td><td class="form" style="font-size:.76rem;color:#0284c7">מֻקְטָל</td><td class="form" style="font-size:.76rem;color:#059669">יֻקְטַל</td></tr>
+        <tr><td class="guf">נקבה י׳</td><td class="form">הֻכְנְסָה</td><td class="form">מֻכְנֶסֶת</td><td class="form">תֻּכְנַס</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
-  <!-- 7 מפתח -->
-  <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">7</div>מפתח זיהוי מהיר — ראה קידומת → דע בניין</div>
+  <!-- 6 — טבלת כל 7 הבניינים -->
+  <div class="section-hd"><span class="sn-icon">📊</span><div class="sn">6</div>טבלת זיהוי — כל 7 הבניינים</div>
+  <div class="theory-block blue">
+    <div style="font-family:'Secular One',sans-serif;font-size:.88rem;color:var(--blue);margin-bottom:.75rem">📊 מפתח מלא — 7 בניינים</div>
+    <div class="overflow-x-auto"><table class="data-table">
+      <thead><tr><th>בניין</th><th>עבר ג׳ ז"י</th><th>הווה ז"י</th><th>עתיד ג׳ ז"י</th><th>סימן מזהה</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label" style="color:#059669">קל</td><td>כָּתַב</td><td>כּוֹתֵב</td><td>יִכְתֹּב</td><td>קמץ-פתח; חולם-צרה</td></tr>
+        <tr><td class="row-label" style="color:#0284c7">נפעל</td><td>נִכְתַּב</td><td>נִכְתָּב</td><td>יִכָּתֵב</td><td>נִ בעבר; דגש בפ׳ בשאר</td></tr>
+        <tr><td class="row-label" style="color:#7c3aed">פיעל</td><td>כִּתֵּב</td><td>מְכַתֵּב</td><td>יְכַתֵּב</td><td>דגש חזק בע׳; יְ בעתיד</td></tr>
+        <tr><td class="row-label" style="color:#be185d">פועל</td><td>כֻּתַּב</td><td>מְכֻתָּב</td><td>יְכֻתַּב</td><td>קיבוץ בפ׳ + דגש בע׳</td></tr>
+        <tr><td class="row-label" style="color:#0f766e">התפעל</td><td>הִתְכַּתֵּב</td><td>מִתְכַּתֵּב</td><td>יִתְכַּתֵּב</td><td>הִתְ / מִתְ / יִתְ</td></tr>
+        <tr><td class="row-label" style="color:#1a56db">הפעיל</td><td>הִכְנִיס</td><td>מַכְנִיס</td><td>יַכְנִיס</td><td>הִ+חיריק; מַ/יַ (פתח!)</td></tr>
+        <tr><td class="row-label" style="color:#b45309">הופעל</td><td>הֻכְנַס</td><td>מֻכְנָס</td><td>יֻכְנַס</td><td>הֻ / מֻ / יֻ (קיבוץ)</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <!-- 7 — מפתח קידומות -->
+  <div class="section-hd"><span class="sn-icon">📋</span><div class="sn">7</div>מפתח קידומות — קרא קידומת → זהה בניין</div>
   <div class="steps-wrap">
-    <div class="steps-title">📋 ראה קידומת → זהה בניין</div>
-    <div class="step-item"><div class="step-num" style="min-width:52px;border-radius:13px;font-size:.68rem;padding:0 .5rem">נִ +</div><span><strong>נפעל-עבר.</strong> "נִכְתַּב" — נ לפני השורש = נפעל-עבר בלבד.</span></div>
-    <div class="step-item"><div class="step-num" style="min-width:52px;border-radius:13px;font-size:.68rem;padding:0 .5rem">הִתְ +</div><span><strong>התפעל-עבר.</strong> "הִתְכַּתֵּב" — הִתְ לפני פ' השורש = התפעל.</span></div>
-    <div class="step-item"><div class="step-num" style="min-width:52px;border-radius:13px;font-size:.68rem;padding:0 .5rem">הִ + י</div><span><strong>הפעיל-עבר.</strong> "הִכְנִיס" — הִ + חיריק אחרי ל' = הפעיל-עבר.</span></div>
-    <div class="step-item"><div class="step-num" style="min-width:52px;border-radius:13px;font-size:.68rem;padding:0 .5rem">הֻ +</div><span><strong>הופעל-עבר.</strong> "הֻכְנַס" — קיבוץ בה' = הופעל בלבד.</span></div>
-    <div class="step-item"><div class="step-num" style="min-width:52px;border-radius:13px;font-size:.68rem;padding:0 .5rem">מַ + י</div><span><strong>הפעיל-הווה.</strong> "מַכְנִיס" — מַ (פתח) + חיריק = הפעיל-הווה.</span></div>
-    <div class="step-item"><div class="step-num" style="min-width:52px;border-radius:13px;font-size:.68rem;padding:0 .5rem">מֻ +</div><span><strong>הופעל-הווה.</strong> "מֻכְנָס" — קיבוץ במ' = הופעל. (מְ + קיבוץ ישירות בפ' = פועל-הווה).</span></div>
-    <div class="step-item"><div class="step-num" style="min-width:52px;border-radius:13px;font-size:.68rem;padding:0 .5rem">יַ +</div><span><strong>הפעיל-עתיד.</strong> פתח בי' + חיריק = הפעיל. (יִ=קל/נפעל, יְ=פיעל, יַ=הפעיל, יֻ=הופעל).</span></div>
+    <div class="steps-title">📋 ראה קידומת → זהה בניין מיידית</div>
+    <div class="step-item"><div class="step-num" style="min-width:52px;border-radius:13px;font-size:.68rem;padding:0 .5rem">נִ +</div><span><strong>נפעל-עבר בלבד.</strong> "נִכְתַּב" — נ לפני השורש = נפעל-עבר.</span></div>
+    <div class="step-item"><div class="step-num" style="min-width:52px;border-radius:13px;font-size:.68rem;padding:0 .5rem">הִתְ +</div><span><strong>התפעל-עבר.</strong> "הִתְכַּתֵּב" — הִתְ לפני פ׳ = התפעל. (+ טרנספוזיציה: הִצְטַיֵּן, הִזְדַּקֵּן)</span></div>
+    <div class="step-item"><div class="step-num" style="min-width:52px;border-radius:13px;font-size:.68rem;padding:0 .5rem">הִ + חיריק</div><span><strong>הפעיל-עבר.</strong> "הִכְנִיס" — הִ + חיריק אחרי ל׳ = הפעיל.</span></div>
+    <div class="step-item"><div class="step-num" style="min-width:52px;border-radius:13px;font-size:.68rem;padding:0 .5rem">הֻ +</div><span><strong>הופעל-עבר.</strong> "הֻכְנַס" — קיבוץ בה׳ = הופעל. (לא קיבוץ בפ׳ = לא פועל!)</span></div>
+    <div class="step-item"><div class="step-num" style="min-width:52px;border-radius:13px;font-size:.68rem;padding:0 .5rem">מַ + חיריק</div><span><strong>הפעיל-הווה.</strong> "מַכְנִיס" — מַ (פתח) + חיריק = הפעיל-הווה בלבד.</span></div>
+    <div class="step-item"><div class="step-num" style="min-width:52px;border-radius:13px;font-size:.68rem;padding:0 .5rem">מֻ +</div><span><strong>הופעל-הווה.</strong> "מֻכְנָס" — קיבוץ במ׳ = הופעל. (מְ + קיבוץ בפ׳ = פועל-הווה)</span></div>
+    <div class="step-item"><div class="step-num" style="min-width:52px;border-radius:13px;font-size:.68rem;padding:0 .5rem">יַ + חיריק</div><span><strong>הפעיל-עתיד.</strong> יַ (פתח!) = הפעיל. כלל עתיד: יִ=קל/נפעל | יְ=פיעל/פועל | יַ=הפעיל | יֻ=הופעל</span></div>
   </div>
-  <div class="box box-green">✅ <strong>מוכן לתרגול!</strong> 20 שאלות על ארבעת הבניינים הכבדים + חזרה על כל 7 הבניינים.</div>
+  <div class="box box-green">✅ <strong>מוכן לתרגול!</strong> 21 שאלות על ארבעת הבניינים הכבדים + חזרה על כל 7 הבניינים.</div>
 
+  <div style="background:var(--lc-lt);border:2px dashed var(--lc);border-radius:var(--r-xl);padding:1.3rem 1.5rem;margin-bottom:1.5rem">
+    <div style="font-family:'Secular One',sans-serif;font-size:.88rem;color:var(--lc);margin-bottom:.8rem">✅ שאלות מנחות לפני התרגול</div>
+    <div style="font-size:.86rem;line-height:1.9;color:var(--text-mid)">
+      <strong style="color:var(--text)">שאלה 1:</strong> מה ההבדל בין "דֻּבַּר" (פועל) ל-"הֻלְבַּשׁ" (הופעל)? שניהם קיבוץ — מה מבדיל?<br>
+      <strong style="color:var(--text)">שאלה 2:</strong> מה הניקוד הייחודי לקידומות הפעיל בהווה ועתיד (מַ/יַ) מול פיעל (מְ/יְ)?<br>
+      <strong style="color:var(--text)">שאלה 3:</strong> מהי טרנספוזיציה ולמה "הִצְטַיֵּן" ולא "הִתְצַיֵּן"?
+    </div>
+  </div>
+
+  <button class="goto-practice-btn" onclick="switchTab('practice')">✏️ עבור לתרגול — 21 שאלות על בניינים כבדים</button>
 </div>
-</div><!-- /pane-theory -->
-
-<!-- ══════════════════════════════════════════════
-     PRACTICE
-══════════════════════════════════════════════ -->
+</div>
+<!-- ═══ PRACTICE ═══ -->
 <div class="tab-pane" id="pane-practice">
-<div class="print-header">
-  <h1>תרגול — יח׳3 שיעור 4: גזרת השלמים — בניינים כבדים</h1>
-  <p>20 שאלות | לשון Lesson 2.0</p>
-</div>
+<div class="print-header"><h1>תרגול — יח׳3 שיעור 4: גזרת השלמים — בניינים כבדים</h1><p>21 שאלות | לשון Lesson 2.0</p></div>
 <div class="lesson-wrap">
-
-  <!-- Gate -->
   <div id="student-gate">
-    <div class="gate-header">
-      <span class="gate-icon">⚙️</span>
-      <div class="gate-title">לפני שמתחילים — פרטי התלמיד/ה</div>
-      <div class="gate-desc">מלא/י את הפרטים כדי להתחיל.<br>יישמרו אצל המורה עם ההגשה.</div>
-    </div>
+    <div class="gate-header"><span class="gate-icon">✏️</span><div class="gate-title">כניסה לתרגול</div><div class="gate-desc">הזינו שם ושיבוץ כיתה</div></div>
     <div class="gate-body">
-      <div class="gate-field">
-        <label for="gate-name">👤 שם מלא</label>
-        <input class="gate-input" id="gate-name" type="text" placeholder="שם פרטי + שם משפחה"
-               autocomplete="name" onkeydown="if(event.key==='Enter')document.getElementById('gate-class').focus()">
-        <div class="gate-err-msg" id="gate-name-err">נא להזין שם מלא (שם + משפחה)</div>
-      </div>
-      <div class="gate-field">
-        <label for="gate-class">🏫 כיתה</label>
-        <input class="gate-input" id="gate-class" type="text" placeholder="לדוגמה: י3"
-               autocomplete="off" onkeydown="if(event.key==='Enter')confirmGate()">
-        <div class="gate-err-msg" id="gate-class-err">נא להזין שם כיתה</div>
-      </div>
-      <div class="gate-field">
-        <label>📅 תאריך</label>
-        <div class="gate-date-display" id="gate-date-display">—</div>
-      </div>
-      <button class="gate-btn" onclick="confirmGate()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        מאשר/ת ומתחיל/ה בתרגול
-      </button>
+      <div class="gate-field"><label>שם מלא</label><input class="gate-input" id="gate-name" type="text" placeholder="לדוגמה: דנה כהן" autocomplete="off"><div class="gate-err-msg" id="gate-name-err">אנא הזינו שם ושם משפחה</div></div>
+      <div class="gate-field"><label>כיתה</label><select class="gate-select" id="gate-class"><option value="">— בחרו כיתה —</option><option>י׳א</option><option>י׳ב</option><option>י׳ג</option><option>י׳ד</option><option>י׳ה</option><option>י׳ו</option></select><div class="gate-err-msg" id="gate-class-err">אנא בחרו כיתה</div></div>
+      <div class="gate-field"><label>תאריך</label><div class="gate-date-display" id="gate-date-display"></div></div>
+      <button class="gate-btn" onclick="confirmGate()">✅ כניסה לתרגול</button>
     </div>
   </div>
-  <div id="gate-confirmed">
-    <div class="gc-avatar" id="gc-avatar">ת</div>
-    <div class="gc-info">
-      <div class="gc-name" id="gc-name-display">—</div>
-      <div class="gc-meta" id="gc-meta-display">—</div>
-      <button class="gc-change" onclick="reopenGate()">✏️ שנה פרטים</button>
-    </div>
-    <div style="font-size:1.5rem">✅</div>
-  </div>
+  <div id="gate-confirmed"><div class="gc-avatar" id="gc-avatar"></div><div class="gc-info"><div class="gc-name" id="gc-name-display"></div><div class="gc-meta" id="gc-meta-display"></div><button class="gc-change" onclick="reopenGate()">שינוי פרטים</button></div></div>
 
   <div id="practice-content-wrap">
-
-    <!-- TEXT A -->
-  <div class="reading-text-box" style="border-color:var(--lc)">
-    <div style="position:absolute;top:-12px;right:1.4rem;background:var(--lc);color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill)">📄 טקסט א׳ — לשאלות 1–7</div>
-    <div class="rt-title">פעלים בבניינים כבדים</div>
-    <div class="rt-body">
-      <p>הספר <strong>דֻּבַּר</strong> בשיעור. הילד <strong>הֻלְבַּשׁ</strong> בבוקר. המורה <strong>הִכְנִיסָה</strong> את התלמידים. הם <strong>הִתְכַּתְּבוּ</strong> שנים. הכלי <strong>מֻכְנָס</strong> לתוך הקופסה. הוא <strong>יַגְדִּיל</strong> את הטקסט.</p>
+    <div class="reading-text-box">
+      <div class="rt-title">טקסט א׳ — בניינים כבדים: פועל, התפעל, הפעיל, הופעל (שאלות 1–7)</div>
+      <div class="rt-body">
+        <p style="font-size:.95rem;line-height:2.4">הספר <strong>דֻּבַּר</strong> בשיעור. הילד <strong>הֻלְבַּשׁ</strong> בבוקר. המורה <strong>הִכְנִיסָה</strong> את התלמידים. הם <strong>הִתְכַּתְּבוּ</strong> שנים. הכלי <strong>מֻכְנָס</strong> לתוך הקופסה. הוא <strong>יַגְדִּיל</strong> את הטקסט.</p>
+        <p style="font-size:.82rem;color:var(--muted);margin-top:.5rem">📍 לכל פועל: זיהוי בניין, זמן, גוף, שורש.</p>
+      </div>
     </div>
-  </div>
-
-  <!-- TEXT B -->
-  <div class="reading-text-box" style="border-color:#0f766e;margin-top:1.8rem">
-    <div style="position:absolute;top:-12px;right:1.4rem;background:#0f766e;color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill)">📄 טקסט ב׳ — לשאלות 8–14</div>
-    <div class="rt-title">זוגות פעיל–סביל</div>
-    <div class="rt-body">
-      <p>המורה <strong>לִמֵּד</strong> — הנושא <strong>לֻמַּד</strong>. הוא <strong>הִלְבִּישׁ</strong> — הילד <strong>הֻלְבַּשׁ</strong>. הם <strong>הִגְדִּילוּ</strong> את התמונה — התמונה <strong>הֻגְדְּלָה</strong>. הוא <strong>מִתְרַחֵץ</strong> מדי יום.</p>
+    <div class="reading-text-box">
+      <div class="rt-title">טקסט ב׳ — זוגות פעיל–סביל (שאלות 8–14)</div>
+      <div class="rt-body">
+        <p style="font-size:.95rem;line-height:2.4">המורה <strong>לִמֵּד</strong> — הנושא <strong>לֻמַּד</strong>. הוא <strong>הִלְבִּישׁ</strong> — הילד <strong>הֻלְבַּשׁ</strong>. הם <strong>הִגְדִּילוּ</strong> את התמונה — התמונה <strong>הֻגְדְּלָה</strong>. הוא <strong>מִתְרַחֵץ</strong> מדי יום.</p>
+        <p style="font-size:.82rem;color:var(--muted);margin-top:.5rem">📍 זהו זוגות פעיל-סביל ואת הבניין המדויק של כל פועל.</p>
+      </div>
     </div>
-  </div>
 
-  <!-- TEXT C -->
-  <div class="reading-text-box" style="border-color:#7c3aed;margin-top:1.8rem">
-    <div style="position:absolute;top:-12px;right:1.4rem;background:#7c3aed;color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill)">📄 טקסט ג׳ — לשאלות 15–20</div>
-    <div class="rt-title">שאלות תיאוריה — כל 7 הבניינים</div>
-    <div class="rt-body">
-      <p>שאלות על זיהוי בניינים, מפתח קידומות, זוגות פעיל–סביל ועוד.</p>
+    <div class="quiz-header">
+      <div class="quiz-hd-title">⚡ בניינים כבדים — 21 שאלות</div>
+      <div class="quiz-hd-desc">MC · נכון/לא נכון · סדר · כתיבה — פועל, התפעל, הפעיל, הופעל</div>
+      <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 20 נענו</span><span id="prog-pct">0%</span></div>
     </div>
+    <div id="questions-container"></div>
+    <div id="submit-row" style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem">
+      <button class="btn-submit" onclick="submitQuiz()">📤 הגשת התרגול</button>
+      <button class="btn-reset" onclick="resetQuiz()">🔄 אתחול</button>
+    </div>
+    <div id="results-container" style="display:none"></div>
   </div>
-
-<div class="quiz-header">
-    <div class="quiz-hd-title">⚡ תרגול — 20 שאלות על בניינים כבדים</div>
-    <div class="quiz-hd-desc">פועל, התפעל, הפעיל, הופעל + חזרה על כל 7 הבניינים.</div>
-    <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="qp-fill" style="width:0%"></div></div>
-    <div class="quiz-prog-row"><span id="qp-counter">0 / 20 נענו</span></div>
-  </div>
-
-  <div id="questions-container"></div>
-
-  <div id="submit-row" style="display:flex;gap:.78rem;flex-wrap:wrap;align-items:center;margin-top:1.5rem">
-    <button class="btn-submit" onclick="submitQuiz()">📊 הגש תרגול</button>
-    <button class="btn-reset" onclick="resetQuiz()">🔄 איפוס</button>
-  </div>
-  <div id="results-container"></div>
-
-  </div><!-- /practice-content-wrap -->
 </div>
-</div><!-- /pane-practice -->
+</div>
 
-<!-- ══════════════════════════════════════════════
-     ANSWERS
-══════════════════════════════════════════════ -->
+<!-- ═══ ANSWERS ═══ -->
 <div class="tab-pane" id="pane-answers">
-<div class="print-header">
-  <h1>מפתח תשובות — יח׳3 שיעור 4: גזרת השלמים — בניינים כבדים</h1>
-  <p>20 שאלות + הסברים | לשון Lesson 2.0</p>
-</div>
 <div class="lesson-wrap">
-  <div id="answers-locked-msg" class="answers-locked">
-    <div style="font-size:3rem;margin-bottom:1rem">🔒</div>
-    <div style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:.6rem">התשובות טרם פורסמו</div>
-    <p style="font-size:.86rem;color:var(--muted);max-width:380px;margin:0 auto;line-height:1.65">המורה יפתח את התשובות לאחר שהכיתה תסיים.</p>
-  </div>
+  <div id="answers-locked-msg" class="answers-locked"><div style="font-size:2.5rem;margin-bottom:.8rem">🔒</div><div style="font-family:'Secular One',sans-serif;font-size:1.1rem;margin-bottom:.5rem">התשובות נעולות</div><div style="font-size:.85rem;color:var(--muted)">המורה ישחרר בתום השיעור</div></div>
   <div id="answers-visible-content" style="display:none">
-    <div style="background:var(--gold-lt);border:1.5px solid #fde68a;border-radius:var(--r-lg);padding:1.1rem 1.4rem;margin-bottom:1.5rem">
-      <div style="font-size:.78rem;font-weight:800;color:var(--gold)">🔑 מפתח תשובות + הסברים פדגוגיים</div>
-      <div id="answers-source" style="font-size:.74rem;color:var(--amber);margin-top:.25rem"></div>
-    </div>
-    <div id="answers-container"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:.5rem"><div style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--lc)">🔑 תשובות מלאות</div><span style="font-size:.72rem;color:var(--muted)" id="answers-source"></span></div>
+    <div id="answers-list"></div>
   </div>
 </div>
-</div><!-- /pane-answers -->
-
+</div>
 <div id="toast"></div>
 
 <script>
-const FB_CFG={
-  apiKey:"AIzaSyC1VIJaFqC-HzJHGutib10-A29i1KKO4YI",
-  authDomain:"lashon-project.firebaseapp.com",
-  projectId:"lashon-project",
-  storageBucket:"lashon-project.firebasestorage.app",
-  messagingSenderId:"444024985545",
-  appId:"1:444024985545:web:847f8d4dad43193c147a18",
-  measurementId:"G-26KTLPJ8N1"
-};
+const FB_CFG={apiKey:"AIzaSyC1VIJaFqC-HzJHGutib10-A29i1KKO4YI",authDomain:"lashon-project.firebaseapp.com",projectId:"lashon-project",storageBucket:"lashon-project.firebasestorage.app",messagingSenderId:"444024985545",appId:"1:444024985545:web:847f8d4dad43193c147a18"};
 let _db=null;
-const LESSON_ID='u3_l4';
-const LESSON_TITLE='גזרת השלמים — בניינים כבדים';
-
-function initFirebase(){
-  try{
-    if(typeof firebase==='undefined')return;
-    if(!firebase.apps.length)firebase.initializeApp(FB_CFG);
-    _db=firebase.firestore();
-    _db.enablePersistence().catch(()=>{});
-    _db.collection('lessons').doc(LESSON_ID).onSnapshot(doc=>{
-      const val=doc.exists?doc.data()?.showAnswers===true:false;
-      const av=LS.get('lashon2_answers_visible',{});
-      av[LESSON_ID]=val;LS.set('lashon2_answers_visible',av);
-      ANSWERS_VISIBLE=val;applyAnswersVisibility();
-    });
-  }catch(e){console.warn('[FB]',e)}
-}
-async function saveScore(score,studentName,className){
-  if(!_db)return;
-  const now=new Date();
-  const d={lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:studentName||'תלמיד/ה',className:className||'לא צוין',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,totalQuestions:QUESTIONS.length};
-  try{await _db.collection('lashon2_submissions').add(d);await _db.collection('lashon2_live').doc('latest').set(d);}catch(e){console.warn(e)}
-}
-
+const LESSON_ID='u3_l4',LESSON_TITLE='גזרת השלמים — בניינים כבדים';
+function initFirebase(){try{if(typeof firebase==='undefined')return;if(!firebase.apps.length)firebase.initializeApp(FB_CFG);_db=firebase.firestore();_db.enablePersistence().catch(()=>{});_db.collection('lessons').doc(LESSON_ID).onSnapshot(doc=>{const val=doc.exists?doc.data()?.showAnswers===true:false;const av=LS.get('lashon2_answers_visible',{});av[LESSON_ID]=val;LS.set('lashon2_answers_visible',av);ANSWERS_VISIBLE=val;applyAnswersVisibility();});}catch(e){}}
+async function saveScore(score,sn,sc){if(!_db)return;const now=new Date();try{await _db.collection('lashon2_submissions').add({lessonId:LESSON_ID,lessonTitle:LESSON_TITLE,score,studentName:sn||'תלמיד/ה',className:sc||'',ts:firebase.firestore.FieldValue.serverTimestamp(),submissionDate:now.toLocaleDateString('he-IL'),submissionTime:now.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}),read:false,correct:typeof _lastCorrect==='number'?_lastCorrect:undefined,wrong:typeof _lastCorrect==='number'?QUESTIONS.length-_lastCorrect:undefined,totalQuestions:QUESTIONS.length});await _db.collection('lashon2_live').doc('latest').set({lessonId:LESSON_ID,score,studentName:sn,className:sc,ts:firebase.firestore.FieldValue.serverTimestamp()});}catch(e){}}
 const LS={get(k,fb=null){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):fb}catch{return fb}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
-const _params=new URLSearchParams(location.search);
-let STUDENT_NAME=_params.get('student')||LS.get('lashon2_uname','')||'תלמיד/ה';
+const _p=new URLSearchParams(location.search);
+let STUDENT_NAME=_p.get('student')||LS.get('lashon2_uname','')||'תלמיד/ה';
 let STUDENT_CLASS=LS.get('lashon2_class','')||'';
-const USER_ROLE=_params.get('role')||LS.get('lashon2_role','')||localStorage.getItem('userRole')||'student';
-let ANSWERS_VISIBLE=_params.get('answers_visible')==='1';
-const BACK_URL=_params.get('back')||'index.html';
-
-function applyAnswersVisibility(){
-  const locked=document.getElementById('answers-locked-msg');
-  const visible=document.getElementById('answers-visible-content');
-  const src=document.getElementById('answers-source');
-  if(USER_ROLE==='teacher'){if(locked)locked.style.display='none';if(visible)visible.style.display='';if(src)src.textContent='גישת מורה';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';}
-  else{if(ANSWERS_VISIBLE){if(locked)locked.style.display='none';if(visible)visible.style.display='';if(src)src.textContent='שוחרר על ידי המורה';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='';}else{if(locked)locked.style.display='';if(visible)visible.style.display='none';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='none';}}
-}
+const USER_ROLE=_p.get('role')||LS.get('lashon2_role','')||localStorage.getItem('userRole')||'student';
+let ANSWERS_VISIBLE=_p.get('answers_visible')==='1';
+const BACK_URL=_p.get('back')||'index.html';
+function applyAnswersVisibility(){const lk=document.getElementById('answers-locked-msg'),vi=document.getElementById('answers-visible-content'),sr=document.getElementById('answers-source');if(USER_ROLE==='teacher'){if(lk)lk.style.display='none';if(vi)vi.style.display='';if(sr)sr.textContent='גישת מורה';document.getElementById('btn-answers')?.style.setProperty('display','');}else if(ANSWERS_VISIBLE){if(lk)lk.style.display='none';if(vi)vi.style.display='';if(sr)sr.textContent='שוחרר ע״י המורה';document.getElementById('btn-answers-student')?.style.setProperty('display','');}else{if(lk)lk.style.display='';if(vi)vi.style.display='none';}}
 
 const QUESTIONS=[
-  {
-    "id": "q01",
-    "type": "mc",
-    "ref": "טקסט א'",
-    "q": "\"הֻלְבַּשׁ\" — מה מזהה בניין הופעל (ולא פועל)?",
-    "opts": [
-      "קיבוץ בפ' השורש + דגש בע'",
-      "קיבוץ בה' הקידומת (הֻ) לפני פ' השורש — הֻ+ל-ב-שׁ. פועל = קיבוץ ישירות בפ' השורש (לֻ...). כאן ה' היא קידומת",
-      "נקודתיים בל'",
-      "אין הבדל בין הופעל לפועל"
-    ],
-    "ans": 1,
-    "explain": "הופעל-עבר = הֻ (ה'+קיבוץ) לפני פ' השורש. פועל = קיבוץ ישירות בפ' השורש ללא ה' קידומת. \"הֻלְבַּשׁ\": הֻ+ל-ב-שׁ = הופעל. \"לֻבַּשׁ\": ל = פ' השורש = פועל.",
-    "teacherNote": "הבחנה קריטית — מלכודת נפוצה בבגרות."
-  },
-  {
-    "id": "q02",
-    "type": "mc",
-    "ref": "טקסט א'",
-    "q": "\"הִכְנִיסָה\" — מהו הבניין, הזמן והגוף?",
-    "opts": [
-      "נפעל, עבר, נקבה",
-      "הפעיל, עבר, גוף ג' נקבה יחיד — הִ + שורש + חיריק אחרי ל' = הפעיל-עבר. סיומת ָה = נקבה",
-      "התפעל, עבר",
-      "הפעיל, הווה"
-    ],
-    "ans": 1,
-    "explain": "הִ + כ-נ-ס + ִי = הפעיל (תבנית הִקְטִיל). סיומת \"-ָה\" = גוף ג' נקבה יחיד-עבר. \"הִכְנִיסָה\" = היא הכניסה."
-  },
-  {
-    "id": "q03",
-    "type": "mc",
-    "ref": "טקסט א'",
-    "q": "\"הִתְכַּתְּבוּ\" — מה מזהה בניין התפעל?",
-    "opts": [
-      "הדגש בת'",
-      "קידומת הִתְ לפני פ' השורש. בהווה: מִתְ. בעתיד: יִתְ. שורש כ-ת-ב + הִתְ = התפעל",
-      "ניקוד קמץ",
-      "הסיומת \"-וּ\""
-    ],
-    "ans": 1,
-    "explain": "\"הִתְ\" = סימן התפעל-עבר. שורש כ-ת-ב. סיומת \"-וּ\" = ג' רבים-עבר. \"הִתְכַּתְּבוּ\" = כתבו זה לזה (הדדי)."
-  },
-  {
-    "id": "q04",
-    "type": "tf",
-    "ref": "טקסט א'",
-    "q": "\"מֻכְנַס\" — זוהי צורת הופעל-הווה.",
-    "ans": true,
-    "explain": "נכון. מֻ = קידומת הופעל-הווה (קיבוץ במ'). \"מֻ+כ-נ-ס\" = הופעל-הווה. השווה: עבר = הֻכְנַס, הווה = מֻכְנָס (קמץ בל'), עתיד = יֻכְנַס."
-  },
-  {
-    "id": "q05",
-    "type": "mc",
-    "ref": "טקסט א'",
-    "q": "\"יַגְדִּיל\" — מה מזהה הפעיל-עתיד?",
-    "opts": [
-      "יִ (חיריק) בתחילה",
-      "יַ (פתח) + חיריק אחרי ל' השורש = הפעיל-עתיד. יַ = הפעיל, לעומת יִ=קל/נפעל, יְ=פיעל/פועל, יֻ=הופעל",
-      "הדגש בגּ",
-      "ניקוד הצרה"
-    ],
-    "ans": 1,
-    "explain": "פתח (יַ) בתחילת עתיד = הפעיל בלבד. \"יַגְדִּיל\" = יַ+ג-ד-ל+ִיל. המפתח: יִ=קל/נפעל / יְ=פיעל / יַ=הפעיל / יֻ=הופעל."
-  },
-  {
-    "id": "q06",
-    "type": "mc",
-    "ref": "טקסט א'",
-    "q": "\"דֻּבַּר\" (הספר דֻּבַּר) — מהו הבניין?",
-    "opts": [
-      "נפעל — כי הוא סביל",
-      "פועל — קיבוץ (ֻ) תחת פ' השורש (ד) + דגש חזק בע' (ב). שני הסימנים יחד = פועל",
-      "הופעל — כי יש קיבוץ",
-      "קל-סביל"
-    ],
-    "ans": 1,
-    "explain": "פועל = קיבוץ ישירות בפ' + דגש חזק בע'. \"דֻּבַּר\": דֻּ (ד+קיבוץ) + בַּ (ב+דגש). ← פועל. הופעל = הֻ לפני פ', לא קיבוץ בפ' עצמה."
-  },
-  {
-    "id": "q07",
-    "type": "mc",
-    "ref": "טקסט א'",
-    "q": "מה ההבדל בין \"הֻכְנַס\" (עבר) ל\"מֻכְנָס\" (הווה) בבניין הופעל?",
-    "opts": [
-      "אין הבדל",
-      "עבר: קידומת הֻ + פתח בל' (הֻקְטַל). הווה: קידומת מֻ + קמץ בל' (מֻקְטָל). בדיוק כמו נפעל: עבר=פתח, הווה=קמץ",
-      "בעבר יש דגש, בהווה אין",
-      "הסיומת שונה"
-    ],
-    "ans": 1,
-    "explain": "הופעל: עבר = הֻ+פתח בל' (הֻקְטַל). הווה = מֻ+קמץ בל' (מֻקְטָל). זהה לכלל נפעל: עבר=פתח, הווה=קמץ. רק הקידומת שונה."
-  },
-  {
-    "id": "q08",
-    "type": "mc",
-    "ref": "טקסט ב'",
-    "q": "\"לִמֵּד\" ↔ \"לֻמַּד\" — מה הזוג המדויק?",
-    "opts": [
-      "קל ↔ נפעל",
-      "פיעל ↔ פועל — \"לִמֵּד\"=פיעל (חיריק בפ'+דגש בע'). \"לֻמַּד\"=פועל (קיבוץ בפ'+דגש בע'). שניהם שורש ל-מ-ד",
-      "הפעיל ↔ הופעל",
-      "קל ↔ פועל"
-    ],
-    "ans": 1,
-    "explain": "פיעל (פעיל) ↔ פועל (סביל) = זוג. פ' = ל. \"לִמֵּד\" = פיעל. \"לֻמַּד\" = פועל. ההבדל: חיריק (פיעל) ↔ קיבוץ (פועל) תחת פ'."
-  },
-  {
-    "id": "q09",
-    "type": "mc",
-    "ref": "טקסט ב'",
-    "q": "\"הִלְבִּישׁ\" ↔ \"הֻלְבַּשׁ\" — מה הזוג?",
-    "opts": [
-      "פיעל ↔ פועל",
-      "הפעיל ↔ הופעל — \"הִלְבִּישׁ\"=הפעיל (הִ+חיריק). \"הֻלְבַּשׁ\"=הופעל (הֻ). שניהם שורש ל-ב-שׁ",
-      "קל ↔ נפעל",
-      "התפעל ↔ הופעל"
-    ],
-    "ans": 1,
-    "explain": "הפעיל↔הופעל = זוג. הִ ↔ הֻ. \"הִלְבִּישׁ\" = הפעיל (גרם ללבוש). \"הֻלְבַּשׁ\" = הופעל (הולבש ע\"י מישהו)."
-  },
-  {
-    "id": "q10",
-    "type": "mc",
-    "ref": "טקסט ב'",
-    "q": "\"הֻגְדְּלָה\" — מהם הגוף והמין?",
-    "opts": [
-      "גוף ג' זכר יחיד",
-      "גוף ג' נקבה יחיד — סיומת \"-ָה\" בהופעל-עבר = נקבה יחיד",
-      "גוף ראשון יחיד",
-      "גוף שני נקבה"
-    ],
-    "ans": 1,
-    "explain": "סיומת \"-ָה\" בעבר הופעל = גוף ג' נקבה יחיד. \"הֻגְדְּלָה\" = התמונה הוגדלה. שורש: ג-ד-ל."
-  },
-  {
-    "id": "q11",
-    "type": "tf",
-    "ref": "טקסט ב'",
-    "q": "\"מִתְרַחֵץ\" הוא בניין התפעל, הווה, גוף ג' זכר יחיד.",
-    "ans": true,
-    "explain": "נכון. מִתְ = קידומת התפעל-הווה. שורש: ר-ח-צ. תבנית מִתְפַּעֵל. \"מִתְרַחֵץ\" = מי שרוחץ את עצמו — חוזר-עצמי."
-  },
-  {
-    "id": "q12",
-    "type": "mc",
-    "ref": "טקסט ב'",
-    "q": "מה ההבדל בין \"הִגְדִּיל\" (הפעיל) ל\"גָּדַל\" (קל)?",
-    "opts": [
-      "אין הבדל",
-      "קל = פעולה ספונטנית (\"גדל מעצמו\"). הפעיל = גרימה (\"גרם לדבר אחר לגדול\")",
-      "קל = עבר, הפעיל = עתיד",
-      "קל = יחיד, הפעיל = רבים"
-    ],
-    "ans": 1,
-    "explain": "\"גָּדַל\" = קל = פעולה עצמאית/ספונטנית. \"הִגְדִּיל\" = הפעיל = גרם לאחר לגדול. ההבחנה: קל = עצמאי, הפעיל = גרמה."
-  },
-  {
-    "id": "q13",
-    "type": "mc",
-    "ref": "טקסט ב'",
-    "q": "מה שורש \"הִתְרַחֵץ\"?",
-    "opts": [
-      "ה-ת-ר",
-      "ר-ח-צ — \"הִתְ\" = קידומת התפעל, לא שורש. פ'=ר, ע'=ח, ל'=צ",
-      "ת-ר-ח",
-      "ה-ר-ח"
-    ],
-    "ans": 1,
-    "explain": "\"הִתְ\" = קידומת התפעל — לא חלק מהשורש. ניתן לאמת: \"רָחַץ\" (קל) = שורש ר-ח-צ. \"הִתְרַחֵץ\" = ר-ח-צ + התפעל."
-  },
-  {
-    "id": "q14",
-    "type": "tf",
-    "ref": "טקסט ב'",
-    "q": "לבניינים הסבילים (נפעל, פועל, הופעל) אין שם פעולה ייעודי נפוץ.",
-    "ans": true,
-    "explain": "נכון. שם פעולה = בניינים פעילים (קל, פיעל, הפעיל, התפעל). בניינים סבילים (נפעל, פועל, הופעל) — לרוב ללא שם פעולה עצמאי."
-  },
-  {
-    "id": "q15",
-    "type": "mc",
-    "ref": "תיאוריה",
-    "q": "מה הקידומת הייחודית לכל זמן בבניין הפעיל?",
-    "opts": [
-      "עבר=הִ, הווה=מְ, עתיד=יִ",
-      "עבר=הִ, הווה=מַ (פתח!), עתיד=יַ (פתח!). הפתח = סימן מובהק להפעיל",
-      "עבר=נִ, הווה=מִ, עתיד=יִ",
-      "כמו פיעל"
-    ],
-    "ans": 1,
-    "explain": "הפעיל ייחודי: הִ/מַ/יַ + חיריק בל'. הפתח בהווה ועתיד מבדיל מפיעל (מְ/יְ שוא) ומנפעל (מִ/יִ חיריק)."
-  },
-  {
-    "id": "q16",
-    "type": "sort",
-    "ref": "תיאוריה",
-    "q": "סדר את 7 הבניינים לפי זוגות (פעיל→סביל), והבניין הבודד בסוף:",
-    "items": [
-      "פיעל (פעיל-מחוזק) ↔ פועל (סביל)",
-      "קל (פעיל בסיסי) ↔ נפעל (סביל/עצמי)",
-      "התפעל — בודד (חוזר-עצמי)",
-      "הפעיל (גרימה) ↔ הופעל (סביל)"
-    ],
-    "correctOrder": [
-      1,
-      0,
-      3,
-      2
-    ],
-    "explain": "סדר: קל↔נפעל, פיעל↔פועל, הפעיל↔הופעל, התפעל (בודד). 3 זוגות + 1 = 7 בניינים."
-  },
-  {
-    "id": "q17",
-    "type": "mc",
-    "ref": "תיאוריה",
-    "q": "מה ההבדל בין \"מְדֻבָּר\" (פועל-הווה) ל\"מְדַבֵּר\" (פיעל-הווה)?",
-    "opts": [
-      "אי אפשר להבדיל",
-      "תנועת פ' השורש: פיעל = פתח (מְפַעֵל). פועל = קיבוץ (מְפֻעָל). \"מְדַבֵּר\" (פתח בד) ↔ \"מְדֻבָּר\" (קיבוץ בד)",
-      "הם אותה מילה",
-      "ההבדל בסיומת בלבד"
-    ],
-    "ans": 1,
-    "explain": "שניהם מְ + שורש + דגש בע'. ההבדל: תנועת פ'. פיעל-הווה = מְפַעֵל (פתח). פועל-הווה = מְפֻעָל (קיבוץ)."
-  },
-  {
-    "id": "q18",
-    "type": "tf",
-    "ref": "תיאוריה",
-    "q": "\"הִצְטַיֵּן\" — האות צ' היא פ' השורש, והת\"ו עברה אחרי הצ\"ד.",
-    "ans": true,
-    "explain": "נכון. שורש: צ-י-ן. בהתפעל של שורשים שפ'=ז/ד/ט/צ — הת' מתחלפת עם פ': \"הִת+צ\" → \"הִצְט\". זו טרנספוזיציה."
-  },
-  {
-    "id": "q19",
-    "type": "mc",
-    "ref": "תיאוריה",
-    "q": "\"הֻכְשַׁר\" — באיזה בניין?",
-    "opts": [
-      "הפעיל-עבר",
-      "הופעל-עבר — הֻ לפני פ'. שורש: כ-שׁ-ר. \"הִכְשִׁיר\" (הפעיל) ↔ \"הֻכְשַׁר\" (הופעל)",
-      "פועל-עבר",
-      "נפעל-עבר"
-    ],
-    "ans": 1,
-    "explain": "\"הֻ\" = הופעל-עבר. לא פועל (פועל = קיבוץ בפ' השורש, לא ב-ה' הקידומת). שורש כ-שׁ-ר."
-  },
-  {
-    "id": "q20",
-    "type": "mc",
-    "ref": "תיאוריה",
-    "q": "מה ההבדל בין \"הִתְגַּדֵּל\" (התפעל) ל\"הִגְדִּיל\" (הפעיל)?",
-    "opts": [
-      "אין הבדל — שניהם \"גדל\"",
-      "הִתְגַּדֵּל = שינוי מצב עצמי (\"גדל לעצמו\"). הִגְדִּיל = גרם לאחר לגדול (גרימה). עצמי ↔ גרמה",
-      "הפעיל = עבר, התפעל = עתיד",
-      "שניהם גרימה"
-    ],
-    "ans": 1,
-    "explain": "\"הִתְגַּדֵּל\" = התפעל = שינוי מצב עצמי. \"הִגְדִּיל\" = הפעיל = גרם לאחר לגדול. ההבחנה: עצמי ↔ גרמה."
-  },
-  {
-    "id": "q21",
-    "type": "open",
-    "ref": "ניתוח בניינים כבדים",
-    "q": "השווה/י את הזוג הִגְדִּיל (הפעיל) ↔ הֻגְדַּל (הופעל):<br>(א) מי פועל ומי מקבל הפעולה (ב) בנה/י משפט דוגמה לכל אחד (ג) הסבר/י מה מסגיר את הבניין צורנית.",
-    "placeholder": "(א) הפעיל: פעיל. הופעל: סביל.\n(ב) הפעיל: \"המנהל הִגְדִּיל את המשכורת.\" הופעל: \"המשכורת הֻגְדְּלָה.\"\n(ג) הפעיל: קידומת הִ. הופעל: קידומת הֻ.",
-    "hint": "הופעל = הסביל של הפעיל. הפעיל: הִ לפני פ' שורש. הופעל: הֻ לפני פ' שורש.",
-    "rubric": "(א) פעיל/סביל נכון (ב) משפט תקין (ג) סימן צורני",
-    "explain": "הפעיל↔הופעל = זוג פעיל-סביל. הסימן: הִ vs הֻ לפני פ' השורש.",
-    "teacherNote": "מיצ\"ב: זיהוי זוג פעיל-סביל + סימן צורני. ציון מלא = שלושת הרכיבים."
-  }
+/* ══ טקסט א — בניינים כבדים (שאלות 1–7) ══ */
+{id:'q01',type:'mc',ref:'טקסט א — הופעל',
+ q:'הֻלְבַּשׁ — מה מזהה הופעל (ולא פועל)?',
+ opts:['קיבוץ בפ׳ השורש + דגש בע׳ — זה פועל','קיבוץ בה׳ הקידומת (הֻ) לפני פ׳ — הֻ+ל-ב-שׁ. ה׳ = קידומת, לא שורש. פועל = קיבוץ בפ׳ עצמה (לֻ...). ההבדל: היכן מופיע הקיבוץ','הדגש בב׳','אין הבדל בין הופעל לפועל'],
+ ans:1,
+ explain:'הופעל = הֻ (ה׳+קיבוץ) לפני פ׳ השורש. פועל = קיבוץ ישירות בפ׳ השורש ללא ה׳. הֻלְבַּשׁ: הֻ+ל-ב-שׁ = הופעל. לֻבַּשׁ: ל = פ׳ השורש = פועל. ההבחנה: ה׳ הקידומת נושאת הקיבוץ (הופעל) מול פ׳ השורש (פועל).',
+ teacherNote:'מלכודת קלאסית בבגרות. שאלו: מה היה נראה אם זה פועל? ← לֻבַּשׁ (ל = פ׳ השורש עם קיבוץ). מה בהופעל? ← ה׳ נוספת לפני הל. שרטטו את המבנה.'},
+
+{id:'q02',type:'mc',ref:'טקסט א — הפעיל',
+ q:'הִכְנִיסָה — מהו הבניין, הזמן והגוף?',
+ opts:['נפעל, עבר, נקבה — כי הִ','הפעיל, עבר, ג׳ נקבה יחיד — הִ + שורש + חיריק אחרי ל׳ = הפעיל-עבר. סיומת ָה = ג׳ נקבה יחיד','התפעל, עבר — כי הִתְ','הפעיל, הווה'],
+ ans:1,
+ explain:'הפעיל-עבר: הִ + כ-נ-ס + ִי (חיריק) = תבנית הִקְטִיל. סיומת "-ָה" = ג׳ נקבה יחיד-עבר. הִכְנִיסָה = היא הכניסה (גרמה להיכנס). ← לא נפעל (=נִ) ולא התפעל (=הִתְ).',
+ teacherNote:'הִ בלבד + חיריק = הפעיל. שאלו: כיצד תבדלו מנפעל? ← נפעל = נִ לפני פ׳. הפעיל = הִ לפני פ׳ + חיריק אחרי ל׳. כיצד מהתפעל? ← התפעל = הִתְ (שתי אותיות קידומת).'},
+
+{id:'q03',type:'mc',ref:'טקסט א — התפעל',
+ q:'הִתְכַּתְּבוּ — מה מזהה בניין התפעל?',
+ opts:['הדגש בת׳','קידומת הִתְ לפני פ׳ השורש — שלוש אותיות: ה+ת+שוא. בהווה: מִתְ. בעתיד: יִתְ. שורש כ-ת-ב + הִתְ = התפעל-עבר ג׳ רבים','ניקוד קמץ','הסיומת "-וּ" בלבד'],
+ ans:1,
+ explain:'הִתְ = קידומת ייחודית לעבר התפעל. שורש כ-ת-ב + הִתְ = הִתְכַּתֵּב. "-וּ" = ג׳ רבים-עבר. משמעות: כתבו זה לזה (הדדי). בדיקת שורש: הסר הִתְ ← כ-ת-ב.',
+ teacherNote:'הִתְ = 3 אותיות קידומת. שאלו: מה ההווה? ← מִתְכַּתֵּב. מה העתיד? ← יִתְכַּתֵּב. כלל: הִתְ/מִתְ/יִתְ = תמיד התפעל.'},
+
+{id:'q04',type:'tf',ref:'טקסט א — הופעל הווה',
+ q:'מֻכְנָס (הכלי מֻכְנָס לתוך הקופסה) — זוהי צורת הופעל-הווה.',
+ ans:true,
+ explain:'נכון. מֻ = קידומת הופעל-הווה (קיבוץ במ׳). מֻכְנָס = מֻ+כ-נ-ס+קמץ (ל׳). השווה: עבר = הֻכְנַס (קיבוץ בה׳+פתח). הווה = מֻכְנָס (קיבוץ במ׳+קמץ). עתיד = יֻכְנַס.',
+ teacherNote:'עבר=הֻ, הווה=מֻ, עתיד=יֻ — כל קידומת שונה. שאלו: ב"מֻכְנָס" — מה ניקוד ל׳ השורש? ← קמץ = הווה. ב"הֻכְנַס"? ← פתח = עבר.'},
+
+{id:'q05',type:'mc',ref:'טקסט א — הפעיל עתיד',
+ q:'יַגְדִּיל — מה מזהה הפעיל-עתיד?',
+ opts:['יִ (חיריק) — קל/נפעל','יַ (פתח) + חיריק אחרי ל׳ = הפעיל-עתיד. יַ (פתח) = הפעיל בלבד. לעומת: יִ=קל/נפעל, יְ=פיעל/פועל, יֻ=הופעל','הדגש בגּ׳','ניקוד הצרה'],
+ ans:1,
+ explain:'יַ (פתח) בתחילת עתיד = הפעיל בלבד. יַגְדִּיל = יַ+ג-ד-ל+ִיל. מפתח עתיד: יִ=קל/נפעל / יְ=פיעל / יַ=הפעיל / יֻ=הופעל. הפתח = הסימן הבלעדי.',
+ teacherNote:'מפתח 4 ניקודי יוד בעתיד = ידע יסוד. שאלו: מה עתיד קל ג-ד-ל? ← יִגְדַּל. נפעל? ← יִגָּדֵל. פיעל? ← יְגַדֵּל. הפעיל? ← יַגְדִּיל. ארבע צורות שונות!'},
+
+{id:'q06',type:'mc',ref:'טקסט א — פועל',
+ q:'דֻּבַּר (הספר דֻּבַּר בשיעור) — מהו הבניין?',
+ opts:['נפעל — כי הוא סביל','פועל — קיבוץ (ֻ) תחת פ׳ השורש (ד) + דגש חזק בב"ית (ע׳). שני הסימנים יחד = פועל בלבד','הופעל — כי יש קיבוץ','קל-סביל'],
+ ans:1,
+ explain:'פועל = קיבוץ ישירות בפ׳ + דגש חזק בע׳. דֻּבַּר: דֻּ (ד+קיבוץ) + בַּ (ב+דגש) = פועל. הופעל = הֻ לפני פ׳ (ה׳ נוספת). כאן אין ה׳ קידומת — הד"ד היא ישירות פ׳ השורש.',
+ teacherNote:'שאלו: מה הפועל הפעיל (פיעל) של ד-ב-ר? ← דִּבֵּר (חיריק-דגש). מה הסביל (פועל)? ← דֻּבַּר (קיבוץ-דגש). ניגוד ברור: חיריק ↔ קיבוץ תחת פ׳.'},
+
+{id:'q07',type:'mc',ref:'טקסט א — הופעל עבר/הווה',
+ q:'מה ההבדל בין הֻכְנַס (עבר) ל-מֻכְנָס (הווה) בהופעל?',
+ opts:['אין הבדל','עבר: קידומת הֻ + פתח בל׳ (הֻקְטַל). הווה: קידומת מֻ + קמץ בל׳ (מֻקְטָל). זהה לכלל נפעל: עבר=פתח, הווה=קמץ','בעבר יש דגש, בהווה אין','הסיומת שונה'],
+ ans:1,
+ explain:'הופעל: עבר = הֻ + פתח בל׳ (הֻקְטַל). הווה = מֻ + קמץ בל׳ (מֻקְטָל). אותו כלל כמו נפעל: עבר=פתח, הווה=קמץ. עתיד = יֻ + פתח.',
+ teacherNote:'כלל נפעל=הופעל: עבר=פתח, הווה=קמץ בל׳. שאלו: מה עתיד הופעל כ-נ-ס? ← יֻכְנַס (פתח = עתיד). שלוש צורות: הֻ/מֻ/יֻ.'},
+
+/* ══ טקסט ב — זוגות פעיל-סביל (שאלות 8–14) ══ */
+{id:'q08',type:'mc',ref:'טקסט ב — זוג פיעל/פועל',
+ q:'לִמֵּד ↔ לֻמַּד — מה הזוג המדויק?',
+ opts:['קל ↔ נפעל — בסיסי/סביל','פיעל ↔ פועל — לִמֵּד=פיעל (חיריק בפ׳+דגש בע׳). לֻמַּד=פועל (קיבוץ בפ׳+דגש בע׳). שניהם ל-מ-ד. ההבדל: חיריק↔קיבוץ תחת פ׳','הפעיל ↔ הופעל','קל ↔ פועל'],
+ ans:1,
+ explain:'פיעל (פעיל-מחוזק) ↔ פועל (סביל) = זוג. פ׳ = ל. לִמֵּד = פיעל (חיריק+דגש). לֻמַּד = פועל (קיבוץ+דגש). ההבדל: תנועת פ׳ השורש: חיריק (פיעל) ↔ קיבוץ (פועל).',
+ teacherNote:'שאלו: מה ב"כִּתֵּב" (פיעל)? ← "כֻּתַּב" (פועל). "שִׁבֵּר" (פיעל)? ← "שֻׁבַּר" (פועל). כלל קבוע: חיריק בפ׳ = פיעל. קיבוץ בפ׳ = פועל.'},
+
+{id:'q09',type:'mc',ref:'טקסט ב — זוג הפעיל/הופעל',
+ q:'הִלְבִּישׁ ↔ הֻלְבַּשׁ — מה הזוג?',
+ opts:['פיעל ↔ פועל','הפעיל ↔ הופעל — הִלְבִּישׁ=הפעיל (הִ+חיריק). הֻלְבַּשׁ=הופעל (הֻ). שניהם שורש ל-ב-שׁ. ההבדל: הִ+חיריק ↔ הֻ+פתח','קל ↔ נפעל','התפעל ↔ הופעל'],
+ ans:1,
+ explain:'הפעיל↔הופעל = זוג. הִ (חיריק) ↔ הֻ (קיבוץ). הִלְבִּישׁ = הפעיל (גרם ללבוש). הֻלְבַּשׁ = הופעל (הולבש ע"י מישהו). כלל: כל אחד מ-7 הבניינים ← זהה את הזוג שלו.',
+ teacherNote:'שאלו: מה זוג כל בניין? ← קל↔נפעל, פיעל↔פועל, הפעיל↔הופעל, התפעל בודד. שרטטו את הזוגות על הלוח. כל בניין פעיל ← בניין סביל מקביל.'},
+
+{id:'q10',type:'mc',ref:'טקסט ב — הופעל גוף',
+ q:'הֻגְדְּלָה — מהם הגוף והמין?',
+ opts:['ג׳ זכר יחיד','ג׳ נקבה יחיד — סיומת "-ָה" בהופעל-עבר = נקבה יחיד. התמונה (נקבה) הוגדלה','ג׳ ראשון יחיד','שני נקבה'],
+ ans:1,
+ explain:'סיומת "-ָה" בהופעל-עבר = ג׳ נקבה יחיד. הֻגְדְּלָה: הֻ+ג-ד-ל+"-ָה". שורש ג-ד-ל. "התמונה הֻגְדְּלָה" = הוגדלה (סביל). ניקוד: שוא נח תחת ד + שוא נח תחת ל.',
+ teacherNote:'שאלו: מה ברבים? ← הֻגְדְּלוּ. בהווה נקבה? ← מֻגְדֶּלֶת. שים לב: הֻגְדְּלָה מול הֻגְדַּל (זכר) — ההבדל רק בסיומת.'},
+
+{id:'q11',type:'tf',ref:'טקסט ב — התפעל הווה',
+ q:'מִתְרַחֵץ הוא בניין התפעל, הווה, ג׳ זכר יחיד.',
+ ans:true,
+ explain:'נכון. מִתְ = קידומת התפעל-הווה. שורש: ר-ח-צ. תבנית מִתְפַּעֵל. מִתְרַחֵץ = מי שרוחץ את עצמו = חוזר-עצמי. ג׳ זכר יחיד (הוא מִתְרַחֵץ).',
+ teacherNote:'שאלו: מה עבר? ← הִתְרַחֵץ. מה עתיד? ← יִתְרַחֵץ. מה שם פעולה? ← הִתְרַחֲצוּת. מהי המשמעות? ← חוזר-עצמי: הנושא = המבצע = המקבל.'},
+
+{id:'q12',type:'mc',ref:'טקסט ב — קל/הפעיל',
+ q:'מה ההבדל המשמעותי בין הִגְדִּיל (הפעיל) ל-גָּדַל (קל)?',
+ opts:['אין הבדל','קל = פעולה ספונטנית/עצמאית (גדל מעצמו). הפעיל = גרימה (גרם לדבר אחר לגדול). עצמאי ↔ גרמה','קל = עבר, הפעיל = עתיד','קל = יחיד, הפעיל = רבים'],
+ ans:1,
+ explain:'גָּדַל = קל = הנושא גדל בעצמו (ספונטני). הִגְדִּיל = הפעיל = הנושא גרם לדבר אחר לגדול. "הילד גָּדַל" ↔ "המורה הִגְדִּיל את הטקסט". ההבחנה: קל = עצמאי, הפעיל = גרמה לאחר.',
+ teacherNote:'שאלו: מה ההבדל שָׁמַע ↔ הִשְׁמִיעַ? ← קל = שמע. הפעיל = גרם לאחרים לשמוע. "שָׁמַע מוזיקה" ↔ "הִשְׁמִיעַ מוזיקה (לאחרים)".'},
+
+{id:'q13',type:'mc',ref:'טקסט ב — שורש התפעל',
+ q:'מה שורש הִתְרַחֵץ?',
+ opts:['ה-ת-ר','ר-ח-צ — הִתְ = קידומת התפעל. הסר הִתְ ← ר-ח-צ = שורש. לאמת: רָחַץ (קל) = שורש ר-ח-צ','ת-ר-ח','ה-ר-ח'],
+ ans:1,
+ explain:'הִתְ = קידומת התפעל — לא שורש. ניתן לאמת: רָחַץ (קל-עבר) ← שורש ר-ח-צ. הִתְרַחֵץ = ר-ח-צ + התפעל. הסר הִתְ → הבסיס = ר-ח-צ.',
+ teacherNote:'שאלו: מה שורש הִתְכַּתֵּב? ← כ-ת-ב. הִתְגַּדֵּל? ← ג-ד-ל. הִצְטַיֵּן? ← צ-י-ן (טרנספוזיציה!). בדיקה: האם קיים בקל? ← רָחַץ/כָּתַב/גָּדַל = כן.'},
+
+{id:'q14',type:'tf',ref:'טקסט ב — שמות פעולה',
+ q:'לבניינים הסבילים (נפעל, פועל, הופעל) אין שם פעולה ייעודי נפוץ.',
+ ans:true,
+ explain:'נכון. שמות פעולה = בניינים פעילים: קל, פיעל, הפעיל, התפעל. בניינים סבילים (נפעל, פועל, הופעל) — לרוב ללא שם פעולה עצמאי. נפעל יוצא דופן: הִקָּטְלוּת (נדיר).',
+ teacherNote:'שאלו: מה שם הפעולה של לִמֵּד (פיעל)? ← לִמּוּד. של הִכְנִיס (הפעיל)? ← הַכְנָסָה. של לֻמַּד (פועל)? ← אין. מדוע? ← הסביל מתאר מצב, לא פעולה עצמאית.'},
+
+/* ══ תיאוריה + הערכה (שאלות 15–21) ══ */
+{id:'q15',type:'mc',ref:'תיאוריה — הפעיל',
+ q:'מה הקידומות הייחודיות לכל זמן בהפעיל?',
+ opts:['עבר=הִ, הווה=מְ, עתיד=יִ — כמו פיעל','עבר=הִ, הווה=מַ (פתח!), עתיד=יַ (פתח!). הפתח בהווה ועתיד = הסימן המבדיל מפיעל (מְ/יְ שוא) ומנפעל (מִ/יִ חיריק)','עבר=נִ, הווה=מִ, עתיד=יִ','כמו התפעל'],
+ ans:1,
+ explain:'הפעיל: הִ+חיריק/מַ/יַ. הפתח (מַ/יַ) = סימן בלעדי בהווה ועתיד. פיעל = מְ/יְ (שוא). הופעל = מֻ/יֻ (קיבוץ). הפעיל = מַ/יַ (פתח). שלוש קידומות שונות לאותו זמן!',
+ teacherNote:'שאלו: כיצד נזהה בניין מ"מַכְנִיס"? ← מַ (פתח) + חיריק = הפעיל. מ"מְכַתֵּב"? ← מְ (שוא) + דגש = פיעל. מ"מֻכְנָס"? ← מֻ (קיבוץ) = הופעל. שלוש אפשרויות!'},
+
+{id:'q16',type:'sort',ref:'תיאוריה — זוגות',
+ q:'סדר את 7 הבניינים לפי זוגות (פעיל→סביל), הבודד בסוף:',
+ items:['פיעל (פעיל-מחוזק) ↔ פועל (סביל)','קל (פעיל-בסיסי) ↔ נפעל (סביל/עצמי)','התפעל — בודד (חוזר-עצמי)','הפעיל (גרימה) ↔ הופעל (סביל)'],
+ correctOrder:[1,0,3,2],
+ explain:'סדר: קל↔נפעל, פיעל↔פועל, הפעיל↔הופעל, התפעל (בודד). 3 זוגות + 1 בודד = 7 בניינים.',
+ teacherNote:'שרטטו על הלוח: 3 עמודות. עמודה 1: פעיל. עמודה 2: סביל. עמודה 3: מיוחד. שאלו: מה מקשר כל זוג? ← אותו שורש + תפקיד משמעותי הפוך (פעיל/סביל).'},
+
+{id:'q17',type:'mc',ref:'תיאוריה — פועל/פיעל',
+ q:'מה ההבדל בין מְדֻבָּר (פועל-הווה) ל-מְדַבֵּר (פיעל-הווה)?',
+ opts:['אי אפשר להבדיל — שניהם מְ','תנועת פ׳ השורש: פיעל = פתח (מְפַעֵל). פועל = קיבוץ (מְפֻעָל). מְדַבֵּר (פתח בד) ↔ מְדֻבָּר (קיבוץ בד). שניהם מְ + דגש בע׳, אבל תנועת פ׳ שונה','הם אותה מילה','ההבדל בסיומת'],
+ ans:1,
+ explain:'שניהם מְ + שורש + דגש בע׳. ההבדל: תנועת פ׳ השורש. פיעל-הווה = מְפַעֵל (פתח בפ׳). פועל-הווה = מְפֻעָל (קיבוץ בפ׳). מְדַבֵּר (פתח בד) ↔ מְדֻבָּר (קיבוץ בד).',
+ teacherNote:'שאלו: מה ההבדל מְלַמֵּד ↔ מְלֻמָּד? ← פיעל ↔ פועל. כלל: מְ + פתח בפ׳ + דגש בע׳ = פיעל. מְ + קיבוץ בפ׳ + דגש בע׳ = פועל.'},
+
+{id:'q18',type:'tf',ref:'תיאוריה — טרנספוזיציה',
+ q:'הִצְטַיֵּן — האות צ׳ היא פ׳ השורש, והת׳ עברה אחרי הצ׳.',
+ ans:true,
+ explain:'נכון. שורש: צ-י-ן. בהתפעל כשפ׳=ז/ד/ט/צ — הת׳ מתחלפת עם פ׳: הִת+צ → הִצְט. טרנספוזיציה. כנ"ל: הִזְדַּקֵּן (ז-ק-נ), הִשְׁתַּמֵּשׁ (ש-מ-שׁ), הִטַּפֵּל (ט-פ-ל).',
+ teacherNote:'טרנספוזיציה = תחלופת אותיות. שאלו: מה השורש הִזְדַּקֵּן? ← ז-ק-נ. הִשְׁתַּמֵּשׁ? ← ש-מ-שׁ (ש+ת → שׁ+ת). ציינו: גם שׁ מבצעת אסימילציה חלקית.'},
+
+{id:'q19',type:'mc',ref:'תיאוריה — מפתח עתיד',
+ q:'מה הניקוד הנכון של יוד בתחילת עתיד לכל בניין?',
+ opts:['כולם יִ (חיריק)','יִ = קל/נפעל | יְ = פיעל/פועל | יַ = הפעיל | יֻ = הופעל. ארבעה ניקודים שונים לאותה אות!','יִ = קל | יַ = כל השאר','לפי הזמן, לא לפי הבניין'],
+ ans:1,
+ explain:'מפתח עתיד: יִ (חיריק) = קל/נפעל. יְ (שוא) = פיעל/פועל. יַ (פתח) = הפעיל. יֻ (קיבוץ) = הופעל. יִכְתֹּב/יִכָּתֵב / יְכַתֵּב/יְכֻתַּב / יַכְנִיס / יֻכְנַס.',
+ teacherNote:'טבלת עתיד = ידע בסיסי. שאלו: מה עתיד ד-ב-ר בכל 7 הבניינים? יִדְבַּר (קל) / יִדָּבֵר (נפעל) / יְדַבֵּר (פיעל) / יְדֻבַּר (פועל) / יִתְדַּבֵּר (התפעל) / יַדְבִּיר (הפעיל!) / יֻדְבַּר (הופעל).'},
+
+{id:'q20',type:'mc',ref:'הערכה — בלום 5',
+ q:'תלמיד/ה כתב/ה: "הִגְדִּיל ו-הִתְגַּדֵּל — שניהם גרימה כי שניהם מתחילים בהִ." מה שגוי?',
+ opts:['הניתוח נכון','שתי שגיאות: (1) הִגְדִּיל = הפעיל = גרימה. הִתְגַּדֵּל = התפעל = שינוי מצב עצמי — לא גרימה. (2) הִ לבד ≠ הפעיל. הִתְ = התפעל. הקידומת הקובעת: הִ+חיריק=הפעיל, הִתְ=התפעל','שגיאה אחת: המשמעות בלבד','שגיאה: הזמן בלבד'],
+ ans:1,
+ explain:'שתי שגיאות: (1) משמעות: הִגְדִּיל = גרימה (גרם לאחר לגדול). הִתְגַּדֵּל = שינוי מצב עצמי (גדל לעצמו). (2) קידומת: הִ+חיריק = הפעיל. הִתְ = התפעל. הִ לבד לא מספיקה.',
+ teacherNote:'שאלת הערכה (בלום 5). שאלו: כיצד נבדיל הפעיל מהתפעל? ← (1) קידומת: הִ+חיריק ↔ הִתְ. (2) משמעות: גרימה ↔ עצמי/הדדי. בקשו לתת דוגמאות נוספות לכל אחד.'},
+
+{id:'q21',type:'open',ref:'ניתוח השוואתי',
+ q:'השווה/י: <strong>הִגְדִּיל</strong> (הפעיל) ↔ <strong>הֻגְדַּל</strong> (הופעל) ↔ <strong>הִתְגַּדֵּל</strong> (התפעל):<br>(א) מי פועל ומי מקבל הפעולה (ב) משפט לכל אחד (ג) סימן צורני מבדיל.',
+ placeholder:'(א) הפעיל: גורם לאחר לגדול. הופעל: מושא שהוגדל. התפעל: גדל לעצמו (עצמי). (ב) הפעיל: המנהל הִגְדִּיל את המשכורת. הופעל: המשכורת הֻגְדְּלָה. התפעל: הוא הִתְגַּדֵּל עם הזמן. (ג) הפעיל: הִ+חיריק. הופעל: הֻ+פתח. התפעל: הִתְ.',
+ hint:'הפעיל = גרימה (פעיל). הופעל = סביל של הפעיל. התפעל = שינוי מצב עצמי (לא גרימה לאחר).',
+ rubric:'(א) פעיל/סביל/עצמי נכון לכל אחד (ב) שלושה משפטים תקינים (ג) שלושה סימנים צורניים',
+ explain:'הפעיל: גרימה + הִ+חיריק. הופעל: סביל + הֻ. התפעל: עצמי + הִתְ. שלושת הבניינים = שלוש נקודות מבט שונות על אותו שורש.',
+ teacherNote:'שאלת בגרות: ג׳ בניינים מאותו שורש. ציון מלא: (א) פעיל/סביל/עצמי + (ב) משפט + (ג) סימן. שכיח: תלמידים מבלבלים הפעיל והתפעל — שניהם מתחילים בהִ. הדגישו: הִתְ = תמיד התפעל.'},
 ];
 
 const QS={answers:{},submitted:false};
 let _lastScore=null,_lastCorrect=0,_gateConfirmed=false;
-
-function switchTab(t){
-  ['theory','practice','answers'].forEach(x=>{
-    document.getElementById('pane-'+x)?.classList.toggle('active',x===t);
-    document.getElementById('btn-'+x)?.classList.toggle('active',x===t);
-    document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);
-  });
-  if(t==='practice'&&USER_ROLE==='teacher'){
-    document.getElementById('student-gate')?.classList.add('hidden');
-    document.getElementById('gate-confirmed')?.classList.add('hidden');
-    const tw=document.getElementById('practice-content-wrap');if(tw)tw.style.display='';
-  }
-  if(t==='practice'&&USER_ROLE==='student'){
-    const dateEl=document.getElementById('gate-date-display');
-    if(dateEl)dateEl.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-    const gate=document.getElementById('student-gate'),conf=document.getElementById('gate-confirmed'),wrap=document.getElementById('practice-content-wrap');
-    const ne=document.getElementById('gate-name'),ce=document.getElementById('gate-class');
-    if(!_gateConfirmed){
-      if(ne&&STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה')ne.value=STUDENT_NAME;
-      if(ce&&STUDENT_CLASS)ce.value=STUDENT_CLASS;
-      if(gate)gate.classList.remove('hidden');if(conf)conf.classList.add('hidden');if(wrap)wrap.style.display='none';
-    }else{if(gate)gate.classList.add('hidden');if(conf)conf.classList.remove('hidden');if(wrap)wrap.style.display='';}
-  }
-}
-function confirmGate(){
-  const ne=document.getElementById('gate-name'),ce=document.getElementById('gate-class');
-  const nv=(ne?.value||'').trim(),cv=(ce?.value||'').trim();let ok=true;
-  if(nv.split(/\s+/).filter(Boolean).length<2){ne?.classList.add('err');document.getElementById('gate-name-err')?.classList.add('show');ok=false;}
-  else{ne?.classList.remove('err');document.getElementById('gate-name-err')?.classList.remove('show');}
-  if(!cv){ce?.classList.add('err');document.getElementById('gate-class-err')?.classList.add('show');ok=false;}
-  else{ce?.classList.remove('err');document.getElementById('gate-class-err')?.classList.remove('show');}
-  if(!ok)return;
-  STUDENT_NAME=nv;STUDENT_CLASS=cv;LS.set('lashon2_uname',nv);LS.set('lashon2_class',cv);_gateConfirmed=true;
-  const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');
-  if(av)av.textContent=nv[0].toUpperCase();if(nm)nm.textContent=nv;if(mt)mt.textContent='כיתה '+cv+' · '+new Date().toLocaleDateString('he-IL');
-  document.getElementById('student-gate')?.classList.add('hidden');document.getElementById('gate-confirmed')?.classList.remove('hidden');
-  const wrap=document.getElementById('practice-content-wrap');if(wrap){wrap.style.display='';wrap.scrollIntoView({behavior:'smooth',block:'start'});}
-}
-function reopenGate(){
-  _gateConfirmed=false;
-  document.getElementById('student-gate')?.classList.remove('hidden');document.getElementById('gate-confirmed')?.classList.add('hidden');
-  const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';
-  document.getElementById('student-gate')?.scrollIntoView({behavior:'smooth',block:'start'});
-  setTimeout(()=>document.getElementById('gate-name')?.focus(),250);
-}
-
-function renderQuestions(){
-  const c=document.getElementById('questions-container');if(!c)return;
-  c.innerHTML=QUESTIONS.map((q,i)=>buildCard(q,i)).join('');
-  renderAnswers();
-}
-function buildCard(q,i){
-  let input='';
-  const LETTERS=['א','ב','ג','ד'];
-  if(q.type==='mc'){
-    input=`<div class="mc-wrap">${q.opts.map((o,oi)=>`
-      <button class="mc-btn" id="${q.id}_o${oi}" onclick="pickMC('${q.id}',${oi})">
-        <span class="mc-letter">${LETTERS[oi]}</span><span>${o}</span>
-      </button>`).join('')}</div>`;
-  }else if(q.type==='tf'){
-    input=`<div class="tf-row">
-      <button class="tf-btn" id="${q.id}_t" onclick="pickTF('${q.id}',true)">✅ נכון</button>
-      <button class="tf-btn" id="${q.id}_f" onclick="pickTF('${q.id}',false)">❌ לא נכון</button>
-    </div>`;
-  }else if(q.type==='sort'){
-    const sh=[...q.items.map((item,oi)=>({item,oi}))].sort(()=>Math.random()-.5);
-    input=`<p class="sort-note">גרור ושחרר לסידור הנכון ↕</p>
-      <div class="sort-list" id="${q.id}_sort">
-        ${sh.map((s,si)=>`
-        <div class="sort-item" draggable="true" data-origidx="${s.oi}" id="${q.id}_si${si}"
-          ondragstart="dStart(event,'${q.id}')" ondragover="dOver(event)" ondrop="dDrop(event,'${q.id}')" ondragleave="dLeave(event)">
-          <span class="sort-handle">⠿</span><span class="sort-text">${s.item}</span>
-        </div>`).join('')}
-      </div>`;
-  } else if(q.type==='open'){
-    input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
-  }
-  const refBadge=q.ref?`<span class="q-type-badge" style="color:var(--lc);background:var(--lc-lt);border-color:#ddd6fe">📍 ${q.ref}</span>`:'';
-  const tb=`<span class="q-type-badge">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>`;
-  return `
-  <div class="q-card" id="card_${q.id}">
-    <div class="q-num">שאלה ${i+1} מתוך ${QUESTIONS.length} ${tb} ${refBadge}</div>
-    <p class="q-text">${q.q}</p>
-    ${input}
-    <div class="q-feedback" id="${q.id}_fb"></div>
-  </div>`;
-}
-
-function pickMC(qid,oi){
-  if(QS.submitted)return;
-  const q=QUESTIONS.find(x=>x.id===qid);if(!q)return;
-  QS.answers[qid]={type:'mc',sel:oi};
-  q.opts.forEach((_,i)=>{const b=document.getElementById(`${qid}_o${i}`);if(!b)return;b.classList.toggle('sel',i===oi);});
-  updateCounter();
-}
-function pickTF(qid,val){
-  if(QS.submitted)return;
-  QS.answers[qid]={type:'tf',sel:val};
-  const t=document.getElementById(`${qid}_t`),f=document.getElementById(`${qid}_f`);
-  if(t)t.classList.toggle('sel',val===true);if(f)f.classList.toggle('sel',val===false);
-  updateCounter();
-}
+function switchTab(t){['theory','practice','answers'].forEach(x=>{document.getElementById('pane-'+x)?.classList.toggle('active',x===t);document.getElementById('btn-'+x)?.classList.toggle('active',x===t);document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);});if(t==='practice'&&USER_ROLE==='teacher'){document.getElementById('student-gate')?.classList.add('hidden');const tw=document.getElementById('practice-content-wrap');if(tw)tw.style.display='';}if(t==='practice'&&USER_ROLE==='student'){const dd=document.getElementById('gate-date-display');if(dd)dd.textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});const gate=document.getElementById('student-gate'),conf=document.getElementById('gate-confirmed'),wrap=document.getElementById('practice-content-wrap');const ne=document.getElementById('gate-name'),ce=document.getElementById('gate-class');if(!_gateConfirmed){if(ne&&STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה')ne.value=STUDENT_NAME;if(ce&&STUDENT_CLASS)ce.value=STUDENT_CLASS;if(gate)gate.classList.remove('hidden');if(conf)conf.classList.add('hidden');if(wrap)wrap.style.display='none';}else{if(gate)gate.classList.add('hidden');if(conf)conf.classList.remove('hidden');if(wrap)wrap.style.display='';}}}
+function confirmGate(){const ne=document.getElementById('gate-name'),ce=document.getElementById('gate-class');const nv=(ne?.value||'').trim(),cv=ce?.value||'';let ok=true;if(nv.split(/\s+/).filter(Boolean).length<2){ne?.classList.add('err');document.getElementById('gate-name-err')?.classList.add('show');ok=false;}else{ne?.classList.remove('err');document.getElementById('gate-name-err')?.classList.remove('show');}if(!cv){ce?.classList.add('err');document.getElementById('gate-class-err')?.classList.add('show');ok=false;}else{ce?.classList.remove('err');document.getElementById('gate-class-err')?.classList.remove('show');}if(!ok)return;STUDENT_NAME=nv;STUDENT_CLASS=cv;LS.set('lashon2_uname',nv);LS.set('lashon2_class',cv);_gateConfirmed=true;const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=nv[0].toUpperCase();if(nm)nm.textContent=nv;if(mt)mt.textContent='כיתה '+cv+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('student-gate')?.classList.add('hidden');document.getElementById('gate-confirmed')?.classList.remove('hidden');const wrap=document.getElementById('practice-content-wrap');if(wrap){wrap.style.display='';wrap.scrollIntoView({behavior:'smooth',block:'start'});}}
+function reopenGate(){_gateConfirmed=false;document.getElementById('student-gate')?.classList.remove('hidden');document.getElementById('gate-confirmed')?.classList.add('hidden');const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';setTimeout(()=>document.getElementById('gate-name')?.focus(),250);}
+function renderQuestions(){const c=document.getElementById('questions-container');if(!c)return;c.innerHTML=QUESTIONS.map((q,i)=>buildCard(q,i)).join('');renderAnswers();}
+function buildCard(q,i){let input='';const L=['א','ב','ג','ד'];if(q.type==='mc'){input=`<div class="mc-wrap">${q.opts.map((o,oi)=>`<button class="mc-btn" id="${q.id}_o${oi}" onclick="pickMC('${q.id}',${oi})"><span class="mc-letter">${L[oi]}</span><span>${o}</span></button>`).join('')}</div>`;}else if(q.type==='tf'){input=`<div class="tf-row"><button class="tf-btn" id="${q.id}_t" onclick="pickTF('${q.id}',true)">✅ נכון</button><button class="tf-btn" id="${q.id}_f" onclick="pickTF('${q.id}',false)">❌ לא נכון</button></div>`;}else if(q.type==='sort'){input=`<div class="sort-note">גרור לסדר הנכון</div><div class="sort-list" id="${q.id}_sl">${q.items.map((it,j)=>`<div class="sort-item" draggable="true" data-idx="${j}" id="${q.id}_si${j}" ondragstart="dragStart(event,'${q.id}',${j})" ondragover="dragOver(event)" ondrop="dropItem(event,'${q.id}')" ondragleave="dragLeave(event)"><span class="sort-handle">⠿</span><span class="sort-text">${it}</span></div>`).join('')}</div>`;} else if(q.type==='open'){input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;}return `<div class="q-card" id="${q.id}_card"><div class="q-num">שאלה ${i+1} מתוך ${QUESTIONS.length} <span class="q-type-badge">${q.ref}</span></div><div class="q-text">${q.q}</div>${input}<div class="q-feedback" id="${q.id}_fb"></div></div>`;}
 let _ds=null;
-function dStart(e,qid){_ds=e.currentTarget;e.currentTarget.classList.add('dragging');saveSA(qid)}
-function dOver(e){e.preventDefault();e.currentTarget.classList.add('drag-over')}
-function dLeave(e){e.currentTarget.classList.remove('drag-over')}
-function dDrop(e,qid){
-  e.preventDefault();const tgt=e.currentTarget;tgt.classList.remove('drag-over');
-  if(!_ds||_ds===tgt)return;
-  const con=document.getElementById(qid+'_sort');const ch=[...con.children];const si=ch.indexOf(_ds),ti=ch.indexOf(tgt);
-  if(si<ti)con.insertBefore(tgt,_ds);else con.insertBefore(_ds,tgt);
-  _ds.classList.remove('dragging');_ds=null;saveSA(qid);updateCounter();
-}
-function saveSA(qid){const con=document.getElementById(qid+'_sort');if(!con)return;QS.answers[qid]={type:'sort',order:[...con.children].map(el=>parseInt(el.dataset.origidx))};}
-function pickOpen(qid){
-  if(QS.submitted)return;
-  var el=document.getElementById(qid+'_oa');if(!el)return;
-  var val=(el.value||'').trim();
-  if(val.length>0)QS.answers[qid]={type:'open',text:val};
-  else delete QS.answers[qid];
-  if(typeof updateCounter==='function')updateCounter();
-  else if(typeof updateProgress==='function')updateProgress();
-}
-function updateCounter(){
-  const n=Object.keys(QS.answers).length;const pct=Math.round(n/QUESTIONS.length*100);
-  const fill=document.getElementById('qp-fill');if(fill)fill.style.width=pct+'%';
-  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent=`${n} / ${QUESTIONS.length} נענו`;
-}
-
-function submitQuiz(){
-  const answered=Object.keys(QS.answers).length;
-  if(answered<QUESTIONS.length){toast(`⚠️ ענה על כל ${QUESTIONS.length} השאלות (נענו ${answered})`);return}
-  if(QS.submitted){toast('כבר הגשת');return}
-  if(USER_ROLE==='student'&&!_gateConfirmed){toast('⚠️ נא למלא שם וכיתה');reopenGate();return}
-  QS.submitted=true;
-  let correct=0;
-  QUESTIONS.forEach(q=>{
-    const a=QS.answers[q.id];let ok=false;
-    if(q.type==='mc')ok=a?.sel===q.ans;
-    else if(q.type==='tf')ok=a?.sel===q.ans;
-    else if(q.type==='sort')ok=JSON.stringify(a?.order)===JSON.stringify(q.correctOrder);
-    else if(q.type==='open')ok=!!(a?.text&&a.text.length>10);
-    if(ok)correct++;
-    const card=document.getElementById(`card_${q.id}`);if(card)card.classList.add(ok?'ok':'wrong');
-    const fb=document.getElementById(`${q.id}_fb`);
-    if(q.type==='mc'){q.opts.forEach((_,i)=>{const b=document.getElementById(`${q.id}_o${i}`);if(!b)return;b.disabled=true;b.classList.remove('sel');if(i===q.ans)b.classList.add('correct');else if(i===a?.sel&&a.sel!==q.ans)b.classList.add('wrong');});}
-    else if(q.type==='tf'){
-      const tb=document.getElementById(`${q.id}_t`),fb2=document.getElementById(`${q.id}_f`);
-      if(tb){tb.disabled=true;tb.classList.remove('sel');if(q.ans===true)tb.classList.add('correct');else if(a?.sel===true)tb.classList.add('wrong')}
-      if(fb2){fb2.disabled=true;fb2.classList.remove('sel');if(q.ans===false)fb2.classList.add('correct');else if(a?.sel===false)fb2.classList.add('wrong')}
-    }else if(q.type==='sort'){const con=document.getElementById(`${q.id}_sort`);if(con){con.style.pointerEvents='none';con.style.opacity=ok?'1':'0.8';}}
-    if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='q-feedback show ok';fb.innerHTML='<div class="open-rubric">✍️ '+q.explain+'</div>';}else{fb.textContent=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;fb.className=`q-feedback show ${ok?'ok':'wrong'}`; }}
-  });
-  _lastScore=Math.round(correct/QUESTIONS.length*100);_lastCorrect=correct;
-  const pct=_lastScore;const col=pct>=80?'var(--green)':pct>=60?'var(--amber)':'var(--red)';const emoji=pct>=90?'🏆':pct>=80?'🎉':pct>=60?'👍':'💪';
-  const rc=document.getElementById('results-container');
-  if(rc){
-    rc.innerHTML=`
-    <div class="results-card">
-      <span class="results-emoji">${emoji}</span>
-      <span class="results-score" style="color:${col}">${pct}%</span>
-      <span class="results-label">${correct} נכון מתוך ${QUESTIONS.length} שאלות</span>
-      <div class="results-bar"><div class="results-bar-fill" id="res-bar" style="width:0%;background:${col}"></div></div>
-      ${USER_ROLE==='student'&&STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'?`
-      <div style="background:var(--green-lt);border:1.5px solid #bbf7d0;border-radius:var(--r-lg);padding:.9rem 1.1rem;margin-bottom:1.2rem;text-align:right">
-        <div style="font-size:.72rem;font-weight:800;color:var(--green);margin-bottom:.32rem">✅ נשמר אצל המורה</div>
-        <div style="font-size:.84rem;color:var(--text);font-weight:700">${STUDENT_NAME}</div>
-        <div style="font-size:.75rem;color:var(--muted);margin-top:.15rem">כיתה ${STUDENT_CLASS||'—'} · ${new Date().toLocaleDateString('he-IL')}</div>
-      </div>`:''}
-      ${pct>=80?`<div class="box box-green" style="text-align:right;margin-bottom:1.2rem">✅ ביצוע מצוין!</div>`:''}
-      <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
-        ${USER_ROLE==='student'?`<button class="btn-send" onclick="sendResults(${pct})">📤 שלח למורה</button>`:''}
-        <button class="btn-reset" onclick="resetQuiz()">🔄 נסה שוב</button>
-        <button class="btn-print" onclick="printLesson()">🖨️ הדפס</button>
-      </div>
-    </div>`;
-    rc.scrollIntoView({behavior:'smooth',block:'center'});
-    setTimeout(()=>{const b=document.getElementById('res-bar');if(b)b.style.width=pct+'%'},120);
-  }
-  const prog=LS.get('lashon2_prog_'+STUDENT_NAME,{});
-  prog[LESSON_ID]={done:true,score:pct,date:new Date().toLocaleDateString('he-IL'),className:STUDENT_CLASS};
-  LS.set('lashon2_prog_'+STUDENT_NAME,prog);
-  saveScore(pct,STUDENT_NAME,STUDENT_CLASS);
-  if(window.opener)try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID,score:pct,studentName:STUDENT_NAME,className:STUDENT_CLASS},'*')}catch{}
-}
-function resetQuiz(){
-  QUESTIONS.forEach(function(q){if(q.type==='open'){var t=document.getElementById(q.id+'_oa');if(t){t.disabled=false;t.value='';}}});Object.keys(QS.answers).forEach(k=>delete QS.answers[k]);QS.submitted=false;_lastScore=null;_lastCorrect=0;
-  QUESTIONS.forEach(q=>{
-    if(q.type==='mc')q.opts.forEach((_,i)=>{const b=document.getElementById(`${q.id}_o${i}`);if(b){b.disabled=false;b.className='mc-btn'}});
-    else if(q.type==='tf'){const t=document.getElementById(`${q.id}_t`),f=document.getElementById(`${q.id}_f`);if(t){t.disabled=false;t.className='tf-btn'}if(f){f.disabled=false;f.className='tf-btn'}}
-    else if(q.type==='sort'){const con=document.getElementById(`${q.id}_sort`);if(con){con.style.pointerEvents='';con.style.opacity=''}}
-    const card=document.getElementById(`card_${q.id}`);if(card)card.className='q-card';
-    const fb=document.getElementById(`${q.id}_fb`);if(fb){fb.className='q-feedback';fb.textContent=''}
-  });
-  const rc=document.getElementById('results-container');if(rc)rc.innerHTML='';
-  const fill=document.getElementById('qp-fill');if(fill)fill.style.width='0%';
-  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent=`0 / ${QUESTIONS.length} נענו`;
-}
-function sendResults(pct){
-  const email=LS.get('lashon2_teacher_email','')||LS.get('teacher_email','');
-  const wa=LS.get('lashon2_teacher_wa','')||LS.get('teacher_whatsapp','');
-  const body=`שיעור 4 יח׳3 — בניינים כבדים\nתלמיד/ה: ${STUDENT_NAME}\nכיתה: ${STUDENT_CLASS||'?'}\nציון: ${pct}%\nתאריך: ${new Date().toLocaleDateString('he-IL')} ${new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})}`;
-  if(wa){window.open('https://wa.me/972'+wa.replace(/^0/,'')+'?text='+encodeURIComponent(body),'_blank');return}
-  if(email){window.location.href='mailto:'+email+'?subject='+encodeURIComponent('שיעור 3 יח׳3 — '+STUDENT_NAME+' כיתה '+STUDENT_CLASS)+'&body='+encodeURIComponent(body);return}
-  toast('⚠️ לא הוגדרו פרטי המורה.');
-}
-
-function renderAnswers(){
-  const c=document.getElementById('answers-container');if(!c)return;
-  c.innerHTML=QUESTIONS.map((q,i)=>`
-  <div class="answer-row">
-    <div class="ans-num">שאלה ${i+1}
-      <span style="font-size:.56rem;font-weight:700;padding:.12rem .45rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)">${q.type==='mc'?'רב-בחירה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'כתיבה פתוחה':'סידור'}</span>
-      ${q.ref?`<span style="font-size:.56rem;color:var(--lc);font-weight:700">📍 ${q.ref}</span>`:''}
-    </div>
-    <div class="ans-q">${q.q}</div>
-    <div class="ans-correct">✅ ${
-      q.type==='mc'?`${'אבגד'[q.ans]}. ${q.opts[q.ans]}`:
-      q.type==='tf'?(q.ans?'נכון':'לא נכון'):
-      q.type==='open'?'שאלת כתיבה פתוחה':
-      q.correctOrder.map(j=>q.items[j]).join(' → ')
-    }</div>
-    <div class="ans-explain">💡 ${q.explain}</div>
-    ${q.teacherNote?`<div class="ans-teacher-note">🎓 ${q.teacherNote}</div>`:''}
-  </div>`).join('');
-}
-
+function dragStart(e,qid,idx){_ds={qid,idx};e.currentTarget.classList.add('dragging');}
+function dragOver(e){e.preventDefault();e.currentTarget.classList.add('drag-over');}
+function dragLeave(e){e.currentTarget.classList.remove('drag-over');}
+function dropItem(e,qid){e.preventDefault();const tg=e.currentTarget;tg.classList.remove('drag-over');if(!_ds||_ds.qid!==qid)return;const sl=document.getElementById(qid+'_sl');const items=[...sl.children];const fe=document.getElementById(qid+'_si'+_ds.idx);const ti=items.indexOf(tg),fi=items.indexOf(fe);if(fi===ti)return;if(fi<ti)sl.insertBefore(fe,tg.nextSibling);else sl.insertBefore(fe,tg);fe.classList.remove('dragging');QS.answers[qid]={order:[...sl.children].map(el=>parseInt(el.dataset.idx))};updateProgress();}
+function pickMC(qid,idx){if(QS.submitted)return;QS.answers[qid]={sel:idx};QUESTIONS.find(x=>x.id===qid).opts.forEach((_,oi)=>{const b=document.getElementById(qid+'_o'+oi);if(b)b.classList.toggle('sel',oi===idx);});updateProgress();}
+function pickTF(qid,val){if(QS.submitted)return;QS.answers[qid]={sel:val};['t','f'].forEach(k=>{const b=document.getElementById(qid+'_'+k);if(b)b.classList.toggle('sel',k==='t'?val:!val);});updateProgress();}
+function pickOpen(qid){var st=(typeof QST!='undefined')?QST:QS;if(st.submitted)return;var el=document.getElementById(qid+'_oa');if(!el)return;var val=(el.value||'').trim();if(val.length>0)st.answers[qid]={type:'open',text:val};else delete st.answers[qid];if(typeof updateCounter=='function')updateCounter();else if(typeof updateProgress=='function')updateProgress();else if(typeof updP=='function')updP();}
+function updateProgress(){const done=Object.keys(QS.answers).length,pct=Math.round(done/QUESTIONS.length*100);document.getElementById('prog-fill')?.style.setProperty('width',pct+'%');const pt=document.getElementById('prog-txt');if(pt)pt.textContent=`${done} מתוך ${QUESTIONS.length} נענו`;const pp=document.getElementById('prog-pct');if(pp)pp.textContent=pct+'%';}
+function submitQuiz(){const done=Object.keys(QS.answers).length;if(done<QUESTIONS.length){toast(`ענית על ${done} מתוך ${QUESTIONS.length}. ענה על כולן.`);return;}QS.submitted=true;let correct=0;QUESTIONS.forEach(q=>{const a=QS.answers[q.id];let ok=false;if(q.type==='mc'&&a?.sel!==undefined){ok=a.sel===q.ans;q.opts.forEach((_,oi)=>{const b=document.getElementById(q.id+'_o'+oi);if(!b)return;b.disabled=true;if(oi===q.ans)b.classList.add('correct');else if(oi===a.sel&&!ok)b.classList.add('wrong');});}else if(q.type==='tf'&&a?.sel!==undefined){ok=a.sel===q.ans;['t','f'].forEach(k=>{const b=document.getElementById(q.id+'_'+k);if(!b)return;b.disabled=true;const bv=k==='t';if(bv===q.ans)b.classList.add('correct');else if(bv===a.sel&&!ok)b.classList.add('wrong');});}else if(q.type==='sort'&&a?.order){ok=JSON.stringify(a.order)===JSON.stringify(q.correctOrder);}else if(q.type==='open'){ok=!!(a?.text&&a.text.length>10);}if(ok)correct++;document.getElementById(q.id+'_card')?.classList.add(ok?'ok':'wrong');const fb=document.getElementById(q.id+'_fb');if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.className='q-feedback show ok';fb.innerHTML='<div class="open-rubric">✍️ '+q.explain+'</div>';}else{fb.className='q-feedback show '+(ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;}}});_lastCorrect=correct;_lastScore=Math.round(correct/QUESTIONS.length*100);const pct=_lastScore,emoji=pct>=90?'🏆':pct>=75?'⭐':pct>=60?'👍':'💪',color=pct>=90?'#15803d':pct>=75?'#0f766e':pct>=60?'#1a56db':'#dc2626';const rc=document.getElementById('results-container');if(rc){rc.style.display='';rc.innerHTML=`<div class="results-card"><span class="results-emoji">${emoji}</span><span class="results-score" style="color:${color}">${pct}%</span><span class="results-label">${correct} מתוך ${QUESTIONS.length} נכון</span><div class="results-bar"><div class="results-bar-fill" style="width:0%;background:${color}" id="res-fill"></div></div><button class="btn-send" onclick="sendResults()">📤 שליחה למורה</button></div>`;}document.getElementById('submit-row')?.remove();setTimeout(()=>{const rf=document.getElementById('res-fill');if(rf)rf.style.width=pct+'%';},80);rc?.scrollIntoView({behavior:'smooth',block:'start'});}
+async function sendResults(){await saveScore(_lastScore,STUDENT_NAME,STUDENT_CLASS);toast('✅ התוצאה נשלחה!');}
+function resetQuiz(){QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;QUESTIONS.forEach(function(q){if(q.type==='open'){var t=document.getElementById(q.id+'_oa');if(t){t.disabled=false;t.value='';}}});renderQuestions();updateProgress();const rc=document.getElementById('results-container');if(rc){rc.style.display='none';rc.innerHTML='';}if(!document.getElementById('submit-row')){const sw=document.getElementById('practice-content-wrap');if(sw){const d=document.createElement('div');d.id='submit-row';d.style.cssText='display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem';d.innerHTML='<button class="btn-submit" onclick="submitQuiz()">📤 הגשת התרגול</button><button class="btn-reset" onclick="resetQuiz()">🔄 אתחול</button>';sw.appendChild(d);}}}
+function renderAnswers(){const al=document.getElementById('answers-list');if(!al)return;const L=['א','ב','ג','ד'];al.innerHTML=QUESTIONS.map((q,i)=>{let ans='';if(q.type==='mc')ans=L[q.ans]+'. '+q.opts[q.ans];else if(q.type==='tf')ans=q.ans?'✅ נכון':'❌ לא נכון';else if(q.type==='sort')ans=q.correctOrder.map(j=>q.items[j]).join(' ← ');
+    else if(q.type==='open')ans='שאלת כתיבה פתוחה';return `<div class="answer-row"><div class="ans-num">שאלה ${i+1} <span style="color:var(--lc)">${q.ref}</span></div><div class="ans-q">${q.q}</div><div class="ans-correct">✅ ${ans}</div><div class="ans-explain">💡 ${q.explain}</div></div>`;}).join('');}
 function printLesson(){
   var pw=window.open('','_blank','width=960,height=760');
   if(!pw){alert('popup blocked');return;}
@@ -1192,11 +822,11 @@ function printLesson(){
     else if(q.type==='tf')ca=q.ans?'נכון':'לא נכון';
     else if(q.type==='sort')ca=q.correctOrder.map(function(j){return q.items[j];}).join(' ← ');
     else ca='שאלת כתיבה פתוחה';
-    var pts=q.pts?'<div style="font-size:8pt;color:#7c3aed;font-weight:700;margin-bottom:.2rem">'+q.pts+' נקודות'+(q.ref?' · '+q.ref:'')+'</div>':(q.ref?'<div style="font-size:7.5pt;color:#7c3aed">'+q.ref+'</div>':'');
+    var pts=q.pts?'<div style="font-size:8pt;color:#0f766e;font-weight:700;margin-bottom:.2rem">'+q.pts+' נקודות'+(q.ref?' · '+q.ref:'')+'</div>':(q.ref?'<div style="font-size:7.5pt;color:#0f766e">'+q.ref+'</div>':'');
     var rowBg=submitted?(ok?'#fafffe':'#fffbfb'):'#fff';
     var rowBorder=submitted?(ok?'#bbf7d0':'#fca5a5'):'#e4e7ef';
-    var numBg=submitted?(ok?'#15803d':'#dc2626'):'#7c3aed';
-    var ansStyle=submitted?(ok?'background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0':'background:#fef2f2;color:#dc2626;border:1px solid #fca5a5'):'background:#fefce8;color:#7c3aed;border:1px solid #fde68a';
+    var numBg=submitted?(ok?'#15803d':'#dc2626'):'#0f766e';
+    var ansStyle=submitted?(ok?'background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0':'background:#fef2f2;color:#dc2626;border:1px solid #fca5a5'):'background:#fefce8;color:#0f766e;border:1px solid #fde68a';
     var ansIcon=submitted?(ok?'✅':'❌'):'→';
     var h='<div style="display:flex;gap:.6rem;border:1px solid '+rowBorder+';border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid;background:'+rowBg+'">';
     h+='<div style="width:20px;height:20px;border-radius:50%;background:'+numBg+';color:#fff;font-size:.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem">'+(i+1)+'</div>';
@@ -1205,45 +835,21 @@ function printLesson(){
     if(isTeacher){h+='<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ תשובה נכונה:</strong> '+ca+'</div>';}
     else if(submitted&&!ok&&gv!=='לא נענה'){h+='<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ התשובה הנכונה:</strong> '+ca+'</div>';}
     h+='<div style="font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem;line-height:1.5">'+q.explain+'</div>';
-    if(q.teacherNote)h+='<div style="font-size:8pt;color:#7c3aed;margin-top:.2rem;background:#fefce8;border-radius:5px;padding:.25rem .55rem">'+q.teacherNote+'</div>';
+    if(q.teacherNote)h+='<div style="font-size:8pt;color:#0f766e;margin-top:.2rem;background:#fefce8;border-radius:5px;padding:.25rem .55rem">'+q.teacherNote+'</div>';
     h+='</div></div>';
     return h;
   }).join('');
-  var css='*{box-sizing:border-box;margin:0;padding:0}body{font-family:Heebo,sans-serif;direction:rtl;background:#fff;color:#0d1424;font-size:10pt;line-height:1.6}@page{margin:1.5cm;size:A4}.doc{max-width:210mm;margin:0 auto;padding:1cm}.doc-header{text-align:center;padding-bottom:1.2rem;border-bottom:3px solid #7c3aed;margin-bottom:1.5rem}.doc-header h1{font-size:18pt;color:#7c3aed}.doc-header p{font-size:9pt;color:#555}.sec-title{font-size:13pt;color:#7c3aed;border-bottom:2px solid #ecfeff;padding-bottom:.4rem;margin:1.5rem 0 1rem;page-break-after:avoid}.card{border:1px solid #e4e7ef;border-radius:8px;padding:.8rem 1rem;margin-bottom:.7rem;break-inside:avoid}.mini-card{background:#f8f9fb;border:1px solid #e4e7ef;border-radius:8px;padding:.7rem .9rem;break-inside:avoid}.lesson-hero{background:#faf5ff;border:1px solid #ddd6fe;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid}.lesson-hero::before{display:none}.section-hd{font-size:11pt;color:#7c3aed;border-bottom:1.5px solid #ecfeff;padding-bottom:.3rem;margin:1.2rem 0 .6rem;display:flex;align-items:center;gap:.4rem;page-break-after:avoid}.sn{width:22px;height:22px;border-radius:50%;background:#7c3aed;color:#fff;font-size:.65rem;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900;-webkit-print-color-adjust:exact;print-color-adjust:exact}.box-lc,.box{background:#ecfeff;border:1.5px solid #a5f3fc;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.box-amber{background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.box-green{background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.6rem}.texts-side{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.8rem}.text-panel{border-radius:8px;overflow:hidden;break-inside:avoid}.text-panel.a .text-panel-header{background:#7c3aed;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.text-panel.b .text-panel-header{background:#5b21b6;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.text-panel-header{padding:.5rem .8rem;font-size:.72rem;font-weight:800}.text-panel-body{background:#f8f9fb;border:1px solid #e4e7ef;border-top:none;padding:.7rem .8rem;font-size:.78rem;line-height:1.6}.venn-wrap{display:flex;gap:0;margin:.8rem 0;break-inside:avoid}.venn-left{flex:1;background:#eff4ff;border:1.5px solid #bfdbfe;padding:.7rem .9rem;font-size:.78rem}.venn-center{width:130px;flex-shrink:0;background:#ede9fe;border:1.5px solid #c4b5fd;padding:.7rem .6rem;text-align:center;font-size:.78rem}.venn-right{flex:1;background:#fdf4ff;border:1.5px solid #d8b4fe;padding:.7rem .9rem;font-size:.78rem}.cmp-table{width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:.8rem;break-inside:avoid}.cmp-table th{padding:.5rem .7rem;text-align:right;font-weight:800;font-size:.72rem;background:#7c3aed;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.cmp-table th.col-b{background:#5b21b6}.cmp-table td{padding:.45rem .7rem;border-bottom:1px solid #e4e7ef}.cmp-table tr:nth-child(even) td{background:#f8f9fb}.row-label{font-weight:700;background:#faf5ff!important}.steps-wrap{background:#faf5ff;border:1.5px solid #ddd6fe;border-radius:10px;padding:1rem;margin-bottom:.8rem;break-inside:avoid}.bagrut-template{border:2px dashed #7c3aed;border-radius:10px;padding:1rem;margin-bottom:.8rem;break-inside:avoid}.bagrut-sample{background:#faf5ff;border:1.5px solid #ddd6fe;border-radius:8px;padding:.8rem 1rem;font-size:.82rem;line-height:1.7;break-inside:avoid}.reading-text-box{background:#faf5ff;border:2px solid #7c3aed;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid;position:relative}.reading-text-box::before{display:none}.hero-badge,.hero-chip,.hero-meta,.btn-print,.print-header,.sn-icon{display:none!important}';
+  var css='*{box-sizing:border-box;margin:0;padding:0}body{font-family:Heebo,sans-serif;direction:rtl;background:#fff;color:#0d1424;font-size:10pt;line-height:1.6}@page{margin:1.5cm;size:A4}.doc{max-width:210mm;margin:0 auto;padding:1cm}.doc-header{text-align:center;padding-bottom:1.2rem;border-bottom:3px solid #0f766e;margin-bottom:1.5rem}.doc-header h1{font-size:18pt;color:#0f766e}.doc-header p{font-size:9pt;color:#555}.sec-title{font-size:13pt;color:#0f766e;border-bottom:2px solid #ecfeff;padding-bottom:.4rem;margin:1.5rem 0 1rem;page-break-after:avoid}.card{border:1px solid #e4e7ef;border-radius:8px;padding:.8rem 1rem;margin-bottom:.7rem;break-inside:avoid}.mini-card{background:#f8f9fb;border:1px solid #e4e7ef;border-radius:8px;padding:.7rem .9rem;break-inside:avoid}.lesson-hero{background:#faf5ff;border:1px solid #ddd6fe;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid}.lesson-hero::before{display:none}.section-hd{font-size:11pt;color:#0f766e;border-bottom:1.5px solid #ecfeff;padding-bottom:.3rem;margin:1.2rem 0 .6rem;display:flex;align-items:center;gap:.4rem;page-break-after:avoid}.sn{width:22px;height:22px;border-radius:50%;background:#0f766e;color:#fff;font-size:.65rem;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900;-webkit-print-color-adjust:exact;print-color-adjust:exact}.box-lc,.box{background:#ecfeff;border:1.5px solid #a5f3fc;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.box-amber{background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.box-green{background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.6rem}.texts-side{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.8rem}.text-panel{border-radius:8px;overflow:hidden;break-inside:avoid}.text-panel.a .text-panel-header{background:#7c3aed;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.text-panel.b .text-panel-header{background:#5b21b6;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.text-panel-header{padding:.5rem .8rem;font-size:.72rem;font-weight:800}.text-panel-body{background:#f8f9fb;border:1px solid #e4e7ef;border-top:none;padding:.7rem .8rem;font-size:.78rem;line-height:1.6}.venn-wrap{display:flex;gap:0;margin:.8rem 0;break-inside:avoid}.venn-left{flex:1;background:#eff4ff;border:1.5px solid #bfdbfe;padding:.7rem .9rem;font-size:.78rem}.venn-center{width:130px;flex-shrink:0;background:#ede9fe;border:1.5px solid #c4b5fd;padding:.7rem .6rem;text-align:center;font-size:.78rem}.venn-right{flex:1;background:#fdf4ff;border:1.5px solid #d8b4fe;padding:.7rem .9rem;font-size:.78rem}.cmp-table{width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:.8rem;break-inside:avoid}.cmp-table th{padding:.5rem .7rem;text-align:right;font-weight:800;font-size:.72rem;background:#0f766e;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.cmp-table th.col-b{background:#5b21b6}.cmp-table td{padding:.45rem .7rem;border-bottom:1px solid #e4e7ef}.cmp-table tr:nth-child(even) td{background:#f8f9fb}.row-label{font-weight:700;background:#faf5ff!important}.steps-wrap{background:#faf5ff;border:1.5px solid #ddd6fe;border-radius:10px;padding:1rem;margin-bottom:.8rem;break-inside:avoid}.bagrut-template{border:2px dashed #0f766e;border-radius:10px;padding:1rem;margin-bottom:.8rem;break-inside:avoid}.bagrut-sample{background:#faf5ff;border:1.5px solid #ddd6fe;border-radius:8px;padding:.8rem 1rem;font-size:.82rem;line-height:1.7;break-inside:avoid}.reading-text-box{background:#faf5ff;border:2px solid #0f766e;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid;position:relative}.reading-text-box::before{display:none}.hero-badge,.hero-chip,.hero-meta,.btn-print,.print-header,.sn-icon{display:none!important}';
   var studentLine=(sn&&sn.length>0)?'<div style="font-size:11pt;font-weight:700;margin-top:.5rem">תלמיד/ה: '+sn+(sc?' | כיתה: '+sc:'')+' | '+new Date().toLocaleDateString('he-IL')+'</div>':'<div style="font-size:10pt;color:#6b7594;margin-top:.4rem">'+new Date().toLocaleDateString('he-IL')+'</div>';
-  var bodyHtml='<div class="doc"><div class="doc-header"><h1>גזרת השלמים — בניינים כבדים</h1><p>יחידה 3 — צורות · שיעור 4</p>'+studentLine+'</div>'+scoreHtml+'<div class="sec-title">חלק א — תיאוריה</div><div>'+theoryHtml+'</div>'+(textsHtml?'<div class="sec-title" style="page-break-before:always">טקסטים לקריאה</div>'+textsHtml:'')+(questionsHtml?'<div class="sec-title" style="page-break-before:always">חלק ב — תרגול ותשובות</div>'+questionsHtml:'')+'</div>';
-  var fullHtml='<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><title>גזרת השלמים — בניינים כבדים</title><link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet"><style>'+css+'</style></head><body>'+bodyHtml+'<'+'script>document.fonts.ready.then(function(){setTimeout(function(){window.print();},300);}).catch(function(){setTimeout(function(){window.print();},1200);});<'+'/script></body></html>';
+  var bodyHtml='<div class="doc"><div class="doc-header"><h1>גזרת השלמים — בניינים כבדים</h1><p>יחידה 3 — גזרות · שיעור 4</p>'+studentLine+'</div>'+scoreHtml+'<div class="sec-title">חלק א — תיאוריה</div><div>'+theoryHtml+'</div>'+(textsHtml?'<div class="sec-title" style="page-break-before:always">טקסטים לקריאה</div>'+textsHtml:'')+(questionsHtml?'<div class="sec-title" style="page-break-before:always">חלק ב — תרגול ותשובות</div>'+questionsHtml:'')+'</div>';
+  var fullHtml='<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><title>דרכי מסירת הדיבור</title><link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet"><style>'+css+'</style></head><body>'+bodyHtml+'<'+'script>document.fonts.ready.then(function(){setTimeout(function(){window.print();},300);}).catch(function(){setTimeout(function(){window.print();},1200);});<'+'/script></body></html>';
   pw.document.write(fullHtml);
   pw.document.close();
 }
-
 let _tt;
-function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800)}
-function goBack(){
-  if(window.opener){try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}window.close();return;}
-  window.location.href=BACK_URL;
-}
-function init(){
-  initFirebase();
-  if(USER_ROLE==='teacher'){
-    const rc=document.getElementById('role-chip');if(rc)rc.style.display='';
-    const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';
-    _gateConfirmed=true;
-    const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='';
-    document.getElementById('student-gate')?.classList.add('hidden');
-    document.getElementById('gate-confirmed')?.classList.add('hidden');
-  }else{
-    const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';
-    if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){
-      _gateConfirmed=true;if(wrap)wrap.style.display='';
-      document.getElementById('student-gate')?.classList.add('hidden');
-      const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');
-      if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');
-      document.getElementById('gate-confirmed')?.classList.remove('hidden');
-    }
-  }
-  applyAnswersVisibility();renderQuestions();
-}
+function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800);}
+function goBack(){if(window.opener){try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}window.close();return;}window.location.href=BACK_URL;}
+function init(){initFirebase();if(USER_ROLE==='teacher'){document.getElementById('role-chip')?.style.setProperty('display','');document.getElementById('btn-answers')?.style.setProperty('display','');_gateConfirmed=true;const w=document.getElementById('practice-content-wrap');if(w)w.style.display='';document.getElementById('student-gate')?.classList.add('hidden');}else{const w=document.getElementById('practice-content-wrap');if(w)w.style.display='none';if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){_gateConfirmed=true;if(w)w.style.display='';document.getElementById('student-gate')?.classList.add('hidden');const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed')?.classList.remove('hidden');}}applyAnswersVisibility();renderQuestions();}
 init();
 </script>
 </body>
