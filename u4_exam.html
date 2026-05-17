@@ -244,6 +244,13 @@ button,input,select,textarea{font-family:inherit}
 .open-hint{font-size:.72rem;color:var(--muted);margin-top:.3rem}
 .open-rubric{margin-top:.6rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid)}
 rder,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid,#374151)}
+
+.open-wrap{position:relative}
+.open-textarea{width:100%;border:1.5px solid var(--border);border-radius:var(--r);padding:.85rem 1rem;font-size:.88rem;resize:vertical;min-height:110px;background:var(--surface2);color:var(--text);line-height:1.65}
+.open-textarea:focus{border-color:var(--lc);outline:none}
+.open-textarea:disabled{opacity:.65;background:var(--surface3)}
+.open-hint{font-size:.72rem;color:var(--muted);margin-top:.3rem}
+.open-rubric{margin-top:.6rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid)}
 </style>
 </head>
 <body>
@@ -263,7 +270,7 @@ rder,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;lin
 
 <div class="tabs-bar">
   <button class="tab-btn active" id="btn-theory" onclick="switchTab('theory')">📋 הנחיות</button>
-  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">📝 מבחן (26 שאלות)</button>
+  <button class="tab-btn" id="btn-practice" onclick="switchTab('practice')">📝 מבחן (30 שאלות)</button>
   <button class="tab-btn" id="btn-answers" onclick="switchTab('answers')" style="display:none">🔑 פתרונות (מורה)</button>
   <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 פתרונות</button>
 </div>
@@ -281,8 +288,8 @@ rder,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;lin
   <div class="lesson-hero">
     <div class="hero-badge">מבחן · יחידה 4</div>
     <span class="hero-emoji">📝</span>
-    <h1 class="hero-title">מבחן סיכום — צורות</h1>
-    <p class="hero-desc">מבחן מסכם לכל נושאי יחידה 4 — שם המספר, אותיות השימוש, כתיב חסר ומלא, הפיסוק התקני. 25 שאלות ברמות שונות.</p>
+    <h1 class="hero-title">מבחן סיכום — תקינות</h1>
+    <p class="hero-desc">מבחן מסכם לכל נושאי יחידה 4 — שם המספר, אותיות השימוש, כתיב חסר ומלא, הפיסוק התקני. 30 שאלות ברמות שונות.</p>
     <div class="hero-meta">
       <span class="hero-chip lc">⏱ 90 דק׳</span>
       <span class="hero-chip">📝 30 שאלות</span>
@@ -431,10 +438,10 @@ rder,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;lin
     </div>
 
     <div class="quiz-header">
-      <div class="quiz-hd-title">📝 מבחן סיכום יחידה 4: תקינות — 26 שאלות</div>
+      <div class="quiz-hd-title">📝 מבחן סיכום יחידה 4: תקינות — 30 שאלות</div>
       <div class="quiz-hd-desc">MC · נכון/לא נכון · סדר | 90 דקות | חלקים א–ו</div>
       <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="prog-fill" style="width:0%"></div></div>
-      <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 26 נענו</span><span id="prog-pct">0%</span></div>
+      <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 30 נענו</span><span id="prog-pct">0%</span></div>
     </div>
 
     <div id="questions-container"></div>
@@ -685,6 +692,31 @@ const QUESTIONS=[
    rubric:'(א) שני הניקודים + כלל — 3 נקודות. (ב) סוג + הסבר — 2 נקודות. (ג) נכון/לא + כלל + נימוק — 3 נקודות.',
    explain:'(א) ב/כ/ל + ה הידיעה = ה נבלעת → פתח. (ב) חמישי = סודר זכר (מציין מיקום). (ג) שלושה = נכון לזכר (3-10 הפוך = עם ה לזכר).',
    teacherNote:'שאלת בגרות מלאה. (א) 3נק: כל ניקוד + כלל. (ב) 2נק: שם הסוג + הסבר. (ג) 3נק: נכון + כלל + נימוק. מי שפירט = 8/8.'},
+  /* ══ חלק ו — שאלות השלמה ══ */
+  {id:'q27',type:'mc',ref:'חלק ו · שיעורים 1–2',pts:4,
+   q:'מה הצורה הנכונה: "______ הילדים"? (מספר 3)',
+   opts:['שלושת הילדים','שלושה הילדים','שלוש הילדים','שלוש עשרה הילדים'],
+   ans:0,
+   explain:'נסמך (שלושת) + שם מיודע (הילדים) ✅. שלושה = מונה לפני שם סתמי: שלושה ילדים. מלכודת: שלושה הילדים = שגיאה — מונה + מיודע = אסור!',
+   teacherNote:'כלל הנסמך: שלושת/ארבעת/חמשת... = רק לפני ה הידיעה. שלושת הימים ✅. שלושת ימים ✗.'},
+
+  {id:'q28',type:'tf',ref:'חלק ו · שיעור 4',pts:3,
+   q:'"מֵחָמֵשׁ" — מ׳ בצרה לפני ח׳ ללא ה׳ הידיעה.',
+   ans:true,
+   explain:'נכון. מ לפני גרוניות ללא ה הידיעה = מֵ (צרה). מֵחָמֵשׁ ✅, מֵאֶחָד ✅, מֵעֲשָׂרָה ✅. מִ = לפני לא-גרוני ללא ה: מִשְּׁלֹשָׁה ✅.',
+   teacherNote:'שתי סיבות למֵ: (1) עם ה הידיעה: מֵהַ. (2) לפני גרוני ללא ה. שתיהן = מֵ. לא-גרוני ללא ה = מִ.'},
+
+  {id:'q29',type:'tf',ref:'חלק ו · שיעור 6',pts:3,
+   q:'"קניתי לחם, חלב וביצים." — חסר פסיק לפני "וביצים".',
+   ans:false,
+   explain:'לא נכון. כלל רשימה: פריט1, פריט2 ו-פריטאחרון — ללא פסיק לפני ו האחרון. "לחם, חלב וביצים" ✅. ה-ו מחליף את הפסיק.',
+   teacherNote:'בקשו לכתוב: "קניתי X, Y וZ" — הפסיק בין הראשונים, ו לפני האחרון. חריג: שני פריטים בלבד = ללא פסיק כלל.'},
+
+  {id:'q30',type:'tf',ref:'חלק ו · שיעורים 1–6',pts:3,
+   q:'"כתיב מלא" פירושו כתיבת ו/י כאמות קריאה לתנועות ארוכות.',
+   ans:true,
+   explain:'נכון. כתיב מלא = ו לחולם ושורוק, י לחיריק גדול וצרה. "שולחן" (ו=שורוק), "סיפור" (י+ו), "אני" (י=חיריק) = כתיב מלא. "לא" ללא ו = חריג לכלל.',
+   teacherNote:'כתיב מלא ≠ כל האותיות. רק אמות קריאה לתנועות ארוכות. הדגישו: "לא" = חריג (חולם ללא ו).'},
 ];
 
 /* ══════════════════════════════════════════════
@@ -714,7 +746,7 @@ function confirmGate(){
   if(!cl){document.getElementById('gate-class').classList.add('err');document.getElementById('gate-class-err').classList.add('show');ok=false;}
   else{document.getElementById('gate-class').classList.remove('err');document.getElementById('gate-class-err').classList.remove('show');}
   if(!ok)return;
-  SNP=nm;SCP=cl;STUDENT_NAME=nm;STUDENT_CLASS=cl;LS.set('lashon2_uname',nm);LS.set('lashon2_class',cl);
+  SNP=nm;SCP=cl;SNP=nm;SCP=cl;STUDENT_NAME=nm;STUDENT_CLASS=cl;LS.set('lashon2_uname',nm);LS.set('lashon2_class',cl);
   _gateConfirmed=true;
   document.getElementById('student-gate').classList.add('hidden');
   const av=document.getElementById('gc-avatar'),nm2=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');
@@ -722,7 +754,7 @@ function confirmGate(){
   document.getElementById('gate-confirmed').classList.add('show');
   const w=document.getElementById('practice-content-wrap');if(w){w.style.display='block';w.scrollIntoView({behavior:'smooth',block:'start'});}
 }
-function reopenGate(){_gateConfirmed=false;document.getElementById('student-gate').classList.remove('hidden');document.getElementById('gate-confirmed').classList.remove('show');const w=document.getElementById('practice-content-wrap');if(w)w.style.display='none';}
+function reopenGate(){_gateConfirmed=false;document.getElementById('student-gate').classList.add('show');document.getElementById('gate-confirmed').classList.remove('show');const w=document.getElementById('practice-content-wrap');if(w)w.style.display='none';}
 
 const LETTERS=['א','ב','ג','ד'];
 let _dragSrc=null;
@@ -731,7 +763,8 @@ const SECTION_LABELS={
   q07:'חלק ב — אותיות השימוש (שיעורים 3–4 · שאלות 7–12)',
   q13:'חלק ג — כתיב חסר ומלא (שיעור 5 · שאלות 13–19)',
   q20:'חלק ד — הפיסוק התקני (שיעור 6 · שאלות 20–25)',
-  q26:'חלק ה — ניתוח משולב (שאלה 26 פתוחה · 8 נקודות)'
+  q26:'חלק ה — ניתוח משולב (שאלה 26 פתוחה)',
+  q27:'חלק ו — שאלות השלמה (שאלות 27–30)'
 };
 
 function renderQuestions(){
