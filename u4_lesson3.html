@@ -291,6 +291,38 @@ button,input,select,textarea{font-family:inherit}
 .open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}
 .open-hint{font-size:.72rem;color:var(--muted,#9aa3be);margin-top:.3rem}
 .open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid,#374151)}
+
+/* ══ OPENING QUESTION ══ */
+.opening-q{border:2px dashed var(--lc);border-radius:var(--r-lg);background:var(--lc-lt);padding:1.2rem 1.4rem;margin-bottom:1.5rem}
+.oq-label{font-size:.65rem;font-weight:800;color:var(--lc);letter-spacing:.06em;margin-bottom:.5rem;text-transform:uppercase}
+.oq-text{font-size:.97rem;font-weight:700;color:var(--text);line-height:1.5}
+.oq-hint{font-size:.8rem;color:var(--muted);margin-top:.45rem}
+/* ══ GOTO-PRACTICE BUTTON ══ */
+.goto-practice-btn{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;padding:.95rem 1.4rem;border:none;border-radius:var(--r-pill);background:linear-gradient(135deg,var(--lc),var(--lc-dk));color:#fff;font-size:.9rem;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(5,150,105,.28);transition:all .18s;margin-top:.5rem}
+.goto-practice-btn:hover{transform:translateY(-2px);opacity:.93}
+/* ══ TOAST ══ */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:#1e293b;color:#fff;padding:.65rem 1.4rem;border-radius:var(--r-pill);font-size:.84rem;font-weight:600;opacity:0;pointer-events:none;transition:all .3s;z-index:999;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* ══ GATE EXTRAS ══ */
+.hidden{display:none!important}
+#practice-content-wrap{display:none}
+#gate-confirmed{display:none;align-items:center;gap:.85rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:1rem 1.2rem;max-width:440px;margin:.8rem auto 1.5rem;box-shadow:var(--sh1)}
+#gate-confirmed.show{display:flex}
+.gc-avatar{width:44px;height:44px;border-radius:50%;background:var(--lc);color:#fff;font-size:1.2rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gc-name{font-weight:700;font-size:.92rem}
+.gc-meta{font-size:.74rem;color:var(--muted);margin-top:.12rem}
+.gc-change{font-size:.7rem;color:var(--lc);background:none;border:none;cursor:pointer;padding:0;margin-top:.18rem;font-weight:700}
+/* ══ ANSWERS PANE ══ */
+.answers-locked{background:var(--surface);border:2px dashed var(--border);border-radius:var(--r-xl);padding:2.5rem 2rem;text-align:center;margin-top:.5rem}
+.answer-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.05rem 1.2rem;margin-bottom:.78rem}
+.ans-num{font-size:.66rem;color:var(--subtle);margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem}
+.ans-q{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.5rem;line-height:1.45}
+.ans-correct{background:var(--lc-lt);color:var(--lc);border-radius:var(--r);padding:.42rem .8rem;font-size:.84rem;font-weight:700;margin-bottom:.35rem}
+.ans-explain{font-size:.8rem;color:var(--muted);line-height:1.58;border-right:3px solid var(--lc-lt);padding-right:.65rem}
+.ans-teacher-note{font-size:.76rem;color:var(--amber);background:var(--amber-lt);border-radius:var(--r);padding:.3rem .7rem;margin-top:.3rem}
+/* ══ FADE ANIMATION ══ */
+.tab-pane.active{animation:fadeIn .18s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
@@ -299,7 +331,7 @@ button,input,select,textarea{font-family:inherit}
   <button class="btn-back" onclick="goBack()">←</button>
   <div class="topbar-info">
     <div class="topbar-title">🔤 אותיות השימוש</div>
-    <div class="topbar-sub">יחידה 4 — תקינות · שיעור 3</div>
+    <div class="topbar-sub">יחידה 4 — תקינות · שיעור 3 מתוך 6</div>
   </div>
   <div class="topbar-actions">
     <span class="t-chip lc">⏱ 45 דק׳</span>
@@ -326,7 +358,7 @@ button,input,select,textarea{font-family:inherit}
 <div class="lesson-wrap">
 
   <div class="lesson-hero">
-    <div class="hero-badge">יחידה 4 · שיעור 3</div>
+    <div class="hero-badge">יחידה 4 · שיעור 3 מתוך 6</div>
     <span class="hero-emoji">🔤</span>
     <h1 class="hero-title">אותיות השימוש</h1>
     <p class="hero-desc">שבע אותיות קטנות — ב, כ, ל, מ, ו, ש, ה — שמצטרפות ישירות לשם ומוסיפות לו משמעות. כל אחת עם ניקוד, עם כללים ועם מלכודות משלה. זה הנושא שמלא שגיאות כתיב נפוצות ביותר!</p>
@@ -335,6 +367,14 @@ button,input,select,textarea{font-family:inherit}
       <span class="hero-chip">🔤 אותיות השימוש</span>
       <span class="hero-chip green">🎯 יחידה 4 שיעור 3</span>
     </div>
+  </div>
+
+
+  <!-- שאלת פתיחה -->
+  <div class="opening-q">
+    <div class="oq-label">💭 שאלת פתיחה — חשבו לפני שלומדים</div>
+    <div class="oq-text">מדוע כותבים "בַּבַּיִת" ולא "בְּהַבַּיִת"? ומדוע "מֵהַבַּיִת" — עם ה׳ — ולא "מַבַּיִת"?</div>
+    <div class="oq-hint">רמז: לא כל אותיות השימוש מתנהגות אותו דבר עם ה׳ הידיעה...</div>
   </div>
 
   <!-- סעיף 1 — HOOK -->
@@ -555,7 +595,14 @@ button,input,select,textarea{font-family:inherit}
     <div class="step-item"><div class="step-num">4</div><span><strong>האם ו׳ בא לפני שווא נע?</strong> אם כן: "וּ". "וּשְׁמוּאֵל", "וּלְמָחָר".</span></div>
     <div class="step-item"><div class="step-num">5</div><span><strong>האם ה׳ השאלה?</strong> לפני גרוניות: הֲ. לפני ה,ח,ע: הֶ. "הַאִם" = צורה נפוצה בכתיב.</span></div>
   </div>
-  <div class="box box-lc">✅ <strong>מוכן לתרגול!</strong> 3 טקסטים עשירים בצירופי אותיות השימוש + 20 שאלות על ניקוד, כתיב, בליעת ה׳, ו' השורק ומלכודות מ׳.</div>
+  <div class="box box-red">🚨 <strong>שלוש שגיאות הכתיב הנפוצות ביותר:</strong><br>
+  (1) "*בהבית" → שגוי! ב + ה׳ הידיעה = ה׳ נבלעת → <strong>בַּבַּיִת</strong> ✅<br>
+  (2) "*מהבית (ניקוד: מַבַּיִת)" → שגוי! מ׳ לא בולעת → <strong>מֵהַבַּיִת</strong> ✅<br>
+  (3) "*כהכלב" → שגוי! כ + ה׳ הידיעה = ה׳ נבלעת → <strong>כַּכֶּלֶב</strong> ✅</div>
+
+  <div class="box box-lc">✅ <strong>מוכן לתרגול!</strong> 3 טקסטים עשירים + 21 שאלות על ניקוד, כתיב, בליעת ה׳, ו׳ השורק ומלכודות מ׳.</div>
+
+  <button class="goto-practice-btn" onclick="switchTab('practice')">✏️ עבור לתרגול — 21 שאלות על אותיות השימוש</button>
 
 </div>
 </div><!-- /pane-theory -->
@@ -626,10 +673,10 @@ button,input,select,textarea{font-family:inherit}
     </div>
 
     <div class="quiz-header">
-      <div class="quiz-hd-title">🔤 אותיות השימוש — 20 שאלות</div>
+      <div class="quiz-hd-title">🔤 אותיות השימוש — 21 שאלות</div>
       <div class="quiz-hd-desc">MC · נכון/לא נכון · סדר — ניקוד, בליעת ה׳, ו' השורק, מ' מיוחדת</div>
       <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="prog-fill" style="width:0%"></div></div>
-      <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 20 נענו</span><span id="prog-pct">0%</span></div>
+      <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 21 נענו</span><span id="prog-pct">0%</span></div>
     </div>
 
     <div id="questions-container"></div>
@@ -659,7 +706,7 @@ button,input,select,textarea{font-family:inherit}
 </div>
 </div>
 
-<div id="toast"></div>
+<div id="toast" class="toast"></div>
 
 <script>
 const FB_CFG={apiKey:"AIzaSyC1VIJaFqC-HzJHGutib10-A29i1KKO4YI",authDomain:"lashon-project.firebaseapp.com",projectId:"lashon-project",storageBucket:"lashon-project.firebasestorage.app",messagingSenderId:"444024985545",appId:"1:444024985545:web:847f8d4dad43193c147a18",measurementId:"G-26KTLPJ8N1"};
@@ -678,162 +725,161 @@ const BACK_URL=_params.get('back')||'index.html';
 function applyAnswersVisibility(){const l=document.getElementById('answers-locked-msg');const v=document.getElementById('answers-visible-content');const s=document.getElementById('answers-source');if(USER_ROLE==='teacher'){if(l)l.style.display='none';if(v)v.style.display='';if(s)s.textContent='גישת מורה';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';}else{if(ANSWERS_VISIBLE){if(l)l.style.display='none';if(v)v.style.display='';if(s)s.textContent='שוחרר על ידי המורה';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='';}else{if(l)l.style.display='';if(v)v.style.display='none';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='none';}}}
 
 const QUESTIONS=[
-  /* ── טקסט א׳ ── */
-  {id:'q01',type:'mc',ref:'טקסט א׳',
-   q:'"בַּבֹּקֶר" — מה ניקוד ב׳ ומדוע?',
-   opts:['בְּ (שווא) — ב + בֹּקֶר סתמי','בַּ (פתח+דגש) — ב + הַבֹּקֶר: ה׳ הידיעה נבלעת לתוך ב׳','בָּ (קמץ) — בֹּקֶר גרוני','בּ (דגש קל בלבד)'],
+  {id:'q01',type:'mc',ref:'טקסט א',
+   q:'"בַּבֹּקֶר" — מה ניקוד ב׳ ומדוע בדיוק?',
+   opts:['בְּ (שווא) — כי בֹּקֶר שם סתמי','בַּ (פתח+דגש) — ב + הַבֹּקֶר: ה׳ הידיעה נבלעת, ב׳ בפתח, דגש חזק בב׳ הבאה','בָּ (קמץ) — בֹּקֶר גרוני','בּ (דגש קל בלבד)'],
    ans:1,
-   explain:'"בַּבֹּקֶר" = ב + הַבֹּקֶר. ה׳ הידיעה נבלעת לתוך ב׳ → ב׳ מקבלת פתח (בַּ) + דגש חזק בב׳ הבאה. כלל: ב/כ/ל + ה׳ הידיעה → ה׳ נבלעת, פתח+דגש. "בַּ" = בפתח. "בַּבֹּקֶר" = בַּ + בּ (דגש) + קֶר.',
-   teacherNote:''},
+   explain:'בַּבֹּקֶר = ב + הַבֹּקֶר. ה׳ הידיעה נבלעת לתוך ב׳ → ב׳ בפתח (בַּ) + דגש חזק בב׳ הבאה. ב׳ אינה גרונית → פתח, לא קמץ. ללא ה׳ הידיעה: בְּבֹּקֶר (שווא).',
+   teacherNote:'שאלת פתיחה על הכלל המרכזי. בקשו: מה קורה לה׳ הידיעה כשב/כ/ל מצטרפות? ה׳ נבלעת → פתח+דגש. כתבו על הלוח: ב + הַ → בַּ.'},
 
-  {id:'q02',type:'tf',ref:'טקסט א׳',
-   q:'"וּלֶחֶם" — ו׳ בשורק (וּ) לפני ל׳ הוא שגיאה. צריך: "וְלֶחֶם".',
+  {id:'q02',type:'tf',ref:'טקסט א',
+   q:'"וּלֶחֶם" — ו׳ בשורק לפני ל׳ היא שגיאה. הנכון: "וְלֶחֶם".',
    ans:false,
-   explain:'לא נכון! "וּ" (שורק) לפני שווא נע = נכון. "לֶחֶם" מתחיל בלָ׳ עם שווא נע → ו׳ לפני שווא נע = "וּ". "וְלֶחֶם" (שווא לפני שווא) = לא תקני. הכלל: ו׳ לפני שווא נע → "וּ".',
-   teacherNote:''},
+   explain:'לא נכון. לֶחֶם מתחיל בל׳ עם שווא נע → ו׳ לפני שווא נע = וּ (שורק). וְלֶחֶם (שווא לפני שווא) = שגוי. הכלל: ו׳ לפני שווא נע → וּ. ו׳ לפני ב/מ/פ → וּ.',
+   teacherNote:'מלכודת נפוצה — תלמידים חושבים שוּ לפני ל׳ שגוי. הסבירו: הכלל הוא שווא נע, לא רק ב/מ/פ. דגמו: שלמה ושמואל → וּשְׁמוּאֵל.'},
 
-  {id:'q03',type:'mc',ref:'טקסט א׳',
-   q:'"לַחֲדַר הָאֹכֶל" — מדוע לַ ולא לְ?',
-   opts:['כי חדר = מיוחד','לַ = ל + הַחֶדֶר: ה׳ הידיעה נבלעת לתוך ל׳ → לַ (פתח). "הֶחָדָר" → "לַחֲדַר". ח׳ גרונית: קמץ בל׳','כי ל׳ לפני ח׳ = לַ תמיד','לא נכון — צריך לָ'],
+  {id:'q03',type:'mc',ref:'טקסט א',
+   q:'"לַחֲדַר הָאֹכֶל" — מדוע לַ (פתח) ולא לָ (קמץ), הרי ח׳ גרונית?',
+   opts:['צריך לָ — כי ח׳ גרונית','לַ = ל + הַחֶדֶר: ה׳ הידיעה לפני ח׳ = הֶ (סגול). ל׳ + הֶ → לַ (פתח). הקמץ (לָ) רק כש-ה׳ הידיעה בקמץ: לפני א,ע,ר','לַ = כי ל׳ תמיד בפתח לפני ח׳','אין הבדל בין לַ ללָ'],
    ans:1,
-   explain:'"לַחֲדַר" = ל + הַחֶדֶר. ה׳ הידיעה נבלעת → ל׳ מקבלת פתח: "לַ". אבל: ח׳ גרונית = אינה מקבלת דגש. לכן: "לַח" (פתח ב-ל, אין דגש בח׳). "חֲדַר" (ח׳ בחטף פתח = גרוניות בעמדת שווא). שימו לב: "לַחֲ" (לא "לָח").',
-   teacherNote:''},
+   explain:'ל + הַחֶדֶר: ה׳ הידיעה לפני ח׳ = הֶ (סגול). ל׳ + הֶ → לַ (פתח). הקמץ (לָ) מגיע רק כש-ה׳ הידיעה = הָ (קמץ), כלומר לפני א,ע,ר עם קמץ. לָאָרֶץ = ל + הָאָרֶץ → לָ.',
+   teacherNote:'שאלה מעמיקה — לפני ח׳ בסגול = פתח; לפני א,ע,ר בקמץ = קמץ. בלום 3. תרגיל: נתחו לַחֲצֵר, לָאָדָם, לַחֹדֶשׁ.'},
 
-  {id:'q04',type:'mc',ref:'טקסט א׳',
-   q:'"מֵהַבַּיִת" — מדוע מ׳ בצרה (מֵ) ולא בפתח (מַ)?',
-   opts:['כי בַּיִת מתחיל בב׳','מ׳ שונה מב/כ/ל! לפני ה׳ הידיעה: מ → מֵהַ (ה׳ נשמרת, מ בצרה). ב/כ/ל בולעות את ה׳. מ׳ לא בולעת — "מֵהַבַּיִת"','כי מ׳ = תמיד בצרה','כי "בַּיִת" מתחיל בדגש'],
+  {id:'q04',type:'mc',ref:'טקסט א',
+   q:'"מֵהַבַּיִת" — תלמיד כתב "*מַבַּיִת". מה הטעות ומה הכלל שנשבר?',
+   opts:['אין טעות — שתיהן נכונות','שגוי! מ׳ שונה מב/כ/ל: מ׳ לפני ה׳ הידיעה → ה׳ תמיד נשמרת (מֵהַ). "*מַבַּיִת" = כאילו ה׳ נבלעת. כלל: מ׳ לעולם לא בולעת ה׳','שגוי — צריך "מִהַבַּיִת" (חיריק)','מ׳ = כמו ב/כ/ל אבל בצרה'],
    ans:1,
-   explain:'ההבדל הקריטי: ב/כ/ל + ה׳ הידיעה → ה׳ נבלעת, האות מנוקדת בפתח. מ׳ + ה׳ הידיעה → ה׳ נשמרת! מ׳ מקבלת צרה: "מֵהַ". "מֵהַבַּיִת" = מ(צרה) + ה(הידיעה) + בַּיִת. לא: "*מַבַּיִת" — שגיאה נפוצה!',
-   teacherNote:''},
+   explain:'הכלל הקריטי: ב/כ/ל + ה׳ הידיעה → ה׳ נבלעת (בַּ/כַּ/לַ). מ׳ + ה׳ הידיעה → ה׳ נשמרת! מ׳ בצרה: מֵהַ. "*מַבַּיִת" = שגיאה — כאילו מ׳ בולעת ה׳ כמו ב/כ/ל.',
+   teacherNote:'שאלת ניתוח שגיאה — בלום 4. הציגו טבלה: בַּ/כַּ/לַ (ה׳ נבלעת) | מֵהַ/שֶׁהַ (ה׳ נשמרת). בקשו לנסח כלל: מ׳ ≠ ב/כ/ל בעניין ה׳ הידיעה.'},
 
-  {id:'q05',type:'tf',ref:'טקסט א׳',
-   q:'"הַאִם" = ה׳ השאלה + "אִם". זוהי צורה נכונה לשאלת כן/לא.',
+  {id:'q05',type:'tf',ref:'טקסט א',
+   q:'"הַאִם" = ה׳ השאלה + "אִם". שתי אפשרויות נפוצות לשאלת כן/לא: "הַאִם" ו"הֲ".',
    ans:true,
-   explain:'נכון. "הַאִם" = ה׳ השאלה (פתח) + "אִם". משמשת לשאלת כן/לא בעברית תקנית: "הַאִם בָּאתָ?" = "האם באת?". שתי צורות נפוצות: (1) "הַאִם" (כתוב כשתי מילים). (2) "הֲ" לפני שמות.',
-   teacherNote:''},
+   explain:'נכון. שתי דרכים לה׳ השאלה: (1) הַאִם בָּאתָ (+ אם בנפרד). (2) הֲבָאתָ (ה׳ השאלה ישירות, חטף פתח לפני שווא). הַאִם = נפוץ יותר בעברית מודרנית.',
+   teacherNote:'TF על ה׳ השאלה. ודאו שתלמידים מבחינים: ה׳ הידיעה (הַסֵּפֶר) לעומת ה׳ השאלה (הַאִם? הֲשָׁלוֹם?). תרגיל: הכניסו ה׳ שאלה ל-3 משפטים.'},
 
-  /* ── טקסט ב׳ ── */
-  {id:'q06',type:'mc',ref:'טקסט ב׳',
+  {id:'q06',type:'mc',ref:'טקסט ב',
    q:'"לָאָרֶץ" — מדוע ל׳ בקמץ (לָ) ולא בפתח (לַ)?',
-   opts:['כי "ארץ" = נקבה','לָ = ל + הָאָרֶץ: א׳ גרונית! לפני גרוניות (א,ה,ח,ע,ר) ו-ה׳ הידיעה בקמץ: ב/כ/ל מקבלות קמץ (לא פתח)','לַ = תמיד נכון','כי הכלל שונה ב"ל"'],
+   opts:['כי "ארץ" = נקבה','לָ = ל + הָאָרֶץ: א׳ גרונית → ה׳ הידיעה = הָ (קמץ). ב/כ/ל לפני הָ → קמץ: לָ','לַ = תמיד נכון לפני ל׳','כי הכלל שונה ב-ל'],
    ans:1,
-   explain:'"לָאָרֶץ" = ל + הָאָרֶץ. א׳ = גרונית → ה׳ הידיעה = "הָ" (קמץ לפני גרוניות). כשל׳ בא לפני גרונית עם ה׳ הידיעה: הניקוד = קמץ: "לָ". "בָּאָרֶץ", "כָּאָרֶץ", "לָאָרֶץ" — כולם קמץ לפני גרוניות.',
-   teacherNote:''},
+   explain:'לָאָרֶץ = ל + הָאָרֶץ. א׳ = גרונית → ה׳ הידיעה = הָ (קמץ). כש-ל מצטרף: ה׳ נבלעת, הניקוד עובר ל-ל: לָ. כלל: ב/כ/ל + הָ (ה׳ הידיעה בקמץ) → קמץ בב/כ/ל.',
+   teacherNote:'הקמץ ב-לָ/בָּ/כָּ הוא של ה׳ הידיעה שנבלעה. לפני א,ע,ר = הָ → לָ. לפני ה,ח (בסגול) = הֶ → לַ. המסלול: ה׳ הידיעה → נבלעת → ניקודה עובר.'},
 
-  {id:'q07',type:'mc',ref:'טקסט ב׳',
+  {id:'q07',type:'mc',ref:'טקסט ב',
    q:'"הֶחָכָם" — מדוע ה׳ הידיעה בסגול (הֶ) ולא בפתח (הַ)?',
-   opts:['כי חכם = שמה','הֶ = ה׳ הידיעה לפני ח׳ גרונית שבאה עם קמץ. לפני ה,ח,ע (גרוניות) ה׳ הידיעה מנוקדת הֶ (סגול)','הַ = תמיד לפני ח׳','כי הֶ = שאלה כאן'],
+   opts:['כי חָכָם = שם עצם','הֶ = ה׳ הידיעה לפני ח׳ שיש לה קמץ (הֶחָ). לפני גרוניות (ח,ע) בקמץ: ה׳ הידיעה = הֶ','הַ = תמיד לפני ח׳','הֶ = ה׳ השאלה כאן'],
    ans:1,
-   explain:'ה׳ הידיעה לפני גרוניות מסוימות = "הֶ" (סגול): לפני ח׳ וע׳ שיש להם קמץ/פתח. "הֶחָכָם" (לפני ח+קמץ), "הֶחָצֵר" (לפני ח+קמץ), "הֶחָג" — הֶ. לפני ה׳ וח׳ ללא קמץ: "הַחֹדֶשׁ" (פתח). הכלל מורכב — העיקר: לפני ח׳ בקמץ = "הֶ".',
-   teacherNote:''},
+   explain:'ה׳ הידיעה לפני ח׳ בקמץ = הֶ (סגול). הֶחָכָם (ח+קמץ), הֶחָצֵר. לפני ח,ע ללא קמץ: הַחֹדֶשׁ (פתח). כלל: לפני גרונית עם קמץ = הֶ.',
+   teacherNote:'ניקוד ה׳ הידיעה — נושא מורכב. מיקוד: הֶחָ = נפוץ. הַ = ברירת המחדל. בפועל בכיתה י׳ — מספיק לזכור את הצורה הנפוצה.'},
 
-  {id:'q08',type:'tf',ref:'טקסט ב׳',
-   q:'"שֶׁבַּקְּבוּצָה" = שֶׁ + בַּקְּבוּצָה. כאן ה׳ של "שֶׁהַ" נבלעת כמו ב/כ/ל.',
-   ans:false,
-   explain:'לא נכון. "שֶׁ" + "הַקְּבוּצָה" = "שֶׁהַקְּבוּצָה" (ה׳ נשמרת כמו מ׳). "שֶׁבַּקְּבוּצָה" = שֶׁ + בַּקְּבוּצָה (ב׳ בלעה ה׳!). כלומר כאן יש שתי אפשרויות: (1) "שֶׁהַקְּבוּצָה" — ש + ה׳ הידיעה. (2) "שֶׁבַּקְּבוּצָה" — ש + ב + ה׳. בטקסט: האפשרות השנייה.',
-   teacherNote:''},
+  {id:'q08',type:'tf',ref:'טקסט ב',
+   q:'"שֶׁבַּקְּבוּצָה" — כאן יש שֶׁ + בַּקְּבוּצָה, לא שֶׁ + הַקְּבוּצָה.',
+   ans:true,
+   explain:'נכון. שֶׁבַּקְּבוּצָה = שֶׁ + בַּקְּבוּצָה (ב + הַקְּבוּצָה). ב׳ בלעה ה׳ → בַּ. לחלופין: שֶׁהַקְּבוּצָה = שֶׁ + ה׳ הידיעה (ה׳ נשמרת אחרי שׁ). בטקסט: שֶׁ + ב (שגם היא בולעת ה׳) = שֶׁבַּ.',
+   teacherNote:'TF על שילוב שׁ + ב. בקשו לנתח: שֶׁבַּכִּיתָה, שֶׁלַּמּוֹרֶה, שֶׁמֵּהַבַּיִת — מה האות שבולעת ה׳ בכל אחד?'},
 
-  {id:'q09',type:'mc',ref:'טקסט ב׳',
-   q:'"מֵהָהָר" — מדוע ה׳ הידיעה נשמרת ולמה ניקוד כפול הה׳?',
-   opts:['שגיאה — צריך "מֵהָר"','מ׳ + ה׳ הידיעה → ה׳ תמיד נשמרת. "הָהָר" = הַ(הידיעה)+הָר (ה׳ גרונית → הָ). לכן: "מֵהָהָר" = מ(צרה)+ה(הידיעה)+ה(שם)','כי "הר" מתחיל בה׳ גרונית = כתיבה כפולה','כתיב עתיק בלבד'],
+  {id:'q09',type:'mc',ref:'טקסט ב',
+   q:'"מֵהָהָר" — מדוע כתובות שתי ה׳ ברצף?',
+   opts:['שגיאה — צריך "מֵהָר"','מ׳ + הָהָר: מ׳ לא בולעת ה׳ → מֵהַ. אבל "הָר" מתחיל בה׳ גרונית → ה׳ הידיעה = הָ. תוצאה: מֵ + הָ + הָר = שתי ה׳. כל אחת שמה שלה','כתיב עתיק בלבד','כי הָהָר = שם מיוחד'],
    ans:1,
-   explain:'"מֵהָהָר": מ׳ + "הָהָר". "הָהָר" = ה׳ הידיעה (הָ לפני ה׳ גרונית) + "הָר" (שם). ה׳ הידיעה לפני ה׳ הגרונית = "הָ" + ה׳ ראשונה של "הר" = שתי ה׳ כתובות. "מֵ" (צרה, כי מ׳ + ה׳ הידיעה). = "מֵהָהָר".',
-   teacherNote:''},
+   explain:'מֵהָהָר: מ(צרה) + ה(הידיעה=הָ, כי ה׳ גרונית) + הָר. שתי ה׳: (1) ה׳ הידיעה (הָ). (2) ה׳ ראשית המילה הָר. מ׳ לא בולעת שום ה׳ → שתיהן נכתבות.',
+   teacherNote:'שאלה מעמיקה — שתי ה׳ ברצף. ניתוח: מֵהָהָר = 3 חלקים: מֵ + הָ + הָר. בקשו לנתח: מֵהָעִיר — מדוע גם שם שתי ה׳?'},
 
-  {id:'q10',type:'mc',ref:'טקסט ב׳',
-   q:'"כַּמּוּמְחֶה" — מה הניקוד ב-כ׳ ולמה?',
-   opts:['כְּ (שווא) — לפני שם סתמי','כַּ (פתח+דגש) — כ + הַמּוּמְחֶה: ה׳ הידיעה נבלעת, פתח בכ׳, דגש חזק במ׳','כָּ (קמץ) — לפני גרונית','אין ניקוד'],
+  {id:'q10',type:'mc',ref:'טקסט ב',
+   q:'"כַּמּוּמְחֶה" — תלמיד ניחש "כְּמּוּמְחֶה". מה הטעות?',
+   opts:['כְּ נכון — מומחה לא מיודע כאן','שגוי! כַּ = כ + הַמּוּמְחֶה (מיודע בהקשר). ה׳ הידיעה נבלעת → פתח בכ׳ + דגש במ׳. כְּ = לפני שם ללא ה׳ הידיעה בלבד','כָּ — כי מ׳ גרוני','כְּ = תמיד לפני מ׳'],
    ans:1,
-   explain:'"כַּמּוּמְחֶה" = כ + הַמּוּמְחֶה. ה׳ הידיעה נבלעת → כ׳ בפתח + דגש חזק במ׳: "כַּמּ". "מוּמְחֶה" לא מתחיל בגרונית → פתח (לא קמץ). לולא ה׳ הידיעה: "כְּמוּמְחֶה" (שווא).',
-   teacherNote:''},
+   explain:'כַּמּוּמְחֶה = כ + הַמּוּמְחֶה. מיודע בהקשר → ה׳ הידיעה נבלעת. כְּ = רק לפני שם ללא ה׳: כְּמוּמְחֶה כלשהו.',
+   teacherNote:'תלמידים מתעלמים מה׳ הידיעה בהקשר. בקשו: כיצד תדעו אם שם מיודע? בדקו אם אפשר לשאול "איזה?" — אם כן, כנראה מיודע.'},
 
-  /* ── טקסט ג׳ ── */
-  {id:'q11',type:'mc',ref:'טקסט ג׳',
-   q:'"*בהכיתה" — מה השגיאה ומה הנכון?',
-   opts:['אין שגיאה — "בהכיתה" נכון','שגיאה! ב + הַכִּיתָה: ה׳ הידיעה נבלעת → כותבים "בַּכִּיתָה" (לא "בהכיתה")','שגיאה — צריך "בכיתה" (ללא ה׳)','שגיאה — צריך "בהכיתה"'],
+  {id:'q11',type:'mc',ref:'טקסט ג',
+   q:'"*בהכיתה" — מה השגיאה ומה הכלל שנשבר?',
+   opts:['אין שגיאה','שגיאה! ב + הַכִּיתָה: ה׳ הידיעה נבלעת → בַּכִּיתָה. לעולם לא כותבים ב/כ/ל + ה + שם מיודע בנפרד','שגיאה — צריך בְּכִיתָה (שווא, ללא ה)','שגיאה — צריך בֵּהַכִּיתָה'],
    ans:1,
-   explain:'"בַּכִּיתָה" ✅. כלל: ב + ה׳ הידיעה → ה׳ נבלעת. "הַכִּיתָה" → "בַּכִּיתָה". אסור לכתוב "*בהכיתה" — זוהי שגיאה נפוצה! ה׳ הידיעה לעולם אינה כתובה בנפרד אחרי ב/כ/ל.',
-   teacherNote:''},
+   explain:'בַּכִּיתָה ✅. כלל: ב + ה׳ הידיעה → ה׳ נבלעת. הַכִּיתָה → בַּכִּיתָה. *בהכיתה = שגיאה נפוצה מאוד — כתיבת ה׳ בנפרד אחרי ב.',
+   teacherNote:'השגיאה הנפוצה ביותר. בקשו 3 דוגמאות נוספות: *להמורה, *כהכלב, *מהבית (האחרון שגוי בניקוד, לא בכתיב). הדגישו: אחרי ב/כ/ל — ה׳ הידיעה אינה כתובה.'},
 
-  {id:'q12',type:'tf',ref:'טקסט ג׳',
-   q:'"*מהספר" — שגיאה רק בניקוד, לא בכתיב. הכתיב "מהספר" (ללא ניקוד) נכון.',
-   ans:false,
-   explain:'לא נכון. גם הכתיב יכול להיות בעייתי: "מֵהַסֵּפֶר" = מ + ה׳ הידיעה + ספר. הכתיב ללא ניקוד: "מהספר" = אפשרי ומקובל בכתיבה רגילה. אבל: "מן הספר" = אפשרות נוספת. השגיאה בטקסט: אולי ניקוד שגוי (*מִהַ במקום מֵהַ). עם ניקוד: "מֵהַסֵּפֶר" ✓.',
-   teacherNote:''},
-
-  {id:'q13',type:'mc',ref:'טקסט ג׳',
-   q:'"*כהמורה" — מה הנכון?',
-   opts:['"כְּהַמּוֹרֶה" (שווא)','*כהמורה" שגוי! ה׳ הידיעה נבלעת: "כַּמּוֹרֶה" ✓. כ + הַמּוֹרֶה → ה׳ נבלעת → פתח בכ׳ + דגש חזק במ׳','"כְּהַמּוֹרֶה" (שווא+ה׳ נשמרת) — נכון','כהמורה = נכון'],
+  {id:'q12',type:'mc',ref:'טקסט ג',
+   q:'"*מהספר" מסומן כשגיאה בטקסט. מה בדיוק שגוי?',
+   opts:['הכתיב שגוי לחלוטין — צריך "מן הספר"','הניקוד שגוי: עם ניקוד חובה "מֵהַסֵּפֶר" (מ בצרה + ה נשמרת). ללא ניקוד "מהספר" מקובל בכתיבה יומיומית','שניהם שגויים — צריך "מסֵּפֶר"','כל צורה נכונה'],
    ans:1,
-   explain:'"כַּמּוֹרֶה" ✅. כ + הַמּוֹרֶה: ה׳ הידיעה נבלעת → פתח בכ׳ + דגש במ׳. "*כְּהַמּוֹרֶה" — שגוי (כאילו ה׳ נשמרת, זה רק אצל מ וש). "*כהמורה" — שגוי (כתיב עם ה׳ אחרי כ = שגיאה).',
-   teacherNote:''},
+   explain:'ללא ניקוד: מהספר = מקובל ונכון בכתיבה. עם ניקוד: חייב מֵהַסֵּפֶר (מ בצרה + ה נשמרת). שגיאת הניקוד: *מִהַסֵּפֶר או *מַסֵּפֶר = שגויים. בטקסט המסומן הניקוד שגוי.',
+   teacherNote:'מבדיל בין כתיב לניקוד — בלום 4. מהספר בלי ניקוד = אפשרי. מֵהַסֵּפֶר = חובה עם ניקוד. הסבירו: בעברית ללא ניקוד המוסכמות שונות.'},
 
-  {id:'q14',type:'mc',ref:'טקסט ג׳',
-   q:'"*להמרצה" — מה הנכון?',
-   opts:['"לְהַמּרְצֶה" (שווא+ה׳)','שגיאה! ל + הַמַּרְצֶה: ה׳ נבלעת → "לַמַּרְצֶה" ✅. לא: "*להמרצה". כלל ב/כ/ל = ה׳ נבלעת תמיד','"לַהַמּרְצֶה" (פתח+ה)','להמרצה = נכון'],
+  {id:'q13',type:'mc',ref:'טקסט ג',
+   q:'"*כהמורה" — מה הנכון ולמה?',
+   opts:['כְּהַמּוֹרֶה (שווא+ה)','כַּמּוֹרֶה ✅ — כ + הַמּוֹרֶה: ה׳ נבלעת, כ׳ בפתח, דגש חזק במ׳. *כהמורה = שגיאת כתיב','כָּמּוֹרֶה (קמץ)','כהמורה = נכון'],
    ans:1,
-   explain:'"לַמַּרְצֶה" ✅. ל + הַמַּרְצֶה: ה׳ הידיעה נבלעת → ל׳ בפתח + דגש חזק במ׳: "לַמּ". כלל: ב/כ/ל + ה׳ הידיעה → ה׳ תמיד נבלעת, לעולם לא כותבים "*בה/כה/לה" + שם מיודע.',
-   teacherNote:''},
+   explain:'כַּמּוֹרֶה ✅. כ + הַמּוֹרֶה: ה׳ הידיעה נבלעת → פתח בכ׳ + דגש חזק במ׳. *כהמורה = שגיאת כתיב. *כְּהַמּוֹרֶה = שגיאה (ה׳ נשמרת כמו מ׳ — שגוי לכ).',
+   teacherNote:'אחרי שיתוקן — בקשו לתרגל: כתבו כ+הכלב, כ+הילד, כ+הארי בניקוד נכון. התלמידים יתרגלו את הכלל אוטומטית.'},
 
-  {id:'q15',type:'mc',ref:'טקסט ג׳',
-   q:'"מֵהַסְּפָרִים" — מה שונה כאן לעומת "לַסְּפָרִים"?',
-   opts:['אין הבדל','מ׳: ה׳ הידיעה נשמרת → "מֵהַ". ל׳: ה׳ הידיעה נבלעת → "לַ". שתי תוצאות שונות לחלוטין מאותו שם מיודע','מ׳ = קמץ, ל׳ = פתח','מ׳ = סתמי, ל׳ = מיודע'],
+  {id:'q14',type:'mc',ref:'טקסט ג',
+   q:'"*להמרצה" — מה הנכון, ומה ההבדל בין "לַמַּרְצֶה" ל"מֵהַמַּרְצֶה"?',
+   opts:['לַמַּרְצֶה ✅ (ל בולעת ה) ו-מֵהַמַּרְצֶה ✅ (מ לא בולעת ה). ל = בליעה; מ = שמירה. שתי תוצאות שונות לחלוטין','שניהם צריכים לשמור ה׳','שניהם בולעים ה׳','אין הבדל בין ל ל-מ'],
+   ans:0,
+   explain:'ל + הַמַּרְצֶה: ה׳ נבלעת → לַמַּרְצֶה. מ + הַמַּרְצֶה: ה׳ נשמרת → מֵהַמַּרְצֶה. אותו שם מיודע, שתי תוצאות שונות. ל (כמו ב,כ) = בולעת. מ (כמו שׁ) = שומרת.',
+   teacherNote:'השוואה ישירה ל מול מ. בקשו לתרגל: לַ vs מֵהַ על אותו שם: לַמּוֹרֶה/מֵהַמּוֹרֶה. לַכִּיתָה/מֵהַכִּיתָה. לַסֵּפֶר/מֵהַסֵּפֶר.'},
+
+  {id:'q15',type:'mc',ref:'טקסט ג',
+   q:'"מֵהַסְּפָרִים" לעומת "לַסְּפָרִים" — מה מסביר את שני הניקודים השונים?',
+   opts:['אין הבדל','מ׳: ה׳ הידיעה נשמרת → מֵהַסְּפָרִים. ל׳: ה׳ הידיעה נבלעת → לַסְּפָרִים. שתי אותיות שונות, שני כללים שונים, שתי תוצאות שונות מאותו שם מיודע','מ׳ = קמץ, ל׳ = פתח (ללא קשר לה)','מ׳ = סתמי, ל׳ = מיודע'],
    ans:1,
-   explain:'ההבדל בין מ׳ לל׳ לפני אותו שם: "לַסְּפָרִים" (ל + הַסְּפָרִים → ה׳ נבלעת) / "מֵהַסְּפָרִים" (מ + הַסְּפָרִים → ה׳ נשמרת). "הַ" נשמר אחרי מ, ונבלע אחרי ב,כ,ל. זהו אחד ההבדלים הסמנטיים-כתיביים החשובים.',
-   teacherNote:''},
+   explain:'לַסְּפָרִים = ל + הַסְּפָרִים, ה׳ נבלעת. מֵהַסְּפָרִים = מ + הַסְּפָרִים, ה׳ נשמרת. ל (כמו ב,כ) = בולעת. מ (כמו שׁ) = שומרת.',
+   teacherNote:'שאלה לסיכום ההבדל ל/מ. הזדמנות לטבלה: אות | בולעת ה? | דוגמה. ב=כן, כ=כן, ל=כן, מ=לא, שׁ=לא.'},
 
-  /* ── תיאוריה ── */
   {id:'q16',type:'mc',ref:'תיאוריה',
-   q:'מה ניקוד ו׳ החיבור לפני "בֵּית"?',
-   opts:['וְבֵּית (שווא)','וּבֵית (שורק) — ו׳ לפני ב׳ → וּ (שורק). כלל: לפני ב/מ/פ + שווא = וּ','וַבֵּית (פתח)','ווֵבֵית (כפולה)'],
+   q:'מורה כתבה על הלוח: "וּבֵּית". תלמיד אמר: "צריך וְבֵּית". מי צודק?',
+   opts:['התלמיד — וְ תמיד נכון','המורה ✅. ו׳ לפני ב׳ → וּ (שורק), לא וְ (שווא). כלל: ו׳ לפני ב/מ/פ + שווא → וּ. וְ = לפני שאר האותיות','שניהם שגויים','המורה — אבל מסיבה אחרת'],
    ans:1,
-   explain:'"וּבֵית" ✅. ו׳ לפני ב׳ → "וּ" (שורק), לא "וְ" (שווא). כי קשה לבטא "וְב" בזה אחר זה. כלל: ו׳ לפני ב,ו,מ,פ = "וּ". גם: לפני שווא נע = "וּ". לדוגמה: "פּוּרִים וּפֶסַח", "חָלָב וּבָשָׂר", "בָּנִים וּבָנוֹת".',
-   teacherNote:''},
+   explain:'המורה צודקת. ו׳ לפני ב,מ,פ → וּ (שורק). וּבֵּית ✅. וְבֵּית = שגוי. הסיבה: קשה לבטא וְב ברצף. כלל: ו׳ לפני ב/מ/פ/ו = וּ. ו׳ לפני שווא נע = וּ.',
+   teacherNote:'שאלת ניתוח שגיאת תלמיד — בלום 4. בקשו לנמק: מדוע המורה צודקת? תרגיל: האם וְמחר נכון? לא — וּמָחָר. וְפסח? לא — וּפֶסַח.'},
 
   {id:'q17',type:'tf',ref:'תיאוריה',
    q:'לפני גרוניות (א,ה,ח,ע,ר) — ב/כ/ל מנוקדות בקמץ (בָּ/כָּ/לָ) ולא בפתח+דגש.',
    ans:true,
-   explain:'נכון. לפני גרוניות — אין דגש (גרוניות אינן מקבלות דגש). לכן הניקוד מתארך: "בָּ" (קמץ) במקום "בַּ" (פתח). "בָּאָרֶץ", "כָּאָדָם", "לָאֱלֹהִים" — כולם קמץ. לפני שאר האותיות = פתח+דגש: "בַּבַּיִת", "כַּכֶּלֶב".',
-   teacherNote:''},
+   explain:'נכון. לפני גרוניות — אין דגש (גרוניות אינן מקבלות דגש). הניקוד מתארך לקמץ: בָּ, כָּ, לָ. בָּאָרֶץ, כָּאָדָם, לָאֱלֹהִים. לפני שאר האותיות = פתח+דגש: בַּבַּיִת, כַּכֶּלֶב.',
+   teacherNote:'הקמץ בא כי גרוניות לא מקבלות דגש — הניקוד מפצה. בקשו לבדוק: בַּעֵץ — האם ע׳ גרונית? כן → בָּעֵץ. תלמידים צריכים לזכור: אהחעור = גרוניות.'},
 
   {id:'q18',type:'mc',ref:'תיאוריה',
-   q:'מה ניקוד ב׳ לפני "אָדָם" (ללא ה׳ הידיעה)?',
-   opts:['בַּ (פתח) — כי גרוני','בְּ (שווא) — ב + אדם ללא ה׳ הידיעה → בְּ (שווא). גרוניות לא משפיעות כשאין ה׳!','בָּ (קמץ) — א׳ גרונית','בּ (דגש קל)'],
+   q:'מה ניקוד ב׳ לפני "אָדָם" ללא ה׳ הידיעה?',
+   opts:['בַּ (פתח) — א׳ גרוני ולכן שם מיודע','בְּ (שווא) — ב + אָדָם ללא ה׳ → שם סתמי → שווא. גרוניות משפיעות רק כשיש ה׳ הידיעה מעורבת','בָּ (קמץ) — א׳ גרוני תמיד קמץ','בּ (דגש קל)'],
    ans:1,
-   explain:'"בְּאָדָם" ✅. ב + "אָדָם" (ללא ה׳ הידיעה) = שם סתמי → ב׳ בשווא: "בְּ". הקמץ (בָּ) מופיע רק כש: ב/כ/ל + ה׳ הידיעה + גרונית (= "הָ"). ב׳ לפני גרונית ללא ה׳ הידיעה = "בְּ" (שווא רגיל).',
-   teacherNote:''},
+   explain:'בְּאָדָם ✅. ב + אָדָם (ללא ה׳ הידיעה) = שם סתמי → ב׳ בשווא. הקמץ (בָּ) מגיע רק כש: ב/כ/ל + ה׳ הידיעה + גרונית (= הָ). ב׳ לפני גרונית ללא ה׳ הידיעה = שווא רגיל.',
+   teacherNote:'מבחין בין שני מצבים: עם ה׳ הידיעה (גרוני → קמץ) ובלי (תמיד שווא). בקשו: בְּאִישׁ נכון? כן (ללא ה). בָּאִישׁ? רק אם = ב+האיש.'},
 
   {id:'q19',type:'sort',ref:'תיאוריה',
-   q:'סדרו לפי ה"כלל": מ"ה׳ הידיעה נבלעת" ועד "ה׳ הידיעה נשמרת":',
-   items:['מֵהַבַּיִת — מ׳: ה׳ נשמרת (מֵהַ)','בַּבַּיִת — ב׳: ה׳ נבלעת (בַּ)','שֶׁהַבַּיִת — שׁ: ה׳ נשמרת (שֶׁהַ)','לַבַּיִת — ל׳: ה׳ נבלעת (לַ)'],
+   q:'סדרו לפי "מה קורה לה׳ הידיעה" — מ"נבלעת" ל"נשמרת":',
+   items:['שֶׁהַבַּיִת — שׁ + ה׳ הידיעה, ה׳ נשמרת','בַּבַּיִת — ב + ה׳ הידיעה, ה׳ נבלעת','מֵהַבַּיִת — מ + ה׳ הידיעה, ה׳ נשמרת','לַבַּיִת — ל + ה׳ הידיעה, ה׳ נבלעת'],
    correctOrder:[1,3,0,2],
-   explain:'סדר לפי "בליעה": (1) "בַּ" — ב בולעת ה׳ תמיד. (2) "לַ" — ל בולעת ה׳. (3) "מֵהַ" — מ לא בולעת. (4) "שֶׁהַ" — שׁ לא בולעת. כ׳ גם בולעת (כַּ). כללי בליעה: ב,כ,ל = בולעות. מ,שׁ = שומרות.',
-   teacherNote:''},
+   explain:'סדר: (1) בַּ — ב בולעת ה. (2) לַ — ל בולעת ה. (3) שֶׁהַ — שׁ שומרת ה. (4) מֵהַ — מ שומרת ה. כ׳ גם בולעת (כַּ). ב,כ,ל = בולעות. מ,שׁ = שומרות.',
+   teacherNote:'שאלת סידור על הכלל המרכזי. פריטים ללא רמז בניסוח. אחרי התרגול: נסחו כלל בשתי מילים: ב,כ,ל = בולעות. מ,שׁ = שומרות.'},
 
   {id:'q20',type:'mc',ref:'תיאוריה',
-   q:'מה הצורה הנכונה: "הלך ___ ספר"? (= לכיוון הספר המסוים)',
-   opts:['*לַהַסֵּפֶר — ל + הספר עם ה׳ כתובה','לַסֵּפֶר — ל + הַסֵּפֶר: ה׳ נבלעת → לַסֵּפֶר ✅','לְסֵפֶר — ל + ספר ללא ה׳ (סתמי)','לֶסֵּפֶר — ל + סגול'],
+   q:'מה הצורה הנכונה: "הלך ___ הספר"? (= לכיוון הספר המסוים)',
+   opts:['*לַהַסֵּפֶר — ל + הספר עם ה נכתבת','לַסֵּפֶר ✅ — ל + הַסֵּפֶר: ה נבלעת, פתח+דגש בסּ׳','לְסֵפֶר — ל + ספר ללא ה (סתמי)','לֵסֵּפֶר — ל + צרה'],
    ans:1,
-   explain:'"לַסֵּפֶר" ✅. ל + הַסֵּפֶר (מיודע) → ה׳ נבלעת → "לַ" + דגש בס׳: "לַסֵּפֶר". "לְסֵפֶר" (שווא) = ל + סֵפֶר ללא ה׳ = אם הספר לא ידוע. "*לַהַסֵּפֶר" = שגיאה — ה׳ לא נכתבת אחרי ל/ב/כ.',
-   teacherNote:''},
-  {id:'q21',type:'open',ref:'ניתוח אותיות השימוש',
-   q:'נתח/י את ניקוד כל אות שימוש וציין/י את הכלל:<br><strong>(א) בַּבַּיִת (ב) לָאָרֶץ (ג) מֵהַסֵּפֶר</strong>',
-   placeholder:'(א) בַּ = ב׳ בפתח + ה׳ הידיעה נבלעת + דגש בב׳ השנייה. כלל: ב/כ/ל + ה׳ → ה׳ נבלעת.\n(ב) לָ = ל׳ בקמץ + ה׳ הידיעה נבלעת. כלל: ל׳ + ה׳ לפני א/ע/ח/ר/ה = קמץ (ולא פתח).\n(ג) מֵהַ = מ׳ בצרה + ה׳ הידיעה נשמרת. כלל: מ׳ לפני ה׳ = ה׳ תמיד נשמרת + מ׳ בצרה.',
-   hint:'ב/כ/ל לפני ה׳ = ה׳ נבלעת. מ׳ לפני ה׳ = ה׳ נשמרת. לפני גרוניות (א/ח/ע/ר) = קמץ.',
-   rubric:'(א) ניקוד נכון (ב) ה׳ נבלעת/נשמרת (ג) כלל מנומק — לכל שלושה',
-   explain:'ב/כ/ל + ה׳ = ה׳ נבלעת. מ׳ = ה׳ תמיד נשמרת. לפני גרוניות: פתח→קמץ.',
-   teacherNote:'מיצ"ב: ניקוד + כלל = ציון מלא. שגיאה נפוצה: "לָ" כשצריך "לַ".'},
+   explain:'לַסֵּפֶר ✅. ל + הַסֵּפֶר (מיודע) → ה נבלעת → לַ + דגש בסּ. לְסֵפֶר = ל + סֵפֶר ללא ה = ספר לא מסוים. *לַהַסֵּפֶר = שגיאה — ה לעולם לא נכתבת אחרי ל/ב/כ.',
+   teacherNote:'שאלת יישום — בחירה בין צורות. תלמידים שבוחרים לְסֵפֶר מוכיחים שהם מבינים הבדל מיודע/סתמי. בקשו להשוות: הלך לְסֵפֶר (איזה?) מול הלך לַסֵּפֶר (הידוע).'},
+
+  {id:'q21',type:'open',ref:'ניתוח ותיקון — בלום 5',
+   q:'לפניכם 4 צירופים עם שגיאות. לכל אחד: (א) זהו השגיאה (ב) תקנו (ג) הסבירו את הכלל:<br><strong>(1) *בהבית (2) *מהמורה (בניקוד: *מִהַמּוֹרֶה) (3) *להמרצה (4) *כהכלב</strong>',
+   placeholder:'(1) בַּבַּיִת — ב+ה נבלעת, פתח+דגש. (2) מֵהַמּוֹרֶה — מ+ה נשמרת, מ בצרה. (3) לַמַּרְצֶה — ל+ה נבלעת. (4) כַּכֶּלֶב — כ+ה נבלעת.',
+   hint:'ב/כ/ל: ה נבלעת → פתח+דגש. מ: ה נשמרת, מ בצרה. בדקו כל אחד: איזו אות? מה קורה לה?',
+   rubric:'לכל צירוף: זיהוי שגיאה (1נ) + תיקון נכון (1נ) + כלל מנומק (1נ) = 3נ × 4 = 12 נקודות. רמת בגרות.',
+   explain:'(1) בַּבַּיִת: ב+ה נבלעת. (2) מֵהַמּוֹרֶה: מ+ה נשמרת, מ בצרה. (3) לַמַּרְצֶה: ל+ה נבלעת. (4) כַּכֶּלֶב: כ+ה נבלעת.',
+   teacherNote:'שאלת בגרות מלאה — בלום 5. רובריקה: 3 נקודות לצירוף. שגיאה צפויה: (2) מ בחיריק (מִ) במקום צרה (מֵ). הציגו כסדרה אחרי הגשה.'},
 ];
 
 /* ENGINE */
 const QS={answers:{},submitted:false};
 let _lastScore=null,_lastCorrect=0,_gateConfirmed=false;
+let SNP='',SCP='';
 function switchTab(t){['theory','practice','answers'].forEach(x=>{document.getElementById('pane-'+x)?.classList.toggle('active',x===t);document.getElementById('btn-'+x)?.classList.toggle('active',x===t);document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);});if(t==='answers')renderAnswers();if(t==='practice'&&!_gateConfirmed)document.getElementById('gate-date-display').textContent=new Date().toLocaleDateString('he-IL');}
-function confirmGate(){const nm=document.getElementById('gate-name').value.trim();const cl=document.getElementById('gate-class').value;let ok=true;if(nm.split(/\s+/).length<2){document.getElementById('gate-name').classList.add('err');document.getElementById('gate-name-err').classList.add('show');ok=false;}else{document.getElementById('gate-name').classList.remove('err');document.getElementById('gate-name-err').classList.remove('show');}if(!cl){document.getElementById('gate-class').classList.add('err');document.getElementById('gate-class-err').classList.add('show');ok=false;}else{document.getElementById('gate-class').classList.remove('err');document.getElementById('gate-class-err').classList.remove('show');}if(!ok)return;STUDENT_NAME=nm;STUDENT_CLASS=cl;LS.set('lashon2_uname',nm);LS.set('lashon2_class',cl);_gateConfirmed=true;document.getElementById('student-gate').classList.add('hidden');const av=document.getElementById('gc-avatar'),nm2=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=nm[0].toUpperCase();if(nm2)nm2.textContent=nm;if(mt)mt.textContent='כיתה '+cl+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed').classList.add('show');document.getElementById('practice-content-wrap').style.display='';}
+function confirmGate(){const nm=document.getElementById('gate-name').value.trim();const cl=document.getElementById('gate-class').value;let ok=true;if(nm.split(/\s+/).length<2){document.getElementById('gate-name').classList.add('err');document.getElementById('gate-name-err').classList.add('show');ok=false;}else{document.getElementById('gate-name').classList.remove('err');document.getElementById('gate-name-err').classList.remove('show');}if(!cl){document.getElementById('gate-class').classList.add('err');document.getElementById('gate-class-err').classList.add('show');ok=false;}else{document.getElementById('gate-class').classList.remove('err');document.getElementById('gate-class-err').classList.remove('show');}if(!ok)return;SNP=nm;SCP=cl;STUDENT_NAME=nm;STUDENT_CLASS=cl;LS.set('lashon2_uname',nm);LS.set('lashon2_class',cl);_gateConfirmed=true;document.getElementById('student-gate').classList.add('hidden');const av=document.getElementById('gc-avatar'),nm2=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=nm[0].toUpperCase();if(nm2)nm2.textContent=nm;if(mt)mt.textContent='כיתה '+cl+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed').classList.add('show');document.getElementById('practice-content-wrap').style.display='block';}
 function reopenGate(){_gateConfirmed=false;document.getElementById('student-gate').classList.remove('hidden');document.getElementById('gate-confirmed').classList.remove('show');document.getElementById('practice-content-wrap').style.display='none';}
 const LETTERS=['א','ב','ג','ד'];let _dragSrc=null;
 function renderQuestions(){const c=document.getElementById('questions-container');if(!c)return;c.innerHTML=QUESTIONS.map((q,i)=>buildCard(q,i)).join('');updateProgress();renderAnswers();}
-function buildCard(q,i){const tl=q.type==='mc'?'בחירה מרובה':q.type==='tf'?'נכון/לא נכון':'סידור';let inner='';if(q.type==='mc'){inner='<div class="mc-wrap">'+q.opts.map((o,j)=>'<button class="mc-btn" id="mc_'+q.id+'_'+j+'" onclick="pickMC(\''+q.id+'\','+j+')" '+(QS.submitted?'disabled':'')+'><span class="mc-letter">'+LETTERS[j]+'</span><span>'+o+'</span></button>').join('')+'</div>';}else if(q.type==='tf'){inner='<div class="tf-row"><button class="tf-btn" id="tf_'+q.id+'_t" onclick="pickTF(\''+q.id+'\',true)" '+(QS.submitted?'disabled':'')+'>✅ נכון</button><button class="tf-btn" id="tf_'+q.id+'_f" onclick="pickTF(\''+q.id+'\',false)" '+(QS.submitted?'disabled':'')+'>❌ לא נכון</button></div>';}else if(q.type==='sort'){const order=QS.answers[q.id]?.order||q.items.map((_,j)=>j);inner='<div class="sort-note">גרור את הפריטים לסדר הנכון ↕</div><div class="sort-list" id="sort_'+q.id+'">'+order.map(j=>'<div class="sort-item" draggable="true" data-idx="'+j+'" ondragstart="dStart(event,\''+q.id+'\')" ondragover="dOver(event)" ondrop="dDrop(event,\''+q.id+'\')" ondragend="dEnd(event)"><span class="sort-handle">⠿</span><span class="sort-text">'+q.items[j]+'</span></div>').join('')+'</div>';} else if(q.type==='open'){inner='<div class="open-wrap">'+'<textarea class="open-textarea" id="'+q.id+'_oa" rows="4" placeholder="'+(q.placeholder||'כתוב/י כאן...')+'" oninput="pickOpen(\''+q.id+'\')"></textarea>'+(q.hint?'<div class="open-hint">💡 '+q.hint+'</div>':'')+'</div>';}return '<div class="q-card" id="qcard_'+q.id+'"><div class="q-num">שאלה '+(i+1)+' <span class="q-type-badge">'+tl+'</span> <span style="font-size:.62rem;color:var(--lc);font-weight:700">'+q.ref+'</span></div><div class="q-text">'+q.q+'</div>'+inner+'<div class="q-feedback" id="fb_'+q.id+'"></div></div>';}
+function buildCard(q,i){const tl=q.type==='mc'?'בחירה מרובה':q.type==='tf'?'נכון/לא נכון':q.type==='sort'?'סידור':'פתוחה';let inner='';if(q.type==='mc'){inner='<div class="mc-wrap">'+q.opts.map((o,j)=>'<button class="mc-btn" id="mc_'+q.id+'_'+j+'" onclick="pickMC(\''+q.id+'\','+j+')" '+(QS.submitted?'disabled':'')+'><span class="mc-letter">'+LETTERS[j]+'</span><span>'+o+'</span></button>').join('')+'</div>';}else if(q.type==='tf'){inner='<div class="tf-row"><button class="tf-btn" id="tf_'+q.id+'_t" onclick="pickTF(\''+q.id+'\',true)" '+(QS.submitted?'disabled':'')+'>✅ נכון</button><button class="tf-btn" id="tf_'+q.id+'_f" onclick="pickTF(\''+q.id+'\',false)" '+(QS.submitted?'disabled':'')+'>❌ לא נכון</button></div>';}else if(q.type==='sort'){const order=QS.answers[q.id]?.order||q.items.map((_,j)=>j);inner='<div class="sort-note">גרור את הפריטים לסדר הנכון ↕</div><div class="sort-list" id="sort_'+q.id+'">'+order.map(j=>'<div class="sort-item" draggable="true" data-idx="'+j+'" ondragstart="dStart(event,\''+q.id+'\')" ondragover="dOver(event)" ondrop="dDrop(event,\''+q.id+'\')" ondragend="dEnd(event)"><span class="sort-handle">⠿</span><span class="sort-text">'+q.items[j]+'</span></div>').join('')+'</div>';} else if(q.type==='open'){inner='<div class="open-wrap">'+'<textarea class="open-textarea" id="'+q.id+'_oa" rows="4" placeholder="'+(q.placeholder||'כתוב/י כאן...')+'" oninput="pickOpen(\''+q.id+'\')"></textarea>'+(q.hint?'<div class="open-hint">💡 '+q.hint+'</div>':'')+'</div>';}return '<div class="q-card" id="qcard_'+q.id+'"><div class="q-num">שאלה '+(i+1)+' <span class="q-type-badge">'+tl+'</span> <span style="font-size:.62rem;color:var(--lc);font-weight:700">'+q.ref+'</span></div><div class="q-text">'+q.q+'</div>'+inner+'<div class="q-feedback" id="fb_'+q.id+'"></div></div>';}
 function pickMC(id,j){if(QS.submitted)return;QS.answers[id]={sel:j};QUESTIONS.forEach(q=>{if(q.id===id&&q.type==='mc')q.opts.forEach((_,k)=>{const b=document.getElementById('mc_'+id+'_'+k);if(b)b.classList.toggle('sel',k===j);});});updateProgress();}
 function pickTF(id,val){if(QS.submitted)return;QS.answers[id]={sel:val};const bt=document.getElementById('tf_'+id+'_t'),bf=document.getElementById('tf_'+id+'_f');if(bt)bt.classList.toggle('sel',val===true);if(bf)bf.classList.toggle('sel',val===false);updateProgress();}
 function dStart(e,id){_dragSrc=e.currentTarget;e.dataTransfer.effectAllowed='move';e.currentTarget.classList.add('dragging');}
@@ -915,7 +961,7 @@ function printLesson(){
 let _tt;
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800)}
 function goBack(){if(window.opener){try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}window.close();return;}window.location.href=BACK_URL;}
-function init(){initFirebase();if(USER_ROLE==='teacher'){const rc=document.getElementById('role-chip');if(rc)rc.style.display='';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';_gateConfirmed=true;const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='';document.getElementById('student-gate')?.classList.add('hidden');document.getElementById('gate-confirmed')?.classList.add('hidden');}else{const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){_gateConfirmed=true;if(wrap)wrap.style.display='';document.getElementById('student-gate')?.classList.add('hidden');const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed')?.classList.remove('hidden');}}applyAnswersVisibility();renderQuestions();}
+function init(){initFirebase();if(USER_ROLE==='teacher'){const rc=document.getElementById('role-chip');if(rc)rc.style.display='';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';_gateConfirmed=true;const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='block';document.getElementById('student-gate')?.classList.add('hidden');document.getElementById('gate-confirmed')?.classList.add('hidden');}else{const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){_gateConfirmed=true;if(wrap)wrap.style.display='block';document.getElementById('student-gate')?.classList.add('hidden');const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed')?.classList.add('show');}}applyAnswersVisibility();renderQuestions();}
 init();
 </script>
 </body>

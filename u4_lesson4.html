@@ -64,7 +64,8 @@ button,input,select,textarea{font-family:inherit}
 .tab-btn:hover{color:var(--lc)}
 .tab-btn.active{color:var(--lc);border-bottom-color:var(--lc);font-weight:800}
 .tab-pane{display:none}
-.tab-pane.active{display:block}
+.tab-pane.active{display:block;animation:fadeIn .18s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 
 /* ═══ LESSON WRAP ═══ */
 .lesson-wrap{max-width:800px;margin:0 auto;padding:1.5rem 1.2rem 5rem;width:100%}
@@ -309,6 +310,28 @@ button,input,select,textarea{font-family:inherit}
 .open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}
 .open-hint{font-size:.72rem;color:var(--muted,#9aa3be);margin-top:.3rem}
 .open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid,#374151)}
+
+/* ══ OPENING QUESTION ══ */
+.opening-q{border:2px dashed var(--lc);border-radius:var(--r-lg);background:var(--lc-lt);padding:1.2rem 1.4rem;margin-bottom:1.5rem}
+.oq-label{font-size:.65rem;font-weight:800;color:var(--lc);letter-spacing:.06em;margin-bottom:.5rem;text-transform:uppercase}
+.oq-text{font-size:.97rem;font-weight:700;color:var(--text);line-height:1.5}
+.oq-hint{font-size:.8rem;color:var(--muted);margin-top:.45rem}
+/* ══ GOTO-PRACTICE BUTTON ══ */
+.goto-practice-btn{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;padding:.95rem 1.4rem;border:none;border-radius:var(--r-pill);background:linear-gradient(135deg,var(--lc),var(--lc-dk));color:#fff;font-size:.9rem;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(124,58,237,.28);transition:all .18s;margin-top:.5rem}
+.goto-practice-btn:hover{transform:translateY(-2px);opacity:.93}
+/* ══ DECISION FLOW (Section 8) ══ */
+.decision-flow{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.4rem 1.5rem;margin-bottom:1.2rem;box-shadow:var(--sh2)}
+.df-flow-title{font-family:'Secular One',sans-serif;font-size:.9rem;color:var(--lc);margin-bottom:1rem;display:flex;align-items:center;gap:.4rem}
+.df-step{display:flex;align-items:flex-start;gap:.65rem;margin-bottom:.75rem;padding-bottom:.75rem;border-bottom:1px dashed var(--border)}
+.df-step:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.df-step-num{width:26px;height:26px;border-radius:50%;background:var(--lc);color:#fff;font-size:.72rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+.df-step-q{font-size:.86rem;font-weight:700;color:var(--text);margin-bottom:.28rem}
+.df-branches{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.3rem}
+.df-branch{font-size:.72rem;font-weight:700;padding:.2rem .6rem;border-radius:var(--r-pill);border:1px solid}
+.dfb-ok{background:var(--green-lt);color:var(--green);border-color:#bbf7d0}
+.dfb-warn{background:var(--red-lt);color:var(--red);border-color:#fca5a5}
+.dfb-note{background:var(--amber-lt);color:var(--amber);border-color:#fde68a}
+.dfb-lc{background:var(--lc-lt);color:var(--lc);border-color:#ddd6fe}
 </style>
 </head>
 <body>
@@ -318,7 +341,7 @@ button,input,select,textarea{font-family:inherit}
   <button class="btn-back" onclick="goBack()">←</button>
   <div class="topbar-info">
     <div class="topbar-title">🔗 אותיות השימוש ושם המספר</div>
-    <div class="topbar-sub">יחידה 4 — תקינות · שיעור 4</div>
+    <div class="topbar-sub">יחידה 4 — תקינות · שיעור 4 מתוך 6</div>
   </div>
   <div class="topbar-actions">
     <span class="t-chip lc">⏱ 45 דק׳</span>
@@ -346,7 +369,7 @@ button,input,select,textarea{font-family:inherit}
 <div class="lesson-wrap">
 
   <div class="lesson-hero">
-    <div class="hero-badge">יחידה 4 · שיעור 4</div>
+    <div class="hero-badge">יחידה 4 · שיעור 4 מתוך 6</div>
     <span class="hero-emoji">🔗</span>
     <h1 class="hero-title">אותיות השימוש ושם המספר</h1>
     <p class="hero-desc">שיעור אינטגרטיבי — כשמצרפים ב, כ, ל, מ למספר מיודע: ב/כ/ל בולעות ה׳ הידיעה, מ׳ שומרת. לפני גרוניות — קמץ. לפני שווא נע — חיריק. שלושה כללים שחייבים לדעת!</p>
@@ -355,6 +378,14 @@ button,input,select,textarea{font-family:inherit}
       <span class="hero-chip">🔗 שילוב</span>
       <span class="hero-chip green">🎯 יחידה 4 שיעור 4</span>
     </div>
+  </div>
+
+
+  <!-- שאלת פתיחה -->
+  <div class="opening-q">
+    <div class="oq-label">💭 שאלת פתיחה — חשבו לפני שלומדים</div>
+    <div class="oq-text">מדוע "בַּחֲמִישִׁי לַחֹדֶשׁ" אבל "מֵהַחֲמִישִׁי לַחֹדֶשׁ"? שלוש אותיות שימוש — שני כללים שונים. מה ההבדל?</div>
+    <div class="oq-hint">רמז: ב׳ ול׳ בולעות משהו שמ׳ אינה בולעת...</div>
   </div>
 
   <div class="section-hd"><span class="sn-icon">🤯</span><div class="sn">1</div>החידה — "בַּחֲמִישִׁי לַחֹדֶשׁ"</div>
@@ -475,16 +506,70 @@ button,input,select,textarea{font-family:inherit}
     </div>
   </div>
 
-  <div class="section-hd"><span class="sn-icon">🛠️</span><div class="sn">8</div>כלי זיהוי — 5 שאלות לניקוד נכון</div>
-  <div class="steps-wrap">
-    <div class="steps-title">🛠️ 5 שאלות לצירוף נכון</div>
-    <div class="step-item"><div class="step-num">1</div><span><strong>מה אות השימוש?</strong> ב/כ/ל = אפשר לבלוע ה׳. מ = לעולם לא בולע (מֵהַ).</span></div>
-    <div class="step-item"><div class="step-num">2</div><span><strong>יש ה׳ הידיעה?</strong> ב/כ/ל → ה׳ נבלעת: פתח (בַּ) או קמץ לפני גרוניות (בָּ). מ → מֵהַ.</span></div>
-    <div class="step-item"><div class="step-num">3</div><span><strong>מתחיל בשווא נע?</strong> שׁ,שְׁ,לְ... → ב/כ/ל = חיריק: "בִּשְׁנַיִם", "לִשְׁלֹשָׁה".</span></div>
-    <div class="step-item"><div class="step-num">4</div><span><strong>מתחיל בגרונית + יש ה׳?</strong> א,ה,ח,ע,ר → ב/כ/ל = קמץ: "לָאֶחָד", "בָּרִאשׁוֹן".</span></div>
-    <div class="step-item"><div class="step-num">5</div><span><strong>מ׳ + גרוני?</strong> → מֵ (צרה) גם ללא ה׳: "מֵאֶחָד", "מֵחָמֵשׁ". עם ה׳: "מֵהַ".</span></div>
+  <div class="section-hd"><span class="sn-icon">🛠️</span><div class="sn">8</div>זרימת ההחלטה — כיצד מנקדים אות שימוש לפני מספר</div>
+
+  <div class="decision-flow">
+    <div class="df-flow-title">🛠️ 5 שאלות בסדר — כל שאלה מובילה לניקוד</div>
+    <div class="df-step">
+      <div class="df-step-num">1</div>
+      <div>
+        <div class="df-step-q">מה אות השימוש?</div>
+        <div class="df-branches">
+          <span class="df-branch dfb-warn">ב/כ/ל → ממשיכים לשאלה 2</span>
+          <span class="df-branch dfb-note">מ׳ → לעולם מֵהַ אם מיודע, מֵ לפני גרוני, מִ אחרת</span>
+        </div>
+      </div>
+    </div>
+    <div class="df-step">
+      <div class="df-step-num">2</div>
+      <div>
+        <div class="df-step-q">האם יש ה׳ הידיעה לפני המספר?</div>
+        <div class="df-branches">
+          <span class="df-branch dfb-warn">כן → ה׳ נבלעת! ממשיכים לשאלה 3</span>
+          <span class="df-branch dfb-note">לא → ממשיכים לשאלה 4</span>
+        </div>
+      </div>
+    </div>
+    <div class="df-step">
+      <div class="df-step-num">3</div>
+      <div>
+        <div class="df-step-q">יש ה׳ הידיעה — האות הראשונה של המספר גרונית (א,ה,ח,ע,ר)?</div>
+        <div class="df-branches">
+          <span class="df-branch dfb-warn">כן, גרונית → קמץ: בָּ/כָּ/לָ (בָּרִאשׁוֹן, לָאֶחָד)</span>
+          <span class="df-branch dfb-ok">לא, רגילה → פתח + דגש: בַּ/כַּ/לַ (בַּשְּׁלִישִׁי)</span>
+        </div>
+      </div>
+    </div>
+    <div class="df-step">
+      <div class="df-step-num">4</div>
+      <div>
+        <div class="df-step-q">ללא ה׳ הידיעה — האות הראשונה של המספר שווא נע (שְׁ, לְ...)?</div>
+        <div class="df-branches">
+          <span class="df-branch dfb-warn">כן, שווא נע → חיריק: בִּ/כִּ/לִ (בִּשְׁלֹשָׁה, לִשְׁנַיִם)</span>
+          <span class="df-branch dfb-ok">לא → שווא: בְּ/כְּ/לְ (בְּחָמֵשׁ, לְשִׁשָּׁה)</span>
+        </div>
+      </div>
+    </div>
+    <div class="df-step">
+      <div class="df-step-num">5</div>
+      <div>
+        <div class="df-step-q">מ׳ — לפני גרונית (א,ה,ח,ע,ר) ללא ה׳?</div>
+        <div class="df-branches">
+          <span class="df-branch dfb-warn">כן → מֵ (צרה): מֵאֶחָד, מֵחָמֵשׁ, מֵעֲשָׂרָה</span>
+          <span class="df-branch dfb-ok">לא → מִ (חיריק): מִשְּׁלֹשָׁה, מִשְּׁנַיִם</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="box box-green">✅ <strong>מוכן לתרגול!</strong> שלושה טקסטים עשירים בצירופים ו-20 שאלות על כל הכללים.</div>
+
+  <div class="box box-red">🚨 <strong>שלוש שגיאות הבגרות הנפוצות ביותר:</strong><br>
+  (1) "*מַחֲמִישִׁי" → שגוי! מ׳ לא בולעת ה׳ → <strong>מֵהַחֲמִישִׁי</strong> ✅<br>
+  (2) "*לְאֶחָד" (כשמיודע) → שגוי! א׳ גרוני + ה׳ → <strong>לָאֶחָד</strong> ✅<br>
+  (3) "*בְּשְׁנַיִם" → שגוי! שווא נע → <strong>בִּשְׁנַיִם</strong> ✅</div>
+
+  <div class="box box-lc">✅ <strong>מוכן לתרגול!</strong> שלושה טקסטים עשירים + 21 שאלות על כל הכללים.</div>
+
+  <button class="goto-practice-btn" onclick="switchTab('practice')">✏️ עבור לתרגול — 21 שאלות על אותיות השימוש ושם המספר</button>
 
 </div>
 </div><!-- /pane-theory -->
@@ -567,8 +652,8 @@ button,input,select,textarea{font-family:inherit}
   </div>
 
   <div class="quiz-header">
-    <div class="quiz-hd-title">✏️ תרגול — 20 שאלות על אותיות השימוש ושם המספר</div>
-    <div class="quiz-hd-desc">שאלות על שלושת הטקסטים ועל התיאוריה. רב-בחירה, נכון/לא נכון וסידור.</div>
+    <div class="quiz-hd-title">✏️ תרגול — 21 שאלות על אותיות השימוש ושם המספר</div>
+    <div class="quiz-hd-desc">שאלות על שלושת הטקסטים ועל התיאוריה. רב-בחירה, נכון/לא נכון, סידור וכתיבה.</div>
     <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="qp-fill" style="width:0%"></div></div>
     <div class="quiz-prog-row"><span id="qp-counter">0 / 20 נענו</span></div>
   </div>
@@ -630,6 +715,7 @@ const _params=new URLSearchParams(location.search);
 let STUDENT_NAME=_params.get('student')||LS.get('lashon2_uname','')||'תלמיד/ה';
 let STUDENT_CLASS=LS.get('lashon2_class','')||'';
 const USER_ROLE=_params.get('role')||LS.get('lashon2_role','')||localStorage.getItem('userRole')||'student';
+let SNP='',SCP='';
 let ANSWERS_VISIBLE=_params.get('answers_visible')==='1';
 const BACK_URL=_params.get('back')||'index.html';
 
@@ -645,147 +731,152 @@ function applyAnswersVisibility(){
    20 QUESTIONS
 ════════════════════════════════════════════════ */
 const QUESTIONS=[
-  {id:'q01',type:'mc',ref:'טקסט א׳',
-   q:'"לַשְּׁנִיָּה" — פרטו את ניתוח הצירוף.',
-   opts:['לְ + שנייה סתמי = שווא','לַ = ל + הַשְּׁנִיָּה: ה׳ הידיעה נבלעת, ל׳ בפתח, דגש חזק בשׁ׳','לָ = ל + גרוני','לִ = לפני שווא נע'],
+  /* ── טקסט א׳ ── */
+  {id:'q01',type:'mc',ref:'טקסט א',
+   q:'"לַשְּׁנִיָּה בליגה" — פרטו את הצירוף: סוג מספר, ניקוד ל׳, סיבה.',
+   opts:['לְ + שנייה סתמי = שווא','לַ = ל + הַשְּׁנִיָּה: ה׳ הידיעה נבלעת → ל׳ בפתח + דגש חזק בשׁ׳. סודר נקבה מיודע','לָ = ל + גרוני','לִ = לפני שווא נע'],
    ans:1,
-   explain:'"לַשְּׁנִיָּה" = ל + הַשְּׁנִיָּה. ה׳ הידיעה נבלעת → ל׳ בפתח + דגש חזק בשׁ׳. "הַשְּׁנִיָּה" = מספר סודר נקבה מיודע. לולא ה׳: "לִשְׁנִיָּה" (חיריק לפני שווא נע).',
-   teacherNote:''},
+   explain:'לַשְּׁנִיָּה = ל + הַשְּׁנִיָּה. ה׳ הידיעה נבלעת → ל׳ בפתח (לַ) + דגש חזק בשׁ׳. שְּׁנִיָּה לא גרוני → פתח (לא קמץ). ללא ה׳: לִשְׁנִיָּה (חיריק לפני שווא נע).',
+   teacherNote:'שאלת פתיחה — שלושה מרכיבים: סוג מספר + ניקוד + סיבה. בקשו מהתלמידים לנסח בכל פעם בשלושה חלקים. זה מקבע מיומנות ניתוח לבגרות.'},
 
-  {id:'q02',type:'mc',ref:'טקסט א׳',
-   q:'"מֵהַחֲמִישִׁי" — מדוע מ׳ בצרה (מֵ) ולא בפתח (*מַ)?',
-   opts:['כי חמישי מתחיל בח׳ גרוני','מ׳ תמיד שומרת ה׳ הידיעה: מ + הַחֲמִישִׁי → מֵהַ. לעולם לא "*מַחֲמִישִׁי"','כי מ׳ לפני ח׳ = תמיד צרה','כי החמישי = שם עצם'],
+  {id:'q02',type:'mc',ref:'טקסט א',
+   q:'"מֵהַחֲמִישִׁי בחודש" — תלמיד כתב "*מַחֲמִישִׁי". מה הטעות ומה הכלל שנשבר?',
+   opts:['מַ נכון כי ח׳ גרוני + ה׳ הידיעה','שגיאה! מ׳ לעולם לא בולעת ה׳ הידיעה. הכלל: מ + ה׳ הידיעה = מֵהַ תמיד. *מַ = כאילו מ׳ בולעת כמו ב/כ/ל — שגוי','מַ לפני ח׳ גרוני = נכון','זה נכון ביומיומי'],
    ans:1,
-   explain:'"מֵהַחֲמִישִׁי" = מ(צרה) + הַ(ה׳ נשמרת) + חֲמִישִׁי. מ׳ שונה מב/כ/ל: לעולם אינה בולעת ה׳ הידיעה. תמיד: "מֵהַ-". שגיאה נפוצה: "*מַחֲמִישִׁי".',
-   teacherNote:''},
+   explain:'מֵהַחֲמִישִׁי = מ(צרה) + הַ(ה׳ נשמרת) + חֲמִישִׁי. הכלל: מ׳ ≠ ב/כ/ל. מ׳ לעולם אינה בולעת ה׳ הידיעה. *מַחֲמִישִׁי = שגיאה קלאסית.',
+   teacherNote:'שאלת ניתוח שגיאה — בלום 4. הציגו טבלה: ב/כ/ל + ה = ה נבלעת | מ + ה = ה נשמרת. הפניה לזרימת ההחלטה בסעיף 8.'},
 
-  {id:'q03',type:'tf',ref:'טקסט א׳',
-   q:'"בִּשְׁלֹשָׁה שבועות" — ב׳ בחיריק כי "שְׁלֹשָׁה" מתחיל בשווא נע.',
+  {id:'q03',type:'tf',ref:'טקסט א',
+   q:'"בִּשְׁלֹשָׁה שבועות" — ב׳ בחיריק כי שְׁלֹשָׁה מתחיל בשׁ עם שווא נע.',
    ans:true,
-   explain:'נכון. "שְׁ" = שׁ עם שווא נע. ב/כ/ל לפני שווא נע → חיריק. "בִּשְׁלֹשָׁה" ✅, "לִשְׁלֹשָׁה" ✅, "כִּשְׁלֹשָׁה" ✅.',
-   teacherNote:''},
+   explain:'נכון. שְׁ = שׁ עם שווא נע. ב/כ/ל לפני שווא נע → חיריק. בִּשְׁלֹשָׁה ✅, לִשְׁלֹשָׁה ✅, כִּשְׁלֹשָׁה ✅. *בְּשְׁלֹשָׁה = שני שוואים ברצף = לא תקני.',
+   teacherNote:'TF על כלל השווא נע. בקשו להוסיף: עוד 3 מספרים שמתחילים בשווא נע — שְׁנַיִם, שְׁמֹנָה, שְׁלֹשִׁים. ב/כ/ל לפני כולם = חיריק.'},
 
-  {id:'q04',type:'mc',ref:'טקסט א׳',
-   q:'"לָאֶחָד" — מדוע ל׳ בקמץ (לָ)?',
-   opts:['כי אחד = מספר מיוחד','א׳ גרונית → ה׳ הידיעה = "הָ" (קמץ) → ל + הָ → ל׳ בקמץ: "לָ". לפני גרוניות מיודעות = קמץ','לָ תמיד לפני א׳','כי לָ = מיוחד ל"אחד"'],
+  {id:'q04',type:'mc',ref:'טקסט א',
+   q:'"לָאֶחָד מהשחקנים" — מדוע ל׳ בקמץ (לָ) ולא בפתח (לַ)?',
+   opts:['כי אחד = מספר מיוחד','א׳ גרונית → ה׳ הידיעה = הָ (קמץ) → ל + הָ → קמץ: לָ. לפני גרוניות מיודעות = קמץ תמיד','לָ תמיד לפני א׳','כי לָ = מיוחד ל"אחד" בלבד'],
    ans:1,
-   explain:'"לָאֶחָד" = ל + הָאֶחָד. א׳ גרונית → ה׳ הידיעה = "הָ". ל + הָ → קמץ: "לָ". "לָאֶחָד", "לָעֲשָׂרָה", "לָרִאשׁוֹן" (ר׳ גרוני). שגיאה: "*לְאֶחָד".',
-   teacherNote:''},
+   explain:'לָאֶחָד = ל + הָאֶחָד. א׳ גרונית → ה׳ הידיעה = הָ. ל + הָ → קמץ: לָ. לָאֶחָד, לָעֲשָׂרָה, לָרִאשׁוֹן (ר׳ גרוני). *לְאֶחָד = שגיאה נפוצה.',
+   teacherNote:'נקודת בלבול מרכזית: לפני א׳ גרוני + ה׳ → קמץ. לפני א׳ ללא ה׳ → שווא: לְאֶחָד (סתמי) ✅. שאלו: האם אחד כאן מיודע? כן → לָ.'},
 
-  {id:'q05',type:'mc',ref:'טקסט א׳',
-   q:'"בַּחֲמִישִׁי לַחֹדֶשׁ" — מה המשותף לשני הצירופים?',
-   opts:['שניהם עם ה׳ הידיעה נשמרת','שניהם: ב/ל + ה׳ הידיעה → ה׳ נבלעת: "בַּ" ו"לַ". ב/ל שונות ממ׳ — הן בולעות ה׳','שניהם עם חיריק','שניהם עם קמץ'],
+  {id:'q05',type:'mc',ref:'טקסט א',
+   q:'"בַּחֲמִישִׁי לַחֹדֶשׁ" — נתחו את שני הצירופים: מה מין המספר, הניקוד, ולמה ח׳ לא מקבלת דגש?',
+   opts:['שניהם עם שווא — כי סתמיים','בַּחֲמִישִׁי: ב + הַחֲמִישִׁי → בַּ (פתח, ה נבלעת). לַחֹדֶשׁ: ל + הַחֹדֶשׁ → לַ. ח׳ גרונית → לא מקבלת דגש (גרוניות לא מנוקדות בדגש)','שניהם קמץ — כי ח׳ גרוני','בַּ = פתח, לָ = קמץ (כי ח׳ גרוני)'],
    ans:1,
-   explain:'"בַּחֲמִישִׁי" = ב + הַחֲמִישִׁי → בַּ. "לַחֹדֶשׁ" = ל + הַחֹדֶשׁ → לַ. שניהם: ב/ל + ה׳ הידיעה → ה׳ נבלעת → פתח. זה הכלל הבסיסי של ב/כ/ל.',
-   teacherNote:''},
+   explain:'בַּחֲמִישִׁי = ב + הַחֲמִישִׁי → בַּ. לַחֹדֶשׁ = ל + הַחֹדֶשׁ → לַ. ח׳ גרונית → לא מקבלת דגש! הקמץ (בָּ/לָ) מגיע רק כש-ה׳ הידיעה עצמה היא הָ, כלומר לפני א,ע,ר. ח׳ בסגול → פתח.',
+   teacherNote:'שאלה מעמיקה — בלום 4. שני מרכיבים: ניקוד האות + העדר דגש בגרוני. בקשו: "מדוע לא בָּחֲמִישִׁי?" — כי ח׳ אינה ר/א/ע. ח׳ = גרוני בסגול → פתח, לא קמץ.'},
 
-  {id:'q06',type:'mc',ref:'טקסט ב׳',
-   q:'"בִּשְׁנַיִם" — ב׳ בחיריק. מדוע?',
-   opts:['כי שניים = גרוני','שְׁנַיִם מתחיל בשׁ עם שווא נע → ב לפני שווא נע = חיריק: "בִּ". "בִּשְׁנַיִם" ✅','כי ב + שניים = תמיד חיריק','כי שניים = סתמי'],
+  /* ── טקסט ב׳ ── */
+  {id:'q06',type:'mc',ref:'טקסט ב',
+   q:'"בִּשְׁנַיִם" — ב׳ בחיריק. מה יהיה ניקוד ב׳ אם נוסיף ה׳ הידיעה: "בַּשְּׁנַיִם"?',
+   opts:['לא ישתנה — תמיד חיריק','ישתנה! בַּ = ב + הַשְּׁנַיִם: ה׳ הידיעה נבלעת → פתח + דגש. בלי ה׳: בִּשְׁנַיִם (חיריק). עם ה׳: בַּשְּׁנַיִם (פתח)','ישתנה לקמץ: בָּשְׁנַיִם','ישתנה לשווא: בְּשְׁנַיִם'],
    ans:1,
-   explain:'"שְׁנַיִם" = שׁ עם שווא נע. ב/כ/ל + שווא נע → חיריק. "בִּשְׁנַיִם" ✅, "לִשְׁנַיִם" ✅. שני שוואים ברצף ("בְּשְׁ") = לא תקני.',
-   teacherNote:''},
+   explain:'בִּשְׁנַיִם = ב + שְׁנַיִם (ללא ה, שווא נע → חיריק). בַּשְּׁנַיִם = ב + הַשְּׁנַיִם (עם ה, ה נבלעת → פתח + דגש). שינוי ה׳ הידיעה שינוי הניקוד לחלוטין.',
+   teacherNote:'שאלה מצוינת להדגמת ההבדל מיודע/סתמי. בקשו לתרגל: בִּשְׁלֹשָׁה/בַּשְּׁלֹשָׁה. לִשְׁנַיִם/לַשְּׁנַיִם. זה מכסה את שני הכללים בשאלה אחת.'},
 
-  {id:'q07',type:'tf',ref:'טקסט ב׳',
-   q:'"לָעֲשָׂרָה" — ל׳ בקמץ כי ע׳ גרונית.',
+  {id:'q07',type:'tf',ref:'טקסט ב',
+   q:'"לָעֲשָׂרָה" — ל׳ בקמץ כי ע׳ גרונית ו-ה׳ הידיעה היא הָ.',
    ans:true,
-   explain:'נכון. ע׳ גרונית → ה׳ הידיעה = "הָ" → ל + הָ → "לָ". "לָעֲשָׂרָה" ✅. כך גם: "בָּעֲשָׂרָה", "כָּעֲשָׂרָה".',
-   teacherNote:''},
+   explain:'נכון. ע׳ גרונית → ה׳ הידיעה = הָ (קמץ לפני גרוניות) → ל + הָ → קמץ: לָ. לָעֲשָׂרָה ✅. כך גם: בָּעֲשָׂרָה, כָּעֲשָׂרָה.',
+   teacherNote:'TF פשוטה לגיבוש כלל הקמץ. ודאו שהתלמידים זוכרים: גרוניות = א,ה,ח,ע,ר. לפניהם עם ה׳ → קמץ. בקשו לבדוק: לָאֶחָד, לָרִאשׁוֹן, לָעֲשָׂרָה — כולם קמץ?'},
 
-  {id:'q08',type:'mc',ref:'טקסט ב׳',
-   q:'"מֵאֶחָד" — מ׳ בצרה (מֵ) ללא ה׳. מדוע?',
-   opts:['כי אחד = מיוחד','מ׳ לפני גרוניות (א,ה,ח,ע,ר) = מֵ (צרה) גם ללא ה׳. "מֵאֶחָד", "מֵחָמֵשׁ", "מֵעֲשָׂרָה"','כי מ׳ = תמיד בצרה','כי מֵ = שאילה מה׳ הידיעה'],
+  {id:'q08',type:'mc',ref:'טקסט ב',
+   q:'"מֵאֶחָד" — מ׳ בצרה (מֵ) ללא ה׳ הידיעה. מדוע לא מִ?',
+   opts:['מֵ תמיד לפני מספרים','מ׳ לפני גרוניות (א,ה,ח,ע,ר) = מֵ (צרה) גם ללא ה׳. א׳ גרוני → מֵאֶחָד. לפני לא-גרוני ללא ה׳ = מִ: מִשְּׁלֹשָׁה','כי אחד = מספר מיוחד','מֵ = תמיד, מִ = שגוי'],
    ans:1,
-   explain:'מ׳ לפני גרוניות = מֵ, גם ללא ה׳. "מֵאֶחָד" (א׳ גרוני), "מֵחָמֵשׁ" (ח׳ גרוני). לפני לא-גרוניות ללא ה׳ = "מִ": "מִשְּׁלֹשָׁה".',
-   teacherNote:''},
+   explain:'מ׳ לפני גרוניות = מֵ, גם ללא ה׳. מֵאֶחָד (א׳ גרוני), מֵחָמֵשׁ (ח׳ גרוני), מֵעֲשָׂרָה (ע׳ גרוני). לפני לא-גרוניים ללא ה׳ = מִ: מִשְּׁלֹשָׁה, מִשְּׁנַיִם.',
+   teacherNote:'כלל מ׳ המיוחד: שתי סיבות לצרה (מֵ): (1) ה׳ הידיעה (מֵהַ). (2) גרוני ללא ה׳. שאלה לתלמידים: מה המשותף? שתיהן קשורות לגרוניות — הטעם הפונטי.'},
 
-  {id:'q09',type:'mc',ref:'טקסט ב׳',
-   q:'"מִשְּׁנַיִם" לעומת "מֵאֶחָד" — מה ההבדל בניקוד מ׳?',
-   opts:['אין הבדל','מִ (חיריק): לפני לא-גרוניים ללא ה׳. מֵ (צרה): לפני גרוניות ולפני ה׳ הידיעה. "מִשְּׁנַיִם" (שׁ — לא גרוני), "מֵאֶחָד" (א׳ — גרוני)','מִ לפני שווא, מֵ לפני תנועה','מִ = קל, מֵ = כבד'],
+  {id:'q09',type:'mc',ref:'טקסט ב',
+   q:'"מִשְּׁנַיִם" לעומת "מֵאֶחָד" — תסבירו לחבר את ההבדל בניקוד מ׳.',
+   opts:['אין הבדל — שניהם מִ','מִ = מ לפני לא-גרוני ללא ה׳ (שְׁנַיִם = שׁ, לא גרוני). מֵ = מ לפני גרוני (א׳) ללא ה׳. שני כללים נפרדים: גרוני → מֵ. לא-גרוני → מִ','מִ = ללא ה׳, מֵ = עם ה׳ (לא מדויק)','מִ = קל, מֵ = כבד'],
    ans:1,
-   explain:'"מִ" (חיריק) = לפני לא-גרוני, ללא ה׳. "מֵ" (צרה) = (1) לפני גרוניות, (2) לפני ה׳ הידיעה ("מֵהַ"). "מִשְּׁנַיִם" = לא גרוני. "מֵאֶחָד" = גרוני.',
-   teacherNote:''},
+   explain:'מִ (חיריק): לפני לא-גרוני ללא ה׳. מֵ (צרה): (1) לפני גרוניות. (2) לפני ה׳ הידיעה. מִשְּׁנַיִם (שׁ = לא גרוני). מֵאֶחָד (א׳ = גרוני).',
+   teacherNote:'שאלה בגוף הסבר לחבר — בלום 3. בקשו מהתלמידים לכתוב את ההסבר במילותיהם. מבחן הבנה: האם יכולים לתת דוגמה חדשה לכל אחד?'},
 
-  {id:'q10',type:'tf',ref:'טקסט ב׳',
-   q:'"בָּרִאשׁוֹנָה" — ב׳ בקמץ כי ר׳ גרונית.',
+  {id:'q10',type:'tf',ref:'טקסט ב',
+   q:'"בָּרִאשׁוֹנָה" — ב׳ בקמץ כי ר׳ גרונית ו-ה׳ הידיעה היא הָ.',
    ans:true,
-   explain:'נכון. ר׳ = גרונית. ב + הָרִאשׁוֹנָה → "הָ" (קמץ לפני גרוני) → ב׳ = קמץ: "בָּ". "בָּרִאשׁוֹנָה" ✅.',
-   teacherNote:''},
+   explain:'נכון. ר׳ = גרונית. ב + הָרִאשׁוֹנָה → הָ (קמץ לפני גרוני) → ב׳ = קמץ: בָּ. בָּרִאשׁוֹנָה ✅. כך גם: כָּרִאשׁוֹן, לָרִאשׁוֹן.',
+   teacherNote:'TF לגיבוש כלל הקמץ לפני ר׳. שאלו: מה מין המספר? סודר. מה קורה לה׳ הידיעה? נבלעת → קמץ בר׳ גרוני. ניתן לתת: בָּרִאשׁוֹנָה, בָּרְבִיעִי, לָרְבִיעִית.'},
 
-  {id:'q11',type:'mc',ref:'טקסט ג׳',
-   q:'"*מַחֲמִישִׁי" — מה הנכון?',
-   opts:['מַ = נכון כי ה׳ נבלעת','שגיאה! מ׳ לעולם לא בולעת ה׳. הנכון: "מֵהַחֲמִישִׁי" (מֵ + הַ + חֲמִישִׁי)','מַ לפני גרוניות = נכון','נכון ביומיומי'],
+  /* ── טקסט ג׳ ── */
+  {id:'q11',type:'mc',ref:'טקסט ג',
+   q:'"*מַחֲמִישִׁי" — מה הנכון ולמה מ׳ שונה מב׳?',
+   opts:['מַ = נכון כי ה׳ נבלעת','מֵהַחֲמִישִׁי ✅. מ׳ ≠ ב/כ/ל: מ׳ לא בולעת ה׳ הידיעה לעולם. ב׳ + ה׳ = בַּ (נבלעת). מ׳ + ה׳ = מֵהַ (נשמרת). שני כללים הפוכים לשתי אותיות','מַ לפני גרוניות = נכון','מַחֲמִישִׁי נכון בדיבור'],
    ans:1,
-   explain:'"מֵהַחֲמִישִׁי" ✅. מ׳ שומרת ה׳: "מֵהַ". "*מַחֲמִישִׁי" = שגיאה. ב/כ/ל בולעות — מ׳ לא.',
-   teacherNote:''},
+   explain:'מֵהַחֲמִישִׁי ✅. ב׳ + ה׳ הידיעה → ה׳ נבלעת: בַּחֲמִישִׁי. מ׳ + ה׳ הידיעה → ה׳ נשמרת: מֵהַחֲמִישִׁי. כלל: מ׳ לא בולעת — לעולם.',
+   teacherNote:'שאלת השוואה — בלום 4. בקשו לנסח: מה ב׳ עושה? בולעת. מה מ׳ עושה? שומרת. תרגיל: בַּשְּׁלִישִׁי / מֵהַשְּׁלִישִׁי. לַשֵּׁנִי / מֵהַשֵּׁנִי.'},
 
-  {id:'q12',type:'mc',ref:'טקסט ג׳',
-   q:'"*לְאֶחָד מהכיתות" — מה השגיאה?',
-   opts:['"לְ" נכון לפני א׳','תלוי בהקשר: "לָאֶחָד" (ל + הָאֶחָד, מיודע). "לְאֶחָד" (ל + אֶחָד, סתמי = נכון). אם "אֶחָד" כאן סתמי (אחת הכיתות) — לְ נכון!','לָ תמיד נכון לפני א׳','*לְאֶחָד = שגיאה תמיד'],
+  {id:'q12',type:'mc',ref:'טקסט ג',
+   q:'"*לְאֶחָד מהכיתות" בטקסט — מה הבעיה? הוסיפו הקשר: הסטודנט הגיע לכיתה מסוימת.',
+   opts:['לְ נכון — כי אחד כאן סתמי','שגיאה! כשהכוונה לכיתה מסוימת (מיודעת בהקשר) → לָאֶחָד (א׳ גרוני + ה׳ → קמץ). לְ = לפני אחד סתמי לחלוטין. בהקשר הנתון = מיודע','לָ תמיד שגוי','*לַאֶחָד = הצורה הנכונה'],
+   ans:0,
+   explain:'זוהי שאלה עם הקשר! "לְאֶחָד מהכיתות" = ל + אֶחָד סתמי (אחת הכיתות, לא מסוימת) → לְ = נכון! אבל אם הכוונה לכיתה מסוימת = לָאֶחָד. בטקסט: "הגיע לאחד מהכיתות" = סתמי → לְ = נכון. הטעות בטקסט היא ניסוח לא ברור.',
+   teacherNote:'שאלה מדרג גבוה — תלוי הקשר. מלמדת הבחנה עדינה: אחד סתמי = לְ. אחד מסוים = לָ. זו שאלת בגרות אמיתית. בדיון: מה הסטודנט התכוון לומר?'},
+
+  {id:'q13',type:'mc',ref:'טקסט ג',
+   q:'"*בְּשְׁנַיִם מהמקרים" — מה השגיאה ומה הכלל?',
+   opts:['אין שגיאה','שגיאה! שְׁנַיִם מתחיל בשווא נע (שׁ) → ב + שווא נע = חיריק: בִּ. *בְּשְׁ = שני שוואים ברצף = לא תקני. הנכון: בִּשְׁנַיִם','בְּ נכון לפני שׁ׳','צריך בַּשְּׁנַיִם (עם ה)'],
    ans:1,
-   explain:'הדקות: "לְאֶחָד מהכיתות" = ל + אֶחָד ללא ה׳ (סתמי) = "לְ" — נכון! "לָאֶחָד" = ל + הָאֶחָד (מיודע). בטקסט הכוונה לאחד כלשהו (סתמי) → "לְאֶחָד" יכול להיות נכון. שגיאה אמיתית: "*לַאֶחָד" (פתח לפני א׳ גרוני = שגוי).',
-   teacherNote:''},
+   explain:'בִּשְׁנַיִם ✅. שני שוואים ברצף ("בְּשְׁ") = לא תקני. ב/כ/ל לפני שווא נע → חיריק. הכלל: לא כותבים שני שוואים ברצף — משנים לחיריק.',
+   teacherNote:'שגיאה נפוצה בכתיבה. בקשו לתרגל: בִּשְׁלֹשָׁה, לִשְׁנַיִם, כִּשְׁמֹנָה. כולם חיריק לפני שווא נע. ניתן לתת: מה הכלל הכללי? שני שוואים ברצף = אסור.'},
 
-  {id:'q13',type:'mc',ref:'טקסט ג׳',
-   q:'"*בְּשְׁנַיִם מהמקרים" — מה השגיאה?',
-   opts:['אין שגיאה','שגיאה! שְׁנַיִם מתחיל בשווא נע → ב + שווא נע = חיריק: "בִּ". הנכון: "בִּשְׁנַיִם". "בְּשְׁ" = שני שוואים ברצף = לא תקני','בְּ נכון לפני שׁ׳','צריך "בַּשְׁנַיִם"'],
-   ans:1,
-   explain:'"בִּשְׁנַיִם" ✅. שני שוואים ברצף ("בְּשְׁ") = לא תקני. ב/כ/ל לפני שווא נע → חיריק.',
-   teacherNote:''},
-
-  {id:'q14',type:'tf',ref:'טקסט א׳',
-   q:'"מֵהַשֵּׁנִי" — מ׳ בצרה + ה׳ נשמרת = נכון.',
+  {id:'q14',type:'tf',ref:'טקסט א',
+   q:'"מֵהַשֵּׁנִי" — מ׳ בצרה + ה׳ נשמרת. אם נחליף ב-ב׳: "בַּשֵּׁנִי".',
    ans:true,
-   explain:'נכון. מ + הַשֵּׁנִי → מ׳ בצרה + ה׳ הידיעה נשמרת: "מֵהַשֵּׁנִי" ✅. לעולם לא "*מַשֵּׁנִי".',
-   teacherNote:''},
+   explain:'נכון. מֵהַשֵּׁנִי = מ + הַשֵּׁנִי (ה נשמרת). בַּשֵּׁנִי = ב + הַשֵּׁנִי (ה נבלעת → בַּ). שתי אותיות שונות, שתי תוצאות שונות לאותו שם מיודע.',
+   teacherNote:'TF מצוינת להדגמת ההבדל מ vs ב. בקשו לבנות עוד זוגות: לַשְּׁלִישִׁי/מֵהַשְּׁלִישִׁי. לָרִאשׁוֹן/מֵהָרִאשׁוֹן.'},
 
+  /* ── תיאוריה ── */
   {id:'q15',type:'mc',ref:'תיאוריה',
-   q:'מה ניקוד ב׳ לפני "שְׁמֹנָה" (מספר מונה)?',
-   opts:['בְּ (שווא)','בִּ (חיריק) — שְׁמֹנָה מתחיל בשווא נע → ב + שווא נע = חיריק: "בִּשְׁמֹנָה" ✅','בַּ (פתח) — כי מיודע','בָּ (קמץ) — כי שׁ׳ גרוני'],
+   q:'מה ניקוד ב׳ לפני "שְׁמֹנָה" (מספר מונה ללא ה׳)?',
+   opts:['בְּ (שווא)','בִּ (חיריק) — שְׁמֹנָה מתחיל בשווא נע (שׁ) → ב + שווא נע = חיריק: בִּשְׁמֹנָה ✅','בַּ (פתח) — מיודע','בָּ (קמץ) — שׁ׳ גרוני'],
    ans:1,
-   explain:'"בִּשְׁמֹנָה" ✅. "שְׁמֹנָה" = שׁ עם שווא נע → חיריק. "לִשְׁמֹנָה" ✅, "כִּשְׁמֹנָה" ✅.',
-   teacherNote:''},
+   explain:'בִּשְׁמֹנָה ✅. שְׁמֹנָה = שׁ עם שווא נע → חיריק. לִשְׁמֹנָה ✅, כִּשְׁמֹנָה ✅. שׁ אינה גרונית → לא קמץ. ללא ה׳ הידיעה → לא פתח.',
+   teacherNote:'שאלת יישום — בדקו: שלושת תנאי הניקוד. (1) יש ה? לא → לא פתח. (2) גרוני? לא → לא קמץ. (3) שווא נע? כן → חיריק. זרימת ההחלטה עובדת.'},
 
   {id:'q16',type:'mc',ref:'תיאוריה',
-   q:'בחרו את הצירוף הנכון: ל + הָרִאשׁוֹן = ?',
+   q:'מה הצירוף הנכון: ל + הָרִאשׁוֹן?',
    opts:['לְרִאשׁוֹן (שווא)','לָרִאשׁוֹן (קמץ) — ר׳ גרוני → ה׳ הידיעה = הָ → ל + הָ → קמץ ✅','לַרִאשׁוֹן (פתח)','לֵרִאשׁוֹן (צרה)'],
    ans:1,
-   explain:'"לָרִאשׁוֹן" ✅. ר׳ גרונית → ה׳ הידיעה = "הָ" → ל + הָ → קמץ: "לָ". "בָּרִאשׁוֹן", "כָּרִאשׁוֹן" — אותו כלל.',
-   teacherNote:''},
+   explain:'לָרִאשׁוֹן ✅. ר׳ גרונית → ה׳ הידיעה = הָ (קמץ) → ל + הָ → קמץ: לָ. בָּרִאשׁוֹן, כָּרִאשׁוֹן — אותו כלל.',
+   teacherNote:'שאלה יישומית. בקשו: נסחו את הצעד אחרי צעד — ר׳ גרוני? כן. ה׳ הידיעה = הָ? כן. ל + הָ = לָ? כן. חיזור זרימת ההחלטה.'},
 
   {id:'q17',type:'tf',ref:'תיאוריה',
-   q:'"בַּחֲמִישִׁי" — ב׳ בפתח + ח׳ בדגש חזק.',
+   q:'"בַּחֲמִישִׁי" — ב׳ בפתח ✅, אבל ח׳ מקבלת דגש חזק.',
    ans:false,
-   explain:'לא נכון. ב׳ בפתח ✅, אבל ח׳ גרונית → גרוניות אינן מקבלות דגש. "בַּ" + "חֲ" (ללא דגש). השוו "בַּבַּיִת" — ב׳ ראשונה בפתח + ב׳ שנייה בדגש חזק (ב׳ לא גרוני).',
-   teacherNote:''},
+   explain:'לא נכון. ב׳ בפתח ✅ — כי ה׳ הידיעה נבלעת. אבל ח׳ גרונית → גרוניות אינן מקבלות דגש! בַּ + חֲ (ללא דגש). השוו: בַּבַּיִת — ב׳ שנייה בדגש חזק (ב׳ לא גרוני).',
+   teacherNote:'בדיקת הבחנה עדינה: ה נבלעת ≠ דגש חזק בגרוני. ב/כ/ל + ה + גרוני = קמץ (לא פתח+דגש). ב/כ/ל + ה + לא-גרוני = פתח + דגש. הגרוני מונע הדגש.'},
 
   {id:'q18',type:'mc',ref:'תיאוריה',
-   q:'מה מסכם את ההבדל בין מ׳ לב/כ/ל לפני מספר מיודע?',
-   opts:['אין הבדל — כולם פתח','ב/כ/ל + מיודע → ה׳ נבלעת → פתח (בַּ/כַּ/לַ). מ + מיודע → ה׳ נשמרת → "מֵהַ". זהו ההבדל היסודי','מ׳ = תמיד פתח כמו ב/כ/ל','מ׳ = בולעת ה׳ בניקוד שונה'],
+   q:'מורה שאלה: "מה ניקוד מ׳ לפני הַשְּׁלִישִׁי?" תלמיד א: מִ. תלמיד ב: מֵהַ. מי צודק ומדוע?',
+   opts:['תלמיד א — מִ כי שׁ לא גרוני','תלמיד ב ✅ — מֵהַ: מ + ה׳ הידיעה = ה׳ נשמרת, מ בצרה. מִ = רק לפני לא-גרוני ללא ה׳. הַשְּׁלִישִׁי מיודע → מֵהַ','שניהם שגויים — מַשְּׁלִישִׁי','תלמיד א — כי שׁ = שווא נע'],
    ans:1,
-   explain:'ב/כ/ל + ה׳ הידיעה = ה׳ נבלעת: "בַּ/כַּ/לַ" (או קמץ לפני גרוניות). מ׳ + ה׳ הידיעה = ה׳ נשמרת: "מֵהַ" תמיד. "בַּשְּׁלִישִׁי" ≠ "מֵהַשְּׁלִישִׁי".',
-   teacherNote:''},
+   explain:'מֵהַשְּׁלִישִׁי ✅. תלמיד ב צודק. הַשְּׁלִישִׁי = מיודע (יש ה׳ הידיעה) → מ + ה׳ הידיעה = מֵהַ תמיד. מִ = רק לפני שם ללא ה׳ ולא גרוני.',
+   teacherNote:'שאלת בית-דין — בלום 4. מי צודק + הסבר. בקשו לנמק: מדוע תלמיד א טעה? הוא לא בדק אם יש ה׳ הידיעה. זרימת ההחלטה: שאלה 1 = מ? → שאלה 2 = יש ה?'},
 
   {id:'q19',type:'sort',ref:'תיאוריה',
-   q:'סדרו לפי ניקוד מ׳ — מחיריק (מִ) לצרה+ה׳ (מֵהַ):',
-   items:['מֵהַשְּׁלִישִׁי — מ + ה׳ הידיעה','מִשְּׁלֹשָׁה — מ + לא-גרוני, ללא ה׳','מֵחָמֵשׁ — מ + גרוני, ללא ה׳','מֵאֶחָד — מ + גרוני, ללא ה׳'],
-   correctOrder:[1,2,3,0],
-   explain:'(1) מִ = לא-גרוני, ללא ה׳. (2) מֵ לפני ח׳ גרוני. (3) מֵ לפני א׳ גרוני. (4) מֵהַ = ה׳ הידיעה. מחיריק → צרה → צרה+ה׳.',
-   teacherNote:''},
+   q:'סדרו לפי ניקוד מ׳ — מחיריק (מִ) דרך צרה (מֵ) עד צרה+ה׳ (מֵהַ):',
+   items:['מֵהַשְּׁלִישִׁי','מִשְּׁלֹשָׁה','מֵחָמֵשׁ','מֵהָרִאשׁוֹן'],
+   correctOrder:[1,2,0,3],
+   explain:'(1) מִשְּׁלֹשָׁה = חיריק (לא-גרוני, ללא ה). (2) מֵחָמֵשׁ = צרה (ח׳ גרוני, ללא ה). (3) מֵהַשְּׁלִישִׁי = צרה+ה׳ (מיודע). (4) מֵהָרִאשׁוֹן = צרה+הָ (מיודע+גרוני). מחיריק → צרה → צרה+ה׳.',
+   teacherNote:'שאלת סידור מחודשת — הפריטים לא מכילים רמז בתיאורם. תלמיד שמסדר נכון הוכיח הפנמת 3 רמות של מ׳. אחרי: בקשו לנסח כלל לכל רמה.'},
 
   {id:'q20',type:'mc',ref:'תיאוריה',
-   q:'מה הצורה הנכונה: "הלך ___ ספר" (= לכיוון הספר המסוים)?',
-   opts:['*לַהַסֵּפֶר — ל + ה׳ כתובה','לַסֵּפֶר — ל + הַסֵּפֶר: ה׳ נבלעת → לַסֵּפֶר ✅','לְסֵפֶר — ל + ספר ללא ה׳','לֶסֵּפֶר — ל + סגול'],
+   q:'מה ניקוד ב׳ לפני "שְּׁנִיָּה" (ללא ה׳) לעומת לפני "הַשְּׁנִיָּה" (עם ה׳)?',
+   opts:['תמיד חיריק','ללא ה: בִּשְׁנִיָּה (חיריק — שווא נע). עם ה: בַּשְּׁנִיָּה (פתח + דגש — ה נבלעת). שינוי ה׳ הידיעה = שינוי ניקוד ב׳ לחלוטין','תמיד פתח','ללא ה = פתח, עם ה = חיריק'],
    ans:1,
-   explain:'"לַסֵּפֶר" ✅. ל + הַסֵּפֶר → ה׳ נבלעת → "לַ" + דגש בסּ׳. "*לַהַסֵּפֶר" = שגיאה. "לְסֵפֶר" = ל + סֵפֶר ללא ה׳ (סתמי).',
-   teacherNote:''},
-  {id:'q21',type:'open',ref:'צירוף אות שימוש + מספר',
-   q:'נתח/י וציין/י ניקוד + כלל לכל צירוף:<br><strong>(א) מ + הַחֲמִישִׁי (ב) ב + שְׁלֹשָׁה (ג) ל + אֶחָד</strong>',
-   placeholder:'(א) מֵהַחֲמִישִׁי — מ׳ בצרה + ה׳ נשמרת. כלל: מ׳ לפני ה׳ = ה׳ נשמרת.\n(ב) בִּשְׁלֹשָׁה — ב׳ בחיריק. כלל: ב/כ/ל לפני שוא נע (שׁ) = חיריק.\n(ג) לָאֶחָד — ל׳ בקמץ. כלל: ל׳ לפני א גרונית (ה×ידיעה נבלעת) = קמץ.',
-   hint:'שוא נע → ב/כ/ל בחיריק. ה׳ הידיעה + ב/כ/ל = נבלעת. מ׳ + ה׳ = נשמרת תמיד.',
-   rubric:'(א) ניקוד נכון לכל צירוף (ב) כלל מנומק (ג) הסבר ה׳ נבלעת/נשמרת',
-   explain:'3 כללים: שוא נע = חיריק. ה׳ + ב/כ/ל = נבלעת. מ׳ + ה׳ = נשמרת.',
-   teacherNote:'מיצ"ב: ניקוד מדויק + כלל. שלושת הצירופים = שלושת הכללים המרכזיים.'},
+   explain:'ללא ה׳: בִּשְׁנִיָּה (שווא נע → חיריק). עם ה׳: בַּשְּׁנִיָּה (ה׳ נבלעת → פתח + דגש). ה׳ הידיעה = מתג שמחליף את ניקוד ב/כ/ל לגמרי.',
+   teacherNote:'שאלת השוואה מיודע/סתמי — בלום 3. מצוינת לסיכום: ה׳ הידיעה = מתג. בקשו לבנות 3 זוגות נוספים: בִּשְׁלֹשָׁה/בַּשְּׁלֹשָׁה. לִשְׁנַיִם/לַשְּׁנַיִם. כִּשְׁמֹנָה/כַּשְּׁמֹנָה.'},
+
+  {id:'q21',type:'open',ref:'ניתוח ותיקון — בלום 5',
+   q:'נתחו וציינו ניקוד + כלל + שגיאה אם קיימת:<br><strong>(א) מ + הַחֲמִישִׁי (ב) ב + שְׁלֹשָׁה (ג) ל + הָרִאשׁוֹן (ד) *כַּמִּ + שְׁנַיִם</strong>',
+   placeholder:'(א) מֵהַחֲמִישִׁי — מ בצרה + ה נשמרת. כלל: מ + ה = מֵהַ תמיד. (ב) בִּשְׁלֹשָׁה — ב בחיריק. כלל: ב/כ/ל לפני שווא נע = חיריק. (ג) לָרִאשׁוֹן — ל בקמץ. כלל: ל + הָ (גרוני) = קמץ. (ד) שגיאה! כ + שְׁנַיִם (ללא ה) = כִּשְׁנַיִם (שווא נע → חיריק).',
+   hint:'זרימת ההחלטה: (1) מ או ב/כ/ל? (2) יש ה? (3) גרוני? (4) שווא נע?',
+   rubric:'לכל צירוף: ניקוד נכון (1נ) + כלל מנומק (1נ) + זיהוי שגיאה אם קיימת (1נ) = 3נ × 4 = 12 נקודות. רמת בגרות.',
+   explain:'(א) מֵהַחֲמִישִׁי: מ+ה נשמרת. (ב) בִּשְׁלֹשָׁה: שווא נע → חיריק. (ג) לָרִאשׁוֹן: גרוני + ה → קמץ. (ד) שגיאה: כִּשְׁנַיִם (ב/כ/ל + שווא נע = חיריק, לא פתח).',
+   teacherNote:'שאלת בגרות מלאה — בלום 5. (ד) = מלכודת: כ + שְׁנַיִם ללא ה = כִּ (חיריק). כַּ = רק עם ה׳ הידיעה. רובריקה: 3 נקודות לכל חלק. הציגו כסדרה אחרי הגשה.'},
 ];
 
 /* ════════════════════════════════════════════════
@@ -826,11 +917,11 @@ function confirmGate(){
   if(!cv){ce?.classList.add('err');document.getElementById('gate-class-err')?.classList.add('show');ok=false;}
   else{ce?.classList.remove('err');document.getElementById('gate-class-err')?.classList.remove('show');}
   if(!ok)return;
-  STUDENT_NAME=nv;STUDENT_CLASS=cv;LS.set('lashon2_uname',nv);LS.set('lashon2_class',cv);_gateConfirmed=true;
+  SNP=nv;SCP=cv;STUDENT_NAME=nv;STUDENT_CLASS=cv;LS.set('lashon2_uname',nv);LS.set('lashon2_class',cv);_gateConfirmed=true;
   const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');
   if(av)av.textContent=nv[0].toUpperCase();if(nm)nm.textContent=nv;if(mt)mt.textContent='כיתה '+cv+' · '+new Date().toLocaleDateString('he-IL');
   document.getElementById('student-gate')?.classList.add('hidden');document.getElementById('gate-confirmed')?.classList.remove('hidden');
-  const wrap=document.getElementById('practice-content-wrap');if(wrap){wrap.style.display='';wrap.scrollIntoView({behavior:'smooth',block:'start'});}
+  const wrap=document.getElementById('practice-content-wrap');if(wrap){wrap.style.display='block';wrap.scrollIntoView({behavior:'smooth',block:'start'});}
 }
 function reopenGate(){
   _gateConfirmed=false;
@@ -934,7 +1025,7 @@ function updateCounter(){
 ════════════════════════════════════════════════ */
 function submitQuiz(){
   const answered=Object.keys(QS.answers).length;
-  if(answered<QUESTIONS.length){toast(`⚠️ ענה על כל 20 השאלות (נענו ${answered})`);return}
+  if(answered<QUESTIONS.length){toast(`⚠️ ענה על כל ${QUESTIONS.length} השאלות (נענו ${answered})`);return}
   if(QS.submitted){toast('כבר הגשת');return}
   if(USER_ROLE==='student'&&!_gateConfirmed){toast('⚠️ נא למלא שם וכיתה');reopenGate();return}
   QS.submitted=true;
@@ -999,7 +1090,7 @@ function resetQuiz(){
   });
   const rc=document.getElementById('results-container');if(rc)rc.innerHTML='';
   const fill=document.getElementById('qp-fill');if(fill)fill.style.width='0%';
-  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent='0 / 20 נענו';
+  const ctr=document.getElementById('qp-counter');if(ctr)ctr.textContent='0 / '+QUESTIONS.length+' נענו';
 }
 function sendResults(pct){
   const body=`שיעור 4 — אותיות השימוש ושם המספר\nתלמיד/ה: ${STUDENT_NAME}\nכיתה: ${STUDENT_CLASS||'?'}\nציון: ${pct}%\nתאריך: ${new Date().toLocaleDateString('he-IL')} ${new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})}`;
@@ -1105,13 +1196,13 @@ function init(){
     const rc=document.getElementById('role-chip');if(rc)rc.style.display='';
     const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';
     _gateConfirmed=true;
-    const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='';
+    const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='block';
     document.getElementById('student-gate')?.classList.add('hidden');
     document.getElementById('gate-confirmed')?.classList.add('hidden');
   }else{
     const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';
     if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){
-      _gateConfirmed=true;if(wrap)wrap.style.display='';
+      _gateConfirmed=true;if(wrap)wrap.style.display='block';
       document.getElementById('student-gate')?.classList.add('hidden');
       const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');
       if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');

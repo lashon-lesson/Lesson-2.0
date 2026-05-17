@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>מבחן סיכום — תקינות | יחידה 3 | לשון Lesson 2.0</title>
+<title>מבחן סיכום — תקינות | יחידה 4 | לשון Lesson 2.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -52,7 +52,8 @@ button,input,select,textarea{font-family:inherit}
 .tab-btn{padding:.68rem 1.2rem;border:none;border-bottom:2.5px solid transparent;background:none;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;min-height:46px;margin-bottom:-1px;flex-shrink:0;transition:color .14s}
 .tab-btn:hover{color:var(--lc)}
 .tab-btn.active{color:var(--lc);border-bottom-color:var(--lc);font-weight:800}
-.tab-pane{display:none}.tab-pane.active{display:block}
+.tab-pane{display:none}.tab-pane.active{display:block;animation:fadeIn .18s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .lesson-wrap{max-width:800px;margin:0 auto;padding:1.5rem 1.2rem 5rem;width:100%}
 .lesson-hero{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface) 68%);border:1px solid var(--border);border-radius:var(--r-xl);padding:1.8rem 1.6rem 1.6rem;margin-bottom:1.8rem;position:relative;overflow:hidden;box-shadow:var(--sh1)}
 .lesson-hero::before{content:'';position:absolute;top:0;right:0;bottom:0;width:5px;background:var(--lc);opacity:.75;border-radius:0 var(--r-xl) var(--r-xl) 0}
@@ -234,7 +235,15 @@ button,input,select,textarea{font-family:inherit}
 .open-textarea:focus{border-color:var(--lc)}
 .open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}
 .open-hint{font-size:.72rem;color:var(--muted,#9aa3be);margin-top:.3rem}
-.open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid,#374151)}
+.open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--bo
+/* ── OPEN QUESTION ── */
+.open-wrap{position:relative}
+.open-textarea{width:100%;border:1.5px solid var(--border);border-radius:var(--r);padding:.85rem 1rem;font-size:.88rem;resize:vertical;min-height:110px;background:var(--surface2);color:var(--text);line-height:1.65}
+.open-textarea:focus{border-color:var(--lc);outline:none}
+.open-textarea:disabled{opacity:.65;background:var(--surface3)}
+.open-hint{font-size:.72rem;color:var(--muted);margin-top:.3rem}
+.open-rubric{margin-top:.6rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid)}
+rder,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid,#374151)}
 </style>
 </head>
 <body>
@@ -377,7 +386,7 @@ button,input,select,textarea{font-family:inherit}
   <div id="student-gate">
     <div class="gate-header">
       <span class="gate-icon">📝</span>
-      <div class="gate-title">מבחן סיכום — יחידה 3</div>
+      <div class="gate-title">מבחן סיכום — יחידה 4: תקינות</div>
       <div class="gate-desc">הזינו פרטים לפני תחילת המבחן — התוצאות יישמרו</div>
     </div>
     <div class="gate-body">
@@ -422,10 +431,10 @@ button,input,select,textarea{font-family:inherit}
     </div>
 
     <div class="quiz-header">
-      <div class="quiz-hd-title">📝 מבחן סיכום יחידה 3 — 30 שאלות</div>
+      <div class="quiz-hd-title">📝 מבחן סיכום יחידה 4: תקינות — 26 שאלות</div>
       <div class="quiz-hd-desc">MC · נכון/לא נכון · סדר | 90 דקות | חלקים א–ו</div>
       <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="prog-fill" style="width:0%"></div></div>
-      <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 30 נענו</span><span id="prog-pct">0%</span></div>
+      <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 26 נענו</span><span id="prog-pct">0%</span></div>
     </div>
 
     <div id="questions-container"></div>
@@ -492,170 +501,171 @@ const QUESTIONS=[
 
   /* ══ חלק א — שם המספר ══ */
   {id:'q01',type:'mc',ref:'חלק א · שיעור 1',pts:4,
-   q:'כמה ילדים נוסעים? "______ ילדים נסעו לטיול." — השלם נכון:',
+   q:'השלם: "______ ילדים נסעו לטיול." — בחר את הצורה התקנית:',
    opts:['שתיים ילדים','שני ילדים','שניים ילדים','שלושה ילדים'],
    ans:1,
-   explain:'"שני" = צורת הסמיכות/הנסמך של המספר המונה לזכר לפני שם עצם. "שניים" = צורה עצמאית ללא שם עצם. "שתיים" = נקבה. לפני שם עצם זכר: שני ילדים ✅.',
-   teacherNote:'שאלת פתיחה — בדיקת ההבחנה שניים/שני.'},
+   explain:'"שני" = נסמך לזכר לפני שם עצם. "שניים" = עצמאי (ללא שם עצם). "שתיים" = נסמך לנקבה. לפני שם עצם זכר: שני ילדים ✅.',
+   teacherNote:'הבחנה שני/שניים. שני = לפני שם. שניים = עצמאי. "כמה ילדים?" → שניים. "שני ילדים" → לפני שם.'},
 
   {id:'q02',type:'mc',ref:'חלק א · שיעור 1',pts:4,
-   q:'בחר את הצירוף התקני לנקבה: "______ תלמידות"',
-   opts:['שלוש תלמידות','שלושה תלמידות','שלוש עשרה תלמידות','שלושה עשרה תלמידות'],
+   q:'בחר את הצירוף התקני: "______ תלמידות" (מספר 3)',
+   opts:['שלוש תלמידות','שלושה תלמידות','שלש תלמידות','שלוש תלמידת'],
    ans:0,
-   explain:'מספר מונה לנקבה 3–10 = צורת הזכר: שלוש, ארבע, חמש... לפני שם עצם נקבה. "שלוש תלמידות" ✅. "שלוש עשרה" = 13 לנקבה ✅ אך השאלה על מספר בסיסי.',
-   teacherNote:''},
+   explain:'מספר 3-10 לנקבה = צורה ללא ה (=צורת הזכר). שלוש תלמידות ✅. שלושה = עם ה = לזכר בלבד. מלכודת: שלושה תלמידות = שגיאה.',
+   teacherNote:'כלל ההפוך: לנקבה → ללא ה. לזכר → עם ה. תרגיל: 5 בנות = חמש; 5 בנים = חמישה.'},
 
   {id:'q03',type:'tf',ref:'חלק א · שיעור 1',pts:3,
    q:'"עשרים ואחד סטודנטים" — המשפט תקין.',
    ans:true,
-   explain:'נכון. עשרות + יחידות: "עשרים ו..." + מספר מתאים. "אחד" = זכר ✅. "עשרים ואחת סטודנטיות" = נקבה ✅. הנוסחה: עשרות (אינוריאנטיות) + ו + יחידה מתאימה.',
-   teacherNote:''},
+   explain:'נכון. עשרות = אינוריאנטיות. יחידה: "אחד" לזכר ✅. "עשרים ואחת סטודנטיות" = נקבה ✅.',
+   teacherNote:'הכלל: בעשרות — רק היחידה משתנה לפי מין. עשרים = זהה תמיד.'},
 
   {id:'q04',type:'mc',ref:'חלק א · שיעור 2',pts:4,
-   q:'מהו המספר הסודר הנכון לנקבה עבור 5?',
-   opts:['חמישית','חמישי','חמשה','חמש'],
-   ans:0,
-   explain:'מספר סודר לנקבה: משקל פְּעִילִית — ראשונה, שנייה, שלישית, רביעית, חמישית. לזכר: ראשון, שני, שלישי, רביעי, חמישי.',
-   teacherNote:''},
+   q:'המספר "חמישית" הוא:',
+   opts:['מספר מונה נקבה','מספר סודר נקבה (חמישי→חמישית)','מספר סתמי','כמות של חמישה חלקים'],
+   ans:1,
+   explain:'מספר סודר נקבה: חמישי→חמישית. מספרים סודרים מציינים מיקום ברצף. לזכר: ראשון/שני/שלישי/חמישי. לנקבה: ראשונה/שנייה/שלישית/חמישית.',
+   teacherNote:'ההבחנה: מונה (כמה?) vs סודר (איזה במספר?). "חמישה ספרים" = מונה. "הספר החמישי" = סודר.'},
 
   {id:'q05',type:'mc',ref:'חלק א · שיעור 2',pts:4,
-   q:'מהו "מספר סתמי" בעברית?',
-   opts:['מספר שאין לו צורת נקבה','מספר עצמאי ללא שם עצם אחריו, כגון "קניתי שלושה"','מספר סודר מעל 10','מספר שמתאר כמות קבוצות'],
-   ans:1,
-   explain:'מספר סתמי = מספר שאינו נסמך לשם עצם, עומד בפני עצמו. "קניתי שלושה" — הוא עצמאי. בניגוד ל"שלושה ספרים" = מספר מונה לפני שם עצם.',
-   teacherNote:''},
+   q:'"קניתי שלושה" (ללא שם עצם) — זהו מספר:',
+   opts:['מונה — ספירה מדויקת','סתמי — כמות לא מדויקת','סודר — מיקום בסדרה','מונה עצמאי (ללא שם עצם)'],
+   ans:3,
+   explain:'מספר מונה עצמאי = עומד ללא שם עצם. "קניתי שלושה" = שלושה (עצמאי). לעומת "שלושה ספרים" = מונה לפני שם. המספר הסתמי = כמות לא מדויקת: "קניתי כמה/אחדים".',
+   teacherNote:'הבחנה: מונה עצמאי vs סתמי. "שלושה" = מדויק (3). "כמה/מספר/אחדים" = לא מדויק.'},
 
   {id:'q06',type:'tf',ref:'חלק א · שיעורים 1–2',pts:3,
-   q:'"הפרק ה-3 בספר" — השימוש במספר מונה כאן תקין.',
+   q:'"הפרק ה-3 בספר" — שימוש במספר מונה כאן תקין.',
    ans:false,
-   explain:'לא נכון. "הפרק ה-3" = מספר סודר (מציין מקום בסדרה). הנכון: "הפרק השלישי" או "פרק 3". מספר מונה ("שלושה פרקים") עונה על "כמה?" — לא "איזה בסדר?".',
-   teacherNote:''},
+   explain:'לא נכון! "הפרק ה-3" = מציין מיקום ברצף = מספר סודר. הנכון: "הפרק השלישי" (מילה) או "פרק 3." (ספרה ונקודה). מספר מונה ("שלושה פרקים") עונה על "כמה?" — לא "איזה בסדר?".',
+   teacherNote:'תלמידים מתבלבלים בין מונה לסודר. המבחן: "כמה?" = מונה. "איזה במספר?" = סודר.'},
 
   /* ══ חלק ב — אותיות השימוש ══ */
   {id:'q07',type:'mc',ref:'חלק ב · שיעור 3',pts:4,
-   q:'מהי הצורה הנכונה? "הלכתי ___ בית הספר"',
-   opts:['ב בית הספר','בְּבֵית הספר','בְּבֵית ספר','לְבֵית הספר'],
-   ans:3,
-   explain:'"הלכתי לבית הספר" — אות השימוש ל׳ = כיוון/יעד. "ב" = מיקום ("אני בבית"). ההבחנה: ב = where (היכן), ל = where to (לאן). כתיב: לְ + בֵּית = לְבֵית (ה״א נשמטת).',
-   teacherNote:''},
+   q:'"הלכתי ___ בית הספר" — מה אות השימוש הנכונה?',
+   opts:['בְּבֵית הספר (ב = מיקום)','לְבֵית הספר (ל = כיוון/יעד)','מִבֵּית הספר (מ = ממקום)','כְּבֵית הספר (כ = כמו)'],
+   ans:1,
+   explain:'"הלכתי לבית הספר" — ל׳ = כיוון/יעד (לאן?). ב׳ = מיקום (היכן?) — "אני בבית". מ׳ = מקור (מאיפה?). "הלכתי לבית" ✅. "אני בבית" ✅. "יצאתי מהבית" ✅.',
+   teacherNote:'הבחנת ב/ל/מ: ב = היכן. ל = לאן. מ = מאיפה. תרגיל: מלאו ב/ל/מ: "___ ביתי", "הגעתי ___ עיר", "יצאתי ___ הבית".'},
 
   {id:'q08',type:'mc',ref:'חלק ב · שיעור 3',pts:4,
-   q:'איזו צורה תקינה? ___ ילד אחד לא הגיע.',
-   opts:['כי','כֹּ','כְּ','כְּל'],
-   ans:2,
-   explain:'"כְּ" = כמו / בדומה ל. "כְּילד" = כמו ילד. בשאלה: "כְּילד אחד לא הגיע" = כמו ילד אחד לא הגיע — אפשרי. שים לב: כ׳ + שווא = "כְּ", כ׳ + דגש = "כִּ" לפני שווא נח.',
-   teacherNote:''},
+   q:'"מֵהַבַּיִת יצאתי" — מדוע מ׳ בצרה + ה׳ נשמרת?',
+   opts:['כי בית מתחיל בב׳','מ׳ + ה׳ הידיעה → ה׳ תמיד נשמרת (מֵהַ). מ׳ שונה מב/כ/ל שבולעות ה׳. מֵהַבַּיִת = מ(צרה) + ה(הידיעה) + בַּיִת','כי מ׳ = תמיד בצרה','ה׳ הידיעה תמיד נשמרת אחרי כל אות'],
+   ans:1,
+   explain:'כלל קריטי: ב/כ/ל + ה׳ הידיעה → ה׳ נבלעת (בַּ/כַּ/לַ). מ׳ + ה׳ הידיעה → ה׳ נשמרת! מֵהַבַּיִת = מ(צרה) + הַ(ה׳ נשמרת) + בַּיִת. *מַבַּיִת = שגיאה!',
+   teacherNote:'המחלקה: ב/כ/ל = בולעות. מ/ש = שומרות. בקשו: בַּבַּיִת / לַבַּיִת / מֵהַבַּיִת / שֶׁהַבַּיִת.'},
 
-  {id:'q09',type:'tf',ref:'חלק ב · שיעור 3',pts:3,
-   q:'"מִבֵּית הספר" — כתיב תקין לאות השימוש מ׳.',
-   ans:true,
-   explain:'נכון. מ׳ + בית = מִבֵּית. כלל: מ׳ תמיד נפרדת ("מ" + מילה), אך בצירוף הנסמך "מִבֵּית" נכתב ביחד. ה״א הידיעה נשמטת: מ + הבית = מֵהַבַּיִת, אבל מ + בית (סמיכות) = מִבֵּית.',
-   teacherNote:''},
+  {id:'q09',type:'mc',ref:'חלק ב · שיעור 3',pts:4,
+   q:'"בִּשְׁלֹשָׁה" — מדוע ב׳ בחיריק?',
+   opts:['כי שלושה = מספר גדול','ב/כ/ל + שווא נע (שׁ) → חיריק. שְׁלֹשָׁה מתחיל בשׁ+שווא נע → בִּ','כי שׁ = גרוני','כי בִּ = תמיד לפני מספרים'],
+   ans:1,
+   explain:'כלל שווא נע: ב/כ/ל לפני עיצור עם שווא נע → חיריק: בִּ/כִּ/לִ. שְׁלֹשָׁה, שְׁנַיִם, שְׁמֹנָה — כולם מתחילים בשׁ+שווא נע → בִּשְׁלֹשָׁה, לִשְׁנַיִם, כִּשְׁמֹנָה.',
+   teacherNote:'שני כללים לב׳ לפני מספרים: (1) ה׳ הידיעה → בַּ/בָּ. (2) שווא נע → בִּ. (3) אחרת → בְּ.'},
 
   {id:'q10',type:'mc',ref:'חלק ב · שיעור 4',pts:4,
-   q:'כיצד נכתוב: "ו" + "מים" (צירוף)?',
-   opts:['וּמַיִם','וְמַיִם','וָמַיִם','וֹמַיִם'],
-   ans:0,
-   explain:'ו + שווא נח → וּ (שורוק). "מַיִם" מתחיל בעיצור עם שווא נח → ו + שווא = וּ. "וּמַיִם" ✅. חריג: לפני שממ"ר (ש,מ,מ,ר) = וּ. לפני אחה"ע = וַ (חטף פתח).',
-   teacherNote:''},
+   q:'כיצד נכתוב: "ו" + "מים"?',
+   opts:['וְמַיִם','וּמַיִם','וָמַיִם','וֹמַיִם'],
+   ans:1,
+   explain:'ו + שווא נח (מ׳ עם שווא) → וּ (שורוק). "מַיִם" מתחיל בעיצור עם שווא → וּ. וּמַיִם ✅. כלל: ו׳ לפני ב/מ/פ = וּ. ו׳ לפני שווא נע = וּ.',
+   teacherNote:'כלל ו׳ הנפוץ ביותר: לפני ב/מ/פ → וּ. לפני שווא נע → וּ. שניהם = וּ. אחרת = וְ.'},
 
   {id:'q11',type:'mc',ref:'חלק ב · שיעורים 3–4',pts:4,
-   q:'"שֶׁהַמּוֹרֶה הִסְבִּיר" — מה ש׳ עושה כאן?',
-   opts:['ש = "אשר" — מחבר פסוקית זיקה','ש = "כאשר" — פסוקית זמן','ש = "כי" — פסוקית סיבה','ש = "אם" — פסוקית תנאי'],
+   q:'"שֶׁהַמּוֹרֶה הִסְבִּיר" — מה תפקיד ש׳ כאן?',
+   opts:['ש = "אשר" — פסוקית זיקה','ש = "כאשר" — פסוקית זמן','ש = "כי" — פסוקית סיבה','ש = "אם" — פסוקית תנאי'],
    ans:0,
-   explain:'"שֶׁ" = "אשר" בעברית המדוברת/הכתובה. "שֶׁהַמּוֹרֶה הִסְבִּיר" = "אשר המורה הסביר" — פסוקית זיקה. כתיב: שֶׁ + ה = שֶׁהַ (ה״א הידיעה שומרת על דגש חזק).',
-   teacherNote:''},
+   explain:'"שֶׁ" = "אשר" — פסוקית זיקה. "שֶׁהַמּוֹרֶה הִסְבִּיר" = "אשר המורה הסביר". כתיב: שֶׁ + ה = שֶׁהַ (ה׳ הידיעה נשמרת אחרי שׁ, כמו אחרי מ׳).',
+   teacherNote:'שׁ + ה׳ הידיעה → ה׳ נשמרת (כמו מ׳). שֶׁהַמּוֹרֶה ✅. לא שֶׁמּוֹרֶה (כאילו ה׳ נבלעת).'},
 
   {id:'q12',type:'tf',ref:'חלק ב · שיעורים 3–4',pts:3,
-   q:'"בְּחֲמִשָּׁה" — כתיב תקין לאות ב׳ לפני ח׳.',
+   q:'"בַּחֲמִישִׁי לַחֹדֶשׁ" — ב׳ ול׳ שניהם בפתח כי ה׳ הידיעה נבלעת בשניהם.',
    ans:true,
-   explain:'נכון. ב׳ לפני אחה"ע (אלף, חית, ה, עין) — נוקד בפתח ולא בשווא: "בַּ/בְּ" ← בחמשה = "בַּחֲמִשָּׁה" או "בְּחֲמִשָּׁה". שתי האפשרויות קיימות בהקשרים שונים. כלל: לפני גרוניות — לרוב חטף ולא שווא.',
-   teacherNote:''},
+   explain:'נכון! ב + הַחֲמִישִׁי → ה׳ נבלעת → בַּ (פתח). ל + הַחֹדֶשׁ → ה׳ נבלעת → לַ (פתח). ח׳ גרונית = ללא דגש, אבל הפתח נשמר. שניהם כלל ב/כ/ל + ה׳ → פתח.',
+   teacherNote:'שאלה שמשלבת שני צירופים. ח׳ גרוני = ללא דגש אבל הניקוד פתח נשאר. ר׳/א׳ גרוניים → קמץ (בָּ/לָ).'},
 
   /* ══ חלק ג — כתיב חסר ומלא ══ */
   {id:'q13',type:'mc',ref:'חלק ג · שיעור 5',pts:4,
-   q:'מהו הכתיב המלא הנכון של "שׁוּלְחָן" (ניקוד: שין + שורוק)?',
-   opts:['שלחן','שולחן','שוּלחן','שֻלחן'],
+   q:'מהו הכתיב המלא הנכון של "שׁוּלְחָן"?',
+   opts:['שלחן','שולחן','שולְחן','שֻׁלחן'],
    ans:1,
-   explain:'/u/ מיוצג ע"י שורוק (וּ) → בכתיב מלא כותבים ו. "שולחן" ✅. כלל: כל /u/ ארוך = ו בכתיב מלא. כלל נוסף: /o/ ארוך = ו. קמץ חטוף = לא מלא.',
-   teacherNote:''},
+   explain:'/u/ ארוך (שורוק) → ו בכתיב מלא. "שולחן" ✅. "שלחן" = חסר (ללא ו). כלל: כל /u/ ארוך = ו. כל /o/ ארוך = ו. שורוק = וּ בניקוד = ו בכתיב.',
+   teacherNote:'כלל זהב: תנועה ארוכה u/o → ו. תנועה ארוכה i/e → י. "שולחן" (u) ✅. "שיר" (i) ✅.'},
 
   {id:'q14',type:'mc',ref:'חלק ג · שיעור 5',pts:4,
-   q:'איזה מן הצורות כתובה בכתיב חסר שגוי?',
-   opts:['כתב (בלא ניקוד)','ישב','ילד','קם'],
-   ans:2,
-   explain:'"ילד" — בכתיב מלא: "יֶלֶד" — שתי תנועות קצרות (צרי+סגול), לכן אין אמות קריאה. "ילד" בכתיב חסר = תקין. ✅ כולם תקינים! שאלת הסחת דעת — כדאי לבדוק שוב.',
-   teacherNote:'שאלת מלכודת — כולן כתיב חסר תקין.'},
+   q:'מה ההבדל בין "מַדְפֶּסֶת" ל"מַדְפִּיסָה"?',
+   opts:['אין הבדל — שניהם נכונים','מדפסת = שם כלי (המכשיר). מדפיסה = בינוני פועל (היא שמדפיסה). כתיב שונה: שם כלי ללא יוד, בינוני עם יוד','מדפיסה = שגיאה','מדפסת = שגיאה, צריך מדפיסת'],
+   ans:1,
+   explain:'"מַדְפֶּסֶת" (מַפְעֶלֶת) = שם כלי, ללא יוד. "מַדְפִּיסָה" (מַפְעִילָה) = בינוני פועל, עם יוד. מלכודת קלאסית בבגרות: שם כלי ≠ בינוני. "מחשב"/"מחשבת" (שם כלי) ≠ "מחשבת" (היא שמחשבת).',
+   teacherNote:'קלאסיקה של בגרות. בקשו: מדפסת/מדפיסה, מחשב/מחשבת, מצלמה/מצלמת. הכלל: שם כלי = מַפְעֶלֶת, בינוני = מַפְעִילָה.'},
 
   {id:'q15',type:'tf',ref:'חלק ג · שיעור 5',pts:3,
-   q:'"לא" (תשובה שלילית) — נכתב תמיד עם ו׳: "לוא".',
-   ans:false,
-   explain:'לא נכון! "לֹא" (שלילה) — נכתב ללא ו׳. חריג לכלל המלא: /o/ שבא בתפקיד מילת שלילה. לעומת: "לוּ" (לו/אילו — צורת תנאי) = עם ו׳. ההבחנה: לא/לוּ שני מילים שונות.',
-   teacherNote:''},
+   q:'"לֹא" (שלילה) — נכתב ללא ו׳, למרות שיש בו /o/.',
+   ans:true,
+   explain:'נכון! "לֹא" = חריג לכלל המלא. /o/ שבא בתפקיד מילת שלילה — נכתב ללא ו׳. "לא" = תמיד ללא ו. לעומת "לוּ" (= אילו, תנאי) — כתוב עם ו׳. שתי מילים שונות: לא (שלילה) ≠ לו (תנאי).',
+   teacherNote:'חריגים לכלל המלא שהתלמידים חייבים לדעת: לא (ללא ו), כה (ללא ו), בה (ללא ו), כן (ללא ו).'},
 
   {id:'q16',type:'mc',ref:'חלק ג · שיעור 5',pts:4,
-   q:'בחר את הכתיב המלא הנכון של "קָמָה" (פועל):',
-   opts:['קמה','קָמה','קמה','קוֹמָה'],
-   ans:0,
-   explain:'"קָמָה" — שני קמצים. קמץ = /a/ קצר (לרוב) → ללא אות קריאה. "קמה" בכתיב חסר = תקין. "קוֹמָה" = שם עצם (מבנה גוף) — מילה שונה!',
-   teacherNote:''},
+   q:'"מוֹרֶה" נכתב עם ו׳, אבל "מֹשֶׁה" ללא ו׳. מדוע?',
+   opts:['אין הבדל — שגיאה באחד','מורה = חולם מלא (ו כאם קריאה). משה = חולם חסר (ו לא נכתבת). שתי צורות לחולם: מלא (ו כתובה) וחסר (ו לא כתובה). חסר נפוץ בשמות פרטיים','שניהם ללא ו','משה = שגיאה'],
+   ans:1,
+   explain:'"מוֹרֶה" = חולם מלא (ו כתובה). "מֹשֶׁה" = חולם חסר (ו לא כתובה). שתי האפשרויות קיימות! חסר נפוץ בשמות פרטיים (משה, שלמה, יוסף) ובמילים מקראיות.',
+   teacherNote:'שאלה קלאסית. מורה (מלא) ≠ משה (חסר). הכלל: שמות פרטיים מקראיים = לרוב חסר. מילים מודרניות = לרוב מלא.'},
 
   {id:'q17',type:'mc',ref:'חלק ג · שיעור 5',pts:4,
-   q:'מהי הצורה הנכונה בכתיב מלא: הפועל "יָשִׁיר" (עתיד)?',
-   opts:['ישיר','ישיר','יָשיר','יָשִׁיר'],
+   q:'מה הכתיב הנכון: "סִיפּוּר" ללא ניקוד?',
+   opts:['ספור','סיפור','סיפור (עם ניקוד בלבד)','ספור/סיפור — שניהם תקינים'],
    ans:1,
-   explain:'/i/ ארוך = יוד בכתיב מלא. "יָשִׁיר" ← יא + שין + יוד + ריש = "ישיר". חריקה (חיריק גדול) = תמיד יוד. "ישיר" ✅.',
-   teacherNote:''},
+   explain:'"סִיפּוּר" = שתי אמות קריאה: י (חיריק גדול) + ו (שורוק). בכתיב: "סיפור" (עם י וו). "ספור" = חסר (ללא י) = שגיאה לשם העצם הזה. "ספֻּר" (ללא י) = פועל ציווי — מילה שונה!',
+   teacherNote:'סיפור vs ספור = זוג מינימלי קלאסי. שתי אמות קריאה חובה: י (לחיריק) + ו (לשורוק).'},
 
   {id:'q18',type:'tf',ref:'חלק ג · שיעור 5',pts:3,
-   q:'"מדפסת" (המכשיר) — כתיב תקין הוא "מדפיסת".',
-   ans:false,
-   explain:'לא נכון! "מַדְפֶּסֶת" = מכשיר הדפסה — כתוב ללא יוד. "מַדְפִּיסָה" = היא שמדפיסה (בינוני) — כתוב עם יוד. מלכודת קלאסית: שם כלי (מַפְעֵלֶת) ≠ בינוני (מַפְעִילָה).',
-   teacherNote:'שאלה מועילה — מבדיל שם כלי מבינוני.'},
+   q:'"יָשַׁב" (עבר) נכתב ללא אות קריאה — כי הקמץ הוא תנועה קצרה.',
+   ans:true,
+   explain:'נכון. "יָשַׁב" = ק+ק+ק (שלושה קמצים). קמץ גדול = /a/ — לרוב תנועה ארוכה, אבל בהקשר זה ללא אם קריאה בכתיב מלא. "ישב" בכתיב חסר = תקין. לעומת "ישיב" (עתיד) = עם י.',
+   teacherNote:'הכלל: תנועות /a/ (קמץ, פתח) = לרוב ללא אם קריאה. /i/, /u/, /o/ ארוך = עם אם קריאה.'},
 
   {id:'q19',type:'mc',ref:'חלק ג · שיעור 5',pts:4,
-   q:'בחר את הכתיב הנכון: "הוא _____ לבוא" (רצה)',
-   opts:['רצה','רצה','רצא','רצהּ'],
-   ans:0,
-   explain:'"רָצָה" — ה׳ בסוף שורש ל"ה. בכתיב מלא/חסר: "רצה" — ה׳ שורשית = לא ו׳. שורשי ל"ה: צ-ו-ה, ר-צ-ה, ב-נ-ה — ה׳ אחרונה שורשית, נשמרת בכתיב.',
-   teacherNote:''},
+   q:'"אֲנִי" — מדוע יש י בסוף?',
+   opts:['י = שורשית','י = אם קריאה לחיריק (i ארוך). "אֲנִי" = א+נ+חיריק+י. ללא י: "אנ" = שגיאה חמורה. כינויי גוף = כתיב מלא חובה','י = קישוט בלבד','י = מגיל הכינויים'],
+   ans:1,
+   explain:'"אֲנִי" — ני = חיריק גדול → י כאם קריאה חובה. "אנ" ללא י = שגיאה. כינויי גוף (אני, הוא, היא, הם, הן) = כתיב מלא חובה.',
+   teacherNote:'כינויי גוף = כתיב מלא ללא יוצא דופן: אני, הוא, היא, הם, הן, אנחנו. בקשו לכתוב את כולם.'},
 
   /* ══ חלק ד — הפיסוק התקני ══ */
   {id:'q20',type:'mc',ref:'חלק ד · שיעור 6',pts:4,
    q:'באיזה משפט הפסיק ממוקם נכון?',
    opts:['הילד, רץ מהר','ידעתי, שיגיע','כשיצאתי, ראיתי אותו','קניתי לחם, וחלב'],
    ans:2,
-   explain:'"כשיצאתי, ראיתי אותו" — פסוקית טפל (כשיצאתי) לפני עיקר (ראיתי) → פסיק ✅. "הילד, רץ" = שגיאה (נושא-נשוא). "ידעתי, שיגיע" = שגיאה (ש אחרי עיקר). "לחם, וחלב" = שגיאה (לפני ו פשוט).',
-   teacherNote:''},
+   explain:'"כשיצאתי, ראיתי" = פסוקית טפל לפני עיקר → פסיק ✅. "הילד, רץ" = שגיאה (נושא-נשוא). "ידעתי, שיגיע" = שגיאה (ש אחרי עיקר). "לחם, וחלב" = שגיאה (לפני ו רגיל).',
+   teacherNote:'שאלת ליבה — 4 כללי פסיק. בקשו: תנו שם לכל שגיאה. (1) נושא-נשוא. (2) ש/כי אחרי עיקר. (4) ו לפני שני פריטים.'},
 
   {id:'q21',type:'tf',ref:'חלק ד · שיעור 6',pts:3,
    q:'"שאלתי אותה לאן נסעה?" — סימן השאלה תקין.',
    ans:false,
-   explain:'לא נכון! זוהי שאלה עקיפה (המשפט מספר שאלה, לא שואל). הנכון: "שאלתי אותה לאן נסעה." (נקודה). סימן שאלה = רק בשאלה ישירה: "לאן נסעת?"',
-   teacherNote:''},
+   explain:'לא נכון! שאלה עקיפה = ללא סימן שאלה. "שאלתי אותה לאן נסעה." (נקודה). שאלה ישירה: "לאן נסעת?" ✅. המבחן: האם המשפט עצמו שואל? לא — הוא מספר שמישהו שאל.',
+   teacherNote:'הכלל: שאלה ישירה = ? שאלה עקיפה = . בקשו להפוך: "לאן נסעת?" → "שאלתי לאן נסעה." — הפסיק הפך לנקודה.'},
 
   {id:'q22',type:'mc',ref:'חלק ד · שיעור 6',pts:4,
    q:'מה השימוש הנכון במירכאות?',
-   opts:['"חשוב" מאוד לבוא — הדגשה','הוא ה"כוכב" של הקבוצה — כינוי לא רשמי','הספר "מאוד מעניין" — הדגשת תכונה','כתב "הבית שלנו" — שם סתמי'],
+   opts:['"חשוב" מאוד לבוא — הדגשה','הוא ה"כוכב" של הקבוצה — כינוי לא רשמי','הספר "מאוד מעניין" — הדגשת תכונה','שם "מיכל" — שם פרטי רגיל'],
    ans:1,
-   explain:'מירכאות לכינויים לא רשמיים/עגה ✅. לא להדגשה (לזה — מודגש/קו תחתון). לא לתיאורים סתמיים. לא לשמות פרטיים רגילים.',
-   teacherNote:''},
+   explain:'מירכאות לכינויים לא רשמיים/עגה ✅. לא להדגשה (לזה — bold). לא לתיאורים. לא לשמות פרטיים רגילים. הכוכב" = כינוי (לא שמו הרשמי).',
+   teacherNote:'4 שימושים נכונים: ציטוט, כינוי לא רשמי, הסתייגות, שם יצירה. 3 שגויים: הדגשה, שם פרטי רגיל, תיאור סתמי.'},
 
   {id:'q23',type:'mc',ref:'חלק ד · שיעור 6',pts:4,
    q:'מה הפונקציה של המקפים: "המנהל — שנבחר לאחרונה — נאם"?',
-   opts:['מקפים קצרים לחיבור מילים מורכבות','מקפים ארוכים להסגרת הערה שניתן להסיר','מקף לטווח מספרים','מקף במקום פסיק'],
+   opts:['מקפים קצרים — חיבור מילים','מקפים ארוכים — הסגרת הערה שניתן להסיר','מקף לטווח מספרים','מקף = פסיק מודגש'],
    ans:1,
-   explain:'מקף ארוך כפול = הסגרת הערה. בדיקה: "המנהל נאם" ✅ — הערה הוסרה והמשפט תקין. לכן המקפים מסגרים הערה שאינה חיונית למשפט.',
-   teacherNote:''},
+   explain:'מקף ארוך כפול = הסגרת הערה. בדיקה: "המנהל נאם" ✅ — הסרת ההערה השאירה משפט תקין. הכלל: הסר ההערה → המשפט חייב לעמוד.',
+   teacherNote:'כלל הבדיקה = כלי מעשי. בקשו לבדוק: "הכיתה — שלמדה קשה — הצליחה." → "הכיתה הצליחה" ✅.'},
 
   {id:'q24',type:'tf',ref:'חלק ד · שיעור 6',pts:3,
    q:'"רציתי לבוא, אבל לא יכולתי." — הפסיק לפני "אבל" תקין.',
    ans:true,
-   explain:'נכון! לפני מילות ניגוד (אבל, אך, אולם, אלא) — שמים פסיק. זהו אחד מכללי הפסיק הברורים.',
-   teacherNote:''},
+   explain:'נכון! לפני מילות ניגוד (אבל, אך, אולם, אלא, ברם) — פסיק חובה. "רציתי לבוא" + "אבל" = ניגוד → פסיק ✅.',
+   teacherNote:'רשימה לשינון: אבל, אך, אולם, אלא, ברם — לפני כולם פסיק. בקשו: בנו 3 משפטים עם כל אחת.'},
 
   {id:'q25',type:'mc',ref:'חלק ד · שיעור 6',pts:4,
-   q:'בחר את המשפט הפסוק שכולו תקין:',
+   q:'בחר את המשפט הפסוק הנכון לחלוטין:',
    opts:[
      'אמרה המורה: "פתחו את הספרים", והתלמידים שמעו.',
      'אמרה המורה: "פתחו את הספרים." והתלמידים שמעו.',
@@ -663,17 +673,18 @@ const QUESTIONS=[
      'אמרה המורה: "פתחו את הספרים!" — והתלמידים שמעו.'
    ],
    ans:0,
-   explain:'"אמרה המורה: ״פתחו את הספרים״, והתלמידים שמעו." — נקודתיים לפני ציטוט ✅, מירכאות עוטפות ✅, פסיק אחרי הציטוט לפני "ו" שמחבר שני משפטים ✅.',
-   teacherNote:'שאלת סיכום — מצריכה שליטה בכמה כללי פיסוק.'},
+   explain:'"אמרה המורה: ״פתחו את הספרים״, והתלמידים שמעו." — נקודתיים לפני ציטוט ✅, מירכאות עוטפות ✅, פסיק אחרי הציטוט לפני ו שמחבר שני משפטים ✅.',
+   teacherNote:'שאלת מבחן קלאסית — 3 כללים בשאלה אחת: נקודתיים + מירכאות + פסיק. בקשו לנמק כל תשובה שגויה.'},
 
-  {id:'q26',type:'open',ref:'ניתוח מלא — שאלה פתוחה',
-   pts:8,
-   q:'קרא/י את המשפט וענה/י על הסעיפים:<br><strong>"בַּחֲמִישִׁי לַחֹדֶשׁ קָנִינוּ עֶשְׂרִים וּשְׁלֹשָׁה סְפָרִים."</strong><br>(א) הסבר/י את ניקוד בַּ ו-לַ — ציין/י כלל לכל אחד בנפרד (ב) מהו סוג המספר "חמישי" ומדוע? (ג) האם "שלושה" בצורה הנכונה? הסבר/י לפי כלל ההסכמה.',
-   placeholder:'(א) בַּחֲמִישִׁי: ב׳ בפתח + ה׳ נבלעת (ב/כ/ל + ה׳). לַחֹדֶשׁ: ל׳ בפתח + ה׳ נבלעת.\n(ב) חמישי = סודר (מציין מיקום ברצף), מסכים לזכר.\n(ג) שלושה = נכון. ספר=זכר, 3–10 = כלל הפוך → צורה עם ה׳ לזכר.',
-   hint:'ב/כ/ל + ה׳ = ה׳ נבלעת. סודר = מיקום. 3–10: צורה עם ה׳ לזכר.',
-   rubric:'(א) ניקוד + כלל לשניהם — 3נק (ב) סוג + הסבר — 2נק (ג) נכון/לא + כלל — 3נק',
-   explain:'ניתוח מלא = אות שימוש + סוג מספר + כלל הסכמה. פורמט בגרות.',
-   teacherNote:'(א) 3נק: ב׳+ל׳ כלל + ה׳ נבלעת. (ב) 2נק: סודר+הסבר. (ג) 3נק: נכון+כלל ה"הפוך".'},
+  /* ══ חלק ה — ניתוח משולב ══ */
+  {id:'q26',type:'open',ref:'חלק ה · ניתוח משולב',
+   pts:7,
+   q:'קרא/י את המשפט וענה/י על כל הסעיפים:<br><strong>"בַּחֲמִישִׁי לַחֹדֶשׁ קָנִינוּ עֶשְׂרִים וּשְׁלֹשָׁה סְפָרִים."</strong><br>(א) הסבר/י את ניקוד בַּ ו-לַ — ציין/י כלל לכל אחד (ב) מהו סוג המספר "חמישי" ומדוע? (ג) האם "שלושה" בצורה הנכונה לפי כלל ההסכמה? נמק/י.',
+   placeholder:'(א) בַּ = ב + ה הידיעה, ה נבלעת, ב בפתח. לַ = ל + ה הידיעה, ה נבלעת, ל בפתח. כלל: ב/כ/ל + ה הידיעה = ה נבלעת. (ב) חמישי = סודר (מיקום ברצף), מסכים לזכר. (ג) שלושה = נכון. ספר=זכר, כלל 3-10 הפוך = צורה עם ה לזכר.',
+   hint:'ב/כ/ל + ה = ה נבלעת. סודר = מיקום (איזה?). 3–10: לזכר = עם ה; לנקבה = ללא ה.',
+   rubric:'(א) שני הניקודים + כלל — 3 נקודות. (ב) סוג + הסבר — 2 נקודות. (ג) נכון/לא + כלל + נימוק — 3 נקודות.',
+   explain:'(א) ב/כ/ל + ה הידיעה = ה נבלעת → פתח. (ב) חמישי = סודר זכר (מציין מיקום). (ג) שלושה = נכון לזכר (3-10 הפוך = עם ה לזכר).',
+   teacherNote:'שאלת בגרות מלאה. (א) 3נק: כל ניקוד + כלל. (ב) 2נק: שם הסוג + הסבר. (ג) 3נק: נכון + כלל + נימוק. מי שפירט = 8/8.'},
 ];
 
 /* ══════════════════════════════════════════════
@@ -681,6 +692,7 @@ const QUESTIONS=[
 ══════════════════════════════════════════════ */
 const QS={answers:{},submitted:false};
 let _lastScore=null,_lastCorrect=0,_gateConfirmed=false;
+let SNP='',SCP='';
 
 function switchTab(t){
   ['theory','practice','answers'].forEach(x=>{
@@ -690,7 +702,7 @@ function switchTab(t){
   });
   if(t==='answers')renderAnswers();
   if(t==='practice'&&!_gateConfirmed)document.getElementById('gate-date-display').textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-  if(t==='practice'&&USER_ROLE==='teacher'){_gateConfirmed=true;document.getElementById('student-gate')?.classList.add('hidden');document.getElementById('gate-confirmed')?.classList.add('hidden');const w=document.getElementById('practice-content-wrap');if(w)w.style.display='';}
+  if(t==='practice'&&USER_ROLE==='teacher'){_gateConfirmed=true;document.getElementById('student-gate')?.classList.add('hidden');document.getElementById('gate-confirmed')?.classList.add('hidden');const w=document.getElementById('practice-content-wrap');if(w)w.style.display='block';}
 }
 
 function confirmGate(){
@@ -702,25 +714,24 @@ function confirmGate(){
   if(!cl){document.getElementById('gate-class').classList.add('err');document.getElementById('gate-class-err').classList.add('show');ok=false;}
   else{document.getElementById('gate-class').classList.remove('err');document.getElementById('gate-class-err').classList.remove('show');}
   if(!ok)return;
-  STUDENT_NAME=nm;STUDENT_CLASS=cl;LS.set('lashon2_uname',nm);LS.set('lashon2_class',cl);
+  SNP=nm;SCP=cl;STUDENT_NAME=nm;STUDENT_CLASS=cl;LS.set('lashon2_uname',nm);LS.set('lashon2_class',cl);
   _gateConfirmed=true;
   document.getElementById('student-gate').classList.add('hidden');
   const av=document.getElementById('gc-avatar'),nm2=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');
   if(av)av.textContent=nm[0].toUpperCase();if(nm2)nm2.textContent=nm;if(mt)mt.textContent='כיתה '+cl+' · '+new Date().toLocaleDateString('he-IL');
   document.getElementById('gate-confirmed').classList.add('show');
-  const w=document.getElementById('practice-content-wrap');if(w){w.style.display='';w.scrollIntoView({behavior:'smooth',block:'start'});}
+  const w=document.getElementById('practice-content-wrap');if(w){w.style.display='block';w.scrollIntoView({behavior:'smooth',block:'start'});}
 }
 function reopenGate(){_gateConfirmed=false;document.getElementById('student-gate').classList.remove('hidden');document.getElementById('gate-confirmed').classList.remove('show');const w=document.getElementById('practice-content-wrap');if(w)w.style.display='none';}
 
 const LETTERS=['א','ב','ג','ד'];
 let _dragSrc=null;
 const SECTION_LABELS={
-  q01:'חלק א — תורת ההגה ומבנה המילה: שיעורים 1–4 (שאלות 1–5)',
-  q06:'חלק ב — בניינים, משמעויות ובינוני: שיעורים 3–5, 7 (שאלות 6–12)',
-  q13:'חלק ג — גזרות: שיעורים 8–10 (שאלות 13–19)',
-  q20:'חלק ד — תצורת שם: שיעורים 6, 11 (שאלות 20–24)',
-  q25:'חלק ה — ניתוח הטקסט (שאלה 26)',
-  q29:'חלק ו — שורשים תניינים: שיעור 12 (שאלות 29–30)'
+  q01:'חלק א — שם המספר (שיעורים 1–2 · שאלות 1–6)',
+  q07:'חלק ב — אותיות השימוש (שיעורים 3–4 · שאלות 7–12)',
+  q13:'חלק ג — כתיב חסר ומלא (שיעור 5 · שאלות 13–19)',
+  q20:'חלק ד — הפיסוק התקני (שיעור 6 · שאלות 20–25)',
+  q26:'חלק ה — ניתוח משולב (שאלה 26 פתוחה · 8 נקודות)'
 };
 
 function renderQuestions(){
@@ -735,7 +746,7 @@ function renderQuestions(){
 }
 
 function buildCard(q,i){
-  const tl=q.type==='mc'?'בחירה מרובה':q.type==='tf'?'נכון/לא נכון':'סידור';
+  const tl=q.type==='mc'?'בחירה מרובה':q.type==='tf'?'נכון/לא נכון':q.type==='open'?'פתוחה':'סידור';
   let inner='';
   if(q.type==='mc'){
     inner='<div class="mc-wrap">'+q.opts.map((o,j)=>`<button class="mc-btn" id="mc_${q.id}_${j}" onclick="pickMC('${q.id}',${j})" ${QS.submitted?'disabled':''}><span class="mc-letter">${LETTERS[j]}</span><span>${o}</span></button>`).join('')+'</div>';
@@ -745,7 +756,7 @@ function buildCard(q,i){
     const order=QS.answers[q.id]?.order||q.items.map((_,j)=>j);
     inner=`<div class="sort-note">גרור את הפריטים לסדר הנכון ↕</div><div class="sort-list" id="sort_${q.id}">${order.map(j=>`<div class="sort-item" draggable="true" data-idx="${j}" ondragstart="dStart(event,'${q.id}')" ondragover="dOver(event)" ondrop="dDrop(event,'${q.id}')" ondragend="dEnd(event)"><span class="sort-handle">⠿</span><span class="sort-text">${q.items[j]}</span></div>`).join('')}</div>`;
   } else if(q.type==='open'){
-    input=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
+    inner=`<div class="open-wrap"><textarea class="open-textarea" id="${q.id}_oa" rows="4" placeholder="${q.placeholder||'כתוב/י כאן...'}" oninput="pickOpen('${q.id}')"></textarea>${q.hint?`<div class="open-hint">💡 ${q.hint}</div>`:''}</div>`;
   }
   return `<div class="q-card" id="qcard_${q.id}"><div class="q-num">שאלה ${i+1} <span class="q-type-badge">${tl}</span> <span class="q-pts">${q.pts} נק׳</span> <span style="font-size:.62rem;color:var(--lc);font-weight:700">${q.ref}</span></div><div class="q-text">${q.q}</div>${inner}<div class="q-feedback" id="fb_${q.id}"></div></div>`;
 }
@@ -885,17 +896,17 @@ function init(){
     const rc=document.getElementById('role-chip');if(rc)rc.style.display='';
     const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';
     _gateConfirmed=true;
-    const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='';
+    const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='block';
     document.getElementById('student-gate')?.classList.add('hidden');
     document.getElementById('gate-confirmed')?.classList.add('hidden');
   }else{
     const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';
     if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){
-      _gateConfirmed=true;if(wrap)wrap.style.display='';
+      _gateConfirmed=true;if(wrap)wrap.style.display='block';
       document.getElementById('student-gate')?.classList.add('hidden');
       const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');
       if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');
-      document.getElementById('gate-confirmed')?.classList.remove('hidden');
+      document.getElementById('gate-confirmed')?.classList.add('show');
     }
   }
   applyAnswersVisibility();renderQuestions();

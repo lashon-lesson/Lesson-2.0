@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>יחידה 4 שיעור 1 — שם המספר: המספר המונה | לשון Lesson 2.0</title>
+<title>יחידה 4 שיעור 6 — הפיסוק התקני | לשון Lesson 2.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -294,15 +294,42 @@ button,input,select,textarea{font-family:inherit}
 .open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}
 .open-hint{font-size:.72rem;color:var(--muted,#9aa3be);margin-top:.3rem}
 .open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid,#374151)}
+
+/* ══ OPENING QUESTION ══ */
+.opening-q{border:2px dashed var(--lc);border-radius:var(--r-lg);background:var(--lc-lt);padding:1.2rem 1.4rem;margin-bottom:1.5rem}
+.oq-label{font-size:.65rem;font-weight:800;color:var(--lc);letter-spacing:.06em;margin-bottom:.5rem;text-transform:uppercase}
+.oq-text{font-size:.97rem;font-weight:700;color:var(--text);line-height:1.5}
+.oq-hint{font-size:.8rem;color:var(--muted);margin-top:.45rem}
+/* ══ GOTO-PRACTICE BUTTON ══ */
+.goto-practice-btn{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;padding:.95rem 1.4rem;border:none;border-radius:var(--r-pill);background:linear-gradient(135deg,var(--lc),var(--lc-dk));color:#fff;font-size:.9rem;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(202,138,4,.28);transition:all .18s;margin-top:.5rem}
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:#1e293b;color:#fff;padding:.65rem 1.4rem;border-radius:var(--r-pill);font-size:.84rem;font-weight:600;opacity:0;pointer-events:none;transition:all .3s;z-index:999;white-space:nowrap}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.goto-practice-btn:hover{transform:translateY(-2px);opacity:.93}
+/* ══ PUNCT ANALYSIS WIDGET ══ */
+.punct-analysis{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.3rem 1.5rem;margin-bottom:1.2rem;box-shadow:var(--sh2)}
+.pa-title{font-family:'Secular One',sans-serif;font-size:.88rem;color:var(--lc);margin-bottom:1rem;display:flex;align-items:center;gap:.4rem}
+.pa-sentence{font-size:1rem;line-height:2;font-family:'Heebo',sans-serif;background:var(--surface2);border-radius:var(--r);padding:.75rem 1rem;margin-bottom:.8rem;color:var(--text)}
+.pa-mark{display:inline-block;background:var(--lc);color:#fff;border-radius:4px;padding:.06rem .22rem;font-weight:900;font-size:.9rem;cursor:pointer;position:relative}
+.pa-mark:hover::after{content:attr(data-tip);position:absolute;bottom:110%;right:50%;transform:translateX(50%);background:#1e293b;color:#fff;padding:.3rem .6rem;border-radius:6px;font-size:.68rem;white-space:nowrap;z-index:10;font-weight:500}
+.pa-legend{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
+.pa-leg-item{font-size:.7rem;padding:.2rem .55rem;border-radius:var(--r-pill);border:1px solid;font-weight:700}
+.pa-leg-comma{background:#fefce8;color:#ca8a04;border-color:#fde68a}
+.pa-leg-dot{background:#f0fdf4;color:#15803d;border-color:#bbf7d0}
+.pa-leg-colon{background:#eff4ff;color:#1a56db;border-color:#bfdbfe}
+.pa-leg-dash{background:var(--purple-lt);color:var(--purple);border-color:#ddd6fe}
+.pa-leg-quote{background:var(--rose-lt);color:var(--rose);border-color:#fecdd3}
+/* ══ FADE ══ */
+.tab-pane.active{animation:fadeIn .18s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
 </style>
-</head>
+
 <body>
 
 <div class="topbar">
   <button class="btn-back" onclick="goBack()">←</button>
   <div class="topbar-info">
     <div class="topbar-title">⏸️ הפיסוק התקני</div>
-    <div class="topbar-sub">יחידה 4 — תקינות · שיעור 6</div>
+    <div class="topbar-sub">יחידה 4 — תקינות · שיעור 6 מתוך 6</div>
   </div>
   <div class="topbar-actions">
     <span class="t-chip lc">⏱ 45 דק׳</span>
@@ -326,7 +353,7 @@ button,input,select,textarea{font-family:inherit}
 <div class="lesson-wrap">
 
   <div class="lesson-hero">
-    <div class="hero-badge">יחידה 4 · שיעור 6</div>
+    <div class="hero-badge">יחידה 4 · שיעור 6 מתוך 6 — שיעור אחרון</div>
     <span class="hero-emoji">⏸️</span>
     <h1 class="hero-title">הפיסוק התקני</h1>
     <p class="hero-desc">פסיק, נקודה, מירכאות, מקף ועוד — כללים לשימוש נכון בסימני הפיסוק בעברית</p>
@@ -338,6 +365,14 @@ button,input,select,textarea{font-family:inherit}
   </div>
 
   <!-- SECTION 1 — מהו פיסוק -->
+
+  <!-- שאלת פתיחה -->
+  <div class="opening-q">
+    <div class="oq-label">💭 שאלת פתיחה — חשבו לפני שלומדים</div>
+    <div class="oq-text">מה הפסיק עושה במשפט "ידעתי, שיגיע" — ומדוע הוא שגוי? מה ההבדל בין "כשנכנס, בכיתי" (נכון) ל"ידעתי, שיגיע" (שגוי)?</div>
+    <div class="oq-hint">רמז: שאלו מה בא לפני — הטפל או העיקר?</div>
+  </div>
+
   <div class="section-hd"><span class="sn-icon">📖</span><div class="sn">1</div>מהו פיסוק ולמה הוא חשוב?</div>
   <div class="card">
     <p><strong>פיסוק</strong> הוא מערכת סימנים שנוספים לכתיב כדי לסמן הפסקות, יחסים תחביריים ומשמעויות מיוחדות בטקסט. הפיסוק לא מהווה חלק מן הכתיב הרשמי של המילים, אך הוא משפיע מאוד על הקריאה וההבנה.</p>
@@ -535,12 +570,16 @@ button,input,select,textarea{font-family:inherit}
   </div>
 
 </div><!-- /lesson-wrap -->
+
+  <button class="goto-practice-btn" onclick="switchTab('practice')">✏️ עבור לתרגול — 21 שאלות על הפיסוק התקני</button>
+
+</div>
 </div><!-- /pane-theory -->
 
 <!-- ═══ PRACTICE ═══ -->
 <div class="tab-pane" id="pane-practice">
 <div class="print-header">
-  <h1>📏 שיעור 1 — שם המספר: המספר המונה</h1>
+  <h1>📌 שיעור 6 — הפיסוק התקני</h1>
   <p>יחידה 4: תקינות | לשון Lesson 2.0 | כיתות ט׳–י׳</p>
 </div>
 <div class="lesson-wrap">
@@ -581,32 +620,39 @@ button,input,select,textarea{font-family:inherit}
 
   <div id="practice-content-wrap">
 
-    <div class="reading-text-box">
-      <div class="rt-title">טקסט א׳ — יום קניות</div>
-      <div class="rt-body">
-        <p>לילי הלכה לשוק עם רשימה. היא קנתה <strong>שלושה עגבניות</strong> ו<strong>חמישה תפוחים</strong>. אצל הדייג קנתה <strong>ארבע דגים</strong>. בקצביה נכנסה בדיוק <strong>שש לקוחות</strong> לפניה. היא חיכתה <strong>עשרה דקות</strong> ולבסוף קנתה <strong>שני קילוגרמים</strong> בשר.</p>
+    <!-- Punct analysis widget — text A -->
+    <div class="punct-analysis">
+      <div class="pa-title">🔍 טקסט א׳ — סימני הפיסוק מסומנים ומוסברים</div>
+      <div class="pa-sentence">שלום רב<span class="pa-mark" data-tip="פסיק וקטיב — פנייה לנמען">,</span> דנה<span class="pa-mark" data-tip="נקודה — סיום ברכה">.</span> כאשר סיפרת לי<span class="pa-mark" data-tip="פסיק — טפל לפני עיקר">,</span> לא ידעתי שיצליח<span class="pa-mark" data-tip="נקודה — סיום משפט">.</span> מחר<span class="pa-mark" data-tip="פסיק — תוספת זמן בתחילת משפט">,</span> אם ירשה הזמן<span class="pa-mark" data-tip="פסיק — סגירת תוספת">,</span> אגיע<span class="pa-mark" data-tip="נקודה — סיום">.</span></div>
+      <div class="pa-legend">
+        <span class="pa-leg-item pa-leg-comma">, פסיק</span>
+        <span class="pa-leg-item pa-leg-dot">. נקודה</span>
+        <span class="pa-leg-item pa-leg-colon">: נקודתיים</span>
+        <span class="pa-leg-item pa-leg-dash">— מקף</span>
+        <span class="pa-leg-item pa-leg-quote">״ ״ מירכאות</span>
       </div>
     </div>
 
     <div class="reading-text-box">
-      <div class="rt-title">טקסט ב׳ — חידה היסטורית</div>
+      <div class="rt-title">טקסט ב׳ — ציטוט ומירכאות</div>
       <div class="rt-body">
-        <p>לפני <strong>שלושת אלפים</strong> שנה, מלך נחשב לאלוהי כשהוביל <strong>שנים עשר שבטים</strong> למלחמה. לאחד המלכים היו <strong>שבעה בנים</strong> ו<strong>שלוש בנות</strong>. <strong>תשעת האחים</strong> הצעירים הלכו ללמוד, ואילו <strong>שלושת הבכורים</strong> נשארו בארמון.</p>
+        <p>הסופרת המפורסמת<strong>,</strong> יהודית כץ<strong>,</strong> נולדה בירושלים ב-1955<strong>.</strong> ספרה הראשון<strong>,</strong> <strong>״</strong>שירת הים<strong>״,</strong> זכה בפרס ספרותי יוקרתי<strong>.</strong></p>
+        <p>כשנשאלה על כתיבתה<strong>,</strong> ענתה<strong>:</strong> <strong>״</strong>אני כותבת כי לא אוכל לא לכתוב — זו הנשמה שלי<strong>.״</strong></p>
       </div>
     </div>
 
     <div class="reading-text-box">
-      <div class="rt-title">טקסט ג׳ — שאלון</div>
+      <div class="rt-title">טקסט ג׳ — שגיאות פיסוק לתיקון</div>
       <div class="rt-body">
-        <p>"כמה שפות אתה מדבר?" "רק <strong>שתי שפות</strong>." "כמה ספרים קראת השנה?" "<strong>עשרים ואחד</strong> — <strong>אחד עשר</strong> רומנים ו<strong>עשרה</strong> ספרי עיון." "בכמה מדינות ביקרת?" "ב<strong>שלושים ושלוש</strong>."</p>
+        <p>מצאו וסמנו את שגיאות הפיסוק: (א) "הילד<strong>,</strong> רץ מהר." (ב) "שאלתי אותה לאן נסעה<strong>?</strong>" (ג) "קניתי לחם<strong>,</strong> וחלב." (ד) "זה <strong>״</strong>חשוב<strong>״</strong> לדעת." — האם כל שימוש שגוי?</p>
       </div>
     </div>
 
     <div class="quiz-header">
-      <div class="quiz-hd-title">📏 המספר המונה — 20 שאלות</div>
-      <div class="quiz-hd-desc">MC · נכון/לא נכון · סדר — הסכמה, נסמך ומלכודות</div>
+      <div class="quiz-hd-title">📌 הפיסוק התקני — 21 שאלות</div>
+      <div class="quiz-hd-desc">MC · נכון/לא נכון · סידור · כתיבה פתוחה — פסיק, מירכאות, מקף, שאלה וניתוח</div>
       <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="prog-fill" style="width:0%"></div></div>
-      <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 20 נענו</span><span id="prog-pct">0%</span></div>
+      <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 21 נענו</span><span id="prog-pct">0%</span></div>
     </div>
 
     <div id="questions-container"></div>
@@ -638,7 +684,7 @@ button,input,select,textarea{font-family:inherit}
 </div>
 </div>
 
-<div id="toast"></div>
+<div id="toast" class="toast"></div>
 
 <script>
 const FB_CFG={apiKey:"AIzaSyC1VIJaFqC-HzJHGutib10-A29i1KKO4YI",authDomain:"lashon-project.firebaseapp.com",projectId:"lashon-project",storageBucket:"lashon-project.firebasestorage.app",messagingSenderId:"444024985545",appId:"1:444024985545:web:847f8d4dad43193c147a18",measurementId:"G-26KTLPJ8N1"};
@@ -656,117 +702,158 @@ let ANSWERS_VISIBLE=_params.get('answers_visible')==='1';
 const BACK_URL=_params.get('back')||'index.html';
 function applyAnswersVisibility(){const l=document.getElementById('answers-locked-msg');const v=document.getElementById('answers-visible-content');const s=document.getElementById('answers-source');if(USER_ROLE==='teacher'){if(l)l.style.display='none';if(v)v.style.display='';if(s)s.textContent='גישת מורה';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';}else{if(ANSWERS_VISIBLE){if(l)l.style.display='none';if(v)v.style.display='';if(s)s.textContent='שוחרר על ידי המורה';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='';}else{if(l)l.style.display='';if(v)v.style.display='none';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='none';}}}
 
-const QUESTIONS = [
-  // MC
-  {id:'q01',type:'mc',ref:'פסיק — רשימה',
-   q:'באיזו מן הדוגמאות הפסיק ממוקם נכון?',
-   opts:['קניתי, לחם חלב וביצים.','קניתי לחם, חלב וביצים.','קניתי לחם חלב, וביצים.','קניתי לחם חלב וביצים,'],
+const QUESTIONS=[
+  /* ── טקסט א׳ / ב׳ ── */
+  {id:'q01',type:'mc',ref:'פסיק — ניתוח',
+   q:'בטקסט א׳: "שלום רב, דנה." — מה תפקיד הפסיק אחרי "רב"?',
+   opts:['פסיק רשימה — מפריד בין פריטים','פסיק וקטיב (פנייה) — מפריד בין ברכה לשם הנמען. בלי פסיק: "שלום רב דנה" — מבלבל','פסיק ניגוד — לפני מילת ניגוד','פסיק טפל-עיקר'],
    ans:1,
-   explain:'בפסיק המפריד בין פריטים ברשימה מפרידים בין כל פריט לחברו, אך לרוב אין פסיק לפני "ו" שלפני הפריט האחרון.'},
-  {id:'q02',type:'mc',ref:'פסיק — נושא ונשוא',
-   q:'איזה משפט כולל שגיאת פסיק חמורה?',
-   opts:['הילד, כמובן, אהב לשחק.','הילד, שאהב לשחק, הגיע.','הילד, רץ מהר מאוד.','הילדה, אחותי, חכמה מאוד.'],
-   ans:2,
-   explain:'אין לשים פסיק בין נושא לנשוא. "הילד, רץ" הוא שגיאה — הפסיק מפריד שלא כדין בין "הילד" (נושא) ל"רץ" (נשוא).'},
+   explain:'פסיק וקטיב = פסיק בפנייה לנמען. "שלום רב, דנה" — הפסיק מפריד בין הברכה לשם האדם הנפנה. ללא פסיק: קשה להבין למי פונים ומה הברכה.',
+   teacherNote:'פסיק וקטיב = נושא פדגוגי שתלמידים שוכחים. בקשו לתת 3 משפטים עם פנייה: "מה קורה, מיכל?", "תגיד, יוסי, ...", "בבקשה, ילדים, שבו." — הפסיק מסגר את שם הנפנה.'},
+
+  {id:'q02',type:'mc',ref:'פסיק — טפל/עיקר',
+   q:'טקסט א׳: "כאשר סיפרת לי, לא ידעתי." — מדוע יש פסיק לפני "לא"?',
+   opts:['כי "כאשר" = מילת ניגוד','פסוקית הטפל ("כאשר סיפרת") קודמת לעיקרית ("לא ידעתי") → פסיק ביניהן. כלל: טפל לפני עיקר = פסיק חובה','פסיק אקראי','פסיק לפני נשוא'],
+   ans:1,
+   explain:'כלל טפל-עיקר: כשפסוקית הטפל מקדימה את העיקרית — פסיק ביניהן. "כאשר סיפרת" = טפל (זמן) → פסיק → "לא ידעתי" = עיקר. אם הסדר הפוך: "לא ידעתי כאשר סיפרת" — ללא פסיק!',
+   teacherNote:'הכלל הנפוץ ביותר בבגרות. בקשו: הפכו את הסדר — "לא ידעתי כאשר סיפרת" — צריך פסיק? לא! הדגישו: הכלל = לפי סדר הופעה, לא לפי תוכן.'},
+
   {id:'q03',type:'mc',ref:'סימן שאלה',
-   q:'באיזו דוגמה סימן השאלה ממוקם שלא כדין?',
+   q:'איזה משפט כולל שגיאת פיסוק?',
    opts:['לאן נסעתם?','שאלתי אותה לאן נסעה?','כמה שעות נסעתם?','האם הגעתם בשלום?'],
    ans:1,
-   explain:'בשאלה עקיפה (הטמונה בתוך משפט) — לא שמים סימן שאלה. "שאלתי אותה לאן נסעה" הוא משפט מספר, לא שאלה — לכן הנקודה תקינה ולא סימן שאלה.'},
+   explain:'שאלה עקיפה אינה מקבלת סימן שאלה. "שאלתי אותה לאן נסעה" = משפט מספר (לא שאלה) → נקודה. שאלה ישירה מקבלת שאלה: "לאן נסעת?" ✅.',
+   teacherNote:'מלכודת קלאסית. שאלה עקיפה = שאלה שמדווחים עליה (לא שואלים אותה ישירות). בקשו לתרגל: "שאלתי אם יגיע." / "ידעתי מה קרה." / "התעניינתי איפה נמצא." — כולם ללא שאלה.'},
+
   {id:'q04',type:'mc',ref:'מירכאות',
-   q:'מה השימוש הנכון במירכאות במשפט: הוא ה_____ אמיתי בקבוצה?',
-   opts:['כוכב — ללא מירכאות','״כוכב״ — כינוי לא רשמי','(כוכב) — בסוגריים','כוכב! — עם קריאה'],
+   q:'טקסט ב׳: מירכאות עוטפות "שירת הים". מה תפקידן כאן?',
+   opts:['הדגשה של הספר החשוב','שם יצירה ספרותית — מירכאות לשמות ספרים, שירים ויצירות. לא להדגשה!','ציטוט ישיר מהספר','כינוי לא רשמי'],
    ans:1,
-   explain:'מירכאות משמשות לצירופים לא רשמיים, כינויים ועגה. "הכוכב" כאן הוא כינוי לא רשמי — לכן מירכאות מתאימות.'},
+   explain:'מירכאות לשמות יצירות: ״שירת הים״ = שם ספר. מקובל לסמן שמות ספרים, שירים, סרטים במירכאות. לא לשם הדגשה! הדגשה = bold/קו תחתון.',
+   teacherNote:'חשוב: שמות ספרים במירכאות הוא כלל ספציפי. מקובל גם להדפיס בכתב נטוי (italic). בקשו: "רומן "שתי ערים" מאת דיקנס" — נכון. "ספר ״חשוב״" — שגוי (הדגשה).'},
+
   {id:'q05',type:'mc',ref:'נקודתיים',
-   q:'איפה מתאים להשתמש בנקודתיים (:)?',
-   opts:['בסוף משפט שלם במקום נקודה','לפני פירוט או ציטוט ישיר','בין שני משפטים קשורים','לפני תואר שם'],
+   q:'טקסט ב׳: "ענתה: ״אני כותבת...״" — מה הכלל לנקודתיים לפני ציטוט?',
+   opts:['נקודתיים = תמיד אופציונליות לפני ציטוט','נקודתיים חובה לפני ציטוט ישיר בגוף טקסט. לא: "ענתה ״...״" (ללא נקודתיים)','נקודתיים = תחליף לפסיק לפני ציטוט','ניתן להשתמש בנקודה במקום'],
    ans:1,
-   explain:'נקודתיים מופיעות לפני ציטוט ישיר, לפני רשימה/פירוט ולאחר מילות כגון "לדוגמה", "כגון". הן אינן תחליף לנקודה.'},
+   explain:'נקודתיים חובה לפני ציטוט ישיר: "ענתה: ״...״". בלי נקודתיים: "ענתה ״...״" — אפשרי בטקסטים מסוימים אבל פחות תקני. נקודתיים מסמלות: "כעת תבוא דבריו המדויקים של מישהו".',
+   teacherNote:'כלל נוסף לנקודתיים: לפני רשימה ("יש שלושה: א, ב, ג"), לפני פירוט ("הכלל הוא: ..."), לאחר "לדוגמה"/"כגון". בקשו לתת 3 משפטים שבהם הנקודתיים חובה.'},
+
   {id:'q06',type:'mc',ref:'מקף ארוך',
-   q:'מה הפונקציה של המקפים הארוכים במשפט: "המנהל — שנתמנה לאחרונה — חתם על ההסכם"?',
-   opts:['הם מחברים בין שתי מילים','הם מסמנים השמטה','הם מסגרים הערה שניתן להסיר','הם מחליפים נקודה'],
-   ans:2,
-   explain:'מקף ארוך כפול משמש להסגרת הערה שניתן להסירה מבלי לפגוע במשפט העיקרי. "המנהל חתם על ההסכם" — תקין ללא ההערה.'},
+   q:'"המנהל — שנתמנה לאחרונה — חתם." — כיצד בודקים שהמקפים נכונים?',
+   opts:['אין בדיקה — מקפים תמיד נכונים','מסירים את ההערה: "המנהל חתם." — אם המשפט עדיין תקין → המקפים נכונים. הערה מוסגרת חייבת להיות ניתנת להסרה','בודקים שהמשפט נשמע דרמטי','בודקים שיש שני מקפים'],
+   ans:1,
+   explain:'בדיקת הערה מוסגרת: הסר את ההערה (ממקף למקף) → המשפט חייב להיות תקין. "המנהל חתם על ההסכם." = תקין → המקפים נכונים. אם המשפט שבור לאחר הסרה → ההערה שגויה.',
+   teacherNote:'כלל הבדיקה = כלי מעשי שהתלמידים יכולים להשתמש בו בבגרות. בקשו: נסו להסיר את ההערה ב-3 משפטים שונים. "הכיתה — שלמדה קשה — הצליחה." → "הכיתה הצליחה." ✅'},
+
   {id:'q07',type:'mc',ref:'פסיק — קריאה',
-   q:'מהו הפסיק בפנייה "אמא, בואי הנה!"?',
-   opts:['פסיק רשימה','פסיק קריאה לנמען (וקטיב)','פסיק טפל לפני עיקר','פסיק ניגוד'],
+   q:'"אמא, בואי הנה!" — מה שם הפסיק בין "אמא" לשאר המשפט?',
+   opts:['פסיק רשימה','פסיק וקטיב — מפריד בין שם הנמען למשפט הפנייה. הנמען = "אמא". כלל: פנייה ישירה לאדם → פסיק','פסיק טפל-עיקר','פסיק ניגוד'],
    ans:1,
-   explain:'כאשר פונים ישירות לאדם בשמו, יש לשים פסיק בין שם הנמען למשפט הפנייה. זהו פסיק וקטיב (קריאה לנמען).'},
+   explain:'פסיק וקטיב (= פנייה לנמען): "אמא, בואי" — פסיק מפריד בין שם הנפנה למשפט. "יוסי, בוא הנה." "ילדים, שבו." "מורה, יש לי שאלה." — כולם וקטיב.',
+   teacherNote:'וקטיב = מונח שמגיע מהלטינית vocative. בקשו: מצאו 5 משפטי פנייה בטקסטים מהחיים (מסרונים, שיחות). האם מסרונים כותבים פסיק וקטיב? כנראה לא — ולמה? דיון מעניין.'},
+
   {id:'q08',type:'mc',ref:'נקודה-פסיק',
-   q:'מה ההבדל בין נקודה-פסיק (;) לנקודה (.)?',
-   opts:['נקודה-פסיק חזקה יותר מנקודה','נקודה-פסיק קושרת שני משפטים קרובים ועצמאיים; נקודה מסיימת לגמרי','הם זהים לגמרי בשימוש','נקודה-פסיק משמשת רק לרשימות'],
+   q:'מה ההבדל בין: "הלכנו לים. שחינו." לבין "הלכנו לים; שחינו."?',
+   opts:['אין הבדל — זהים לחלוטין','נקודה = שני משפטים נפרדים לגמרי. נקודה-פסיק = שני משפטים עצמאיים עם קשר הדוק ביניהם. "הלכנו לים; שחינו" = קשר מיידי (שם שחינו). נקודה = פחות קשר','נקודה-פסיק = שגויה כאן','נקודה-פסיק = חזקה יותר מנקודה'],
    ans:1,
-   explain:'נקודה-פסיק (;) מחברת שני משפטים עצמאיים שיש ביניהם קשר משמעותי, אך אין ביניהם מחבר תחבירי. נקודה מסיימת מחשבה לגמרי.'},
-  {id:'q09',type:'mc',ref:'מירכאות — ציטוט',
-   q:'היכן יש שגיאה בשימוש במירכאות במשפט: אמרה: "בואו הנה" ואנחנו לא שמענו.',
-   opts:['אין שגיאה — הכל תקין','המירכאות לא נסגרות נכון — צריך סימן פיסוק לפני הסגירה','נקודתיים חסרות לפני הציטוט','הפסיק אחרי הציטוט שגוי'],
-   ans:0,
-   explain:'המשפט כתוב נכון — יש נקודתיים לפני הציטוט, מירכאות פותחות וסוגרות, והמשפט מתפקד כראוי. אין שגיאה.'},
+   explain:'נקודה = הפרדה מוחלטת. נקודה-פסיק = "אנחנו קרובים אבל עצמאיים". "הלכנו לים; שחינו" = שחינו שם. נקודה-פסיק מביעה קשר לא-תחבירי חזק. מתאים כשהמשפטים קשורים מאוד בנושא.',
+   teacherNote:'הבחנה עדינה שחשובה לכותבים ברמה גבוהה. בקשו לכתוב זוג משפטים שנקודה-פסיק מתאימה יותר: "ניסיתי; לא הצלחתי." לעומת "ניסיתי. לא הצלחתי." — מה ההבדל בתחושה?'},
+
+  {id:'q09',type:'mc',ref:'מירכאות — הסתייגות',
+   q:'"אבל העובדים ה״מרוצים״ כלל לא שמחו." — מה תפקיד המירכאות ב"מרוצים"?',
+   opts:['ציטוט ישיר של מנהל','הסתייגות אירונית — המירכאות מסמנות שה"מרוצים" אינם מרוצים באמת. זהו שימוש אירוני/ביקורתי','שם יצירה','הדגשה'],
+   ans:1,
+   explain:'מירכאות אירוניות/הסתייגות: מציינות שהמילה אינה כנה או שיש להסתייג ממנה. "מרוצים" במירכאות = הם לא באמת מרוצים. נפוץ גם: "המומחה" (שאינו מוסמך), "הצלחה" (שאינה הצלחה אמיתית).',
+   teacherNote:'מירכאות אירוניות = כלי ספרותי עוצמתי. בקשו לתת דוגמאות מהחיים: "ה״ידיד״ שלו", "הדיאטה ה״בריאה״", "הצ׳ופר ה״מיוחד״". דיון: האם מירכאות = אירוניה חיובית/שלילית?'},
+
   {id:'q10',type:'mc',ref:'סימן קריאה',
-   q:'מה קורה כאשר משתמשים בסימני קריאה רבים מדי?',
-   opts:['הטקסט נשמע יותר מרגש ומשכנע','הסימנים מאבדים את כוחם ההדגשתי','זוהי טכניקה ספרותית מקובלת לגמרי','אין שום השפעה על הקורא'],
+   q:'מה קורה כאשר כל משפט בטקסט מסתיים בסימן קריאה?',
+   opts:['הטקסט נשמע יותר מרגש ומשכנע','הסימנים מאבדים כוחם — כשהכל מודגש, אין הדגשה. עדיף 1-2 קריאות בטקסט שלם; שאר המשפטים = נקודה','זוהי טכניקה ספרותית מקובלת','אין שום השפעה על הקורא'],
    ans:1,
-   explain:'שימוש מוגזם בסימני קריאה מחליש את ההדגשה. כאשר כל משפט מסתיים בסימן קריאה, אף אחד מהם אינו בולט. עדיף לשמור לרגעים שחשוב להדגיש.'},
-  // TF
-  {id:'q11',type:'tf',ref:'נכון/לא נכון',
-   q:'המשפט "ידעתי שהוא יגיע" — נכון לשים פסיק לפני "ש": "ידעתי, שהוא יגיע."',
+   explain:'שימוש מוגזם בסימני קריאה מחליש את ההדגשה. "הלכנו! שחינו! אכלנו! שמחנו!" — אף אחד לא בולט. "הלכנו, שחינו ואכלנו. שמחנו!" — הקריאה האחרונה בולטת.',
+   teacherNote:'עיקרון רטורי חשוב: פחות = יותר. הסבירו: כמו תבלינים — מעט = טעם. הרבה = מחריב. בקשו לכתוב 5 משפטים עם פסגה אחת שמחייבת קריאה. הייתה בחירה — כלי לכתיבה.'},
+
+  /* ── תיאוריה ── */
+  {id:'q11',type:'tf',ref:'תיאוריה',
+   q:'"ידעתי, שהוא יגיע" — הפסיק לפני "ש" נכון.',
    ans:false,
-   explain:'לא נכון! לפני "ש" כאשר הפסוקית הטפל באה אחרי הפסוקית העיקרית — אין לשים פסיק. הפסיק מופיע רק כאשר הטפל קודם לעיקר.'},
-  {id:'q12',type:'tf',ref:'נכון/לא נכון',
-   q:'במשפט "לאן נסעת?" — שימוש בסימן שאלה הוא תקין.',
+   explain:'לא נכון! "ידעתי שהוא יגיע" — פסוקית הטפל ("שהוא יגיע") באה אחרי העיקרית ("ידעתי"). כשהטפל אחרי העיקר — ללא פסיק. פסיק רק כשהטפל לפני: "כשיגיע, ידעתי."',
+   teacherNote:'השגיאה הנפוצה ביותר בפסיק. כלל ברור: שאלו — מה בא ראשון? "ידעתי" = עיקר ראשון → ואחריו "ש..." = ללא פסיק. בקשו להכין רשימת מילות חיבור שמחייבות לשאלה זו: ש, כי, אם, כאשר.'},
+
+  {id:'q12',type:'tf',ref:'תיאוריה',
+   q:'"לאן נסעת?" — שימוש בסימן שאלה נכון.',
    ans:true,
-   explain:'נכון! זוהי שאלה ישירה, ולכן סימן השאלה תקין לגמרי. כל שאלה ישירה מסתיימת בסימן שאלה.'},
-  {id:'q13',type:'tf',ref:'נכון/לא נכון',
-   q:'פסיק תקין במשפט: "רציתי ללכת, אבל לא יכולתי."',
+   explain:'נכון! "לאן נסעת?" = שאלה ישירה → סימן שאלה חובה. השוו לשאלה עקיפה: "שאלתי לאן נסעת." (ללא שאלה).',
+   teacherNote:'TF פשוטה לגיבוש. המשך: בקשו לכתוב כל שאלה ישירה כשאלה עקיפה — "מה שמך?" → "שאלתי מה שמו." כל פעם: ישירה = שאלה, עקיפה = נקודה.'},
+
+  {id:'q13',type:'tf',ref:'תיאוריה',
+   q:'"רציתי ללכת, אבל לא יכולתי." — הפסיק לפני "אבל" נכון.',
    ans:true,
-   explain:'נכון! לפני מילות ניגוד כגון "אבל", "אך", "אולם", "אלא" — שמים פסיק. זהו שימוש תקין.'},
-  {id:'q14',type:'tf',ref:'נכון/לא נכון',
-   q:'ניתן להשתמש במירכאות כדי להדגיש מילה חשובה במשפט: "זה ״חשוב״ לדעת."',
+   explain:'נכון! לפני מילות ניגוד (אבל, אך, אולם, אלא, ברם) — פסיק. "רציתי ללכת" + "אבל לא יכולתי" = שני חלקים מנוגדים → פסיק.',
+   teacherNote:'רשימת מילות ניגוד שמחייבות פסיק: אבל, אך, אולם, אלא, ברם, אף על פי כן, עם זאת. בקשו לכתוב 3 משפטים עם כל אחת. כלל: לפני כל אחת מאלה = פסיק.'},
+
+  {id:'q14',type:'tf',ref:'תיאוריה',
+   q:'מירכאות משמשות להדגשת מילה חשובה: "זה ״חשוב״ לדעת."',
    ans:false,
-   explain:'לא נכון! מירכאות אינן כלי להדגשה. להדגשה משתמשים בכתב מודגש (bold) או בקו תחתון. מירכאות לציטוט, כינוי, הסתייגות.'},
-  {id:'q15',type:'tf',ref:'נכון/לא נכון',
-   q:'נקודה-פסיק (;) יכולה לחבר שני משפטים עצמאיים שיש ביניהם קשר קרוב.',
+   explain:'לא נכון! מירכאות אינן כלי הדגשה. להדגשה: bold/קו תחתון. מירכאות = ציטוט, כינוי, שם יצירה, הסתייגות/אירוניה. "חשוב" במירכאות = אינו חשוב באמת!',
+   teacherNote:'שגיאה נפוצה מאוד בעיתונות ובכתיבה יומיומית. הסבירו: "״חשוב״" = אירוניה, לא הדגשה. הדגשה = **bold** או _קו תחתון_. בקשו לתקן 3 משפטים עם מירכאות-הדגשה שגויות.'},
+
+  {id:'q15',type:'tf',ref:'תיאוריה',
+   q:'נקודה-פסיק (;) מחברת שני משפטים עצמאיים שיש ביניהם קשר משמעותי.',
    ans:true,
-   explain:'נכון! זוהי בדיוק פונקציית הנקודה-פסיק — לחבר שני משפטים עצמאיים תחבירית שיש ביניהם קשר משמעותי הדוק.'},
-  {id:'q16',type:'tf',ref:'נכון/לא נכון',
-   q:'ב"וכו׳." — אחרי הקיצור "וכו׳" אין לשים נקודה נוספת בסוף משפט.',
+   explain:'נכון! נקודה-פסיק = שני משפטים עצמאיים תחבירית + קשר משמעותי הדוק. "ביקרתי בפריז; העיר קסמה לי." = שני משפטים עצמאיים, קשר מיידי.',
+   teacherNote:'TF לגיבוש. הוסיפו: נקודה-פסיק שונה מנקודה (פחות הפרדה) ומפסיק (אחרי פסיק אין משפט עצמאי). שאלו: מה ביניהם — "הלכתי. ישנתי." / "הלכתי; ישנתי." / "הלכתי, ישנתי?" — מה נכון לכל מקרה?'},
+
+  {id:'q16',type:'tf',ref:'תיאוריה',
+   q:'ב"וכו׳." בסוף משפט — אין לשים נקודה נוספת.',
    ans:true,
-   explain:'נכון! הנקודה שבתוך הקיצור (וכו׳) משמשת גם כנקודת סיום המשפט. אין להכפיל נקודות: "וכו׳." ✓ ולא "וכו׳.." ✗'},
-  {id:'q17',type:'tf',ref:'נכון/לא נכון',
-   q:'המשפט "קניתי לחם, וחלב" — הפסיק לפני "ו" הוא תקין.',
-   ans:false,
-   explain:'לא נכון! כשמחברים שני פריטים בלבד עם "ו" — אין פסיק לפניו. הפסיק לפני "ו" מופיע רק ברשימה של שלושה פריטים לפחות, ואף שם הוא אופציונלי.'},
-  // SORT
-  {id:'q18',type:'sort',ref:'סידור',
-   q:'סדר את חלקי המשפט הבא בצורה הנכונה, כולל הפסיקים הנדרשים:',
-   items:['אמר המורה:', 'ללמוד', '״יש להתמיד', 'בכל יום.״'],
-   correctOrder:[0,2,1,3],
-   explain:'הסדר הנכון: "אמר המורה: ״יש להתמיד ללמוד בכל יום.״" — נקודתיים לפני ציטוט ישיר, ומירכאות עוטפות את הציטוט.'},
-  {id:'q19',type:'sort',ref:'סידור',
-   q:'סדר את רכיבי המשפט הבא לפי סדר הופעתם התקני:',
-   items:['— ולכן הצליחה מאוד —','הכיתה','למדה קשה כל השנה','המורה הגאה שיבחה אותם.'],
-   correctOrder:[1,2,0,3],
-   explain:'הסדר: "הכיתה למדה קשה כל השנה — ולכן הצליחה מאוד — המורה הגאה שיבחה אותם." — המקפים מסגרים הערה מוסגרת.'},
-  {id:'q20',type:'mc',ref:'פסיק — טפל לפני עיקר',
-   q:'באיזה מהמשפטים הפסיק ממוקם נכון לפי כלל "טפל לפני עיקר"?',
-   opts:['ישנתי ערב אחד שדלפה הגג.','כשדלף הגג, לא ישנתי.','הגג דלף, לא ישנתי בלילה.','לא ישנתי, הגג דלף.'],
+   explain:'נכון! הנקודה שבתוך הקיצור "וכו׳" משמשת גם כנקודת סיום המשפט. "קניתי לחם, חלב, ביצים וכו׳." ✅ לא "וכו׳.." — שכפול שגוי.',
+   teacherNote:'כלל ייחודי לקיצורים. ישים גם ל"וכד׳.", "ד"ר", "פרופ׳" — הנקודה בקיצור = גם נקודת סיום. בדקו: "לפגוש את פרופ׳ כהן." (ללא נקודה כפולה).'},
+
+  {id:'q17',type:'mc',ref:'טקסט ג',
+   q:'טקסט ג׳: "הילד, רץ מהר" — שגיאה? מה הכלל?',
+   opts:['נכון — פסיק אחרי נושא = אפשרי','שגיאה חמורה! אין פסיק בין נושא לנשוא. "הילד" = נושא, "רץ" = נשוא → ללא פסיק. "הילד, רץ" = שבירת יחידה תחבירית','פסיק וקטיב — נכון','שגיאה קלה בלבד'],
    ans:1,
-   explain:'כלל "טפל לפני עיקר": כאשר פסוקית טפל מקדימה את הפסוקית העיקרית — שמים פסיק ביניהן. "כשדלף הגג" = טפל → פסיק → "לא ישנתי" = עיקר.'},
-  {id:'q21',type:'open',ref:'פיסוק תקני',
-   q:'הוסף/י פיסוק תקני ל-3 המשפטים. לכל סימן — ציין/י את הכלל:<br><strong>(א) "הגשם ירד אנחנו נרטבנו ולא הגענו"</strong><br><strong>(ב) "המנהל שנבחר השנה נאם בפני הקהל"</strong><br><strong>(ג) "שאלתי אם הוא יגיע"</strong>',
-   placeholder:'(א) הגשם ירד, אנחנו נרטבנו, ולא הגענו. פסיקים בין פסוקיות.\n(ב) המנהל — שנבחר השנה — נאם. מקפים להוספה.\n(ג) שאלתי אם הוא יגיע. נקודה — שאלה עקיפה.',
-   hint:'פסיק=בין פסוקיות. מקפים=הוספה. שאלה עקיפה=ללא סימן שאלה.',
-   rubric:'(א) פסיקים+כלל (ב) מקפים+כלל (ג) אין שאלה+כלל',
-   explain:'פסיק=פסוקיות. מקפים=הוספה. שאלה עקיפה=ללא שאלה.',
-   teacherNote:'מיצ"ב: כלל חובה. שאלה עקיפה = מלכודת קלאסית.'},
+   explain:'אין פסיק בין נושא לנשוא. "הילד רץ מהר." ✅ "הילד, רץ מהר." ✗ — פסיק מפריד שלא כדין בין נושא (הילד) לנשוא (רץ). שימו לב: "הילד, כמובן, רץ." = נכון (כמובן = תוספת).',
+   teacherNote:'ההבחנה: "הילד, כמובן, רץ" = שני פסיקים מסגרים תוספת. "הילד, רץ" = פסיק יחיד בין נושא לנשוא = שגיאה. בקשו לנסח: מתי פסיק בין נושא לנשוא = מותר? רק כשיש תוספת מוסגרת.'},
+
+  {id:'q18',type:'mc',ref:'טקסט ג',
+   q:'טקסט ג׳: "קניתי לחם, וחלב" — נכון/שגוי?',
+   opts:['נכון — פסיק לפני ו = תמיד','שגיאה! פסיק לפני "ו" = רק ברשימה של שלושה פריטים לפחות, או לפני ו חיבורי בין שתי פסוקיות עיקריות. שני פריטים בלבד = ללא פסיק','תלוי בהקשר','נכון בעברית מודרנית'],
+   ans:1,
+   explain:'"קניתי לחם וחלב." ✅ שני פריטים = ללא פסיק. "קניתי לחם, חלב וביצים." = שלושה → פסיק בין הראשונים. פסיק לפני "ו" מופיע גם בין שתי פסוקיות עיקריות: "הלכתי, וגם שחיתי."',
+   teacherNote:'כלל הפסיק לפני ו מבלבל. בקשו לנסח: (1) שני פריטים: ללא פסיק. (2) שלושה+: פסיק בין כולם. (3) שתי פסוקיות עיקריות: פסיק לפני ו. תרגיל: "אכלתי _ ושתיתי" / "אכלתי _ שתיתי _ ונחתי."'},
+
+  {id:'q19',type:'sort',ref:'סידור פיסוק',
+   q:'סדרו את חלקי המשפט הבא לסדר הנכון:',
+   items:['אמרה המורה','בכל יום.״','ללמוד','״יש להתמיד'],
+   correctOrder:[0,3,2,1],
+   explain:'הסדר: "אמרה המורה: ״יש להתמיד ללמוד בכל יום.״" — נקודתיים לפני ציטוט ישיר, מירכאות עוטפות את הציטוט, הנקודה בתוך המירכאות.',
+   teacherNote:'שאלת סידור על מבנה ציטוט. הדגישו: (1) אמירה + נקודתיים. (2) ״ + ציטוט + .״ (נקודה בתוך מירכאות). זהו המבנה התקני לציטוט ישיר בעברית.'},
+
+  {id:'q20',type:'mc',ref:'ניתוח מתקדם',
+   q:'מורה כתבה על הלוח: "כשנכנסתי, הם שתקו. הם שתקו, כשנכנסתי." — מה ההבדל?',
+   opts:['אין הבדל — שני הכתובים זהים','בראשון: "כשנכנסתי" = טפל לפני עיקר → פסיק חובה. בשני: "הם שתקו" = עיקר לפני טפל → ללא פסיק! מיקום הטפל קובע אם יש פסיק','בשני צריך פסיק גם כן','שניהם שגויים'],
+   ans:1,
+   explain:'כלל טפל-עיקר: (1) "כשנכנסתי, הם שתקו." = טפל ראשון → פסיק. (2) "הם שתקו כשנכנסתי." = עיקר ראשון → ללא פסיק. אותו תוכן, אותן מילות קישור — הפסיק נקבע לפי הסדר בלבד!',
+   teacherNote:'שאלה מצוינת לביסוס הכלל — מורה על הלוח. הדגישו: רק הסדר קובע, לא התוכן. בקשו להפוך 5 משפטים ולבדוק. תרגיל: "אם תרצה, בוא" ← "בוא אם תרצה" — פסיק?'},
+
+  {id:'q21',type:'open',ref:'פיסוק תקני — בלום 5',
+   q:'הוסף/י פיסוק תקני לכל משפט. לכל סימן שהוספת — ציין/י שם הכלל המדויק:<br><strong>(א) "הגשם ירד אנחנו נרטבנו ולא הגענו"</strong><br><strong>(ב) "המנהל שנבחר השנה נאם בפני הקהל"</strong><br><strong>(ג) "שאלתי אם הוא יגיע"</strong><br><strong>(ד) "קניתי לחם חלב ביצים וחמאה"</strong>',
+   placeholder:'(א) הגשם ירד, אנחנו נרטבנו ולא הגענו — פסיקים. (ב) המנהל — שנבחר השנה — נאם — מקפים לתוספת. (ג) שאלתי אם הוא יגיע — נקודה, שאלה עקיפה. (ד) קניתי לחם, חלב, ביצים וחמאה — פסיקים ברשימה.',
+   hint:'(א) פסוקיות עיקריות = פסיק. (ב) הסר ההערה — משפט תקין? → מקפים. (ג) שאלה ישירה/עקיפה? (ד) רשימת פריטים.',
+   rubric:'לכל משפט: סימן נכון (1נ) + שם הכלל המדויק (1נ) + הסבר (1נ) = 3נ × 4 = 12 נקודות. רמת בגרות.',
+   explain:'(א) פסיקים בין פסוקיות עיקריות. (ב) מקפים להערה מוסגרת. (ג) שאלה עקיפה = נקודה. (ד) פסיקים ברשימה, ללא פסיק לפני "ו" האחרון.',
+   teacherNote:'שאלת בגרות — 4 כללים שונים. הפרכה: (ג) = מלכודת שאלה עקיפה. (ד) = מלכודת פסיק לפני ו. רובריקה: 3 נקודות למשפט. שגיאה צפויה: (ב) תלמידים ישתמשו בסוגריים במקום מקפים.'},
 ];
 
 /* ENGINE */
 const QS={answers:{},submitted:false};
 let _lastScore=null,_lastCorrect=0,_gateConfirmed=false;
+let SNP='',SCP='';
 function switchTab(t){['theory','practice','answers'].forEach(x=>{document.getElementById('pane-'+x)?.classList.toggle('active',x===t);document.getElementById('btn-'+x)?.classList.toggle('active',x===t);document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);});if(t==='answers')renderAnswers();if(t==='practice'&&!_gateConfirmed)document.getElementById('gate-date-display').textContent=new Date().toLocaleDateString('he-IL');}
-function confirmGate(){const nm=document.getElementById('gate-name').value.trim();const cl=document.getElementById('gate-class').value;let ok=true;if(nm.split(/\s+/).length<2){document.getElementById('gate-name').classList.add('err');document.getElementById('gate-name-err').classList.add('show');ok=false;}else{document.getElementById('gate-name').classList.remove('err');document.getElementById('gate-name-err').classList.remove('show');}if(!cl){document.getElementById('gate-class').classList.add('err');document.getElementById('gate-class-err').classList.add('show');ok=false;}else{document.getElementById('gate-class').classList.remove('err');document.getElementById('gate-class-err').classList.remove('show');}if(!ok)return;STUDENT_NAME=nm;STUDENT_CLASS=cl;LS.set('lashon2_uname',nm);LS.set('lashon2_class',cl);_gateConfirmed=true;document.getElementById('student-gate').classList.add('hidden');const av=document.getElementById('gc-avatar'),nm2=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=nm[0].toUpperCase();if(nm2)nm2.textContent=nm;if(mt)mt.textContent='כיתה '+cl+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed').classList.add('show');document.getElementById('practice-content-wrap').style.display='';}
+function confirmGate(){const nm=document.getElementById('gate-name').value.trim();const cl=document.getElementById('gate-class').value;let ok=true;if(nm.split(/\s+/).length<2){document.getElementById('gate-name').classList.add('err');document.getElementById('gate-name-err').classList.add('show');ok=false;}else{document.getElementById('gate-name').classList.remove('err');document.getElementById('gate-name-err').classList.remove('show');}if(!cl){document.getElementById('gate-class').classList.add('err');document.getElementById('gate-class-err').classList.add('show');ok=false;}else{document.getElementById('gate-class').classList.remove('err');document.getElementById('gate-class-err').classList.remove('show');}if(!ok)return;SNP=nm;SCP=cl;STUDENT_NAME=nm;STUDENT_CLASS=cl;LS.set('lashon2_uname',nm);LS.set('lashon2_class',cl);_gateConfirmed=true;document.getElementById('student-gate').classList.add('hidden');const av=document.getElementById('gc-avatar'),nm2=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=nm[0].toUpperCase();if(nm2)nm2.textContent=nm;if(mt)mt.textContent='כיתה '+cl+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed').classList.add('show');document.getElementById('practice-content-wrap').style.display='block';}
 function reopenGate(){_gateConfirmed=false;document.getElementById('student-gate').classList.remove('hidden');document.getElementById('gate-confirmed').classList.remove('show');document.getElementById('practice-content-wrap').style.display='none';}
 const LETTERS=['א','ב','ג','ד'];let _dragSrc=null;
 function renderQuestions(){const c=document.getElementById('questions-container');if(!c)return;c.innerHTML=QUESTIONS.map((q,i)=>buildCard(q,i)).join('');updateProgress();renderAnswers();}
@@ -852,7 +939,7 @@ function printLesson(){
 let _tt;
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800)}
 function goBack(){if(window.opener){try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}window.close();return;}window.location.href=BACK_URL;}
-function init(){initFirebase();if(USER_ROLE==='teacher'){const rc=document.getElementById('role-chip');if(rc)rc.style.display='';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';_gateConfirmed=true;const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='';document.getElementById('student-gate')?.classList.add('hidden');document.getElementById('gate-confirmed')?.classList.add('hidden');}else{const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){_gateConfirmed=true;if(wrap)wrap.style.display='';document.getElementById('student-gate')?.classList.add('hidden');const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed')?.classList.remove('hidden');}}applyAnswersVisibility();renderQuestions();}
+function init(){initFirebase();if(USER_ROLE==='teacher'){const rc=document.getElementById('role-chip');if(rc)rc.style.display='';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';_gateConfirmed=true;const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='block';document.getElementById('student-gate')?.classList.add('hidden');document.getElementById('gate-confirmed')?.classList.add('hidden');}else{const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){_gateConfirmed=true;if(wrap)wrap.style.display='block';document.getElementById('student-gate')?.classList.add('hidden');const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed')?.classList.add('show');}}applyAnswersVisibility();renderQuestions();}
 init();
 </script>
 </body>

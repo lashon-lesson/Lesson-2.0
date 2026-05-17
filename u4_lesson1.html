@@ -18,16 +18,16 @@
   --teal:#0f766e;--teal-lt:#f0fdfa;
   --rose:#be185d;--rose-lt:#fff1f2;
   --purple:#7c3aed;--purple-lt:#faf5ff;
-  --sky:#0284c7;--sky-lt:#f0f9ff;
-  /* Lesson accent — amber/brown */
-  --lc:#b45309;--lc-lt:#fffbeb;--lc-dk:#92400e;
+  --amber:#b45309;--amber-lt:#fffbeb;
+  /* Lesson accent — emerald */
+  --lc:#059669;--lc-lt:#ecfdf5;--lc-dk:#047857;
   --sh1:0 1px 3px rgba(13,20,36,.06);--sh2:0 4px 20px rgba(13,20,36,.08);--sh3:0 12px 40px rgba(13,20,36,.12);
   --r:14px;--r-lg:20px;--r-xl:26px;--r-pill:999px;
 }
 @media(prefers-color-scheme:dark){:root{
   --bg:#0b0f17;--surface:#131924;--surface2:#192030;--surface3:#1f2840;
   --border:#252f47;--text:#d8dfe8;--text-mid:#a0adc5;--muted:#7a8aaa;--subtle:#50607e;
-  --lc:#f59e0b;--lc-lt:#271c04;--lc-dk:#fcd34d;
+  --lc:#34d875;--lc-lt:#0c2618;--lc-dk:#6ee7b7;
   --sh1:0 1px 3px rgba(0,0,0,.3);--sh2:0 4px 20px rgba(0,0,0,.4);--sh3:0 12px 40px rgba(0,0,0,.5);
 }}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -53,7 +53,8 @@ button,input,select,textarea{font-family:inherit}
 .tab-btn{padding:.68rem 1.2rem;border:none;border-bottom:2.5px solid transparent;background:none;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;min-height:46px;margin-bottom:-1px;flex-shrink:0;transition:color .14s}
 .tab-btn:hover{color:var(--lc)}
 .tab-btn.active{color:var(--lc);border-bottom-color:var(--lc);font-weight:800}
-.tab-pane{display:none}.tab-pane.active{display:block}
+.tab-pane{display:none}.tab-pane.active{display:block;animation:fadeIn .18s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .lesson-wrap{max-width:800px;margin:0 auto;padding:1.5rem 1.2rem 5rem;width:100%}
 
 .lesson-hero{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface) 68%);border:1px solid var(--border);border-radius:var(--r-xl);padding:1.8rem 1.6rem 1.6rem;margin-bottom:1.8rem;position:relative;overflow:hidden;box-shadow:var(--sh1)}
@@ -80,12 +81,12 @@ button,input,select,textarea{font-family:inherit}
 .card li strong{color:var(--text)}
 .box{border-radius:var(--r);padding:1rem 1.2rem;font-size:.86rem;line-height:1.72;color:var(--text-mid);margin-bottom:1rem}
 .box strong{font-weight:800}
-.box-lc{background:var(--lc-lt);border:1.5px solid #fde68a}.box-lc strong{color:var(--lc)}
+.box-lc{background:var(--lc-lt);border:1.5px solid #6ee7b7}.box-lc strong{color:var(--lc)}
 .box-blue{background:var(--blue-lt);border:1.5px solid #bfdbfe}.box-blue strong{color:var(--blue)}
 .box-green{background:var(--green-lt);border:1.5px solid #bbf7d0}.box-green strong{color:var(--green)}
 .box-red{background:var(--red-lt);border:1.5px solid #fca5a5}.box-red strong{color:var(--red)}
 .box-purple{background:var(--purple-lt);border:1.5px solid #ddd6fe}.box-purple strong{color:var(--purple)}
-.box-teal{background:var(--teal-lt);border:1.5px solid #99f6e4}.box-teal strong{color:var(--teal)}
+.box-amber{background:var(--amber-lt);border:1.5px solid #fde68a}.box-amber strong{color:var(--amber)}
 
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1rem}
 @media(max-width:500px){.grid2{grid-template-columns:1fr}}
@@ -93,13 +94,23 @@ button,input,select,textarea{font-family:inherit}
 .mini-title{font-size:.76rem;font-weight:800;color:var(--text);margin-bottom:.38rem}
 .mini-body{font-size:.8rem;color:var(--text-mid);line-height:1.65}
 
-.steps-wrap{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1.5px solid #fde68a;border-radius:var(--r-lg);padding:1.4rem 1.5rem;margin-bottom:1rem}
+.steps-wrap{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1.5px solid #6ee7b7;border-radius:var(--r-lg);padding:1.4rem 1.5rem;margin-bottom:1rem}
 .steps-title{font-family:'Secular One',sans-serif;font-size:.94rem;color:var(--lc);margin-bottom:1rem}
 .step-item{display:flex;align-items:flex-start;gap:.65rem;font-size:.86rem;color:var(--text-mid);line-height:1.55;margin-bottom:.68rem}
 .step-item:last-child{margin-bottom:0}
 .step-num{width:26px;height:26px;border-radius:50%;background:var(--lc);color:#fff;font-size:.7rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
 
-/* ══ HOOK — paradox reveal ══ */
+/* ══ OPENING QUESTION ══ */
+.opening-q{border:2px dashed var(--lc);border-radius:var(--r-lg);background:var(--lc-lt);padding:1.2rem 1.4rem;margin-bottom:1.5rem}
+.oq-label{font-size:.65rem;font-weight:800;color:var(--lc);letter-spacing:.06em;margin-bottom:.5rem;text-transform:uppercase}
+.oq-text{font-size:.97rem;font-weight:700;color:var(--text);line-height:1.5}
+.oq-hint{font-size:.8rem;color:var(--muted);margin-top:.45rem}
+
+/* ══ GOTO-PRACTICE BUTTON ══ */
+.goto-practice-btn{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;padding:.95rem 1.4rem;border:none;border-radius:var(--r-pill);background:linear-gradient(135deg,var(--lc),var(--lc-dk));color:#fff;font-size:.9rem;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(5,150,105,.28);transition:all .18s;margin-top:.5rem}
+.goto-practice-btn:hover{transform:translateY(-2px);opacity:.93}
+
+/* ══ PARADOX BOX ══ */
 .paradox-box{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.4rem 1.5rem;margin-bottom:1.2rem;box-shadow:var(--sh2)}
 .paradox-title{font-family:'Secular One',sans-serif;font-size:.95rem;color:var(--lc);margin-bottom:1rem;display:flex;align-items:center;gap:.4rem}
 .paradox-pair{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem;padding-bottom:.8rem;border-bottom:1px dashed var(--border);flex-wrap:wrap}
@@ -107,11 +118,11 @@ button,input,select,textarea{font-family:inherit}
 .pp-wrong{font-family:'Secular One',sans-serif;font-size:1.1rem;padding:.35rem .7rem;border-radius:var(--r);background:var(--red-lt);border:2px solid #fca5a5;color:var(--red);min-width:120px;text-align:center;flex-shrink:0;position:relative}
 .pp-wrong::after{content:'✗';position:absolute;top:-8px;left:-8px;background:var(--red);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.65rem;display:flex;align-items:center;justify-content:center;font-weight:900}
 .pp-arrow{font-size:1.3rem;color:var(--muted);flex-shrink:0}
-.pp-right{font-family:'Secular One',sans-serif;font-size:1.1rem;padding:.35rem .7rem;border-radius:var(--r);background:var(--green-lt);border:2px solid #bbf7d0;color:var(--green);min-width:120px;text-align:center;flex-shrink:0;position:relative}
-.pp-right::after{content:'✓';position:absolute;top:-8px;left:-8px;background:var(--green);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.65rem;display:flex;align-items:center;justify-content:center;font-weight:900}
+.pp-right{font-family:'Secular One',sans-serif;font-size:1.1rem;padding:.35rem .7rem;border-radius:var(--r);background:var(--lc-lt);border:2px solid #6ee7b7;color:var(--lc);min-width:120px;text-align:center;flex-shrink:0;position:relative}
+.pp-right::after{content:'✓';position:absolute;top:-8px;left:-8px;background:var(--lc);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.65rem;display:flex;align-items:center;justify-content:center;font-weight:900}
 .pp-explain{flex:1;min-width:150px;font-size:.8rem;color:var(--text-mid);line-height:1.55;border-right:3px solid var(--lc);padding-right:.6rem}
 
-/* ══ THE BIG TABLE ══ */
+/* ══ NUMBER TABLE ══ */
 .num-table{width:100%;border-collapse:collapse;font-size:.83rem;margin-bottom:1rem;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh1)}
 .num-table th{padding:.68rem .9rem;text-align:center;font-weight:800;font-size:.76rem}
 .num-table th:first-child{background:var(--lc);color:#fff;text-align:right}
@@ -125,11 +136,9 @@ button,input,select,textarea{font-family:inherit}
 .num-table tr:nth-child(odd) td:not(:first-child){background:var(--surface)}
 .num-table .form-m{color:#1a56db;font-weight:700;font-family:'Secular One',sans-serif;font-size:.9rem}
 .num-table .form-f{color:#be185d;font-weight:700;font-family:'Secular One',sans-serif;font-size:.9rem}
-.num-table .form-inv{background:linear-gradient(135deg,#fef3c7,#fff);font-weight:900}
-.num-table .form-inv .form-m{color:#92400e}
-.num-table .form-inv .form-f{color:#9d174d}
-.inv-badge{display:inline-block;font-size:.55rem;font-weight:800;padding:.1rem .35rem;border-radius:var(--r-pill);background:var(--lc);color:#fff;vertical-align:middle;margin-right:2px}
-.reg-badge{display:inline-block;font-size:.55rem;font-weight:800;padding:.1rem .35rem;border-radius:var(--r-pill);background:var(--green);color:#fff;vertical-align:middle;margin-right:2px}
+.num-table .form-inv{background:linear-gradient(135deg,var(--lc-lt),#fff)}
+.inv-badge{display:inline-block;font-size:.55rem;font-weight:800;padding:.1rem .35rem;border-radius:var(--r-pill);background:var(--lc);color:#fff;vertical-align:middle;margin-left:3px}
+.reg-badge{display:inline-block;font-size:.55rem;font-weight:800;padding:.1rem .35rem;border-radius:var(--r-pill);background:var(--green);color:#fff;vertical-align:middle;margin-left:3px}
 
 /* ══ RULE CARDS ══ */
 .rule-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1.2rem}
@@ -141,7 +150,7 @@ button,input,select,textarea{font-family:inherit}
 .rule-card.spec::before{background:var(--purple)}
 .rule-card.trap::before{background:var(--red)}
 .rc-tag{font-size:.62rem;font-weight:800;padding:.2rem .6rem;border-radius:var(--r-pill);display:inline-block;margin-bottom:.42rem;border:1px solid}
-.rule-card.inv .rc-tag{background:var(--lc-lt);color:var(--lc);border-color:#fde68a}
+.rule-card.inv .rc-tag{background:var(--lc-lt);color:var(--lc);border-color:#6ee7b7}
 .rule-card.reg .rc-tag{background:var(--green-lt);color:var(--green);border-color:#bbf7d0}
 .rule-card.spec .rc-tag{background:var(--purple-lt);color:var(--purple);border-color:#ddd6fe}
 .rule-card.trap .rc-tag{background:var(--red-lt);color:var(--red);border-color:#fca5a5}
@@ -153,7 +162,7 @@ button,input,select,textarea{font-family:inherit}
 .rc-body{font-size:.82rem;color:var(--text-mid);line-height:1.62}
 .rc-examples{display:flex;flex-wrap:wrap;gap:.28rem;margin-top:.45rem}
 .rc-ex{font-size:.78rem;font-weight:700;padding:.16rem .48rem;border-radius:var(--r-pill);background:var(--surface2);border:1px solid var(--border)}
-.rule-card.inv .rc-ex{background:var(--lc-lt);color:var(--lc-dk);border-color:#fde68a}
+.rule-card.inv .rc-ex{background:var(--lc-lt);color:var(--lc-dk);border-color:#6ee7b7}
 .rule-card.reg .rc-ex{background:var(--green-lt);color:var(--green);border-color:#bbf7d0}
 .rule-card.spec .rc-ex{background:var(--purple-lt);color:var(--purple);border-color:#ddd6fe}
 .rule-card.trap .rc-ex{background:var(--red-lt);color:var(--red);border-color:#fca5a5}
@@ -172,24 +181,48 @@ button,input,select,textarea{font-family:inherit}
 .oform-m{color:#1a56db;font-weight:700;font-family:'Secular One',sans-serif;font-size:.88rem}
 .oform-f{color:#be185d;font-weight:700;font-family:'Secular One',sans-serif;font-size:.88rem}
 
-/* Reading text */
+/* ══ GENDER FLIP DEMO (new component) ══ */
+.gf-demo{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.3rem 1.5rem;margin-bottom:1.2rem;box-shadow:var(--sh2)}
+.gf-title{font-family:'Secular One',sans-serif;font-size:.88rem;color:var(--lc);margin-bottom:1rem;display:flex;align-items:center;gap:.4rem}
+.gf-row{display:grid;grid-template-columns:1fr 40px 1fr;align-items:center;gap:.5rem;margin-bottom:.7rem;padding-bottom:.7rem;border-bottom:1px dashed var(--border)}
+.gf-row:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.gf-cell{border-radius:var(--r);padding:.5rem .8rem;text-align:center;font-family:'Secular One',sans-serif;font-size:.95rem;font-weight:700}
+.gf-m{background:var(--blue-lt);border:2px solid #bfdbfe;color:#1a56db}
+.gf-f{background:var(--rose-lt);border:2px solid #fecdd3;color:#be185d}
+.gf-flip{font-size:1.2rem;text-align:center;color:var(--lc)}
+.gf-label{font-size:.65rem;font-weight:800;text-align:center;margin-top:.2rem;letter-spacing:.04em}
+.gf-m .gf-label{color:#1a56db}
+.gf-f .gf-label{color:#be185d}
+
+/* ══ CONSTRUCT (SMIKHUT) STRIP ══ */
+.smikhut-strip{background:linear-gradient(135deg,var(--lc-lt),var(--surface2));border:1.5px solid #6ee7b7;border-radius:var(--r-lg);padding:1.1rem 1.3rem;margin-bottom:1rem}
+.ss-title{font-family:'Secular One',sans-serif;font-size:.85rem;color:var(--lc);margin-bottom:.8rem;display:flex;align-items:center;gap:.4rem}
+.ss-row{display:flex;align-items:center;gap:.6rem;margin-bottom:.55rem;flex-wrap:wrap}
+.ss-num{font-size:.72rem;font-weight:800;background:var(--lc);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ss-from{font-family:'Secular One',sans-serif;font-size:.88rem;color:var(--text-mid);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.25rem .65rem}
+.ss-arrow{color:var(--lc);font-size:.9rem;font-weight:800}
+.ss-to{font-family:'Secular One',sans-serif;font-size:.88rem;font-weight:700;color:var(--lc);background:var(--lc-lt);border:1.5px solid #6ee7b7;border-radius:var(--r);padding:.25rem .65rem}
+.ss-ex{font-size:.75rem;color:var(--muted);margin-right:.3rem}
+
+/* ══ READING ══ */
 .reading-text-box{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.5rem 1.6rem;margin-bottom:1.8rem;box-shadow:var(--sh2);position:relative}
 .reading-text-box::before{content:'📄 טקסט לניתוח';position:absolute;top:-12px;right:1.4rem;background:var(--lc);color:#fff;font-size:.65rem;font-weight:800;padding:.22rem .85rem;border-radius:var(--r-pill);letter-spacing:.04em}
 .rt-title{font-family:'Secular One',sans-serif;font-size:1.05rem;color:var(--text);margin-bottom:.28rem}
 .rt-body{font-size:.88rem;line-height:1.88;color:var(--text-mid)}
 .rt-body p{margin-bottom:.85rem}
 .rt-body p:last-child{margin-bottom:0}
-.rt-body strong{color:var(--text);font-weight:700}
+.rt-body strong{color:var(--lc);font-weight:800}
+.rt-error{color:var(--red);font-weight:800;background:var(--red-lt);border-radius:4px;padding:.05rem .3rem;border:1px solid #fca5a5}
 
-/* Quiz */
-.quiz-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1px solid #fde68a;border-radius:var(--r-lg);padding:1.25rem 1.4rem;margin-bottom:1.5rem}
+/* ══ QUIZ ══ */
+.quiz-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);border:1px solid #6ee7b7;border-radius:var(--r-lg);padding:1.25rem 1.4rem;margin-bottom:1.5rem}
 .quiz-hd-title{font-family:'Secular One',sans-serif;font-size:.97rem;color:var(--lc);margin-bottom:.32rem}
 .quiz-hd-desc{font-size:.82rem;color:var(--muted)}
 .quiz-prog-bar{height:5px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-top:.8rem;border:1px solid var(--border)}
-.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--lc),#fcd34d);border-radius:var(--r-pill);transition:width .38s ease}
+.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--lc),#34d399);border-radius:var(--r-pill);transition:width .38s ease}
 .quiz-prog-row{display:flex;justify-content:space-between;margin-top:.38rem;font-size:.7rem;color:var(--muted)}
 .q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.3rem 1.4rem;margin-bottom:1.25rem;box-shadow:var(--sh1);transition:border-color .2s}
-.q-card.ok{border-color:#bbf7d0}.q-card.wrong{border-color:#fca5a5}
+.q-card.ok{border-color:#6ee7b7}.q-card.wrong{border-color:#fca5a5}
 .q-num{font-size:.66rem;font-weight:800;color:var(--subtle);margin-bottom:.55rem;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
 .q-type-badge{font-size:.56rem;font-weight:700;padding:.14rem .52rem;border-radius:var(--r-pill);background:var(--surface3);color:var(--muted);border:1px solid var(--border)}
 .q-text{font-size:.94rem;font-weight:700;color:var(--text);line-height:1.52;margin-bottom:1.05rem}
@@ -213,7 +246,7 @@ button,input,select,textarea{font-family:inherit}
 .tf-btn:disabled{cursor:default}
 .sort-list{display:flex;flex-direction:column;gap:.42rem;margin-bottom:.55rem}
 .sort-item{display:flex;align-items:center;gap:.68rem;padding:.74rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);cursor:grab;transition:all .15s;user-select:none}
-.sort-item:active{cursor:grabbing;box-shadow:var(--sh2)}
+.sort-item:active{cursor:grabbing}
 .sort-item.dragging{opacity:.45}
 .sort-item.drag-over{border-color:var(--lc);background:var(--lc-lt)}
 .sort-handle{font-size:1.1rem;color:var(--muted);flex-shrink:0}
@@ -223,77 +256,94 @@ button,input,select,textarea{font-family:inherit}
 .q-feedback.show{display:block}
 .q-feedback.ok{background:var(--green-lt);color:var(--green);border-color:var(--green)}
 .q-feedback.wrong{background:var(--red-lt);color:var(--red);border-color:var(--red)}
+.open-wrap{position:relative}
+.open-textarea{width:100%;border:1.5px solid var(--border);border-radius:var(--r);padding:.85rem 1rem;font-size:.88rem;resize:vertical;min-height:110px;background:var(--surface2);color:var(--text);line-height:1.65}
+.open-textarea:focus{border-color:var(--lc);outline:none}
+.open-textarea:disabled{opacity:.65;background:var(--surface3)}
+.open-hint{font-size:.72rem;color:var(--muted);margin-top:.3rem}
+.open-rubric{margin-top:.6rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid)}
 .results-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:2.2rem 1.8rem;text-align:center;box-shadow:var(--sh2);margin-top:1.5rem}
 .results-emoji{font-size:4rem;margin-bottom:.8rem;display:block}
 .results-score{font-family:'Secular One',sans-serif;font-size:3.4rem;font-weight:800;margin-bottom:.3rem;display:block}
 .results-label{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem;display:block}
 .results-bar{height:10px;background:var(--surface3);border-radius:var(--r-pill);overflow:hidden;margin-bottom:1.6rem;border:1px solid var(--border)}
 .results-bar-fill{height:100%;border-radius:var(--r-pill);transition:width 1.2s cubic-bezier(.22,1,.36,1)}
-.btn-submit{padding:.85rem 2rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(180,83,9,.28);transition:all .15s;min-height:48px}
+.btn-submit{padding:.85rem 2rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(5,150,105,.28);transition:all .15s;min-height:48px}
 .btn-submit:hover{background:var(--lc-dk);transform:translateY(-1px)}
 .btn-reset{padding:.82rem 1.6rem;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);color:var(--muted);font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:48px}
-.btn-reset:hover{background:var(--surface3);color:var(--text)}
-.btn-send{padding:.82rem 1.8rem;border:none;border-radius:var(--r-pill);background:var(--green);color:#fff;font-size:.86rem;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(21,128,61,.3);transition:all .15s;min-height:48px}
-.btn-send:hover{transform:translateY(-1px)}
+.btn-send{padding:.82rem 1.8rem;border:none;border-radius:var(--r-pill);background:var(--green);color:#fff;font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;min-height:48px}
 .answers-locked{background:var(--surface);border:2px dashed var(--border);border-radius:var(--r-xl);padding:2.5rem 2rem;text-align:center;margin-top:.5rem}
 .answer-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.05rem 1.2rem;margin-bottom:.78rem}
 .ans-num{font-size:.66rem;color:var(--subtle);margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem}
 .ans-q{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.5rem;line-height:1.45}
-.ans-correct{background:var(--green-lt);border:1.5px solid #bbf7d0;border-radius:9px;padding:.55rem .95rem;font-size:.82rem;color:var(--green);font-weight:700;margin-bottom:.42rem}
-.ans-explain{font-size:.78rem;color:var(--muted);line-height:1.58;border-right:3px solid var(--border);padding-right:.78rem;margin-top:.4rem}
-.ans-teacher-note{font-size:.78rem;font-weight:700;color:var(--lc);margin-top:.38rem;background:var(--lc-lt);border-radius:8px;padding:.42rem .75rem}
-#student-gate{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:0;margin-bottom:1.5rem;box-shadow:var(--sh2);overflow:hidden}
-#student-gate.hidden{display:none}
-.gate-header{background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface2) 100%);padding:1.4rem 1.5rem 1.2rem;text-align:center;border-bottom:1px solid var(--border)}
-.gate-icon{font-size:2.4rem;display:block;margin-bottom:.55rem}
-.gate-title{font-family:'Secular One',sans-serif;font-size:1.08rem;color:var(--text);margin-bottom:.28rem}
-.gate-desc{font-size:.8rem;color:var(--muted);line-height:1.55}
-.gate-body{padding:1.3rem 1.5rem 1.5rem;display:flex;flex-direction:column;gap:.9rem}
-.gate-field label{display:block;font-size:.72rem;font-weight:800;color:var(--muted);margin-bottom:.38rem;letter-spacing:.02em}
-.gate-input{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;min-height:50px}
-.gate-input::placeholder{color:var(--subtle)}
-.gate-input:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(180,83,9,.14)}
-.gate-input.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.1)}
-.gate-select{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);font-size:.92rem;color:var(--text);outline:none;transition:border-color .15s;min-height:50px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7594' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 1rem center}
-.gate-select:focus{border-color:var(--lc);box-shadow:0 0 0 3px rgba(180,83,9,.14)}
-.gate-select.err{border-color:var(--red)}
-.gate-err-msg{font-size:.7rem;color:var(--red);margin-top:.26rem;display:none}
-.gate-err-msg.show{display:block}
-.gate-date-display{padding:.78rem 1rem;background:var(--surface3);border:1.5px solid var(--border);border-radius:var(--r);font-size:.88rem;color:var(--muted)}
-.gate-btn{width:100%;padding:.88rem;border:none;border-radius:var(--r-pill);background:var(--lc);color:#fff;font-size:.92rem;font-weight:700;cursor:pointer;min-height:52px;box-shadow:0 4px 18px rgba(180,83,9,.28);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.45rem}
-.gate-btn:hover{background:var(--lc-dk);transform:translateY(-1px)}
-.gate-btn:active{transform:scale(.97)}
-#gate-confirmed{display:none;background:var(--green-lt);border:2px solid #bbf7d0;border-radius:var(--r-xl);padding:1rem 1.3rem;margin-bottom:1.5rem;align-items:center;gap:.85rem}
-#gate-confirmed.show{display:flex}
-#gate-confirmed.hidden{display:none!important}
-.gc-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#15803d,#16a34a);color:#fff;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.gc-info{flex:1;min-width:0}
-.gc-name{font-size:.92rem;font-weight:800;color:var(--green)}
-.gc-meta{font-size:.74rem;color:var(--text-mid);margin-top:.15rem}
-.gc-change{font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;margin-top:.22rem;display:block}
-#toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%) translateY(14px);background:var(--text);color:var(--bg);padding:.58rem 1.4rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:700;box-shadow:var(--sh3);z-index:9999;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;white-space:nowrap}
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media print{
-  .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,#submit-row,#results-container,#toast,#student-gate,#gate-confirmed,.sort-handle{display:none!important}
-  body{background:#fff;color:#000;font-size:10pt}html{background:#fff}
-  .tab-pane{display:block!important}
-  .lesson-wrap{padding:.5cm 1cm;max-width:100%}
-  .lesson-hero,.card,.q-card,.reading-text-box,.answer-row,.paradox-box,.num-table,.order-table{box-shadow:none;break-inside:avoid}
-  .print-header{display:block!important;text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #b45309}
-  .print-header h1{font-size:16pt;color:#b45309}
-  #pane-theory{page-break-after:always}
-  #pane-practice{page-break-after:always}
-  @page{margin:1.5cm;size:A4}
-}
-.print-header{display:none}
+.ans-correct{background:var(--lc-lt);color:var(--lc);border-radius:var(--r);padding:.42rem .8rem;font-size:.84rem;font-weight:700;margin-bottom:.35rem}
+.ans-explain{font-size:.8rem;color:var(--muted);line-height:1.58;border-right:3px solid var(--lc-lt);padding-right:.65rem}
+.ans-teacher-note{font-size:.76rem;color:var(--amber);background:var(--amber-lt);border-radius:var(--r);padding:.3rem .7rem;margin-top:.3rem}
 
-/* open question */
-.open-wrap{margin-bottom:.5rem}
-.open-textarea{width:100%;min-height:100px;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r,8px);background:var(--surface2,#f8fafc);font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--text,#0d1424);line-height:1.7;resize:vertical;outline:none;transition:border-color .15s}
-.open-textarea:focus{border-color:var(--lc)}
-.open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}
-.open-hint{font-size:.72rem;color:var(--muted,#9aa3be);margin-top:.3rem}
-.open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid,#374151)}
+/* ── GATE ── */
+.gate-header{text-align:center;padding:1.8rem 1rem 1rem}
+.gate-icon{font-size:3rem;display:block;margin-bottom:.6rem}
+.gate-title{font-family:'Secular One',sans-serif;font-size:1.3rem;margin-bottom:.3rem}
+.gate-desc{font-size:.84rem;color:var(--muted)}
+.gate-body{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:1.5rem;max-width:440px;margin:.8rem auto 2rem;box-shadow:var(--sh2)}
+.gate-field{margin-bottom:1.1rem}
+.gate-field label{display:block;font-size:.78rem;font-weight:700;color:var(--text-mid);margin-bottom:.4rem}
+.gate-input,.gate-select{width:100%;padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);font-size:.9rem;background:var(--surface2);color:var(--text)}
+.gate-input:focus,.gate-select:focus{border-color:var(--lc);outline:none}
+.gate-input.err,.gate-select.err{border-color:var(--red)}
+.gate-err-msg{font-size:.72rem;color:var(--red);margin-top:.25rem;display:none}
+.gate-err-msg.show{display:block}
+.gate-date-display{padding:.7rem 1rem;background:var(--surface3);border-radius:var(--r);font-size:.85rem;color:var(--muted)}
+.gate-btn{width:100%;padding:.9rem;background:var(--lc);color:#fff;border:none;border-radius:var(--r-pill);font-size:.92rem;font-weight:700;cursor:pointer;margin-top:.4rem}
+.gate-btn:hover{background:var(--lc-dk)}
+.hidden{display:none!important}
+#gate-confirmed{display:none;align-items:center;gap:.85rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:1rem 1.2rem;max-width:440px;margin:.8rem auto 1.5rem;box-shadow:var(--sh1)}
+#gate-confirmed.show{display:flex}
+.gc-avatar{width:44px;height:44px;border-radius:50%;background:var(--lc);color:#fff;font-size:1.2rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gc-name{font-weight:700;font-size:.92rem}
+.gc-meta{font-size:.74rem;color:var(--muted);margin-top:.12rem}
+.gc-change{font-size:.7rem;color:var(--lc);background:none;border:none;cursor:pointer;padding:0;margin-top:.18rem;font-weight:700}
+#practice-content-wrap{display:none}
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:#1e293b;color:#fff;padding:.65rem 1.4rem;border-radius:var(--r-pill);font-size:.84rem;font-weight:600;opacity:0;pointer-events:none;transition:all .3s;z-index:999;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ══ DECISION FLOW ══ */
+.decision-flow{background:var(--surface);border:2px solid var(--lc);border-radius:var(--r-xl);padding:1.4rem 1.5rem;margin-bottom:1.2rem;box-shadow:var(--sh2)}
+.df-step{background:var(--lc-lt);border:1.5px solid #6ee7b7;border-radius:var(--r-lg);padding:1rem 1.2rem;margin-bottom:.4rem;display:flex;align-items:flex-start;gap:.75rem}
+.df-start{border-color:var(--lc);background:linear-gradient(135deg,var(--lc-lt),#fff)}
+.df-mid{border-color:#6ee7b7;background:var(--surface2)}
+.df-end{border-color:var(--green);background:var(--green-lt)}
+.df-icon{font-size:1.4rem;flex-shrink:0;line-height:1;margin-top:.1rem}
+.df-content{flex:1;font-size:.86rem;color:var(--text-mid);line-height:1.55}
+.df-content strong{color:var(--text)}
+.df-opts{display:flex;flex-wrap:wrap;gap:.38rem;margin-top:.55rem}
+.df-opt{font-size:.72rem;font-weight:700;padding:.22rem .65rem;border-radius:var(--r-pill);border:1px solid}
+.df-a{background:var(--green-lt);color:var(--green);border-color:#bbf7d0}
+.df-b{background:var(--red-lt);color:var(--red);border-color:#fca5a5}
+.df-c{background:var(--blue-lt);color:var(--blue);border-color:#bfdbfe}
+.df-d{background:var(--purple-lt);color:var(--purple);border-color:#ddd6fe}
+.df-connector{text-align:center;font-size:1.4rem;color:var(--lc);font-weight:900;margin:.2rem 0;line-height:1}
+.df-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin-bottom:.4rem}
+@media(max-width:580px){.df-row{grid-template-columns:1fr 1fr}}
+.df-branch{border-radius:var(--r);padding:.75rem .85rem;font-size:.76rem;line-height:1.55;text-align:center}
+.df-branch strong{display:block}
+.df-branch small{font-size:.68rem;color:var(--muted);margin-top:.28rem;display:block;direction:rtl}
+.df-branch em{font-size:.74rem;display:block;font-style:normal;margin-top:.18rem}
+.df-branch-label{font-family:'Secular One',sans-serif;font-size:.82rem;margin-bottom:.42rem;display:block}
+.df-branch-body{font-size:.74rem;line-height:1.5}
+.df-green{background:var(--green-lt);border:1.5px solid #bbf7d0}.df-green .df-branch-label{color:var(--green)}
+.df-red{background:var(--red-lt);border:1.5px solid #fca5a5}.df-red .df-branch-label{color:var(--red)}
+.df-blue{background:var(--blue-lt);border:1.5px solid #bfdbfe}.df-blue .df-branch-label{color:var(--blue)}
+.df-purple{background:var(--purple-lt);border:1.5px solid #ddd6fe}.df-purple .df-branch-label{color:var(--purple)}
+
+/* ── PRINT ── */
+.print-header{display:none}
+@media print{
+  .topbar,.tabs-bar,.btn-print,.btn-submit,.btn-reset,.btn-send,.goto-practice-btn,#submit-row,#results-container,#student-gate,#gate-confirmed,.hero-meta,.hero-badge{display:none!important}
+  .tab-pane{display:block!important}
+  .print-header{display:block;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid var(--lc)}
+  body{background:#fff}
+}
 </style>
 </head>
 <body>
@@ -302,7 +352,7 @@ button,input,select,textarea{font-family:inherit}
   <button class="btn-back" onclick="goBack()">←</button>
   <div class="topbar-info">
     <div class="topbar-title">📏 שם המספר — המספר המונה</div>
-    <div class="topbar-sub">יחידה 4 — תקינות · שיעור 1</div>
+    <div class="topbar-sub">יחידה 4 — תקינות · שיעור 1 מתוך 6</div>
   </div>
   <div class="topbar-actions">
     <span class="t-chip lc">⏱ 45 דק׳</span>
@@ -318,9 +368,7 @@ button,input,select,textarea{font-family:inherit}
   <button class="tab-btn" id="btn-answers-student" onclick="switchTab('answers')" style="display:none">💡 תשובות</button>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     THEORY
-══════════════════════════════════════════════ -->
+<!-- THEORY -->
 <div class="tab-pane active" id="pane-theory">
 <div class="print-header">
   <h1>📏 שיעור 1 — שם המספר: המספר המונה</h1>
@@ -329,90 +377,87 @@ button,input,select,textarea{font-family:inherit}
 <div class="lesson-wrap">
 
   <div class="lesson-hero">
-    <div class="hero-badge">יחידה 4 · שיעור 1</div>
+    <div class="hero-badge">יחידה 4 · שיעור 1 מתוך 6</div>
     <span class="hero-emoji">📏</span>
     <h1 class="hero-title">שם המספר — המספר המונה</h1>
-    <p class="hero-desc">המספרים בעברית הם אחד הנושאים המבלבלים ביותר — גם לדוברי שפת אם! הסיבה: העברית הפכה את הכללים. "שלושה ילדים" (המספר בנקבה, השם בזכר) — ומה הסיבה? כאן תלמדו הכל, כולל כל המלכודות</p>
+    <p class="hero-desc">המספרים בעברית הם אחד הנושאים המבלבלים ביותר — גם לדוברי שפת אם! הסיבה: בין 3 ל-10, העברית הפכה את הכללים. "שלושה ילדים" (המספר בצורת נקבה, השם בזכר). נלמד הכל: ההסכמה ההפוכה, הנסמך, ומלכודת שמונה.</p>
     <div class="hero-meta">
       <span class="hero-chip lc">⏱ 45 דק׳</span>
-      <span class="hero-chip">📏 שם המספר</span>
+      <span class="hero-chip">📏 21 שאלות</span>
       <span class="hero-chip new">✅ יחידה 4 חדשה</span>
       <span class="hero-chip green">🎯 שיעור 1</span>
     </div>
   </div>
 
-  <!-- סעיף 1 — HOOK: הפרדוקס -->
+  <!-- שאלת פתיחה -->
+  <div class="opening-q">
+    <div class="oq-label">💭 שאלת פתיחה — חשבו לפני שלומדים</div>
+    <div class="oq-text">מה ההבדל בין "שלוש ילדות" לבין "שלושה ילדים"? למה המספר שונה אם השם שונה?</div>
+    <div class="oq-hint">רמז: ב-3–10 עברית עושה משהו מפתיע...</div>
+  </div>
+
+  <!-- סעיף 1 — הפרדוקס -->
   <div class="section-hd"><span class="sn-icon">🤯</span><div class="sn">1</div>החידה — למה "שלושה ילדים" ולא "שלוש ילדים"?</div>
   <div class="card">
-    <p>אם "ילד" הוא <strong>זכר</strong> — מדוע אנחנו אומרים <strong>"שלושה"</strong> (צורה שנראית כמו נקבה עם ה׳ בסוף) ולא "שלוש"?<br>
-    ואם "ילדה" היא <strong>נקבה</strong> — מדוע אנחנו אומרים <strong>"שלוש"</strong> (ללא ה׳ — הצורה שנראית כמו זכר)?</p>
-    <p>התשובה: בעברית, <strong>המספרים 3–10 הם "הפכפכים"</strong> — הם מסכימים עם השם בצורה הפוכה ממה שמצפים! זוהי תכונה עתיקה של הלשון השמית, ולא שגיאה.</p>
+    <p>אם "ילד" הוא <strong>זכר</strong> — מדוע אנחנו אומרים <strong>"שלושה"</strong> (צורה שנראית כמו נקבה עם ה׳ בסוף) ולא "שלוש"? ואם "ילדה" היא <strong>נקבה</strong> — מדוע אנחנו אומרים <strong>"שלוש"</strong> (ללא ה׳ — הצורה שנראית כמו זכר)?</p>
+    <p>התשובה: בעברית, <strong>המספרים 3–10 הם "הפכפכים"</strong> — הם מסכימים עם השם בצורה הפוכה ממה שמצפים. זוהי תכונה עתיקה של הלשון השמית, ולא שגיאה.</p>
   </div>
 
   <div class="paradox-box">
-    <div class="paradox-title">🤯 הפרדוקס — שגוי לעומת נכון</div>
-
+    <div class="paradox-title">🤯 הפרדוקס — שגוי מול נכון</div>
     <div class="paradox-pair">
       <div class="pp-wrong">שלוש ילדים</div>
       <div class="pp-arrow">→</div>
       <div class="pp-right">שלושה ילדים</div>
-      <div class="pp-explain">"ילד" = זכר → מספר = <strong>צורת נקבה</strong> (שלושה = נקבה). הפרדוקס: המספר לובש את הסיומת ה״נשית״ -ה כשהשם זכר.</div>
+      <div class="pp-explain">"ילד" = זכר → מספר = <strong>צורת נקבה</strong> (שלושה). הפרדוקס: המספר לובש את הסיומת הנשית כשהשם זכר.</div>
     </div>
-
     <div class="paradox-pair">
       <div class="pp-wrong">שלושה ילדות</div>
       <div class="pp-arrow">→</div>
       <div class="pp-right">שלוש ילדות</div>
-      <div class="pp-explain">"ילדה" = נקבה → מספר = <strong>צורת זכר</strong> (שלוש = זכר). ה״זכרית״ חסרת ה׳ מופיעה עם שם נקבה.</div>
+      <div class="pp-explain">"ילדה" = נקבה → מספר = <strong>צורת זכר</strong> (שלוש, ללא ה׳). הצורה חסרת הה׳ מופיעה דווקא עם שם נקבה.</div>
     </div>
-
     <div class="paradox-pair">
       <div class="pp-wrong">עשרה שנים</div>
       <div class="pp-arrow">→</div>
       <div class="pp-right">עשר שנים</div>
-      <div class="pp-explain">"שנה" = נקבה → מספר = "עשר" (צורת זכר). הכלל: 3–10 → הפכפכים תמיד.</div>
+      <div class="pp-explain">"שנה" = נקבה → מספר = "עשר" (צורת זכר, ללא ה׳). הכלל: 3–10 → הפכפכים תמיד.</div>
     </div>
-
     <div class="paradox-pair">
       <div class="pp-wrong">עשר ימים</div>
       <div class="pp-arrow">→</div>
       <div class="pp-right">עשרה ימים</div>
-      <div class="pp-explain">"יום" = זכר → מספר = "עשרה" (ה׳ בסוף = צורת נקבה). וכן: "עשרה אנשים", "עשרה בנים".</div>
+      <div class="pp-explain">"יום" = זכר → מספר = "עשרה" (עם ה׳). "עשרה אנשים", "עשרה בנים" — אותו כלל.</div>
     </div>
   </div>
+  <div class="box box-lc">📏 <strong>הכלל המרכזי (3–10):</strong> שם <strong>זכר</strong> → המספר בצורת <strong>נקבה</strong> (עם ה׳). שם <strong>נקבה</strong> → המספר בצורת <strong>זכר</strong> (בלי ה׳). זוהי "הסכמה הפוכה" — תכונה ייחודית ועתיקה של עברית.</div>
 
-  <div class="box box-lc">📏 <strong>הכלל המרכזי (3–10):</strong> כשהשם <strong>זכר</strong> → המספר בצורת <strong>נקבה</strong> (עם ה׳). כשהשם <strong>נקבה</strong> → המספר בצורת <strong>זכר</strong> (בלי ה׳). זהו "הסכמה הפוכה" — תכונה ייחודית ועתיקה של עברית.</div>
-
-  <!-- סעיף 2 — מבנה שם המספר: 1–2 -->
-  <div class="section-hd"><span class="sn-icon">1️⃣</span><div class="sn">2</div>מספרים 1 ו-2 — הסכמה רגילה</div>
+  <!-- סעיף 2 — 1 ו-2 -->
+  <div class="section-hd"><span class="sn-icon">1️⃣</span><div class="sn">2</div>מספרים 1 ו-2 — הסכמה רגילה (לא הפוכה!)</div>
   <div class="card">
-    <p>בניגוד ל-3–10, המספרים <strong>1 ו-2</strong> מסכימים עם השם בצורה <strong>רגילה</strong> (ולא הפוכה): זכר = צורת זכר, נקבה = צורת נקבה.</p>
+    <p>בניגוד ל-3–10, המספרים <strong>1 ו-2</strong> מסכימים עם השם בצורה <strong>רגילה</strong>: זכר = צורת זכר, נקבה = צורת נקבה. אין הפתעות.</p>
     <ul>
-      <li><strong>1 —</strong> "אֶחָד" (זכר): "יֶלֶד אֶחָד", "אִישׁ אֶחָד" | "אַחַת" (נקבה): "יַלְדָּה אַחַת", "אִשָּׁה אַחַת"</li>
-      <li><strong>2 —</strong> "שְׁנַיִם" (זכר): "שְׁנֵי יְלָדִים", "שְׁנַיִם" | "שְׁתַּיִם" (נקבה): "שְׁתֵּי יַלְדּוֹת", "שְׁתַּיִם"</li>
+      <li><strong>1:</strong> "אֶחָד" (זכר) — "יֶלֶד אֶחָד", "אִישׁ אֶחָד". "אַחַת" (נקבה) — "יַלְדָּה אַחַת", "שָׁנָה אַחַת"</li>
+      <li><strong>2:</strong> "שְׁנֵי/שְׁנַיִם" (זכר) — "שְׁנֵי יְלָדִים". "שְׁתֵּי/שְׁתַּיִם" (נקבה) — "שְׁתֵּי יַלְדּוֹת"</li>
     </ul>
   </div>
-  <div class="grid2">
-    <div class="mini-card" style="border-color:#1a56db;background:linear-gradient(135deg,var(--blue-lt),#fff)">
-      <div class="mini-title" style="color:#1a56db">🔵 1 — "אחד/אחת"</div>
-      <div class="mini-body">
-        <strong>זכר:</strong> יֶלֶד <strong>אֶחָד</strong>, בֵּית <strong>אֶחָד</strong><br>
-        <strong>נקבה:</strong> יַלְדָּה <strong>אַחַת</strong>, שָׁנָה <strong>אַחַת</strong><br>
-        <em>מסכים רגיל — זכר עם זכר, נקבה עם נקבה</em>
-      </div>
+
+  <div class="gf-demo">
+    <div class="gf-title">🔢 1 ו-2: הסכמה רגילה — זכר עם זכר, נקבה עם נקבה</div>
+    <div class="gf-row">
+      <div class="gf-cell gf-m">יֶלֶד <strong>אֶחָד</strong><div class="gf-label">זכר → אחד</div></div>
+      <div class="gf-flip">✔</div>
+      <div class="gf-cell gf-f">יַלְדָּה <strong>אַחַת</strong><div class="gf-label">נקבה → אחת</div></div>
     </div>
-    <div class="mini-card" style="border-color:#be185d;background:linear-gradient(135deg,var(--rose-lt),#fff)">
-      <div class="mini-title" style="color:#be185d">🔴 2 — "שניים/שתיים"</div>
-      <div class="mini-body">
-        <strong>זכר:</strong> <strong>שְׁנֵי</strong> יְלָדִים, <strong>שְׁנֵי</strong> בָּתִּים<br>
-        <strong>נקבה:</strong> <strong>שְׁתֵּי</strong> יַלְדּוֹת, <strong>שְׁתֵּי</strong> שָׁנִים<br>
-        <em>גם 2 = הסכמה רגילה (לא הפוכה)</em>
-      </div>
+    <div class="gf-row">
+      <div class="gf-cell gf-m"><strong>שְׁנֵי</strong> ילדים<div class="gf-label">זכר → שני</div></div>
+      <div class="gf-flip">✔</div>
+      <div class="gf-cell gf-f"><strong>שְׁתֵּי</strong> ילדות<div class="gf-label">נקבה → שתי</div></div>
     </div>
   </div>
-  <div class="box box-blue">🔵 <strong>שים/י לב:</strong> "שניים/שתיים" = עמידה עצמאית. "שני/שתי" = לפני שם עצם. "שְׁנֵי כוסות" (לא "שניים כוסות"). "שְׁתֵּי בנות" (לא "שתיים בנות"). הצורה הנסמכת "שני/שתי" = לפני שם; "שניים/שתיים" = עצמאי.</div>
+  <div class="box box-blue">🔵 <strong>שים/י לב:</strong> "שניים/שתיים" = עמידה עצמאית ("כמה? שניים"). "שני/שתי" = לפני שם עצם. "שְׁנֵי כוסות" (לא "שניים כוסות"). "שְׁתֵּי בנות" (לא "שתיים בנות"). הצורה הנסמכת לפני שם; הצורה העצמאית לבד.</div>
 
-  <!-- סעיף 3 — טבלה המרכזית 3–10 -->
+  <!-- סעיף 3 — 3–10 -->
   <div class="section-hd"><span class="sn-icon">🔶</span><div class="sn">3</div>מספרים 3–10 — טבלת ההפכפכים</div>
   <div class="card">
     <p>זהו לב השיעור. שימו לב ל<strong>הסכמה ההפוכה</strong>: מספרים עם ה׳ בסוף = עם שמות זכר. מספרים ללא ה׳ = עם שמות נקבה.</p>
@@ -426,216 +471,200 @@ button,input,select,textarea{font-family:inherit}
         <th class="hdr-note">דוגמאות</th>
       </tr></thead>
       <tbody>
-        <tr class="form-inv">
-          <td>3</td>
-          <td><span class="inv-badge">הפוך</span><span class="form-m">שְׁלֹשָׁה</span></td>
-          <td><span class="inv-badge">הפוך</span><span class="form-f">שָׁלֹשׁ</span></td>
-          <td style="font-size:.78rem;text-align:right;color:var(--text-mid)"><span class="form-m">שְׁלֹשָׁה</span> ילדים · <span class="form-f">שָׁלֹשׁ</span> ילדות</td>
-        </tr>
-        <tr class="form-inv">
-          <td>4</td>
-          <td><span class="inv-badge">הפוך</span><span class="form-m">אַרְבָּעָה</span></td>
-          <td><span class="inv-badge">הפוך</span><span class="form-f">אַרְבַּע</span></td>
-          <td style="font-size:.78rem;text-align:right;color:var(--text-mid)"><span class="form-m">אַרְבָּעָה</span> ימים · <span class="form-f">אַרְבַּע</span> שנים</td>
-        </tr>
-        <tr class="form-inv">
-          <td>5</td>
-          <td><span class="inv-badge">הפוך</span><span class="form-m">חֲמִשָּׁה</span></td>
-          <td><span class="inv-badge">הפוך</span><span class="form-f">חָמֵשׁ</span></td>
-          <td style="font-size:.78rem;text-align:right;color:var(--text-mid)"><span class="form-m">חֲמִשָּׁה</span> אנשים · <span class="form-f">חָמֵשׁ</span> נשים</td>
-        </tr>
-        <tr class="form-inv">
-          <td>6</td>
-          <td><span class="inv-badge">הפוך</span><span class="form-m">שִׁשָּׁה</span></td>
-          <td><span class="inv-badge">הפוך</span><span class="form-f">שֵׁשׁ</span></td>
-          <td style="font-size:.78rem;text-align:right;color:var(--text-mid)"><span class="form-m">שִׁשָּׁה</span> חודשים · <span class="form-f">שֵׁשׁ</span> שעות</td>
-        </tr>
-        <tr class="form-inv">
-          <td>7</td>
-          <td><span class="inv-badge">הפוך</span><span class="form-m">שִׁבְעָה</span></td>
-          <td><span class="inv-badge">הפוך</span><span class="form-f">שֶׁבַע</span></td>
-          <td style="font-size:.78rem;text-align:right;color:var(--text-mid)"><span class="form-m">שִׁבְעָה</span> ספרים · <span class="form-f">שֶׁבַע</span> מדינות</td>
-        </tr>
-        <tr class="form-inv">
-          <td>8</td>
-          <td><span class="inv-badge">הפוך</span><span class="form-m">שְׁמֹנָה</span></td>
-          <td><span class="inv-badge">הפוך</span><span class="form-f">שְׁמֹנֶה</span></td>
-          <td style="font-size:.78rem;text-align:right;color:var(--text-mid)"><span class="form-m">שְׁמֹנָה</span> כוכבים · <span class="form-f">שְׁמֹנֶה</span> ערים</td>
-        </tr>
-        <tr class="form-inv">
-          <td>9</td>
-          <td><span class="inv-badge">הפוך</span><span class="form-m">תִּשְׁעָה</span></td>
-          <td><span class="inv-badge">הפוך</span><span class="form-f">תֵּשַׁע</span></td>
-          <td style="font-size:.78rem;text-align:right;color:var(--text-mid)"><span class="form-m">תִּשְׁעָה</span> חיילים · <span class="form-f">תֵּשַׁע</span> מדינות</td>
-        </tr>
-        <tr class="form-inv">
-          <td>10</td>
-          <td><span class="inv-badge">הפוך</span><span class="form-m">עֲשָׂרָה</span></td>
-          <td><span class="inv-badge">הפוך</span><span class="form-f">עֶשֶׂר</span></td>
-          <td style="font-size:.78rem;text-align:right;color:var(--text-mid)"><span class="form-m">עֲשָׂרָה</span> ימים · <span class="form-f">עֶשֶׂר</span> שנים</td>
-        </tr>
+        <tr class="form-inv"><td>3</td><td><span class="inv-badge">הפוך</span><span class="form-m">שְׁלֹשָׁה</span></td><td><span class="inv-badge">הפוך</span><span class="form-f">שָׁלֹשׁ</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)"><span class="form-m">שְׁלֹשָׁה</span> ילדים · <span class="form-f">שָׁלֹשׁ</span> ילדות</td></tr>
+        <tr class="form-inv"><td>4</td><td><span class="inv-badge">הפוך</span><span class="form-m">אַרְבָּעָה</span></td><td><span class="inv-badge">הפוך</span><span class="form-f">אַרְבַּע</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)"><span class="form-m">אַרְבָּעָה</span> ימים · <span class="form-f">אַרְבַּע</span> שנים</td></tr>
+        <tr class="form-inv"><td>5</td><td><span class="inv-badge">הפוך</span><span class="form-m">חֲמִשָּׁה</span></td><td><span class="inv-badge">הפוך</span><span class="form-f">חָמֵשׁ</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)"><span class="form-m">חֲמִשָּׁה</span> אנשים · <span class="form-f">חָמֵשׁ</span> נשים</td></tr>
+        <tr class="form-inv"><td>6</td><td><span class="inv-badge">הפוך</span><span class="form-m">שִׁשָּׁה</span></td><td><span class="inv-badge">הפוך</span><span class="form-f">שֵׁשׁ</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)"><span class="form-m">שִׁשָּׁה</span> חודשים · <span class="form-f">שֵׁשׁ</span> שעות</td></tr>
+        <tr class="form-inv"><td>7</td><td><span class="inv-badge">הפוך</span><span class="form-m">שִׁבְעָה</span></td><td><span class="inv-badge">הפוך</span><span class="form-f">שֶׁבַע</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)"><span class="form-m">שִׁבְעָה</span> ספרים · <span class="form-f">שֶׁבַע</span> מדינות</td></tr>
+        <tr class="form-inv"><td>8</td><td><span class="inv-badge">הפוך</span><span class="form-m">שְׁמֹנָה</span></td><td><span class="inv-badge">הפוך</span><span class="form-f">שְׁמֹנֶה</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)"><span class="form-m">שְׁמֹנָה</span> כוכבים · <span class="form-f">שְׁמֹנֶה</span> ערים</td></tr>
+        <tr class="form-inv"><td>9</td><td><span class="inv-badge">הפוך</span><span class="form-m">תִּשְׁעָה</span></td><td><span class="inv-badge">הפוך</span><span class="form-f">תֵּשַׁע</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)"><span class="form-m">תִּשְׁעָה</span> חיילים · <span class="form-f">תֵּשַׁע</span> מדינות</td></tr>
+        <tr class="form-inv"><td>10</td><td><span class="inv-badge">הפוך</span><span class="form-m">עֲשָׂרָה</span></td><td><span class="inv-badge">הפוך</span><span class="form-f">עֶשֶׂר</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)"><span class="form-m">עֲשָׂרָה</span> ימים · <span class="form-f">עֶשֶׂר</span> שנים</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="box box-red">🚨 <strong>מלכודת 8:</strong> שמונה הוא המספר המבלבל ביותר! "שְׁמֹנָה" (עם זכר) לעומת "שְׁמֹנֶה" (עם נקבה) — שניהם נראים עם ה׳! ההבדל: שְׁמֹנָ<strong>ה</strong> (קמץ לפני ה׳) עם זכר. שְׁמֹנֶ<strong>ה</strong> (סגול לפני ה׳) עם נקבה. ניקוד שונה!</div>
+  <div class="box box-red">🚨 <strong>מלכודת שמונה!</strong> "שְׁמֹנָה" (קמץ לפני ה׳) = עם זכר. "שְׁמֹנֶה" (סגול לפני ה׳) = עם נקבה. שניהם כתובים "שמונה" ללא ניקוד — ניקוד שונה מבדיל!</div>
 
   <!-- סעיף 4 — 11–19 -->
-  <div class="section-hd"><span class="sn-icon">🔢</span><div class="sn">4</div>מספרים 11–19 — הסכמה רגילה שוב!</div>
+  <div class="section-hd"><span class="sn-icon">🔢</span><div class="sn">4</div>מספרים 11–19 — חזרה להסכמה רגילה (ה"מתג" ב-11)</div>
   <div class="card">
-    <p>המפתיע: המספרים <strong>11–19 חוזרים להסכמה רגילה</strong> — זכר עם זכר, נקבה עם נקבה. כאילו "שכחו" את הכלל ההפוך.</p>
-    <p>המבנה: מספר + עשרה/עשרה ("עשר" לנקבה, "עשרה" לזכר) — כשהחלק הראשון מסכים רגיל.</p>
+    <p>המפתיע: ב-11 מתרחש <strong>"מתג"</strong> — המספרים חוזרים להסכמה <strong>רגילה</strong>: זכר עם זכר, נקבה עם נקבה. אין הפכפכות. החלק השני: "עָשָׂר" (עם זכר) / "עֶשְׂרֵה" (עם נקבה) — גם הוא מסכים רגיל.</p>
+    <p><strong>מבנה:</strong> [מספר יחידות] + [עשר/עשרה] — שני החלקים מסכימים לפי מין השם.</p>
   </div>
   <div style="overflow-x:auto;margin-bottom:1rem">
     <table class="num-table">
-      <thead><tr>
-        <th>מספר</th>
-        <th class="hdr-m">עם שם זכר</th>
-        <th class="hdr-f">עם שם נקבה</th>
-        <th class="hdr-note">כלל</th>
-      </tr></thead>
+      <thead><tr><th>מספר</th><th class="hdr-m">עם שם זכר</th><th class="hdr-f">עם שם נקבה</th><th class="hdr-note">הסבר</th></tr></thead>
       <tbody>
-        <tr>
-          <td>11</td>
-          <td><span class="reg-badge">רגיל</span><span class="form-m">אַחַד עָשָׂר</span></td>
-          <td><span class="reg-badge">רגיל</span><span class="form-f">אַחַת עֶשְׂרֵה</span></td>
-          <td style="font-size:.78rem;text-align:right;color:var(--text-mid)">אחד = זכר; אחת = נקבה</td>
-        </tr>
-        <tr>
-          <td>12</td>
-          <td><span class="reg-badge">רגיל</span><span class="form-m">שְׁנֵים עָשָׂר</span></td>
-          <td><span class="reg-badge">רגיל</span><span class="form-f">שְׁתֵּים עֶשְׂרֵה</span></td>
-          <td style="font-size:.78rem;text-align:right;color:var(--text-mid)">שנים = זכר; שתים = נקבה</td>
-        </tr>
-        <tr>
-          <td>13</td>
-          <td><span class="reg-badge">רגיל</span><span class="form-m">שְׁלֹשָׁה עָשָׂר</span></td>
-          <td><span class="reg-badge">רגיל</span><span class="form-f">שְׁלֹשׁ עֶשְׂרֵה</span></td>
-          <td style="font-size:.78rem;text-align:right;color:var(--text-mid)">שלושה = ז'; שלוש = נ'</td>
-        </tr>
-        <tr>
-          <td>15</td>
-          <td><span class="reg-badge">רגיל</span><span class="form-m">חֲמִשָּׁה עָשָׂר</span></td>
-          <td><span class="reg-badge">רגיל</span><span class="form-f">חָמֵשׁ עֶשְׂרֵה</span></td>
-          <td style="font-size:.78rem;text-align:right;color:var(--text-mid)">חמישה = ז'; חמש = נ'</td>
-        </tr>
-        <tr>
-          <td>19</td>
-          <td><span class="reg-badge">רגיל</span><span class="form-m">תִּשְׁעָה עָשָׂר</span></td>
-          <td><span class="reg-badge">רגיל</span><span class="form-f">תֵּשַׁע עֶשְׂרֵה</span></td>
-          <td style="font-size:.78rem;text-align:right;color:var(--text-mid)">תשעה = ז'; תשע = נ'</td>
-        </tr>
+        <tr><td>11</td><td><span class="reg-badge">רגיל</span><span class="form-m">אַחַד עָשָׂר</span></td><td><span class="reg-badge">רגיל</span><span class="form-f">אַחַת עֶשְׂרֵה</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)">אחד = ז׳ → עם זכר; אחת = נ׳ → עם נקבה</td></tr>
+        <tr><td>12</td><td><span class="reg-badge">רגיל</span><span class="form-m">שְׁנֵים עָשָׂר</span></td><td><span class="reg-badge">רגיל</span><span class="form-f">שְׁתֵּים עֶשְׂרֵה</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)">שניים = ז׳; שתיים = נ׳</td></tr>
+        <tr><td>13</td><td><span class="reg-badge">רגיל</span><span class="form-m">שְׁלֹשָׁה עָשָׂר</span></td><td><span class="reg-badge">רגיל</span><span class="form-f">שְׁלֹשׁ עֶשְׂרֵה</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)">שלושה ז׳ + עשר ז׳; שלוש נ׳ + עשרה נ׳</td></tr>
+        <tr><td>14</td><td><span class="reg-badge">רגיל</span><span class="form-m">אַרְבָּעָה עָשָׂר</span></td><td><span class="reg-badge">רגיל</span><span class="form-f">אַרְבַּע עֶשְׂרֵה</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)">ארבעה ז׳; ארבע נ׳</td></tr>
+        <tr><td>15</td><td><span class="reg-badge">רגיל</span><span class="form-m">חֲמִשָּׁה עָשָׂר</span></td><td><span class="reg-badge">רגיל</span><span class="form-f">חָמֵשׁ עֶשְׂרֵה</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)">חמישה ז׳; חמש נ׳</td></tr>
+        <tr><td>16</td><td><span class="reg-badge">רגיל</span><span class="form-m">שִׁשָּׁה עָשָׂר</span></td><td><span class="reg-badge">רגיל</span><span class="form-f">שֵׁשׁ עֶשְׂרֵה</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)">שישה ז׳; שש נ׳</td></tr>
+        <tr><td>17</td><td><span class="reg-badge">רגיל</span><span class="form-m">שִׁבְעָה עָשָׂר</span></td><td><span class="reg-badge">רגיל</span><span class="form-f">שְׁבַע עֶשְׂרֵה</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)">שבעה ז׳; שבע נ׳</td></tr>
+        <tr><td>18</td><td><span class="reg-badge">רגיל</span><span class="form-m">שְׁמֹנָה עָשָׂר</span></td><td><span class="reg-badge">רגיל</span><span class="form-f">שְׁמֹנֶה עֶשְׂרֵה</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)">שמונה ז׳; שמונה נ׳</td></tr>
+        <tr><td>19</td><td><span class="reg-badge">רגיל</span><span class="form-m">תִּשְׁעָה עָשָׂר</span></td><td><span class="reg-badge">רגיל</span><span class="form-f">תֵּשַׁע עֶשְׂרֵה</span></td><td style="font-size:.78rem;text-align:right;color:var(--text-mid)">תשעה ז׳; תשע נ׳</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="box box-teal">🔵 <strong>כלל 11–19:</strong> החלק הראשון מסכים כמו 3–10 (הפוך לשם). החלק השני: "עָשָׂר" (עם זכר) / "עֶשְׂרֵה" (עם נקבה). כלומר: "שְׁלֹשָׁה עָשָׂר" ילדים (שלושה = הפוך כי ז׳, עשר = רגיל כי ז׳). "שָׁלֹשׁ עֶשְׂרֵה" ילדות (שלוש = הפוך כי נ׳, עשרה = רגיל כי נ׳).</div>
+  <div class="box box-blue">🔀 <strong>המתג ב-11:</strong> ב-3–10 → הפוך. ב-11 ואילך → רגיל. מלכודת נפוצה: "שְׁלֹשָׁה עָשָׂר ילדות" (שגוי! שלושה = זכר, ז׳ + ז׳ → עם זכר בלבד). "שְׁלֹשׁ עֶשְׂרֵה ילדות" ✅ (שלוש = נקבה → עם נקבה).</div>
 
-  <!-- סעיף 5 — עשרות ועשרות מרובות -->
-  <div class="section-hd"><span class="sn-icon">🔟</span><div class="sn">5</div>עשרות (20, 30...) ומספרים גדולים — הסכמה רגילה</div>
+  <!-- סעיף 5 — 20+ -->
+  <div class="section-hd"><span class="sn-icon">🔟</span><div class="sn">5</div>עשרות ומספרים גדולים (20+) — אין הבחנת מין</div>
   <div class="card">
-    <p>המספרים <strong>20 ומעלה</strong> חוזרים להסכמה <strong>רגילה לחלוטין</strong> — אין הפכפכות. עשרים, שלושים, מאה, אלף — כולם מסכימים זכר עם זכר, נקבה עם נקבה, ובעברית מודרנית לרוב אין הבחנה ברורה.</p>
-    <ul>
-      <li>"עֶשְׂרִים יְלָדִים" / "עֶשְׂרִים יַלְדּוֹת" — אותו צורה!</li>
-      <li>"שְׁלֹשִׁים אִישׁ" / "שְׁלֹשִׁים אִשָּׁה"</li>
-      <li>"מֵאָה אִישׁ" / "מֵאָה אִשָּׁה"</li>
-      <li>"אֶלֶף תַּלְמִידִים" / "אֶלֶף תַּלְמִידוֹת"</li>
-    </ul>
-    <p><strong>מספרים מורכבים</strong> (21, 32...): החלק של "אחד/אחת" מסכים, שאר הספרה = עשרות (ללא הבחנה). "עֶשְׂרִים וְאַחַת שָׁנָה" (שנה = נקבה → אחת).</p>
+    <p>המספרים <strong>20 ומעלה</strong>: עשרות, מאות ואלפים — <strong>ללא הבחנת מין כלל</strong>. אבל במספרים מורכבים (21, 33...) החלק של "אחד/אחת" <em>עדיין</em> מסכים לפי מין השם.</p>
   </div>
+  <div class="grid2">
+    <div class="mini-card" style="border-color:var(--lc)">
+      <div class="mini-title" style="color:var(--lc)">✅ עשרות — ללא הבחנה</div>
+      <div class="mini-body">
+        עֶשְׂרִים יְלָדִים = עֶשְׂרִים יַלְדּוֹת<br>
+        שְׁלֹשִׁים אִישׁ = שְׁלֹשִׁים אִשָּׁה<br>
+        מֵאָה חַיָּלִים = מֵאָה חַיָּלוֹת<br>
+        <em style="font-size:.72rem">אותה צורה לכולם!</em>
+      </div>
+    </div>
+    <div class="mini-card" style="border-color:var(--amber)">
+      <div class="mini-title" style="color:var(--amber)">⚠️ מורכב (21+) — רק היחידה מסכימה</div>
+      <div class="mini-body">
+        עֶשְׂרִים וְ<strong>אֶחָד</strong> יָמִים (יום = זכר → אֶחָד)<br>
+        עֶשְׂרִים וְ<strong>אַחַת</strong> שָׁנִים (שנה = נקבה → אַחַת)<br>
+        שְׁלֹשִׁים וּ<strong>שְׁלֹשָׁה</strong> ספרים (ספר = זכר → שלושה)<br>
+        <em style="font-size:.72rem">היחידה (1–9) = עדיין הפכפך!</em>
+      </div>
+    </div>
+  </div>
+  <div class="box box-amber">⚠️ <strong>מלכודת מספרים מורכבים:</strong> "עשרים ושלושה מדינות" = שגוי! מדינה = נקבה → "עֶשְׂרִים וְשָׁלֹשׁ מְדִינוֹת" ✅ (שלוש, ללא ה׳ = עם נקבה). חלק העשרות ללא הבחנה; חלק היחידות — הכלל ממשיך!</div>
 
-  <!-- סעיף 6 — מספרים רבויים -->
-  <div class="section-hd"><span class="sn-icon">💯</span><div class="sn">6</div>מספרים בלשון רבים — "שניים", "שלושה" עצמאיים</div>
+  <!-- סעיף 6 — עמידה עצמאית + מספרים סודרים -->
+  <div class="section-hd"><span class="sn-icon">💯</span><div class="sn">6</div>עמידה עצמאית ומספרים סודרים</div>
   <div class="card">
-    <p>כשמשתמשים במספר <strong>ללא שם עצם</strong> לאחריו (עמידה עצמאית) — משתמשים בצורת הנקבה לשניים ומעלה:</p>
-    <ul>
-      <li>"כמה ילדים?" — "<strong>שלושה</strong>" (עמידה עצמאית, לרוב צורת זכר)</li>
-      <li>"אֶחָד, שְׁנַיִם, שְׁלֹשָׁה..." — ספירה עצמאית (צורת זכר)</li>
-      <li>"שְׁנַיִם" (2 עצמאי) לעומת "שְׁנֵי" (2 לפני שם זכר) לעומת "שְׁתֵּי" (2 לפני שם נקבה)</li>
-    </ul>
+    <p><strong>א. עמידה עצמאית:</strong> מספר ללא שם עצם (לספירה, תשובה) — משתמשים בצורת זכר: "אֶחָד, שְׁנַיִם, שְׁלֹשָׁה..." "כמה ילדים?" → "שלושה" (לא "שלוש").</p>
+    <p><strong>ב. מספרים סודרים</strong> (ראשון, שני, שלישי...): מסכימים רגיל ומשתנים לפי מין. "הַיּוֹם הָרִאשׁוֹן" (זכר) / "הַשָּׁנָה הָרִאשׁוֹנָה" (נקבה). "הַבֵּן הַשֵּׁנִי" (זכר) / "הַבַּת הַשְּׁנִיָּה" (נקבה).</p>
   </div>
-  <div class="box box-purple">💜 <strong>נסמך:</strong> לפני שם עצם, המספר מקבל צורה "נסמכת": שְׁנֵי (לא שניים), שְׁלֹשֶׁת (לא שלושה), אַרְבַּעַת (לא ארבעה) — בצירופים כמו "שְׁנֵי הַיְלָדִים", "שְׁלֹשֶׁת הַיָּמִים". הצורות הנסמכות חשובות לבגרות!</div>
+  <div class="grid2">
+    <div class="mini-card" style="border-color:var(--green)">
+      <div class="mini-title" style="color:var(--green)">🔢 עמידה עצמאית — צורת זכר</div>
+      <div class="mini-body">
+        ספירה: <strong>אֶחָד, שְׁנַיִם, שְׁלֹשָׁה...</strong><br>
+        תשובה: "כמה?" → "<strong>חֲמִשָּׁה</strong>"<br>
+        לא: "חמש" (זה עם נקבה בלבד)<br>
+        <em style="font-size:.72rem">ללא שם = תמיד צורת זכר</em>
+      </div>
+    </div>
+    <div class="mini-card" style="border-color:var(--purple)">
+      <div class="mini-title" style="color:var(--purple)">📋 סודרים — הסכמה רגילה</div>
+      <div class="mini-body">
+        זכר: הַיּוֹם הָ<strong>רִאשׁוֹן</strong>, הַבֵּן הַ<strong>שֵּׁנִי</strong><br>
+        נקבה: הַשָּׁנָה הָ<strong>רִאשׁוֹנָה</strong>, הַבַּת הַ<strong>שְּׁנִיָּה</strong><br>
+        <em style="font-size:.72rem">סודרים = כינוי תואר, מסכים רגיל</em>
+      </div>
+    </div>
+  </div>
 
-  <!-- סעיף 7 — טבלת נסמך -->
-  <div class="section-hd"><span class="sn-icon">🔗</span><div class="sn">7</div>צורות הנסמך — לפני שם עצם מיודע</div>
+  <!-- סעיף 7 — נסמך -->
+  <div class="section-hd"><span class="sn-icon">🔗</span><div class="sn">7</div>צורת הנסמך — לפני שם מיודע (ה-)</div>
   <div class="card">
-    <p>כשהמספר בא לפני שם עצם <strong>מיודע</strong> ("ה-" בתחילה) — המספר לוקח צורת <strong>נסמך</strong> מיוחדת. זה חשוב מאוד!</p>
+    <p>כשהמספר בא לפני שם <strong>מיודע</strong> (עם "ה-") — המספר לוקח צורת <strong>נסמך</strong> מיוחדת. זה חשוב לבגרות!</p>
   </div>
-  <div style="overflow-x:auto;margin-bottom:1rem">
-    <table class="order-table">
-      <thead><tr>
-        <th>מספר</th>
-        <th class="om">נסמך זכר</th>
-        <th class="of">נסמך נקבה</th>
-      </tr></thead>
-      <tbody>
-        <tr><td>2</td><td class="oform-m">שְׁנֵי הַיְלָדִים</td><td class="oform-f">שְׁתֵּי הַיַּלְדּוֹת</td></tr>
-        <tr><td>3</td><td class="oform-m">שְׁלֹשֶׁת הַיְלָדִים</td><td class="oform-f">שְׁלֹשֶׁת הַיַּלְדּוֹת*</td></tr>
-        <tr><td>4</td><td class="oform-m">אַרְבַּעַת הַיְלָדִים</td><td class="oform-f">אַרְבַּע הַיַּלְדּוֹת</td></tr>
-        <tr><td>5</td><td class="oform-m">חֲמֵשֶׁת הַיְלָדִים</td><td class="oform-f">חָמֵשׁ הַיַּלְדּוֹת</td></tr>
-        <tr><td>7</td><td class="oform-m">שִׁבְעַת הַיְלָדִים</td><td class="oform-f">שֶׁבַע הַיַּלְדּוֹת</td></tr>
-        <tr><td>10</td><td class="oform-m">עַשֶּׂרֶת הַיְלָדִים</td><td class="oform-f">עֶשֶׂר הַיַּלְדּוֹת</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="box box-lc">📏 <strong>נסמך זכר:</strong> שְׁלֹשֶׁת, אַרְבַּעַת, חֲמֵשֶׁת, שִׁשֶּׁת, שִׁבְעַת, שְׁמֹנַת, תִּשְׁעַת, עַשֶּׂרֶת. <strong>כלל:</strong> צורת נסמך = לפני "ה-" המיודעת. "שְׁלֹשֶׁת הַיָּמִים" (לא: "שלושה הימים"). בבגרות — שגיאה נפוצה!</div>
 
-  <!-- סעיף 8 — כלי זיהוי ומלכודות -->
-  <div class="section-hd"><span class="sn-icon">🛠️</span><div class="sn">8</div>כלי זיהוי — 5 שאלות ומלכודות נפוצות</div>
-  <div class="steps-wrap">
-    <div class="steps-title">🛠️ 5 שאלות לקביעת צורת המספר</div>
-    <div class="step-item"><div class="step-num">1</div><span><strong>מה מספר הדבר?</strong> 1–2 = הסכמה רגילה. 3–10 = הסכמה הפוכה. 11–19 = הסכמה רגילה. 20+ = אין הבחנה.</span></div>
-    <div class="step-item"><div class="step-num">2</div><span><strong>מה מין השם?</strong> זכר = המספר בצורת "נקבה" (ה׳ בסוף, 3–10). נקבה = המספר ללא ה׳ (3–10).</span></div>
-    <div class="step-item"><div class="step-num">3</div><span><strong>האם יש "ה-" מיודעת לפני השם?</strong> אם כן → מספר בצורת נסמך: "שְׁלֹשֶׁת הַיָּמִים" (לא "שלושה הימים").</span></div>
-    <div class="step-item"><div class="step-num">4</div><span><strong>האם המספר עצמאי (ללא שם)?</strong> לספירה ועמידה עצמאית — השתמשו בצורת זכר: "אחד, שניים, שלושה..."</span></div>
-    <div class="step-item"><div class="step-num">5</div><span><strong>בדקו שמונה במיוחד!</strong> שְׁמֹנָ<strong>ה</strong> (קמץ) = עם זכר. שְׁמֹנֶ<strong>ה</strong> (סגול) = עם נקבה. ניקוד שונה, שתיהן עם ה׳.</span></div>
+  <div class="smikhut-strip">
+    <div class="ss-title">🔗 מ-"שלושה" ל-"שלושת" — הפיכה לנסמך</div>
+    <div class="ss-row"><div class="ss-num">3</div><div class="ss-from">שְׁלֹשָׁה</div><div class="ss-arrow">→</div><div class="ss-to">שְׁלֹשֶׁת</div><div class="ss-ex">שְׁלֹשֶׁת הַיָּמִים</div></div>
+    <div class="ss-row"><div class="ss-num">4</div><div class="ss-from">אַרְבָּעָה</div><div class="ss-arrow">→</div><div class="ss-to">אַרְבַּעַת</div><div class="ss-ex">אַרְבַּעַת הַחֹדָשִׁים</div></div>
+    <div class="ss-row"><div class="ss-num">5</div><div class="ss-from">חֲמִשָּׁה</div><div class="ss-arrow">→</div><div class="ss-to">חֲמֵשֶׁת</div><div class="ss-ex">חֲמֵשֶׁת הַתַּלְמִידִים</div></div>
+    <div class="ss-row"><div class="ss-num">6</div><div class="ss-from">שִׁשָּׁה</div><div class="ss-arrow">→</div><div class="ss-to">שִׁשֶּׁת</div><div class="ss-ex">שִׁשֶּׁת הַיָּמִים</div></div>
+    <div class="ss-row"><div class="ss-num">7</div><div class="ss-from">שִׁבְעָה</div><div class="ss-arrow">→</div><div class="ss-to">שִׁבְעַת</div><div class="ss-ex">שִׁבְעַת הַיָּמִים</div></div>
+    <div class="ss-row"><div class="ss-num">8</div><div class="ss-from">שְׁמֹנָה</div><div class="ss-arrow">→</div><div class="ss-to">שְׁמֹנַת</div><div class="ss-ex">שְׁמֹנַת הַיְלָדִים</div></div>
+    <div class="ss-row"><div class="ss-num">9</div><div class="ss-from">תִּשְׁעָה</div><div class="ss-arrow">→</div><div class="ss-to">תִּשְׁעַת</div><div class="ss-ex">תִּשְׁעַת הַחֳדָשִׁים</div></div>
+    <div class="ss-row"><div class="ss-num">10</div><div class="ss-from">עֲשָׂרָה</div><div class="ss-arrow">→</div><div class="ss-to">עַשֶּׂרֶת</div><div class="ss-ex">עַשֶּׂרֶת הַדִּבְרוֹת</div></div>
   </div>
+  <div class="box box-lc">📏 <strong>כלל:</strong> יש ה- לפני השם? → נסמך. "שְׁלֹשֶׁת הַיָּמִים" ✅. אין ה-? → צורה רגילה. "שְׁלֹשָׁה יָמִים" ✅. "שלושה הימים" = שגוי נפוץ בבגרות!</div>
+
+  <!-- סעיף 8 — זרימת החלטה -->
+  <div class="section-hd"><span class="sn-icon">🛠️</span><div class="sn">8</div>זרימת החלטה — כיצד בוחרים צורת מספר</div>
+  <div class="card">
+    <p>בכל פעם שיש מספר + שם עצם — עברו על ה<strong>זרימה הזו בסדר</strong>. היא מבטיחה צורה נכונה בכל מצב.</p>
+  </div>
+
+  <div class="decision-flow">
+    <div class="df-step df-start">
+      <div class="df-icon">1️⃣</div>
+      <div class="df-content"><strong>מהו הטווח?</strong><div class="df-opts"><span class="df-opt df-a">1–2</span><span class="df-opt df-b">3–10</span><span class="df-opt df-c">11–19</span><span class="df-opt df-d">20+</span></div></div>
+    </div>
+    <div class="df-connector">↓</div>
+    <div class="df-row">
+      <div class="df-branch df-green">
+        <div class="df-branch-label">1–2</div>
+        <div class="df-branch-body">הסכמה רגילה<br><em>זכר עם זכר</em><br><em>נקבה עם נקבה</em><br><small>ילד אֶחָד / ילדה אַחַת</small></div>
+      </div>
+      <div class="df-branch df-red">
+        <div class="df-branch-label">3–10 ⚡</div>
+        <div class="df-branch-body">הסכמה <strong>הפוכה</strong><br><em>שם זכר → ה׳ בסוף</em><br><em>שם נקבה → ללא ה׳</em><br><small>שְׁלֹשָׁה ילדים / שָׁלֹשׁ ילדות</small></div>
+      </div>
+      <div class="df-branch df-blue">
+        <div class="df-branch-label">11–19</div>
+        <div class="df-branch-body">הסכמה רגילה<br><em>שני חלקים מסכימים</em><br><small>שְׁלֹשָׁה עָשָׂר ילדים<br>שְׁלֹשׁ עֶשְׂרֵה ילדות</small></div>
+      </div>
+      <div class="df-branch df-purple">
+        <div class="df-branch-label">20+</div>
+        <div class="df-branch-body">ללא הבחנה<br><em>אבל יחידה (1–9)</em><br><em>עדיין הפכפך!</em><br><small>עשרים וּ<strong>שְׁלֹשָׁה</strong> ימים</small></div>
+      </div>
+    </div>
+    <div class="df-connector">↓</div>
+    <div class="df-step df-mid">
+      <div class="df-icon">2️⃣</div>
+      <div class="df-content"><strong>האם יש "ה-" מיודעת לפני השם?</strong>
+        <div class="df-opts"><span class="df-opt df-a">כן → נסמך: שְׁלֹשֶׁת הַיָּמִים</span><span class="df-opt df-b">לא → צורה רגילה: שְׁלֹשָׁה יָמִים</span></div>
+      </div>
+    </div>
+    <div class="df-connector">↓</div>
+    <div class="df-step df-end">
+      <div class="df-icon">3️⃣</div>
+      <div class="df-content"><strong>מספר עצמאי (ללא שם)?</strong> → תמיד צורת זכר: "שניים", "שלושה", "חמישה"</div>
+    </div>
+  </div>
+
+  <div class="box box-red">🚨 <strong>שלוש שגיאות הבגרות הנפוצות ביותר:</strong><br>
+  (1) "שלוש ילדים" → שגוי! ילד = זכר → <strong>שלושה</strong> ילדים ✅<br>
+  (2) "שלושה הימים" → שגוי! יש ה- → <strong>שלושת</strong> הימים ✅<br>
+  (3) "שניים ילדים" → שגוי! לפני שם = נסמך → <strong>שני</strong> ילדים ✅</div>
 
   <div class="rule-grid">
     <div class="rule-card inv">
       <span class="rc-tag">⚡ כלל ההפכפך</span>
       <div class="rc-title">3–10: הפוך תמיד!</div>
-      <div class="rc-body">זכר → ה׳ בסוף. נקבה → בלי ה׳. זכרו: ה"זכרית" הולכת עם נקבה, ה"נקבית" עם זכר.</div>
-      <div class="rc-examples">
-        <span class="rc-ex">שלושה ילדים ✅</span>
-        <span class="rc-ex">שלוש ילדות ✅</span>
-      </div>
+      <div class="rc-body">זכר → ה׳ בסוף. נקבה → בלי ה׳. ה"זכרית" הולכת עם נקבה, ה"נקבית" עם זכר.</div>
+      <div class="rc-examples"><span class="rc-ex">שלושה ילדים ✅</span><span class="rc-ex">שלוש ילדות ✅</span></div>
     </div>
     <div class="rule-card reg">
       <span class="rc-tag">✅ הסכמה רגילה</span>
       <div class="rc-title">1, 2, 11–19, 20+</div>
-      <div class="rc-body">כל שאר המספרים = זכר עם זכר, נקבה עם נקבה. אין הפתעות!</div>
-      <div class="rc-examples">
-        <span class="rc-ex">ילד אחד ✅</span>
-        <span class="rc-ex">שתי ילדות ✅</span>
-      </div>
+      <div class="rc-body">זכר עם זכר, נקבה עם נקבה. אין הפתעות!</div>
+      <div class="rc-examples"><span class="rc-ex">ילד אחד ✅</span><span class="rc-ex">שתי ילדות ✅</span></div>
     </div>
     <div class="rule-card spec">
       <span class="rc-tag">🔗 נסמך</span>
-      <div class="rc-title">לפני ה-מיודעת</div>
+      <div class="rc-title">לפני ה- המיודעת</div>
       <div class="rc-body">שְׁלֹשֶׁת, אַרְבַּעַת, חֲמֵשֶׁת... צורות מיוחדות לפני שם מיודע.</div>
-      <div class="rc-examples">
-        <span class="rc-ex">שלושת הימים ✅</span>
-        <span class="rc-ex">עשרת הדיברות ✅</span>
-      </div>
+      <div class="rc-examples"><span class="rc-ex">שלושת הימים ✅</span><span class="rc-ex">עשרת הדיברות ✅</span></div>
     </div>
     <div class="rule-card trap">
       <span class="rc-tag">🚨 מלכודת 8</span>
       <div class="rc-title">שמונה — שתי צורות!</div>
-      <div class="rc-body">שְׁמֹנָה (קמץ) = עם זכר. שְׁמֹנֶה (סגול) = עם נקבה. הכי מבלבל!</div>
-      <div class="rc-examples">
-        <span class="rc-ex">שמונה ימים ✅</span>
-        <span class="rc-ex">שמונה שנים ✅</span>
-      </div>
+      <div class="rc-body">שְׁמֹנָה (קמץ) = עם זכר. שְׁמֹנֶה (סגול) = עם נקבה.</div>
+      <div class="rc-examples"><span class="rc-ex">שמונה ימים ✅</span><span class="rc-ex">שמונה שנים ✅</span></div>
     </div>
   </div>
-  <div class="box box-green">✅ <strong>מוכן לתרגול!</strong> 3 טקסטים עשירים במספרים + 20 שאלות על מספרים מונים, הסכמה, נסמך ומלכודות.</div>
+
+  <div class="box box-green">✅ <strong>מוכן לתרגול!</strong> 3 טקסטים עשירים במספרים + 21 שאלות על מספרים מונים, הסכמה, נסמך ומלכודות.</div>
+
+  <button class="goto-practice-btn" onclick="switchTab('practice')">✏️ עבור לתרגול — 21 שאלות על שם המספר</button>
 
 </div>
 </div><!-- /pane-theory -->
 
 
-<!-- ══════════════════════════════════════════════
-     PRACTICE
-══════════════════════════════════════════════ -->
+<!-- PRACTICE -->
 <div class="tab-pane" id="pane-practice">
 <div class="print-header">
   <h1>📏 שיעור 1 — שם המספר: המספר המונה</h1>
@@ -681,8 +710,12 @@ button,input,select,textarea{font-family:inherit}
 
     <div class="reading-text-box">
       <div class="rt-title">טקסט א׳ — יום קניות</div>
+      <div style="font-size:.72rem;color:var(--red);font-weight:700;margin-bottom:.6rem;display:flex;align-items:center;gap:.35rem">
+        <span style="background:var(--red-lt);border:1px solid #fca5a5;border-radius:4px;padding:.08rem .45rem">שגיאה</span>
+        = שגיאת הסכמה. מצאו את כל השגיאות וחשבו מה הצורה הנכונה.
+      </div>
       <div class="rt-body">
-        <p>לילי הלכה לשוק עם רשימה. היא קנתה <strong>שלושה עגבניות</strong> ו<strong>חמישה תפוחים</strong>. אצל הדייג קנתה <strong>ארבע דגים</strong>. בקצביה נכנסה בדיוק <strong>שש לקוחות</strong> לפניה. היא חיכתה <strong>עשרה דקות</strong> ולבסוף קנתה <strong>שני קילוגרמים</strong> בשר.</p>
+        <p>לילי הלכה לשוק עם רשימה קניות. היא קנתה <span class="rt-error">שלושה עגבניות</span> ו<span class="rt-error">חמישה תפוחים</span>. אצל הדייג קנתה <span class="rt-error">ארבע דגים</span>. בקצביה נכנסה בדיוק <span class="rt-error">שש לקוחות</span> לפניה. היא חיכתה <span class="rt-error">עשרה דקות</span> ולבסוף קנתה <strong>שני קילוגרמים</strong> בשר — וזה נכון!</p>
       </div>
     </div>
 
@@ -694,17 +727,17 @@ button,input,select,textarea{font-family:inherit}
     </div>
 
     <div class="reading-text-box">
-      <div class="rt-title">טקסט ג׳ — שאלון</div>
+      <div class="rt-title">טקסט ג׳ — שיחה</div>
       <div class="rt-body">
-        <p>"כמה שפות אתה מדבר?" "רק <strong>שתי שפות</strong>." "כמה ספרים קראת השנה?" "<strong>עשרים ואחד</strong> — <strong>אחד עשר</strong> רומנים ו<strong>עשרה</strong> ספרי עיון." "בכמה מדינות ביקרת?" "ב<strong>שלושים ושלוש</strong>."</p>
+        <p>"כמה שפות אתה מדבר?" — "רק <strong>שתי שפות</strong>." "כמה ספרים קראת השנה?" — "<strong>עשרים ואחד</strong> — <strong>אחד עשר</strong> רומנים ו<strong>עשרה</strong> ספרי עיון." "בכמה מדינות ביקרת?" — "ב<strong>שלושים ושלוש</strong>."</p>
       </div>
     </div>
 
     <div class="quiz-header">
-      <div class="quiz-hd-title">📏 המספר המונה — 20 שאלות</div>
-      <div class="quiz-hd-desc">MC · נכון/לא נכון · סדר — הסכמה, נסמך ומלכודות</div>
+      <div class="quiz-hd-title">📏 שם המספר — 21 שאלות</div>
+      <div class="quiz-hd-desc">MC · נכון/לא נכון · סידור · שאלה פתוחה — הסכמה, נסמך ומלכודות</div>
       <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="prog-fill" style="width:0%"></div></div>
-      <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 20 נענו</span><span id="prog-pct">0%</span></div>
+      <div class="quiz-prog-row"><span id="prog-txt">0 מתוך 21 נענו</span><span id="prog-pct">0%</span></div>
     </div>
 
     <div id="questions-container"></div>
@@ -736,10 +769,10 @@ button,input,select,textarea{font-family:inherit}
 </div>
 </div>
 
-<div id="toast"></div>
+<div id="toast" class="toast"></div>
 
 <script>
-const FB_CFG={apiKey:"AIzaSyC1VIJaFqC-HzJHGutib10-A29i1KKO4YI",authDomain:"lashon-project.firebaseapp.com",projectId:"lashon-project",storageBucket:"lashon-project.firebasestorage.app",messagingSenderId:"444024985545",appId:"1:444024985545:web:847f8d4dad43193c147a18",measurementId:"G-26KTLPJ8N1"};
+const FB_CFG={apiKey:'AIzaSyC1VIJaFqC-HzJHGutib10-A29i1KKO4YI',authDomain:'lashon-project.firebaseapp.com',projectId:'lashon-project',storageBucket:'lashon-project.firebasestorage.app',messagingSenderId:'444024985545',appId:'1:444024985545:web:847f8d4dad43193c147a18',measurementId:'G-26KTLPJ8N1'};
 let _db=null;
 const LESSON_ID='u4_l1';
 const LESSON_TITLE='שם המספר — המספר המונה';
@@ -755,245 +788,177 @@ const BACK_URL=_params.get('back')||'index.html';
 function applyAnswersVisibility(){const l=document.getElementById('answers-locked-msg');const v=document.getElementById('answers-visible-content');const s=document.getElementById('answers-source');if(USER_ROLE==='teacher'){if(l)l.style.display='none';if(v)v.style.display='';if(s)s.textContent='גישת מורה';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';}else{if(ANSWERS_VISIBLE){if(l)l.style.display='none';if(v)v.style.display='';if(s)s.textContent='שוחרר על ידי המורה';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='';}else{if(l)l.style.display='';if(v)v.style.display='none';const stb=document.getElementById('btn-answers-student');if(stb)stb.style.display='none';}}}
 
 const QUESTIONS=[
-  /* ── טקסט א׳ — יום קניות ── */
-  {id:'q01',type:'mc',ref:'טקסט א׳',
-   q:'בטקסט: "שלושה עגבניות" — האם זה נכון? עגבנייה = נקבה.',
-   opts:['נכון — שלושה מסכים לנקבה','שגוי! עגבנייה = נקבה → המספר 3 עם נקבה = "שלוש" (ללא ה׳). הנכון: "שלוש עגבניות"','שגוי — צריך "שלושת עגבניות"','נכון — שלושה = תמיד'],
+  {id:'q01',type:'mc',ref:'טקסט א',
+   q:'בטקסט: "שלושה עגבניות" — מה הצורה הנכונה? עגבנייה = נקבה.',
+   opts:['שלושה עגבניות — נכון כי שלושה = תמיד','שלוש עגבניות — 3–10 עם נקבה = ללא ה׳','שלושת עגבניות — נסמך של שלוש','שלוש עגבנייה — שם ביחיד עם מספר'],
    ans:1,
-   explain:'"עגבנייה" = שם עצם נקבה. מספר 3–10 עם שם נקבה = צורת זכר (ללא ה׳). לכן: "שָׁלֹשׁ עַגְבָנִיּוֹת" (ולא "שלושה"). "שלושה" = צורת נקבה של המספר, ומשמשת עם שמות זכר: "שלושה ילדים", "שלושה תפוחים" (תפוח = זכר).',
-   teacherNote:''},
+   explain:'עגבנייה = נקבה. כלל 3-10: שם נקבה → מספר ללא ה (צורת זכר). שלוש עגבניות = נכון. שלושה = צורת נקבה, משמשת עם שמות זכר: שלושה ילדים, שלושה תפוחים.',
+   teacherNote:'שגיאה נפוצה מאוד. לפני הכיתה: כתבו על הלוח 5 שמות עצם מעורבים ובקשו לקבוע מין ולבחור צורת מספר. הדגישו: הצעד הראשון תמיד = לקבוע מין השם.'},
 
-  {id:'q02',type:'mc',ref:'טקסט א׳',
-   q:'"חמישה תפוחים" — תפוח = זכר. האם הצורה נכונה?',
-   opts:['שגוי — צריך "חמש תפוחים"','נכון! תפוח = זכר → מספר 5 עם זכר = "חמישה" (עם ה׳) ✅','שגוי — צריך "חמשת התפוחים"','שגוי — צריך "חמש"'],
+  {id:'q02',type:'mc',ref:'טקסט א',
+   q:'בטקסט א׳ ישנן 5 שגיאות הסכמה. אחת מהן: "ארבע דגים" — מדוע זה שגוי ומה הצורה הנכונה?',
+   opts:['שגוי כי "דג" נקבה → צריך "ארבעה". הנכון: ארבעה דגים','שגוי כי "דג" זכר → מספר 4 עם זכר = ה בסוף. הנכון: ארבעה דגים','שגוי כי צריך נסמך: ארבעת הדגים','זה נכון — ארבע מתאים לדגים'],
    ans:1,
-   explain:'"תפוח" = זכר. מספר 5 עם זכר = "חֲמִשָּׁה" (עם ה׳). הכלל: 3–10 עם זכר → ה׳ בסוף. "חמישה תפוחים" ✅ נכון. השוו: "חמש תפוזים" — שגוי! תפוז = זכר → "חמישה תפוזים".',
-   teacherNote:''},
+   explain:'דג = זכר. 3-10 + זכר = ה בסוף. ארבעה דגים = נכון. ארבע = ללא ה = עם נקבה: ארבע שנים (שנה = נקבה). הצעד: (1) מין השם (2) הטווח (3) הפוך/רגיל.',
+   teacherNote:'שאלה שמבקשת הסבר — לא רק זיהוי. דרשו מהתלמידים לנסח: מין + כלל + תוצאה. זה מקבע את זרימת ההחלטה.'},
 
-  {id:'q03',type:'tf',ref:'טקסט א׳',
-   q:'"ארבע דגים" — דג = זכר, לכן "ארבעה" (עם ה׳) הנכון.',
-   ans:true,
-   explain:'נכון. "דג" = שם עצם זכר. מספר 4 עם זכר = "אַרְבָּעָה" (עם ה׳). "ארבע דגים" = שגוי. "ארבעה דגים" = נכון ✅. הכלל: 3–10 + זכר = ה׳ בסוף.',
-   teacherNote:''},
+  {id:'q03',type:'tf',ref:'טקסט א',
+   q:'המשפט "שישה לקוחות נכנסו" שגוי כי "לקוחות" הוא רבים נקבה, ולכן צריך "שש".',
+   ans:false,
+   explain:'לא נכון — "לקוח" הוא שם עצם זכר! הצורה הרבים "לקוחות" בסיומת -ות אינה הופכת אותו לנקבה. מין המילה נקבע לפי הגוף הבסיסי, לא הרבים. "שישה לקוחות" = נכון (לקוח = זכר → שישה ✅).',
+   teacherNote:'מלכודת קלאסית — סיומת -ות ברבים ≠ נקבה. ודאו שהתלמידים מבינים: מין המילה = כינוי "הוא/היא", לא הסיומת ברבים. תרגיל: "אבא, כלב, תלמיד" — רבים: אבות/כלבים/תלמידים — כולם זכר.'},
 
-  {id:'q04',type:'mc',ref:'טקסט א׳',
-   q:'"שש לקוחות" — לקוח = זכר! האם הצורה נכונה?',
-   opts:['נכון — שש = צורת הנקבה של 6','שגוי! לקוח = זכר → "שישה לקוחות". "שש" = עם נקבה בלבד','שגוי — צריך "ששת הלקוחות"','נכון — לקוח ולקוחה = אותה צורה'],
+  {id:'q04',type:'mc',ref:'טקסט א',
+   q:'בטקסט כתוב "עשרה דקות". דקה = נקבה. מה הצורה הנכונה ולמה?',
+   opts:['עשרה דקות — נכון כי עשרה תמיד','עשר דקות — 10 עם נקבה = ללא ה׳ (הפוך)','עשרת הדקות — נסמך','עשרה = כי 10 = גדול ותמיד עם ה'],
    ans:1,
-   explain:'"לקוח" = זכר (גם כשמדברים על לקוחות כלליים, הרבים "לקוחות" הוא זכר). לכן מספר 6 = "שִׁשָּׁה" (עם ה׳). "שש לקוחות" = שגוי. "שישה לקוחות" = נכון ✅.',
-   teacherNote:''},
+   explain:'דקה = נקבה. 10 עם נקבה = עשר (ללא ה). הכלל: 3-10 עם נקבה → ללא ה. עשרה דקות = שגוי. עשר דקות = נכון. השוו: עשרה ימים (יום = זכר → עם ה).',
+   teacherNote:'10 = עשר/עשרה — הזוג שמאתגר יותר מ-3. הציעו מנמוניק: "עשר דקות" (שניהם קצרים, ללא ה). "עשרה ימים" (שניהם ארוכים, עם ה).'},
 
-  {id:'q05',type:'mc',ref:'טקסט א׳',
-   q:'"עשרה דקות" — דקה = נקבה. האם הצורה נכונה?',
-   opts:['נכון — עשרה עם נקבה','שגוי! דקה = נקבה → "עֶשֶׂר דַּקּוֹת". "עשרה" = עם זכר בלבד','שגוי — צריך "עשרת הדקות"','נכון — עשרה = תמיד'],
+  {id:'q05',type:'mc',ref:'טקסט א',
+   q:'בטקסט כתוב "שני קילוגרמים" — וזה נכון. מדוע?',
+   opts:['כי קילוגרם = נקבה → שתי','כי קילוגרם = זכר, 2 = הסכמה רגילה → שני (נסמך זכר) ✅','כי 2 = הפוך → שני = צורת נקבה של 2','כי שני = תמיד, ללא הבחנה'],
    ans:1,
-   explain:'"דקה" = נקבה. מספר 10 עם נקבה = "עֶשֶׂר" (ללא ה׳). "עשרה דקות" = שגוי. "עשר דקות" = נכון ✅. "עֲשָׂרָה" (עם ה׳) = עם זכר: "עשרה ימים", "עשרה חודשים".',
-   teacherNote:''},
+   explain:'קילוגרם = זכר. 2 = הסכמה רגילה (לא הפוך!). שני = נסמך זכר לפני שם. שני קילוגרמים = נכון. השוו: שתי כוסות (כוס = נקבה). המספר 2 = הסכמה רגילה בניגוד ל-3-10.',
+   teacherNote:'שאלה לגיבוש: 2 = רגיל, לא הפוך. חשוב שתלמידים לא יכלילו "הכל הפוך". בקשו: כתבו 3 דוגמאות עם "שני/שתי" ו-3 עם "שניים/שתיים" (עצמאי).'},
 
-  /* ── טקסט ב׳ — חידה היסטורית ── */
-  {id:'q06',type:'mc',ref:'טקסט ב׳',
+  {id:'q06',type:'mc',ref:'טקסט ב',
    q:'"שנים עשר שבטים" — שבט = זכר. האם "שנים עשר" נכון?',
-   opts:['שגוי — צריך "שתים עשרה שבטים"','נכון! 11–19 = הסכמה רגילה. שבט = זכר → "שְׁנֵים עָשָׂר". ✅','שגוי — צריך "שניים עשר"','שגוי — צריך "שניים עשרה"'],
+   opts:['שגוי — צריך שתים עשרה שבטים','נכון! 11-19 = הסכמה רגילה. שבט = זכר → שניים עשר','שגוי — צריך שניים עשר','שגוי — צריך שניים עשרה'],
    ans:1,
-   explain:'"שְׁנֵים עָשָׂר" = 12, עם שם זכר. 11–19 = הסכמה רגילה (לא הפוכה). שבט = זכר → "שניים עשר" (לא "שתים עשרה"). "שְׁתֵּים עֶשְׂרֵה" = 12 עם נקבה: "שתים עשרה שנים" ✅.',
-   teacherNote:''},
+   explain:'שניים עשר = 12 עם שם זכר. 11-19 = הסכמה רגילה (לא הפוכה). שבט = זכר → שניים עשר (זכר). שתים עשרה = 12 עם נקבה: שתים עשרה שנים.',
+   teacherNote:'כאן תלמידים לרוב מנסים להפוך — חשוב להדגיש: 11-19 = רגיל! לא הפוך. בצעו השוואה: 3 ילדים = שלושה (הפוך). 13 ילדים = שלושה עשר (רגיל).'},
 
-  {id:'q07',type:'mc',ref:'טקסט ב׳',
+  {id:'q07',type:'mc',ref:'טקסט ב',
    q:'"שבעה בנים" ו"שלוש בנות" — האם שתי הצורות נכונות?',
-   opts:['שתיהן שגויות','שתיהן נכונות: בן = זכר → שבעה (ה׳). בת = נקבה → שלוש (ללא ה׳) ✅','רק "שבעה בנים" נכון','רק "שלוש בנות" נכון'],
+   opts:['שתיהן שגויות','שתיהן נכונות: בן = זכר → שבעה (ה). בת = נקבה → שלוש (ללא ה)','רק שבעה בנים נכון','רק שלוש בנות נכון'],
    ans:1,
-   explain:'שתי הצורות נכונות ✅. "בֵּן" = זכר → "שִׁבְעָה בָּנִים" (ה׳ בסוף). "בַּת" = נקבה → "שָׁלֹשׁ בָּנוֹת" (ללא ה׳). זוהי בדיוק ה"הסכמה ההפוכה" האופיינית ל-3–10.',
-   teacherNote:''},
+   explain:'שתי הצורות נכונות. בן = זכר → שבעה בנים (ה בסוף). בת = נקבה → שלוש בנות (ללא ה). זוהי בדיוק ההסכמה ההפוכה האופיינית ל-3-10.',
+   teacherNote:'שאלה מצוינת להדגמת שני הכיוונים של הכלל בו-זמנית. בקשו מהתלמידים להסביר מדוע שתי הצורות שונות אחת מהשנייה.'},
 
-  {id:'q08',type:'mc',ref:'טקסט ב׳',
-   q:'"תשעת האחים" — מדוע "תשעת" ולא "תשעה"?',
-   opts:['כי תשעת = נסמך של 9 לפני שם מיודע (ה-). לפני "האחים" (מיודע) → צורת נסמך חובה','כי "תשעה" לא קיים','כי אחים = נקבה','שגוי — הנכון הוא "תשעה האחים"'],
+  {id:'q08',type:'mc',ref:'טקסט ב',
+   q:'"תשעת האחים" — מדוע תשעת ולא תשעה?',
+   opts:['כי תשעת = נסמך של 9 לפני שם מיודע (ה-). לפני האחים (מיודע) → נסמך חובה','כי תשעה לא קיים','כי אחים = נקבה','שגוי — הנכון הוא תשעה האחים'],
    ans:0,
-   explain:'"תִּשְׁעַת" = נסמך של "תשעה", משמש לפני שם מיודע (עם ה-). "הָאַחִים" = מיודע → חובה: "תִּשְׁעַת הָאַחִים" ולא "תשעה האחים". כלל: מספר + ה- → צורת נסמך. "שְׁלֹשֶׁת הַיָּמִים", "עַשֶּׂרֶת הַדִּבְרוֹת".',
-   teacherNote:''},
+   explain:'תשעת = נסמך של תשעה, משמש לפני שם מיודע (עם ה-). האחים = מיודע → תשעת האחים (לא תשעה האחים). כלל: יש ה-? → נסמך. שלושת הימים, עשרת הדיברות.',
+   teacherNote:'שאלה מרכזית על הנסמך. אם תלמידים טועים — חזרו על הכלל: ה- לפני השם = נסמך. ניתן לתת 5 דוגמאות: שלושת... ארבעת... חמשת... ולבקש להמשיך.'},
 
-  {id:'q09',type:'tf',ref:'טקסט ב׳',
+  {id:'q09',type:'tf',ref:'טקסט ב',
    q:'"שלושת הבכורים" — הצורה נכונה: שלושת = נסמך של שלושה לפני מיודע.',
    ans:true,
-   explain:'נכון. "שְׁלֹשֶׁת" = נסמך של "שלושה" (זכר). "הַבְּכוֹרִים" = מיודע. לכן: "שְׁלֹשֶׁת הַבְּכוֹרִים" ✅. "שלושה הבכורים" = שגוי. "שלושת" דורש ה- אחריו. בנקבה: "שְׁלֹשֶׁת הַבְּכוֹרוֹת" (גם נסמך זכר — כי 3 עם נקבה = ללא ה׳, ונסמך = שלוש).',
-   teacherNote:''},
+   explain:'נכון. שלושת = נסמך של שלושה. הבכורים = מיודע → שלושת הבכורים. שלושה הבכורים = שגוי. שלושת דורש ה- אחריו.',
+   teacherNote:'TF ידידותית לשגיאת הנסמך. חשוב: שלושת (נסמך) אחרי ה- = חובה. ללא ה- = שלושה. בקשו מהתלמידים לנסח כלל בשלוש מילים.'},
 
-  {id:'q10',type:'mc',ref:'טקסט ב׳',
-   q:'"שלושת אלפים שנה" — האם הצורה נכונה? אלף = זכר.',
-   opts:['שגוי — צריך "שלוש אלפים"','נכון! אלף = זכר → "שְׁלֹשֶׁת אֲלָפִים". הנסמך מתאים כי "אלפים" הוא שם רבוי מוגדר בהקשר','שגוי — צריך "שלושה אלפים שנה"','שגוי — צריך "אלפיים ושלוש"'],
+  {id:'q10',type:'mc',ref:'טקסט ב',
+   q:'"שלושת אלפים שנה" — אלף = זכר. האם שלושת נכון כאן?',
+   opts:['שגוי — צריך שלוש אלפים','נכון! אלף = זכר → שלושת מתאים כנסמך','שגוי — הנכון הוא שלושה אלפים שנה','שגוי — צריך אלפיים ושלוש'],
    ans:2,
-   explain:'בעצם: "שְׁלֹשֶׁת אֲלָפִים" = נסמך לפני "אלפים" (מוגדר), אך בשימוש נפוץ: "שְׁלֹשָׁה אֲלָפִים" (רגיל עם זכר). שתי הצורות מקובלות. אלף = זכר → 3 עם זכר = שלושה. הטקסט שגוי: "שלושת" = לפני מיודע בלבד, אבל בהקשר זה "אלפים" איננו עם ה- → הנכון: "שְׁלֹשָׁה אֲלָפִים שָׁנִים".',
-   teacherNote:''},
+   explain:'הנכון: שלושה אלפים שנה. אלף = זכר → 3 עם זכר = שלושה. שלושת = נסמך, לפני שם מיודע עם ה- — אבל אלפים כאן אינו מיודע (אין ה-) → צורה רגילה: שלושה אלפים.',
+   teacherNote:'שאלה מדרג גבוה — מצריכה הבחנה בין נסמך (לפני מיודע) לבין צורה רגילה. תלמידים חזקים ידעו להסביר מדוע אלפים כאן לא מיודע.'},
 
-  /* ── טקסט ג׳ — שאלון ── */
-  {id:'q11',type:'mc',ref:'טקסט ג׳',
+  {id:'q11',type:'mc',ref:'טקסט ג',
    q:'"שתי שפות" — שפה = נקבה. האם הצורה נכונה?',
-   opts:['שגוי — צריך "שניים שפות"','נכון! שפה = נקבה → "שְׁתֵּי" (2 נסמך נקבה). ✅','שגוי — צריך "שתיים שפות"','שגוי — 2 = הפוך, צריך "שניים"'],
+   opts:['שגוי — צריך שניים שפות','נכון! שפה = נקבה → שתי (2 נסמך נקבה)','שגוי — צריך שתיים שפות','שגוי — 2 = הפוך, צריך שניים'],
    ans:1,
-   explain:'"שְׁתֵּי שָׂפוֹת" ✅ נכון. 2 = הסכמה רגילה (לא הפוכה). שפה = נקבה → "שתי" (נסמך נקבה לפני שם). "שתיים" = עמידה עצמאית. "שניים" = עמידה עצמאית זכר. "שני" = נסמך זכר לפני שם.',
-   teacherNote:''},
+   explain:'שתי שפות = נכון. 2 = הסכמה רגילה (לא הפוכה). שפה = נקבה → שתי (נסמך נקבה לפני שם). שתיים = עמידה עצמאית. שני = נסמך זכר לפני שם.',
+   teacherNote:'שאלה על 2 = הסכמה רגילה. חשוב שהתלמידים זכרו: 2 אינו הפכפך! שני/שתי = לפני שם. שניים/שתיים = עצמאי.'},
 
-  {id:'q12',type:'mc',ref:'טקסט ג׳',
+  {id:'q12',type:'mc',ref:'טקסט ג',
    q:'"אחד עשר רומנים" — רומן = זכר. מה הצורה הנכונה?',
-   opts:['אחת עשרה רומנים','אחד עשר רומנים ✅ — 11 = הסכמה רגילה; רומן = זכר → אחד עשר (זכר)','אחד עשרה רומנים','אחד עשר = תמיד, ללא הבחנה'],
+   opts:['אחת עשרה רומנים','אחד עשר רומנים — 11 = הסכמה רגילה; רומן = זכר → אחד עשר (זכר)','אחד עשרה רומנים','אחד עשר = תמיד, ללא הבחנה'],
    ans:1,
-   explain:'"אַחַד עָשָׂר" = 11 עם זכר ✅. 11–19 = הסכמה רגילה. רומן = זכר → "אחד עשר" (זכר). "אחת עשרה" = 11 עם נקבה: "אחת עשרה שנים".',
-   teacherNote:''},
+   explain:'אחד עשר = 11 עם זכר. 11-19 = הסכמה רגילה. רומן = זכר → אחד עשר (זכר). אחת עשרה = 11 עם נקבה: אחת עשרה שנים.',
+   teacherNote:'בדיקת הפנמת ההבדל: 3 רומנים = שלושה (הפוך). 13 רומנים = שלושה עשר (רגיל). אם תלמיד טועה — הצביעו על ה-switch בין 10 ל-11.'},
 
-  {id:'q13',type:'tf',ref:'טקסט ג׳',
+  {id:'q13',type:'tf',ref:'טקסט ג',
    q:'"עשרים ואחד" — כשמדברים על ספרים (זכר): "עשרים ואחד ספרים" = נכון.',
    ans:true,
-   explain:'נכון. 20+ = אין הבחנה במין. "עשרים ואחד" = הספרה "עשרים" ללא הבחנה, ו"אחד" (זכר) עם שם זכר. "עשרים ואחת ספרים" = שגוי. "עשרים ואחת שנים" = נכון (שנה = נקבה → אחת).',
-   teacherNote:''},
+   explain:'נכון. 20+ = אין הבחנה במין. עשרים ואחד = עשרים (ללא הבחנה) + אחד (זכר עם שם זכר). עשרים ואחת ספרים = שגוי. עשרים ואחת שנים = נכון (שנה = נקבה → אחת).',
+   teacherNote:'בדיקת הפנמת 20+ = ללא הבחנה, אבל החלק של אחד/אחת עדיין מסכים. שאלה מצוינת לדיון: מה חשוב בחלק האחד לבד?'},
 
-  {id:'q14',type:'mc',ref:'טקסט ג׳',
-   q:'"שלושים ושלוש" מדינות — מדינה = נקבה. האם "שלוש" נכון?',
-   opts:['שגוי — צריך "שלושים ושלושה מדינות"','נכון! מדינה = נקבה. 3 = הפוך → "שלוש" (ללא ה׳) עם נקבה ✅','שגוי — 30+ = אין הבחנה, צריך "שלושה"','שגוי — צריך "שלושים ושלושת"'],
+  {id:'q14',type:'mc',ref:'טקסט ג',
+   q:'"שלושים ושלוש" מדינות — מדינה = נקבה. האם שלוש נכון?',
+   opts:['שגוי — צריך שלושים ושלושה מדינות','נכון! מדינה = נקבה. 3 = הפוך → שלוש (ללא ה) עם נקבה','שגוי — 30+ = אין הבחנה, צריך שלושה','שגוי — צריך שלושים ושלושת'],
    ans:1,
-   explain:'"שְׁלֹשִׁים וְשָׁלֹשׁ מְדִינוֹת" ✅. "שלושים" = ללא הבחנה. "שלוש" (ה-3 הנפרד) = עם נקבה (הפוך: מדינה = נקבה → שלוש ללא ה׳). המספרים המורכבים שומרים על כלל ה"הפוך" בחלק היחידות (3–9).',
-   teacherNote:''},
+   explain:'שלושים ושלוש מדינות = נכון. שלושים = ללא הבחנה. שלוש (ה-3 הנפרד) = עם נקבה (הפוך: מדינה = נקבה → שלוש ללא ה). המספרים המורכבים שומרים על כלל ההפוך בחלק היחידות.',
+   teacherNote:'שאלה מדרג גבוה — מורכבות: חלק העשרות = ללא הבחנה. חלק היחידות (3-9) = עדיין הפכפך. בקשו לנסח את הכלל לשני החלקים בנפרד.'},
 
-  /* ── תיאוריה ── */
   {id:'q15',type:'mc',ref:'תיאוריה',
-   q:'מה הכלל לגבי מספרים 3–10?',
-   opts:['הסכמה רגילה: זכר עם זכר, נקבה עם נקבה','הסכמה הפוכה: שם זכר → מספר עם ה׳ (צורת נקבה). שם נקבה → מספר ללא ה׳ (צורת זכר)','הסכמה הפוכה רק ב-3–5','אין הבחנה — כל צורה מקובלת'],
+   q:'מורה ביקשה: "תנו לי דוגמה למספר 4 עם שם עצם נקבה". תלמיד ענה: "ארבעה שנים". מה הטעות?',
+   opts:['אין טעות — ארבעה נכון כי 4 = גדול','שגוי! שנה = נקבה → 4 עם נקבה = ללא ה. הנכון: "ארבע שנים"','שגוי — צריך ארבעת השנים','שגוי — צריך ארבע שנה (יחיד)'],
    ans:1,
-   explain:'הסכמה הפוכה ב-3–10: שם זכר → מספר בצורת נקבה (ה׳ בסוף). שם נקבה → מספר בצורת זכר (ללא ה׳). "שלושה ילדים" (ז) / "שלוש ילדות" (נ). זהו כלל עקבי ועתיק בעברית.',
-   teacherNote:''},
+   explain:'שנה = נקבה. 3-10 עם נקבה = ללא ה. ארבע שנים = נכון. הטעות: התלמיד בחר צורת זכר (ארבעה) עם שם נקבה. הכלל: הפוך — שם נקבה → מספר בצורת זכר (ללא ה).',
+   teacherNote:'שאלה בגוף שלישי (ניתוח שגיאת תלמיד) = בלום 4. חשוב: ביקשו מהתלמידים לנסח את הטעות בדיוק ולא רק לתת את התשובה.'},
 
   {id:'q16',type:'mc',ref:'תיאוריה',
-   q:'מתי משתמשים בצורת נסמך (שְׁלֹשֶׁת, אַרְבַּעַת...)?',
-   opts:['תמיד, כצורה רגילה','לפני שם עצם מיודע (עם ה-). "שְׁלֹשֶׁת הַיָּמִים", "עַשֶּׂרֶת הַדִּבְרוֹת"','לפני כל שם עצם','רק בספרות גבוהה'],
+   q:'משפט: "קראתי שלושה עשר ספרים". ספר = זכר. האם זה נכון, ומדוע?',
+   opts:['שגוי — 13 = הפוך כמו 3, צריך שלוש עשרה','נכון! 11-19 = הסכמה רגילה. ספר = זכר → שלושה עשר (זכר + זכר) ✅','שגוי — צריך שלושת עשר','נכון אבל מסיבה אחרת — שלושה = תמיד עם ספרים'],
    ans:1,
-   explain:'נסמך = לפני שם מיודע. "הַיָּמִים" (מיודע) → "שְׁלֹשֶׁת הַיָּמִים". "יָמִים" (סתמי) → "שְׁלֹשָׁה יָמִים". כלל: יש ה-? → נסמך. אין ה-? → צורה רגילה. "שלושה הימים" = שגוי!',
-   teacherNote:''},
+   explain:'11-19 = הסכמה רגילה (לא הפוכה). ספר = זכר → שלושה עשר (שני חלקים בזכר). שלוש עשרה = 13 עם נקבה: שלוש עשרה שנים. המתג = ב-11: מ-3-10 הפוך → 11+ רגיל.',
+   teacherNote:'בלום 3 — יישום הכלל בהוכחה. התלמיד צריך לא רק לזהות אלא לנמק. בקשו: כתבו את הנימוק בשלושה שלבים (מין → טווח → כלל).'},
 
   {id:'q17',type:'tf',ref:'תיאוריה',
-   q:'מספרים 11–19 הם "הפכפכים" כמו 3–10.',
+   q:'במספרים מורכבים כמו 33 — חלק העשרות (30) מסכים לפי מין, וחלק היחידות (3) נשאר קבוע.',
    ans:false,
-   explain:'לא נכון. 11–19 = הסכמה רגילה! זכר עם זכר, נקבה עם נקבה. "אחד עשר ילדים" (זכר). "אחת עשרה ילדות" (נקבה). ה"הפכפכות" = רק ב-3–10. מספרים 1–2 וגם 11+ = הסכמה רגילה.',
-   teacherNote:''},
+   explain:'לא נכון. חלק העשרות (30) = ללא הבחנת מין. חלק היחידות (3) = עדיין הפכפך! "שלושים ושלוש מדינות" (מדינה = נקבה → שלוש). "שלושים ושלושה ימים" (יום = זכר → שלושה). העשרות = נייטרלי; היחידות = הפכפך.',
+   teacherNote:'שאלה מדרג גבוה — מבחינה בין שתי טענות שגויות. בקשו מהתלמידים להסביר מה נכון ומה שגוי בכל חלק של הטענה. תרגיל: כתבו 35 עם "שנה" ועם "יום".'},
 
   {id:'q18',type:'mc',ref:'תיאוריה',
-   q:'מה ההבדל בין "שמונה ימים" ל"שמונה שנים"?',
-   opts:['אין הבדל — שניהם נכונים','שמונה ימים — "שְׁמֹנָה" (קמץ, זכר). שמונה שנים — "שְׁמֹנֶה" (סגול, נקבה). ניקוד שונה! שניהם כתובים "שמונה"','שמונה ימים שגוי — צריך "שמנה"','שניהם שגויים — צריך "שמונת"'],
+   q:'מה ההבדל בין "שמונה ימים" ל"שמונה שנים" — הסבירו גם ברמת הניקוד.',
+   opts:['אין הבדל — שניהם נכונים ואותה צורה','שמונה ימים = שמונה (קמץ, ז׳). שמונה שנים = שמונה (סגול, נ׳). ניקוד שונה! ללא ניקוד = נראים זהים — רק הקשר מבדיל','שמונה ימים שגוי — צריך שמנה','שניהם שגויים — צריך שמונת'],
    ans:1,
-   explain:'שמונה = המספר המבלבל: "שְׁמֹנָה" (קמץ תחת נ׳) = עם זכר (ימים = זכר ✅). "שְׁמֹנֶה" (סגול תחת נ׳) = עם נקבה (שנה = נקבה ✅). ללא ניקוד: שניהם נראים זהים — רק ניקוד מבדיל.',
-   teacherNote:''},
+   explain:'שמונה = המספר המבלבל: שמונה (קמץ תחת נ) = עם זכר (ימים = זכר). שמונה (סגול תחת נ) = עם נקבה (שנה = נקבה). ללא ניקוד: שניהם נראים "שמונה" — רק הניקוד והקשר מבדילים.',
+   teacherNote:'מלכודת שמונה = שאלת בגרות קלאסית. הציגו עם ניקוד מלא. שאלו: מה עושה תלמיד שאינו יודע לנקד? הוא בודק: מה מין השם? יום = זכר → שמונה (קמץ).'},
 
   {id:'q19',type:'sort',ref:'תיאוריה',
-   q:'סדרו את הקבוצות לפי סוג ההסכמה — מ"הפוך" ל"רגיל":',
-   items:['11–19 — הסכמה רגילה לחלוטין','3–10 — הסכמה הפוכה (הפרדוקס)','1–2 — הסכמה רגילה','20+ — ללא הבחנת מין'],
-   correctOrder:[1,2,0,3],
-   explain:'(1) 3–10 = הפוך (הפרדוקס המרכזי). (2) 1–2 = רגיל (הסכמה פשוטה). (3) 11–19 = רגיל (חזרה לנורמה). (4) 20+ = ללא הבחנה (כיתה פתוחה). הסדר: מהחריג ביותר לרגיל ביותר.',
-   teacherNote:''},
+   q:'סדרו את שלבי קביעת צורת המספר — מהשלב הראשון לאחרון:',
+   items:['בדקו: האם המספר עצמאי ללא שם? → צורת זכר','קבעו את טווח המספר (1-2 / 3-10 / 11-19 / 20+)','קבעו את מין שם העצם (זכר/נקבה)','בדקו: האם יש ה- מיודעת לפני השם? → נסמך'],
+   correctOrder:[1,2,3,0],
+   explain:'זרימת ההחלטה: (1) טווח המספר (2) מין השם (3) בדיקת ה- מיודעת → נסמך (4) בדיקת עמידה עצמאית. הסדר הזה מבטיח צורה נכונה בכל מצב.',
+   teacherNote:'שאלת סידור על תהליך — לא על ידע אלא על הפנמת זרימת ההחלטה. תלמיד שמסדר נכון הוכיח שהוא מסוגל ליישם את הכלל בצורה שיטתית. בצעו: תנו דוגמה לכל שלב.'},
 
   {id:'q20',type:'mc',ref:'תיאוריה',
-   q:'מה ההבדל בין "שני ילדים" ל"שניים ילדים"?',
-   opts:['אין הבדל — שניהם נכונים','שְׁנֵי = נסמך, לפני שם עצם: "שְׁנֵי יְלָדִים". שְׁנַיִם = עמידה עצמאית: "כמה? שניים." "שניים ילדים" = שגוי!','שניים ילדים = דיבור יומיומי מקובל','שני = ז, שניים = נ'],
+   q:'מה ההבדל בין "הבן הראשון" ל"הבת הראשונה" מבחינת דקדוק?',
+   opts:['אין הבדל — ראשון תמיד','ראשון/ראשונה = מספר סודר. מסכים רגיל לפי מין: בן = ז׳ → ראשון. בת = נ׳ → ראשונה. זה שונה מהמספר המונה!','שניהם שגויים — צריך הבן הראשון/הבת הראשון','ראשון = מספר מונה, לא סודר'],
    ans:1,
-   explain:'"שְׁנֵי" = צורה נסמכת, לפני שם עצם: "שְׁנֵי יְלָדִים" ✅. "שְׁנַיִם" = עמידה עצמאית: "כמה ילדים? שניים." "שניים ילדים" = שגוי — לא משתמשים ב"שניים" לפני שם. "שְׁתֵּי" = נסמך נקבה: "שְׁתֵּי בָּנוֹת".',
-   teacherNote:''},
-  {id:'q21',type:'open',ref:'ניתוח שם המספר',
-   q:'כתוב/י 3 משפטים הכוללים מספרים. לכל משפט: (א) שם המספר (ב) מין שם העצם (ג) הסבר מדוע הצורה נכונה או לא:<br><strong>(1) מספר 3–10 עם שם עצם זכר (2) מספר 11–19 עם שם עצם נקבה (3) מספר מעל 20</strong>',
-   placeholder:'(1) שלושה כיסאות — כיסא=זכר → שלושה (ה׳ בסוף = הפוך לזכר).\n(2) שתיים עשרה תלמידות — תלמידה=נקבה → שתיים עשרה (ללא ה׳ = הפוך לנקבה).\n(3) עשרים ואחד ספרים — ספר=זכר → אחד (זכר = ללא שינוי מעל 20).',
-   hint:'3–10: צורה עם ה׳ = לזכר (הפוך!). 11–19: הפוך גם כן. מעל 20: רגיל (אחד לזכר, אחת לנקבה).',
-   rubric:'(א) צורה נכונה (ב) זיהוי מין (ג) הסבר הכלל — לכל 3 המשפטים',
-   explain:'כלל ה"הפוך": 3–10 ו-11–19 מסכימים הפוך לשם העצם. מעל 20: הסכמה רגילה.',
-   teacherNote:'מיצ"ב: הסבר הכלל חובה. שגיאה נפוצה: "שלוש כיסאות" (נקבה לזכר).'},
+   explain:'מספרים סודרים (ראשון, שני, שלישי...) = שמות תואר הנסמכים לשם. הם מסכימים רגיל לפי מין: זכר → ראשון, שני, שלישי. נקבה → ראשונה, שנייה, שלישית. שונה מהמספר המונה שב-3-10 הפוך!',
+   teacherNote:'שאלה מרחיבה — מספרים סודרים מול מונים. בלום 4: השוואה וניתוח. בקשו מהתלמידים: כתבו 3 זוגות (הבן הראשון / הבת הראשונה) בכל המספרים 1-5.'},
+
+  {id:'q21',type:'open',ref:'ניתוח ותיקון — בלום 5',
+   q:'לפניכם 5 משפטים. זהו את השגיאות בכל אחד, תקנו, והסבירו את הכלל שנשבר:<br><strong>(1) "הכיתה קיבלה שלוש פרסים" (פרס = זכר)<br>(2) "שישה שנים עברו" (שנה = נקבה)<br>(3) "שלושה הספרים נגנבו"<br>(4) "שתיים מדינות הצטרפו" (מדינה = נקבה)<br>(5) "חמישה עשרה ימים נותרו" (יום = זכר)</strong>',
+   placeholder:'(1) שלושה פרסים — פרס=זכר, 3-10+זכר=ה בסוף (הפוך). שלוש = עם נקבה.\n(2) שש שנים — שנה=נקבה, 3-10+נקבה=ללא ה. שישה = עם זכר.\n(3) שלושת הספרים — יש ה- לפני ספרים = נסמך חובה. שלושה הספרים = שגוי.\n(4) שתי מדינות — לפני שם עצם = נסמך שתי, לא שתיים.\n(5) חמישה עשר ימים — יום=זכר, 11-19=רגיל → שניהם זכר.',
+   hint:'בדקו כל משפט: (א) מין השם (ב) טווח המספר (ג) יש ה- מיודעת? (ד) לפני שם = נסמך?',
+   rubric:'לכל משפט: זיהוי שגיאה (1נ) + תיקון נכון (1נ) + הסבר הכלל (1נ) = 3 נקודות × 5 = 15 נקודות. רמת מיצ"ב.',
+   explain:'(1) שלושה פרסים: פרס=זכר→ה. (2) שש שנים: שנה=נקבה→ללא ה. (3) שלושת הספרים: ה-מיודעת→נסמך. (4) שתי מדינות: לפני שם=נסמך. (5) חמישה עשר ימים: 11-19=רגיל, יום=זכר→זכר.',
+   teacherNote:'שאלת בגרות מלאה — בלום 5-6. רובריקה: 3 נקודות למשפט. שגיאות נפוצות: (3) תלמידים לא מזהים שה- לפני ספרים = מיודע. (5) מנסים להפוך ב-15 כמו ב-5. הציגו כסדרה שלמה בכיתה לאחר הגשה.'},
 ];
 
-/* ENGINE */
 const QS={answers:{},submitted:false};
 let _lastScore=null,_lastCorrect=0,_gateConfirmed=false;
-function switchTab(t){['theory','practice','answers'].forEach(x=>{document.getElementById('pane-'+x)?.classList.toggle('active',x===t);document.getElementById('btn-'+x)?.classList.toggle('active',x===t);document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);});if(t==='answers')renderAnswers();if(t==='practice'&&!_gateConfirmed)document.getElementById('gate-date-display').textContent=new Date().toLocaleDateString('he-IL');}
-function confirmGate(){const nm=document.getElementById('gate-name').value.trim();const cl=document.getElementById('gate-class').value;let ok=true;if(nm.split(/\s+/).length<2){document.getElementById('gate-name').classList.add('err');document.getElementById('gate-name-err').classList.add('show');ok=false;}else{document.getElementById('gate-name').classList.remove('err');document.getElementById('gate-name-err').classList.remove('show');}if(!cl){document.getElementById('gate-class').classList.add('err');document.getElementById('gate-class-err').classList.add('show');ok=false;}else{document.getElementById('gate-class').classList.remove('err');document.getElementById('gate-class-err').classList.remove('show');}if(!ok)return;STUDENT_NAME=nm;STUDENT_CLASS=cl;LS.set('lashon2_uname',nm);LS.set('lashon2_class',cl);_gateConfirmed=true;document.getElementById('student-gate').classList.add('hidden');const av=document.getElementById('gc-avatar'),nm2=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=nm[0].toUpperCase();if(nm2)nm2.textContent=nm;if(mt)mt.textContent='כיתה '+cl+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed').classList.add('show');document.getElementById('practice-content-wrap').style.display='';}
+let SNP='',SCP='';
+function switchTab(t){['theory','practice','answers'].forEach(x=>{document.getElementById('pane-'+x)?.classList.toggle('active',x===t);document.getElementById('btn-'+x)?.classList.toggle('active',x===t);document.getElementById('btn-'+x+'-student')?.classList.toggle('active',x===t);});if(t==='answers')renderAnswers();if(t==='practice'&&!_gateConfirmed){const dd=document.getElementById('gate-date-display');if(dd)dd.textContent=new Date().toLocaleDateString('he-IL');}}
+function confirmGate(){const nm=document.getElementById('gate-name').value.trim();const cl=document.getElementById('gate-class').value;let ok=true;if(nm.split(/\s+/).length<2){document.getElementById('gate-name').classList.add('err');document.getElementById('gate-name-err').classList.add('show');ok=false;}else{document.getElementById('gate-name').classList.remove('err');document.getElementById('gate-name-err').classList.remove('show');}if(!cl){document.getElementById('gate-class').classList.add('err');document.getElementById('gate-class-err').classList.add('show');ok=false;}else{document.getElementById('gate-class').classList.remove('err');document.getElementById('gate-class-err').classList.remove('show');}if(!ok)return;SNP=nm;SCP=cl;STUDENT_NAME=nm;STUDENT_CLASS=cl;LS.set('lashon2_uname',nm);LS.set('lashon2_class',cl);_gateConfirmed=true;document.getElementById('student-gate').classList.add('hidden');const av=document.getElementById('gc-avatar'),nm2=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=nm[0].toUpperCase();if(nm2)nm2.textContent=nm;if(mt)mt.textContent='כיתה '+cl+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed').classList.add('show');document.getElementById('practice-content-wrap').style.display='block';}
 function reopenGate(){_gateConfirmed=false;document.getElementById('student-gate').classList.remove('hidden');document.getElementById('gate-confirmed').classList.remove('show');document.getElementById('practice-content-wrap').style.display='none';}
 const LETTERS=['א','ב','ג','ד'];let _dragSrc=null;
 function renderQuestions(){const c=document.getElementById('questions-container');if(!c)return;c.innerHTML=QUESTIONS.map((q,i)=>buildCard(q,i)).join('');updateProgress();renderAnswers();}
-function buildCard(q,i){const tl=q.type==='mc'?'בחירה מרובה':q.type==='tf'?'נכון/לא נכון':'סידור';let inner='';if(q.type==='mc'){inner='<div class="mc-wrap">'+q.opts.map((o,j)=>'<button class="mc-btn" id="mc_'+q.id+'_'+j+'" onclick="pickMC(\''+q.id+'\','+j+')" '+(QS.submitted?'disabled':'')+'><span class="mc-letter">'+LETTERS[j]+'</span><span>'+o+'</span></button>').join('')+'</div>';}else if(q.type==='tf'){inner='<div class="tf-row"><button class="tf-btn" id="tf_'+q.id+'_t" onclick="pickTF(\''+q.id+'\',true)" '+(QS.submitted?'disabled':'')+'>✅ נכון</button><button class="tf-btn" id="tf_'+q.id+'_f" onclick="pickTF(\''+q.id+'\',false)" '+(QS.submitted?'disabled':'')+'>❌ לא נכון</button></div>';}else if(q.type==='sort'){const order=QS.answers[q.id]?.order||q.items.map((_,j)=>j);inner='<div class="sort-note">גרור את הפריטים לסדר הנכון ↕</div><div class="sort-list" id="sort_'+q.id+'">'+order.map(j=>'<div class="sort-item" draggable="true" data-idx="'+j+'" ondragstart="dStart(event,\''+q.id+'\')" ondragover="dOver(event)" ondrop="dDrop(event,\''+q.id+'\')" ondragend="dEnd(event)"><span class="sort-handle">⠿</span><span class="sort-text">'+q.items[j]+'</span></div>').join('')+'</div>';} else if(q.type==='open'){inner='<div class="open-wrap">'+'<textarea class="open-textarea" id="'+q.id+'_oa" rows="4" placeholder="'+(q.placeholder||'כתוב/י כאן...')+'" oninput="pickOpen(\''+q.id+'\')"></textarea>'+(q.hint?'<div class="open-hint">💡 '+q.hint+'</div>':'')+'</div>';}return '<div class="q-card" id="qcard_'+q.id+'"><div class="q-num">שאלה '+(i+1)+' <span class="q-type-badge">'+tl+'</span> <span style="font-size:.62rem;color:var(--lc);font-weight:700">'+q.ref+'</span></div><div class="q-text">'+q.q+'</div>'+inner+'<div class="q-feedback" id="fb_'+q.id+'"></div></div>';}
+function buildCard(q,i){const tl=q.type==='mc'?'בחירה מרובה':q.type==='tf'?'נכון/לא נכון':q.type==='sort'?'סידור':'פתוחה';let inner='';if(q.type==='mc'){inner='<div class="mc-wrap">'+q.opts.map((o,j)=>'<button class="mc-btn" id="mc_'+q.id+'_'+j+'" onclick="pickMC(\''+q.id+'\','+j+')" '+(QS.submitted?'disabled':'')+'><span class="mc-letter">'+LETTERS[j]+'</span><span>'+o+'</span></button>').join('')+'</div>';}else if(q.type==='tf'){inner='<div class="tf-row"><button class="tf-btn" id="tf_'+q.id+'_t" onclick="pickTF(\''+q.id+'\',true)" '+(QS.submitted?'disabled':'')+'>✅ נכון</button><button class="tf-btn" id="tf_'+q.id+'_f" onclick="pickTF(\''+q.id+'\',false)" '+(QS.submitted?'disabled':'')+'>❌ לא נכון</button></div>';}else if(q.type==='sort'){const order=QS.answers[q.id]?.order||q.items.map((_,j)=>j);inner='<div class="sort-note">גרור את הפריטים לסדר הנכון ↕</div><div class="sort-list" id="sort_'+q.id+'">'+order.map(j=>'<div class="sort-item" draggable="true" data-idx="'+j+'" ondragstart="dStart(event,\''+q.id+'\')" ondragover="dOver(event)" ondrop="dDrop(event,\''+q.id+'\')" ondragend="dEnd(event)"><span class="sort-handle">⠿</span><span class="sort-text">'+q.items[j]+'</span></div>').join('')+'</div>';}else if(q.type==='open'){inner='<div class="open-wrap"><textarea class="open-textarea" id="'+q.id+'_oa" rows="4" placeholder="'+(q.placeholder||'כתוב/י כאן...')+'" oninput="pickOpen(\''+q.id+'\')">'+'</textarea>'+(q.hint?'<div class="open-hint">💡 '+q.hint+'</div>':'')+'</div>';}return '<div class="q-card" id="qcard_'+q.id+'"><div class="q-num">שאלה '+(i+1)+' <span class="q-type-badge">'+tl+'</span> <span style="font-size:.62rem;color:var(--lc);font-weight:700">'+q.ref+'</span></div><div class="q-text">'+q.q+'</div>'+inner+'<div class="q-feedback" id="fb_'+q.id+'"></div></div>';}
 function pickMC(id,j){if(QS.submitted)return;QS.answers[id]={sel:j};QUESTIONS.forEach(q=>{if(q.id===id&&q.type==='mc')q.opts.forEach((_,k)=>{const b=document.getElementById('mc_'+id+'_'+k);if(b)b.classList.toggle('sel',k===j);});});updateProgress();}
 function pickTF(id,val){if(QS.submitted)return;QS.answers[id]={sel:val};const bt=document.getElementById('tf_'+id+'_t'),bf=document.getElementById('tf_'+id+'_f');if(bt)bt.classList.toggle('sel',val===true);if(bf)bf.classList.toggle('sel',val===false);updateProgress();}
 function dStart(e,id){_dragSrc=e.currentTarget;e.dataTransfer.effectAllowed='move';e.currentTarget.classList.add('dragging');}
 function dOver(e){e.preventDefault();e.dataTransfer.dropEffect='move';const t=e.currentTarget;if(t!==_dragSrc&&t.classList.contains('sort-item'))t.classList.add('drag-over');}
 function dEnd(e){e.currentTarget.classList.remove('dragging');document.querySelectorAll('.sort-item').forEach(el=>el.classList.remove('drag-over'));}
 function dDrop(e,id){e.preventDefault();if(!_dragSrc||_dragSrc===e.currentTarget)return;const list=document.getElementById('sort_'+id);const items=[...list.querySelectorAll('.sort-item')];const fi=items.indexOf(_dragSrc),ti=items.indexOf(e.currentTarget);if(fi<0||ti<0)return;const clone=_dragSrc.cloneNode(true);list.insertBefore(clone,fi<ti?e.currentTarget.nextSibling:e.currentTarget);_dragSrc.remove();clone.ondragstart=ev=>dStart(ev,id);clone.ondragover=dOver;clone.ondrop=ev=>dDrop(ev,id);clone.ondragend=dEnd;QS.answers[id]={order:[...list.querySelectorAll('.sort-item')].map(el=>parseInt(el.dataset.idx))};updateProgress();}
-function pickOpen(qid){
-  if(QS.submitted)return;
-  var el=document.getElementById(qid+'_oa');if(!el)return;
-  var val=(el.value||'').trim();
-  if(val.length>0)QS.answers[qid]={type:'open',text:val};
-  else delete QS.answers[qid];
-  if(typeof updateProgress==='function')updateProgress();
-  else if(typeof updateCounter==='function')updateCounter();
-}
+function pickOpen(qid){if(QS.submitted)return;var el=document.getElementById(qid+'_oa');if(!el)return;var val=(el.value||'').trim();if(val.length>0)QS.answers[qid]={type:'open',text:val};else delete QS.answers[qid];updateProgress();}
 function updateProgress(){const ans=Object.keys(QS.answers).length,tot=QUESTIONS.length,pct=Math.round(ans/tot*100);const pf=document.getElementById('prog-fill'),pt=document.getElementById('prog-txt'),pp=document.getElementById('prog-pct');if(pf)pf.style.width=pct+'%';if(pt)pt.textContent=ans+' מתוך '+tot+' נענו';if(pp)pp.textContent=pct+'%';}
-function submitQuiz(){const un=QUESTIONS.filter(q=>!QS.answers[q.id]||(q.type==='mc'&&QS.answers[q.id].sel===undefined)||(q.type==='tf'&&QS.answers[q.id].sel===undefined));if(un.length>0){toast('⚠️ יש '+un.length+' שאלות שלא נענו');return;}QS.submitted=true;let correct=0;QUESTIONS.forEach(q=>{const a=QS.answers[q.id];let ok=false;if(q.type==='mc')ok=a?.sel===q.ans;else if(q.type==='tf')ok=a?.sel===q.ans;else if(q.type==='sort')ok=JSON.stringify(a?.order)===JSON.stringify(q.correctOrder);else if(q.type==='open')ok=!!(a?.text&&a.text.length>10);if(ok)correct++;const card=document.getElementById('qcard_'+q.id);if(card){card.classList.toggle('ok',ok);card.classList.toggle('wrong',!ok);}const fb=document.getElementById('fb_'+q.id);if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.classList.add('show','ok');fb.innerHTML='<div class="open-rubric">✍️ '+q.explain+'</div>';}else{fb.classList.add('show',ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain}+(q.teacherNote&&USER_ROLE==='teacher'?'<br><strong>🎓 '+q.teacherNote+'</strong>':'');}if(q.type==='mc'){q.opts.forEach((_,j)=>{const b=document.getElementById('mc_'+q.id+'_'+j);if(b){b.disabled=true;if(j===q.ans)b.classList.add('correct');else if(a?.sel===j)b.classList.add('wrong');}});}else if(q.type==='tf'){const bt=document.getElementById('tf_'+q.id+'_t'),bf=document.getElementById('tf_'+q.id+'_f');if(bt)bt.disabled=true;if(bf)bf.disabled=true;if(q.ans===true&&bt)bt.classList.add('correct');else if(q.ans===false&&bf)bf.classList.add('correct');if(a?.sel===true&&!q.ans&&bt)bt.classList.add('wrong');if(a?.sel===false&&q.ans&&bf)bf.classList.add('wrong');}});_lastCorrect=correct;_lastScore=Math.round(correct/QUESTIONS.length*100);document.getElementById('submit-row').style.display='none';const res=document.getElementById('results-container');res.style.display='';const emoji=_lastScore>=90?'🏆':_lastScore>=75?'⭐':_lastScore>=55?'👍':'💪';const color=_lastScore>=75?'var(--green)':_lastScore>=55?'var(--lc)':'var(--red)';res.innerHTML='<div class="results-card"><span class="results-emoji">'+emoji+'</span><span class="results-score" style="color:'+color+'">'+_lastScore+'%</span><span class="results-label">'+correct+' מתוך '+QUESTIONS.length+' תשובות נכונות</span><div class="results-bar"><div class="results-bar-fill" style="width:'+_lastScore+'%;background:'+color+'"></div></div><div style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center"><button class="btn-reset" onclick="resetQuiz()">🔄 נסה שוב</button><button class="btn-send" onclick="sendResults()">📨 שלח למורה</button></div></div>';saveScore(_lastScore,STUDENT_NAME,STUDENT_CLASS);}
-function resetQuiz(){QUESTIONS.forEach(function(q){if(q.type==='open'){var t=document.getElementById(q.id+'_oa');if(t){t.disabled=false;t.value='';}}});QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;document.getElementById('results-container').style.display='none';document.getElementById('submit-row').style.display='flex';renderQuestions();toast('🔄 התרגול אותחל');}
+function submitQuiz(){const un=QUESTIONS.filter(q=>!QS.answers[q.id]||(q.type==='mc'&&QS.answers[q.id].sel===undefined)||(q.type==='tf'&&QS.answers[q.id].sel===undefined));if(un.length>0){toast('⚠️ יש '+un.length+' שאלות שלא נענו');return;}QS.submitted=true;let correct=0;QUESTIONS.forEach(q=>{const a=QS.answers[q.id];let ok=false;if(q.type==='mc')ok=a?.sel===q.ans;else if(q.type==='tf')ok=a?.sel===q.ans;else if(q.type==='sort')ok=JSON.stringify(a?.order)===JSON.stringify(q.correctOrder);else if(q.type==='open')ok=!!(a?.text&&a.text.length>10);if(ok)correct++;const card=document.getElementById('qcard_'+q.id);if(card){card.classList.toggle('ok',ok);card.classList.toggle('wrong',!ok);}const fb=document.getElementById('fb_'+q.id);if(fb){if(q.type==='open'){var ta=document.getElementById(q.id+'_oa');if(ta)ta.disabled=true;fb.classList.add('show','ok');fb.innerHTML='<div class="open-rubric">✍️ '+q.explain+'</div>';}else{fb.classList.add('show',ok?'ok':'wrong');fb.innerHTML=(ok?'✅ נכון! ':'❌ לא נכון. ')+q.explain;}}if(q.type==='mc'){q.opts.forEach((_,j)=>{const b=document.getElementById('mc_'+q.id+'_'+j);if(b){b.disabled=true;if(j===q.ans)b.classList.add('correct');else if(a?.sel===j)b.classList.add('wrong');}});}else if(q.type==='tf'){const bt=document.getElementById('tf_'+q.id+'_t'),bf=document.getElementById('tf_'+q.id+'_f');if(bt)bt.disabled=true;if(bf)bf.disabled=true;if(q.ans===true&&bt)bt.classList.add('correct');else if(q.ans===false&&bf)bf.classList.add('correct');if(a?.sel===true&&!q.ans&&bt)bt.classList.add('wrong');if(a?.sel===false&&q.ans&&bf)bf.classList.add('wrong');}});_lastCorrect=correct;_lastScore=Math.round(correct/QUESTIONS.length*100);document.getElementById('submit-row').style.display='none';const res=document.getElementById('results-container');res.style.display='';const emoji=_lastScore>=90?'🏆':_lastScore>=75?'⭐':_lastScore>=55?'👍':'💪';const color=_lastScore>=75?'var(--green)':_lastScore>=55?'var(--lc)':'var(--red)';res.innerHTML='<div class="results-card"><span class="results-emoji">'+emoji+'</span><span class="results-score" style="color:'+color+'">'+_lastScore+'%</span><span class="results-label">'+correct+' מתוך '+QUESTIONS.length+' תשובות נכונות</span><div class="results-bar"><div class="results-bar-fill" style="width:'+_lastScore+'%;background:'+color+'"></div></div><div style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center"><button class="btn-reset" onclick="resetQuiz()">🔄 נסה שוב</button><button class="btn-send" onclick="sendResults()">📨 שלח למורה</button></div></div>';saveScore(_lastScore,STUDENT_NAME,STUDENT_CLASS);}
+function resetQuiz(){QUESTIONS.forEach(function(q){if(q.type==='open'){var t=document.getElementById(q.id+'_oa');if(t){t.disabled=false;t.value='';}}}); QS.answers={};QS.submitted=false;_lastScore=null;_lastCorrect=0;document.getElementById('results-container').style.display='none';document.getElementById('submit-row').style.display='flex';renderQuestions();toast('🔄 התרגול אותחל');}
 function sendResults(){if(_lastScore===null){toast('אנא הגש תחילה');return;}toast('✅ הציון נשלח: '+_lastScore+'%');}
 function renderAnswers(){const al=document.getElementById('answers-list');if(!al)return;al.innerHTML=QUESTIONS.map((q,i)=>{let ans='';if(q.type==='mc')ans=LETTERS[q.ans]+'. '+q.opts[q.ans];else if(q.type==='tf')ans=q.ans?'✅ נכון':'❌ לא נכון';else if(q.type==='sort')ans=q.correctOrder.map(j=>q.items[j]).join(' ← ');else if(q.type==='open')ans='שאלת כתיבה פתוחה';return '<div class="answer-row"><div class="ans-num">שאלה '+(i+1)+' <span style="color:var(--lc)">'+q.ref+'</span></div><div class="ans-q">'+q.q+'</div><div class="ans-correct">✅ '+ans+'</div><div class="ans-explain">💡 '+q.explain+'</div>'+(q.teacherNote?'<div class="ans-teacher-note">🎓 '+q.teacherNote+'</div>':'')+'</div>';}).join('');}
-function printLesson(){
-  var pw=window.open('','_blank','width=960,height=760');
-  if(!pw){alert('popup blocked');return;}
-  var accent='#b45309';
-  var isTeacher=(document.body.classList.contains('is-teacher')||(new URLSearchParams(window.location.search)).get('role')==='teacher');
-  var score=(typeof _lastScore!=='undefined')?_lastScore:null;
-  var correct=(typeof _lastCorrect!=='undefined')?_lastCorrect:0;
-  var sn=isTeacher?'':((typeof SNP!=='undefined'&&SNP)?SNP:((typeof STUDENT_NAME!=='undefined'&&STUDENT_NAME)?STUDENT_NAME:''));
-  var sc=isTeacher?'':((typeof SCP!=='undefined'&&SCP)?SCP:((typeof STUDENT_CLASS!=='undefined'&&STUDENT_CLASS)?STUDENT_CLASS:''));
-  var qs=(typeof QUESTIONS!=='undefined')?QUESTIONS:[];
-  var submitted=(typeof QS!=='undefined')&&QS.submitted;
-  var scoreHtml='';
-  if(!isTeacher){
-    scoreHtml=score!==null
-      ?'<div style="background:#f0fdf4;border:2px solid #15803d;border-radius:12px;padding:1rem 1.5rem;margin-bottom:1.5rem;text-align:center"><div style="font-size:36pt;color:#15803d">'+score+'%</div><div style="font-size:11pt;color:#15803d;font-weight:700">'+correct+' נכון מתוך '+qs.length+'</div></div>'
-      :'<div style="background:#fffbeb;border:2px solid #b45309;border-radius:12px;padding:1rem;text-align:center;color:#b45309;font-weight:700">⏳ טרם הוגש</div>';
-  }
-  var theoryHtml=(document.getElementById('pane-theory')||{innerHTML:''}).innerHTML||'';
-  var practiceEl=document.getElementById('pane-practice');
-  var textsHtml='';
-  if(practiceEl){var boxes=practiceEl.querySelectorAll('.reading-text-box');for(var t=0;t<boxes.length;t++){textsHtml+=boxes[t].outerHTML;}}
-  var LETTERS=['א','ב','ג','ד'];
-  var questionsHtml=qs.map(function(q,i){
-    var a=(typeof QS!=='undefined'&&QS.answers)?QS.answers[q.id]:undefined;
-    var ok=false,gv='לא נענה';
-    if(q.type==='mc'&&a&&a.sel!==undefined){gv=LETTERS[a.sel]+'. '+q.opts[a.sel];ok=(a.sel===q.ans);}
-    else if(q.type==='tf'&&a&&a.sel!==undefined){gv=a.sel?'נכון':'לא נכון';ok=(a.sel===q.ans);}
-    else if(q.type==='sort'&&a&&a.order){gv=a.order.map(function(j){return q.items[j];}).join(' ← ');ok=(JSON.stringify(a.order)===JSON.stringify(q.correctOrder));}
-    else if(q.type==='open'){gv=(a&&a.text)?a.text:'(לא נכתב)';ok=!!(a&&a.text&&a.text.length>10);}
-    var ca='';
-    if(q.type==='mc')ca=LETTERS[q.ans]+'. '+q.opts[q.ans];
-    else if(q.type==='tf')ca=q.ans?'נכון':'לא נכון';
-    else if(q.type==='sort')ca=q.correctOrder.map(function(j){return q.items[j];}).join(' ← ');
-    else ca='שאלת כתיבה פתוחה';
-    var pts=q.pts?'<div style="font-size:8pt;color:#b45309;font-weight:700;margin-bottom:.2rem">'+q.pts+' נקודות'+(q.ref?' · '+q.ref:'')+'</div>':(q.ref?'<div style="font-size:7.5pt;color:#b45309">'+q.ref+'</div>':'');
-    var rowBg=submitted?(ok?'#fafffe':'#fffbfb'):'#fff';
-    var rowBorder=submitted?(ok?'#bbf7d0':'#fca5a5'):'#e4e7ef';
-    var numBg=submitted?(ok?'#15803d':'#dc2626'):'#b45309';
-    var ansStyle=submitted?(ok?'background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0':'background:#fef2f2;color:#dc2626;border:1px solid #fca5a5'):'background:#fefce8;color:#b45309;border:1px solid #fde68a';
-    var ansIcon=submitted?(ok?'✅':'❌'):'→';
-    var h='<div style="display:flex;gap:.6rem;border:1px solid '+rowBorder+';border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid;background:'+rowBg+'">';
-    h+='<div style="width:20px;height:20px;border-radius:50%;background:'+numBg+';color:#fff;font-size:.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem">'+(i+1)+'</div>';
-    h+='<div style="flex:1">'+pts+'<div style="font-size:9.5pt;font-weight:700;color:#0d1424;margin-bottom:.3rem">'+q.q+'</div>';
-    if(!isTeacher){h+='<div style="font-size:9pt;padding:.3rem .65rem;border-radius:6px;margin-bottom:.25rem;'+ansStyle+'"><strong>'+ansIcon+' תשובת התלמיד/ה:</strong> '+gv+'</div>';}
-    if(isTeacher){h+='<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ תשובה נכונה:</strong> '+ca+'</div>';}
-    else if(submitted&&!ok&&gv!=='לא נענה'){h+='<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ התשובה הנכונה:</strong> '+ca+'</div>';}
-    h+='<div style="font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem;line-height:1.5">'+q.explain+'</div>';
-    if(q.teacherNote)h+='<div style="font-size:8pt;color:#b45309;margin-top:.2rem;background:#fefce8;border-radius:5px;padding:.25rem .55rem">'+q.teacherNote+'</div>';
-    h+='</div></div>';
-    return h;
-  }).join('');
-  var css='*{box-sizing:border-box;margin:0;padding:0}body{font-family:Heebo,sans-serif;direction:rtl;background:#fff;color:#0d1424;font-size:10pt;line-height:1.6}@page{margin:1.5cm;size:A4}.doc{max-width:210mm;margin:0 auto;padding:1cm}.doc-header{text-align:center;padding-bottom:1.2rem;border-bottom:3px solid #b45309;margin-bottom:1.5rem}.doc-header h1{font-size:18pt;color:#b45309}.doc-header p{font-size:9pt;color:#555}.sec-title{font-size:13pt;color:#b45309;border-bottom:2px solid #ecfeff;padding-bottom:.4rem;margin:1.5rem 0 1rem;page-break-after:avoid}.card{border:1px solid #e4e7ef;border-radius:8px;padding:.8rem 1rem;margin-bottom:.7rem;break-inside:avoid}.mini-card{background:#f8f9fb;border:1px solid #e4e7ef;border-radius:8px;padding:.7rem .9rem;break-inside:avoid}.lesson-hero{background:#faf5ff;border:1px solid #ddd6fe;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid}.lesson-hero::before{display:none}.section-hd{font-size:11pt;color:#b45309;border-bottom:1.5px solid #ecfeff;padding-bottom:.3rem;margin:1.2rem 0 .6rem;display:flex;align-items:center;gap:.4rem;page-break-after:avoid}.sn{width:22px;height:22px;border-radius:50%;background:#b45309;color:#fff;font-size:.65rem;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900;-webkit-print-color-adjust:exact;print-color-adjust:exact}.box-lc,.box{background:#ecfeff;border:1.5px solid #a5f3fc;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.box-amber{background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.box-green{background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.6rem}.texts-side{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.8rem}.text-panel{border-radius:8px;overflow:hidden;break-inside:avoid}.text-panel.a .text-panel-header{background:#7c3aed;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.text-panel.b .text-panel-header{background:#5b21b6;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.text-panel-header{padding:.5rem .8rem;font-size:.72rem;font-weight:800}.text-panel-body{background:#f8f9fb;border:1px solid #e4e7ef;border-top:none;padding:.7rem .8rem;font-size:.78rem;line-height:1.6}.venn-wrap{display:flex;gap:0;margin:.8rem 0;break-inside:avoid}.venn-left{flex:1;background:#eff4ff;border:1.5px solid #bfdbfe;padding:.7rem .9rem;font-size:.78rem}.venn-center{width:130px;flex-shrink:0;background:#ede9fe;border:1.5px solid #c4b5fd;padding:.7rem .6rem;text-align:center;font-size:.78rem}.venn-right{flex:1;background:#fdf4ff;border:1.5px solid #d8b4fe;padding:.7rem .9rem;font-size:.78rem}.cmp-table{width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:.8rem;break-inside:avoid}.cmp-table th{padding:.5rem .7rem;text-align:right;font-weight:800;font-size:.72rem;background:#b45309;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.cmp-table th.col-b{background:#5b21b6}.cmp-table td{padding:.45rem .7rem;border-bottom:1px solid #e4e7ef}.cmp-table tr:nth-child(even) td{background:#f8f9fb}.row-label{font-weight:700;background:#faf5ff!important}.steps-wrap{background:#faf5ff;border:1.5px solid #ddd6fe;border-radius:10px;padding:1rem;margin-bottom:.8rem;break-inside:avoid}.bagrut-template{border:2px dashed #b45309;border-radius:10px;padding:1rem;margin-bottom:.8rem;break-inside:avoid}.bagrut-sample{background:#faf5ff;border:1.5px solid #ddd6fe;border-radius:8px;padding:.8rem 1rem;font-size:.82rem;line-height:1.7;break-inside:avoid}.reading-text-box{background:#faf5ff;border:2px solid #b45309;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid;position:relative}.reading-text-box::before{display:none}.hero-badge,.hero-chip,.hero-meta,.btn-print,.print-header,.sn-icon{display:none!important}';
-  var studentLine=(sn&&sn.length>0)?'<div style="font-size:11pt;font-weight:700;margin-top:.5rem">תלמיד/ה: '+sn+(sc?' | כיתה: '+sc:'')+' | '+new Date().toLocaleDateString('he-IL')+'</div>':'<div style="font-size:10pt;color:#6b7594;margin-top:.4rem">'+new Date().toLocaleDateString('he-IL')+'</div>';
-  var bodyHtml='<div class="doc"><div class="doc-header"><h1>שם המספר — המספר המונה</h1><p>יחידה 4 — תקינות · שיעור 1</p>'+studentLine+'</div>'+scoreHtml+'<div class="sec-title">חלק א — תיאוריה</div><div>'+theoryHtml+'</div>'+(textsHtml?'<div class="sec-title" style="page-break-before:always">טקסטים לקריאה</div>'+textsHtml:'')+(questionsHtml?'<div class="sec-title" style="page-break-before:always">חלק ב — תרגול ותשובות</div>'+questionsHtml:'')+'</div>';
-  var fullHtml='<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><title>שם המספר — המספר המונה</title><link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet"><style>'+css+'</style></head><body>'+bodyHtml+'<'+'script>document.fonts.ready.then(function(){setTimeout(function(){window.print();},300);}).catch(function(){setTimeout(function(){window.print();},1200);});<'+'/script></body></html>';
-  pw.document.write(fullHtml);
-  pw.document.close();
-}
+function printLesson(){var pw=window.open('','_blank','width=960,height=760');if(!pw){alert('popup blocked');return;}var accent='#059669';var isTeacher=(document.body.classList.contains('is-teacher')||(new URLSearchParams(window.location.search)).get('role')==='teacher');var score=(typeof _lastScore!=='undefined')?_lastScore:null;var correct=(typeof _lastCorrect!=='undefined')?_lastCorrect:0;var sn=isTeacher?'':((SNP)?SNP:STUDENT_NAME);var sc=isTeacher?'':((SCP)?SCP:STUDENT_CLASS);var qs=(typeof QUESTIONS!=='undefined')?QUESTIONS:[];var submitted=(typeof QS!=='undefined')&&QS.submitted;var scoreHtml='';if(!isTeacher){scoreHtml=score!==null?'<div style="background:#f0fdf4;border:2px solid #15803d;border-radius:12px;padding:1rem 1.5rem;margin-bottom:1.5rem;text-align:center"><div style="font-size:36pt;color:#15803d">'+score+'%</div><div style="font-size:11pt;color:#15803d;font-weight:700">'+correct+' נכון מתוך '+qs.length+'</div></div>':'<div style="background:#ecfdf5;border:2px solid #059669;border-radius:12px;padding:1rem;text-align:center;color:#059669;font-weight:700">טרם הוגש</div>';}var theoryHtml=(document.getElementById('pane-theory')||{innerHTML:''}).innerHTML||'';var practiceEl=document.getElementById('pane-practice');var textsHtml='';if(practiceEl){var boxes=practiceEl.querySelectorAll('.reading-text-box');for(var t=0;t<boxes.length;t++){textsHtml+=boxes[t].outerHTML;}}var LETTERS2=['א','ב','ג','ד'];var questionsHtml=qs.map(function(q,i){var a=(typeof QS!=='undefined'&&QS.answers)?QS.answers[q.id]:undefined;var ok=false,gv='לא נענה';if(q.type==='mc'&&a&&a.sel!==undefined){gv=LETTERS2[a.sel]+'. '+q.opts[a.sel];ok=(a.sel===q.ans);}else if(q.type==='tf'&&a&&a.sel!==undefined){gv=a.sel?'נכון':'לא נכון';ok=(a.sel===q.ans);}else if(q.type==='sort'&&a&&a.order){gv=a.order.map(function(j){return q.items[j];}).join(' ← ');ok=(JSON.stringify(a.order)===JSON.stringify(q.correctOrder));}else if(q.type==='open'){gv=(a&&a.text)?a.text:'(לא נכתב)';ok=!!(a&&a.text&&a.text.length>10);}var ca='';if(q.type==='mc')ca=LETTERS2[q.ans]+'. '+q.opts[q.ans];else if(q.type==='tf')ca=q.ans?'נכון':'לא נכון';else if(q.type==='sort')ca=q.correctOrder.map(function(j){return q.items[j];}).join(' ← ');else ca='שאלת כתיבה פתוחה';var rowBg=submitted?(ok?'#fafffe':'#fffbfb'):'#fff';var rowBorder=submitted?(ok?'#6ee7b7':'#fca5a5'):'#e4e7ef';var numBg=submitted?(ok?'#059669':'#dc2626'):'#059669';var h='<div style="display:flex;gap:.6rem;border:1px solid '+rowBorder+';border-radius:8px;padding:.7rem .9rem;margin-bottom:.6rem;break-inside:avoid;background:'+rowBg+'">';h+='<div style="width:20px;height:20px;border-radius:50%;background:'+numBg+';color:#fff;font-size:.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem">'+(i+1)+'</div>';h+='<div style="flex:1"><div style="font-size:9.5pt;font-weight:700;color:#0d1424;margin-bottom:.3rem">'+q.q+'</div>';if(!isTeacher){h+='<div style="font-size:9pt;padding:.3rem .65rem;border-radius:6px;margin-bottom:.25rem;background:#ecfdf5;color:#059669;border:1px solid #6ee7b7"><strong>תשובת התלמיד: </strong>'+gv+'</div>';}h+='<div style="font-size:9pt;padding:.3rem .65rem;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;margin-bottom:.25rem"><strong>✅ תשובה נכונה:</strong> '+ca+'</div>';h+='<div style="font-size:8.5pt;color:#6b7594;border-right:2.5px solid #e4e7ef;padding-right:.55rem;line-height:1.5">'+q.explain+'</div>';if(q.teacherNote&&isTeacher)h+='<div style="font-size:8pt;color:#059669;margin-top:.2rem;background:#ecfdf5;border-radius:5px;padding:.25rem .55rem">'+q.teacherNote+'</div>';h+='</div></div>';return h;}).join('');var css='*{box-sizing:border-box;margin:0;padding:0}body{font-family:Heebo,sans-serif;direction:rtl;background:#fff;color:#0d1424;font-size:10pt;line-height:1.6}@page{margin:1.5cm;size:A4}.doc{max-width:210mm;margin:0 auto;padding:1cm}.doc-header{text-align:center;padding-bottom:1.2rem;border-bottom:3px solid #059669;margin-bottom:1.5rem}.doc-header h1{font-size:18pt;color:#059669}.doc-header p{font-size:9pt;color:#555}.sec-title{font-size:13pt;color:#059669;border-bottom:2px solid #ecfdf5;padding-bottom:.4rem;margin:1.5rem 0 1rem;page-break-after:avoid}.card{border:1px solid #e4e7ef;border-radius:8px;padding:.8rem 1rem;margin-bottom:.7rem;break-inside:avoid}.reading-text-box{background:#ecfdf5;border:2px solid #059669;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;break-inside:avoid;position:relative}.reading-text-box::before{display:none}.section-hd{font-size:11pt;color:#059669;border-bottom:1.5px solid #ecfdf5;padding-bottom:.3rem;margin:1.2rem 0 .6rem;display:flex;align-items:center;gap:.4rem;page-break-after:avoid}.sn{width:22px;height:22px;border-radius:50%;background:#059669;color:#fff;font-size:.65rem;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900;-webkit-print-color-adjust:exact;print-color-adjust:exact}.box-lc,.box{background:#ecfdf5;border:1.5px solid #6ee7b7;border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;break-inside:avoid}.hero-badge,.hero-chip,.hero-meta,.btn-print,.print-header,.sn-icon,.goto-practice-btn,.opening-q{display:none!important}';var studentLine=(sn&&sn.length>0)?'<div style="font-size:11pt;font-weight:700;margin-top:.5rem">תלמיד/ה: '+sn+(sc?' | כיתה: '+sc:'')+' | '+new Date().toLocaleDateString('he-IL')+'</div>':'<div style="font-size:10pt;color:#6b7594;margin-top:.4rem">'+new Date().toLocaleDateString('he-IL')+'</div>';var bodyHtml='<div class="doc"><div class="doc-header"><h1>שם המספר — המספר המונה</h1><p>יחידה 4 — תקינות · שיעור 1</p>'+studentLine+'</div>'+scoreHtml+'<div class="sec-title">חלק א — תיאוריה</div><div>'+theoryHtml+'</div>'+(textsHtml?'<div class="sec-title" style="page-break-before:always">טקסטים לקריאה</div>'+textsHtml:'')+(questionsHtml?'<div class="sec-title" style="page-break-before:always">חלק ב — תרגול ותשובות</div>'+questionsHtml:'')+'</div>';var fullHtml='<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><title>שם המספר</title><link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet"><style>'+css+'</style></head><body>'+bodyHtml+'<'+'script>document.fonts.ready.then(function(){setTimeout(function(){window.print();},300);}).catch(function(){setTimeout(function(){window.print();},1200);});<'+'/script></body></html>';pw.document.write(fullHtml);pw.document.close();}
 let _tt;
-function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800)}
+function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2800);}
 function goBack(){if(window.opener){try{window.opener.postMessage({type:'lessonDone',lid:LESSON_ID},'*')}catch{}window.close();return;}window.location.href=BACK_URL;}
-function init(){initFirebase();if(USER_ROLE==='teacher'){const rc=document.getElementById('role-chip');if(rc)rc.style.display='';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';_gateConfirmed=true;const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='';document.getElementById('student-gate')?.classList.add('hidden');document.getElementById('gate-confirmed')?.classList.add('hidden');}else{const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){_gateConfirmed=true;if(wrap)wrap.style.display='';document.getElementById('student-gate')?.classList.add('hidden');const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed')?.classList.remove('hidden');}}applyAnswersVisibility();renderQuestions();}
+function init(){initFirebase();if(USER_ROLE==='teacher'){const rc=document.getElementById('role-chip');if(rc)rc.style.display='';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';_gateConfirmed=true;const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='block';document.getElementById('student-gate')?.classList.add('hidden');document.getElementById('gate-confirmed')?.classList.add('hidden');}else{const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){_gateConfirmed=true;SNP=STUDENT_NAME;SCP=STUDENT_CLASS;if(wrap)wrap.style.display='block';document.getElementById('student-gate')?.classList.add('hidden');const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed')?.classList.add('show');}}applyAnswersVisibility();renderQuestions();}
 init();
 </script>
 </body>
