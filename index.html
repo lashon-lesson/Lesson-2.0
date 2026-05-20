@@ -597,26 +597,6 @@ a{text-decoration:none;color:inherit}
         <strong style="color:var(--purple)">🔑 הסבר:</strong> כשהמתג <strong>כבוי</strong> — תלמידים יראו: <em>"התשובות טרם פורסמו על ידי המורה"</em>. כשהוא <strong>דלוק</strong> — טאב התשובות נפתח. מסונכרן ב-Firebase בזמן-אמת (Firestore: <code style="font-size:.72rem;background:var(--surface3);padding:1px 5px;border-radius:5px">lessons/{id}/showAnswers</code>).
       </div>
 
-      <!-- Dedicated toggle for Lesson 0 -->
-      <div class="lock-item" style="border:1.5px solid var(--purple);border-radius:var(--r-lg);padding:.9rem 1rem;background:var(--purple-lt);margin-bottom:1rem">
-        <span class="lock-emoji">🔍</span>
-        <div class="lock-info">
-          <div class="lock-name" style="color:var(--purple)">פרסום תשובות — שיעור 0</div>
-          <div class="lock-meta">מבוא לניתוח טקסט · יחידה 1</div>
-          <div class="lock-meta" id="l0-answers-status" style="margin-top:.22rem;font-weight:700;color:var(--muted)">בודק…</div>
-        </div>
-        <div class="lock-toggles">
-          <div class="toggle-row">
-            <span class="toggle-label-sm" style="color:var(--purple)">גלוי לתלמידים</span>
-            <label class="toggle-wrap answers">
-              <input type="checkbox" id="l0-answers-toggle"
-                onchange="toggleL0Answers(this.checked)">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-        </div>
-      </div>
-
       <div id="answers-control-list"></div>
     </div>
 
@@ -1279,7 +1259,7 @@ function selectUnit(uid){
     if(l.exam) chips+=`<span class="lr-chip-new lrc-exam">📝 מבחן</span>`;
     if(l.isNew) chips+=`<span class="lr-chip-new lrc-new">✨ חדש</span>`;
 
-    const action=locked?'':`;onclick="openLesson('${l.id}','${l.file||''}','${unit.id}')"`;
+    const action=locked?'':` onclick="openLesson('${l.id}','${l.file||''}','${unit.id}')"`;
     rows+=`<div class="${cls}"${action}>
       <div class="lr-em-wrap">${l.emoji}</div>
       <div class="lr-bd">
@@ -1294,13 +1274,15 @@ function selectUnit(uid){
 
   // Exam row
   const examL=unit.lessons.find(l=>l.exam);
-  const examHtml=examL?`<div class="exam-row-new${(isLocked(examL.id,examL.locked)&&!isT)?' exam-locked':''}" onclick="${(isLocked(examL.id,examL.locked)&&!isT)?'':` openLesson('${examL.id}','${examL.file||''}','${unit.id}')`}">
+  const examLocked2=(isLocked(examL.id,examL.locked)&&!isT);
+  const examClickAttr=examLocked2?'':`onclick="openLesson('${examL.id}','${examL.file||''}','${unit.id}')"`;
+  const examHtml=examL?`<div class="exam-row-new${examLocked2?' exam-locked':''}" ${examClickAttr}>
     <div class="exam-em-new">🏆</div>
     <div class="exam-info-new">
       <div class="exam-t-new">${examL.title}</div>
-      <div class="exam-s-new">${(isLocked(examL.id,examL.locked)&&!isT)?'יפתח לאחר השלמת השיעורים':examL.mins+' דקות · מבחן מסכם'}</div>
+      <div class="exam-s-new">${examLocked2?'יפתח לאחר השלמת השיעורים':examL.mins+' דקות · מבחן מסכם'}</div>
     </div>
-    ${(isLocked(examL.id,examL.locked)&&!isT)?'<span style="opacity:.3;font-size:16px">🔒</span>':`<span class="exam-chip-new">${examL.mins} דק׳</span>`}
+    ${examLocked2?'<span style="opacity:.3;font-size:16px">🔒</span>':`<span class="exam-chip-new">${examL.mins} דק׳</span>`}
   </div>`:'';
 
   // Teacher controls header
@@ -1550,10 +1532,8 @@ function buildLockList(){
 
 /* ─ Dedicated Lesson 0 answers toggle ─ */
 function toggleL0Answers(checked){
-  // Optimistic UI update immediately
-  const cb=document.getElementById('l0-answers-toggle');
-  if(cb) cb.checked=checked;
   setAnswersVisible('u1_l0',checked);
+  buildAnswersControlList();
   const status=document.getElementById('l0-answers-status');
   if(status) status.textContent=checked?'✅ תשובות גלויות לתלמידים':'🔒 תשובות מוסתרות';
   if(status) status.style.color=checked?'var(--green)':'var(--muted)';
@@ -1561,23 +1541,12 @@ function toggleL0Answers(checked){
 }
 /* Answers visibility list */
 function buildAnswersControlList(){
-  // Sync the dedicated L0 toggle
-  const visible=isAnswersVisible('u1_l0');
-  const cb=document.getElementById('l0-answers-toggle');
-  if(cb) cb.checked=visible;
-  const status=document.getElementById('l0-answers-status');
-  if(status){
-    status.textContent=visible?'✅ תשובות גלויות לתלמידים':'🔒 תשובות מוסתרות';
-    status.style.color=visible?'var(--green)':'var(--muted)';
-  }
-  // Build list for remaining lessons
   const list=document.getElementById('answers-control-list');if(!list)return;
   let html='';
   function renderAnswersGroup(units, groupLabel){
     let out=`<div style="margin:1rem 0 .35rem;font-size:.7rem;font-weight:900;color:var(--subtle);text-transform:uppercase;letter-spacing:.07em">${groupLabel}</div>`;
     units.forEach(unit=>{
       unit.lessons.forEach(l=>{
-        if(l.id==='u1_l0') return;
         const vis=isAnswersVisible(l.id);
         out+=`<div class="lock-item">
           <span class="lock-emoji">${l.emoji}</span>
