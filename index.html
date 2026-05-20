@@ -709,12 +709,17 @@ async function pushLocks(locks){
 function subscribeAnswers(){
   if(!_db) return;
   _db.collection('lessons').onSnapshot(snap=>{
+    const av=LS.get('lashon2_answers_visible',{});
+    // Only update from Firebase if no recent local change (within 3 seconds)
+    const now=Date.now();
     snap.forEach(doc=>{
       const lid=doc.id;
       const val=doc.data()?.showAnswers===true;
-      const av=LS.get('lashon2_answers_visible',{});
-      av[lid]=val; LS.set('lashon2_answers_visible',av);
+      // Skip if there was a recent local write for this lesson
+      if(window._recentAnswerWrite&&window._recentAnswerWrite[lid]&&(now-window._recentAnswerWrite[lid])<3000) return;
+      av[lid]=val;
     });
+    LS.set('lashon2_answers_visible',av);
     if(document.getElementById('tab-answers')?.classList.contains('active')) buildAnswersControlList();
   });
   // Live submission listener — notifies teacher in real-time
@@ -766,6 +771,9 @@ function isAnswersVisible(lid){
 function setAnswersVisible(lid,visible){
   const av=LS.get('lashon2_answers_visible',{});
   av[lid]=visible; LS.set('lashon2_answers_visible',av);
+  // Mark timestamp so subscribeAnswers won't override this for 3 seconds
+  if(!window._recentAnswerWrite) window._recentAnswerWrite={};
+  window._recentAnswerWrite[lid]=Date.now();
   pushAnswersVisible(lid,visible);
 }
 
@@ -1542,6 +1550,9 @@ function buildLockList(){
 
 /* ─ Dedicated Lesson 0 answers toggle ─ */
 function toggleL0Answers(checked){
+  // Optimistic UI update immediately
+  const cb=document.getElementById('l0-answers-toggle');
+  if(cb) cb.checked=checked;
   setAnswersVisible('u1_l0',checked);
   const status=document.getElementById('l0-answers-status');
   if(status) status.textContent=checked?'✅ תשובות גלויות לתלמידים':'🔒 תשובות מוסתרות';
