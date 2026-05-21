@@ -149,15 +149,11 @@ a{text-decoration:none;color:inherit}
 .h-pill-streak{background:rgba(251,146,60,.18);color:#fed7aa;border:1px solid rgba(251,146,60,.25)}
 
 /* ── MAIN BODY (two-column on desktop) ── */
-.app-body{flex:1;display:flex;flex-direction:column;min-width:0;width:100%;overflow-x:hidden}
-@media(min-width:700px){
-  .app-body{flex-direction:row;align-items:flex-start;max-width:1140px;margin:0 auto;width:100%;padding:1.3rem 1.5rem;gap:1.4rem}
-}
+.app-body{flex:1;min-width:0;width:100%;overflow-x:hidden}
 
 /* ── LEFT COL: unit cards ── */
-.units-col{padding:.9rem 1rem 0;display:flex;flex-direction:column;gap:.6rem}
-@media(min-width:700px){.units-col{padding:0 0 2rem;width:260px;flex-shrink:0;position:sticky;top:52px;max-height:calc(100vh - 70px);overflow-y:auto;scrollbar-width:none}}
-@media(min-width:700px){.units-col::-webkit-scrollbar{display:none}}
+.units-col{padding:.9rem 1rem 2rem;display:flex;flex-direction:column;gap:0;max-width:740px;margin:0 auto;width:100%}
+@media(min-width:700px){.units-col{padding:1.3rem 1.5rem 3rem}}
 
 .sec-lbl{font-size:10px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--subtle);margin-bottom:.5rem;display:flex;align-items:center;gap:8px}
 .sec-lbl::after{content:'';flex:1;height:1px;background:var(--border)}
@@ -195,10 +191,9 @@ a{text-decoration:none;color:inherit}
 .v3-grad{background:linear-gradient(145deg,#713f12,#d97706)}
 
 /* ── RIGHT COL: lesson panel ── */
-.lessons-col{padding:.8rem 1rem 3rem;min-width:0;width:100%}
-@media(min-width:700px){.lessons-col{padding:0 0 2rem}}
 
-.lesson-panel{background:var(--surface);border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--sh1);width:100%;min-width:0}
+
+.lesson-panel{background:var(--surface);border-radius:0 0 14px 14px;border:1px solid var(--border);border-top:none;overflow:hidden;width:100%}
 .lp-head{padding:.9rem 1.1rem .85rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
 .lp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .lp-info{flex:1;min-width:0}
@@ -257,6 +252,47 @@ a{text-decoration:none;color:inherit}
 /* ── TEACHER PANEL (when not student) ── */
 .teacher-wrap{padding:1.2rem;background:var(--surface2);border-radius:16px;border:1px solid var(--border);margin-bottom:1rem;display:none}
 .teacher-wrap.on{display:block}
+
+
+
+/* ── UNIT GRID + INLINE PANEL ── */
+.units-section{margin-bottom:.5rem}
+.uc-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:0}
+@media(min-width:700px){.uc-grid{grid-template-columns:repeat(4,1fr)}}
+.uc-grid-3{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:0}
+@media(min-width:700px){.uc-grid-3{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:699px){.uc-grid-3 .uc:last-child:nth-child(odd){grid-column:1 / -1;max-width:50%;margin:0 auto;width:100%}}
+
+/* inline panel that slides open below the grid */
+.inline-panel-wrap{overflow:hidden;max-height:0;transition:max-height .38s cubic-bezier(.22,1,.36,1);width:100%}
+.inline-panel-wrap.open{max-height:4000px}
+.inline-panel{background:var(--surface);border-radius:0 0 16px 16px;border:1.5px solid var(--border);border-top:none;overflow:hidden;margin-bottom:10px}
+
+/* ── ACCORDION UNIT CARDS ── */
+
+.uc-btn{display:flex;align-items:center;gap:10px;padding:.85rem .95rem;width:100%;border:none;border-radius:14px;cursor:pointer;-webkit-tap-highlight-color:transparent;position:relative}
+.unit-accordion.open .uc-btn{border-radius:14px 14px 0 0}
+.uc-btn .uc-em{font-size:22px;line-height:1;flex-shrink:0}
+.uc-btn .uc-tag{font-size:9px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:2px}
+.uc-btn .uc-name{font-family:'Secular One',sans-serif;font-size:14px;color:#fff;line-height:1.2}
+.uc-btn .uc-pb-track{height:3px;background:rgba(255,255,255,.2);border-radius:2px;overflow:hidden}
+.uc-btn .uc-pb-fill{height:100%;border-radius:2px;background:rgba(255,255,255,.75)}
+.uc-btn .uc-pct{font-size:12px;font-weight:900;color:#fff}
+.uc-btn .uc-done-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,.55)}
+.uc-btn .uc-chev{font-size:11px;color:rgba(255,255,255,.6);transition:transform .22s cubic-bezier(.34,1.2,.64,1);margin-top:2px}
+.unit-accordion.open .uc-btn .uc-chev{transform:rotate(180deg)}
+
+.unit-accordion{border-radius:16px;overflow:hidden;margin-bottom:10px;border:1.5px solid transparent;transition:border-color .15s}
+.unit-accordion.open{border-color:var(--border2)}
+.uc-btn{width:100%;display:flex;align-items:center;gap:10px;padding:.85rem .95rem;border:none;border-radius:16px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-radius .2s;position:relative;text-align:right}
+.unit-accordion.open .uc-btn{border-radius:14px 14px 0 0}
+.uc-btn-inner{padding:.8rem .8rem .7rem;position:relative;display:flex;align-items:center;gap:10px;width:100%}
+.uc-left{display:flex;flex-direction:column;flex:1;min-width:0;text-align:right}
+.uc-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
+.uc-chev{font-size:12px;color:rgba(255,255,255,.6);transition:transform .22s cubic-bezier(.34,1.2,.64,1)}
+.unit-accordion.open .uc-chev{transform:rotate(180deg)}
+.uc-lessons-wrap{overflow:hidden;max-height:0;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.unit-accordion.open .uc-lessons-wrap{max-height:3000px}
 
 /* ── MODAL ── */
 .modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.58);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:1rem}
@@ -486,24 +522,11 @@ a{text-decoration:none;color:inherit}
     </div>
   </div>
 
-  <!-- BODY: two-column -->
+  <!-- BODY: single column accordion -->
   <div class="app-body">
-
-    <!-- LEFT: unit cards -->
     <div class="units-col" id="units-col">
       <!-- rendered by renderGrid() -->
     </div>
-
-    <!-- RIGHT: lesson panel -->
-    <div class="lessons-col">
-      <div class="lesson-panel" id="lesson-panel">
-        <div class="lp-locked" style="padding:3rem 1.5rem;text-align:center">
-          <div style="font-size:32px;opacity:.3;margin-bottom:.6rem">📖</div>
-          <div style="font-size:14px;font-weight:700;color:var(--muted)">בחר יחידה כדי לראות את השיעורים</div>
-        </div>
-      </div>
-    </div>
-
   </div>
 
   <!-- hidden elements for compatibility -->
@@ -1169,41 +1192,55 @@ function renderGrid(){
   if(!col) return;
   const isT=(S.role==='teacher'||S.role==='admin');
   let totalOpen=0,totalDone=0;
-
-  // Unit dot colors
   const DOT={u1:'#2563eb',u2:'#059669',u3:'#7c3aed',u4:'#ea580c',v1:'#0891b2',v2:'#8b5cf6',v3:'#d97706'};
-  // Unit card gradient class
   const GRAD={u1:'u1-grad',u2:'u2-grad',u3:'u3-grad',u4:'u4-grad',v1:'v1-grad',v2:'v2-grad',v3:'v3-grad'};
 
-  function buildUnitCards(units, secLabel, secClass){
-    let html=`<div class="sec-lbl">${secLabel}</div><div class="uc-scroll"><div class="uc-row">`;
-    units.forEach(unit=>{
-      let ud=0,ut=0;
-      unit.lessons.forEach(l=>{if(!isLocked(l.id,l.locked)||isT){ut++;if(S.prog[l.id]?.done)ud++;}});
-      if(isT) unit.lessons.forEach(l=>{ut++;if(S.prog[l.id]?.done)ud++;});
-      const pct=ut?Math.round(ud/ut*100):0;
+  function buildSection(units, secLabel, gridClass){
+    // Build the grid of colored cards
+    const cards = units.map(unit=>{
+      let ud=0, ut=0;
+      unit.lessons.forEach(l=>{ut++; if(S.prog[l.id]?.done) ud++;});
+      const pct = ut ? Math.round(ud/ut*100) : 0;
       totalOpen+=ut; totalDone+=ud;
-      const locked=!isT && unit.lessons.every(l=>isLocked(l.id,l.locked)) && unit.lessons.length>0;
-      html+=`<div class="uc ${GRAD[unit.id]||''}" id="uc-${unit.id}" onclick="selectUnit('${unit.id}')" style="${locked?'opacity:.5':''}">
+      const locked = !isT && unit.lessons.length>0 && unit.lessons.every(l=>isLocked(l.id,l.locked));
+      return `<div class="uc ${GRAD[unit.id]||''}" id="uc-${unit.id}"
+          onclick="toggleAccordion('${unit.id}')"
+          style="${locked?'opacity:.5':''}">
         <div class="uc-inner">
-          ${locked?`<div class="uc-lock-icon">🔒</div>`:''}
+          ${locked?'<div class="uc-lock-icon">🔒</div>':''}
           <div class="uc-em">${unit.emoji}</div>
           <div class="uc-tag">${unit.label}</div>
           <div class="uc-name">${unit.title}</div>
           <div class="uc-pb-track"><div class="uc-pb-fill" style="width:${pct}%"></div></div>
-          <div class="uc-meta"><div class="uc-done-lbl">${ud} / ${ut}</div><div class="uc-pct">${pct}%</div></div>
+          <div class="uc-meta">
+            <div class="uc-done-lbl">${ud}/${ut}</div>
+            <div class="uc-pct">${pct}%</div>
+          </div>
         </div>
       </div>`;
-    });
-    html+=`</div></div>`;
-    return html;
+    }).join('');
+
+    // One shared inline panel per section (opens below the grid)
+    const panelIds = units.map(u=>'lp-'+u.id).join(',');
+    const panelHtml = units.map(u=>
+      `<div class="inline-panel" id="lp-${u.id}" style="display:none"></div>`
+    ).join('');
+
+    return `
+      <div class="sec-lbl">${secLabel}</div>
+      <div class="units-section" id="section-${units[0].id}">
+        <div class="${gridClass}">${cards}</div>
+        <div class="inline-panel-wrap" id="ipw-${units[0].id}">
+          ${panelHtml}
+        </div>
+      </div>`;
   }
 
-  let colHtml='';
-  colHtml+=buildUnitCards(UNITS,'📗 30% — לשון תיכון','');
-  colHtml+=`<div style="margin-top:.4rem"></div>`;
-  colHtml+=buildUnitCards(UNITS_70,'📘 70% — לשון תיכון','');
-  col.innerHTML=colHtml;
+  let html='';
+  html += buildSection(UNITS, '📗 30% — לשון תיכון', 'uc-grid');
+  html += `<div style="margin-top:.5rem"></div>`;
+  html += buildSection(UNITS_70, '📘 70% — לשון תיכון', 'uc-grid-3');
+  col.innerHTML = html;
 
   // Hero stats
   if(S.role==='student'){
@@ -1213,42 +1250,67 @@ function renderGrid(){
     const fill=document.getElementById('prog-fill');if(fill)fill.style.width=pct+'%';
     const pctEl=document.getElementById('prog-pct');if(pctEl)pctEl.textContent=pct+'%';
   }
-
-  // Auto-select first open unit
-  const firstOpen=[...UNITS,...UNITS_70].find(u=>u.lessons.some(l=>!isLocked(l.id,l.locked)||isT));
-  if(firstOpen && !window._unitSelected) selectUnit(firstOpen.id);
 }
 
-function selectUnit(uid){
-  window._unitSelected=true;
+
+function toggleAccordion(uid){
+  // Find which section this unit belongs to
+  const allUnits=[...UNITS,...UNITS_70];
+  const unit=allUnits.find(u=>u.id===uid); if(!unit) return;
+  const isT=(S.role==='teacher'||S.role==='admin');
+  if(!isT && unit.lessons.every(l=>isLocked(l.id,l.locked))) return;
+
+  // Find the section group (30% or 70%)
+  const in30 = UNITS.find(u=>u.id===uid);
+  const sectionUnits = in30 ? UNITS : UNITS_70;
+  const sectionFirstId = sectionUnits[0].id;
+  const ipw = document.getElementById('ipw-'+sectionFirstId);
+
+  // Is this unit already open?
+  const currentOpen = ipw && ipw.classList.contains('open') &&
+    document.getElementById('lp-'+uid)?.style.display !== 'none';
+
+  // Close all panels in ALL sections
+  document.querySelectorAll('.inline-panel-wrap').forEach(w=>w.classList.remove('open'));
+  document.querySelectorAll('.inline-panel').forEach(p=>p.style.display='none');
+  document.querySelectorAll('.uc').forEach(c=>c.classList.remove('sel'));
+
+  if(!currentOpen){
+    // Show this unit's panel
+    if(ipw) ipw.classList.add('open');
+    const panel=document.getElementById('lp-'+uid);
+    if(panel){ panel.style.display='block'; renderLessonPanel(uid); }
+    // Highlight selected card
+    const card=document.getElementById('uc-'+uid);
+    if(card) card.classList.add('sel');
+    // Scroll
+    setTimeout(()=>{
+      if(ipw) ipw.scrollIntoView({behavior:'smooth',block:'nearest'});
+    },120);
+  }
+}
+
+
+function renderLessonPanel(uid){
   const ALL=[...UNITS,...UNITS_70];
   const unit=ALL.find(u=>u.id===uid); if(!unit) return;
   const isT=(S.role==='teacher'||S.role==='admin');
   const DOT={u1:'#2563eb',u2:'#059669',u3:'#7c3aed',u4:'#ea580c',v1:'#0891b2',v2:'#8b5cf6',v3:'#d97706'};
+  const panel=document.getElementById('lp-'+uid); if(!panel) return;
 
-  // Highlight selected card
-  document.querySelectorAll('.uc').forEach(c=>c.classList.remove('sel'));
-  const card=document.getElementById('uc-'+uid);
-  if(card) card.classList.add('sel');
-
-  const panel=document.getElementById('lesson-panel'); if(!panel) return;
-
-  // Check if fully locked for students
   const allLocked=!isT && unit.lessons.length>0 && unit.lessons.every(l=>isLocked(l.id,l.locked));
   if(allLocked){
     panel.innerHTML=`<div class="lp-locked"><div class="lp-locked-em">🔒</div><div class="lp-locked-t">${unit.title}</div><div class="lp-locked-s">יחידה זו נעולה כרגע</div></div>`;
-    scrollPanel(); return;
+    return;
   }
 
-  // Build lesson rows
   let hasNext=false;
   let rows='';
-  unit.lessons.forEach((l,idx)=>{
+  unit.lessons.forEach(l=>{
     const locked=isLocked(l.id,l.locked)&&!isT;
     const done=!!S.prog[l.id]?.done;
     const isNext=!done&&!locked&&!hasNext;
     if(isNext) hasNext=true;
-
     let cls='lr-new';
     let right='';
     let chips=`<span class="lr-chip-new lrc-time">⏱ ${l.mins} דק׳</span>`;
@@ -1258,9 +1320,8 @@ function selectUnit(uid){
     else{right='<span class="lr-arrow-new">‹</span>';}
     if(l.exam) chips+=`<span class="lr-chip-new lrc-exam">📝 מבחן</span>`;
     if(l.isNew) chips+=`<span class="lr-chip-new lrc-new">✨ חדש</span>`;
-
-    const action=locked?'':` onclick="openLesson('${l.id}','${l.file||''}','${unit.id}')"`;
-    rows+=`<div class="${cls}"${action}>
+    const clickAttr=locked?'':` onclick="openLesson('${l.id}','${l.file||''}','${uid}')"`;
+    rows+=`<div class="${cls}"${clickAttr}>
       <div class="lr-em-wrap">${l.emoji}</div>
       <div class="lr-bd">
         <div class="lr-short-lbl">${l.short}</div>
@@ -1272,43 +1333,39 @@ function selectUnit(uid){
     </div>`;
   });
 
-  // Exam row
   const examL=unit.lessons.find(l=>l.exam);
-  const examLocked2=(isLocked(examL.id,examL.locked)&&!isT);
-  const examClickAttr=examLocked2?'':`onclick="openLesson('${examL.id}','${examL.file||''}','${unit.id}')"`;
-  const examHtml=examL?`<div class="exam-row-new${examLocked2?' exam-locked':''}" ${examClickAttr}>
-    <div class="exam-em-new">🏆</div>
-    <div class="exam-info-new">
-      <div class="exam-t-new">${examL.title}</div>
-      <div class="exam-s-new">${examLocked2?'יפתח לאחר השלמת השיעורים':examL.mins+' דקות · מבחן מסכם'}</div>
-    </div>
-    ${examLocked2?'<span style="opacity:.3;font-size:16px">🔒</span>':`<span class="exam-chip-new">${examL.mins} דק׳</span>`}
-  </div>`:'';
+  const examHtml=examL?(()=>{
+    const el=(isLocked(examL.id,examL.locked)&&!isT);
+    const ec=el?'':` onclick="openLesson('${examL.id}','${examL.file||''}','${uid}')"`;
+    return `<div class="exam-row-new${el?' exam-locked':''}"${ec}>
+      <div class="exam-em-new">🏆</div>
+      <div class="exam-info-new">
+        <div class="exam-t-new">${examL.title}</div>
+        <div class="exam-s-new">${el?'יפתח לאחר השלמת השיעורים':examL.mins+' דקות · מבחן מסכם'}</div>
+      </div>
+      ${el?'<span style="opacity:.3;font-size:16px">🔒</span>':`<span class="exam-chip-new">${examL.mins} דק׳</span>`}
+    </div>`;
+  })():'';
 
-  // Teacher controls header
   const teacherChip=isT?`<div style="font-size:.65rem;font-weight:800;padding:.18rem .65rem;border-radius:8px;background:rgba(202,138,4,.12);color:var(--amber);border:1px solid rgba(202,138,4,.2)">🎓 מצב מורה</div>`:'';
-
   panel.innerHTML=`
     <div class="lp-head">
       <div class="lp-dot" style="background:${DOT[uid]||'#6366f1'}"></div>
       <div class="lp-info">
-        <div class="lp-tag">${unit.label} · ${unit.desc||''}</div>
+        <div class="lp-tag">${unit.label}</div>
         <div class="lp-name">${unit.title}</div>
       </div>
       <div style="display:flex;gap:6px;align-items:center">${teacherChip}<div class="lp-count">${unit.lessons.length} שיעורים</div></div>
     </div>
     <div>${rows}</div>
     ${examHtml}`;
-
-  scrollPanel();
 }
 
-function scrollPanel(){
-  if(window.innerWidth<700){
-    const p=document.getElementById('lesson-panel');
-    if(p) setTimeout(()=>p.scrollIntoView({behavior:'smooth',block:'nearest'}),80);
-  }
-}
+/* compat stubs */
+function selectUnit(uid){ toggleAccordion(uid); }
+function scrollToUnit(uid){ toggleAccordion(uid); }
+function scrollPanel(){}
+
 
 /* scrollToUnit — sidebar nav compat */
 function scrollToUnit(uid){ selectUnit(uid); }
