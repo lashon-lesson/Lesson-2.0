@@ -294,6 +294,28 @@ a{text-decoration:none;color:inherit}
 .uc-lessons-wrap{overflow:hidden;max-height:0;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
 .unit-accordion.open .uc-lessons-wrap{max-height:3000px}
 
+
+/* ── UNIT FOCUS MODE ── */
+.uc-left-text{display:flex;flex-direction:column}
+.units-section.focused .uc.sel .uc-left-text{flex:1;min-width:0}
+
+.uc-grid,.uc-grid-3{transition:opacity .2s ease}
+.uc{transition:transform .14s,box-shadow .14s,opacity .18s}
+.units-section.focused .uc-grid,
+.units-section.focused .uc-grid-3{display:contents}
+.units-section.focused .uc.hidden{display:none}
+.units-section.focused .uc.sel{display:block;width:100%;grid-column:1/-1;border-radius:14px 14px 0 0}
+.units-section.focused .uc.sel .uc-inner{display:flex;align-items:center;gap:10px;padding:.7rem .85rem}
+.units-section.focused .uc.sel .uc-pb-track{display:none}
+.units-section.focused .uc.sel .uc-em{font-size:22px;margin-bottom:0;flex-shrink:0}
+.units-section.focused .uc.sel .uc-tag{margin-bottom:1px}
+.units-section.focused .uc.sel .uc-name{font-size:15px;margin-bottom:0}
+.units-section.focused .uc.sel .uc-meta{flex-direction:row;gap:6px;align-items:center}
+.units-section.focused .uc.sel .uc-done-lbl{font-size:10px}
+.units-section.focused .uc.sel .uc-pct{font-size:11px}
+.uc-back-hint{display:none;font-size:10px;font-weight:700;color:rgba(255,255,255,.6);margin-right:auto;align-items:center;gap:4px}
+.units-section.focused .uc.sel .uc-back-hint{display:flex}
+
 /* ── MODAL ── */
 .modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.58);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:1rem}
 .modal-overlay.open{display:flex}
@@ -1209,13 +1231,16 @@ function renderGrid(){
         <div class="uc-inner">
           ${locked?'<div class="uc-lock-icon">🔒</div>':''}
           <div class="uc-em">${unit.emoji}</div>
-          <div class="uc-tag">${unit.label}</div>
-          <div class="uc-name">${unit.title}</div>
+          <div class="uc-left-text">
+            <div class="uc-tag">${unit.label}</div>
+            <div class="uc-name">${unit.title}</div>
+          </div>
           <div class="uc-pb-track"><div class="uc-pb-fill" style="width:${pct}%"></div></div>
           <div class="uc-meta">
             <div class="uc-done-lbl">${ud}/${ut}</div>
             <div class="uc-pct">${pct}%</div>
           </div>
+          <div class="uc-back-hint">← חזרה</div>
         </div>
       </div>`;
     }).join('');
@@ -1254,40 +1279,53 @@ function renderGrid(){
 
 
 function toggleAccordion(uid){
-  // Find which section this unit belongs to
   const allUnits=[...UNITS,...UNITS_70];
   const unit=allUnits.find(u=>u.id===uid); if(!unit) return;
   const isT=(S.role==='teacher'||S.role==='admin');
   if(!isT && unit.lessons.every(l=>isLocked(l.id,l.locked))) return;
 
-  // Find the section group (30% or 70%)
-  const in30 = UNITS.find(u=>u.id===uid);
-  const sectionUnits = in30 ? UNITS : UNITS_70;
-  const sectionFirstId = sectionUnits[0].id;
-  const ipw = document.getElementById('ipw-'+sectionFirstId);
+  const in30=UNITS.find(u=>u.id===uid);
+  const sectionUnits=in30?UNITS:UNITS_70;
+  const sectionFirstId=sectionUnits[0].id;
+  const ipw=document.getElementById('ipw-'+sectionFirstId);
+  const sectionEl=ipw&&ipw.closest('.units-section');
 
-  // Is this unit already open?
-  const currentOpen = ipw && ipw.classList.contains('open') &&
-    document.getElementById('lp-'+uid)?.style.display !== 'none';
+  // Is this unit already focused?
+  const alreadyFocused=sectionEl&&sectionEl.classList.contains('focused')&&
+    document.getElementById('lp-'+uid)?.style.display!=='none';
 
-  // Close all panels in ALL sections
+  // ── CLOSE / reset ──────────────────────────────────────────────────────────
   document.querySelectorAll('.inline-panel-wrap').forEach(w=>w.classList.remove('open'));
   document.querySelectorAll('.inline-panel').forEach(p=>p.style.display='none');
-  document.querySelectorAll('.uc').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.units-section').forEach(s=>s.classList.remove('focused'));
+  document.querySelectorAll('.uc').forEach(c=>{
+    c.classList.remove('sel','hidden');
+  });
 
-  if(!currentOpen){
-    // Show this unit's panel
-    if(ipw) ipw.classList.add('open');
-    const panel=document.getElementById('lp-'+uid);
-    if(panel){ panel.style.display='block'; renderLessonPanel(uid); }
-    // Highlight selected card
+  if(alreadyFocused) return; // clicked same card → just close
+
+  // ── OPEN / focus ──────────────────────────────────────────────────────────
+  // Hide other cards in same section, keep selected
+  sectionUnits.forEach(u=>{
+    const card=document.getElementById('uc-'+u.id);
+    if(!card) return;
+    if(u.id===uid) card.classList.add('sel');
+    else card.classList.add('hidden');
+  });
+
+  // Mark section as focused
+  if(sectionEl) sectionEl.classList.add('focused');
+
+  // Open panel
+  if(ipw) ipw.classList.add('open');
+  const panel=document.getElementById('lp-'+uid);
+  if(panel){ panel.style.display='block'; renderLessonPanel(uid); }
+
+  // Scroll card into view
+  setTimeout(()=>{
     const card=document.getElementById('uc-'+uid);
-    if(card) card.classList.add('sel');
-    // Scroll
-    setTimeout(()=>{
-      if(ipw) ipw.scrollIntoView({behavior:'smooth',block:'nearest'});
-    },120);
-  }
+    if(card) card.scrollIntoView({behavior:'smooth',block:'start'});
+  },60);
 }
 
 
