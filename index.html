@@ -94,8 +94,6 @@ a { text-decoration: none; color: inherit; }
   content: ''; position: absolute; width: 500px; height: 500px; border-radius: 50%; bottom: -150px; left: -100px; pointer-events: none;
   background: radial-gradient(circle, rgba(59, 130, 246, 0.04) 0%, transparent 70%);
 }
-.ls-orb3 { display: none; }
-.ls-stars { display: none; }
 
 .ls-header { position: relative; z-index: 1; text-align: center; margin-bottom: 3rem; }
 .ls-emblem {
@@ -184,7 +182,6 @@ a { text-decoration: none; color: inherit; }
 /* ── HERO HEADER ── */
 .app-hero { position: relative; overflow: hidden; display: none; padding: 1.75rem 1.25rem; background: #ffffff; border-bottom: 1px solid var(--border2); }
 .app-hero.on { display: block; }
-.app-hero::before, .app-hero::after { display: none; }
 .hero-name { font-family: var(--display); font-weight: 700; font-size: 1.35rem; color: var(--text); margin-bottom: 2px; }
 .hero-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.85rem; }
 .hero-stats { display: flex; gap: 0.5rem; flex-wrap: wrap; }
@@ -201,20 +198,18 @@ a { text-decoration: none; color: inherit; }
 .sec-lbl::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--subtle); }
 .sec-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-.uc-scroll { overflow: visible; }
 .uc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 @media(min-width: 700px){ .uc-row { display: flex; flex-direction: column; gap: 8px; } }
 
 /* ── UNIT CARDS ── */
 .uc { width: 100%; border-radius: var(--r-lg); overflow: hidden; cursor: pointer; transition: all 0.2s ease; position: relative; background: #ffffff; border: 1px solid var(--border2); box-shadow: var(--sh1); }
-.uc::before, .uc::after { display: none !important; }
 .uc:hover { transform: translateY(-2px); border-color: var(--subtle); box-shadow: var(--sh2); }
 .uc:active { transform: scale(0.99); }
 .uc.sel { border-color: var(--acc) !important; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12), var(--sh2) !important; }
 
 .uc-inner { padding: 1.15rem 1.25rem; position: relative; }
-.uc-em font-size: 22px; line-height: 1; margin-bottom: 0.5rem; display: inline-block; filter: none; }
-.uc-tag { font-family: var(--sans); font-size: 0.7rem; font-weight: 600; color: var(--muted); margin-bottom: 2px; text-transform: none; letter-spacing: 0; }
+.uc-em { font-size: 22px; line-height: 1; margin-bottom: 0.5rem; display: inline-block; }
+.uc-tag { font-family: var(--sans); font-size: 0.7rem; font-weight: 600; color: var(--muted); margin-bottom: 2px; }
 .uc-name { font-family: var(--display); font-weight: 600; font-size: 1.05rem; color: var(--text); line-height: 1.3; margin-bottom: 0.75rem; }
 
 .uc-pb-track { height: 5px; background: var(--surface2); border-radius: var(--r-pill); overflow: hidden; margin-bottom: 6px; border: 1px solid var(--border); }
@@ -240,11 +235,6 @@ a { text-decoration: none; color: inherit; }
 .lp-tag { font-size: 0.7rem; font-weight: 500; color: var(--muted); margin-bottom: 1px; }
 .lp-name { font-family: var(--display); font-weight: 600; font-size: 1.1rem; color: var(--text); }
 .lp-count { font-size: 0.75rem; font-weight: 500; padding: 3px 10px; border-radius: var(--r-pill); background: #ffffff; color: var(--text-mid); border: 1px solid var(--border2); }
-
-.lp-locked { padding: 3rem 1.5rem; text-align: center; }
-.lp-locked-em { font-size: 32px; margin-bottom: 0.5rem; opacity: 0.3; }
-.lp-locked-t { font-family: var(--display); font-size: 1rem; font-weight: 600; color: var(--text-mid); }
-.lp-locked-s { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
 
 /* ── LESSON ROWS ── */
 .lr-new {
@@ -280,7 +270,6 @@ a { text-decoration: none; color: inherit; }
 .lrc-done { background: var(--green-lt); color: var(--green); border-color: rgba(16, 185, 129, 0.1); }
 .lrc-lock { background: var(--surface3); color: var(--subtle); }
 .lrc-exam { background: var(--amber-lt); color: var(--amber); border-color: rgba(245, 158, 11, 0.1); }
-.lrc-new { background: var(--green-lt); color: var(--green); }
 
 .lr-rt { flex-shrink: 0; }
 .lr-check-new { width: 20px; height: 20px; border-radius: 50%; background: var(--green); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; }
@@ -317,7 +306,6 @@ a { text-decoration: none; color: inherit; }
 .uc-left-text { display: flex; flex-direction: column; }
 .units-section.focused .uc.sel .uc-left-text { flex: 1; }
 .uc-grid, .uc-grid-3 { transition: opacity 0.2s ease; }
-.uc { transition: all 0.2s ease; }
 .units-section.focused .uc-grid, .units-section.focused .uc-grid-3 { display: contents; }
 .units-section.focused .uc.hidden { display: none; }
 .units-section.focused .uc.sel { display: block; width: 100%; grid-column: 1/-1; border-radius: var(--r-lg); }
@@ -626,13 +614,13 @@ const EXAM_MAP = {
 };
 
 let state = {
-  role: null,      // 'student' | 'teacher'
-  userName: '',    // full name key
+  role: null,      
+  userName: '',    
   isTeacherView: false,
-  progress: {},    // updates from firebase: { lessonId: true }
-  allStudentsData: null, // for teachers
-  activeUnit: null, // currently expanded unit card ID ('u1', 'v2' etc)
-  focusedSection: null // 'grammar' | 'vocab' when a card is selected
+  progress: {},    
+  allStudentsData: null, 
+  activeUnit: null, 
+  focusedSection: null 
 };
 
 // ════════════════════════════════════════════════════════════
@@ -731,7 +719,10 @@ function submitRoleAction() {
     launchApp();
   } else if (state.role === 'teacher') {
     const pwd = document.getElementById('in-teacher-pwd').value;
-    if (pwd === '1002') {
+    // ════════════════════════════════════════════════════════════
+    // מעודכן לסיסמה החדשה שלך (2109)
+    // ════════════════════════════════════════════════════════════
+    if (pwd === '2109') { 
       state.userName = 'המורה רננה';
       localStorage.setItem('lashon_role', 'teacher');
       localStorage.setItem('lashon_user', 'המורה רננה');
@@ -1065,7 +1056,6 @@ function renderTeacherDashboard() {
     </div>
   `;
 
-  // Pre-calculate per-unit definitions
   const allUnits = [
     { id: 'u1', label: 'פרק 1: קשרים לוגיים', icon: '🔗' },
     { id: 'u2', label: 'פרק 2: מערכת הפועל', icon: '⚡' },
@@ -1116,10 +1106,10 @@ function renderTeacherDashboard() {
       studentsList.forEach((name, i) => {
         const done = doneMap[name]?.size || 0;
         const pct = Math.round(done / lessonCount * 100);
-        let statusClass, statusLabel;
-        if (done === lessonCount) { statusClass = 'green'; statusLabel = 'ביצע/ה הכל ✅'; }
-        else if (done > 0) { statusClass = 'yellow'; statusLabel = `${done}/${lessonCount} שיעורים 🟡`; }
-        else { statusClass = 'red'; statusLabel = 'לא ביצע/ה ❌'; }
+        let statusLabel;
+        if (done === lessonCount) { statusLabel = 'ביצע/ה הכל ✅'; }
+        else if (done > 0) { statusLabel = `${done}/${lessonCount} שיעורים 🟡`; }
+        else { statusLabel = 'לא ביצע/ה ❌'; }
 
         const barColor = done === lessonCount ? '#10b981' : done > 0 ? '#f59e0b' : '#ef4444';
         
