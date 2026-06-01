@@ -2195,15 +2195,67 @@ function loadProgress(){
   }
 }
 
+/* ── "Seen" submissions: hide locally, data stays in Firebase ── */
+function getSeenSubmissions(){ return LS.get('lashon2_seen_submissions',{})||{}; }
+function markSeen(id){
+  if(!id) return;
+  const seen=getSeenSubmissions();
+  seen[id]=Date.now();
+  LS.set('lashon2_seen_submissions',seen);
+  loadProgress();
+}
+function unmarkSeen(id){
+  if(!id) return;
+  const seen=getSeenSubmissions();
+  delete seen[id];
+  LS.set('lashon2_seen_submissions',seen);
+  loadProgress();
+  toast('↩ הסימון בוטל — ההגשה תוצג שוב');
+}
+function markAllSeen(){
+  const el=document.getElementById('progress-content');
+  const docs=el?._rawDocs||[];
+  if(!docs.length){ toast('אין הגשות לסמן'); return; }
+  const seen=getSeenSubmissions();
+  // mark only what the teacher currently has access to (their classes, currently visible)
+  const myClasses=getTeacherClasses();
+  let n=0;
+  docs.forEach(d=>{
+    if(myClasses.length && !myClasses.includes(d.className||'')) return;
+    if(!seen[d.id]){ seen[d.id]=Date.now(); n++; }
+  });
+  LS.set('lashon2_seen_submissions',seen);
+  if(el) el._showSeen=false;
+  loadProgress();
+  toast(n?`✓ ${n} הגשות סומנו כנצפו והוסתרו`:'הכל כבר סומן כנצפה');
+}
+function showAllSubmissions(){
+  const el=document.getElementById('progress-content');
+  if(el) el._showSeen=true;
+  loadProgress();
+  toast('👁 מציג את כל ההגשות (כולל נצפו)');
+}
+function showOnlyNew(){
+  const el=document.getElementById('progress-content');
+  if(el) el._showSeen=false;
+  loadProgress();
+}
+
 function _renderSubmissions(el, docs){
   if(!docs.length){el.innerHTML='<p style="color:var(--muted);font-size:.82rem">לא נמצאו הגשות.</p>';return}
+
+  // Hide submissions the teacher already marked as "seen" (stored locally; Firebase untouched)
+  const seen=getSeenSubmissions();
+  const showAll=!!el._showSeen;
+  const visibleDocs = showAll ? docs : docs.filter(d=>!seen[d.id]);
+  const seenHidden = docs.length - visibleDocs.length;
 
   // Filter by teacher's classes — show only submissions from MY classes
   const myClasses=getTeacherClasses();
   const hasClassFilter=myClasses.length>0;
   const myDocs=hasClassFilter
-    ? docs.filter(d=>myClasses.includes(d.className||''))
-    : docs;
+    ? visibleDocs.filter(d=>myClasses.includes(d.className||''))
+    : visibleDocs;
 
   // Group by class (from filtered set)
   const byClass={};
@@ -2249,19 +2301,32 @@ function _renderSubmissions(el, docs){
   </div>
   <div id="submissions-table-wrap" style="overflow-x:auto;max-height:380px;overflow-y:auto">`;
 
-  html+=buildSubmissionsTable(myDocs);
+  html+=buildSubmissionsTable(myDocs, showAll);
+  const seenLine = seenHidden>0
+    ? ` | <span style="color:var(--amber)">${seenHidden} מסומנות כנצפו ומוסתרות</span>`
+    : '';
+  const seenBtns = showAll
+    ? `<button onclick="showOnlyNew()" style="margin-right:.5rem;background:none;border:none;color:var(--blue);font-size:.65rem;cursor:pointer;text-decoration:underline">🔕 הצג רק חדשות</button>`
+    : `<button onclick="markAllSeen()" style="margin-right:.5rem;background:none;border:none;color:var(--green);font-size:.65rem;font-weight:700;cursor:pointer;text-decoration:underline">✓ סמן הכל כנצפה</button>`
+      + (seenHidden>0?`<button onclick="showAllSubmissions()" style="margin-right:.5rem;background:none;border:none;color:var(--muted);font-size:.65rem;cursor:pointer;text-decoration:underline">👁 הצג הכל</button>`:'');
   html+=`</div>
   <p style="font-size:.65rem;color:var(--muted);margin-top:.5rem">
-    סה״כ ${myDocs.length} הגשות | ${sortedClasses.length} כיתות | מקור: Firebase
-    <button onclick="loadProgress()" style="margin-right:.5rem;background:none;border:none;color:var(--blue);font-size:.65rem;cursor:pointer;text-decoration:underline">🔄 רענן</button>
+    סה״כ ${myDocs.length} הגשות${showAll?' (כולל נצפו)':''} | ${sortedClasses.length} כיתות | מקור: Firebase${seenLine}
+    <br>
+    <span style="display:inline-flex;gap:0;flex-wrap:wrap;margin-top:.3rem">
+      <button onclick="loadProgress()" style="background:none;border:none;color:var(--blue);font-size:.65rem;cursor:pointer;text-decoration:underline">🔄 רענן</button>
+      ${seenBtns}
+    </span>
   </p>`;
 
   el.innerHTML=html;
-  el._allDocs=myDocs;
+  el._allDocs=myDocs;            // currently visible (post-seen-filter) docs for class filtering
+  el._rawDocs=docs;              // all docs from Firebase, for marking seen
 }
 
-function buildSubmissionsTable(docs){
+function buildSubmissionsTable(docs, showSeenMode){
   if(!docs.length) return '<p style="color:var(--muted);font-size:.82rem;padding:.5rem">אין הגשות לכיתה זו.</p>';
+  const seen=getSeenSubmissions();
   let rows='';
   docs.forEach((d,i)=>{
     const col=typeof d.score==='number'
@@ -2271,7 +2336,11 @@ function buildSubmissionsTable(docs){
       ?`<span style="font-weight:800;color:${col}">${d.score}%</span>`
       :`<span style="color:var(--green);font-weight:700">✅</span>`;
     const timeDisplay=d.submissionTime?` ${d.submissionTime}`:'';
-    rows+=`<tr style="border-bottom:1px solid var(--border);${i%2?'background:var(--surface2)':''}" data-cls="${d.className||''}">
+    const isSeen=!!seen[d.id];
+    const actionCell = showSeenMode && isSeen
+      ? `<button onclick="unmarkSeen('${d.id}')" title="בטל סימון" style="border:1px solid var(--border);border-radius:var(--r-pill);background:var(--surface2);color:var(--muted);font-size:.64rem;font-weight:700;padding:.18rem .55rem;cursor:pointer;white-space:nowrap">↩ בטל</button>`
+      : `<button onclick="markSeen('${d.id}')" title="סמן כנצפה" style="border:1px solid #bbf7d0;border-radius:var(--r-pill);background:var(--green-lt);color:var(--green);font-size:.64rem;font-weight:800;padding:.18rem .55rem;cursor:pointer;white-space:nowrap">✓ נצפה</button>`;
+    rows+=`<tr style="border-bottom:1px solid var(--border);${isSeen?'opacity:.55;':''}${i%2?'background:var(--surface2)':''}" data-cls="${d.className||''}">
       <td style="padding:7px 8px;font-weight:700;white-space:nowrap">${d.studentName||'—'}</td>
       <td style="padding:7px 8px">
         <span style="font-size:.68rem;font-weight:800;padding:.16rem .52rem;border-radius:var(--r-pill);background:var(--blue-lt);color:var(--blue);border:1px solid #bfdbfe">${d.className||'—'}</span>
@@ -2285,9 +2354,10 @@ function buildSubmissionsTable(docs){
       <td style="padding:7px 8px;text-align:center">
         ${typeof d.wrong==='number'?`<span style="font-size:.72rem;font-weight:800;color:var(--red)">✗ ${d.wrong}</span>`:'—'}
       </td>
+      <td style="padding:7px 8px;text-align:center">${actionCell}</td>
     </tr>`;
   });
-  return `<table style="width:100%;border-collapse:collapse;font-size:.74rem;direction:rtl;min-width:500px">
+  return `<table style="width:100%;border-collapse:collapse;font-size:.74rem;direction:rtl;min-width:560px">
     <thead><tr style="background:var(--surface3);position:sticky;top:0;z-index:1">
       <th style="padding:7px 8px;text-align:right">שם תלמיד/ה</th>
       <th style="padding:7px 8px;text-align:right">כיתה</th>
@@ -2296,6 +2366,7 @@ function buildSubmissionsTable(docs){
       <th style="padding:7px 8px;text-align:right">ציון</th>
       <th style="padding:7px 8px;text-align:center;color:var(--green)">✓ נכון</th>
       <th style="padding:7px 8px;text-align:center;color:var(--red)">✗ שגוי</th>
+      <th style="padding:7px 8px;text-align:center">סימון</th>
     </tr></thead>
     <tbody>${rows}</tbody>
   </table>`;
@@ -2314,7 +2385,7 @@ function filterClass(cls,btn){
   const wrap=document.getElementById('submissions-table-wrap');
   if(!wrap||!el._allDocs) return;
   const filtered=cls==='all'?el._allDocs:el._allDocs.filter(d=>(d.className||'')==cls);
-  wrap.innerHTML=buildSubmissionsTable(filtered);
+  wrap.innerHTML=buildSubmissionsTable(filtered, !!el._showSeen);
 }
 
 function _loadProgressLocal(el){
