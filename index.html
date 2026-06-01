@@ -531,8 +531,11 @@ a{text-decoration:none;color:inherit}
 .rt-score{font-weight:900}
 .recent-empty{padding:2.2rem 1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
 
-/* mobile bottom nav */
-.mnav{display:none}
+/* mobile bottom nav (legacy — now replaced by top strip) */
+.mnav{display:none!important}
+
+/* mobile TOP nav strip (horizontal pills under welcome / at top of each view) */
+.topnav{display:none}
 
 /* exams view list */
 .exam-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
@@ -547,16 +550,17 @@ a{text-decoration:none;color:inherit}
 /* ── RESPONSIVE ── */
 @media(max-width:860px){
   .side{display:none}
-  .main-area{margin-right:0;padding-bottom:74px}
+  .main-area{margin-right:0}
   .stat-grid{grid-template-columns:repeat(2,1fr)}
   .up-grid{grid-template-columns:repeat(2,1fr)}
   .view{padding:.4rem .9rem 2rem}
   .app-topbar{padding:.9rem 1rem .2rem}
   .t-strip{margin:.4rem 1rem 0}
-  .mnav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;background:var(--surface);border-top:1px solid var(--border);box-shadow:0 -4px 20px rgba(0,0,0,.08);padding:.35rem .3rem calc(.35rem + env(safe-area-inset-bottom,0px))}
-  .mnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:.4rem;border:none;background:none;color:var(--muted);font-size:.6rem;font-weight:700;cursor:pointer}
-  .mnav-btn .mn-ic{font-size:1.2rem}
-  .mnav-btn.active{color:var(--accent)}
+  .topnav{display:flex;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:.55rem 0 .5rem;margin:.7rem 0 .3rem;position:sticky;top:0;z-index:25;background:var(--dash-bg)}
+  .topnav::-webkit-scrollbar{display:none}
+  .topnav-btn{flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:.52rem .95rem;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--muted);font-size:.79rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .14s}
+  .topnav-btn .tn-ic{font-size:.95rem}
+  .topnav-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(109,94,245,.32)}
 }
 @media(max-width:480px){.stat-grid,.up-grid,.mid-grid{grid-template-columns:1fr}.welcome-t{font-size:1.25rem}}
 </style>
@@ -708,11 +712,13 @@ a{text-decoration:none;color:inherit}
 
     <!-- UNITS VIEW -->
     <div class="view" id="view-units" style="display:none">
+      <div id="tnav-units"></div>
       <div class="units-col" id="units-col"><!-- renderGrid() --></div>
     </div>
 
     <!-- EXAMS VIEW -->
     <div class="view" id="view-exams" style="display:none">
+      <div id="tnav-exams"></div>
       <h2 class="dash-h" style="max-width:760px;margin:.3rem auto 1rem">📝 מבחני סיכום</h2>
       <div class="exam-list" id="exam-list"><!-- renderExams() --></div>
     </div>
@@ -1394,6 +1400,16 @@ function enterApp(role,name){
 /* ════════════════════════════════════════════════
    VIEW NAVIGATION
 ════════════════════════════════════════════════ */
+function mobileNavHTML(active){
+  const isT=(S.role==='teacher'||S.role==='admin');
+  const items=[['dash','🏠','דשבורד'],['units','📚','יחידות'],['exams','📝','מבחנים'],['progress','📊','התקדמות']];
+  if(isT) items.push(['__settings__','⚙️','הגדרות']);
+  return `<div class="topnav">`+items.map(([v,ic,lbl])=>{
+    const onclick=v==='__settings__'?'openSettings()':`navTo('${v}')`;
+    const act=(v===active)?' active':'';
+    return `<button class="topnav-btn${act}" onclick="${onclick}"><span class="tn-ic">${ic}</span>${lbl}</button>`;
+  }).join('')+`</div>`;
+}
 function navTo(view){
   // progress → dashboard for everyone (it holds the progress overview)
   const target = view==='progress' ? 'dash' : view;
@@ -1406,6 +1422,8 @@ function navTo(view){
   });
   if(target==='dash') renderDashboard();
   if(target==='exams') renderExams();
+  const tu=document.getElementById('tnav-units');if(tu)tu.innerHTML=mobileNavHTML('units');
+  const te=document.getElementById('tnav-exams');if(te)te.innerHTML=mobileNavHTML('exams');
   document.querySelector('.main-area')?.scrollTo?.({top:0});
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -1513,6 +1531,11 @@ function renderDashboard(){
       <div class="welcome-s">פלטפורמת לימודי לשון לתיכון — המשך/י מהמקום שבו עצרת</div>
     </div>
 
+    ${mobileNavHTML('dash')}
+
+    <h2 class="dash-h">יחידות לימוד</h2>
+    <div class="up-grid">${unitBars}</div>
+
     <div class="stat-grid">
       <div class="stat-card"><div class="stat-num">${st.weekCount}</div><div class="stat-lbl">תרגילים השבוע</div></div>
       <div class="stat-card"><div class="stat-num">${st.unitsActive}</div><div class="stat-lbl">יחידות פעילות</div></div>
@@ -1531,9 +1554,6 @@ function renderDashboard(){
         <div class="ring-lbl">מדד הצלחה</div>
       </div>
     </div>
-
-    <h2 class="dash-h">יחידות לימוד</h2>
-    <div class="up-grid">${unitBars}</div>
 
     <h2 class="dash-h">פעילות אחרונה</h2>
     <div class="recent-card">
