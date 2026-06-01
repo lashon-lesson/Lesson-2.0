@@ -547,6 +547,33 @@ a{text-decoration:none;color:inherit}
 .exam-card .ec-t{font-size:.92rem;font-weight:800;color:var(--text)}
 .exam-card .ec-s{font-size:.72rem;color:var(--muted);margin-top:2px}
 
+/* progress detail view */
+.prog-wrap{max-width:1000px;margin:0 auto;width:100%}
+.pd-unit{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--sh1);margin-top:16px}
+.pd-unit-hd{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:1rem 1.3rem;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.pd-unit-title{font-family:'Secular One',sans-serif;font-size:1rem;color:var(--text);display:flex;align-items:center;gap:8px}
+.pd-unit-prog{display:flex;align-items:center;gap:9px}
+.pd-mini-track{width:90px;height:7px;background:var(--surface3);border-radius:999px;overflow:hidden;display:inline-block}
+.pd-mini-fill{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.pd-unit-pct{font-size:.72rem;font-weight:800;color:var(--muted);white-space:nowrap}
+.pd-tbl{width:100%;border-collapse:collapse;font-size:.82rem;direction:rtl}
+.pd-tbl th{padding:.6rem 1.3rem;text-align:right;font-size:.68rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;background:var(--surface2)}
+.pd-tbl td{padding:.68rem 1.3rem;border-top:1px solid var(--border);font-weight:600;color:var(--text)}
+.pd-tbl tr:hover td{background:var(--surface2)}
+.pd-badge{font-size:.66rem;font-weight:800;padding:.16rem .6rem;border-radius:999px;white-space:nowrap}
+.pd-badge.green{background:var(--green-lt);color:var(--green)}
+.pd-badge.blue{background:var(--blue-lt);color:var(--blue)}
+.pd-badge.gray{background:var(--surface3);color:var(--subtle)}
+.pd-badge.gold{background:var(--gold-lt);color:var(--gold)}
+@media(max-width:560px){.pd-tbl th:nth-child(4),.pd-tbl td:nth-child(4){display:none}.pd-tbl th,.pd-tbl td{padding-left:.7rem;padding-right:.7rem}.pd-unit-hd{padding:.85rem .9rem}}
+
+/* badge on progress nav button (new submissions) */
+.nav-badge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--red);color:#fff;font-size:.62rem;font-weight:900;margin-right:auto;margin-left:0}
+.topnav-btn .nav-badge{margin:0 0 0 2px}
+
+/* relocated teacher tracking panel (lives in progress view) */
+#view-progress #tab-progress{display:block;padding:0;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.3rem 1.4rem;box-shadow:var(--sh1)}
+
 /* ── RESPONSIVE ── */
 @media(max-width:860px){
   .side{display:none}
@@ -723,6 +750,12 @@ a{text-decoration:none;color:inherit}
       <div class="exam-list" id="exam-list"><!-- renderExams() --></div>
     </div>
 
+    <!-- PROGRESS VIEW (student detailed breakdown) -->
+    <div class="view" id="view-progress" style="display:none">
+      <div id="tnav-progress"></div>
+      <div class="prog-wrap" id="prog-detail"><!-- renderProgressDetail() --></div>
+    </div>
+
   </div>
 
   <!-- mobile bottom nav -->
@@ -762,7 +795,6 @@ a{text-decoration:none;color:inherit}
       <button class="m-tab" onclick="switchTab('classes')">🏫 כיתות</button>
       <button class="m-tab" onclick="switchTab('locks')">🔒 נעילות</button>
       <button class="m-tab" onclick="switchTab('answers')">🔑 תשובות</button>
-      <button class="m-tab" onclick="switchTab('progress')">📊 מעקב</button>
     </div>
 
     <!-- General -->
@@ -945,8 +977,8 @@ function subscribeAnswers(){
     if(ts&&(Date.now()-ts.getTime())>60000) return;
     showLiveSubmissionToast(d);
     updateProgressBadge();
-    // Reload progress if tab is open
-    if(document.getElementById('tab-progress')?.classList.contains('active')) loadProgress();
+    // Reload progress if the standalone teacher view is open
+    if(document.getElementById('view-progress')?.style.display!=='none') loadProgress();
   });
 }
 
@@ -963,13 +995,17 @@ function showLiveSubmissionToast(d){
 let _newSubmissionsCount=0;
 function updateProgressBadge(){
   _newSubmissionsCount++;
-  // Update the progress tab button with badge
-  const tabs=document.querySelectorAll('.m-tab');
-  tabs.forEach((b,i)=>{
-    if(['general','locks','answers','progress'][i]==='progress'){
-      b.innerHTML=`📊 מעקב <span style="background:#dc2626;color:#fff;font-size:.6rem;font-weight:900;padding:.1rem .45rem;border-radius:999px;margin-right:.3rem">${_newSubmissionsCount}</span>`;
+  // Badge the "progress" nav buttons (sidebar + mobile top strip)
+  document.querySelectorAll('.side-link[data-view="progress"]').forEach(b=>{
+    if(!b.querySelector('.nav-badge')){
+      const s=document.createElement('span');s.className='nav-badge';b.appendChild(s);
     }
+    b.querySelector('.nav-badge').textContent=_newSubmissionsCount;
   });
+}
+function clearProgressBadge(){
+  _newSubmissionsCount=0;
+  document.querySelectorAll('.nav-badge').forEach(s=>s.remove());
 }
 async function pushAnswersVisible(lid,visible){
   if(!_db) return;
@@ -1401,31 +1437,52 @@ function enterApp(role,name){
    VIEW NAVIGATION
 ════════════════════════════════════════════════ */
 function mobileNavHTML(active){
-  const isT=(S.role==='teacher'||S.role==='admin');
   const items=[['dash','🏠','דשבורד'],['units','📚','יחידות'],['exams','📝','מבחנים'],['progress','📊','התקדמות']];
-  if(isT) items.push(['__settings__','⚙️','הגדרות']);
   return `<div class="topnav">`+items.map(([v,ic,lbl])=>{
-    const onclick=v==='__settings__'?'openSettings()':`navTo('${v}')`;
     const act=(v===active)?' active':'';
-    return `<button class="topnav-btn${act}" onclick="${onclick}"><span class="tn-ic">${ic}</span>${lbl}</button>`;
+    return `<button class="topnav-btn${act}" onclick="navTo('${v}')"><span class="tn-ic">${ic}</span>${lbl}</button>`;
   }).join('')+`</div>`;
 }
 function navTo(view){
-  // progress → dashboard for everyone (it holds the progress overview)
-  const target = view==='progress' ? 'dash' : view;
-  ['dash','units','exams'].forEach(v=>{
+  const isT=(S.role==='teacher'||S.role==='admin');
+  const target = view;
+  ['dash','units','exams','progress'].forEach(v=>{
     const el=document.getElementById('view-'+v);
     if(el) el.style.display = v===target ? '' : 'none';
   });
-  document.querySelectorAll('.side-link,.mnav-btn').forEach(b=>{
+  document.querySelectorAll('.side-link,.mnav-btn,.topnav-btn').forEach(b=>{
     b.classList.toggle('active', b.dataset.view===view);
   });
   if(target==='dash') renderDashboard();
   if(target==='exams') renderExams();
+  if(target==='progress'){
+    if(isT){ renderTeacherProgress(); clearProgressBadge(); }
+    else renderProgressDetail();
+  }
   const tu=document.getElementById('tnav-units');if(tu)tu.innerHTML=mobileNavHTML('units');
   const te=document.getElementById('tnav-exams');if(te)te.innerHTML=mobileNavHTML('exams');
+  const tp=document.getElementById('tnav-progress');if(tp)tp.innerHTML=mobileNavHTML('progress');
   document.querySelector('.main-area')?.scrollTo?.({top:0});
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* Move the existing tracking panel (with all its wired IDs) from the
+   settings modal into the standalone progress view — once. Then load data. */
+let _teacherProgMoved=false;
+function renderTeacherProgress(){
+  const host=document.getElementById('prog-detail');
+  const panel=document.getElementById('tab-progress');
+  if(host && panel && !_teacherProgMoved){
+    panel.classList.add('active');               // ensure visible outside modal
+    panel.style.padding='0';
+    host.innerHTML=`<div class="welcome" style="margin-bottom:16px">
+        <div class="welcome-t">📊 מעקב תלמידים</div>
+        <div class="welcome-s">הגשות, סינון לפי כיתה, סיכום יחידה ושליחת סיכום לוואטסאפ</div>
+      </div>`;
+    host.appendChild(panel);
+    _teacherProgMoved=true;
+  }
+  loadProgress();
 }
 
 /* ════════════════════════════════════════════════
@@ -1595,6 +1652,73 @@ function renderExams(){
       <span style="font-size:1.1rem;color:var(--subtle)">${locked?'':'‹'}</span>
     </div>`;
   }).join('') || '<p style="text-align:center;color:var(--muted)">אין מבחנים זמינים.</p>';
+}
+
+/* ════════════════════════════════════════════════
+   PROGRESS VIEW (student) — full per-lesson breakdown
+════════════════════════════════════════════════ */
+function renderProgressDetail(){
+  const el=document.getElementById('prog-detail');
+  if(!el) return;
+  const isT=(S.role==='teacher'||S.role==='admin');
+  const st=_computeStats();
+
+  let html=`
+    <div class="welcome" style="margin-bottom:16px">
+      <div class="welcome-t">📊 ההתקדמות שלי</div>
+      <div class="welcome-s">פירוט מלא לכל שיעור — מה הושלם, ציון ותאריך</div>
+    </div>
+    <div class="stat-grid" style="margin-top:0">
+      <div class="stat-card"><div class="stat-num">${st.done}</div><div class="stat-lbl">שיעורים שהושלמו</div></div>
+      <div class="stat-card"><div class="stat-num">${st.total-st.done}</div><div class="stat-lbl">נותרו</div></div>
+      <div class="stat-card"><div class="stat-num accent">${st.overall}%</div><div class="stat-lbl">התקדמות כללית</div></div>
+      <div class="stat-card"><div class="stat-num accent">${st.success}%</div><div class="stat-lbl">מדד הצלחה</div></div>
+    </div>`;
+
+  _allUnits().forEach(u=>{
+    let ud=0,ut=0;
+    u.lessons.forEach(l=>{ut++; if(S.prog[l.id]?.done) ud++;});
+    const pct=ut?Math.round(ud/ut*100):0;
+    const rows=u.lessons.map(l=>{
+      const p=S.prog[l.id];
+      const done=!!p?.done;
+      const locked=isLocked(l.id,l.locked)&&!isT;
+      let status,scoreCell;
+      if(done){
+        const col=typeof p.score==='number'?(p.score>=80?'var(--green)':p.score>=60?'var(--amber)':'var(--red)'):'var(--green)';
+        status=`<span class="pd-badge green">✓ הושלם</span>`;
+        scoreCell=typeof p.score==='number'?`<span style="font-weight:900;color:${col}">${p.score}%</span>`:'<span style="color:var(--green)">✅</span>';
+      } else if(locked){
+        status=`<span class="pd-badge gray">🔒 נעול</span>`; scoreCell='—';
+      } else {
+        status=`<span class="pd-badge blue">▢ טרם בוצע</span>`; scoreCell='—';
+      }
+      const clickable=!locked;
+      return `<tr ${clickable?`onclick="openLesson('${l.id}','${l.file||''}','${u.id}')" style="cursor:pointer"`:''}>
+        <td><span style="margin-left:.4rem">${l.emoji}</span>${l.title}${l.exam?' <span class="pd-badge gold">מבחן</span>':''}</td>
+        <td>${status}</td>
+        <td style="text-align:center">${scoreCell}</td>
+        <td style="color:var(--muted);white-space:nowrap">${done?(p.date||'—'):'—'}</td>
+      </tr>`;
+    }).join('');
+
+    html+=`
+      <div class="pd-unit" style="border-top:3px solid ${u.color}">
+        <div class="pd-unit-hd">
+          <div class="pd-unit-title"><span>${u.emoji}</span> ${u.label} — ${u.title}</div>
+          <div class="pd-unit-prog">
+            <span class="pd-mini-track"><span class="pd-mini-fill" style="width:${pct}%"></span></span>
+            <span class="pd-unit-pct">${ud}/${ut} · ${pct}%</span>
+          </div>
+        </div>
+        <table class="pd-tbl">
+          <thead><tr><th>שיעור</th><th>סטטוס</th><th style="text-align:center">ציון</th><th>תאריך</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  });
+
+  el.innerHTML=html;
 }
 
 /* ════════════════════════════════════════════════
@@ -1847,16 +1971,8 @@ function openSettings(){
 }
 function closeSettings(){document.getElementById('settings-overlay').classList.remove('open');document.body.style.overflow=''}
 function switchTab(t){
-  ['general','classes','locks','answers','progress'].forEach(x=>{document.getElementById('tab-'+x)?.classList.toggle('active',x===t)});
-  document.querySelectorAll('.m-tab').forEach((b,i)=>b.classList.toggle('active',['general','classes','locks','answers','progress'][i]===t));
-  if(t==='progress'){
-    loadProgress();
-    // Reset new submissions badge
-    _newSubmissionsCount=0;
-    document.querySelectorAll('.m-tab').forEach((b,i)=>{
-      if(['general','classes','locks','answers','progress'][i]==='progress') b.innerHTML='📊 מעקב';
-    });
-  }
+  ['general','classes','locks','answers'].forEach(x=>{document.getElementById('tab-'+x)?.classList.toggle('active',x===t)});
+  document.querySelectorAll('.m-tab').forEach((b,i)=>b.classList.toggle('active',['general','classes','locks','answers'][i]===t));
   if(t==='answers')buildAnswersControlList();
   if(t==='classes')renderRosterAll();
 }
