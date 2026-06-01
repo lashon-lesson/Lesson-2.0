@@ -423,6 +423,142 @@ a{text-decoration:none;color:inherit}
 .sb-section-label.p30{background:var(--blue-lt);color:var(--blue)}
 .sb-section-label.p70{background:var(--c70-lt);color:var(--c70)}
 
+/* ════════════════════════════════════════════════
+   DASHBOARD REDESIGN — sidebar + cards + rings
+════════════════════════════════════════════════ */
+:root{
+  --accent:#6d5ef5;--accent2:#8b5cf6;--accent-soft:#eceaff;
+  --side-bg:#15121f;--side-bg2:#1d1830;--side-line:rgba(255,255,255,.07);
+  --side-txt:#b9b6c9;--side-txt-dim:#7b768e;
+  --dash-bg:#f5f6fb;
+}
+@media(prefers-color-scheme:dark){:root{--accent:#8b7dff;--accent2:#a78bfa;--accent-soft:rgba(139,125,255,.13);--dash-bg:#0c0c12}}
+
+#app{display:none}
+#app.on{display:flex;flex-direction:row;min-height:100vh;background:var(--dash-bg)}
+
+/* ── SIDEBAR (right side, RTL) ── */
+.side{width:236px;flex-shrink:0;background:linear-gradient(185deg,var(--side-bg2),var(--side-bg));
+  position:fixed;top:0;right:0;bottom:0;z-index:40;display:flex;flex-direction:column;
+  padding:1.3rem 1rem 1rem;border-left:1px solid var(--side-line)}
+.side-logo{display:flex;align-items:center;gap:9px;font-family:'Secular One',sans-serif;font-size:1.18rem;color:#fff;padding:.2rem .4rem 1.3rem;letter-spacing:.01em}
+.side-logo .slg-mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 4px 14px rgba(109,94,245,.4)}
+.side-nav{display:flex;flex-direction:column;gap:3px;flex:1}
+.side-link{display:flex;align-items:center;gap:11px;padding:.7rem .85rem;border-radius:12px;color:var(--side-txt);font-size:.86rem;font-weight:600;cursor:pointer;transition:all .15s;border:none;background:none;text-align:right;width:100%;position:relative}
+.side-link .sl-ic{font-size:1.05rem;width:22px;text-align:center;flex-shrink:0;opacity:.85}
+.side-link:hover{background:rgba(255,255,255,.05);color:#fff}
+.side-link.active{background:linear-gradient(135deg,rgba(109,94,245,.22),rgba(139,92,246,.14));color:#fff;font-weight:700}
+.side-link.active::before{content:'';position:absolute;right:-1rem;top:50%;transform:translateY(-50%);width:4px;height:60%;border-radius:0 4px 4px 0;background:linear-gradient(var(--accent),var(--accent2))}
+.side-foot{border-top:1px solid var(--side-line);padding-top:.85rem;margin-top:.5rem}
+.side-user{display:flex;align-items:center;gap:9px;padding:.45rem .35rem .7rem}
+.side-user .su-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:.85rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.side-user .su-meta{min-width:0}
+.side-user .su-name{font-size:.8rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.side-user .su-role{font-size:.64rem;color:var(--side-txt-dim)}
+.side-fbadge{display:flex;align-items:center;gap:6px;font-size:.66rem;font-weight:700;color:var(--side-txt-dim);padding:.3rem .55rem;margin-bottom:.5rem}
+.side-fbadge .fb-dot{width:6px;height:6px;border-radius:50%;background:#f5a623}
+.side-fbadge.ok{color:#34d875}.side-fbadge.ok .fb-dot{background:#34d875}
+.side-logout{width:100%;display:flex;align-items:center;justify-content:center;gap:7px;padding:.6rem;border:1px solid var(--side-line);border-radius:11px;background:rgba(255,255,255,.04);color:var(--side-txt);font-size:.76rem;font-weight:700;cursor:pointer;transition:all .15s}
+.side-logout:hover{background:rgba(252,128,128,.14);color:#ff9c9c;border-color:rgba(252,128,128,.3)}
+
+/* ── MAIN AREA ── */
+.main-area{flex:1;min-width:0;margin-right:236px;display:flex;flex-direction:column;background:var(--dash-bg)}
+.app-topbar{background:transparent;border-bottom:none;height:auto;padding:1.1rem 1.6rem .2rem;position:static;justify-content:flex-start;overflow:visible}
+.app-topbar .at-logo{display:none}
+.at-right{margin-right:auto;gap:8px}
+.at-av{display:none}
+.tb-greet-dash{font-family:'Secular One',sans-serif;font-size:1.05rem;color:var(--text)}
+.t-strip{margin:0 1.6rem;border-radius:12px;margin-top:.4rem}
+
+/* hide legacy hero */
+.app-hero{display:none!important}
+
+/* ── VIEWS ── */
+.view{padding:.6rem 1.6rem 3rem;animation:viewIn .28s ease}
+@keyframes viewIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.dash-wrap{max-width:1180px;margin:0 auto;width:100%}
+
+/* welcome banner */
+.welcome{background:linear-gradient(120deg,#6a4ef0 0%,#7c5cf6 50%,#9061f9 100%);border-radius:20px;padding:1.7rem 1.9rem;color:#fff;position:relative;overflow:hidden;box-shadow:0 16px 40px rgba(109,94,245,.28)}
+.welcome::after{content:'';position:absolute;left:-40px;bottom:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.08)}
+.welcome::before{content:'';position:absolute;left:90px;top:-50px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.06)}
+.welcome-t{font-family:'Secular One',sans-serif;font-size:1.5rem;position:relative;z-index:1}
+.welcome-s{font-size:.84rem;color:rgba(255,255,255,.78);margin-top:.4rem;position:relative;z-index:1}
+
+/* stat grid */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.15rem 1.3rem;text-align:center;box-shadow:var(--sh1);transition:transform .15s,box-shadow .15s}
+.stat-card:hover{transform:translateY(-3px);box-shadow:var(--sh2)}
+.stat-num{font-family:'Secular One',sans-serif;font-size:1.9rem;color:var(--text);line-height:1}
+.stat-num.accent{color:var(--accent)}
+.stat-lbl{font-size:.74rem;color:var(--muted);margin-top:.45rem;font-weight:600}
+
+/* mid grid: streak + ring */
+.mid-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.dash-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.4rem 1.5rem;box-shadow:var(--sh1)}
+.streak-card{display:flex;flex-direction:column;justify-content:center;text-align:center}
+.streak-top{font-size:.82rem;font-weight:800;color:var(--text-mid);display:flex;align-items:center;justify-content:center;gap:7px}
+.streak-big{font-family:'Secular One',sans-serif;font-size:2.3rem;color:var(--text);margin-top:.3rem;line-height:1}
+.streak-sub{font-size:.78rem;color:var(--muted);margin-top:.35rem}
+.ring-card{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring{width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;background:conic-gradient(var(--accent) calc(var(--p,0)*1%),var(--surface3) 0)}
+.ring::before{content:'';position:absolute;inset:13px;border-radius:50%;background:var(--surface)}
+.ring-val{position:relative;z-index:1;font-family:'Secular One',sans-serif;font-size:1.55rem;color:var(--text)}
+.ring-lbl{font-size:.8rem;font-weight:700;color:var(--muted);margin-top:.8rem}
+
+/* section heading */
+.dash-h{font-family:'Secular One',sans-serif;font-size:1.15rem;color:var(--text);margin:1.8rem 0 .9rem}
+
+/* unit progress bars */
+.up-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.up-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem 1.1rem;cursor:pointer;transition:transform .14s,box-shadow .14s,border-color .14s}
+.up-card:hover{transform:translateY(-3px);box-shadow:var(--sh2);border-color:var(--accent)}
+.up-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem;gap:8px}
+.up-name{font-size:.82rem;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.up-em{font-size:1.05rem;flex-shrink:0}
+.up-track{height:8px;background:var(--surface3);border-radius:999px;overflow:hidden}
+.up-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .6s cubic-bezier(.22,1,.36,1)}
+.up-meta{display:flex;justify-content:space-between;font-size:.66rem;font-weight:700;color:var(--muted);margin-top:.45rem}
+.up-lock{font-size:.7rem;color:var(--subtle)}
+
+/* recent activity table */
+.recent-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--sh1)}
+.recent-hd{font-family:'Secular One',sans-serif;font-size:1.05rem;padding:1.1rem 1.4rem;border-bottom:1px solid var(--border)}
+.recent-tbl{width:100%;border-collapse:collapse;font-size:.82rem;direction:rtl}
+.recent-tbl th{padding:.7rem 1.4rem;text-align:right;font-size:.7rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;background:var(--surface2)}
+.recent-tbl td{padding:.72rem 1.4rem;border-top:1px solid var(--border)}
+.recent-tbl tr:hover td{background:var(--surface2)}
+.rt-score{font-weight:900}
+.recent-empty{padding:2.2rem 1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
+
+/* mobile bottom nav */
+.mnav{display:none}
+
+/* exams view list */
+.exam-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.exam-card{display:flex;align-items:center;gap:13px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;cursor:pointer;transition:transform .14s,box-shadow .14s}
+.exam-card:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
+.exam-card.locked{opacity:.45;pointer-events:none}
+.exam-card .ec-em{font-size:1.5rem;width:46px;height:46px;border-radius:12px;background:var(--gold-lt);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.exam-card .ec-bd{flex:1;min-width:0}
+.exam-card .ec-t{font-size:.92rem;font-weight:800;color:var(--text)}
+.exam-card .ec-s{font-size:.72rem;color:var(--muted);margin-top:2px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .side{display:none}
+  .main-area{margin-right:0;padding-bottom:74px}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .up-grid{grid-template-columns:repeat(2,1fr)}
+  .view{padding:.4rem .9rem 2rem}
+  .app-topbar{padding:.9rem 1rem .2rem}
+  .t-strip{margin:.4rem 1rem 0}
+  .mnav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;background:var(--surface);border-top:1px solid var(--border);box-shadow:0 -4px 20px rgba(0,0,0,.08);padding:.35rem .3rem calc(.35rem + env(safe-area-inset-bottom,0px))}
+  .mnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:.4rem;border:none;background:none;color:var(--muted);font-size:.6rem;font-weight:700;cursor:pointer}
+  .mnav-btn .mn-ic{font-size:1.2rem}
+  .mnav-btn.active{color:var(--accent)}
+}
+@media(max-width:480px){.stat-grid,.up-grid,.mid-grid{grid-template-columns:1fr}.welcome-t{font-size:1.25rem}}
 </style>
 </head>
 <body>
@@ -515,55 +651,93 @@ a{text-decoration:none;color:inherit}
 <!-- APP SHELL -->
 <div id="app">
 
-  <!-- TOPBAR -->
-  <div class="app-topbar">
-    <div class="at-logo">לשון Lesson <span class="at-logo-pill">כיתה י׳</span></div>
-    <div class="at-right">
-      <span id="tb-greet" class="at-greet">שלום!</span>
-      <span id="fb-badge" class="fb-badge"><span class="fb-dot"></span>Firebase</span>
-      <button class="btn-cfg" id="desk-cfg" onclick="openSettings()" style="display:none">⚙️ הגדרות</button>
-      <button class="btn-topbar-logout" id="desk-logout" onclick="confirmLogout()" style="display:none" title="יציאה">
+  <!-- ── SIDEBAR (right, RTL) ── -->
+  <aside class="side">
+    <div class="side-logo"><span class="slg-mark">📖</span> לשון Lesson</div>
+    <nav class="side-nav" id="side-nav">
+      <button class="side-link active" data-view="dash" onclick="navTo('dash')"><span class="sl-ic">🏠</span> דשבורד</button>
+      <button class="side-link" data-view="units" onclick="navTo('units')"><span class="sl-ic">📚</span> יחידות לימוד</button>
+      <button class="side-link" data-view="exams" onclick="navTo('exams')"><span class="sl-ic">📝</span> מבחנים</button>
+      <button class="side-link" data-view="progress" onclick="navTo('progress')"><span class="sl-ic">📊</span> התקדמות</button>
+      <button class="side-link" data-view="settings" id="side-settings" onclick="openSettings()" style="display:none"><span class="sl-ic">⚙️</span> הגדרות</button>
+    </nav>
+    <div class="side-foot">
+      <div class="side-fbadge" id="side-fbadge"><span class="fb-dot"></span><span id="side-fbtext">Firebase</span></div>
+      <div class="side-user">
+        <div class="su-av" id="side-av">ת</div>
+        <div class="su-meta">
+          <div class="su-name" id="side-name">תלמיד/ה</div>
+          <div class="su-role" id="side-role">תלמיד/ה</div>
+        </div>
+      </div>
+      <button class="side-logout" onclick="confirmLogout()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-        <span class="tl-label">יציאה</span>
+        יציאה / החלפת משתמש
       </button>
-      <div class="at-av" id="sb-av">ת</div>
     </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <div class="main-area">
+
+    <!-- top row (controls + FB badge) -->
+    <div class="app-topbar">
+      <div class="at-logo">לשון Lesson <span class="at-logo-pill">כיתה י׳</span></div>
+      <div class="at-right">
+        <span id="tb-greet" class="tb-greet-dash">שלום!</span>
+        <span id="fb-badge" class="fb-badge"><span class="fb-dot"></span>Firebase</span>
+        <button class="btn-cfg" id="desk-cfg" onclick="openSettings()" style="display:none">⚙️ הגדרות</button>
+        <button class="btn-topbar-logout" id="desk-logout" onclick="confirmLogout()" style="display:none" title="יציאה">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span class="tl-label">יציאה</span>
+        </button>
+        <div class="at-av" id="sb-av">ת</div>
+      </div>
+    </div>
+
+    <!-- TEACHER STRIP -->
+    <div class="t-strip" id="t-strip">
+      <span class="t-strip-dot"></span>
+      <span id="t-strip-text">מצב מורה — נעילות, תשובות ומעקב תלמידים זמינים</span>
+    </div>
+
+    <!-- DASHBOARD VIEW -->
+    <div class="view" id="view-dash">
+      <div class="dash-wrap" id="dash-wrap"><!-- renderDashboard() --></div>
+    </div>
+
+    <!-- UNITS VIEW -->
+    <div class="view" id="view-units" style="display:none">
+      <div class="units-col" id="units-col"><!-- renderGrid() --></div>
+    </div>
+
+    <!-- EXAMS VIEW -->
+    <div class="view" id="view-exams" style="display:none">
+      <h2 class="dash-h" style="max-width:760px;margin:.3rem auto 1rem">📝 מבחני סיכום</h2>
+      <div class="exam-list" id="exam-list"><!-- renderExams() --></div>
+    </div>
+
   </div>
 
-  <!-- TEACHER STRIP (text only, no duplicate buttons) -->
-  <div class="t-strip" id="t-strip">
-    <span class="t-strip-dot"></span>
-    <span id="t-strip-text">מצב מורה — נעילות, תשובות ומעקב תלמידים זמינים</span>
-  </div>
+  <!-- mobile bottom nav -->
+  <nav class="mnav" id="mnav">
+    <button class="mnav-btn active" data-view="dash" onclick="navTo('dash')"><span class="mn-ic">🏠</span>דשבורד</button>
+    <button class="mnav-btn" data-view="units" onclick="navTo('units')"><span class="mn-ic">📚</span>יחידות</button>
+    <button class="mnav-btn" data-view="exams" onclick="navTo('exams')"><span class="mn-ic">📝</span>מבחנים</button>
+    <button class="mnav-btn" data-view="progress" onclick="navTo('progress')"><span class="mn-ic">📊</span>התקדמות</button>
+    <button class="mnav-btn" id="mnav-settings" onclick="openSettings()" style="display:none"><span class="mn-ic">⚙️</span>הגדרות</button>
+  </nav>
 
-  <!-- hidden stubs so JS doesn't throw -->
+  <!-- hidden compat stubs (referenced by legacy JS) -->
   <span id="mob-cfg" style="display:none"></span>
   <span id="mob-logout" style="display:none"></span>
-
-  <!-- HERO (student only) -->
-  <div class="app-hero" id="app-hero">
-    <div class="hero-name" id="hero-name">שלום 👋</div>
-    <div class="hero-sub">שנה"ל תשפ"ה · המשך מאיפה שעצרת</div>
-    <div class="hero-stats">
-      <div class="h-pill h-pill-prog" id="hero-prog">0 / 0 שיעורים</div>
-      <div class="h-pill h-pill-streak">🔥 המשך כך!</div>
-    </div>
-  </div>
-
-  <!-- BODY: single column accordion -->
-  <div class="app-body">
-    <div class="units-col" id="units-col">
-      <!-- rendered by renderGrid() -->
-    </div>
-  </div>
-
-  <!-- hidden elements for compatibility -->
+  <div class="app-hero" id="app-hero" style="display:none"><span id="hero-name"></span><span id="hero-prog"></span></div>
   <span id="sb-uname" style="display:none"></span>
   <span id="sb-role" style="display:none"></span>
   <span id="mob-title-name" style="display:none"></span>
   <div id="prog-banner" style="display:none">
-    <div class="prog-hd"><span class="prog-label"></span><span class="prog-pct" id="prog-pct">0%</span></div>
-    <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+    <span class="prog-pct" id="prog-pct">0%</span>
+    <div class="prog-fill" id="prog-fill" style="width:0%"></div>
     <div class="prog-stats" id="prog-stats"></div>
   </div>
   <div id="units-wrap" style="display:none"></div>
@@ -714,6 +888,8 @@ function setBadge(ok){
   b.innerHTML=`<span class="fb-dot"></span>${ok?'☁️ מחובר':'💾 מקומי'}`;
   const s=document.getElementById('fb-settings-status');
   if(s) s.textContent=ok?'✅ Firebase מחובר ופעיל':'⚠️ Firebase לא מחובר — שמירה מקומית';
+  const sb=document.getElementById('side-fbadge');
+  if(sb){sb.className='side-fbadge '+(ok?'ok':'');const st=document.getElementById('side-fbtext');if(st)st.textContent=ok?'מחובר ☁️':'מקומי 💾';}
 }
 
 /* ─ Locks ─ */
@@ -1179,15 +1355,16 @@ function enterApp(role,name){
   const av=document.getElementById('sb-av');if(av){av.textContent=(name||'?')[0].toUpperCase();}
   document.getElementById('sb-uname').textContent=name;
   // Greet pill
-  const greet=document.getElementById('tb-greet');if(greet){greet.textContent='שלום, '+name;greet.style.display='inline-flex';}
-  // Hero (student only)
-  const hero=document.getElementById('app-hero');
-  if(hero) hero.classList.toggle('on', role==='student');
-  const hn=document.getElementById('hero-name');
-  if(hn&&role==='student') hn.textContent='שלום, '+name+' 👋';
+  const greet=document.getElementById('tb-greet');if(greet){greet.textContent='שלום, '+name+' 👋';greet.style.display='inline-flex';}
+  // Sidebar user
+  const sAv=document.getElementById('side-av');if(sAv)sAv.textContent=(name||'?')[0].toUpperCase();
+  const sNm=document.getElementById('side-name');if(sNm)sNm.textContent=name;
+  const sRl=document.getElementById('side-role');if(sRl)sRl.textContent=isAdmin?'מנהל/ת':isTeacher?'מורה':'תלמיד/ה';
   // Teacher controls
   document.getElementById('desk-cfg').style.display=isTeacher?'':'none';
   const dl=document.getElementById('desk-logout');if(dl)dl.style.display='';
+  const sSet=document.getElementById('side-settings');if(sSet)sSet.style.display=isTeacher?'':'none';
+  const mSet=document.getElementById('mnav-settings');if(mSet)mSet.style.display=isTeacher?'':'none';
   // Teacher strip
   document.getElementById('t-strip').classList.toggle('on',isTeacher);
   if(isTeacher){
@@ -1198,9 +1375,11 @@ function enterApp(role,name){
   subscribeLocks();
   subscribeAnswers();
   renderGrid();
+  renderExams();
+  navTo('dash');
   {const _ubp=new URLSearchParams(window.location.search),_uid=_ubp.get('unit');
-   if(_uid){setTimeout(()=>{toggleUnit(_uid);
-     const _uel=document.getElementById('unit-'+_uid);
+   if(_uid){setTimeout(()=>{navTo('units');toggleUnit(_uid);
+     const _uel=document.getElementById('uc-'+_uid);
      if(_uel)_uel.scrollIntoView({behavior:'smooth',block:'start'});},300);}}
   if(isTeacher){
     loadTeacherClassesFromFirebase();
@@ -1210,6 +1389,192 @@ function enterApp(role,name){
       }
     },3000);
   }
+}
+
+/* ════════════════════════════════════════════════
+   VIEW NAVIGATION
+════════════════════════════════════════════════ */
+function navTo(view){
+  // progress → dashboard for everyone (it holds the progress overview)
+  const target = view==='progress' ? 'dash' : view;
+  ['dash','units','exams'].forEach(v=>{
+    const el=document.getElementById('view-'+v);
+    if(el) el.style.display = v===target ? '' : 'none';
+  });
+  document.querySelectorAll('.side-link,.mnav-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.view===view);
+  });
+  if(target==='dash') renderDashboard();
+  if(target==='exams') renderExams();
+  document.querySelector('.main-area')?.scrollTo?.({top:0});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ════════════════════════════════════════════════
+   DASHBOARD — stats overview, streak, success ring,
+   unit progress bars, recent activity
+════════════════════════════════════════════════ */
+function _allUnits(){ return [...UNITS,...UNITS_70]; }
+
+function _computeStats(){
+  const isT=(S.role==='teacher'||S.role==='admin');
+  let total=0, done=0, unitsActive=0, weekCount=0;
+  const scores=[]; const weekAgo=Date.now()-7*864e5;
+  _allUnits().forEach(u=>{
+    let ud=0;
+    u.lessons.forEach(l=>{
+      total++;
+      const p=S.prog[l.id];
+      if(p?.done){ done++; ud++;
+        if(typeof p.score==='number') scores.push(p.score);
+        if(p.ts && p.ts>=weekAgo) weekCount++;
+      }
+    });
+    if(ud>0) unitsActive++;
+  });
+  const overall = total?Math.round(done/total*100):0;
+  const success = scores.length?Math.round(scores.reduce((a,b)=>a+b,0)/scores.length):overall;
+  return {total,done,unitsActive,weekCount,overall,success};
+}
+
+function _computeStreak(){
+  // distinct completion dates (parse he-IL "d.m.yyyy")
+  const dates=new Set();
+  Object.values(S.prog).forEach(p=>{
+    if(!p?.done) return;
+    let d=null;
+    if(p.ts){ d=new Date(p.ts); }
+    else if(p.date){
+      const m=String(p.date).match(/(\d+)\D+(\d+)\D+(\d+)/);
+      if(m) d=new Date(+m[3],+m[2]-1,+m[1]);
+    }
+    if(d&&!isNaN(d)) dates.add(new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime());
+  });
+  if(!dates.size) return 0;
+  const day=864e5, today=new Date(); const t0=new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime();
+  // streak must include today or yesterday to be "alive"
+  let cur = dates.has(t0)?t0:(dates.has(t0-day)?t0-day:null);
+  if(cur===null) return 0;
+  let streak=0;
+  while(dates.has(cur)){ streak++; cur-=day; }
+  return streak;
+}
+
+function renderDashboard(){
+  const wrap=document.getElementById('dash-wrap');
+  if(!wrap) return;
+  const isT=(S.role==='teacher'||S.role==='admin');
+  const st=_computeStats();
+  const streak=_computeStreak();
+  const DOT={u1:'#2563eb',u2:'#059669',u3:'#7c3aed',u4:'#ea580c',v1:'#0891b2',v2:'#8b5cf6',v3:'#d97706'};
+
+  // unit progress cards
+  const unitBars=_allUnits().map(u=>{
+    let ud=0,ut=0;
+    u.lessons.forEach(l=>{ut++; if(S.prog[l.id]?.done) ud++;});
+    const pct=ut?Math.round(ud/ut*100):0;
+    const locked=!isT && u.lessons.length>0 && u.lessons.every(l=>isLocked(l.id,l.locked));
+    return `<div class="up-card" onclick="${locked?'':`navTo('units');setTimeout(()=>toggleAccordion('${u.id}'),120)`}" ${locked?'style="opacity:.5;cursor:default"':''}>
+      <div class="up-top">
+        <span class="up-name">${u.title}</span>
+        <span class="up-em">${locked?'🔒':u.emoji}</span>
+      </div>
+      <div class="up-track"><div class="up-fill" style="width:${pct}%"></div></div>
+      <div class="up-meta"><span>${u.label}</span><span>${ud}/${ut} · ${pct}%</span></div>
+    </div>`;
+  }).join('');
+
+  // recent activity (last 5 done, newest first)
+  const recent=Object.entries(S.prog)
+    .filter(([id,p])=>p?.done)
+    .map(([id,p])=>{
+      const l=_allUnits().flatMap(u=>u.lessons).find(x=>x.id===id);
+      return {id, title:l?l.title:id, score:p.score, date:p.date||'—', ts:p.ts||0};
+    })
+    .sort((a,b)=>b.ts-a.ts)
+    .slice(0,6);
+
+  const recentRows = recent.length
+    ? recent.map(r=>{
+        const col = typeof r.score==='number' ? (r.score>=80?'var(--green)':r.score>=60?'var(--amber)':'var(--red)') : 'var(--green)';
+        const sc = typeof r.score==='number' ? r.score : '✅';
+        return `<tr>
+          <td style="font-weight:700">${r.title}</td>
+          <td><span class="rt-score" style="color:${col}">${sc}${typeof r.score==='number'?'':''}</span></td>
+          <td style="color:var(--muted)">${r.date}</td>
+        </tr>`;
+      }).join('')
+    : `<tr><td colspan="3" class="recent-empty">עדיין לא הושלמו שיעורים — בחר/י "יחידות לימוד" כדי להתחיל 🚀</td></tr>`;
+
+  const welcomeName = isT ? S.name : S.name;
+  wrap.innerHTML=`
+    <div class="welcome">
+      <div class="welcome-t">ברוך/ה הבא/ה, ${welcomeName}! 👋</div>
+      <div class="welcome-s">פלטפורמת לימודי לשון לתיכון — המשך/י מהמקום שבו עצרת</div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-num">${st.weekCount}</div><div class="stat-lbl">תרגילים השבוע</div></div>
+      <div class="stat-card"><div class="stat-num">${st.unitsActive}</div><div class="stat-lbl">יחידות פעילות</div></div>
+      <div class="stat-card"><div class="stat-num">${st.done}</div><div class="stat-lbl">שיעורים שהושלמו</div></div>
+      <div class="stat-card"><div class="stat-num accent">${st.overall}%</div><div class="stat-lbl">התקדמות כללית</div></div>
+    </div>
+
+    <div class="mid-grid">
+      <div class="dash-card streak-card">
+        <div class="streak-top">🔥 רצף למידה</div>
+        <div class="streak-big">${streak} ${streak===1?'יום':'ימים'}</div>
+        <div class="streak-sub">${streak>0?'המשך/י כך!':'התחל/י רצף היום!'}</div>
+      </div>
+      <div class="dash-card ring-card">
+        <div class="ring" style="--p:${st.success}"><span class="ring-val">${st.success}%</span></div>
+        <div class="ring-lbl">מדד הצלחה</div>
+      </div>
+    </div>
+
+    <h2 class="dash-h">יחידות לימוד</h2>
+    <div class="up-grid">${unitBars}</div>
+
+    <h2 class="dash-h">פעילות אחרונה</h2>
+    <div class="recent-card">
+      <div class="recent-hd">📋 השיעורים האחרונים שלך</div>
+      <table class="recent-tbl">
+        <thead><tr><th>שיעור</th><th>ציון</th><th>תאריך</th></tr></thead>
+        <tbody>${recentRows}</tbody>
+      </table>
+    </div>`;
+
+  // legacy hero stubs
+  const hp=document.getElementById('hero-prog');if(hp)hp.textContent=`${st.done}/${st.total}`;
+  const fill=document.getElementById('prog-fill');if(fill)fill.style.width=st.overall+'%';
+  const pctEl=document.getElementById('prog-pct');if(pctEl)pctEl.textContent=st.overall+'%';
+}
+
+/* ════════════════════════════════════════════════
+   EXAMS VIEW
+════════════════════════════════════════════════ */
+function renderExams(){
+  const el=document.getElementById('exam-list');
+  if(!el) return;
+  const isT=(S.role==='teacher'||S.role==='admin');
+  const exams=[];
+  _allUnits().forEach(u=>u.lessons.filter(l=>l.exam).forEach(l=>exams.push({u,l})));
+  el.innerHTML=exams.map(({u,l})=>{
+    const locked=isLocked(l.id,l.locked)&&!isT;
+    const done=!!S.prog[l.id]?.done;
+    const sc=S.prog[l.id]?.score;
+    const meta=locked?'🔒 ננעל — יפתח לאחר השלמת היחידה'
+      :done?(typeof sc==='number'?`✅ הושלם · ציון ${sc}%`:'✅ הושלם')
+      :`${l.mins} דקות · מבחן מסכם`;
+    return `<div class="exam-card${locked?' locked':''}" ${locked?'':`onclick="openLesson('${l.id}','${l.file||''}','${u.id}')"`}>
+      <div class="ec-em">${locked?'🔒':'🏆'}</div>
+      <div class="ec-bd">
+        <div class="ec-t">${l.title}</div>
+        <div class="ec-s">${u.emoji} ${u.label} — ${u.title} · ${meta}</div>
+      </div>
+      <span style="font-size:1.1rem;color:var(--subtle)">${locked?'':'‹'}</span>
+    </div>`;
+  }).join('') || '<p style="text-align:center;color:var(--muted)">אין מבחנים זמינים.</p>';
 }
 
 /* ════════════════════════════════════════════════
@@ -1891,9 +2256,9 @@ function doLogout(){
 }
 window.addEventListener('message',e=>{
   if(e.data?.type==='lessonDone'&&e.data.lid){
-    S.prog[e.data.lid]={done:true,score:e.data.score??null,date:new Date().toLocaleDateString('he-IL')};
+    S.prog[e.data.lid]={done:true,score:e.data.score??null,date:new Date().toLocaleDateString('he-IL'),ts:Date.now()};
     LS.set('lashon2_prog_'+S.name,S.prog);
-    renderGrid();toast('✅ שיעור הושלם!');
+    renderGrid();renderDashboard();renderExams();toast('✅ שיעור הושלם!');
   }
 });
 function initApp(){
