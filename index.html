@@ -744,7 +744,6 @@ a{text-decoration:none;color:inherit}
       <button class="side-link" data-view="units" onclick="navTo('units')"><span class="sl-ic">📚</span> יחידות לימוד</button>
       <button class="side-link" data-view="exams" onclick="navTo('exams')"><span class="sl-ic">📝</span> מבחנים</button>
       <button class="side-link" data-view="progress" onclick="navTo('progress')"><span class="sl-ic">📊</span> התקדמות</button>
-      <button class="side-link" data-view="settings" id="side-settings" onclick="openSettings()" style="display:none"><span class="sl-ic">⚙️</span> הגדרות</button>
     </nav>
     <div class="side-foot">
       <div class="side-fbadge" id="side-fbadge"><span class="fb-dot"></span><span id="side-fbtext">Firebase</span></div>
@@ -1986,6 +1985,7 @@ function renderLessonPanel(uid){
   let hasNext=false;
   let rows='';
   unit.lessons.forEach(l=>{
+    if(l.exam) return; // exam shown separately as the colorful row below
     const locked=isLocked(l.id,l.locked)&&!isT;
     const done=!!S.prog[l.id]?.done;
     const isNext=!done&&!locked&&!hasNext;
