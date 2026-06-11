@@ -1487,10 +1487,10 @@ function _finalizeTeacherLogin(nameVal,waVal,role){
   const teacherKey='lashon2_teacher_'+nameVal.replace(/\s+/g,'_');
   LS.set(teacherKey,{name:nameVal,wa:waVal,ts:Date.now()});
   LS.set('lashon2_tname',nameVal);
-  LS.set('lashon2_role','teacher');
+  LS.set('lashon2_role',role);
   LS.set('lashon2_uname',nameVal);
   LS.set('lashon2_teacher_wa',waVal);
-  localStorage.setItem('userRole','teacher');
+  localStorage.setItem('userRole',role);
   _saveTeacherProfile(nameVal,waVal);
   S._role_resolved=role;
   fadeLogin(()=>enterApp(role,nameVal));
@@ -1539,6 +1539,23 @@ function enterApp(role,name){
     if(strip) strip.textContent=isAdmin?'מצב מנהל — גישה מלאה לכל הכלים':'מצב מורה — נעילות, תשובות ומעקב תלמידים זמינים';
   }
   document.getElementById('prog-banner').style.display='none';
+  // Self-heal: re-resolve role from Firebase in case a stale role was cached
+  if(isTeacher && _db && name){
+    const _rk=name.replace(/\s+/g,'_');
+    _db.collection('lashon2_teachers').doc(_rk).get().then(doc=>{
+      const fresh=doc.exists && doc.data().role;
+      if(fresh && fresh!==S.role){
+        S.role=fresh;
+        LS.set('lashon2_role',fresh);
+        localStorage.setItem('userRole',fresh);
+        const utab=document.getElementById('m-tab-users');
+        if(utab) utab.style.display=(fresh==='admin')?'':'none';
+        const strip=document.getElementById('t-strip-text');
+        if(strip) strip.textContent=(fresh==='admin')?'מצב מנהל — גישה מלאה לכל הכלים':'מצב מורה — נעילות, תשובות ומעקב תלמידים זמינים';
+        const sRl=document.getElementById('side-role');if(sRl)sRl.textContent=(fresh==='admin')?'מנהל/ת':'מורה';
+      }
+    }).catch(()=>{});
+  }
   subscribeLocks();
   subscribeAnswers();
   renderGrid();
