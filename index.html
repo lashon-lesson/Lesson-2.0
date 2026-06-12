@@ -2104,12 +2104,13 @@ function scrollToUnit(uid){
 function openLesson(lid,file,uid){
   if(!file){toast('🚧 שיעור זה בפיתוח');return}
   const backUrl=uid?'index.html?unit='+uid:'index.html';
+  const isStaff=(S.role==='teacher'||S.role==='admin');
   const params=new URLSearchParams({
     student:S.name,
-    role:S.role,
+    role: isStaff?'teacher':S.role,
     class:S.className||'',
     back:backUrl,
-    answers_visible: isAnswersVisible(lid) ? '1' : '0'
+    answers_visible: isStaff ? '1' : (isAnswersVisible(lid) ? '1' : '0')
   });
   window.location.href=file+'?'+params.toString();
 }
