@@ -1,7 +1,10 @@
 <!DOCTYPE html>
+<!-- @copyright-line | © 2026 זכויות יוצרים – ליאור אלמוסלינוס | כל הזכויות שמורות. אין להעתיק, לשכפל או להפיץ ללא אישור בכתב. -->
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<meta name="copyright" content="© 2026 זכויות יוצרים – ליאור אלמוסלינוס">
+<meta name="author" content="ליאור אלמוסלינוס">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>יחידה 4 שיעור 2 — המספר הסודר והסתמי | לשון Lesson 2.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -329,6 +332,12 @@ button,input,select,textarea{font-family:inherit}
 .open-textarea:disabled{opacity:.65;background:var(--surface3,#f0f2f7)}
 .open-hint{font-size:.72rem;color:var(--muted,#9aa3be);margin-top:.3rem}
 .open-rubric{margin-top:.6rem;background:var(--surface2,#f8fafc);border:1px solid var(--border,#e4e7ef);border-radius:var(--r,8px);padding:.7rem 1rem;font-size:.78rem;line-height:1.55;color:var(--text-mid,#374151)}
+
+/* ── COPYRIGHT ── */
+.copyright-line{padding:1.35rem 1rem .9rem;text-align:center;font-size:.71rem;letter-spacing:.015em;color:var(--muted);opacity:.8;line-height:1.5;user-select:none}
+.copyright-line.pinned{position:absolute;bottom:.7rem;left:0;right:0;z-index:2;opacity:.72}
+@media print{.copyright-line{opacity:1;color:#6b7594}}
+
 </style>
 </head>
 <body>
@@ -1056,5 +1065,6 @@ function goBack(){if(window.opener){try{window.opener.postMessage({type:'lessonD
 function init(){initFirebase();if(USER_ROLE==='teacher'){const rc=document.getElementById('role-chip');if(rc)rc.style.display='';const tb=document.getElementById('btn-answers');if(tb)tb.style.display='';_gateConfirmed=true;const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='';document.getElementById('student-gate')?.classList.add('hidden');document.getElementById('gate-confirmed')?.classList.add('hidden');}else{const wrap=document.getElementById('practice-content-wrap');if(wrap)wrap.style.display='none';if(STUDENT_NAME&&STUDENT_NAME!=='תלמיד/ה'&&STUDENT_CLASS){_gateConfirmed=true;SNP=STUDENT_NAME;SCP=STUDENT_CLASS;if(wrap)wrap.style.display='';document.getElementById('student-gate')?.classList.add('hidden');const av=document.getElementById('gc-avatar'),nm=document.getElementById('gc-name-display'),mt=document.getElementById('gc-meta-display');if(av)av.textContent=STUDENT_NAME[0].toUpperCase();if(nm)nm.textContent=STUDENT_NAME;if(mt)mt.textContent='כיתה '+STUDENT_CLASS+' · '+new Date().toLocaleDateString('he-IL');document.getElementById('gate-confirmed')?.classList.add('show');}}applyAnswersVisibility();renderQuestions();}
 init();
 </script>
+<div class="copyright-line">© 2026 זכויות יוצרים – ליאור אלמוסלינוס</div>
 </body>
 </html>
