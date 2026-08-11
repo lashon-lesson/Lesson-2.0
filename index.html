@@ -153,6 +153,10 @@ a{text-decoration:none;color:inherit}
 .tcp-go{padding:.82rem 1.3rem;border:none;border-radius:var(--r-pill);background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;min-height:48px;transition:all .18s;box-shadow:0 6px 18px rgba(99,102,241,.3)}
 .tcp-go:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(99,102,241,.4)}
 .tcp-hint{font-size:.66rem;color:var(--subtle);margin-top:.35rem}
+.tcp-privacy{font-size:.66rem;color:var(--text-mid);margin-top:.6rem;padding:.5rem .7rem;line-height:1.65;
+  background:var(--surface2);border:1px solid var(--border);border-radius:10px}
+.tcp-privacy a{color:var(--acc-dk);text-decoration:underline;text-underline-offset:2px;font-weight:700}
+.tcp-privacy a:hover{color:var(--acc)}
 .tcp-back{margin-top:1rem;background:none;border:none;color:var(--muted);font-size:.76rem;cursor:pointer;padding:.3rem 0;display:block}
 .tcp-back:hover{color:var(--acc)}
 /* ── Student registration panel — inherits .ls-tcp card styling, sits between the cards ── */
@@ -679,6 +683,7 @@ a{text-decoration:none;color:inherit}
         <button class="tcp-go scp-go" onclick="submitStudentLogin()">התחל ›</button>
       </div>
       <p class="tcp-hint">השם והכיתה ילוו אותך בכל השיעורים — נא להזין שם מלא ומדויק</p>
+      <p class="tcp-privacy">🔒 השם, הכיתה והציונים שלך יישמרו כדי שהמורה תוכל לעקוב אחרי ההתקדמות, ויימחקו בתום שנת הלימודים. <a href="privacy.html" target="_blank" rel="noopener">מדיניות הפרטיות</a></p>
       <button class="tcp-back" onclick="hideSCP()">← חזרה</button>
     </div>
 
@@ -714,6 +719,7 @@ a{text-decoration:none;color:inherit}
       <button class="tcp-go" onclick="doTeacherLogin()">כניסה</button>
     </div>
     <p class="tcp-hint">קיבלת קוד כניסה ראשוני? הזן אותו כאן</p>
+    <p class="tcp-privacy">🔒 שמך ומספר הוואטסאפ יישמרו לצורך תפעול המערכת ושליחת סיכומים. <a href="privacy.html" target="_blank" rel="noopener">מדיניות הפרטיות</a></p>
     <button class="tcp-back" onclick="hideTCP()">← חזרה</button>
   </div>
   <div class="copyright-line pinned">© 2026 זכויות יוצרים – ליאור אלמוסלינוס</div>
@@ -902,6 +908,31 @@ a{text-decoration:none;color:inherit}
         </div>
       </div>
       <button class="m-btn" onclick="changePass()">🔐 שנה קוד</button>
+
+      <!-- ═══ ניהול נתונים — מנהלים בלבד ═══ -->
+      <div id="purge-section" style="display:none">
+        <div class="m-section">🗑️ ניהול נתונים ופרטיות</div>
+        <div style="background:var(--red-lt);border:1.5px solid rgba(220,38,38,.35);border-radius:var(--r);padding:.8rem 1rem;font-size:.76rem;color:var(--text-mid);line-height:1.65;margin-bottom:.9rem">
+          <strong style="color:var(--red);display:block;margin-bottom:.25rem">⚠️ פעולה בלתי הפיכה</strong>
+          מדיניות הפרטיות מתחייבת למחוק נתוני תלמידים בתום שנת הלימודים.
+          מחיקה כאן מוחקת הגשות מ-Firebase לצמיתות — ללא אפשרות שחזור.
+        </div>
+        <div class="m-field">
+          <label class="m-lbl" for="purge-date">מחק הגשות שנוצרו לפני התאריך</label>
+          <input class="m-in" id="purge-date" type="date">
+        </div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.7rem">
+          <button class="m-btn" style="background:var(--surface3);color:var(--text)" onclick="previewPurge()">🔍 בדוק כמה יימחקו</button>
+        </div>
+        <div id="purge-result" style="font-size:.8rem;color:var(--muted);margin-bottom:.8rem">טרם בוצעה בדיקה.</div>
+        <div id="purge-confirm-wrap" style="display:none">
+          <div class="m-field">
+            <label class="m-lbl" for="purge-word">לאישור, הקלד/י את המילה <strong>מחק</strong></label>
+            <input class="m-in" id="purge-word" type="text" placeholder="מחק" autocomplete="off">
+          </div>
+          <button class="m-btn" id="purge-run-btn" style="background:var(--red)" onclick="runPurge()">🗑️ מחק לצמיתות</button>
+        </div>
+      </div>
       <div class="m-section">Firebase</div>
       <div id="fb-settings-status" style="font-size:.78rem;color:var(--muted)">בודק…</div>
     </div>
@@ -1002,8 +1033,8 @@ const FB_CFG={
   projectId:"lashon-project",
   storageBucket:"lashon-project.firebasestorage.app",
   messagingSenderId:"444024985545",
-  appId:"1:444024985545:web:847f8d4dad43193c147a18",
-  measurementId:"G-26KTLPJ8N1"
+  appId:"1:444024985545:web:847f8d4dad43193c147a18"
+  /* measurementId הוסר בכוונה — Analytics אינו פעיל, בהתאם למדיניות הפרטיות */
 };
 let _db=null,_fbOk=false;
 
@@ -2154,10 +2185,99 @@ function openSettings(){
   // User-management tab visible to admin only
   const utab=document.getElementById('m-tab-users');
   if(utab) utab.style.display=(S.role==='admin'||isOwnerAdmin(S.name))?'':'none';
+  // Data-purge section — admins only
+  const psec=document.getElementById('purge-section');
+  if(psec){
+    const canPurge=(S.role==='admin'||isOwnerAdmin(S.name));
+    psec.style.display=canPurge?'':'none';
+    const pd=document.getElementById('purge-date');
+    if(pd&&!pd.value) pd.value=_defaultPurgeDate();
+  }
   buildLockList();buildAnswersControlList();switchTab('general');
   document.getElementById('settings-overlay').classList.add('open');document.body.style.overflow='hidden';
 }
 function closeSettings(){document.getElementById('settings-overlay').classList.remove('open');document.body.style.overflow=''}
+
+/* ════════════════════════════════════════════════
+   מחיקת נתוני שנה קודמת — יישום התחייבות מדיניות הפרטיות
+   שנת לימודים: 1 בספטמבר – 31 באוגוסט
+════════════════════════════════════════════════ */
+function _defaultPurgeDate(){
+  // ברירת מחדל: 1 בספטמבר של שנת הלימודים הנוכחית.
+  // כל מה שנוצר לפניו שייך לשנה קודמת.
+  const now=new Date();
+  const y=now.getMonth()>=8?now.getFullYear():now.getFullYear()-1;
+  return y+'-09-01';
+}
+function _canPurge(){ return S.role==='admin'||isOwnerAdmin(S.name); }
+function _purgeCutoff(){
+  const v=document.getElementById('purge-date')?.value;
+  if(!v) return null;
+  const d=new Date(v+'T00:00:00');
+  return isNaN(d.getTime())?null:d;
+}
+
+async function previewPurge(){
+  const res=document.getElementById('purge-result');
+  const wrap=document.getElementById('purge-confirm-wrap');
+  if(wrap) wrap.style.display='none';
+  if(!_canPurge()){ toast('⛔ פעולה זו מותרת למנהלים בלבד'); return; }
+  if(!_db){ res.textContent='⚠️ Firebase אינו מחובר — לא ניתן למחוק.'; return; }
+  const cut=_purgeCutoff();
+  if(!cut){ res.textContent='⚠️ יש לבחור תאריך.'; return; }
+  res.textContent='⏳ סופר…';
+  try{
+    const snap=await _db.collection('lashon2_submissions').where('ts','<',cut).get();
+    const n=snap.size;
+    if(n===0){
+      res.innerHTML='<span style="color:var(--green);font-weight:700">✅ אין הגשות ישנות מהתאריך שנבחר — אין מה למחוק.</span>';
+      return;
+    }
+    const names=[...new Set(snap.docs.map(d=>d.data().studentName).filter(Boolean))];
+    res.innerHTML='<strong style="color:var(--red)">יימחקו '+n+' הגשות</strong> של '+names.length+
+      ' תלמידים, שנוצרו לפני '+cut.toLocaleDateString('he-IL')+'.';
+    if(wrap){ wrap.style.display='block'; document.getElementById('purge-word').value=''; }
+  }catch(e){
+    console.warn('[purge preview]',e);
+    res.innerHTML='<span style="color:var(--red)">❌ שגיאה בקריאה מ-Firebase. ייתכן שכללי ההרשאות חוסמים את הפעולה.</span>';
+  }
+}
+
+async function runPurge(){
+  if(!_canPurge()){ toast('⛔ פעולה זו מותרת למנהלים בלבד'); return; }
+  const word=(document.getElementById('purge-word')?.value||'').trim();
+  if(word!=='מחק'){ toast('⚠️ יש להקליד את המילה "מחק" לאישור'); return; }
+  const cut=_purgeCutoff();
+  if(!cut||!_db){ toast('⚠️ לא ניתן לבצע מחיקה'); return; }
+
+  const btn=document.getElementById('purge-run-btn');
+  const res=document.getElementById('purge-result');
+  if(btn){ btn.disabled=true; btn.textContent='⏳ מוחק…'; }
+
+  let total=0;
+  try{
+    while(true){
+      const snap=await _db.collection('lashon2_submissions')
+        .where('ts','<',cut).limit(400).get();
+      if(snap.empty) break;
+      const batch=_db.batch();
+      snap.docs.forEach(d=>batch.delete(d.ref));
+      await batch.commit();
+      total+=snap.size;
+      if(res) res.textContent='⏳ נמחקו '+total+' הגשות…';
+      if(snap.size<400) break;
+    }
+    if(res) res.innerHTML='<span style="color:var(--green);font-weight:700">✅ הושלם — נמחקו '+total+' הגשות לצמיתות.</span>';
+    document.getElementById('purge-confirm-wrap').style.display='none';
+    toast('🗑️ נמחקו '+total+' הגשות');
+  }catch(e){
+    console.warn('[purge run]',e);
+    if(res) res.innerHTML='<span style="color:var(--red)">❌ המחיקה נכשלה אחרי '+total+
+      ' רשומות. בדוק/י שכללי ההרשאות ב-Firestore מתירים delete.</span>';
+  }finally{
+    if(btn){ btn.disabled=false; btn.textContent='🗑️ מחק לצמיתות'; }
+  }
+}
 function switchTab(t){
   ['general','classes','locks','answers','users'].forEach(x=>{document.getElementById('tab-'+x)?.classList.toggle('active',x===t)});
   document.querySelectorAll('.m-tab').forEach((b,i)=>b.classList.toggle('active',['general','classes','locks','answers','users'][i]===t));
