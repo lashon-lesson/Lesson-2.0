@@ -59,36 +59,52 @@
     'outline:3px solid #f59e0b!important;outline-offset:2px!important;border-radius:4px}',
     '.toggle-wrap input:focus-visible + .toggle-slider{outline:3px solid #f59e0b;outline-offset:3px}',
 
+    /* ── פלטת הפאנל (עוקבת אחרי מצב המערכת) ── */
+    '.a11y-fab,.a11y-panel{--k-acc:#6366f1;--k-acc2:#8b5cf6;--k-srf:#fff;--k-srf2:#f2f3fb;',
+    '--k-txt:#191c2e;--k-dim:#7c8298;--k-line:rgba(26,29,54,.13);color-scheme:light}',
+    '@media(prefers-color-scheme:dark){.a11y-fab,.a11y-panel{',
+    '--k-acc:#8b7dff;--k-acc2:#a78bfa;--k-srf:#1a1726;--k-srf2:#251f38;',
+    '--k-txt:#ece9f7;--k-dim:#a8a3bd;--k-line:rgba(255,255,255,.16);color-scheme:dark}}',
+
     /* ── כפתור צף ── */
-    '.a11y-fab{position:fixed;bottom:1rem;left:1rem;z-index:100000;width:52px;height:52px;',
-    'border-radius:50%;border:2px solid #fff;background:#1d4ed8;color:#fff;font-size:1.5rem;',
-    'cursor:pointer;display:flex;align-items:center;justify-content:center;',
-    'box-shadow:0 4px 18px rgba(0,0,0,.45);transition:transform .15s}',
+    '.a11y-fab{position:fixed;bottom:1rem;left:1rem;z-index:100000;width:48px;height:48px;',
+    'border-radius:50%;border:2px solid rgba(255,255,255,.9);color:#fff;font-size:1.35rem;',
+    'background:linear-gradient(135deg,var(--k-acc),var(--k-acc2));',
+    'cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;',
+    'box-shadow:0 6px 22px rgba(99,102,241,.5);transition:transform .15s}',
     '.a11y-fab:hover{transform:scale(1.08)}',
 
     /* ── פאנל ── */
-    '.a11y-panel{position:fixed;bottom:5rem;left:1rem;z-index:100001;width:288px;max-width:calc(100vw - 2rem);',
-    'max-height:calc(100vh - 7rem);overflow-y:auto;background:#fff;color:#111827;border:2px solid #1d4ed8;',
-    'border-radius:14px;box-shadow:0 12px 44px rgba(0,0,0,.5);padding:.9rem;display:none;',
-    'font-family:Heebo,Arial,sans-serif;direction:rtl;text-align:right}',
+    '.a11y-panel{position:fixed;bottom:4.6rem;left:1rem;z-index:100001;width:300px;',
+    'max-width:calc(100vw - 2rem);max-height:calc(100vh - 6.5rem);overflow-y:auto;',
+    'background:var(--k-srf);color:var(--k-txt);border:1px solid var(--k-line);',
+    'border-radius:22px;box-shadow:0 20px 52px rgba(40,44,110,.4);padding:1rem;display:none;',
+    "font-family:'Heebo','Rubik',sans-serif;direction:rtl;text-align:right}",
     '.a11y-panel.open{display:block}',
-    '.a11y-ttl{font-size:1rem;font-weight:800;margin:0 0 .1rem;color:#111827}',
-    '.a11y-sub{font-size:.72rem;color:#4b5563;margin:0 0 .7rem}',
-    '.a11y-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}',
-    '.a11y-lbl{flex:1;font-size:.82rem;font-weight:600;color:#111827}',
-    '.a11y-btn{flex:1;padding:.55rem .5rem;border:1.5px solid #d1d5db;border-radius:9px;',
-    'background:#f9fafb;color:#111827;font:700 .78rem/1.2 Heebo,Arial,sans-serif;cursor:pointer;',
-    'text-align:center;min-height:40px}',
-    '.a11y-btn:hover{background:#eff6ff;border-color:#1d4ed8}',
-    '.a11y-btn[aria-pressed="true"]{background:#1d4ed8;border-color:#1d4ed8;color:#fff}',
-    '.a11y-step{width:44px;height:40px;flex:none;font-size:1.05rem}',
-    '.a11y-val{min-width:52px;text-align:center;font:800 .82rem/1 Heebo,Arial,sans-serif;color:#111827}',
-    '.a11y-reset{width:100%;margin-top:.35rem;background:#fef2f2;border-color:#fca5a5;color:#b91c1c}',
-    '.a11y-links-ft{margin-top:.7rem;padding-top:.6rem;border-top:1px solid #e5e7eb;',
-    'display:flex;flex-direction:column;gap:.3rem}',
-    '.a11y-links-ft a{font-size:.75rem;color:#1d4ed8;text-decoration:underline}',
-    '.a11y-close{position:absolute;top:.55rem;left:.55rem;width:30px;height:30px;border:1px solid #d1d5db;',
-    'border-radius:8px;background:#f9fafb;color:#111827;cursor:pointer;font-size:.85rem;line-height:1}',
+    ".a11y-ttl{font-family:'Rubik',sans-serif;font-size:1rem;font-weight:700;margin:0 0 .1rem;color:var(--k-txt)}",
+    '.a11y-sub{font-size:.7rem;color:var(--k-dim);margin:0 0 .85rem}',
+    '.a11y-row{display:flex;align-items:center;gap:.45rem;margin-bottom:.7rem}',
+    '.a11y-lbl{flex:1;font-size:.8rem;font-weight:700;color:var(--k-txt)}',
+    '.a11y-grid{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}',
+    '.a11y-btn{padding:.5rem .35rem;border:1.5px solid var(--k-line);border-radius:999px;',
+    "background:var(--k-srf2);color:var(--k-txt);font:700 .73rem/1.25 'Heebo',sans-serif;",
+    'cursor:pointer;text-align:center;min-height:42px;transition:all .14s}',
+    '.a11y-btn:hover{border-color:var(--k-acc);color:var(--k-acc)}',
+    '.a11y-btn[aria-pressed="true"]{background:linear-gradient(135deg,var(--k-acc),var(--k-acc2));',
+    'border-color:transparent;color:#fff;box-shadow:0 4px 14px rgba(99,102,241,.35)}',
+    '.a11y-step{width:42px;height:42px;flex:none;font-size:1.1rem;padding:0}',
+    '.a11y-btn:disabled{opacity:.35;cursor:default}',
+    ".a11y-val{min-width:50px;text-align:center;font:800 .82rem/1 'Heebo',sans-serif;color:var(--k-txt)}",
+    '.a11y-reset{grid-column:1/-1;margin-top:.5rem;background:transparent;',
+    'border-color:rgba(220,38,38,.45);color:#dc2626}',
+    '.a11y-reset:hover{border-color:#dc2626;color:#dc2626;background:rgba(220,38,38,.07)}',
+    '.a11y-links-ft{margin-top:.85rem;padding-top:.7rem;border-top:1px solid var(--k-line);',
+    'display:flex;gap:.9rem;justify-content:center}',
+    '.a11y-links-ft a{font-size:.73rem;color:var(--k-acc);text-decoration:underline}',
+    '.a11y-close{position:absolute;top:.7rem;left:.7rem;width:28px;height:28px;',
+    'border:1px solid var(--k-line);border-radius:50%;background:var(--k-srf2);color:var(--k-dim);',
+    'cursor:pointer;font-size:.8rem;line-height:1;padding:0}',
+    '.a11y-close:hover{color:#dc2626;border-color:#dc2626}',
 
     /* ── מצבי תצוגה ── */
     'html.a11y-noanim *,html.a11y-noanim *::before,html.a11y-noanim *::after{',
@@ -250,15 +266,16 @@
       '<button type="button" class="a11y-btn a11y-step" data-act="font-up" aria-label="הגדלת גודל טקסט">&#43;</button>' +
       '</div>' +
 
-      row('contrast', 'ניגודיות גבוהה') +
-      row('mono', 'גווני אפור') +
-      row('links', 'הדגשת קישורים') +
-      row('readable', 'גופן קריא') +
-      row('spacing', 'ריווח שורות מוגדל') +
-      row('noanim', 'עצירת אנימציות') +
+      '<div class="a11y-grid">' +
+      row('contrast', 'ניגודיות<br>גבוהה') +
+      row('mono', 'גווני<br>אפור') +
+      row('links', 'הדגשת<br>קישורים') +
+      row('readable', 'גופן<br>קריא') +
+      row('spacing', 'ריווח<br>שורות') +
+      row('noanim', 'עצירת<br>אנימציות') +
       row('cursor', 'סמן עכבר גדול') +
-
-      '<button type="button" class="a11y-btn a11y-reset" data-act="reset">&#8635; איפוס כל ההגדרות</button>' +
+      '<button type="button" class="a11y-btn a11y-reset" data-act="reset">&#8635; איפוס</button>' +
+      '</div>' +
 
       '<div class="a11y-links-ft">' +
       '<a href="accessibility.html">הצהרת נגישות</a>' +
@@ -282,9 +299,8 @@
   }
 
   function row(key, label) {
-    return '<div class="a11y-row">' +
-      '<button type="button" class="a11y-btn" data-act="' + key + '" aria-pressed="false">' +
-      label + '</button></div>';
+    return '<button type="button" class="a11y-btn" data-act="' + key + '" aria-pressed="false" ' +
+      'aria-label="' + label.replace(/<br>/g, ' ') + '">' + label + '</button>';
   }
 
   function syncUI() {
