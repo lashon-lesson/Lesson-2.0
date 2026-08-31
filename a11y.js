@@ -144,7 +144,11 @@
     '--gold:#fbbf24;--gold-lt:#231a00;',
     '--teal:#5eead4;--teal-lt:#00231f;',
     '--indigo:#a5b4fc;--indigo-lt:#0d0033;',
-    '--c70:#c4b5fd;--c70-lt:#150033;--c70-dk:#ddd6fe;}',
+    '--c70:#c4b5fd;--c70-lt:#150033;--c70-dk:#ddd6fe;',
+    '--acc:#a5b4fc;--acc2:#c4b5fd;--acc-dk:#c7d2fe;--acc-lt:#0d0033;--acc-tx:#c7d2fe;',
+    '--lc:#a5b4fc;--lc-lt:#0d0033;--gold2:#fbbf24;--gold2-lt:#231a00;',
+    '--accent:#a5b4fc;--accent2:#c4b5fd;--accent-soft:#0d0033;--dash-bg:#000;',
+    '--side-bg:#000;--side-bg2:#000;--side-line:#fff;--side-txt:#fff;--side-txt-dim:#ffe600;}',
     'html.a11y-contrast body,html.a11y-contrast *:not(.a11y-panel):not(.a11y-panel *):not(.a11y-fab){',
     'background-image:none!important}',
     'html.a11y-contrast body{background:#000!important}',
@@ -154,9 +158,26 @@
     'html.a11y-contrast .uc-done-lbl,html.a11y-contrast .uc-tag,html.a11y-contrast .uc-name,',
     'html.a11y-contrast .uc-pct,html.a11y-contrast .lr-short-lbl,html.a11y-contrast .t-strip{',
     'color:#fff!important}',
-    'html.a11y-contrast .uc,html.a11y-contrast .lc,html.a11y-contrast .unit-accordion{',
+    'html.a11y-contrast .su-name,html.a11y-contrast .su-role,html.a11y-contrast .side-link,',
+    'html.a11y-contrast .side-logo,html.a11y-contrast .tb-greet-dash,html.a11y-contrast .scp-head{',
+    'color:#fff!important}',
+    'html.a11y-contrast .side,html.a11y-contrast .main-area,html.a11y-contrast .side-link{',
+    'background:#000!important}',
+    'html.a11y-contrast .side-link.active{border:2px solid #ffe600!important;color:#ffe600!important}',
+    'html.a11y-contrast .uc,html.a11y-contrast .lc,html.a11y-contrast .unit-accordion,',
+    'html.a11y-contrast .exam-card,html.a11y-contrast .modal{',
     'border:2px solid #fff!important}',
     'html.a11y-contrast #login-screen{background:#000!important}',
+    'html.a11y-contrast .lc,html.a11y-contrast .ls-tcp,html.a11y-contrast .scp-grade:hover,',
+    'html.a11y-contrast .tcp-input,html.a11y-contrast .tcp-input:focus,',
+    'html.a11y-contrast .m-in,html.a11y-contrast .m-in:focus,',
+    'html.a11y-contrast .roster-name-inp,html.a11y-contrast .roster-name-inp:focus,',
+    'html.a11y-contrast #chpass-screen div[style*="background:#fff"]{',
+    'background:#000!important;color:#fff!important;border-color:#fff!important}',
+    'html.a11y-contrast .lc-arrow,html.a11y-contrast .scp-head,html.a11y-contrast .tcp-privacy,',
+    'html.a11y-contrast .tcp-input::placeholder,html.a11y-contrast .m-in::placeholder{color:#fff!important}',
+    'html.a11y-contrast .tcp-privacy a,html.a11y-contrast a{color:#ffe600!important}',
+    'html.a11y-contrast .a11y-panel a{color:var(--k-acc)!important}',
 
     /* ── הדפסה ── */
     '@media print{.a11y-fab,.a11y-panel,.a11y-skip{display:none!important}}'
@@ -376,7 +397,7 @@
 
   function tagMain() {
     if (document.getElementById('a11y-main')) return;
-    var main = document.querySelector('main,[role="main"],#units-col,.app-body,.container,#content');
+    var main = document.querySelector('main,[role="main"],.main-area,#units-col,.app-body,.container,#content');
     if (!main) return;
     main.id = main.id || 'a11y-main';
     if (main.id !== 'a11y-main') {
