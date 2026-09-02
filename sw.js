@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lashon-v5';
+const CACHE_NAME = 'lashon-v6';
 const BASE = '/Lesson-2.0/';
 
 // קבצים לשמירה במטמון לשימוש offline

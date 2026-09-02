@@ -170,6 +170,13 @@ a{text-decoration:none;color:inherit}
 .scp-grade.active{background:rgba(37,99,235,.1);border-color:#2563eb;color:#2563eb}
 .scp-go{background:linear-gradient(135deg,#2563eb,#06b6d4);box-shadow:0 6px 18px rgba(37,99,235,.3)}
 .scp-go:hover{box-shadow:0 10px 26px rgba(37,99,235,.4)}
+/* ── Student name picker (step 2 of registration) ── */
+.spick-list{max-height:15rem;overflow-y:auto;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface2);margin-top:.5rem}
+.spick-item{display:block;width:100%;text-align:right;padding:.62rem .85rem;background:none;border:none;border-bottom:1px solid var(--border);color:var(--text);font-family:inherit;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .12s,color .12s;-webkit-tap-highlight-color:transparent}
+.spick-item:last-child{border-bottom:none}
+.spick-item:hover,.spick-item:focus{background:rgba(37,99,235,.1);color:#2563eb;outline:none}
+.spick-empty{padding:.85rem;text-align:center;font-size:.8rem;color:var(--muted)}
+.spick-count{font-size:.66rem;color:var(--subtle);margin-top:.35rem}
 
 /* change-password screen — light + colorful */
 #chpass-screen{background:radial-gradient(640px 440px at 85% -8%,rgba(139,92,246,.18),transparent 58%),radial-gradient(700px 520px at 5% 105%,rgba(236,72,153,.14),transparent 58%),#f7f8fd!important}
@@ -666,11 +673,6 @@ a{text-decoration:none;color:inherit}
     <!-- STUDENT REGISTRATION PANEL — opens directly under the student card -->
     <div class="ls-tcp ls-scp" id="scp">
       <div class="scp-head"><span class="scp-head-icon">📚</span><span>הרשמת תלמיד/ה</span></div>
-      <div style="margin-bottom:.8rem">
-        <label class="tcp-lbl">👤 שם מלא</label>
-        <input class="tcp-input" id="sname" type="text" placeholder="שם פרטי + שם משפחה" autocomplete="name"
-               onkeydown="if(event.key==='Enter')document.getElementById('sclass').focus()">
-      </div>
       <label class="tcp-lbl">🏫 הכיתה שלי</label>
       <div class="scp-grades">
         <button type="button" class="scp-grade" onclick="setGrade('י')">י׳</button>
@@ -691,7 +693,25 @@ a{text-decoration:none;color:inherit}
           <button class="tcp-go scp-go" id="scp-go-btn" onclick="submitStudentLogin()">התחל ›</button>
         </div>
       </div>
-      <p class="tcp-hint">השם והכיתה ילוו אותך בכל השיעורים — נא להזין שם מלא ומדויק</p>
+
+      <!-- STEP 2a — free-text name (only when the class has no name list) -->
+      <div id="sname-row" hidden style="margin-top:.8rem">
+        <label class="tcp-lbl">👤 שם מלא</label>
+        <input class="tcp-input" id="sname" type="text" placeholder="שם פרטי + שם משפחה" autocomplete="name"
+               onkeydown="if(event.key==='Enter')finishStudentLogin(this.value)">
+      </div>
+
+      <!-- STEP 2b — pick your name from the class list -->
+      <div id="spick-row" hidden style="margin-top:.8rem">
+        <label class="tcp-lbl">👤 בחר/י את שמך מרשימת הכיתה</label>
+        <input class="tcp-input" id="spick-search" type="text" placeholder="חיפוש — אפשר להקליד רק חלק מהשם"
+               autocomplete="off" spellcheck="false" oninput="_renderNamePicker()">
+        <div class="spick-list" id="spick-list"></div>
+        <p class="spick-count" id="spick-count"></p>
+        <button class="tcp-back" onclick="resetStudentPicker(true)">← החלף כיתה או קוד</button>
+      </div>
+
+      <p class="tcp-hint">הזן/י את הכיתה ואת הקוד שקיבלת מהמורה — בשלב הבא תבחר/י את שמך</p>
       <p class="tcp-privacy">🔒 השם, הכיתה והציונים שלך יישמרו כדי שהמורה תוכל לעקוב אחרי ההתקדמות, ויימחקו בתום שנת הלימודים. <a href="privacy.html" target="_blank" rel="noopener">מדיניות הפרטיות</a></p>
       <button class="tcp-back" onclick="hideSCP()">← חזרה</button>
     </div>
@@ -1445,11 +1465,13 @@ function showSCP(){
   if(nameEl&&savedName&&savedName!=='תלמיד/ה') nameEl.value=savedName;
   if(classEl&&savedClass) classEl.value=savedClass;
   _markGradeChip(classEl?classEl.value:'');
+  resetStudentPicker(false);
   document.getElementById('scp').classList.add('open');
-  setTimeout(()=>{ (nameEl&&nameEl.value?classEl:nameEl)?.focus(); },80);
+  setTimeout(()=>{ (classEl&&classEl.value?document.getElementById('scode'):classEl)?.focus(); },80);
 }
 function hideSCP(){
   _dimCards(false);
+  resetStudentPicker(false);
   document.getElementById('scp')?.classList.remove('open');
 }
 function setGrade(g){
@@ -1465,26 +1487,135 @@ function _markGradeChip(val){
     b.classList.toggle('active', !!val && val.replace(/\d+/g,'')===b.textContent.replace(/[׳״]/g,''));
   });
 }
+/* ── Two-step student registration ──
+   Step 1 (submitStudentLogin): class + code  → fetch the class doc.
+     names[] present → open the name picker.  names[] empty → reveal the free-text name field.
+   Step 2 (finishStudentLogin): chosen / typed name → full verifyClassCode → session → enter.
+*/
+let _spick=null;   // {code,cls,names} while step 2 is open, null otherwise
+
+function _spickShake(el){
+  if(!el) return;
+  el.classList.add('shake');
+  setTimeout(()=>el.classList.remove('shake'),360);
+  try{ el.focus(); }catch(e){}
+}
+function resetStudentPicker(focusCode){
+  _spick=null;
+  const pr=document.getElementById('spick-row'); if(pr) pr.hidden=true;
+  const nr=document.getElementById('sname-row'); if(nr) nr.hidden=true;
+  const se=document.getElementById('spick-search'); if(se) se.value='';
+  const li=document.getElementById('spick-list'); if(li) li.textContent='';
+  const ct=document.getElementById('spick-count'); if(ct) ct.textContent='';
+  const btn=document.getElementById('scp-go-btn'); if(btn){btn.disabled=false;btn.textContent='התחל ›';}
+  if(focusCode) document.getElementById('scode')?.focus();
+}
+
+/* Light read of the class doc — same checks as verifyClassCode minus the name check. */
+async function loadClassRoster(code,cls){
+  if(!_db) return {ok:false,field:'code',msg:'⚠️ אין חיבור לשרת — נסה שוב בעוד רגע'};
+  let doc;
+  try{ doc=await _db.collection('lashon2_classes').doc(code).get(); }
+  catch(e){ return {ok:false,field:'code',msg:'⚠️ שגיאת תקשורת — נסה שוב'}; }
+  if(!doc.exists)      return {ok:false,field:'code',msg:'❌ קוד כיתה שגוי'};
+  const d=doc.data()||{};
+  if(d.active===false) return {ok:false,field:'code',msg:'🔒 הקוד הזה כבר לא בתוקף — פני/פנה למורה'};
+  if(_normCls(d.cls)!==_normCls(cls))
+                       return {ok:false,field:'class',msg:'❌ הקוד אינו מתאים לכיתה שהוזנה'};
+  const names=(d.names||[]).map(_normName).filter(Boolean).sort((a,b)=>a.localeCompare(b,'he'));
+  return {ok:true,names};
+}
+
+/* Built with createElement/textContent — names containing an apostrophe (חג'ג', ג'אנה)
+   must never go through innerHTML with an inline onclick. */
+function _renderNamePicker(){
+  const list=document.getElementById('spick-list');
+  const cnt=document.getElementById('spick-count');
+  if(!list||!_spick) return;
+  const q=(document.getElementById('spick-search')?.value||'').trim();
+  const toks=q.split(/\s+/).filter(Boolean);
+  // every token must appear somewhere in the name — so typing the given name
+  // still finds a record stored as "family given"
+  const hits=_spick.names.filter(n=>toks.every(t=>n.indexOf(t)!==-1));
+  list.textContent='';
+  if(!hits.length){
+    const em=document.createElement('div');
+    em.className='spick-empty';
+    em.textContent='לא נמצא שם מתאים — נסה/י חלק אחר מהשם';
+    list.appendChild(em);
+  }else{
+    hits.forEach(n=>{
+      const b=document.createElement('button');
+      b.type='button';
+      b.className='spick-item';
+      b.textContent=n;
+      b.addEventListener('click',()=>finishStudentLogin(n));
+      list.appendChild(b);
+    });
+  }
+  if(cnt) cnt.textContent=hits.length+' מתוך '+_spick.names.length+' שמות';
+}
+
 async function submitStudentLogin(){
-  const nameEl=document.getElementById('sname');
   const classEl=document.getElementById('sclass');
   const codeEl=document.getElementById('scode');
   const btn=document.getElementById('scp-go-btn');
-  const name=(nameEl?.value||'').trim().replace(/\s+/g,' ');
+
+  // already at step 2 — don't re-fetch
+  if(_spick){
+    if(_spick.names.length){
+      toast('👆 בחר/י את שמך מהרשימה');
+      document.getElementById('spick-search')?.focus();
+      return;
+    }
+    return finishStudentLogin(document.getElementById('sname')?.value||'');
+  }
+
   const cls=(classEl?.value||'').trim();
   let code=(codeEl?.value||'').trim().toUpperCase().replace(/\s+/g,'');
   if(/^[A-Z0-9]{4,8}$/.test(code)) code='LS-'+code;   // forgive a dropped prefix
-  const shake=el=>{el.classList.add('shake');setTimeout(()=>el.classList.remove('shake'),360);el.focus();};
-  if(!name){shake(nameEl);toast('⚠️ נא להזין שם מלא');return;}
-  if(!/\s/.test(name)){shake(nameEl);toast('⚠️ נא להזין שם פרטי ושם משפחה');return;}
-  if(!cls){shake(classEl);toast('⚠️ נא לבחור / להזין כיתה');return;}
-  if(!code){shake(codeEl);toast('⚠️ נא להזין את קוד הכיתה');return;}
+  if(!cls){_spickShake(classEl);toast('⚠️ נא לבחור / להזין כיתה');return;}
+  if(!code){_spickShake(codeEl);toast('⚠️ נא להזין את קוד הכיתה');return;}
 
+  if(btn){btn.disabled=true;btn.textContent='בודק…';}
+  const res=await loadClassRoster(code,cls);
+  if(btn){btn.disabled=false;btn.textContent='התחל ›';}
+  if(!res.ok){
+    _spickShake(res.field==='class'?classEl:codeEl);
+    toast(res.msg); return;
+  }
+
+  _spick={code,cls,names:res.names};
+  if(res.names.length){
+    const pr=document.getElementById('spick-row'); if(pr) pr.hidden=false;
+    _renderNamePicker();
+    setTimeout(()=>document.getElementById('spick-search')?.focus(),60);
+  }else{
+    const nr=document.getElementById('sname-row'); if(nr) nr.hidden=false;
+    setTimeout(()=>document.getElementById('sname')?.focus(),60);
+  }
+}
+
+async function finishStudentLogin(rawName){
+  if(!_spick){ toast('⚠️ נא להזין כיתה וקוד תחילה'); return; }
+  const nameEl=document.getElementById('sname');
+  const searchEl=document.getElementById('spick-search');
+  const btn=document.getElementById('scp-go-btn');
+  const fromList=_spick.names.length>0;
+  const nameTarget=fromList?searchEl:nameEl;
+  const name=(rawName||'').trim().replace(/\s+/g,' ');
+
+  // the two-word rule guards free typing only; a roster name is authoritative as stored
+  if(!name){_spickShake(nameTarget);toast('⚠️ נא להזין שם מלא');return;}
+  if(!fromList&&!/\s/.test(name)){_spickShake(nameTarget);toast('⚠️ נא להזין שם פרטי ושם משפחה');return;}
+
+  const cls=_spick.cls, code=_spick.code;
   if(btn){btn.disabled=true;btn.textContent='בודק…';}
   const res=await verifyClassCode(code,cls,name);
   if(btn){btn.disabled=false;btn.textContent='התחל ›';}
   if(!res.ok){
-    shake(res.field==='name'?nameEl:(res.field==='class'?classEl:codeEl));
+    _spickShake(res.field==='class'?document.getElementById('sclass')
+      :(res.field==='code'?document.getElementById('scode'):nameTarget));
     toast(res.msg); return;
   }
   LS.set('lashon2_role','student');
