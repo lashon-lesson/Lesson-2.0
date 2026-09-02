@@ -982,6 +982,10 @@ a{text-decoration:none;color:inherit}
                 style="padding:.72rem 1rem;white-space:nowrap;flex-shrink:0">+ הוסף כיתה</button>
       </div>
       <div id="roster-blocks"></div>
+      <div style="background:#e0f2fe;border:1px solid #bae6fd;border-radius:var(--r);padding:.7rem .95rem;font-size:.76rem;color:#0369a1;margin-top:.9rem;line-height:1.65">
+        📱 <strong>קשירת מכשיר:</strong> שם נתפס על ידי המכשיר הראשון שנכנס איתו. ניסיון להיכנס באותו שם ממכשיר אחר נדחה — כך קוד כיתה שעובר מיד ליד מפסיק לעבוד.
+        אם תלמיד/ה החליף/ה מכשיר, ניקה/תה את הדפדפן או נכנס/ה בגלישה פרטית — לחצי 📱 ליד השם כדי לשחרר. החלפת קוד הכיתה מאפסת את כל הקשירות.
+      </div>
       <p id="teacher-classes-empty" style="font-size:.76rem;color:var(--subtle);display:none">לא נוספו כיתות עדיין. הוסיפי כיתה למעלה.</p>
       <p style="font-size:.65rem;color:var(--subtle);margin-top:.9rem">הכיתות והרשימות השמיות נשמרות ב-Firebase.</p>
     </div>
@@ -1612,12 +1616,16 @@ async function finishStudentLogin(rawName){
   const cls=_spick.cls, code=_spick.code;
   if(btn){btn.disabled=true;btn.textContent='בודק…';}
   const res=await verifyClassCode(code,cls,name);
-  if(btn){btn.disabled=false;btn.textContent='התחל ›';}
   if(!res.ok){
+    if(btn){btn.disabled=false;btn.textContent='התחל ›';}
     _spickShake(res.field==='class'?document.getElementById('sclass')
       :(res.field==='code'?document.getElementById('scode'):nameTarget));
     toast(res.msg); return;
   }
+  // name is valid for this class — now make sure it isn't already tied to another device
+  const dev=await claimDevice(code,name);
+  if(btn){btn.disabled=false;btn.textContent='התחל ›';}
+  if(!dev.ok){ _spickShake(nameTarget); toast(dev.msg); return; }
   LS.set('lashon2_role','student');
   LS.set('lashon2_uname',name);
   LS.set('lashon2_class',cls);
@@ -2910,6 +2918,7 @@ function confirmLogout(){
 .rs-code:hover{filter:brightness(.95)}
 .roster-student-item.rs-blocked{opacity:.55;background:#fef2f2}
 .rs-btag{font-size:.6rem;font-weight:800;color:#b91c1c;background:#fee2e2;border-radius:5px;padding:.05rem .3rem;margin-inline-start:.3rem}
+.rs-dtag{font-size:.6rem;font-weight:800;color:#0369a1;background:#e0f2fe;border-radius:5px;padding:.05rem .3rem;margin-inline-start:.3rem}
 .roster-student-block{background:none;border:none;cursor:pointer;font-size:.8rem;padding:.1rem .3rem;border-radius:6px;opacity:.65;transition:opacity .13s}
 .roster-student-block:hover{opacity:1}
 </style>
@@ -2975,6 +2984,74 @@ function readSession(){
   return s;
 }
 function clearSession(){ LS.del(SESS_KEY); }
+
+/* ════════ DEVICE BINDING ════════
+   A name in a class is claimed by the first device that logs in with it.
+   Another device using the same name is refused until the teacher releases it.
+   Firestore: lashon2_classes/{code}/devices/{nameKey} → {name,did,first,last}
+   This is a deterrent, not authentication — see the note in the teacher panel.
+*/
+const DID_KEY='lashon2_did';
+function getDeviceId(){
+  let d=LS.get(DID_KEY,'');
+  if(typeof d==='string' && /^[0-9a-f]{32}$/.test(d)) return d;
+  let hex='';
+  try{
+    const a=new Uint8Array(16); crypto.getRandomValues(a);
+    hex=Array.from(a).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }catch(e){
+    hex=(Date.now().toString(16)+Math.random().toString(16).slice(2)).replace(/[^0-9a-f]/g,'').padEnd(32,'0').slice(0,32);
+  }
+  LS.set(DID_KEY,hex);
+  return hex;
+}
+function _devKey(name){ return _normName(name).replace(/[\/\.\#\$\[\]]/g,'_'); }
+
+/* {source:'server'} is required — enablePersistence() would otherwise answer
+   this security check from the local cache. */
+async function claimDevice(code,name){
+  if(!_db) return {ok:false,msg:'⚠️ אין חיבור לשרת — נסה שוב בעוד רגע'};
+  const did=getDeviceId();
+  const ref=_db.collection('lashon2_classes').doc(code).collection('devices').doc(_devKey(name));
+  let snap;
+  try{ snap=await ref.get({source:'server'}); }
+  catch(e){ return {ok:false,msg:'⚠️ שגיאת תקשורת — נסה שוב'}; }
+  const d=snap.exists?(snap.data()||{}):null;
+  if(d && d.did && d.did!==did)
+    return {ok:false,msg:'🔒 השם הזה כבר רשום למכשיר אחר — פני/פנה למורה לשחרור'};
+  try{
+    await ref.set(d?{last:Date.now()}
+                   :{name:_normName(name),did:did,first:Date.now(),last:Date.now()},{merge:true});
+  }catch(e){ return {ok:false,msg:'⚠️ שמירת המכשיר נכשלה — נסה שוב'}; }
+  return {ok:true};
+}
+
+/* Teacher side — release a binding so the student can log in from a new device. */
+async function releaseDevice(cls,name){
+  const code=getClassCodes()[cls];
+  if(!code){ toast('⚠️ אין קוד פעיל לכיתה זו'); return; }
+  if(!confirm('לשחרר את קשירת המכשיר של '+name+'?\n\nהתלמיד/ה יוכל/תוכל להיכנס מכל מכשיר, והמכשיר הבא שייכנס יתפוס את השם.')) return;
+  try{
+    await _db.collection('lashon2_classes').doc(code).collection('devices').doc(_devKey(name)).delete();
+    const m=_devMap[cls]||{}; delete m[_devKey(name)]; _devMap[cls]=m;
+    renderRosterBlock(cls);
+    toast('📱 הקשירה שוחררה — '+name);
+  }catch(e){ toast('❌ שחרור הקשירה נכשל'); }
+}
+
+/* Best-effort: badge which names are already bound. Silently skipped if the
+   rules don't permit listing the subcollection. */
+let _devMap={};
+async function loadDeviceMap(cls){
+  const code=getClassCodes()[cls];
+  if(!_db||!code) return;
+  try{
+    const snap=await _db.collection('lashon2_classes').doc(code).collection('devices').get();
+    const m={}; snap.forEach(doc=>{ m[doc.id]=doc.data()||{}; });
+    _devMap[cls]=m;
+    renderRosterBlock(cls);
+  }catch(e){ /* listing not permitted — badges stay hidden */ }
+}
 
 async function verifyClassCode(code,cls,name){
   if(!_db) return {ok:false,field:'code',msg:'⚠️ אין חיבור לשרת — נסה שוב בעוד רגע'};
@@ -3282,10 +3359,12 @@ function renderRosterBlock(cls){
         : students.map((n,i)=>{
             const esc=n.replace(/'/g,"\\'");
             const isB=(getBlocked(cls)||[]).includes(n);
+            const isD=!!(_devMap[cls]||{})[_devKey(n)];
             return `
           <div class="roster-student-item${isB?' rs-blocked':''}">
             <span class="rs-num">${i+1}</span>
-            <span class="rs-name">${n}${isB?' <span class="rs-btag">חסום</span>':''}</span>
+            <span class="rs-name">${n}${isB?' <span class="rs-btag">חסום</span>':''}${isD?' <span class="rs-dtag">📱 מכשיר</span>':''}</span>
+            <button class="roster-student-block" title="שחרור קשירת המכשיר" onclick="releaseDevice('${cls}','${esc}')">📱</button>
             <button class="roster-student-block" title="${isB?'הסרת חסימה':'חסימת גישה'}" onclick="toggleBlockStudent('${cls}','${esc}')">${isB?'🔓':'🚫'}</button>
             <button class="roster-student-del" onclick="removeStudentFromClass('${cls}','${esc}')">✕</button>
           </div>`;}).join('')
@@ -3357,6 +3436,7 @@ function toggleRosterBlock(cls){
   const isOpen = body.classList.contains('open');
   body.classList.toggle('open',!isOpen);
   if(chev) chev.style.transform = isOpen ? '' : 'rotate(180deg)';
+  if(!isOpen) loadDeviceMap(cls);
 }
 
 function loadTeacherClassesFromFirebase(){
